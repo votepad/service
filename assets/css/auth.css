@@ -1,0 +1,94 @@
+body{
+	background: url(../img/bg1.png) repeat #aaa;
+	font-size:100%;
+	font-family:pronwe,sans-serif;
+	overflow-x:hidden;
+}
+.central-box{
+	width: 320px;
+	margin-top: 5% !important;
+	margin: 0 auto;
+	background-color: #fff;
+	border-radius: 16px;
+	box-shadow: 0 0 10px -2px rgba(0,0,0,0.5);
+}
+.text-center {
+	text-align: center;
+}
+.text-right{
+	text-align: right;
+}
+.panel{
+	margin: 0 !important;
+    border: 0;
+}
+.panel .panel-heading{
+	border-bottom: 0;
+    font-size: 14px;
+}
+.panel-heading{
+	padding: 10px 15px;
+}
+.panel-body{
+	padding: 15px;
+}
+.pv{
+	margin: 0 0 10.5px;
+	padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+.form-group{
+	margin-bottom: 15px;
+	position: relative;
+}
+.form-icon{
+	position: absolute;
+	top: 0;
+	right: 0;
+    left: auto;
+    margin: 0.8em auto;
+    width: 35px;
+    height: 35px;
+    line-height: 35px;
+    text-align: center;
+    pointer-events: none;
+    color: #909fa7;
+}
+.color-gr {
+    color: #909fa7;
+}
+.color-gr:hover{
+	border-bottom:1px dashed #909fa7;
+}
+
+
+span{
+	text-align: center;
+	color:#2f95ea;
+}
+
+
+/*#signin{
+	transition:1s;
+}
+#signin:hover{
+	
+}*/
+/*.central-box #first:focus{
+	transition:0.1s;
+	-moz-transform: rotate(1deg); /* Для Firefox 
+    -ms-transform: rotate(1deg); /* Для IE 
+    -webkit-transform: rotate(1deg); /* Для Safari, Chrome, iOS 
+    -o-transform: rotate(1deg); /* Для Opera 
+    transform: rotate(1deg);
+	box-shadow: 0 0 3px 1px rgba(100,100,100,0);
+}
+.central-box #last:focus{
+	transition:0.1s;
+	-moz-transform: rotate(-1deg); /* Для Firefox 
+    -ms-transform: rotate(-1deg); /* Для IE 
+    -webkit-transform: rotate(-1deg); /* Для Safari, Chrome, iOS 
+    -o-transform: rotate(-1deg); /* Для Opera 
+    transform: rotate(-1deg);
+	box-shadow: 0 0 3px 1px rgba(100,100,100,0.5);
+}*/
