@@ -519,5 +519,160 @@
             "task",
             "tool"
         ]
+    },
+    {
+        "name": "ezyang/htmlpurifier",
+        "version": "v4.7.0",
+        "version_normalized": "4.7.0.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/ezyang/htmlpurifier.git",
+            "reference": "ae1828d955112356f7677c465f94f7deb7d27a40"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/ezyang/htmlpurifier/zipball/ae1828d955112356f7677c465f94f7deb7d27a40",
+            "reference": "ae1828d955112356f7677c465f94f7deb7d27a40",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.2"
+        },
+        "time": "2015-08-05 01:03:42",
+        "type": "library",
+        "installation-source": "dist",
+        "autoload": {
+            "psr-0": {
+                "HTMLPurifier": "library/"
+            },
+            "files": [
+                "library/HTMLPurifier.composer.php"
+            ]
+        },
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "LGPL"
+        ],
+        "authors": [
+            {
+                "name": "Edward Z. Yang",
+                "email": "admin@htmlpurifier.org",
+                "homepage": "http://ezyang.com"
+            }
+        ],
+        "description": "Standards compliant HTML filter written in PHP",
+        "homepage": "http://htmlpurifier.org/",
+        "keywords": [
+            "html"
+        ]
+    },
+    {
+        "name": "kohana/core",
+        "version": "v3.3.4",
+        "version_normalized": "3.3.4.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/kohana/core.git",
+            "reference": "0f670a36f51376ea55e76e63c6dc125a2e319e36"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/kohana/core/zipball/0f670a36f51376ea55e76e63c6dc125a2e319e36",
+            "reference": "0f670a36f51376ea55e76e63c6dc125a2e319e36",
+            "shasum": ""
+        },
+        "require": {
+            "php": ">=5.3.3"
+        },
+        "require-dev": {
+            "kohana/koharness": "*@dev",
+            "kohana/unittest": "3.3.*@dev"
+        },
+        "suggest": {
+            "ext-curl": "*",
+            "ext-http": "*",
+            "ext-mcrypt": "*"
+        },
+        "time": "2015-06-27 06:36:04",
+        "type": "library",
+        "extra": {
+            "installer-paths": {
+                "vendor/{$vendor}/{$name}": [
+                    "type:kohana-module"
+                ]
+            },
+            "branch-alias": {
+                "dev-3.3/develop": "3.3.x-dev",
+                "dev-3.4/develop": "3.4.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Kohana Team",
+                "email": "team@kohanaframework.org",
+                "homepage": "http://kohanaframework.org/team",
+                "role": "developer"
+            }
+        ],
+        "description": "Core system classes for the Kohana application framework",
+        "homepage": "http://kohanaframework.org",
+        "keywords": [
+            "framework",
+            "kohana"
+        ]
+    },
+    {
+        "name": "shadowhand/purifier",
+        "version": "v1.2.2",
+        "version_normalized": "1.2.2.0",
+        "source": {
+            "type": "git",
+            "url": "https://github.com/shadowhand/purifier.git",
+            "reference": "b721f8f1555947db51eaacd2f2234f52f3c97f2a"
+        },
+        "dist": {
+            "type": "zip",
+            "url": "https://api.github.com/repos/shadowhand/purifier/zipball/b721f8f1555947db51eaacd2f2234f52f3c97f2a",
+            "reference": "b721f8f1555947db51eaacd2f2234f52f3c97f2a",
+            "shasum": ""
+        },
+        "require": {
+            "ezyang/htmlpurifier": ">=4.5",
+            "kohana/core": ">=3.3",
+            "php": ">=5.3.3"
+        },
+        "time": "2014-05-12 12:47:22",
+        "type": "library",
+        "extra": {
+            "branch-alias": {
+                "dev-3.3/master": "3.3.x-dev"
+            }
+        },
+        "installation-source": "dist",
+        "notification-url": "https://packagist.org/downloads/",
+        "license": [
+            "BSD-3-Clause"
+        ],
+        "authors": [
+            {
+                "name": "Woody Gilk",
+                "email": "woody.gilk@kohanaframework.org"
+            }
+        ],
+        "description": "XSS cleaning module for the Kohana Framework that uses HTML Purifier",
+        "homepage": "https://github.com/shadowhand/purifier",
+        "keywords": [
+            "Purifier",
+            "clean",
+            "htmlpurifier",
+            "kohana",
+            "security",
+            "xss"
+        ]
     }
 ]

@@ -11,7 +11,7 @@
 	  <link rel="icon" type="image/png" href="<?=$assets; ?>imgs/favicon.png">
 
 	  <? foreach($css as $styles): ?>
-		  <link rel="stylesheet" href="<?=$assets;?>css/<?=$styles;?>">
+		  <link rel="stylesheet" href="<?=$assets;?><?=$styles;?>">
 	  <? endforeach;?>
   </head>
  
@@ -26,9 +26,9 @@
     		<!--  AUTHTERIZATION -->
     		<div class="panel-body" id="signin">
     			<p class="text-center pv">Авторизуйтесь, чтобы продолжить</p>
-				<form action="" method="POST">
+				<form action="<?=URL::site('auth/signin'); ?>" method="POST">
 					<div class="form-group">
-						<input type="email" id="email" required name="login" autocomplete="off" axlength="100">
+						<input type="email" id="email" required name="email" autocomplete="off" axlength="100">
 						<div class="label-box">
 							<label>Email</label>
 						</div>
@@ -36,7 +36,7 @@
 					
 					</div>
 					<div class="form-group">
-						<input type="password" class="password" id="pass" required name="password" maxlength="20">
+						<input type="password" class="password" id="pass" name="password" maxlength="20" required>
 						<div class="label-box">
 							<label>Пароль</label>
 						</div>
@@ -52,16 +52,16 @@
     		<!--  REGISTRATION -->
     		<div class="panel-body" id="signup" style="display:none;">
     			<p class="text-center pv">Регистрация</p>
-				<form action="" method="POST" style="">
+				<form action="<?=URL::site('SignUp/index');?>" method="POST" style="">
 					<div class="form-group">
-						<input type="email" required name="signup-email" id="signup-email" maxlength="100">
+						<input type="email" required name="email" id="signup-email" maxlength="100">
 						<div class="label-box">
 							<label>Email</label>
 						</div>
 						<span class="fa fa-envelope form-icon icon-color"></span>
 					</div>
 					<div class="form-group">
-						<input type="password" class="password" required name="password1" id="password1" maxlength="20" title="Введите не менее 6 символов">
+						<input type="password" class="password" required name="password" id="password1" maxlength="20" title="Введите не менее 6 символов">
 						<div class="label-box">
 							<label>Пароль</label>
 						</div>
@@ -77,7 +77,7 @@
 					<div class="form-group">
 						<center>Капча</center>
 					</div>
-					<button type="submit" class="btn pronwe_background" id="signup-button" disabled>Создать акаунт</button>
+					<button type="submit" class="btn pronwe_background" id="signup-button" >Создать акаунт</button>
 					<p class="text-center" onclick="ReshowReg()"><span class="pronwe_Link-small">На страницу авторизации</span></p>
 				</form>
 			</div>
@@ -131,7 +131,7 @@
 		}
 	</script>
 	<script>
-		var button = document.getElementById("signup-button");
+		/*var button = document.getElementById("signup-button");
 		$('#confirm_password').on('change', function() {
 			var conf = $(this).val();
 			var pass = $('#password1').val();
@@ -146,7 +146,7 @@
 				$(this).css('background-color', 'rgba(200, 0, 0, 0.3)');
 				button.disabled = true;
 			}
-		});
+		});*/
 
 		$('#password1').on('change', function() {
 			var conf = $('#confirm_password').val();

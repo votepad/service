@@ -14,13 +14,14 @@ class Dispatch extends Controller_Template {
     public $js = array();
 
     protected $assets;
+    protected $errors;
 
     function before() {
 
         $this->assets = "http://localhost/pronwe/assets/";
 
         $this->css = [
-            "simple-line-icons.css",
+            "css/simple-line-icons.css",
         ];
 
         $this->js = [

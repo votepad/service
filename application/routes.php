@@ -5,32 +5,24 @@
 * defaults for the URI.
 */
 
-/**
- * MEDIA FILES
- */
-
-Route::set('media', 'media/<action>(/<path>)', array('path' => '.*?',))
-    ->defaults(array(
-        'controller' => 'media',
-        'action' => 'index',
-    ));
-
-/**
- * Default
- */
-
-Route::set('DEFAULT', '(<controller>(/<action>(/<id>)))')
-            ->defaults(array(
-            'controller' => 'welcome',
-            'action'     => 'index',
-            ));
-
-Route::set('AUTH', '(<controller>(/<action>))', array('controller' => 'auth|registration'))
+Route::set('WELCOME', '')
     ->defaults(array(
         'controller' => 'auth',
+        'action'     => 'index',
+    ));
+
+Route::set('AUTH', 'auth(/<action>)')
+    ->defaults(array(
+        'controller' => 'Auth',
         'action' => 'index',
     ));
 
+
+Route::set('PROFILE', 'profile(/<subaction>)')
+    ->defaults(array(
+        'controller' => 'Profile_Index',
+        'action' => 'index',
+    ));
 ?>
 
 
