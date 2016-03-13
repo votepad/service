@@ -1,0 +1,10 @@
+.participant-list li{
+	margin-bottom:1em;
+}
+.peopleinfo-input{
+	margin:0.5em 0;
+	display:inline-block;
+}
+.judge-list li{
+	margin:0.5em 0;
+}

@@ -15,7 +15,7 @@
           '</button>';
 
        //defaults
-       $.fn.editable.defaults.url = '../server/xeditable.res';
+       $.fn.editable.defaults.url = '/Ajax/Editable';
 
         //enable / disable
        $('#enable').click(function() {
@@ -23,12 +23,44 @@
        });
         
         //editables 
-        $('#username').editable({
-               url: '../server/xeditable.res',
+        $('#firstname').editable({
+               url: '/Ajax/Editable',
                type: 'text',
                pk: 1,
-               name: 'username',
-               title: 'Enter username'
+               name: 'firstname',
+               title: 'Введите Фамилию'
+        });
+		
+		$('#secondname').editable({
+               url: '/Ajax/Editable',
+               type: 'text',
+               pk: 1,
+               name: 'secondname',
+               title: 'Введите имя'
+        });
+		
+		$('#thirdname').editable({
+               url: '/Ajax/Editable',
+               type: 'text',
+               pk: 1,
+               name: 'thirdname',
+               title: 'Введите Отчество'
+        });
+		
+		$('#phonenumber').editable({
+               url: '/Ajax/Editable',
+               type: 'text',
+               pk: 1,
+               name: 'phonenumber',
+               title: 'Введите номер телефона'
+        });
+		
+		$('#city').editable({
+               url: '/Ajax/Editable',
+               type: 'text',
+               pk: 1,
+               name: 'city',
+               title: 'Город'
         });
         
         $('#firstname').editable({

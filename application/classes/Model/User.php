@@ -110,4 +110,13 @@ Class Model_User {
 
         return $update;
     }
+
+    public function getUserInfo()
+    {
+        $session    = Session::Instance();
+        $select     = DB::select('*')->from('Users')
+                                     ->where('id', '=', $session->get('user_id'))->limit(1)->execute()->as_array();
+
+        return Arr::get($select, '0');
+    }
 }

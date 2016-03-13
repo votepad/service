@@ -21,8 +21,16 @@ Route::set('AUTH', 'auth(/<action>)')
 Route::set('PROFILE', 'profile(/<subaction>)')
     ->defaults(array(
         'controller' => 'Profile_Index',
-        'action' => 'index',
+        'action'     => 'index',
+    ));
+
+Route::set('EVENTS', 'events(/<action>)')
+    ->defaults(array(
+        'controller' => 'Events_Index',
+        'action'     => 'index',
     ));
 ?>
+
+
 
 

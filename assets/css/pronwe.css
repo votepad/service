@@ -29,6 +29,10 @@ CONSTANTS
 .pronwe_color{
 	color:#2f95ea;
 }
+.pronwe_comment{
+	font-size:0.75em;
+	padding-left:1em;
+}
 a{
 	text-decoration:none;
 }
