@@ -4,13 +4,20 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-    <meta name="description" content="Продолжение регистрации">
-    <meta name="keywords" content="ЗАПОЛНИТЬ!">
-    <title>username - Профиль пользователя - ProNWE.ru</title>
+    <meta name="description" content="<?=$description; ?>">
+    <meta name="keywords" content="<?=$keywords; ?>!">
+
+    <title><?=$title; ?></title>
+
     <!-- =============== VENDOR STYLES ===============-->
     <? foreach($css as $styles): ?>
         <link rel="stylesheet" href="<?=$assets;?><?=$styles;?>">
     <? endforeach;?>
+
+    <!-- =============== VENDOR SCRIPTS ===============-->
+    <? foreach ($js as $scripts): ?>
+        <script src="<?=$assets.$scripts; ?>"></script>
+    <? endforeach; ?>
 
 </head>
 
@@ -44,7 +51,7 @@
                     </li>
                     <!-- USER PROFILE -->
                     <li>
-                        <a href="#" title="Профиль">
+                        <a href="<?=URL::site('profile'); ?>" title="Профиль">
                             <em class="icon-user"></em>
                         </a>
                     </li>
@@ -132,7 +139,7 @@
 
                     <!-- LOGOUT -->
                     <li>
-                        <a href="#" title="Выход">
+                        <a href="<?=URL::site('auth/logout'); ?>" title="Выход">
                             <em class="icon-logout"></em>
                         </a>
                     </li>
@@ -163,11 +170,6 @@
         <span>&copy; 2016 - ProNWE</span>
     </footer>
 </div>
-
-<!-- =============== VENDOR SCRIPTS ===============-->
-<? foreach ($js as $scripts): ?>
-    <script src="<?=$assets.$scripts; ?>"></script>
-<? endforeach; ?>
 
 <!-- START UPDATE PHOTO -->
 <div class="update-overlay" tabindex="-1"></div>

@@ -6,31 +6,31 @@
  * Time: 12:33
  */
 
-class Dispatch extends Controller_Template {
+class Dispatch extends Controller_Template
+{
 
     public $template = '';
 
     public $css = array();
     public $js = array();
 
-    protected $assets;
     protected $errors;
 
-    function before() {
+    public $user;
 
-        $this->assets = "http://localhost/pronwe/assets/";
-
+    function before()
+    {
         $this->css = [
             "css/simple-line-icons.css",
         ];
 
-        array_push( $this->css, 'css/font-awesome.min.css');
-        array_push( $this->css, 'vendor/whirl/dist/whirl.css');
-        array_push( $this->css, 'vendor/animate.css/animate.min.css');
-        array_push( $this->css, 'vendor/cropper/dist/cropper.css');
-        array_push( $this->css, 'css/bootstrap.css');
-        array_push( $this->css, 'css/app.css');
-        array_push( $this->css, 'css/pronwe.css');
+        array_push($this->css, 'css/font-awesome.min.css');
+        array_push($this->css, 'vendor/whirl/dist/whirl.css');
+        array_push($this->css, 'vendor/animate.css/animate.min.css');
+        array_push($this->css, 'vendor/cropper/dist/cropper.css');
+        array_push($this->css, 'css/bootstrap.css');
+        array_push($this->css, 'css/app.css');
+        array_push($this->css, 'css/pronwe.css');
 
 
         $this->js = [
@@ -42,16 +42,49 @@ class Dispatch extends Controller_Template {
             "screenfull.js",
         ];
 
-        array_push( $this->js, 'vendor/jquery/dist/jquery.js');
-        array_push( $this->js, 'vendor/bootstrap/dist/js/bootstrap.js');
-        array_push( $this->js, 'vendor/jQuery-Storage-API/jquery.storageapi.js');
-        array_push( $this->js, 'vendor/jquery-localize-i18n/dist/jquery.localize.js');
-        array_push( $this->js, 'vendor/cropper/dist/cropper.js');
-        array_push( $this->js, 'js/app.js');
-        array_push( $this->js, 'js/twitter.js');
-        array_push( $this->js, 'http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU');
+        array_push($this->js, 'vendor/jquery/dist/jquery.js');
+        array_push($this->js, 'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push($this->js, 'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push($this->js, 'vendor/jquery-localize-i18n/dist/jquery.localize.js');
+        array_push($this->js, 'vendor/cropper/dist/cropper.js');
+        array_push($this->js, 'js/app.js');
+        array_push($this->js, 'js/twitter.js');
+        array_push($this->js, 'http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU');
+
+
+        /** Disallow requests from other domains */
+
+        if (Kohana::$environment === Kohana::PRODUCTION) {
+            if ((Arr::get($_SERVER, 'SERVER_NAME') != '') &&
+                (Arr::get($_SERVER, 'SERVER_NAME') != '')
+            ) {
+                exit();
+            }
+            /** Mark requests as secure and working with HTTPS  */
+            $this->request->secure(true);
+        }
+
+        $this->setGlobals();
 
         parent::before();
+
+        // XSS clean in POST and GET requests
+        //self::XSSfilter();
+
     }
 
+    public static function isLogged()
+    {
+        $session = Session::Instance();
+        if ( empty($session->get('user_id')) )
+            Controller::redirect('/auth');
+    }
+
+    private function setGlobals()
+    {
+        $this->user = Model_User::Instance();
+        View::set_global('user', $this->user);
+
+        View::set_global('assets', 'http://localhost/pronwe/assets/');
+    }
 }

@@ -5,16 +5,16 @@
 * defaults for the URI.
 */
 
-Route::set('WELCOME', '')
-    ->defaults(array(
-        'controller' => 'auth',
-        'action'     => 'index',
-    ));
-
 Route::set('AUTH', 'auth(/<action>)')
     ->defaults(array(
         'controller' => 'Auth',
         'action' => 'index',
+    ));
+
+Route::set('SINGUP', 'signup(/<action>)')
+    ->defaults(array(
+        'controller'  => 'SignUp',
+        'action'      => 'index',
     ));
 
 
@@ -28,6 +28,13 @@ Route::set('EVENTS', 'events(/<action>)')
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'index',
+    ));
+
+
+Route::set('Default', '<controller>(/<action>(/<id>))')
+    ->defaults(array(
+        'controller' => 'Welcome',
+        'action'     => 'Index',
     ));
 ?>
 

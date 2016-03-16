@@ -37,6 +37,7 @@
                         <span>Все мероприятия</span>
                     </a>
                 </li>
+
                 <li class="">
                     <a href="<?=URL::site('events/new/');?>" title="Создать мероприятие" data-toggle="collapse">
                         <em class="icon-plus"></em>

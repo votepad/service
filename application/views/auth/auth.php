@@ -52,7 +52,7 @@
     		<!--  REGISTRATION -->
     		<div class="panel-body" id="signup" style="display:none;">
     			<p class="text-center pv">Регистрация</p>
-				<form action="<?=URL::site('SignUp/index');?>" method="POST" style="">
+				<form action="<?=URL::site('signup/index');?>" method="POST" style="">
 					<div class="form-group">
 						<input type="email" required name="email" id="signup-email" maxlength="100">
 						<div class="label-box">

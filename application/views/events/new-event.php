@@ -5,7 +5,7 @@
       <div class="panel panel-default">
          <div class="panel-heading" style="font-size: 1.2em">Заполните всю информацию, касающуюся мероприятия. Все поля обязательны для заполнения.</div>
          <div class="panel-body">
-            <form role="form" class="form-horizontal">
+            <form role="form" class="form-horizontal" action="<?=URL::site('Events_Modify/add'); ?>" method="POST">
                <div class="form-group">
                   <label for="input-event-name" class="mylabel col-md-2 control-label">Название мероприятия</label>
                   <div class="col-md-10">
@@ -76,8 +76,8 @@
                   <div class="col-md-10">
                      <select id="input-event-type" name="input-event-type" class="form-control">
                         <!-- для value: XYZ == этап(X) участник(Y) критерии(Z) -->
-                        <option value="11N">На каждом этапе один участник оценивается по нескольким критериям, затем следует второй участник и т.д.</option>
-                        <option value="1N1">На каждом этапе несколько участников оцениваются по 1 критерию, затем следующий этап.</option>
+                        <option value="1">На каждом этапе один участник оценивается по нескольким критериям, затем следует второй участник и т.д.</option>
+                        <option value="2">На каждом этапе несколько участников оцениваются по 1 критерию, затем следующий этап.</option>
                      </select>
                      <span class="pronwe_comment help-block m-b-none">*Вы можете предложить свой тип мероприятия, отправив подробное описание типа на support@pronwe.ru.</span>
                   </div>
@@ -86,7 +86,7 @@
                   </div>
                </div>
                <div class="col-md-4 col-md-offset-8" >
-                  <button id="submit" type="button" class="btn btn-primary">Создать</button>
+                  <button type="submit" class="btn btn-primary">Создать</button>
                </div>
             </form>
          </div>

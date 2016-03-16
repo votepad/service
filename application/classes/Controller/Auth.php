@@ -15,6 +15,7 @@ class Controller_Auth extends Dispatch {
         array_push( $this->css, 'css/font-awesome.min.css');
         array_push( $this->css, 'css/ownPronwe.css');
         array_push( $this->css, 'css/auth.css');
+        unset( $this->css[5] );
 
 
         $this->template->css = $this->css;
@@ -53,10 +54,17 @@ class Controller_Auth extends Dispatch {
 
         else {
             if ($logIn == 2)
-                $this->redirect('signUp/continue');
+                $this->redirect('signup/continue');
             else
                 $this->redirect('profile');
         }
+    }
+
+    function action_logout()
+    {
+        $model_user = Model_User::Instance();
+        $model_user->logout();
+        Controller::redirect('/auth');
     }
 
     function action_vk()

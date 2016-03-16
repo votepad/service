@@ -22,6 +22,8 @@ class Controller_SignUp extends Dispatch
         $model_user = Model_User::Instance();
         $model_user->signUp($email, $password);
 
+        $this->redirect('signup/continue');
+
     }
 
     function action_continue()

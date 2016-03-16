@@ -211,7 +211,7 @@
             <div class="panel panel-default">
                <div class="panel-heading">Заполните основную информацию о себе</div>
                <div class="panel-body">
-                  <form method="post" action="<?=URL::site('signUp/save'); ?>" class="form-horizontal">
+                  <form method="post" action="<?=URL::site('signup/save'); ?>" class="form-horizontal">
                      <div class="row">
                         <div class="col-md-6">
                            <div class="form-group">
@@ -270,7 +270,7 @@
                               <button type="button" id="update-photo" class="btn btn-primary">Выберите фотографию</button>
                            </div>
                            <div class="col-md-6 btn_area">
-                              <button id="submit" type="submit" class="btn btn-primary">Готово</button>
+                              <button type="submit" class="btn btn-primary">Готово</button>
                            </div>
                         </div>
                      </div>

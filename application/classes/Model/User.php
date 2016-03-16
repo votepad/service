@@ -59,6 +59,11 @@ Class Model_User {
         }
     }
 
+    public function logout()
+    {
+        Session::Instance()->destroy();
+    }
+
     public function signUp($email, $password, $remember = true)
     {
         $insert = DB::insert('Users', array(
