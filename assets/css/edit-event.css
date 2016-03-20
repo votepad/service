@@ -1,0 +1,65 @@
+.participant-list li, .judge-list li, .stage-list li{
+	margin-bottom:1em;
+}
+.criterion-list{
+  position: relative;
+}
+ul{
+  padding-left: 15px;
+  padding-right: 15px;
+}
+.nav-tabs{
+  padding-right: 0px !important; 
+}
+.file-upload {
+  position: relative;
+  overflow: hidden;
+  margin-right: auto;
+  margin-left: auto;
+  width: 150px;
+  height: 150px
+}
+.file-upload input[type=file]{
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 150px;
+    height: 150px;
+    transform: scale(20);
+    letter-spacing: 10em;     /* IE 9 fix */
+    -ms-transform: scale(20); /* IE 9 fix */
+    opacity: 0;
+}
+.image-preview-wrapper{
+  box-sizing: border-box; 
+  position: relative; 
+  max-height: 150px;
+  padding: 0.1em; 
+  overflow: hidden;
+}
+.image-preview{
+  box-sizing: border-box; 
+  position: relative; 
+  border: 5px solid rgb(255, 255, 255); 
+  box-shadow: rgba(0, 0, 0, 0.498039) 0px 0px 4px; 
+  width: 145px; 
+  height: 145px; 
+  display: inline-block; 
+  float: left; 
+  margin-right: 1em; 
+  background-image: url(../img/no-photo.png); 
+  background-size: 210px, auto; 
+  background-position: 50% 50%, 50% 50%;
+}
+.nav-tabs-li{
+  padding-left: 0px !important;
+  padding-right: 0px !important;
+}
+fieldset{
+  margin-bottom: 0px !important;
+  padding-bottom: 0px !important;
+}
+.btn-submit-participant, .btn-submit-judge, .btn-submit-stage{
+  height: 35px !important;
+  font-size: 14px !important;
+}

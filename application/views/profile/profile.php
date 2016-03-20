@@ -11,7 +11,7 @@ $user   = $user->getUserInfo();
                 <div class="row">
                     <div class="col-md-2" style="padding:0 1em;">
                         <div class="user-block-picture" style="width:100%;">
-                            <img src="<?=$assets; ?>img/user/<?=$user['avatar'];?>" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px" style="max-width:150px; width:inherit; border-radius:10%; margin:0 auto;">
+                            <img src="<?=$assets; ?>img/user/no-user.png" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px" style="max-width:150px; width:inherit; border-radius:10%; margin:0 auto;">
                             <div class="" title="Загрузить фотографию профиля" id="update-photo" style="padding-top: 10px">
                                 <a class="load-photo">
                                     <em class="fa fa-upload" style="font-size: 1.8em"></em>

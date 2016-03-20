@@ -12,7 +12,36 @@ class Controller_Events_Index extends Dispatch {
 
     public function action_index()
     {
-        echo 'Halo :) ';
+        parent::isLogged();
+
+        $this->template->title          = 'Мои мероприятия';
+        $this->template->description    = 'Описание страницы';
+        $this->template->keywords       = 'C';
+
+        $this->template->css = $this->css;
+        $this->template->js = $this->js;
+
+        $this->template->aside      = View::factory('aside');
+        $this->template->section    = 'content';
+    }
+
+    public function action_edit()
+    {
+        parent::isLogged();
+
+        $this->template->title          = 'Мои мероприятия';
+        $this->template->description    = 'Описание страницы';
+        $this->template->keywords       = 'C';
+
+
+        array_push($this->css, 'css/newevent.css');
+        array_push($this->css, 'css/edit-event.css');
+
+        $this->template->css = $this->css;
+        $this->template->js = $this->js;
+
+        $this->template->aside      = View::factory('aside');
+        $this->template->section    = View::factory('events/edit-event');
     }
 
     public function action_new()

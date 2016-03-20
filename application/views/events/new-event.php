@@ -81,13 +81,12 @@
                      </select>
                      <span class="pronwe_comment help-block m-b-none">*Вы можете предложить свой тип мероприятия, отправив подробное описание типа на support@pronwe.ru.</span>
                   </div>
-                  <div class="col-md-6 col-md-offset-4" style="padding-top: 20px; float:right;">
-                     <button type="button" id="update-photo" class="btn" style="background-color: #BDBDBD; ">Выберите фотографию</button>
+                  <div class="col-md-4 col-sm-5 btn_area">
+                     <button type="button" id="update-photo" class="btn btn-primary">Выберите фотографию</button>
                   </div>
-               </div>
-               <div class="col-md-4 col-md-offset-8" >
-                  <button type="submit" class="btn btn-primary">Создать</button>
-               </div>
+                  <div class="col-md-4 col-sm-5 col-sm-offset-2 col-md-offset-4" style="margin-top: 1em">
+                     <input type="submit" class="btn btn-primary" value="Создать">
+                  </div>
             </form>
          </div>
       </div>

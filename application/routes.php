@@ -24,7 +24,7 @@ Route::set('PROFILE', 'profile(/<subaction>)')
         'action'     => 'index',
     ));
 
-Route::set('EVENTS', 'events(/<action>)')
+Route::set('EVENTS', 'events(/<id>(/<action>))')
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'index',
