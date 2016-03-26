@@ -47,7 +47,6 @@
 			<small>Здесь Вы можете реактировать мероприятие, создать панель для Жюри, где они будут выставлять оценки, создать приветственную страницу Вашего мероприятия, а также удалить мероприятие</small>
 		</h3>
 		<div class="panel panel-default">
-			<div class="panel-heading"></div>
 			<div class="panel-body">
 			<!--выводим не более 5 мероприятий в таблице-->
 				<table id="table-my-event" class="table table-bordered table-striped table-hover" cellspacing="0">

@@ -1,0 +1,19 @@
+@media only screen and (min-width:992px) and (max-width:1140px) {
+	.hidden-t{
+		display: none;
+	}
+	.move-right{
+		text-align: right;
+	}
+}
+@media only screen and (min-width:768px) and (max-width:992px) {
+	.hidden-t{
+		display: none;
+	}
+}
+
+@media only screen and (max-width:400px) {
+	.hidden-t{
+		display: none;
+	}
+}
