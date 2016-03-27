@@ -26,10 +26,9 @@ class Controller_Profile_Index extends Dispatch {
          * Styles AND JS
          */
 
-        array_push( $this->css, 'css/profile.css');
-        array_push( $this->css, 'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css');
         array_push( $this->css, 'vendor/x-editable/bootstrap3-editable/css/bootstrap-editable.css');
         array_push( $this->js,  'vendor/x-editable/bootstrap3-editable/js/bootstrap-editable.min.js');
+        array_push( $this->css, 'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css');
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js');
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
         array_push( $this->js,  'js/profile.js');

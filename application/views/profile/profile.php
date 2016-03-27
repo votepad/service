@@ -2,6 +2,8 @@
 
 $user   = $user->getUserInfo();
 ?>
+
+
 <section>
     <div class="content-wrapper">
         <h3>Добро подаловать в личный кабинет
@@ -10,18 +12,18 @@ $user   = $user->getUserInfo();
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="col-sm-4 text-center">
-                    <!-- нужно втавить file upload для изображения с preview -->
-                    <div class="">
-                        <img src="<?=$assets; ?>img/user/no-user.png" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px" style="max-width:150px; width:inherit; border-radius:10%; margin:0 auto;">
-                    </div>
-                    <div class="btn_area">
-                        <input type="file" id="choose-user-photo" tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);">
-                        <label for="choose-user-photo" class="btn btn-default">
-                            <span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span>
-                            <span class="buttonText">Выберите фото</span>
-                        </label>
-                    </div>
-                    
+                    <form id="image-upload" method="POST">
+                        <div class="">
+                            <img id="image" src="<?=$assets; ?>img/user/no-user.png" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px" style="width:150px; height: 150px; border-radius:10%; margin:0 auto;">
+                        </div>
+                        <div class="btn_area">
+                            <input id="choose-image" type="file"tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);" onchange="readURL(this)">
+                            <label for="choose-image" class="btn btn-default fileinput-button">
+                                <span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span>
+                                <span class="buttonText">Обновить фото</span>
+                            </label>
+                        </div>
+                    </form>
                 </div>
                 <div class="col-sm-8">
                     <div class="form-horizontal">
@@ -29,7 +31,7 @@ $user   = $user->getUserInfo();
                             <label class="col-sm-4 control-label">Фамилия</label>
                             <div class="col-sm-8">
                                 <p>
-                                    <a href="#" id="surname" data-pk="<?=$user['id']; ?>"><?=$user['surname']; ?></a>
+                                    <a href="#" id="surname" class="editable" data-pk="<?=$user['id']; ?>"><?=$user['surname']; ?></a>
                                 </p>
                             </div>
                         </div>
@@ -37,7 +39,7 @@ $user   = $user->getUserInfo();
                             <label class="col-sm-4 control-label">Имя</label>
                             <div class="col-sm-8">
                                 <p>
-                                    <a href="#" id="name" data-pk="<?=$user['id']; ?>"><?=$user['name']; ?></a>
+                                    <a href="#" id="name" class="editable" data-pk="<?=$user['id']; ?>"><?=$user['name']; ?></a>
                                 </p>
                             </div>
                         </div>
@@ -45,7 +47,7 @@ $user   = $user->getUserInfo();
                             <label class="col-sm-4 control-label">Отчество</label>
                             <div class="col-sm-8">
                                 <p>
-                                    <a href="#" id="lastname" data-pk="<?=$user['id']; ?>"><?=$user['lastname'];?></a>
+                                    <a href="#" id="lastname" class="editable" data-pk="<?=$user['id']; ?>"><?=$user['lastname'];?></a>
                                 </p>
                             </div>
                         </div>
@@ -61,7 +63,7 @@ $user   = $user->getUserInfo();
                             <label class="col-sm-4 control-label">Номер телефона</label>
                             <div class="col-sm-8">
                                 <p>
-                                    <a href="#" id="number" data-pk="<?=$user['id']; ?>"><?=$user['number']; ?></a>
+                                    <a href="#" id="number" class="editable" data-pk="<?=$user['id']; ?>"><?=$user['number']; ?></a>
                                 </p>
                             </div>
                         </div>
@@ -69,7 +71,7 @@ $user   = $user->getUserInfo();
                             <label class="col-sm-4 control-label">Город</label>
                             <div class="col-sm-8">
                                 <p>
-                                    <a href="#" id="city" data-type="typeaheadjs" data-pk="<?=$user['id']; ?>"><?=$user['city']; ?></a>
+                                    <a href="#" id="city" data-pk="<?=$user['id']; ?>"><?=$user['city']; ?></a>
                                 </p>
                             </div>
                         </div>
@@ -79,3 +81,4 @@ $user   = $user->getUserInfo();
         </div>
     </div>
 </section>
+
