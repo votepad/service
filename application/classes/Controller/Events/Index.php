@@ -29,6 +29,8 @@ class Controller_Events_Index extends Dispatch {
     {
         parent::isLogged();
 
+        $id_event = $this->request->param('id');
+
         $this->template->title          = 'Мои мероприятия';
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
@@ -37,11 +39,37 @@ class Controller_Events_Index extends Dispatch {
         array_push($this->css, 'css/newevent.css');
         array_push($this->css, 'css/edit-event.css');
 
+        array_push($this->js, 'js/event.js');
+        array_push($this->js, 'js/pjsc.js');
+
         $this->template->css = $this->css;
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/edit-event');
+        $this->template->section    = View::factory('events/edit-event')
+                                                ->bind('event', $event)
+                                                ->bind('participants', $participants)
+                                                ->bind('judges', $judges);
+
+
+        /**
+         * Getting Event INFO.
+         */
+
+        $event = new Model_Events();
+        $event = $event->getEvent($id_event);
+
+        /**
+         * Getting Events Participant by Id
+         */
+
+        $participants = Model_Participants::getAll();
+
+        /**
+         * Getting Events Judges by id_event
+         */
+
+        $judges = Model_Judge::getAll();
     }
 
     public function action_new()

@@ -26,4 +26,47 @@ class Controller_Events_Modify extends Controller {
             $this->redirect('/events');
 
     }
+
+    function action_addParticipant()
+    {
+        $id_event = $this->request->param('id');
+
+        $k = 0;
+
+        echo Debug::vars($_FILES);
+        exit;
+
+        for($i = 0; $i < count($_POST) / 3; $i++)
+        {
+            $k++;
+            $name           = $_POST['participant_name_'. $k];
+            $description    = $_POST['participant_description_'. $k];
+            $photo          = $_POST['participant_photo_'. $k];
+
+            $model_participant = new Model_Participants($id_event, $name, $description, $photo);
+
+            $model_participant->save();
+        }
+
+        $this->redirect('/events/'. $id_event . '/edit' );
+    }
+
+    function action_addjudge()
+    {
+        $id_event = $this->request->param('id');
+
+        $k = 0;
+        for($i = 0; $i < count($_POST) /3 ; $i++)
+        {
+            $k++ ;
+            $email      = $_POST['judge_email_' . $k];
+            $position   = $_POST['judge_status_' . $k];
+            $photo      = $_POST['judge_photo_' . $k];
+
+            $model_judge = new Model_Judge($id_event, 'none', $email, $position, $photo);
+            $model_judge->save();
+        }
+
+        $this->redirect('/events/'. $id_event . '/edit' );
+    }
 }

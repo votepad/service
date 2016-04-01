@@ -24,6 +24,24 @@ Route::set('PROFILE', 'profile(/<subaction>)')
         'action'     => 'index',
     ));
 
+Route::set('ADDPARTICIPANTS', 'events/addparticipants/<id>')
+    ->defaults(array(
+        'controller'  => 'Events_Modify',
+        'action'      => 'addParticipant'
+    ));
+
+Route::set('ADDJUDGE', 'events/addjudge/<id>')
+    ->defaults(array(
+        'controller'  => 'Events_Modify',
+        'action'      => 'addjudge'
+    ));
+
+Route::set('NEWEVENT', 'events/new')
+    ->defaults(array(
+        'controller' => 'Events_Index',
+        'action'     => 'New'
+    ));
+
 Route::set('EVENTS', 'events(/<id>(/<action>))')
     ->defaults(array(
         'controller' => 'Events_Index',

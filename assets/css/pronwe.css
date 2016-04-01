@@ -43,24 +43,6 @@ ul{
 .btn_area{
 	margin:1em auto;
 }
-.btn{ 
-	margin:0;
-	border-radius: 5px; 
-	display: block; 
-	width: 100%; 
-	color: #fff;
-	border: 0;
-	padding: 0.45em 1.1em; 
-	line-height: 1.52857143; 	
-	color: #fff;
-    background-color: #23b7e5;
-    border-color: #1eb6e4;
-}
-.btn:hover{
-	color: #fff;
-    background-color: #1aacda;
-    border-color: #179ac3;
-}
 
 .btn-another{
 	color: #fff;

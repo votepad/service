@@ -1,3 +1,4 @@
+$(document).ready (function() {
 /* START PARTICIPANT */
 	var participant_list_counter = $(".participant-list li").length;
 	/* ADD PARTICIPANT */
@@ -5,7 +6,7 @@
  		var name = $("#name-participant").val();
  		if (name != '') {
     		participant_list_counter++;
-    		var temp = "<li><div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'><div id='participant_" + participant_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-participant' title='Удалить участника' id='delete-participant_" + participant_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='description_" + participant_list_counter + "' class='panel-collapse'><div class='panel-body'> <div class='col-md-6 btn_area'><textarea style='resize: none;' name='participant_description_" + participant_list_counter + "' placeholder='Описание участника, его достижения и др.' class='form-control error' aria-required='true' maxlength='1000' rows='6' required></textarea></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию участника</label><br><small>допустимые форматы jpeg,png,gif</small><div class='col-md-12 btn_area'><label for='participant_photo_" + participant_list_counter + "' class='btn btn-primary btn-add-photo'>Выберите фото</label></div></div><div class='col-md-3 btn_area text-center'><div class='file-upload' id='file-upload_" + participant_list_counter + "'><div class='image-preview-wrapper' title=' '><div class='image-preview' id='image-viewer-participant_" + participant_list_counter + "'></div><input type='file' id='participant_photo_" + participant_list_counter + "' name='participant_photo_" + participant_list_counter + "' class='imageUploader' onchange='readURL1(this);'></div></div></div></div></div></div></li>";
+    		var temp = "<li><div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'><div id='participant_" + participant_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-participant' title='Удалить участника' id='delete-participant_" + participant_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='description_" + participant_list_counter + "' class='panel-collapse'><div class='panel-body'> <div class='col-md-6 btn_area'><textarea style='resize: none;' name='participant_description_" + participant_list_counter + "' placeholder='Описание участника, его достижения и др.' class='form-control error' aria-required='true' maxlength='1000' rows='6' required></textarea></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию участника</label><br><small>допустимые форматы jpeg,png,gif</small><div class='col-md-12 btn_area'><label for='participant_photo_" + participant_list_counter + "' class='btn btn-primary btn-add-photo'>Выберите фото</label></div></div><div class='col-md-3 btn_area text-center'><div class='file-upload' id='file-upload_" + participant_list_counter + "'><div class='image-preview-wrapper' title=' '><div class='image-preview' id='image-viewer-participant_" + participant_list_counter + "'></div><input type='hidden' name='participant_name_" + participant_list_counter + "' value='"+ name +"'><input type='file' id='participant_photo_" + participant_list_counter + "' name='participant_photo_" + participant_list_counter + "' class='imageUploader' onchange='readURL1(this);'></div></div></div></div></div></div></li>";
     		$('.participant-list').append(temp);
     		$("#name-participant").val('');
  		}
@@ -252,12 +253,15 @@
 		}
 		stage.html(stageHTML);
 	});
-/* END STAGE */
-$("#main-info").click(function(){
-	$("#moreeventinfo").removeClass("in");
-	$("#main-info-save").prop("disabled",false);
-});
-$("#extra-info").click(function(){
-	$("#eventinfo").removeClass("in");
-	$("#main-info-save").prop("disabled",true);
-});
+	/* END STAGE */
+	$("#main-info").click(function(){
+		$("#moreeventinfo").removeClass("in");
+		$("#main-info-save").prop("disabled",false);
+	});
+	$("#extra-info").click(function(){
+		$("#eventinfo").removeClass("in");
+		$("#main-info-save").prop("disabled",true);
+	});
+
+
+})
