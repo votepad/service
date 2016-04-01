@@ -1,0 +1,66 @@
+[33mcommit 9f27378cde10ea7d1513169ee426ba448f105387[m
+Author: kolyasha <turov96@yandex.ru>
+Date:   Fri Apr 1 22:20:46 2016 +0300
+
+    fix
+
+[33mcommit a96105f18f74e4f218ef1f1531f631d24b0140ee[m
+Author: kolyasha <turov96@yandex.ru>
+Date:   Mon Mar 28 00:34:05 2016 +0300
+
+    Устаноыил везде фирменный стиль, добавил форму #image-upload для загрузки фото пользователя + мелкие доработки
+
+[33mcommit 648961de4a7747e2bf13e3c3d26c40e0d4fa971b[m
+Author: kolyasha <turov96@yandex.ru>
+Date:   Sun Mar 27 02:26:23 2016 +0300
+
+    Улучшен профиль: нужно доделать вставку фото
+
+[33mcommit b6c72dad3366221323e6289417eb9f29134ab4b1[m
+Author: kolyasha <turov96@yandex.ru>
+Date:   Sat Mar 26 11:02:16 2016 +0300
+
+    Добавлена страница "Мои мероприятия" - лежит в test
+
+[33mcommit d655f1b582ac58485e219c135b5b773b25428011[m
+Author: Murod <murod.haydarov@gmail.com>
+Date:   Mon Mar 21 01:12:21 2016 +0300
+
+    initial
+
+[33mcommit 64530863809eea7c2d790b236ae899eacd456f30[m
+Author: Murod <murod.haydarov@gmail.com>
+Date:   Wed Mar 16 23:38:27 2016 +0300
+
+    Auth, Profile ready. Saving Events
+
+[33mcommit c58a2db06405978a69fcbedd4a453d2bd9d2752e[m
+Author: Murod <murod.haydarov@gmail.com>
+Date:   Sun Mar 13 13:25:43 2016 +0300
+
+    initial and fixed some css
+
+[33mcommit b50746d011700e0dd6753c6609568bd6947b4b08[m
+Author: Murod <murod.haydarov@gmail.com>
+Date:   Tue Mar 8 00:52:56 2016 +0300
+
+    initial
+
+[33mcommit 2ec7101ac81aa7bd1d24142cbbe44ee43fc25cba[m
+Merge: 1c64293 8e6d1db
+Author: Murod <murod.haydarov@gmail.com>
+Date:   Thu Feb 25 23:29:24 2016 +0300
+
+    added Readme
+
+[33mcommit 8e6d1db46bd863958fb0a3b2042bca5b8c6141a2[m
+Author: khaydarov <murod.haydarov@inbox.ru>
+Date:   Thu Feb 25 23:34:32 2016 +0300
+
+    Initial commit
+
+[33mcommit 1c642939091e2df90ab96356ff5f6a86f1c97851[m
+Author: Murod <murod.haydarov@gmail.com>
+Date:   Thu Feb 25 23:25:13 2016 +0300
+
+    .
