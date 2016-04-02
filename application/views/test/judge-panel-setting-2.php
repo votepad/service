@@ -1,70 +1,54 @@
-<!DOCTYPE html>
-<html lang="ru">
+<?php
+?>
 
+	<link rel="stylesheet" href="<?=$assets; ?>css/judge.panel-2.css">
+	<script src="<?=$assets; ?>js/judge.panel-2.js"></script>
 
-<head>
-<meta charset="utf-8">
+	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+	<script src="<?=$assets; ?>vendor/jquery.steps/jquery.steps.js"></script>
 
-	<link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/app.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/judge.panel-2.css">
-	<link rel="stylesheet" href="css/pronwe.css">
+	<script src="<?=$assets; ?>vendor/jquery-ui/ui/core.js"></script>
+	<script src="<?=$assets; ?>vendor/jquery-ui/ui/widget.js"></script>
+	<script src="<?=$assets; ?>vendor/jquery-ui/ui/mouse.js"></script>
+	<script src="<?=$assets; ?>vendor/jquery-ui/ui/sortable.js"></script>
+	<script src="<?=$assets; ?>vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
 
-	<script src="vendor/jquery/dist/jquery.js"></script>
-	<script src="vendor/jquery.steps/jquery.steps.js"></script>
-
-	<script src="js/judge.panel-2.js"></script>
-
-   <script src="js/app.js"></script>
-
-	<!-- BOOTSTRAP-->
-   <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
-   <!-- STORAGE API-->
-   <script src="vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
-   
-   
-
-</head>
-<body>
+	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap.js"></script>
+	<script src="<?=$assets; ?>vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
+	<script src="<?=$assets; ?>js/app.js"></script>
+	
+<section>
 	<div class="content-wrapper">
-		<div class="content-heading">
-			<div class="col-sm-4 col-md-3 hidden-xs">
-				<img src="img/temp/vesnavitmo.jpg" alt="EventImage" class="img-thumbnail img-circle">
-			</div>
-			<div class="col-sm-8 col-md-9 text-white text-left orgName">
-				<h1>Название мероприятия</h1>
-			</div>
-			<a href="#" class="btn-logout">
-				<em class="fa fa-sign-out logout-position"></em>
-			</a>
-		</div>
-		<div class="col-xs-10 col-xs-offset-1">
-			<div class="panel panel-default">
-				<div class="panel-body">
-					<form id="rating-area-2" action="#">
+		<h3>Настройка порядка выступления участников
+			<small>Вы можете
+				<a href="">посмотреть, как видят эту страницу жюри.</a>
+			</small>
+		</h3>
+		<div class="panel panel-default">
+			<div class="panel-body">
+				<form id="setting-rating-area-2" action="#">
+					<div>
+						<h3>Название первого этапа</h3>
 						<div>
-							<h3>Название первого этапа</h3>
-							<div>
-								<div class="col-xs-12 btn_area1">
+							<div class="col-xs-12 btn_area1">
 									<div class="col-lg-10 col-md-9 col-sm-8 alert description">
 										<p>Описание этапа 1</p>
 									</div>
 								</div>
 								<div id="stage-1" data-toggle="portlet" class="portlets-wrapper">
 									<div class="col-lg-4 col-md-5">
-										<ul role="tablist" class="text-center nav">
-											<li role="presentation" class="btn btn-default btn_area1 active">
-												<a href="#stage-1-part-id1" aria-controls="part-id1" role="tab" data-toggle="tab">Участник 1</a>
+										<ul role="tablist" class="text-center nav nav-s">
+											<li id="part-id1" role="presentation" class="btn btn-default btn_area1 active">
+												<a href="#stage-1-part-id1" aria-controls="stage-1-part-id1" role="tab" data-toggle="tab">Участник 1</a>
 											</li>
-											<li role="presentation" class="btn btn-default btn_area1">
-												<a href="#stage-1-part-id2" aria-controls="part-id2" role="tab" data-toggle="tab">Участник 2</a>
+											<li id="part-id2" role="presentation" class="btn btn-default btn_area1">
+												<a href="#stage-1-part-id2" aria-controls="stage-1-part-id2" role="tab" data-toggle="tab">Участник 2</a>
 											</li>
-											<li role="presentation" class="btn btn-default btn_area1">
-												<a href="#stage-1-part-id8" aria-controls="part-id8" role="tab" data-toggle="tab">Участник 3</a>
+											<li id="part-id8" role="presentation" class="btn btn-default btn_area1">
+												<a href="#stage-1-part-id8" aria-controls="stage-1-part-id8" role="tab" data-toggle="tab">Участник 3</a>
 											</li>
-											<li role="presentation" class="btn btn-default btn_area1">
-												<a href="#stage-1-part-id10" aria-controls="part-id10" role="tab" data-toggle="tab">Участник 4</a>
+											<li id="part-id10" role="presentation" class="btn btn-default btn_area1">
+												<a href="#stage-1-part-id10" aria-controls="stage-1-part-id10" role="tab" data-toggle="tab">Участник 4</a>
 											</li>
 										</ul>
 									</div>
@@ -72,7 +56,7 @@
 									<div class="tab-content col-lg-offset-4 col-md-offset-5">
 										<!--participant 1-->
 										<div id="stage-1-part-id1" role="tabpanel" class="tab-pane active">
-											<img src="img/user/01.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+											<img src="<?=$assets; ?>img/user/01.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
 											<div class="score-area">
 												<!--criterion 1-->
 												<fieldset>
@@ -156,7 +140,7 @@
 										</div>
 										<!--participant 2-->
 										<div id="stage-1-part-id2" role="tabpanel" class="tab-pane">
-											<img src="img/user/02.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+											<img src="<?=$assets; ?>img/user/02.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
 											<div class="score-area">
 												<!--criterion 1-->
 												<fieldset>
@@ -240,7 +224,7 @@
 										</div>
 										<!--participant 3-->
 										<div id="stage-1-part-id8" role="tabpanel" class="tab-pane">
-											<img src="img/user/03.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+											<img src="<?=$assets; ?>img/user/03.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
 											<div class="score-area">
 												<!--criterion 1-->
 												<fieldset>
@@ -324,7 +308,7 @@
 										</div>
 										<!--participant 4-->
 										<div id="stage-1-part-id10" role="tabpanel" class="tab-pane ">
-											<img src="img/user/04.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+											<img src="<?=$assets; ?>img/user/04.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
 											<div class="score-area">
 												<!--criterion 1-->
 												<fieldset>
@@ -408,277 +392,274 @@
 										</div>
 									</div>
 								</div>
-							</div>
-
-							<h3>Название второго этапа</h3>
-							<div>
-								<div class="col-xs-12 btn_area1">
-									<div class="col-lg-10 col-md-9 col-sm-8 alert description">
-										<p>Описание этапа 2</p>
-									</div>
-								</div>
-								<div id="stage-2" data-toggle="portlet" class="portlets-wrapper">
-									<div class="col-lg-4 col-md-5">
-										<ul role="tablist" class="text-center nav">
-											<li role="presentation" class="btn btn-default btn_area1 active">
-												<a href="#stage-2-part-id1" aria-controls="part-id1" role="tab" data-toggle="tab">Участник 1</a>
-											</li>
-											<li role="presentation" class="btn btn-default btn_area1">
-												<a href="#stage-2-part-id2" aria-controls="part-id2" role="tab" data-toggle="tab">Участник 2</a>
-											</li>
-											<li role="presentation" class="btn btn-default btn_area1">
-												<a href="#stage-2-part-id8" aria-controls="part-id8" role="tab" data-toggle="tab">Участник 3</a>
-											</li>
-											<li role="presentation" class="btn btn-default btn_area1">
-												<a href="#stage-2-part-id10" aria-controls="part-id10" role="tab" data-toggle="tab">Участник 4</a>
-											</li>
-										</ul>
-									</div>
-									
-									<div class="tab-content col-lg-offset-4 col-md-offset-5">
-										<!--participant 1-->
-										<div id="stage-2-part-id1" role="tabpanel" class="tab-pane active">
-											<img src="img/user/01.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
-											<div class="score-area">
-												<!--criterion 1-->
-												<fieldset>
-													<div class="btn_area1">
-														Описание критерия №1 Этап 2 
-													</div>
-													<div class="buttons" data-toggle="buttons">
-														<button class="mb-sm btn btn-s btn-primary active">
-															<input type="radio" name="score-2-1-1" autocomplete="off" value="0" checked=""> 0 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-1" autocomplete="off" value="1"> 1
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-1" autocomplete="off" value="2"> 2 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-1" autocomplete="off" value="3"> 3 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-1" autocomplete="off" value="4"> 4 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-1" autocomplete="off" value="5"> 5 
-														</button>
-													</div>
-												</fieldset>
-												<!--criterion 2-->
-												<fieldset>
-													<div class="btn_area1">
-														Описание критерия №2 Этап 2 
-													</div>
-													<div class="buttons" data-toggle="buttons">
-														<button class="mb-sm btn btn-s btn-primary active">
-															<input type="radio" name="score-2-1-2" autocomplete="off" value="0" checked=""> 0 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-2" autocomplete="off" value="1"> 1
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-2" autocomplete="off" value="2"> 2 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-2" autocomplete="off" value="3"> 3 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-2" autocomplete="off" value="4"> 4 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-1-2" autocomplete="off" value="5"> 5 
-														</button>
-													</div>
-												</fieldset>
-											</div>
-										</div>
-										<!--participant 2-->
-										<div id="stage-2-part-id2" role="tabpanel" class="tab-pane">
-											<img src="img/user/02.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
-											<div class="score-area">
-												<!--criterion 1-->
-												<fieldset>
-													<div class="btn_area1">
-														Описание критерия №1 Этап 2 
-													</div>
-													<div class="buttons" data-toggle="buttons">
-														<button class="mb-sm btn btn-s btn-primary active">
-															<input type="radio" name="score-2-2-1" autocomplete="off" value="0" checked=""> 0 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-1" autocomplete="off" value="1"> 1
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-1" autocomplete="off" value="2"> 2 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-1" autocomplete="off" value="3"> 3 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-1" autocomplete="off" value="4"> 4 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-1" autocomplete="off" value="5"> 5 
-														</button>
-													</div>
-												</fieldset>
-												<!--criterion 2-->
-												<fieldset>
-													<div class="btn_area1">
-														Описание критерия №2 Этап 2 
-													</div>
-													<div class="buttons" data-toggle="buttons">
-														<button class="mb-sm btn btn-s btn-primary active">
-															<input type="radio" name="score-2-2-2" autocomplete="off" value="0" checked=""> 0 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-2" autocomplete="off" value="1"> 1
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-2" autocomplete="off" value="2"> 2 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-2" autocomplete="off" value="3"> 3 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-2" autocomplete="off" value="4"> 4 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-2-2" autocomplete="off" value="5"> 5 
-														</button>
-													</div>
-												</fieldset>
-											</div>
-										</div>
-										<!--participant 3-->
-										<div id="stage-2-part-id8" role="tabpanel" class="tab-pane">
-											<img src="img/user/03.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
-											<div class="score-area">
-												<!--criterion 1-->
-												<fieldset>
-													<div class="btn_area1">
-														Описание критерия №1 Этап 2 
-													</div>
-													<div class="buttons" data-toggle="buttons">
-														<button class="mb-sm btn btn-s btn-primary active">
-															<input type="radio" name="score-2-3-1" autocomplete="off" value="0" checked=""> 0 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-1" autocomplete="off" value="1"> 1
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-1" autocomplete="off" value="2"> 2 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-1" autocomplete="off" value="3"> 3 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-1" autocomplete="off" value="4"> 4 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-1" autocomplete="off" value="5"> 5 
-														</button>
-													</div>
-												</fieldset>
-												<!--criterion 2-->
-												<fieldset>
-													<div class="btn_area1">
-														Описание критерия №2 Этап 2 
-													</div>
-													<div class="buttons" data-toggle="buttons">
-														<button class="mb-sm btn btn-s btn-primary active">
-															<input type="radio" name="score-2-3-2" autocomplete="off" value="0" checked=""> 0 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-2" autocomplete="off" value="1"> 1
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-2" autocomplete="off" value="2"> 2 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-2" autocomplete="off" value="3"> 3 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-2" autocomplete="off" value="4"> 4 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-3-2" autocomplete="off" value="5"> 5 
-														</button>
-													</div>
-												</fieldset>
-											</div>
-										</div>
-										<!--participant 4-->
-										<div id="stage-2-part-id10" role="tabpanel" class="tab-pane ">
-											<img src="img/user/04.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
-											<div class="score-area">
-												<!--criterion 1-->
-												<fieldset>
-													<div class="btn_area1">
-														Описание критерия №1 Этап 2 
-													</div>
-													<div class="buttons" data-toggle="buttons">
-														<button class="mb-sm btn btn-s btn-primary active">
-															<input type="radio" name="score-2-4-1" autocomplete="off" value="0" checked=""> 0 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-1" autocomplete="off" value="1"> 1
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-1" autocomplete="off" value="2"> 2 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-1" autocomplete="off" value="3"> 3 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-1" autocomplete="off" value="4"> 4 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-1" autocomplete="off" value="5"> 5 
-														</button>
-													</div>
-												</fieldset>
-												<!--criterion 2-->
-												<fieldset>
-													<div class="btn_area1">
-														Описание критерия №2 Этап 2 
-													</div>
-													<div class="buttons" data-toggle="buttons">
-														<button class="mb-sm btn btn-s btn-primary active">
-															<input type="radio" name="score-2-4-2" autocomplete="off" value="0" checked=""> 0 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-2" autocomplete="off" value="1"> 1
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-2" autocomplete="off" value="2"> 2 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-2" autocomplete="off" value="3"> 3 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-2" autocomplete="off" value="4"> 4 
-														</button>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-2-4-2" autocomplete="off" value="5"> 5 
-														</button>
-													</div>
-												</fieldset>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
-
-							<!-- и так далее -->
 						</div>
-					</form>
-				</div>
+
+						<h3>Название второго этапа</h3>
+						<div>
+							<div class="col-xs-12 btn_area1">
+								<div class="col-lg-10 col-md-9 col-sm-8 alert description">
+									<p>Описание этапа 2</p>
+								</div>
+							</div>
+							<div id="stage-2" data-toggle="portlet" class="portlets-wrapper">
+								<div class="col-lg-4 col-md-5">
+									<ul role="tablist" class="text-center nav nav-s">
+										<li id="part-id1" role="presentation" class="btn btn-default btn_area1 active">
+											<a href="#stage-2-part-id1" aria-controls="stage-2-part-id1" role="tab" data-toggle="tab">Участник 1</a>
+										</li>
+										<li id="part-id2" role="presentation" class="btn btn-default btn_area1">
+											<a href="#stage-2-part-id2" aria-controls="stage-2-part-id2" role="tab" data-toggle="tab">Участник 2</a>
+										</li>
+										<li id="part-id8" role="presentation" class="btn btn-default btn_area1">
+											<a href="#stage-2-part-id8" aria-controls="stage-2-part-id8" role="tab" data-toggle="tab">Участник 3</a>
+										</li>
+										<li id="part-id10" role="presentation" class="btn btn-default btn_area1">
+											<a href="#stage-2-part-id10" aria-controls="stage-2-part-id10" role="tab" data-toggle="tab">Участник 4</a>
+										</li>
+									</ul>
+								</div>
+								
+								<div class="tab-content col-lg-offset-4 col-md-offset-5">
+									<!--participant 1-->
+									<div id="stage-2-part-id1" role="tabpanel" class="tab-pane active">
+										<img src="<?=$assets; ?>img/user/01.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+										<div class="score-area">
+											<!--criterion 1-->
+											<fieldset>
+												<div class="btn_area1">
+													Описание критерия №1 Этап 2 
+												</div>
+												<div class="buttons" data-toggle="buttons">
+													<button class="mb-sm btn btn-s btn-primary active">
+														<input type="radio" name="score-2-1-1" autocomplete="off" value="0" checked=""> 0 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-1" autocomplete="off" value="1"> 1
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-1" autocomplete="off" value="2"> 2 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-1" autocomplete="off" value="3"> 3 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-1" autocomplete="off" value="4"> 4 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-1" autocomplete="off" value="5"> 5 
+													</button>
+												</div>
+											</fieldset>
+											<!--criterion 2-->
+											<fieldset>
+												<div class="btn_area1">
+													Описание критерия №2 Этап 2 
+												</div>
+												<div class="buttons" data-toggle="buttons">
+													<button class="mb-sm btn btn-s btn-primary active">
+														<input type="radio" name="score-2-1-2" autocomplete="off" value="0" checked=""> 0 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-2" autocomplete="off" value="1"> 1
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-2" autocomplete="off" value="2"> 2 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-2" autocomplete="off" value="3"> 3 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-2" autocomplete="off" value="4"> 4 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-1-2" autocomplete="off" value="5"> 5 
+													</button>
+												</div>
+											</fieldset>
+										</div>
+									</div>
+									<!--participant 2-->
+									<div id="stage-2-part-id2" role="tabpanel" class="tab-pane">
+										<img src="<?=$assets; ?>img/user/02.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+										<div class="score-area">
+											<!--criterion 1-->
+											<fieldset>
+												<div class="btn_area1">
+													Описание критерия №1 Этап 2 
+												</div>
+												<div class="buttons" data-toggle="buttons">
+													<button class="mb-sm btn btn-s btn-primary active">
+														<input type="radio" name="score-2-2-1" autocomplete="off" value="0" checked=""> 0 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-1" autocomplete="off" value="1"> 1
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-1" autocomplete="off" value="2"> 2 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-1" autocomplete="off" value="3"> 3 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-1" autocomplete="off" value="4"> 4 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-1" autocomplete="off" value="5"> 5 
+													</button>
+												</div>
+											</fieldset>
+											<!--criterion 2-->
+											<fieldset>
+												<div class="btn_area1">
+													Описание критерия №2 Этап 2 
+												</div>
+												<div class="buttons" data-toggle="buttons">
+													<button class="mb-sm btn btn-s btn-primary active">
+														<input type="radio" name="score-2-2-2" autocomplete="off" value="0" checked=""> 0 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-2" autocomplete="off" value="1"> 1
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-2" autocomplete="off" value="2"> 2 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-2" autocomplete="off" value="3"> 3 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-2" autocomplete="off" value="4"> 4 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-2-2" autocomplete="off" value="5"> 5 
+													</button>
+												</div>
+											</fieldset>
+										</div>
+									</div>
+									<!--participant 3-->
+									<div id="stage-2-part-id8" role="tabpanel" class="tab-pane">
+										<img src="<?=$assets; ?>img/user/03.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+										<div class="score-area">
+											<!--criterion 1-->
+											<fieldset>
+												<div class="btn_area1">
+													Описание критерия №1 Этап 2 
+												</div>
+												<div class="buttons" data-toggle="buttons">
+													<button class="mb-sm btn btn-s btn-primary active">
+														<input type="radio" name="score-2-3-1" autocomplete="off" value="0" checked=""> 0 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-1" autocomplete="off" value="1"> 1
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-1" autocomplete="off" value="2"> 2 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-1" autocomplete="off" value="3"> 3 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-1" autocomplete="off" value="4"> 4 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-1" autocomplete="off" value="5"> 5 
+													</button>
+												</div>
+											</fieldset>
+											<!--criterion 2-->
+											<fieldset>
+												<div class="btn_area1">
+													Описание критерия №2 Этап 2 
+												</div>
+												<div class="buttons" data-toggle="buttons">
+													<button class="mb-sm btn btn-s btn-primary active">
+														<input type="radio" name="score-2-3-2" autocomplete="off" value="0" checked=""> 0 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-2" autocomplete="off" value="1"> 1
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-2" autocomplete="off" value="2"> 2 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-2" autocomplete="off" value="3"> 3 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-2" autocomplete="off" value="4"> 4 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-3-2" autocomplete="off" value="5"> 5 
+													</button>
+												</div>
+											</fieldset>
+										</div>
+									</div>
+									<!--participant 4-->
+									<div id="stage-2-part-id10" role="tabpanel" class="tab-pane ">
+										<img src="img/user/04.jpg" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+										<div class="score-area">
+											<!--criterion 1-->
+											<fieldset>
+												<div class="btn_area1">
+													Описание критерия №1 Этап 2 
+												</div>
+												<div class="buttons" data-toggle="buttons">
+													<button class="mb-sm btn btn-s btn-primary active">
+														<input type="radio" name="score-2-4-1" autocomplete="off" value="0" checked=""> 0 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-1" autocomplete="off" value="1"> 1
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-1" autocomplete="off" value="2"> 2 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-1" autocomplete="off" value="3"> 3 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-1" autocomplete="off" value="4"> 4 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-1" autocomplete="off" value="5"> 5 
+													</button>
+												</div>
+											</fieldset>
+											<!--criterion 2-->
+											<fieldset>
+												<div class="btn_area1">
+													Описание критерия №2 Этап 2 
+												</div>
+												<div class="buttons" data-toggle="buttons">
+													<button class="mb-sm btn btn-s btn-primary active">
+														<input type="radio" name="score-2-4-2" autocomplete="off" value="0" checked=""> 0 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-2" autocomplete="off" value="1"> 1
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-2" autocomplete="off" value="2"> 2 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-2" autocomplete="off" value="3"> 3 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-2" autocomplete="off" value="4"> 4 
+													</button>
+													<button class="mb-sm btn btn-s btn-primary">
+														<input type="radio" name="score-2-4-2" autocomplete="off" value="5"> 5 
+													</button>
+												</div>
+											</fieldset>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- и так далее -->
+					</div>
+				</form>
 			</div>
 		</div>
 	</div>
-	<button id="errorMsg" type="button" data-notify="" data-message="Вы забыли поставить балл участнику" data-options="{&quot;status&quot;:&quot;danger&quot;}" style="display: none;"></button>
-</body>
-</html>
+</section>

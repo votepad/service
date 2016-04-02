@@ -1,17 +1,18 @@
 <?php
 ?>
 
-	<link rel="stylesheet" href="<?=$assets; ?>css/table-my-event.css">
-	<link rel="stylesheet" href="<?=$assets; ?>css/judge.panel.setting.css">
+	<link rel="stylesheet" href="<?=$assets; ?>css/judge.panel.css">
+	<script src="<?=$assets; ?>js/judge.panel.js"></script>
 
-	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
+	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
 	<script src="<?=$assets; ?>vendor/jquery.steps/jquery.steps.js"></script>
-	<script src="<?=$assets; ?>js/judge.panel.setting.js"></script>
+
 	<script src="<?=$assets; ?>vendor/jquery-ui/ui/core.js"></script>
 	<script src="<?=$assets; ?>vendor/jquery-ui/ui/widget.js"></script>
 	<script src="<?=$assets; ?>vendor/jquery-ui/ui/mouse.js"></script>
 	<script src="<?=$assets; ?>vendor/jquery-ui/ui/sortable.js"></script>
 	<script src="<?=$assets; ?>vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
+	
 	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap.js"></script>
 	<script src="<?=$assets; ?>vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
 	<script src="<?=$assets; ?>js/app.js"></script>
@@ -19,7 +20,7 @@
 <section>
 	<div class="content-wrapper">
 		<h3>Настройка порядка выступления участников
-			<small>Эту панель будут видеть только жюри во время голосования. Вы можете 
+			<small>Вы можете 
 				<a href="">посмотреть, как видят эту страницу жюри.</a>
 			</small>
 		</h3>
@@ -28,7 +29,7 @@
 				<form id="setting-rating-area" action="#">
 					<div>
 						<h3>Название первого этапа</h3>
-						<fieldset>
+						<div>
 							<div class="col-md-12 ">
 								<div class="alert description">
 									<p>Выводим название критерия, по которым оцениваются участники</p>
@@ -103,10 +104,10 @@
 									</div>
 								</div>
 							</div>
-						</fieldset>
+						</div>
 
 						<h3>Название второго этапа</h3>
-						<fieldset>
+						<div>
 							<div class="col-md-12 ">
 								<div class="alert description">
 									<p>Выводим название критерия, по которым оцениваются участники</p>
@@ -146,7 +147,7 @@
 										</div>
 									</div>
 								</div>
-						</fieldset>
+						</div>
 
 						<!-- и так далее -->
 					</div>

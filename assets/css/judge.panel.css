@@ -1,4 +1,9 @@
-@media only screen and (max-width:930px) {
+@media only screen and (max-width:1300px) {
+	.wizard > .steps > ul > li {
+		width: 33.3333333%
+	}
+}
+@media only screen and (max-width:1000px) {
 	.wizard > .steps > ul > li {
 		width: 50%
 	}
@@ -10,6 +15,7 @@
 	.orgName{
 		padding-top: 0 !important;
 	}
+
 }
 .content-wrapper > .content-heading {
 	height: 200px;
@@ -104,6 +110,6 @@ input:checked + span
     border: 1px solid #fbc2c4;
     color: #8a1f11;
 }
-.wizard > .steps .done a, .wizard > .steps .done a:active, .wizard > .steps .done a:hover, .wizard > .steps .disabled a, .wizard > .steps .disabled a:active, .wizard > .steps .disabled a:hover{
-	cursor: not-allowed;
+.wizard > .actions > ul > li, .wizard > .steps > ul > li{
+	margin-top: 1em;
 }
