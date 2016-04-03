@@ -43,7 +43,6 @@ ul{
 .btn_area{
 	margin:1em auto;
 }
-
 .btn-another{
 	color: #fff;
     background-color: #BDBDBD;
@@ -56,97 +55,3 @@ ul{
 	background-color: #BDBDBD;
     border-color: #757575;
 }
-
-/* UPDATE PHOTO */
-body.stop-scrolling {
-    height: 100%;
-    overflow: hidden;
-}
-.update-overlay {
-    background-color: #000;
-    background-color: rgba(0,0,0,.4);
-    position: fixed;
-    left: 0;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    display: none;
-    z-index: 10000;
-    opacity: 1.07;
-}
-.update-alert {
-    background-color: #fff;
-    width: 600px;
-    position: fixed;
-    left: 45%;
-    top: 40%;
-    margin-left: -256px;
-    margin-top: -200px;
-    overflow: hidden;
-    display: none;
-    z-index: 99999;
-    border: 1px solid #999;
-    border: 1px solid rgba(0,0,0,.2);
-    border-radius: 6px;
-    -webkit-box-shadow: 0 3px 9px rgba(0,0,0,.5);
-    box-shadow: 0 3px 9px rgba(0,0,0,.5);
-    outline: 0;
-}
-@media all and (max-width:768px) {
-    .update-alert {
-        width: auto;
-        margin-left: 0;
-        margin-right: 0;
-        left: 15px;
-        right: 15px;
-    }
-}
-.update-alert-header{
-	padding: 15px;
-    border-bottom: 1px solid #e5e5e5;
-    min-height: 16.53px;
-}
-.update-alert-close {
-    float: right;
-    font-size: 14px;
-    font-weight: 700;
-    line-height: 1;
-    color: #000;
-    text-shadow: 0 1px 0 #fff;
-    opacity: .2;
-    filter: alpha(opacity=20);
-}
-    .update-alert-close:focus, .update-alert-close:hover {
-        color: #000;
-        text-decoration: none;
-        cursor: pointer;
-        opacity: .5;
-        filter: alpha(opacity=50);
-    }
-button.update-alert-close {
-    padding: 0;
-    cursor: pointer;
-    background: 0 0;
-    border: 0;
-    -webkit-appearance: none;
-}
-.update-alert-title {
-    margin: 0;
-    line-height: 1.52857143;
-}
-.update-alert-body {
-    position: relative;
-    padding: 15px;
-}
-.update-alert-choose{
-	width: 40%; 
-	margin-left: auto;
-	margin-right: auto;
-	line-height: 1.52857143; 
-	margin:1em auto;
-}
-@media all and (max-width:460px) {
-	.update-alert-choose{
-	width: 60%; 
-	}
-}	

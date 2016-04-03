@@ -1,0 +1,14 @@
+.icon-edit{
+	color:#8bb8f1; 
+	font-size: 1.7em;
+}
+.icon-edit:hover{
+	color:#2f80e7;
+}
+.icon-remove{
+	color: #f47f7f;	
+	font-size: 1.7em;
+}
+.icon-remove:hover{
+	color:#ec2121;
+}

@@ -36,6 +36,12 @@ Route::set('ADDJUDGE', 'events/addjudge/<id>')
         'action'      => 'addjudge'
     ));
 
+Route::set('ADDSTAGE', 'events/addStage/<id>')
+    ->defaults(array(
+        'controller'  => 'Events_Modify',
+        'action'      => 'addStage'
+    ));
+
 Route::set('NEWEVENT', 'events/new')
     ->defaults(array(
         'controller' => 'Events_Index',

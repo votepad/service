@@ -139,11 +139,7 @@
                                                          </div>
                                                       </div>
                                                       <div class='col-md-3 btn_area text-center'><div class='file-upload' id=''>
-                                                            <div class='image-preview-wrapper' title=' '>
-                                                               <div class='image-preview' id='image-viewer-participant'></div>
-                                                               <input type='hidden' name='participant_name' value=''>
-                                                               <input type='file' id='participant_photo"' name='participant_photo' class='imageUploader'>
-                                                            </div>
+                                                            <img src="<?=URL::base().'uploads/' . $participants[$i]['photo']; ?>" width="150px" height="150px" alt="">
                                                          </div>
                                                       </div>
                                                    </div>
@@ -203,10 +199,7 @@
                                                    </div>
                                                    <div class='col-md-3 btn_area text-center'>
                                                       <div class='file-upload' >
-                                                         <div class='image-preview-wrapper' title=' '>
-                                                            <div class='image-preview'></div>
-                                                            <input type='file' class='imageUploader' onchange='readURL2(this);'>
-                                                         </div>
+                                                         <img src="<?=URL::base().'uploads/' . $judges[$i]['photo']; ?>" width="150px" height="150px" alt="">
                                                       </div>
                                                    </div>
                                                 </div>
@@ -240,10 +233,45 @@
                               </form>
                         </div>
                         <div id="stage" role="tabpanel" class="tab-pane">
-                           <form id="stage-info" name="stage-info" role="form" class="form-horizontal" action="" method="">
                               <!-- START STAGE -->
                               <div style="position: relative;">
                                  <h4 class="text-center">Радактирование этапов и критериев мероприятия</h4>
+                                 <? //PHP  ?>
+                                 <li>
+                                    <div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'>
+                                       <div role='tab' class='panel-heading'>
+                                          <h4 class='panel-title'>
+                                             <a></a>
+                                             <a type='button' class='pull-right delete-stage' title='Удалить этап' id='delete-stage_" + stage_list_counter + "'>
+                                                <em class='fa fa-times'></em>
+                                             </a>
+                                          </h4>
+                                       </div>
+                                       <div id='stage_description_" + stage_list_counter + "'>
+                                          <div class='panel-body'>
+                                             <textarea name='stage_description_" + stage_list_counter + "' rows='4' type='text' maxlength='1000' style='resize: none;' placeholder='Описание этапа' class='form-control' required></textarea>
+                                             <ul class='criterion-list_" + stage_list_counter + " row'>
+                                                <!-- criterions -->
+                                                <fieldset class='btn_area'></fieldset>
+                                                <fieldset id='criterion_"+stage_list_counter+"_1' class='row' >
+                                                   <div class='col-md-6 btn_area'>
+                                                      <input type='text' name='criterion-name_"+stage_list_counter+"_1' placeholder='Название критерия' class='form-control' maxlength='500' required>
+                                                   </div>
+                                                   <div class='col-xs-10 col-sm-10 col-md-5 btn_area'>
+                                                      <input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+stage_list_counter+"_1' required>
+                                                   </div>
+                                                   <div class='col-md-1 col-xs-2 btn_area'>
+                                                      <a type='button' id='btn-add-criterion_"+stage_list_counter+"' class='btn-add-criterion btn btn-primary'>
+                                                         <i class='fa fa-plus'></i>
+                                                      </a>
+                                                   </div>
+                                                </fieldset>
+                                             </ul>
+                                          </div>
+                                       </div>
+                                 </li>";
+
+                                 <form id="stage-info" name="stage-info" role="form" class="form-horizontal" action="<?=URL::site('events/addStage/' . $event['id'] ); ?>" method="POST" enctype="multipart/form-data">
                                  <fieldset style="position:relative;">
                                     <ul class="stage-list">
                                        <!-- stage -->
