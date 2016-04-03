@@ -77,20 +77,56 @@ class Controller_Events_Modify extends Controller {
     {
         $id_event = $this->request->param('id');
 
-        $k = 0;
+        $stageNameIndex         = 1;
+        $stageDescriptionIndex  = 1;
+
         foreach($_POST as $item => $value)
         {
-            list($substance, $id, $subId) = explode("_", $item);
-
-            $model_stages = new Model_Stages();
-            echo Debug::vars($item);
-            echo Debug::vars($value);
-            
-            if ($substance == 'stage')
-            {
-                $substr = $substance. '-' . $id . '-' . $subId;
+            if ($item == 'stage_name_' . $stageNameIndex) {
+                $stageName[] = $value;
+                $stageNameIndex++;
             }
 
+            if ($item == 'stage_description_' . $stageDescriptionIndex) {
+                $stageDescription[] = $value;
+                $stageDescriptionIndex ++ ;
+            }
         }
+
+        $criteriaNameIndex  = 1;
+        $criteriaScoreIndex = 1;
+
+        for($i = 1; $i < $stageNameIndex; $i++)
+        {
+
+            $model_stages = new Model_Stages();
+            $id_stage = $model_stages->insertStages($stageName[$i - 1], $stageDescription[$i - 1], $id_event);
+
+            foreach($_POST as $item => $value)
+            {
+                $str1 = 'criterion-name_'. $i . '_' . $criteriaNameIndex ;
+                $str2 = 'criterion-maxscore_'. $i . '_' . $criteriaScoreIndex;
+
+                if ($item == $str1)
+                {
+                    $criteriaName[$i]['name'][] = $value;
+                    $criteriaNameIndex ++;
+                }
+
+                if ($item == $str2)
+                {
+                    $criteriaScore[$i]['score'][] = $value;
+                    $criteriaScoreIndex ++;
+                }
+            }
+
+            for($j = 1; $j < $criteriaNameIndex; $j++)
+                $model_stages->insertCriteria($criteriaName[$i]['name'][$j - 1], $criteriaScore[$i]['score'][$j - 1], $id_stage);
+
+            $criteriaNameIndex  = 1;
+            $criteriaScoreIndex = 1;
+        }
+
+        $this->redirect('/events/'. $id_event . '/edit' );
     }
 }

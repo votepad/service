@@ -37,9 +37,9 @@ class Model_Judge extends Model {
         return $insert;
     }
 
-    private static function get($id = 0)
+    private static function get($id = 0, $id_event)
     {
-        $select = DB::select()->from('Judges');
+        $select = DB::select()->from('Judges')->where('id_event', '=', $id_event);
 
         if ($id == 0)
             $select = $select->execute();
@@ -49,13 +49,13 @@ class Model_Judge extends Model {
         return $id != 0 ? Arr::get($select, '0') : $select->as_array();
     }
 
-    public static function getAll()
+    public static function getAll($id_event)
     {
-        return self::get();
+        return self::get(0, $id_event);
     }
 
-    public static function getJudge($id)
+    public static function getJudge($id, $id_event)
     {
-        return self::get($id);
+        return self::get($id, $id_event);
     }
 }

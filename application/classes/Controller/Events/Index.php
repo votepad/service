@@ -49,7 +49,8 @@ class Controller_Events_Index extends Dispatch {
         $this->template->section    = View::factory('events/edit-event')
                                                 ->bind('event', $event)
                                                 ->bind('participants', $participants)
-                                                ->bind('judges', $judges);
+                                                ->bind('judges', $judges)
+                                                ->bind('stages', $stages);
 
 
         /**
@@ -63,13 +64,20 @@ class Controller_Events_Index extends Dispatch {
          * Getting Events Participant by Id
          */
 
-        $participants = Model_Participants::getAll();
+        $participants = Model_Participants::getAll($id_event);
 
         /**
          * Getting Events Judges by id_event
          */
 
-        $judges = Model_Judge::getAll();
+        $judges = Model_Judge::getAll($id_event);
+
+        /**
+         * Getting Events stages
+         */
+
+        $stages = Model_Stages::getAll($id_event);
+
     }
 
     public function action_new()
