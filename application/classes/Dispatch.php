@@ -33,15 +33,6 @@ class Dispatch extends Controller_Template
         array_push($this->css, 'css/pronwe.css');
 
 
-        $this->js = [
-            "jquery.js",
-            "jquery.localize.js",
-            "jquery.slimscroll.min.js",
-            "jquery-2.2.0.min.js",
-            "modernizr.custom.js",
-            "screenfull.js",
-        ];
-
         array_push($this->js, 'vendor/jquery/dist/jquery.js');
         array_push($this->js, 'vendor/bootstrap/dist/js/bootstrap.js');
         array_push($this->js, 'vendor/jQuery-Storage-API/jquery.storageapi.js');

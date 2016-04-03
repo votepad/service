@@ -34,7 +34,6 @@ class Controller_SignUp extends Dispatch
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
-        $this->template->assets = $this->assets;
 
     }
 

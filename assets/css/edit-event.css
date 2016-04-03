@@ -1,6 +1,7 @@
-.participant-list li, .judge-list li, .stage-list li{
+.participant-list li, .judge-list li, .stage-list li, .stage-list1 li{
 	margin-bottom:1em;
 }
+
 .criterion-list{
   position: relative;
 }
