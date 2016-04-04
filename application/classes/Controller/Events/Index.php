@@ -97,6 +97,8 @@ class Controller_Events_Index extends Dispatch {
          */
         array_push( $this->css, 'vendor/chosen_v1.2.0/chosen.min.css');
         array_push( $this->js,  'vendor/chosen_v1.2.0/chosen.jquery.min.js');
+        array_push( $this->js,  'vendor/jquery-validation/dist/jquery.validate.js');
+        array_push( $this->js,  'js/event.js');
 
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('events/new-event');

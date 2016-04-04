@@ -18,7 +18,7 @@ class Model_Events extends Model {
     function save()
     {
         $insert = DB::insert('Events', array(
-            'title', 'description', 'event_status', 'start_time', 'finish_time', 'city', 'type'
+            'title', 'description', 'event_status', 'start_date', 'start_time', 'finish_date', 'city', 'type'
         ))->values($this->event)->execute();
 
         return $insert;

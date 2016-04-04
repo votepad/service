@@ -3263,7 +3263,7 @@ select[multiple].input-lg, textarea.input-lg {
     .form-horizontal .control-label {
         text-align: right;
         margin-bottom: 0;
-        padding-top: 7px;
+        
     }
 }
 
