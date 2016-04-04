@@ -23,4 +23,26 @@ class Model_Events extends Model {
 
         return $insert;
     }
+
+    private static function get($id = null)
+    {
+        $select = DB::select()->from('Events')->where('id', '=', $id)->execute();
+        return Arr::get($select, '0');
+    }
+
+    private static function getAll()
+    {
+        $select = DB::select()->from('Events')->execute()->as_array();
+        return $select;
+    }
+
+    public function getEvent($id)
+    {
+        return self::get($id);
+    }
+
+    public function getEvents()
+    {
+        return self::getAll();
+    }
 }

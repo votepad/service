@@ -32,6 +32,7 @@ class Dispatch extends Controller_Template
         array_push($this->css, 'css/pronwe.css');
 
 
+
         $this->js = [
             "vendor/jquery/dist/jquery.js",
             "vendor/jquery.localize-i18n/dist/jquery.localize.js",
@@ -40,7 +41,6 @@ class Dispatch extends Controller_Template
         ];
 
         array_push($this->js, 'vendor/bootstrap/dist/js/bootstrap.js');
-        array_push($this->js, 'vendor/cropper/dist/cropper.js');
         array_push($this->js, 'js/app.js');
         array_push($this->js, 'js/twitter.js');
 
