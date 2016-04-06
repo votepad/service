@@ -31,16 +31,21 @@ class Controller_Events_Index extends Dispatch {
 
         $id_event = $this->request->param('id');
 
-        $this->template->title          = 'Мои мероприятия';
+        $this->template->title          = 'Редактирование мероприятия';
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
 
 
-        array_push($this->css, 'css/newevent.css');
         array_push($this->css, 'css/edit-event.css');
 
-        array_push($this->js, 'js/event.js');
-        array_push($this->js, 'js/pjsc.js');
+        array_push( $this->css, 'vendor/x-editable/bootstrap3-editable/css/bootstrap-editable.css');
+        array_push( $this->js,  'vendor/x-editable/bootstrap3-editable/js/bootstrap-editable.min.js');
+        array_push( $this->css, 'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css');
+        array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js');
+        array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
+        array_push( $this->css, 'vendor/select2/dist/css/select2.css');
+        array_push( $this->js,  'vendor/select2/dist/js/select2.js');
+        array_push( $this->js,  'js/pjsc.js');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -98,6 +103,8 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->css, 'vendor/chosen_v1.2.0/chosen.min.css');
         array_push( $this->js,  'vendor/chosen_v1.2.0/chosen.jquery.min.js');
         array_push( $this->js,  'vendor/jquery-validation/dist/jquery.validate.js');
+        array_push( $this->css, 'vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css');
+        array_push( $this->js,  'vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js');
         array_push( $this->js,  'js/event.js');
 
         $this->template->aside      = View::factory('aside');

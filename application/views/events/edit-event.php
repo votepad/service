@@ -1,61 +1,48 @@
 <section>
    <div class="content-wrapper">
-      <h3>Редактирование информации о мероприятии ИМЯ</h3>
+      <h3>Редактирование информации о мероприятии <a id="input-event-name" class="editable"><?=$event['title']; ?></a></h3>
       <!-- EDIT MAIN EVENT INFO -->
       <div class="panel-group">
          <div class="panel panel-default">
             <div class="panel-heading panel-title" style="font-size: 1.2em"><a data-toggle="collapse" data-parent="#accordion" href="#eventinfo" aria-expanded="true" aria-controls="eventinfo" id="main-info">Основная информация о мероприятии</a></div>
-            <div id="eventinfo" role="tabpanel" aria-labelledby="headingOne" class="panel-collapse collapse">
+            <div id="eventinfo" role="tabpanel" aria-labelledby="headingOne" class="panel-collapse collapse in">
                <div class="panel-body">
-                  <form id="event-info" class="form-horizontal" method="">
+                  <div class="form-horizontal">
                      <div class="form-group">
-                        <label for="input-event-name" class="mylabel col-md-2 control-label">Название мероприятия</label>
+                        <label for="input-event-description" class="col-md-2 control-label">Описание</label>
                         <div class="col-md-10">
-                           <input name="input-event-name" type="text" data-validation="length" data-validation-length="5-30" data-validation-error-msg="Название мероприятия должно быть от 5 до 30 символов" class="form-control" value="<?=$event['title']; ?>">
+                           <a id="input-event-description" data-type="textarea" class="editable"><?=$event['description']; ?></a>
                         </div>
                      </div>
-                     <div class="form-group">
-                        <label for="input-event-description" class="mylabel col-md-2 control-label">Описание мероприятия</label>
-                        <div class="col-md-10">
-                           <textarea id="input-event-description" name="input-event-description" type="text" data-validation="length" data-validation-length="50-1000" data-validation-error-msg="Расскажите о Вашем мероприятие, чтобы все могли узанть о нём (не менее 50 символов)" class="form-control" rows=7 style="resize: none;" ><?=$event['description']; ?></textarea>
-                           <div class="text-right"><span id="pres-max-length">1000</span> символов осталось</div>
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="input-event-status" class="mylabel col-md-2 control-label">Статус мероприятия</label>
-                        <div class="col-md-10">
 
-                           <select name="input-event-status" data-validation="length" data-validation-length="min1" data-validation-error-msg="Выберите статус мероприятия, он нужен для поиска мероприятия в системе" class="form-control" value="<?=$event['event_status'] ;?>">
-                              <option value=""></option>
-                              <option value="IN">Международное мероприятие</option>
-                              <option value="FE">Всероссийское мероприятие</option>
-                              <option value="RE">Региональное мероприятие</option>
-                              <option value="CI">Городское мероприятие</option>
-                              <option value="UN">Университетское мероприятие</option>
-                              <option value="SC">Школьное мероприятие</option>
-                           </select>
-                        </div>
-                     </div>
                      <div class="form-group">
-                        <label for="input-event-organization" class="mylabel col-md-2 control-label">Выберите организацию</label>
+                        <label for="input-event-status" class="col-md-2 control-label">Статус</label>
                         <div class="col-md-10">
-                           <select name="input-event-organization" data-validation="length" data-validation-length="min1" data-validation-error-msg="Выберите организацию или организации" multiple class="chosen-select form-control">
-                              <option value="Университет ИТМО">Университет ИТМО</option>
-                              <option value="Профком ИТМО">Профком ИТМО</option>
-                              <option value="Совет обучающихся университета ИТМО">Совет обучающихся университета ИТМО</option>
-                              <!-- и так далее, делаем запрос из бд,, где располагаются организации  -->
-                           </select>
-                           <span class="pronwe_comment help-block m-b-none">* Можно выбрать более одной организации для этого удерживайте Ctrl и выбирайте. Если вашей организации нет в списке, свяжитесь с нами support@pronwe.ru</span>
+                           <a id="input-event-status" ><?=$event['event_status'] ;?></a>
                         </div>
                      </div>
+
                      <div class="form-group">
+                        <label for="input-event-organization" class="col-md-2 control-label">Организации</label>
+                        <div class="col-md-10">
+                           <a id="input-event-organization" data-type="select2"> </a>
+                        </div>
+                     </div>
+                  </div>
+                     
+                     <br>
+                     <div class="form-group">                 
                         <label for="input-event-start" class="mylabel col-md-2 control-label">Дата начала мероприятия</label>
-                        <div class="col-md-4">
-                           <input name="input-event-start" type="text" data-validation="date" data-validation-format="dd.mm.yyyy" data-validation-help="дд.мм.гггг" data-validation-error-msg="Введите в формате дд.мм.гггг" class="has-help-txt form-control" value="<?=$event['start_time']; ?>">
+                        <div class="col-md-2">
+                           <input name="input-event-start" type="text" data-validation="date" data-validation-format="dd.mm.yyyy" data-validation-help="дд.мм.гггг" data-validation-error-msg="Введите в формате дд.мм.гггг" class="has-help-txt form-control" value="<?=$event['start_date']; ?>">
+                        </div>
+                        <label for="input-event-start-time" class="mylabel col-md-2 control-label">Время начала мероприятия</label>
+                        <div class="col-md-2">
+                           <input name="input-event-start-time" type="text" data-validation="time" data-validation-help="ЧЧ:ММ" data-validation-error-msg="Введите в формате ЧЧ:ММ" class="has-help-txt form-control" maxlength="5" value="<?=$event['start_time']; ?>">
                         </div>
                         <label for="input-event-end" class="mylabel col-md-2 control-label">Окачание мероприятия</label>
-                        <div class="col-md-4">
-                           <input name="input-event-end" type="text" data-validation="date" data-validation-format="dd.mm.yyyy" data-validation-help="дд.мм.гггг" data-validation-error-msg="Введите в формате дд.мм.гггг" class="has-help-txt form-control" value="<?=$event['finish_time']; ?>">
+                        <div class="col-md-2">
+                           <input name="input-event-end" type="text" data-validation="date" data-validation-format="dd.mm.yyyy" data-validation-help="дд.мм.гггг" data-validation-error-msg="Введите в формате дд.мм.гггг" class="has-help-txt form-control" value="<?=$event['finish_date']; ?>">
                         </div>
                      </div>
                      <div class="form-group">
@@ -87,7 +74,7 @@
                      <div class="col-md-4 col-sm-5 col-sm-offset-2 col-md-offset-4" style="margin-top: 1em">
                         <input type="submit" class="btn btn-primary" value="Сохранить" id="main-info-save" disabled>
                      </div>
-                  </form>
+                  
                </div>
             </div>
          </div>

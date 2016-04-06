@@ -14,7 +14,6 @@ class Controller_Events_Modify extends Controller {
         $data['description']          = Arr::get($_POST, 'input-event-description');
         $data['event_status']         = Arr::get($_POST, 'input-event-status');
         $data['event_start-date']     = Arr::get($_POST, 'input-event-start');
-        $data['event_start-time']     = Arr::get($_POST, 'input-event-start-time');
         $data['event_finish-date']    = Arr::get($_POST, 'input-event-end');
         $data['event_city']           = Arr::get($_POST, 'input-event-city');
         $data['event_type']           = Arr::get($_POST, 'input-event-type');

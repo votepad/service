@@ -23,11 +23,11 @@ class Dispatch extends Controller_Template
         $this->css = [
             "vendor/simple-line-icons/css/simple-line-icons.css",
             "vendor/fontawesome/css/font-awesome.min.css",
+            "vendor/bootstrap/dist/css/bootstrap.css",
         ];
 
         array_push($this->css, 'vendor/whirl/dist/whirl.css');
         array_push($this->css, 'vendor/animate.css/animate.min.css');
-        array_push($this->css, 'css/bootstrap.css');
         array_push($this->css, 'css/app.css');
         array_push($this->css, 'css/pronwe.css');
 
@@ -38,9 +38,9 @@ class Dispatch extends Controller_Template
             "vendor/jquery.localize-i18n/dist/jquery.localize.js",
             "vendor/slimScroll/jquery.slimscroll.min.js",
             "vendor/jQuery-Storage-API/jquery.storageapi.js",
+            "vendor/bootstrap/dist/js/bootstrap.js"
         ];
 
-        array_push($this->js, 'vendor/bootstrap/dist/js/bootstrap.js');
         array_push($this->js, 'js/app.js');
         array_push($this->js, 'js/twitter.js');
 

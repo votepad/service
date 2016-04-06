@@ -254,6 +254,8 @@ $(document).ready (function() {
 		stage.html(stageHTML);
 	});
 	/* END STAGE */
+
+
 	$("#main-info").click(function(){
 		$("#moreeventinfo").removeClass("in");
 		$("#main-info-save").prop("disabled",false);
@@ -264,4 +266,96 @@ $(document).ready (function() {
 	});
 
 
+
+	/* EDIT MAIN EVENT INFO */
+   
+	$.fn.editableform.buttons =
+		'<button type="submit" class="btn btn-success btn-sm editable-submit">'+
+	    	'<i class="fa fa-fw fa-check"></i>'+
+		'</button>'+
+		'<button type="button" class="btn btn-default btn-sm editable-cancel">'+
+	    	'<i class="fa fa-fw fa-times"></i>'+
+		'</button>';
+
+	//defaults
+	$.fn.editable.defaults.url = '/Ajax/Editable';
+	$.fn.editable.defaults.mode = 'inline';
+
+	var url = location.protocol+'//'+location.hostname+'/pronwe/';
+
+	$('.editable').editable({
+		url: '',
+		emptytext: 'Не заполнено',
+		ajaxOptions: {
+		dataType: 'json'
+		},
+		success: function(data, config) {
+	    	console.log(data);
+		},
+		error: function(data) {
+	    	console.log(data);
+		},
+		validate: function(value) {
+	    	if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+
+	$('#input-event-name').editable({
+		type: 'text',
+		name: 'input-event-name'
+	});
+
+	$('#input-event-description').editable({
+		name: 'input-event-description',
+		inputclass: 'input-large',
+		rows: 7
+	});
+
+	$('#input-event-status').editable({
+		url: '',
+		type: 'select',
+		name: 'input-event-status',
+		emptytext: 'Не заполнено',
+		source: [
+    		{value: 'Международное мероприятие', text: 'Международное мероприятие'},
+    		{value: 'Всероссийское мероприятие', text: 'Всероссийское мероприятие'},
+    		{value: 'Региональное мероприятие', text: 'Региональное мероприятие'},
+    		{value: 'Городское мероприятие', text: 'Городское мероприятие'},
+    		{value: 'Университетское мероприятие', text: 'Университетское мероприятие'},
+    		{value: 'Школьное мероприятие', text: 'Школьное мероприятие'}
+		],
+		ajaxOptions: {
+    		dataType: 'json'
+		},
+		success: function(data, config) {
+    		console.log(data);
+		},
+		error: function(data) {
+    		console.log(data);
+		},
+		validate: function(value) {
+    		if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+
+	$('#input-event-organization').editable({
+		source: [
+              {id: 'gb', text: 'Great Britain'},
+              {id: 'sus', text: 'United States'},
+              {id: 'sd', text: 'United States'},
+           ],
+        select2: {
+			multiple: true,
+			allowClear: true
+        },
+        ajaxOptions: {
+    		dataType: 'json'
+		},
+		success: function(data, config) {
+    		console.log(data);
+		},
+		error: function(data) {
+    		console.log(data);
+		},
+    });
 })
