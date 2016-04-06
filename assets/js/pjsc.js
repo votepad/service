@@ -317,28 +317,29 @@ $(document).ready (function() {
 		name: 'input-event-status',
 		emptytext: 'Не заполнено',
 		source: [
-    		{value: 'Международное мероприятие', text: 'Международное мероприятие'},
-    		{value: 'Всероссийское мероприятие', text: 'Всероссийское мероприятие'},
-    		{value: 'Региональное мероприятие', text: 'Региональное мероприятие'},
-    		{value: 'Городское мероприятие', text: 'Городское мероприятие'},
-    		{value: 'Университетское мероприятие', text: 'Университетское мероприятие'},
-    		{value: 'Школьное мероприятие', text: 'Школьное мероприятие'}
+			{value: 'Международное мероприятие', text: 'Международное мероприятие'},
+			{value: 'Всероссийское мероприятие', text: 'Всероссийское мероприятие'},
+			{value: 'Региональное мероприятие', text: 'Региональное мероприятие'},
+			{value: 'Городское мероприятие', text: 'Городское мероприятие'},
+			{value: 'Университетское мероприятие', text: 'Университетское мероприятие'},
+			{value: 'Школьное мероприятие', text: 'Школьное мероприятие'}
 		],
 		ajaxOptions: {
-    		dataType: 'json'
+			dataType: 'json'
 		},
 		success: function(data, config) {
-    		console.log(data);
+			console.log(data);
 		},
 		error: function(data) {
-    		console.log(data);
+			console.log(data);
 		},
 		validate: function(value) {
-    		if($.trim(value) === '') return 'Заполните поле';
+			if($.trim(value) === '') return 'Заполните поле';
 		}
 	});
 
 	$('#input-event-organization').editable({
+		name:'input-event-organization',
 		source: [
               {id: 'gb', text: 'Great Britain'},
               {id: 'sus', text: 'United States'},
@@ -357,5 +358,104 @@ $(document).ready (function() {
 		error: function(data) {
     		console.log(data);
 		},
+    });
+    
+	moment.lang('ru');
+    $('#input-event-start').editable();
+	$('#input-event-end').editable();
+
+    $('#input-event-city').editable({
+		url: '',
+		type: 'select',
+		name: 'input-event-status',
+		emptytext: 'Не заполнено',
+		source: [
+			{value: 'Санкт-Петербург', text: 'Санкт-Петербург'},
+			{value: 'Москва', text: 'Москва'},
+		],
+		ajaxOptions: {
+			dataType: 'json'
+		},
+		success: function(data, config) {
+			console.log(data);
+		},
+		error: function(data) {
+			console.log(data);
+		},
+		validate: function(value) {
+			if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+
+	$('#input-event-type').editable({
+		url: '',
+		type: 'select',
+		name: 'input-event-status',
+		emptytext: 'Не заполнено',
+		source: [
+			{value: 'Оценивание участников по нескольким критериям на каждом этапе', text: 'Оценивание участников по нескольким критериям на каждом этапе'},
+			{value: 'Оценивание участников по одному критерию на каждом этапе', text: 'Оценивание участников по одному критерию на каждом этапе'},
+		],
+		ajaxOptions: {
+			dataType: 'json'
+		},
+		success: function(data, config) {
+			console.log(data);
+		},
+		error: function(data) {
+			console.log(data);
+		},
+		validate: function(value) {
+			if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
+            var width  = 1024;
+            var height = 768;
+            var size   = 525000; // bytes
+            var file   = input.files[0];
+            function errType () {
+                alert('Error type ...');
+                input.value = '';
+            }
+            function errSize () {
+                alert('Error size ...');
+                input.value = '';
+            }
+            function errWidth() {
+                alert('Error width ...');
+                input.value = '';
+            }
+            function errHeight() {
+                alert('Error height ...');
+                input.value = '';
+            }
+            if (type.indexOf(file.type) == -1) {
+                errType ();
+                return false;
+            } else if (file.size > size) {
+                errSize();
+                return false;
+            } else if (file.width < width) {
+                errWidth();
+                return false;
+            } else if (file.height < height) {
+                errHeight();
+                return false;
+            } else {
+                var reader = new FileReader();            
+                    reader.onload = function (e) {
+                        $('#image').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+    
+    $("#choose-image").change(function(){
+        readURL(this);
     });
 })

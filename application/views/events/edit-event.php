@@ -1,80 +1,78 @@
 <section>
    <div class="content-wrapper">
-      <h3>Редактирование информации о мероприятии <a id="input-event-name" class="editable"><?=$event['title']; ?></a></h3>
+      <h3>Редактирование информации о мероприятии "<a id="input-event-name" class="editable"><?=$event['title']; ?></a>"</h3>
       <!-- EDIT MAIN EVENT INFO -->
       <div class="panel-group">
          <div class="panel panel-default">
             <div class="panel-heading panel-title" style="font-size: 1.2em"><a data-toggle="collapse" data-parent="#accordion" href="#eventinfo" aria-expanded="true" aria-controls="eventinfo" id="main-info">Основная информация о мероприятии</a></div>
-            <div id="eventinfo" role="tabpanel" aria-labelledby="headingOne" class="panel-collapse collapse in">
+            <div id="eventinfo" role="tabpanel" aria-labelledby="headingOne" class="panel-collapse collapse">
                <div class="panel-body">
-                  <div class="form-horizontal">
-                     <div class="form-group">
-                        <label for="input-event-description" class="col-md-2 control-label">Описание</label>
-                        <div class="col-md-10">
-                           <a id="input-event-description" data-type="textarea" class="editable"><?=$event['description']; ?></a>
+                  <div class="col-md-8">
+                     <div class="form-horizontal">
+                        <div class="form-group">
+                           <label for="input-event-description" class="col-md-4 control-label">Описание</label>
+                           <div class="col-md-8">
+                              <a id="input-event-description" data-type="textarea" class="editable control-size"><?=$event['description']; ?></a>
+                           </div>
                         </div>
-                     </div>
 
-                     <div class="form-group">
-                        <label for="input-event-status" class="col-md-2 control-label">Статус</label>
-                        <div class="col-md-10">
-                           <a id="input-event-status" ><?=$event['event_status'] ;?></a>
+                        <div class="form-group">
+                           <label for="input-event-status" class="col-md-4 control-label">Статус мероприятия</label>
+                           <div class="col-md-8">
+                              <a id="input-event-status"><?=$event['event_status'] ;?></a>
+                           </div>
                         </div>
-                     </div>
 
-                     <div class="form-group">
-                        <label for="input-event-organization" class="col-md-2 control-label">Организации</label>
-                        <div class="col-md-10">
-                           <a id="input-event-organization" data-type="select2"> </a>
+                        <div class="form-group">
+                           <label for="input-event-organization" class="col-md-4 control-label">Мероприятие организуют</label>
+                           <div class="col-md-8">
+                              <a id="input-event-organization" data-type="select2"> </a>
+                           </div>
+                        </div>
+
+                        <div class="form-group">
+                           <label for="input-event-start" class="col-md-4 control-label">Мероприятие начнется</label>
+                           <div class="col-md-8">
+                              <a id="input-event-start" data-type="combodate" data-template="D MMM YYYY  HH:mm" data-format="YYYY-MM-DD HH:mm" data-viewformat=" D MMM YYYY в HH:mm" class="editable" data-combodate='{"minYear": "2016", "maxYear": "2026"}'><?=$event['start_datetime']; ?></a>
+                           </div>
+                        </div>
+
+                        <div class="form-group">
+                           <label for="input-event-end" class="col-md-4 control-label">Мероприятие завершится</label>
+                           <div class="col-md-8">
+                              <a id="input-event-end" data-type="combodate" data-template="D MMM YYYY в HH:mm" data-format="D MMM YYYY в HH:mm" data-viewformat=" D MMM YYYY в HH:mm" class="editable" data-combodate='{"minYear": "2016", "maxYear": "2026"}'><?=$event['finish_datetime']; ?></a>
+                           </div>
+                        </div>
+
+                        <div class="form-group">
+                           <label for="input-event-city" class="mylabel col-md-4 control-label">Мероприятие пройдет в</label>
+                           <div class="col-md-8">
+                              <a id="input-event-city"><?=$event['city']; ?></a>
+                           </div>
+                        </div>
+
+                        <div class="form-group">
+                           <label for="input-event-type" class="mylabel col-md-4 control-label">Тип мероприятия</label>
+                           <div class="col-md-8">
+                              <a id="input-event-type"><?=$event['type']; ?></a>
+                           </div>
                         </div>
                      </div>
                   </div>
-                     
-                     <br>
-                     <div class="form-group">                 
-                        <label for="input-event-start" class="mylabel col-md-2 control-label">Дата начала мероприятия</label>
-                        <div class="col-md-2">
-                           <input name="input-event-start" type="text" data-validation="date" data-validation-format="dd.mm.yyyy" data-validation-help="дд.мм.гггг" data-validation-error-msg="Введите в формате дд.мм.гггг" class="has-help-txt form-control" value="<?=$event['start_date']; ?>">
+                  <div class="col-md-4 text-center">
+                     <form id="image-upload" method="POST">
+                        <div class="">
+                            <img id="image" src="<?=$assets; ?>img/user/no-user.png" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px logo-preview">
                         </div>
-                        <label for="input-event-start-time" class="mylabel col-md-2 control-label">Время начала мероприятия</label>
-                        <div class="col-md-2">
-                           <input name="input-event-start-time" type="text" data-validation="time" data-validation-help="ЧЧ:ММ" data-validation-error-msg="Введите в формате ЧЧ:ММ" class="has-help-txt form-control" maxlength="5" value="<?=$event['start_time']; ?>">
+                        <div class="btn_area">
+                            <input id="choose-image" type="file" tabindex="-1" onchange="readURL(this)" class="logo-input">
+                            <label for="choose-image" class="btn btn-default fileinput-button">
+                                <span class="fa fa-folder-open"></span>
+                                <span class="buttonText">Обновить фото</span>
+                            </label>
                         </div>
-                        <label for="input-event-end" class="mylabel col-md-2 control-label">Окачание мероприятия</label>
-                        <div class="col-md-2">
-                           <input name="input-event-end" type="text" data-validation="date" data-validation-format="dd.mm.yyyy" data-validation-help="дд.мм.гггг" data-validation-error-msg="Введите в формате дд.мм.гггг" class="has-help-txt form-control" value="<?=$event['finish_date']; ?>">
-                        </div>
-                     </div>
-                     <div class="form-group">
-                        <label for="input-event-city" class="mylabel col-md-2 control-label">Город</label>
-                        <div class="col-md-10 ">
-                           <select name="input-event-city" data-validation="length" data-validation-length="min1" data-validation-error-msg="Выберите город" class="chosen-select form-control">
-                              <option value=""></option>
-                              <option value="SPb">Санкт-Петербург</option>
-                              <option value="Moscow">Москва</option>
-                              <!-- и так далее, делаем запрос из бд,, где располагаются города РФ  -->
-                           </select>
-                        </div>
-                     </div>
-                     <div class="form-group btn_area">
-                        <label for="input-event-type" class="mylabel col-md-2 control-label">Тип мероприятия</label>
-                        <div class="col-md-10">
-                           <select id="1" name="input-event-type" data-validation="length" data-validation-length="min1" data-validation-error-msg="Выберите тип" class="form-control">
-                              <!-- для value: XYZ == этап(X) участник(Y) критерии(Z) -->
-                              <option value=""></option>
-                              <option value="11N">На каждом этапе один участник оценивается по нескольким критериям, затем следует второй участник и т.д.</option>
-                              <option value="1N1">На каждом этапе несколько участников оцениваются по 1 критерию, затем следующий этап.</option>
-                           </select>
-                           <span class="pronwe_comment help-block m-b-none">*Вы можете предложить свой тип мероприятия, отправив подробное описание типа на support@pronwe.ru.</span>
-                        </div>
-                     </div>
-                     <div class="col-md-4 col-sm-5 btn_area">
-                        <button type="button" id="update-photo" class="btn btn-primary">Выберите фотографию</button>
-                     </div>
-                     <div class="col-md-4 col-sm-5 col-sm-offset-2 col-md-offset-4" style="margin-top: 1em">
-                        <input type="submit" class="btn btn-primary" value="Сохранить" id="main-info-save" disabled>
-                     </div>
-                  
+                     </form>
+                  </div>
                </div>
             </div>
          </div>

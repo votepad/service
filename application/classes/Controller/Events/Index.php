@@ -43,6 +43,8 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->css, 'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css');
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js');
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
+        array_push( $this->js,  'vendor/moment/min/moment.js');
+        array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
         array_push( $this->css, 'vendor/select2/dist/css/select2.css');
         array_push( $this->js,  'vendor/select2/dist/js/select2.js');
         array_push( $this->js,  'js/pjsc.js');
@@ -103,8 +105,9 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->css, 'vendor/chosen_v1.2.0/chosen.min.css');
         array_push( $this->js,  'vendor/chosen_v1.2.0/chosen.jquery.min.js');
         array_push( $this->js,  'vendor/jquery-validation/dist/jquery.validate.js');
-        array_push( $this->css, 'vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css');
-        array_push( $this->js,  'vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js');
+        array_push( $this->js,  'vendor/combodate/combodate.js');
+        array_push( $this->js,  'vendor/moment/min/moment.js');
+        array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
         array_push( $this->js,  'js/event.js');
 
         $this->template->aside      = View::factory('aside');

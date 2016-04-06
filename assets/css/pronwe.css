@@ -58,3 +58,26 @@ ul{
 	background-color: #BDBDBD;
     border-color: #757575;
 }
+.date-inline{
+	vertical-align: top;
+    display: inline-block;
+    width: auto;
+    white-space: normal;
+    zoom: 1;
+}
+.form-control-1, .form-control-2{
+	width: auto;
+    display: inline;
+    height: 35px;
+    padding: 6px 16px;
+    color: #3a3f51;
+    background-color: #fff;
+    border: 1px solid #dde6e9;
+    border-radius: 4px;
+}
+.error-border{
+	border-color: rgb(185, 74, 72);
+}
+.success-border{
+	border-color:#27c24c;
+}

@@ -64,3 +64,21 @@ fieldset{
   height: 35px !important;
   font-size: 14px !important;
 }
+.form-horizontal .control-label {
+  padding-top: 5px;
+}
+.control-size{
+  max-width: 280px; 
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+.logo-preview{
+  width:150px; 
+  height: 150px; 
+  border-radius:10%; 
+  margin:0 auto;
+}
+.logo-input{
+  position: absolute; 
+  clip: rect(0px 0px 0px 0px);
+}
