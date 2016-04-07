@@ -71,4 +71,23 @@ class Model_Stages extends Model {
         $select = DB::select()->from('Criteria')->where('id_stage', '=', $id_stage)->execute()->as_array();
         return $select;
     }
+
+    public static function updateStageByFieldName($field, $value, $id)
+    {
+        $update = DB::update('Stages')->set(array(
+            $field  => $value
+        ))->where('id', '=', $id)->execute();
+
+        return $update;
+    }
+
+    public static function updateCriteriaByFieldName($field, $value, $id)
+    {
+        $update = DB::update('Criteria')->set(array(
+            $field  => $value
+        ))->where('id', '=', $id)->execute();
+
+        return $update;
+    }
+
 }

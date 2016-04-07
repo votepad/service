@@ -45,4 +45,13 @@ class Model_Events extends Model {
     {
         return self::getAll();
     }
+
+    public static function updateEventByFieldName($field, $value, $id)
+    {
+        $update = DB::update('Events')->set(array(
+            $field  => $value
+        ))->where('id', '=', $id)->execute();
+
+        return $update;
+    }
 }

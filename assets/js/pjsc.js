@@ -284,13 +284,13 @@ $(document).ready (function() {
 	var url = location.protocol+'//'+location.hostname+'/pronwe/';
 
 	$('.editable').editable({
-		url: '',
+		url: url+'/updateEventsSubstance/updateeventinfo/',
 		emptytext: 'Не заполнено',
 		ajaxOptions: {
 		dataType: 'json'
 		},
 		success: function(data, config) {
-		console.log(data);
+			console.log(data);
 		},
 		error: function(data) {
 			console.log(data);
@@ -298,16 +298,6 @@ $(document).ready (function() {
 		validate: function(value) {
 			if($.trim(value) === '') return 'Заполните поле';
 		}
-	});
-
-	$('#input-event-name').editable({
-		type: 'text',
-		name: 'input-event-name'
-	});
-
-	$('#input-event-description').editable({
-		name: 'input-event-description',
-		rows: 7
 	});
 
 	$('#input-event-status').editable({
@@ -360,8 +350,6 @@ $(document).ready (function() {
     });
     
 	moment.lang('ru');
-    $('#input-event-start').editable();
-	$('#input-event-end').editable();
 
     $('#input-event-city').editable({
 		url: '',
@@ -461,15 +449,16 @@ $(document).ready (function() {
 
     /* PARTICIPANT EDITABLE */
 	$('.editable-part').editable({
-		url: '',
+		url: url+'/updateEventsSubstance/updateparticipant/',
 		emptytext: 'Не заполнено',
 		ajaxOptions: {
 		dataType: 'json'
 		},
 		success: function(data, config) {
-		console.log(data);
+			console.log(data);
 		},
 		error: function(data) {
+
 			console.log(data);
 		},
 		validate: function(value) {
@@ -478,13 +467,13 @@ $(document).ready (function() {
 	});
 	/* JUDGE EDITABLE */
 	$('.editable-judge').editable({
-		url: '',
+		url: url+'/updateEventsSubstance/updatejudge/',
 		emptytext: 'Не заполнено',
 		ajaxOptions: {
 		dataType: 'json'
 		},
 		success: function(data, config) {
-		console.log(data);
+			console.log(data);
 		},
 		error: function(data) {
 			console.log(data);
@@ -495,7 +484,7 @@ $(document).ready (function() {
 	});
 	/* STAGE EDITABLE */
 	$('.editable-stage').editable({
-		url: '',
+		url: url+'/updateEventsSubstance/updatestage/',
 		emptytext: 'Не заполнено',
 		ajaxOptions: {
 		dataType: 'json'
@@ -512,7 +501,7 @@ $(document).ready (function() {
 	});
 	/* CRITERION EDITABLE */
 	$('.editable-criterion').editable({
-		url: '',
+		url: url+'/updateEventsSubstance/updatecriteria/',
 		emptytext: 'Не заполнено',
 		ajaxOptions: {
 		dataType: 'json'

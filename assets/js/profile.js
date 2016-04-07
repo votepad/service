@@ -63,7 +63,8 @@
                 dataType: 'json'
             },
             success: function(data, config) {
-                console.log(data);
+                alert(data);
+                //console.log(data);
             },
             error: function(data) {
                 console.log(data);

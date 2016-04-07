@@ -1,6 +1,6 @@
 <section>
    <div class="content-wrapper">
-      <h3>Редактирование информации о мероприятии "<a id="input-event-name" class="editable"><?=$event['title']; ?></a>"</h3>
+      <h3>Редактирование информации о мероприятии "<a  data-name="title" data-type="text" class="editable" data-pk="<?=$event['id']; ?>"><?=$event['title']; ?></a>"</h3>
       <!-- EDIT MAIN EVENT INFO -->
       <div class="panel-group">
          <div class="panel panel-default">
@@ -12,7 +12,7 @@
                         <div class="form-group">
                            <label for="input-event-description" class="col-md-4 control-label">Описание</label>
                            <div class="col-md-8">
-                              <a id="input-event-description" data-type="textarea" class="editable control-size"><?=$event['description']; ?></a>
+                              <a data-name="description" data-type="textarea" class="editable control-size" data-pk="<?=$event['id']; ?>"><?=$event['description']; ?></a>
                            </div>
                         </div>
 
@@ -33,7 +33,7 @@
                         <div class="form-group">
                            <label for="input-event-start" class="col-md-4 control-label">Мероприятие начнется</label>
                            <div class="col-md-8">
-                              <a id="input-event-start" data-type="combodate" data-template="D MMM YYYY  HH:mm" data-format="YYYY-MM-DD HH:mm" data-viewformat=" D MMM YYYY в HH:mm" class="editable" data-combodate='{"minYear": "2016", "maxYear": "2026"}'><?=$event['start_datetime']; ?></a>
+                              <a data-type="combodate" data-template="D MMM YYYY  HH:mm" data-format="YYYY-MM-DD HH:mm" data-viewformat=" D MMM YYYY в HH:mm" class="editable" data-combodate='{"minYear": "2016", "maxYear": "2026"}'><?=$event['start_datetime']; ?></a>
                            </div>
                         </div>
 
@@ -120,10 +120,10 @@
                                                 </div>
                                              </td>
                                              <td style="width: 40%">
-                                                <a class="editable-part" data-type="text"><?=$participants[$i]['name']; ?></a>
+                                                <a class="editable-part" data-name="name" data-type="text" data-pk="<?=$participants[$i]['id']; ?>" ><?=$participants[$i]['name']; ?></a>
                                              </td>
                                              <td style="width: 50%">
-                                                <a class="editable-part control-size" data-type="textarea"><?=$participants[$i]['description']; ?></a>
+                                                <a class="editable-part control-size" data-name="description" data-type="textarea" data-pk="<?=$participants[$i]['id']; ?>"><?=$participants[$i]['description']; ?></a>
                                              </td>
                                              <td class="text-center">
                                                 <a href='#'>
@@ -182,13 +182,13 @@
                                                 </div>
                                              </td>
                                              <td style="width: 30%">
-                                                <a class="editable-judge" data-type="text"><?=$judges[$i]['name']; ?></a>
+                                                <a class="editable-judge" data-name="name" data-type="text" data-pk="<?=$judges[$i]['id']; ?>"><?=$judges[$i]['name']; ?></a>
                                              </td>
                                              <td style="width: 30%">
-                                                <a class="editable-judge" data-type="email"><?=$judges[$i]['email']; ?></a>
+                                                <a class="editable-judge" data-name="email" data-type="email" data-pk="<?=$judges[$i]['id']; ?>"><?=$judges[$i]['email']; ?></a>
                                              </td>
                                              <td style="width: 30%">
-                                                <a class="editable-judge" data-type="text"><?=$judges[$i]['position']; ?></a>
+                                                <a class="editable-judge" data-name="position" data-type="text" data-pk="<?=$judges[$i]['id']; ?>"><?=$judges[$i]['position']; ?></a>
                                              </td>
                                              <td class="text-center">
                                                 <a href='#'>
@@ -246,10 +246,10 @@
                                           <?php $criterias = Model_Stages::getCriteriasByStageId($stages[$i]['id']); ?>
                                           <tr>
                                              <td style="width: 25%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
-                                                <a class="editable-criterion" data-type="text"><?=$stages[$i]['name']; ?></a>
+                                                <a class="editable-stage" data-name="name" data-type="text" data-pk="<?=$stages[$i]['id']; ?>"><?=$stages[$i]['name']; ?></a>
                                              </td>
                                              <td style="width: 30%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
-                                                <a class="editable-criterion" data-type="textarea"><?=$stages[$i]['description']; ?></a>
+                                                <a class="editable-stage" data-name="description" data-type="textarea" data-pk="<?=$stages[$i]['id']; ?>"><?=$stages[$i]['description']; ?></a>
                                              </td>
                                              <td class="text-center" style="width: 5%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
                                                 <a href='#'>
@@ -260,11 +260,11 @@
                                           <? for($j = 0; $j < count($criterias); $j++) : ?>
                                              <tr>
                                                 <td style="width: 35%" >
-                                                   <a class="editable-stage" data-type="text"><?=$criterias[$j]['name']; ?></a>
+                                                   <a class="editable-criterion" data-name="name" data-type="text" data-pk="<?=$criterias[$j]['id']; ?>"><?=$criterias[$j]['name']; ?></a>
                                                 
                                                 </td>
                                                 <td class="text-center" style="width: 5%">
-                                                   <a class="editable-stage" data-type="number"><?=$criterias[$j]['maxscore']; ?></a>
+                                                   <a class="editable-criterion" data-name="maxscore" data-type="number" data-pk="<?=$criterias[$j]['id']; ?>"><?=$criterias[$j]['maxscore']; ?></a>
                                                 </td>
                                                 <td class="text-center" style="width: 5%">
                                                 <a href='#'>
