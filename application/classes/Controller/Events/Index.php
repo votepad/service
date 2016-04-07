@@ -46,7 +46,8 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'vendor/moment/min/moment.js');
         array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
         array_push( $this->css, 'vendor/select2/dist/css/select2.css');
-        array_push( $this->js,  'vendor/select2/dist/js/select2.js');
+        array_push( $this->js,  'vendor/select2/dist/js/select2.full.js');
+
         array_push( $this->js,  'js/pjsc.js');
 
         $this->template->css = $this->css;

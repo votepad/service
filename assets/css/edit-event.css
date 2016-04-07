@@ -1,5 +1,5 @@
 .participant-list li, .judge-list li, .stage-list li, .stage-list1 li{
-	margin-bottom:1em;
+	margin-top: 1em;
 }
 
 .criterion-list{
@@ -48,7 +48,7 @@ ul{
   display: inline-block; 
   float: left; 
   margin-right: 1em; 
-  background-image: url(../img/no-photo.png); 
+  background-image: url(img/no-photo.png); 
   background-size: 210px, auto; 
   background-position: 50% 50%, 50% 50%;
 }
@@ -81,4 +81,11 @@ fieldset{
 .logo-input{
   position: absolute; 
   clip: rect(0px 0px 0px 0px);
+}
+.icon-remove {
+    color: #f47f7f;
+    font-size: 1.7em;
+}
+.icon-remove:hover{
+  color:#ec2121;
 }

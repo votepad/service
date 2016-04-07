@@ -26,7 +26,7 @@
                         <div class="form-group">
                            <label for="input-event-organization" class="col-md-4 control-label">Мероприятие организуют</label>
                            <div class="col-md-8">
-                              <a id="input-event-organization" data-type="select2"> </a>
+                              <a id="input-event-organization" data-type="select2"></a>
                            </div>
                         </div>
 
@@ -96,47 +96,49 @@
                      </ul>
                      <!-- Tab panes-->
                      <div class="tab-content">
+                        <!-- START PARTICIPANT -->
                         <div id="participant" role="tabpanel" class="tab-pane active">
-                              <!-- START PARTICIPANT -->
-                              <div style="position: relative;">
-                                 <h4 class="text-center">Радактирование участников мероприятия</h4>
-                                 <fieldset>
-                                    <ul class="added_participants">
-                                       <!-- already added participant -->
+                           <div style="position: relative;">
+                              <h4 class="text-center">Радактирование участников мероприятия</h4>
+                              <fieldset>
+                                 <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                       <tr>
+                                          <th class="text-center">Фото</th>
+                                          <th class="text-center">ФИО участника</th>
+                                          <th class="text-center">Описание участника</th>
+                                          <th class="text-center">Удаление</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody class="added_participants">
+                                       <!-- ADDED PARTICIPANT -->
                                        <? for($i = 0; $i < count($participants); $i++): ?>
-                                          <li>
-                                             <div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'>
-                                                <div id='participant_" + participant_list_counter + "' role='tab' class='panel-heading'>
-                                                   <h4 class='panel-title'><?=$participants[$i]['name']; ?>
-                                                      <a type='button' class='pull-right delete-participant' title='Удалить участника' >
-                                                         <em class='fa fa-times'></em>
-                                                      </a>
-                                                   </h4>
+                                          <tr>
+                                             <td style="width: 5%">
+                                                <div class="media">
+                                                   <img src="<?=URL::base().'uploads/' . $participants[$i]['photo']; ?>" class="img-responsive img-circle">
                                                 </div>
-                                                <div id='description_" + participant_list_counter + "' class='panel-collapse'>
-                                                   <div class='panel-body'><div class='col-md-6 btn_area'>
-                                                         <textarea style='resize: none;' name='' placeholder='Описание участника, его достижения и др.' class='form-control error' aria-required='true' maxlength='1000' rows='6' required ><?=$participants[$i]['description']; ?></textarea>
-                                                      </div>
-                                                      <div class='col-md-3 btn_area text-center'>
-                                                         <label>Выберите фотографию участника</label><br>
-                                                         <small>допустимые форматы jpeg,png,gif</small>
-                                                         <div class='col-md-12 btn_area'><label for='participant_photo' class='btn btn-primary btn-add-photo'>Выберите фото</label>
-                                                         </div>
-                                                      </div>
-                                                      <div class='col-md-3 btn_area text-center'><div class='file-upload' id=''>
-                                                            <img src="<?=URL::base().'uploads/' . $participants[$i]['photo']; ?>" width="150px" height="150px" alt="">
-                                                         </div>
-                                                      </div>
-                                                   </div>
-                                                </div>
-                                             </div>
-                                          </li>
+                                             </td>
+                                             <td style="width: 40%">
+                                                <a class="editable-part" data-type="text"><?=$participants[$i]['name']; ?></a>
+                                             </td>
+                                             <td style="width: 50%">
+                                                <a class="editable-part control-size" data-type="textarea"><?=$participants[$i]['description']; ?></a>
+                                             </td>
+                                             <td class="text-center">
+                                                <a href='#'>
+                                                   <em class="fa fa-remove icon-remove"></em>
+                                                </a>
+                                             </td>
+                                          </tr>
                                        <? endfor; ?>
+                                    </tbody>
+                                 </table>
+                                       
+                                 <form action="<?=URL::site('events/addparticipants/'. $event['id']); ?>" method="post" id="participant-info" role="form" class="form-horizontal" enctype="multipart/form-data">
+                                    <ul class="participant-list">
+                                    <!-- NEW PARTICIPANTS -->
                                     </ul>
-                                    <form action="<?=URL::site('events/addparticipants/'. $event['id']); ?>" method="post" id="participant-info" role="form" class="form-horizontal" enctype="multipart/form-data">
-                                       <ul class="participant-list">
-                                       <!-- JS added Participants -->
-                                       </ul>
                                     <div class="col-md-8 btn_area">
                                        <div class="input-group">
                                           <input id="name-participant" type="text" placeholder="ФИО участника" class="form-control">
@@ -150,145 +152,153 @@
                                           <button type="submit" id="save_participants" class="btn btn-primary btn-submit-participant" disabled>Сохранить</button>
                                        </div>
                                     </div>
-                                 </fieldset>
-                              </div>
-                              <!-- END PARTICIPANT -->
-                           </form>
+                                 </form>
+                              </fieldset>
+                           </div>
                         </div>
+                        
+                        <!-- START JUDGE -->
                         <div id="judge" role="tabpanel" class="tab-pane">
-
-                              <!-- START JUDGE -->
-                              <div style="position: relative;">
-                                 <h4 class="text-center">Радактирование жюри мероприятия</h4>
-                                 <ul class="added_judges">
-                                    <? for($i = 0; $i < count($judges); $i++): ?>
-                                       <li>
-                                          <div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'>
-                                             <div role='tab' class='panel-heading'>
-                                                <h4 class='panel-title'> <?=$judges[$i]['name']; ?>
-                                                   <a type='button' class='pull-right delete-judge' title='Удалить члена жюри'>
-                                                      <em class='fa fa-times'></em>
-                                                   </a>
-                                                </h4>
-                                             </div>
-                                             <div role='tabpanel' class='panel-collapse'>
-                                                <div class='panel-body'>
-                                                   <div class='col-md-6 btn_area'><input name='' type='email' placeholder='Укажите e-mail члена жюри' class='form-control btn_area' value="<?=$judges[$i]['email']; ?>"required>
-                                                      <input type='text' placeholder='Укажите кем является член жюри' class='form-control btn_area' value="<?=$judges[$i]['position']; ?>" required>
-                                                   </div>
-                                                   <div class='col-md-3 btn_area text-center'>
-                                                      <label>Выберите фотографию жюри</label><br>
-                                                      <small>допустимые форматы jpeg,png,gif</small>
-                                                      <div class='col-md-12 btn_area'><label class='btn btn-primary btn-add-photo'>Выберите фото</label>
-                                                      </div>
-                                                   </div>
-                                                   <div class='col-md-3 btn_area text-center'>
-                                                      <div class='file-upload' >
-                                                         <img src="<?=URL::base().'uploads/' . $judges[$i]['photo']; ?>" width="150px" height="150px" alt="">
-                                                      </div>
-                                                   </div>
+                           <div style="position: relative;">
+                              <h4 class="text-center">Радактирование жюри мероприятия</h4>
+                              <fieldset>
+                                 <table class="table table-bordered table-striped table-hover">
+                                    <thead>
+                                       <tr>
+                                          <th class="text-center">Фото</th>
+                                          <th class="text-center">ФИО жюри</th>
+                                          <th class="text-center">Емайл жюри</th>
+                                          <th class="text-center">Описание жюри</th>
+                                          <th class="text-center">Удаление</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody class="added_judges">
+                                       <!-- ADDED JUDGE -->
+                                       <? for($i = 0; $i < count($judges); $i++): ?>
+                                          <tr>
+                                             <td style="width: 5%">
+                                                <div class="media">
+                                                   <img src="<?=URL::base().'uploads/' . $judges[$i]['photo']; ?>" class="img-responsive img-circle">
                                                 </div>
-                                             </div>
-                                          </div>
-                                       </li>
-
-                                    <? endfor; ?>
-                                 </ul>
-                                 <form action="<?=URL::site('events/addjudge/' . $event['id'] ); ?>" method="POST" id="judge-info" role="form" class="form-horizontal" enctype="multipart/form-data">
-                                    <fieldset style="position:relative;">
-                                       <ul class="judge-list">
-                                          <!-- judge -->
-                                       </ul>
-                                       <div class="col-md-8 btn_area">
-                                          <div class="input-group">
-                                             <input id="name-judge" type="text" placeholder="ФИО жюри" class="form-control">
-                                             <div class="input-group-btn">
-                                                <button type="button" id="add-judge-btn" class="btn btn-primary">Добавить</button>
-                                             </div>
-                                          </div>
-                                       </div>
-                                       <div class="col-md-3 col-md-offset-1">
-                                          <div class="btn_area">
-                                             <button type="submit" class="btn btn-primary btn-submit-judge" disabled>Сохранить</button>
-                                          </div>
-                                       </div>
-                                    </fieldset>
-                                 </div>
-                              <!-- END JUDGE -->
-                              </form>
-                        </div>
-                        <div id="stage" role="tabpanel" class="tab-pane">
-                              <!-- START STAGE -->
-                              <div style="position: relative;">
-                                 <h4 class="text-center">Радактирование этапов и критериев мероприятия</h4>
-                                 <ul class="stage-list1">
-                                    <? for($i = 0; $i < count($stages); $i++) : ?>
-                                    <li>
-                                       <div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'>
-                                          <div role='tab' class='panel-heading'>
-                                             <h4 class='panel-title'>
-                                                <a><?=$stages[$i]['name']; ?></a>
-                                                <a type='button' class='pull-right delete-stage' title='Удалить этап'>
-                                                   <em class='fa fa-times'></em>
+                                             </td>
+                                             <td style="width: 30%">
+                                                <a class="editable-judge" data-type="text"><?=$judges[$i]['name']; ?></a>
+                                             </td>
+                                             <td style="width: 30%">
+                                                <a class="editable-judge" data-type="email"><?=$judges[$i]['email']; ?></a>
+                                             </td>
+                                             <td style="width: 30%">
+                                                <a class="editable-judge" data-type="text"><?=$judges[$i]['position']; ?></a>
+                                             </td>
+                                             <td class="text-center">
+                                                <a href='#'>
+                                                   <em class="fa fa-remove icon-remove"></em>
                                                 </a>
-                                             </h4>
-                                          </div>
-                                          <div >
-                                             <div class='panel-body'>
-                                                <textarea rows='4' maxlength='1000' style='resize: none;' placeholder='Описание этапа' class='form-control' required>
-                                                   <?=$stages[$i]['description']; ?>
-                                                </textarea>
-                                                <ul>
-                                                   <?php
-                                                      $criterias = Model_Stages::getCriteriasByStageId($stages[$i]['id']);
-                                                      for($j = 0; $j < count($criterias); $j++):
-                                                   ?>
-                                                   <!-- criterions -->
-                                                   <fieldset class='btn_area'>
-                                                   </fieldset>
-                                                   <fieldset class='row' >
-                                                      <div class='col-md-6 btn_area'>
-                                                         <input type='text' placeholder='Название критерия' class='form-control' maxlength='500' value="<?=$criterias[$j]['name']; ?>" required>
-                                                      </div>
-                                                      <div class='col-xs-10 col-sm-10 col-md-5 btn_area'>
-                                                         <input type='number' placeholder='Максимальный балл' class='form-control' value="<?=$criterias[$j]['maxscore']; ?>"required>
-                                                      </div>
-                                                      <div class='col-md-1 col-xs-2 btn_area'>
-                                                         <a type='button' id='btn-add-criterion_"+stage_list_counter+"' class='btn-add-criterion btn btn-primary'>
-                                                            <i class='fa fa-plus'></i>
-                                                         </a>
-                                                      </div>
-                                                   </fieldset>
-                                                   <? endfor; ?>
-                                                </ul>
-                                             </div>
-                                          </div>
-                                    </li>
-                                    <? endfor; ?>
-                                 </ul>
-
-                                 <form id="stage-info" name="stage-info" role="form" class="form-horizontal" action="<?=URL::site('events/addStage/' . $event['id'] ); ?>" method="POST" enctype="multipart/form-data">
-                                 <fieldset style="position:relative;">
-                                    <ul class="stage-list">
-                                       <!-- stage -->
+                                             </td>
+                                          </tr>
+                                       <? endfor; ?>
+                                    </tbody>
+                                 </table>
+                                 <form action="<?=URL::site('events/addjudge/' . $event['id'] ); ?>" method="POST" id="judge-info" role="form" class="form-horizontal" enctype="multipart/form-data">
+                                    <ul class="judge-list">
+                                       <!-- NEW JUDGES -->
                                     </ul>
                                     <div class="col-md-8 btn_area">
                                        <div class="input-group">
-                                          <input id="name-stage" type="text" placeholder="Название этапа" class="form-control">
+                                          <input id="name-judge" type="text" placeholder="ФИО жюри" class="form-control">
                                           <div class="input-group-btn">
-                                             <button type="button" id="add-stage-btn" class="btn btn-primary">Добавить</button>
+                                             <button type="button" id="add-judge-btn" class="btn btn-primary">Добавить</button>
                                           </div>
                                        </div>
                                     </div>
                                     <div class="col-md-3 col-md-offset-1">
                                        <div class="btn_area">
-                                          <button type="submit" class="btn btn-primary btn-submit-stage" disabled>Сохранить</button>
+                                          <button type="submit" class="btn btn-primary btn-submit-judge" disabled>Сохранить</button>
                                        </div>
                                     </div>
-                                 </fieldset>
+                                 </form>
+                              </fieldset>
+                           </div>
+                        </div>
+
+                        <!-- START STAGE -->
+                        <div id="stage" role="tabpanel" class="tab-pane">
+                           <div style="position: relative;">
+                              <h4 class="text-center">Радактирование этапов и критериев мероприятия</h4>
+                              <fieldset>
+                                 <table class="table table-bordered table-hover">
+                                    <thead>
+                                       <tr>
+                                          <th class="text-center" rowspan="2">Название этапа</th>
+                                          <th class="text-center" rowspan="2">Описание этапа</th>
+                                          <th class="text-center" rowspan="2">Удалить</th>
+                                          <th class="text-center" colspan="3">Критерии</th>
+                                       </tr>
+                                       <tr>
+                                          <th class="text-center">Критерии</th>
+                                          <th class="text-center">Max балл</th>
+                                          <th class="text-center">Удалить</th>
+                                       </tr>
+                                    </thead>
+                                    <tbody class="stage-list1">
+                                       <!-- ADDED STAGE -->
+                                       <? for($i = 0; $i < count($stages); $i++) : ?>
+                                          <?php $criterias = Model_Stages::getCriteriasByStageId($stages[$i]['id']); ?>
+                                          <tr>
+                                             <td style="width: 25%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
+                                                <a class="editable-criterion" data-type="text"><?=$stages[$i]['name']; ?></a>
+                                             </td>
+                                             <td style="width: 30%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
+                                                <a class="editable-criterion" data-type="textarea"><?=$stages[$i]['description']; ?></a>
+                                             </td>
+                                             <td class="text-center" style="width: 5%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
+                                                <a href='#'>
+                                                   <em class="fa fa-remove icon-remove"></em>
+                                                </a>
+                                             </td>
+                                          </tr>
+                                          <? for($j = 0; $j < count($criterias); $j++) : ?>
+                                             <tr>
+                                                <td style="width: 35%" >
+                                                   <a class="editable-stage" data-type="text"><?=$criterias[$j]['name']; ?></a>
+                                                
+                                                </td>
+                                                <td class="text-center" style="width: 5%">
+                                                   <a class="editable-stage" data-type="number"><?=$criterias[$j]['maxscore']; ?></a>
+                                                </td>
+                                                <td class="text-center" style="width: 5%">
+                                                <a href='#'>
+                                                   <em class="fa fa-remove icon-remove"></em>
+                                                </a>
+                                             </td>
+                                             </tr>
+                                          <? endfor; ?>
+                                       <? endfor; ?>
+                                    </tbody>
+                                 </table>
+                              
+                                 <form id="stage-info" name="stage-info" role="form" class="form-horizontal" action="<?=URL::site('events/addStage/' . $event['id'] ); ?>" method="POST" enctype="multipart/form-data">
+                                    <fieldset style="position:relative;">
+                                       <ul class="stage-list">
+                                          <!-- NEW STAGE -->
+                                       </ul>
+                                       <div class="col-md-8 btn_area">
+                                          <div class="input-group">
+                                             <input id="name-stage" type="text" placeholder="Название этапа" class="form-control">
+                                             <div class="input-group-btn">
+                                                <button type="button" id="add-stage-btn" class="btn btn-primary">Добавить</button>
+                                             </div>
+                                          </div>
+                                       </div>
+                                       <div class="col-md-3 col-md-offset-1">
+                                          <div class="btn_area">
+                                             <button type="submit" class="btn btn-primary btn-submit-stage" disabled>Сохранить</button>
+                                          </div>
+                                       </div>
+                                    </fieldset>
+                                 </form>
                               </div>
-                              <!-- END STAGE -->
-                           </form>
+                           </fieldset>
                         </div>
                      </div>
                   </div>
