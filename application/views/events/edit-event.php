@@ -62,10 +62,10 @@
                   <div class="col-md-4 text-center">
                      <form id="image-upload" method="POST">
                         <div class="">
-                            <img id="image" src="<?=$assets; ?>img/user/no-user.png" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px logo-preview">
+                            <img id="image" src="<?=$assets; ?>img/user/no-event.png" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px logo-preview">
                         </div>
                         <div class="btn_area">
-                            <input id="choose-image" type="file" tabindex="-1" onchange="readURL(this)" class="logo-input">
+                            <input id="choose-image" type="file" tabindex="-1" class="logo-input">
                             <label for="choose-image" class="btn btn-default fileinput-button">
                                 <span class="fa fa-folder-open"></span>
                                 <span class="buttonText">Обновить фото</span>
@@ -120,7 +120,7 @@
                                                 </div>
                                              </td>
                                              <td style="width: 40%">
-                                                <a class="editable-part" data-type="text"><?=$participants[$i]['name']; ?></a>
+                                                <a class="editable-part control-size" data-type="text"><?=$participants[$i]['name']; ?></a>
                                              </td>
                                              <td style="width: 50%">
                                                 <a class="editable-part control-size" data-type="textarea"><?=$participants[$i]['description']; ?></a>
@@ -182,13 +182,13 @@
                                                 </div>
                                              </td>
                                              <td style="width: 30%">
-                                                <a class="editable-judge" data-type="text"><?=$judges[$i]['name']; ?></a>
+                                                <a class="editable-judge control-size" data-type="text"><?=$judges[$i]['name']; ?></a>
                                              </td>
                                              <td style="width: 30%">
-                                                <a class="editable-judge" data-type="email"><?=$judges[$i]['email']; ?></a>
+                                                <a class="editable-judge control-size" data-type="email"><?=$judges[$i]['email']; ?></a>
                                              </td>
                                              <td style="width: 30%">
-                                                <a class="editable-judge" data-type="text"><?=$judges[$i]['position']; ?></a>
+                                                <a class="editable-judge control-size" data-type="text"><?=$judges[$i]['position']; ?></a>
                                              </td>
                                              <td class="text-center">
                                                 <a href='#'>
@@ -246,10 +246,10 @@
                                           <?php $criterias = Model_Stages::getCriteriasByStageId($stages[$i]['id']); ?>
                                           <tr>
                                              <td style="width: 25%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
-                                                <a class="editable-criterion" data-type="text"><?=$stages[$i]['name']; ?></a>
+                                                <a class="editable-criterion control-size" data-type="text"><?=$stages[$i]['name']; ?></a>
                                              </td>
                                              <td style="width: 30%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
-                                                <a class="editable-criterion" data-type="textarea"><?=$stages[$i]['description']; ?></a>
+                                                <a class="editable-criterion control-size" data-type="textarea"><?=$stages[$i]['description']; ?></a>
                                              </td>
                                              <td class="text-center" style="width: 5%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
                                                 <a href='#'>
@@ -260,7 +260,7 @@
                                           <? for($j = 0; $j < count($criterias); $j++) : ?>
                                              <tr>
                                                 <td style="width: 35%" >
-                                                   <a class="editable-stage" data-type="text"><?=$criterias[$j]['name']; ?></a>
+                                                   <a class="editable-stage control-size" data-type="text"><?=$criterias[$j]['name']; ?></a>
                                                 
                                                 </td>
                                                 <td class="text-center" style="width: 5%">
