@@ -90,4 +90,18 @@ class Model_Stages extends Model {
         return $update;
     }
 
+    public static function deleteStagesById($id)
+    {
+        $delete = DB::delete('Stages')->where('id', '=', $id)->execute();
+        $deleteCriterias = DB::delete('Criteria')->where('id_stage', '=', $id)->execute();
+
+        return true;
+    }
+
+    public static function deleteCriteria($id)
+    {
+        $delete = DB::delete('Criteria')->where('id', '=', $id)->execute();
+        return $delete;
+    }
+
 }

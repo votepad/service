@@ -6,7 +6,7 @@ $(document).ready (function() {
  		var name = $("#name-participant").val();
  		if (name != '') {
     		participant_list_counter++;
-    		var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='participant_" + participant_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-participant' title='Удалить участника' id='delete-participant_" + participant_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='description_" + participant_list_counter + "' class='panel-collapse'><div class='panel-body'> <div class='col-md-6 btn_area'><textarea style='resize: none;' name='participant_description_" + participant_list_counter + "' placeholder='Описание участника, его достижения и др.' class='form-control error' aria-required='true' maxlength='1000' rows='6' required></textarea></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию участника</label><br><small>допустимые форматы jpeg,png,gif</small><div class='col-md-12 btn_area'><label for='participant_photo_" + participant_list_counter + "' class='btn btn-primary btn-add-photo'>Выберите фото</label></div></div><div class='col-md-3 btn_area text-center'><div class='file-upload' id='file-upload_" + participant_list_counter + "'><div class='image-preview-wrapper' title=' '><div class='image-preview' id='image-viewer-participant_" + participant_list_counter + "'></div><input type='hidden' name='participant_name_" + participant_list_counter + "' value='"+ name +"'><input type='file' id='participant_photo_" + participant_list_counter + "' name='participant_photo_" + participant_list_counter + "' class='imageUploader' onchange='readURL1(this);'></div></div></div></div></div></div></li>";
+    		var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='participant_" + participant_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-participant' title='Удалить участника' id='delete-participant_" + participant_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div class='panel-body'> <div class='col-md-6 btn_area'><textarea style='resize: none;' name='participant_description_" + participant_list_counter + "' placeholder='Описание участника, его достижения и др.' class='form-control error' aria-required='true' maxlength='1000' rows='6' required></textarea></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию участника</label><br><small>допустимые форматы jpeg,png,gif</small><div class='btn_area'><input type='file' id='participant_photo_" + participant_list_counter + "' name='participant_photo_" + participant_list_counter + "' tabindex='-1' class='logo-input change'><label for='participant_photo_" + participant_list_counter + "' class='btn btn-default fileinput-button'><span class='fa fa-folder-open'></span><span class='buttonText'> Выбрать фото</span></label></div></div><div class='col-md-3 btn_area text-center'><img id='participant_preview_" + participant_list_counter + "' src='../../assets/img/user/no-user.png' class='pronwe_boxShadow pronwe_border-1px logo-preview'></div></div></div></li>";
     		$('.participant-list').append(temp);
     		$("#name-participant").val('');
  		}
@@ -25,12 +25,12 @@ $(document).ready (function() {
     		var setHTML = liElem.html();
     		setHTML = setHTML.replace("id=\"participant_"+i+"\"","id=\"participant_"+(i-1)+"\"");
     		setHTML = setHTML.replace("id=\"name_"+i+"\"","id=\"name_"+(i-1)+"\"");
-    		setHTML = setHTML.replace("href=\"#description_"+i+"\"","href=\"#description_"+(i-1)+"\""); 
-    		setHTML = setHTML.replace("aria-controls=\"description_"+i+"\"","aria-controls=\"description_"+(i-1)+"\"");
     		setHTML = setHTML.replace("id=\"delete-participant_"+i+"\"","id=\"delete-participant_"+(i-1)+"\"");
-    		setHTML = setHTML.replace("id=\"description_"+i+"\"","id=\"description_"+(i-1)+"\"");
-    		setHTML = setHTML.replace("name=\"participant_description_"+i+"\"","name=\"participant_description_"+(i-1)+"\""); //
+    		setHTML = setHTML.replace("name=\"participant_description_"+i+"\"","name=\"participant_description_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("id=\"participant_photo_"+i+"\"","id=\"participant_photo_"+(i-1)+"\"");
     		setHTML = setHTML.replace("name=\"participant_photo_"+i+"\"","name=\"participant_photo_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("for=\"participant_photo_"+i+"\"","for=\"participant_photo_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("id=\"participant_preview_"+i+"\"","id=\"participant_preview_"+(i-1)+"\"");
     		liElem.html(setHTML);
  		}
  		participant_list_counter--;
@@ -40,52 +40,55 @@ $(document).ready (function() {
  		}
 	});
 	/* SELECT PARTICIPANT PHOTO*/
-	function readURL1(input){
-		var number = $(input).attr('id');
-	 	number = number.substr(number.lastIndexOf('_')+1,number.length);
-	 	var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
-	 	var width  = 1024;
-	 	var minwidth  = 150;
-	 	var height = 768;
-	 	var minheight = 150;
-	 	var size   = 307200; // bytes
-	 	var file   = input.files[0];
-	 	function errType () {
-		    alert('Error type ...');
-		    input.value = '';
-	 	}
-	 	function errSize () {
-		    alert('Error size ...');
-		    input.value = '';
-	 	}
-	 	function errWidth() {
-		    alert('Error width ...');
-		    input.value = '';
-	 	}
-	 	function errHeight() {
-		    alert('Error height ...');
-		    input.value = '';
-	 	}
-	 	if (type.indexOf(file.type) == -1) {
-		    errType ();
-		    return false;
-	 	} else if (file.size > size) {
-		    errSize();
-		    return false;
-	 	} else if (file.width > minwidth && file.width < width) {
-		    errWidth();
-		    return false;
-	 	} else if (file.height > minheight && file.height < height) {
-		    errHeight();
-		    return false;
-	 	} else {
-		    var reader = new FileReader();
-		    reader.onload = function(e){
-	       		$('#image-viewer-participant_'+number).css('background-image', 'url('+e.target.result+')');
-	    	}
-	    	reader.readAsDataURL(input.files[0]);
-	 	}
-	}
+	function readURL1(input) {
+        if (input.files && input.files[0]) {
+        	var number = $(input).attr('id');
+	 		number = number.substr(number.lastIndexOf('_')+1,number.length);
+            var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
+            var width  = 1024;
+            var height = 768;
+            var size   = 525000; // bytes
+            var file   = input.files[0];
+            function errType () {
+                alert('Error type ...');
+                input.value = '';
+            }
+            function errSize () {
+                alert('Error size ...');
+                input.value = '';
+            }
+            function errWidth() {
+                alert('Error width ...');
+                input.value = '';
+            }
+            function errHeight() {
+                alert('Error height ...');
+                input.value = '';
+            }
+            if (type.indexOf(file.type) == -1) {
+                errType ();
+                return false;
+            } else if (file.size > size) {
+                errSize();
+                return false;
+            } else if (file.width < width) {
+                errWidth();
+                return false;
+            } else if (file.height < height) {
+                errHeight();
+                return false;
+            } else {
+                var reader = new FileReader();            
+                    reader.onload = function (e) {
+                        $('#participant_preview_'+number).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+    $('.panel-body').on('change','.change',function(){
+       	readURL1(this);
+    });
 /* END PARTICIPANT */
 
 /* START JUDGE */
@@ -95,7 +98,7 @@ $(document).ready (function() {
 	 	var name = $("#name-judge").val();
 	 	if (name != '') {
 	    	judge_list_counter++;
-	    	var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='judge_" + judge_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-judge' title='Удалить члена жюри' id='delete-judge_" + judge_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='description_" + judge_list_counter + "' role='tabpanel' class='panel-collapse'><div class='panel-body'> <div class='col-md-6 btn_area'><input name='judge_email_" + judge_list_counter + "' type='email' placeholder='Укажите e-mail члена жюри' class='form-control btn_area' required> <input name='judge_status_" + judge_list_counter + "' type='text' placeholder='Укажите кем является член жюри' class='form-control btn_area' required></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию жюри</label><br><small>допустимые форматы jpeg,png,gif</small><div class='col-md-12 btn_area'><label for='judge_photo_" + judge_list_counter + "' id='btn-add-photo_" + judge_list_counter + "' class='btn btn-primary btn-add-photo'>Выберите фото</label></div></div><div class='col-md-3 btn_area text-center'><div class='file-upload' id='file-upload_" + judge_list_counter + "'><div class='image-preview-wrapper' title=' '><div class='image-preview' id='image-viewer-judge_" + judge_list_counter + "'></div><input type='file' id='judge_photo_" + judge_list_counter + "' name='judge_photo_" + judge_list_counter + "' class='imageUploader' onchange='readURL2(this);'></div></div></div></div></div></div></li>";
+	    	var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='judge_" + judge_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-judge' title='Удалить члена жюри' id='delete-judge_" + judge_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div class='panel-body'> <div class='col-md-6 btn_area'><input name='judge_email_" + judge_list_counter + "' type='email' placeholder='Укажите e-mail члена жюри' class='form-control btn_area' required><input type='hidden' name='judgename_" + judge_list_counter + "' value='"+ name +"'><input name='judge_status_" + judge_list_counter + "' type='text' placeholder='Укажите кем является член жюри' class='form-control btn_area' required></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию жюри</label><br><small>допустимые форматы jpeg,png,gif</small><div class='btn_area'><input type='file' id='judge_photo_" + judge_list_counter + "' name='judge_photo_" + judge_list_counter + "' tabindex='-1' class='logo-input change'><label for='judge_photo_" + judge_list_counter + "' class='btn btn-default fileinput-button'><span class='fa fa-folder-open'></span><span class='buttonText'> Выбрать фото</span></label></div></div><div class='col-md-3 btn_area text-center'><img id='judge_preview_" + judge_list_counter + "' src='../../assets/img/user/no-user.png' class='pronwe_boxShadow pronwe_border-1px logo-preview'></div></div></div></li>";
 	    	$('.judge-list').append(temp);
 	    	$("#name-judge").val('');
 	 	}
@@ -114,13 +117,13 @@ $(document).ready (function() {
 	    	var setHTML = liElem.html();
 	    	setHTML = setHTML.replace("id=\"judge_"+i+"\"","id=\"judge_"+(i-1)+"\"");
 	    	setHTML = setHTML.replace("id=\"judge_name_"+i+"\"","id=\"judge_name_"+(i-1)+"\"");
-	    	setHTML = setHTML.replace("href=\"#judge_description_"+i+"\"","href=\"#judge_description_"+(i-1)+"\""); 
-	    	setHTML = setHTML.replace("aria-controls=\"judge_description_"+i+"\"","aria-controls=\"judge_description_"+(i-1)+"\"");
 	    	setHTML = setHTML.replace("id=\"delete-judge_"+i+"\"","id=\"delete-judge_"+(i-1)+"\"");
-	    	setHTML = setHTML.replace("id=\"judge_description_"+i+"\"","id=\"judge_description_"+(i-1)+"\"");
 	    	setHTML = setHTML.replace("name=\"judge_status_"+i+"\"","name=\"judge_status_"+(i-1)+"\""); //
 	    	setHTML = setHTML.replace("name=\"judge_email_"+i+"\"","name=\"judge_email_"+(i-1)+"\"");
 	    	setHTML = setHTML.replace("name=\"judge_photo_"+i+"\"","name=\"judge_photo_"+(i-1)+"\"");
+	    	setHTML = setHTML.replace("id=\"judge_photo_"+i+"\"","id=\"judge_photo_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("for=\"judge_photo_"+i+"\"","for=\"judge_photo_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("id=\"judge_preview_"+i+"\"","id=\"judge_preview_"+(i-1)+"\"");
 	    	liElem.html(setHTML);
 	 	}
 	 	judge_list_counter--;
@@ -130,52 +133,55 @@ $(document).ready (function() {
  		}
 	});
 	/* SELECT JUDGE PHOTO*/
-	function readURL2(input){
-	 	var number = $(input).attr('id');
-	 	number = number.substr(number.lastIndexOf('_')+1,number.length);
-	 	var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
-	 	var width  = 1024;
-	 	var minwidth  = 150;
-	 	var height = 768;
-	 	var minheight = 150;
-	 	var size   = 307200; // bytes
-	 	var file   = input.files[0];
-	 	function errType () {
-		    alert('Error type ...');
-		    input.value = '';
-	 	}
-	 	function errSize () {
-		    alert('Error size ...');
-		    input.value = '';
-	 	}
-	 	function errWidth() {
-		    alert('Error width ...');
-		    input.value = '';
-	 	}
-	 	function errHeight() {
-		    alert('Error height ...');
-		    input.value = '';
-	 	}
-	 	if (type.indexOf(file.type) == -1) {
-		    errType ();
-		    return false;
-	 	} else if (file.size > size) {
-		    errSize();
-		    return false;
-	 	} else if (file.width > minwidth && file.width < width) {
-		    errWidth();
-	    	return false;
-	 	} else if (file.height > minheight && file.height < height) {
-		    errHeight();
-		    return false;
-	 	} else {
-		    var reader = new FileReader();
-		    reader.onload = function(e){
-	       		$('#image-viewer-judge_'+number).css('background-image', 'url('+e.target.result+')');
-	    	}
-	    	reader.readAsDataURL(input.files[0]);
-	 	}
-	}
+	function readURL2(input) {
+        if (input.files && input.files[0]) {
+        	var number = $(input).attr('id');
+	 		number = number.substr(number.lastIndexOf('_')+1,number.length);
+            var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
+            var width  = 1024;
+            var height = 768;
+            var size   = 525000; // bytes
+            var file   = input.files[0];
+            function errType () {
+                alert('Error type ...');
+                input.value = '';
+            }
+            function errSize () {
+                alert('Error size ...');
+                input.value = '';
+            }
+            function errWidth() {
+                alert('Error width ...');
+                input.value = '';
+            }
+            function errHeight() {
+                alert('Error height ...');
+                input.value = '';
+            }
+            if (type.indexOf(file.type) == -1) {
+                errType ();
+                return false;
+            } else if (file.size > size) {
+                errSize();
+                return false;
+            } else if (file.width < width) {
+                errWidth();
+                return false;
+            } else if (file.height < height) {
+                errHeight();
+                return false;
+            } else {
+                var reader = new FileReader();            
+                    reader.onload = function (e) {
+                        $('#judge_preview_'+number).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+    $('.panel-body').on('change','.change', function(){
+       	readURL2(this);
+    });
 /* END JUDGE */
 
 /* START STAGE */
@@ -422,16 +428,16 @@ $(document).ready (function() {
             }
             if (type.indexOf(file.type) == -1) {
                 errType ();
-                return false;
+                //return false;
             } else if (file.size > size) {
                 errSize();
-                return false;
+                //return false;
             } else if (file.width < width) {
                 errWidth();
-                return false;
+                //return false;
             } else if (file.height < height) {
                 errHeight();
-                return false;
+                //return false;
             } else {
                 var reader = new FileReader();            
                     reader.onload = function (e) {
@@ -442,8 +448,9 @@ $(document).ready (function() {
         }
     }
     $("#choose-image").change(function(){
-        readURL(this);
+       	readURL(this);
     });
+    
 
 
 
@@ -516,4 +523,45 @@ $(document).ready (function() {
 			if($.trim(value) === '') return 'Заполните поле';
 		}
 	});
-})
+
+});
+
+$(document).ready( function() {
+	$("tr a").on('click', function() {
+
+		if ( !confirm('Вы увереиы?'))
+			return false;
+
+		var id = $(this).attr('id');
+		var list = id.split('_');
+
+		var substance = list[0];
+		var identif = list[1];
+
+		var url = location.protocol+'//'+location.hostname+'/pronwe/';
+		$.ajax({
+			url: url + '/updateEventsSubstance/deleteEventsSubstance/',
+			type: "POST",
+			data: {
+				'substance': substance,
+				'id': identif,
+			},
+			success: function(data, config){
+
+				if (substance == 'delstage') {
+					window.location.reload();
+				}
+				else {
+					$('#' + id).closest('tr').hide();
+				}
+
+			},
+			error: function(data, config) {
+				console.log(data);
+			}
+		});
+	});
+});
+
+
+

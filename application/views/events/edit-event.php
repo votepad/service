@@ -23,12 +23,12 @@
                            </div>
                         </div>
 
-                        <div class="form-group">
+                       <!-- <div class="form-group">
                            <label for="input-event-organization" class="col-md-4 control-label">Мероприятие организуют</label>
                            <div class="col-md-8">
                               <a id="input-event-organization" data-type="select2"></a>
                            </div>
-                        </div>
+                        </div>-->
 
                         <div class="form-group">
                            <label for="input-event-start" class="col-md-4 control-label">Мероприятие начнется</label>
@@ -54,7 +54,7 @@
                         <div class="form-group">
                            <label for="input-event-type" class="mylabel col-md-4 control-label">Тип мероприятия</label>
                            <div class="col-md-8">
-                              <a id="input-event-type"><?=$event['type']; ?></a>
+                              <a id="input-event-type"><?=$types->get( $event['type'] ); ?></a>
                            </div>
                         </div>
                      </div>
@@ -62,10 +62,10 @@
                   <div class="col-md-4 text-center">
                      <form id="image-upload" method="POST">
                         <div class="">
-                            <img id="image" src="<?=$assets; ?>img/user/no-user.png" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px logo-preview">
+                            <img id="image" src="<?=URL::base(); ?>/uploads/<?=$event['photo']; ?>" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px logo-preview">
                         </div>
                         <div class="btn_area">
-                            <input id="choose-image" type="file" tabindex="-1" onchange="readURL(this)" class="logo-input">
+                            <input id="choose-image" type="file" tabindex="-1" class="logo-input">
                             <label for="choose-image" class="btn btn-default fileinput-button">
                                 <span class="fa fa-folder-open"></span>
                                 <span class="buttonText">Обновить фото</span>
@@ -112,7 +112,7 @@
                                     </thead>
                                     <tbody class="added_participants">
                                        <!-- ADDED PARTICIPANT -->
-                                       <? for($i = 0; $i < count($participants); $i++): ?>
+                                       <? for($i = 0; $i < count($participants); $i++) : ?>
                                           <tr>
                                              <td style="width: 5%">
                                                 <div class="media">
@@ -120,18 +120,18 @@
                                                 </div>
                                              </td>
                                              <td style="width: 40%">
-                                                <a class="editable-part" data-name="name" data-type="text" data-pk="<?=$participants[$i]['id']; ?>" ><?=$participants[$i]['name']; ?></a>
+                                                <a class="editable-part " data-name="name" data-type="text" data-pk="<?=$participants[$i]['id']; ?>" ><?=$participants[$i]['name']; ?></a>
                                              </td>
                                              <td style="width: 50%">
                                                 <a class="editable-part control-size" data-name="description" data-type="textarea" data-pk="<?=$participants[$i]['id']; ?>"><?=$participants[$i]['description']; ?></a>
                                              </td>
                                              <td class="text-center">
-                                                <a href='#'>
+                                                <a  id="delparticipant_<?=$participants[$i]['id'];?>">
                                                    <em class="fa fa-remove icon-remove"></em>
                                                 </a>
                                              </td>
                                           </tr>
-                                       <? endfor; ?>
+                                       <? endfor;  ?>
                                     </tbody>
                                  </table>
                                        
@@ -191,7 +191,7 @@
                                                 <a class="editable-judge" data-name="position" data-type="text" data-pk="<?=$judges[$i]['id']; ?>"><?=$judges[$i]['position']; ?></a>
                                              </td>
                                              <td class="text-center">
-                                                <a href='#'>
+                                                <a href='#' id="deljudge_<?=$judges[$i]['id']; ?>">
                                                    <em class="fa fa-remove icon-remove"></em>
                                                 </a>
                                              </td>
@@ -246,13 +246,13 @@
                                           <?php $criterias = Model_Stages::getCriteriasByStageId($stages[$i]['id']); ?>
                                           <tr>
                                              <td style="width: 25%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
-                                                <a class="editable-stage" data-name="name" data-type="text" data-pk="<?=$stages[$i]['id']; ?>"><?=$stages[$i]['name']; ?></a>
+                                                <a class="editable-stage control-size" data-name="name" data-type="text" data-pk="<?=$stages[$i]['id']; ?>"><?=$stages[$i]['name']; ?></a>
                                              </td>
                                              <td style="width: 30%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
-                                                <a class="editable-stage" data-name="description" data-type="textarea" data-pk="<?=$stages[$i]['id']; ?>"><?=$stages[$i]['description']; ?></a>
+                                                <a class="editable-stage control-size" data-name="description" data-type="textarea" data-pk="<?=$stages[$i]['id']; ?>"><?=$stages[$i]['description']; ?></a>
                                              </td>
                                              <td class="text-center" style="width: 5%" rowspan="<?=$stages[$i]['allcriterions']; ?>">
-                                                <a href='#'>
+                                                <a href='#' id="delstage_<?=$stages[$i]['id']; ?>">
                                                    <em class="fa fa-remove icon-remove"></em>
                                                 </a>
                                              </td>
@@ -260,14 +260,13 @@
                                           <? for($j = 0; $j < count($criterias); $j++) : ?>
                                              <tr>
                                                 <td style="width: 35%" >
-                                                   <a class="editable-criterion" data-name="name" data-type="text" data-pk="<?=$criterias[$j]['id']; ?>"><?=$criterias[$j]['name']; ?></a>
-                                                
+                                                   <a class="editable-criterion control-size" data-name="name" data-type="text" data-pk="<?=$criterias[$j]['id']; ?>"><?=$criterias[$j]['name']; ?></a>
                                                 </td>
                                                 <td class="text-center" style="width: 5%">
                                                    <a class="editable-criterion" data-name="maxscore" data-type="number" data-pk="<?=$criterias[$j]['id']; ?>"><?=$criterias[$j]['maxscore']; ?></a>
                                                 </td>
                                                 <td class="text-center" style="width: 5%">
-                                                <a href='#'>
+                                                <a href='#' id="delcriteria_<?=$criterias[$j]['id']; ?>">
                                                    <em class="fa fa-remove icon-remove"></em>
                                                 </a>
                                              </td>

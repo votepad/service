@@ -19,7 +19,7 @@ $user   = $user->getUserInfo();
                         <div class="btn_area">
                             <input id="choose-image" type="file"tabindex="-1" style="position: absolute; clip: rect(0px 0px 0px 0px);" onchange="readURL(this)">
                             <label for="choose-image" class="btn btn-default fileinput-button">
-                                <span class="icon-span-filestyle glyphicon glyphicon-folder-open"></span>
+                                <span class="fa fa-folder-open"></span>
                                 <span class="buttonText">Обновить фото</span>
                             </label>
                         </div>

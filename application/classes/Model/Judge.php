@@ -67,4 +67,10 @@ class Model_Judge extends Model {
 
         return $update;
     }
+
+    public static function deleteJudgesById($id)
+    {
+        $delete = DB::delete('Judges')->where('id', '=', $id)->execute();
+        return $delete;
+    }
 }

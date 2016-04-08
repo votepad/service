@@ -45,16 +45,16 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
         array_push( $this->js,  'vendor/moment/min/moment.js');
         array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
-        array_push( $this->css, 'vendor/select2/dist/css/select2.css');
-        array_push( $this->js,  'vendor/select2/dist/js/select2.full.js');
-
         array_push( $this->js,  'js/pjsc.js');
+
+        $types = Kohana::$config->load('type');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('events/edit-event')
+                                                ->set('types', $types)
                                                 ->bind('event', $event)
                                                 ->bind('participants', $participants)
                                                 ->bind('judges', $judges)

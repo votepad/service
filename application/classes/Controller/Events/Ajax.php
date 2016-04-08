@@ -96,4 +96,29 @@ class Controller_Events_Ajax extends Ajax {
         echo Model_Stages::updateCriteriaByFieldName($name, $value, $id);
     }
 
+    public function action_deleteEventsSubstance()
+    {
+        /**
+         * Не впускать прямые Get запросы
+         */
+
+        $substance  = Arr::get($_POST, 'substance');
+        $id         = Arr::get($_POST, 'id');
+
+        if ($substance == 'delparticipant')
+            Model_Participants::deleteParticipantById($id);
+
+        if ($substance == 'deljudge')
+            Model_Judge::deleteJudgesById($id);
+
+        if ($substance == 'delstage')
+            Model_Stages::deleteStagesById($id);
+
+        if ($substance == 'delcriteria')
+            Model_Stages::deleteCriteria($id);
+
+        return 1;
+
+    }
+
 }

@@ -62,4 +62,10 @@ class Model_Participants extends Model {
         return $update;
     }
 
+    public static function deleteParticipantById($id)
+    {
+        $delete = DB::delete('Participants')->where('id', '=', $id)->execute();
+        return $delete;
+    }
+
 }

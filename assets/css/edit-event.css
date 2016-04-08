@@ -68,7 +68,8 @@ fieldset{
   padding-top: 5px;
 }
 .control-size{
-  max-width: 280px; 
+  position: relative;
+  width: 100%; 
   text-overflow: ellipsis;
   overflow: hidden;
 }
