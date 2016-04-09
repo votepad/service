@@ -35,7 +35,6 @@ class Controller_Events_Modify extends Controller {
         $id_event = $this->request->param('id');
 
         $k = 0;
-
         for($i = 0; $i < count($_POST) / 3; $i++)
         {
             $k++;

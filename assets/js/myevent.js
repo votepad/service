@@ -1,7 +1,7 @@
 $(document).ready (function() {
 	$('#table-my-event').dataTable({
-		'paging': true,
-		'ordering':  true,
+		'paging': false,
+		'ordering':  false,
 		'searching': true,
 		'info': true,
 		'scrollX': true,
@@ -24,5 +24,28 @@ $(document).ready (function() {
 			{ 'targets' : 'no-sort', 'orderable': false },
 			{ 'targets': 'datetime','sType': 'de_datetime' }
 		]
+	});
+
+	var url = location.protocol+'//'+location.hostname+'/pronwe/';
+
+	$("a[id~='deleteEvent'").click( function() {
+		var data = $(this).closest('tr').attr('id');
+
+		list = data.split('_');
+		id = list[1];
+
+		$.ajax({
+			url: url+'deleteEvent/',
+			data: {
+				'id' : id
+			},
+			success: function(data, config) {
+				console.log(data);
+				//window.location.reload();
+			},
+			error: function(data, config) {
+				console.log(data);
+			}
+		});
 	});
 });

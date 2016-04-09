@@ -20,6 +20,6 @@ class Controller_Test extends Dispatch {
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('test/');
+        $this->template->section    = View::factory('test/file');
     }
 }

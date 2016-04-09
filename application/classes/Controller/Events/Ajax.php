@@ -13,6 +13,19 @@ class Controller_Events_Ajax extends Ajax {
         echo 'Method is: '. __METHOD__;
     }
 
+    public function action_deleteEvent()
+    {
+        /**
+        * Не впускать прямые Get запросы
+        */
+
+        if ( !parent::_is_ajax())
+            $this->request('/');
+
+        $id = Arr::get($_POST, 'id');
+        return Model_Events::delete($id);
+    }
+
     public function action_updateEventInfo()
     {
         /**

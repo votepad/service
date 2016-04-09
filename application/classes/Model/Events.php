@@ -24,6 +24,12 @@ class Model_Events extends Model {
         return $insert;
     }
 
+    public static function delete($id)
+    {
+        $delete = DB::delete('Events')->where('id', '=', $id);
+        return $delete;
+    }
+
     private static function get($id = null)
     {
         $select = DB::select()->from('Events')->where('id', '=', $id)->execute();

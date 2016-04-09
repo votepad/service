@@ -26,13 +26,13 @@
                    </ul>
                 </li>-->
                 <li class="">
-                    <a href="#eventLink" title="Мои мероприятия">
+                    <a href="<?=URL::site('events/my'); ?>" title="Мои мероприятия">
                         <em class="icon-notebook"></em>
                         <span>Мои мероприятия</span>
                     </a>
                 </li>
                 <li class="">
-                    <a href="#eventLink" title="Все мероприятия" >
+                    <a href="<?=URL::site('events/all'); ?>" title="Все мероприятия" >
                         <em class="icon-list"></em>
                         <span>Все мероприятия</span>
                     </a>
