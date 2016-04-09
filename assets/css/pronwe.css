@@ -43,6 +43,9 @@ ul{
 .btn_area{
 	margin:1em auto;
 }
+.btn_area1{
+	margin-bottom: 1em;
+}
 .btn-another{
 	color: #fff;
     background-color: #BDBDBD;

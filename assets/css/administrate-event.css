@@ -1,0 +1,7 @@
+.portlets-wrapper{
+	overflow: hidden !important;
+}
+table {
+	display: block;
+	overflow: auto;
+}
