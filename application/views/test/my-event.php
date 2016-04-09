@@ -8,37 +8,7 @@
 	<script src="<?=$assets; ?>vendor/datatables/media/js/jquery.dataTables.js"></script>
 	<script src="<?=$assets; ?>vendor/datatables/media/plugins/date-de.js"></script>
 	<script src="<?=$assets; ?>vendor/datatable-bootstrap/js/dataTables.bootstrap.js"></script>
-	
-	<script>
-	$(function(){
-		$('#table-my-event').dataTable({
-			'paging': true,
-			'ordering':  true,
-			'searching': true,
-			'info': true,
-			'scrollX': true,
-			oLanguage:{
-				oPaginate:{
-					sNext:"<em class='fa fa-angle-right' style='font-size:1.2em'></em>",
-					sPrevious:"<em class='fa fa-angle-left' style='font-size:1.2em'></em>"
-				},
-				sEmptyTable:"Вы не создали ещё мероприятия. Нажмите в левом меня на 'Создать мероприятие'",
-				sInfo:"Показано _START_-_END_  из _TOTAL_ мероприятий",
-				sInfoEmpty:"Показано 0 мероприятий",
-				sInfoFiltered:"(отсортировано из _MAX_ мероприятий)",
-				sLengthMenu:"Показано _MENU_ мероприятий",
-				sLoadingRecords:"Загружается...",
-				sProcessing:"Обрабатывается...",
-				sSearch:"Введите для поиска:",
-				sZeroRecords:"Мероприятия не найдены"
-			},
-			columnDefs: [ 
-				{ 'targets' : 'no-sort', 'orderable': false },
-				{ 'targets': 'datetime','sType': 'de_datetime' }
-			]
-		});
-	});
-	</script>
+	<script src="<?=$assets; ?>js/myevent.js"></script>
 
 
 <section>
@@ -52,18 +22,18 @@
 				<table id="table-my-event" class="table table-bordered table-striped table-hover" cellspacing="0">
 					<thead>
 						<tr>
-							<th class="sorting">#</th>
-							<th class="no-sort">Логотип</th>
-							<th class="sorting">Название мероприятия</th>
-							<th class="datetime">Дата начала</th>
-							<th class="no-sort">Редактирование</th>
-							<th class="no-sort">Заполнение</th>
-							<th class="no-sort">Удаление</th>
+							<th class="sorting text-center" style="width: 5%">#</th>
+							<th class="no-sort text-center" style="width: 5%">Логотип</th>
+							<th class="sorting" >Название мероприятия</th>
+							<th class="no-sort" style="width: 15%">Дата начала</th>
+							<th class="no-sort text-center" style="width: 15%">Редактирование</th>
+							<th class="no-sort text-center" style="width: 15%">Управление</th>
+							<th class="no-sort text-center" style="width: 5%">Удаление</th>
 						</tr>
 					</thead>
 					<tbody>
 						<tr>
-							<td>1</td>
+							<td class="text-center">1</td>
 							<td>
 								<div class="media">
 									<img src="<?=$assets; ?>img/temp/miss_itmo.jpg" alt="Image" class="img-responsive img-circle">
@@ -88,8 +58,20 @@
 									</a>
 								</div>
 							</td>
-							<td class="text-center">
-                              <div data-label="50%" class="radial-bar radial-bar-50 radial-bar-xs"></div>
+							<td>
+								<div class="col-xs-4 text-center">
+                            		<div data-label="50%" class="radial-bar radial-bar-50 radial-bar-xs"></div>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Опубликовать мероприятие">
+										<em class="fa fa-share-alt icon-publish-no"></em>
+									</a>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Панель организатора">
+										<em class="fa fa-table icon-organel"></em>
+									</a>
+                            	</div>
 							</td>
 							<td class="text-center">
 								<a href="#1">
@@ -98,7 +80,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>2</td>
+							<td class="text-center">2</td>
 							<td>
 								<div class="media">
 									<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="Image" class="img-responsive img-circle">
@@ -123,8 +105,20 @@
 									</a>
 								</div>
 							</td>
-							<td class="text-center">
-                              <div data-label="75%" class="radial-bar radial-bar-75 radial-bar-xs"></div>
+							<td>
+								<div class="col-xs-4 text-center">
+                            		<div data-label="75%" class="radial-bar radial-bar-75 radial-bar-xs"></div>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Опубликовать мероприятие">
+										<em class="fa fa-share-alt icon-publish-no"></em>
+									</a>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Панель организатора">
+										<em class="fa fa-table icon-organel"></em>
+									</a>
+                            	</div>
 							</td>
 							<td class="text-center">
 								<a href="#1">
@@ -133,7 +127,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>3</td>
+							<td class="text-center">3</td>
 							<td>
 								<div class="media">
 									<img src="<?=$assets; ?>img/temp/tnl.jpg" alt="Image" class="img-responsive img-circle">
@@ -158,8 +152,20 @@
 									</a>
 								</div>
 							</td>
-							<td class="text-center">
-                              <div data-label="100%" class="radial-bar radial-bar-100 radial-bar-xs"></div>
+							<td>
+								<div class="col-xs-4 text-center">
+                            		<div data-label="100%" class="radial-bar radial-bar-100 radial-bar-xs"></div>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Опубликовать мероприятие">
+										<em class="fa fa-share-alt icon-publish-yes"></em>
+									</a>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Панель организатора">
+										<em class="fa fa-table icon-organel"></em>
+									</a>
+                            	</div>
 							</td>
 							<td class="text-center">
 								<a href="#3">
@@ -168,7 +174,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>4</td>
+							<td class="text-center">4</td>
 							<td>
 								<div class="media">
 									<img src="<?=$assets; ?>img/temp/misteritmo.png" alt="Image" class="img-responsive img-circle">
@@ -193,8 +199,20 @@
 									</a>
 								</div>
 							</td>
-							<td class="text-center">
-                              <div data-label="0%" class="radial-bar radial-bar-0 radial-bar-xs"></div>
+							<td>
+								<div class="col-xs-4 text-center">
+                            		<div data-label="0%" class="radial-bar radial-bar-0 radial-bar-xs"></div>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Опубликовать мероприятие">
+										<em class="fa fa-share-alt icon-publish-no"></em>
+									</a>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Панель организатора">
+										<em class="fa fa-table icon-organel"></em>
+									</a>
+                            	</div>
 							</td>
 							<td class="text-center">
 								<a href="#4">
@@ -203,7 +221,7 @@
 							</td>
 						</tr>
 						<tr>
-							<td>5</td>
+							<td class="text-center">5</td>
 							<td>
 								<div class="media">
 									<img src="<?=$assets; ?>img/temp/ifse.png" alt="Image" class="img-responsive img-circle">
@@ -228,8 +246,20 @@
 									</a>
 								</div>
 							</td>
-							<td class="text-center">
-                              <div data-label="25%" class="radial-bar radial-bar-25 radial-bar-xs"></div>
+							<td>
+								<div class="col-xs-4 text-center">
+                            		<div data-label="25%" class="radial-bar radial-bar-25 radial-bar-xs"></div>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Опубликовать мероприятие">
+										<em class="fa fa-share-alt icon-publish-no"></em>
+									</a>
+                            	</div>
+                            	<div class="col-xs-4 text-center">
+									<a href="#" data-toggle="tooltip" data-title="Панель организатора">
+										<em class="fa fa-table icon-organel"></em>
+									</a>
+                            	</div>
 							</td>
 							<td class="text-center">
 								<a href="#5">
