@@ -1,21 +1,5 @@
 <?php
 ?>
-
-	<link rel="stylesheet" href="<?=$assets; ?>css/judge.panel.css">
-	<script src="<?=$assets; ?>js/judge.panel.js"></script>
-
-	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery.steps/jquery.steps.js"></script>
-
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/core.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/widget.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/mouse.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/sortable.js"></script>
-	<script src="<?=$assets; ?>vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-	
-	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="<?=$assets; ?>vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
-	<script src="<?=$assets; ?>js/app.js"></script>
 	
 <section>
 	<div class="content-wrapper">

@@ -1,7 +1,7 @@
 $(document).ready (function() {
 	$('#table-my-event').dataTable({
-		'paging': false,
-		'ordering':  false,
+		'paging': true,
+		'ordering':  true,
 		'searching': true,
 		'info': true,
 		'scrollX': true,
@@ -46,6 +46,35 @@ $(document).ready (function() {
 			error: function(data, config) {
 				console.log(data);
 			}
+		});
+	});
+
+	/*после отладки изменить icon-publish-no на icon-publish-yes*/
+	$(".icon-publish-no").on('click',function(){
+		swal({
+			title: "Мероприятие в интернете",
+			text: "Придумайте адрес для публикации Вашей страницы мероприятия в интернете!",
+			type:"input",
+			showCancelButton: true,
+			closeOnConfirm: false,
+			cancelButtonText: "Отменить",
+			confirmButtonText: "Создать",
+			animation: "slide-from-top",
+			inputPlaceholder: "НАЗВАНИЕ_МЕРОПРИЯТИЯ.pronwe.ru"
+		}, 
+		function(inputValue){
+			if (inputValue === false) return false;
+			if (inputValue === "") {
+				swal.showInputError("Введите нвзывние мероприятия");
+				return false
+			}
+			var x = 'nwe.ru';
+			if (inputValue.substr(inputValue.lastIndexOf('.pro')+4,inputValue.length) != x){
+				swal.showInputError("Вы забыли ввести '.pronwe.ru'");
+				return false	
+			}
+			/* сделать проверку, чтоб вводили только англ буквы!!! */
+			swal("Готово!", "Ссылка на мероприятие " + inputValue, "success");
 		});
 	});
 });

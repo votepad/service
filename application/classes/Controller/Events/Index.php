@@ -148,7 +148,7 @@ class Controller_Events_Index extends Dispatch {
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/my-events')
+        $this->template->section    = View::factory('events/all-events')
             ->bind('events', $events);
 
 
@@ -162,29 +162,26 @@ class Controller_Events_Index extends Dispatch {
 
         $id_event = $this->request->param('id');
 
-        $this->template->title          = 'Редактирование мероприятия';
+        $this->template->title          = 'Настройка порядка выступления участников';
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
-
-
-        array_push($this->css, 'css/edit-event.css');
-
-        array_push( $this->css, 'vendor/x-editable/bootstrap3-editable/css/bootstrap-editable.css');
-        array_push( $this->js,  'vendor/x-editable/bootstrap3-editable/js/bootstrap-editable.min.js');
-        array_push( $this->css, 'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css');
-        array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js');
-        array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
-        array_push( $this->js,  'vendor/moment/min/moment.js');
-        array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
-        array_push( $this->js,  'js/pjsc.js');
-
+        
+        array_push( $this->js,  'vendor/jquery-ui/ui/core.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/widget.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/mouse.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/sortable.js');
+        array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
+        array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
+        array_push( $this->css, 'css/judge.panel-1.css');
+        array_push( $this->js,  'js/judge.panel-1.js');
+        
         $types = Kohana::$config->load('type');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/judge-panel-1')
+        $this->template->section    = View::factory('events/judge-panel/judge-panel-1')
             ->set('types', $types)
             ->bind('event', $event)
             ->bind('participants', $participants)
@@ -224,21 +221,18 @@ class Controller_Events_Index extends Dispatch {
 
         $id_event = $this->request->param('id');
 
-        $this->template->title          = 'Редактирование мероприятия';
+        $this->template->title          = 'Настройка порядка выступления участников';
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
 
-
-        array_push($this->css, 'css/edit-event.css');
-
-        array_push( $this->css, 'vendor/x-editable/bootstrap3-editable/css/bootstrap-editable.css');
-        array_push( $this->js,  'vendor/x-editable/bootstrap3-editable/js/bootstrap-editable.min.js');
-        array_push( $this->css, 'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css');
-        array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js');
-        array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
-        array_push( $this->js,  'vendor/moment/min/moment.js');
-        array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
-        array_push( $this->js,  'js/pjsc.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/core.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/widget.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/mouse.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/sortable.js');
+        array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
+        array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
+        array_push( $this->css, 'css/judge.panel-2.css');
+        array_push( $this->js,  'js/judge.panel-2.js');
 
         $types = Kohana::$config->load('type');
 
@@ -246,7 +240,7 @@ class Controller_Events_Index extends Dispatch {
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/judge-panel-2')
+        $this->template->section    = View::factory('events/judge-panel/judge-panel-2')
             ->set('types', $types)
             ->bind('event', $event)
             ->bind('participants', $participants)

@@ -10,6 +10,10 @@
 	<script src="<?=$assets; ?>vendor/datatable-bootstrap/js/dataTables.bootstrap.js"></script>
 	<script src="<?=$assets; ?>js/myevent.js"></script>
 
+	<!-- SWEETALERT -->
+	<link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert/dist/sweetalert.css">
+	<script src="<?=$assets; ?>vendor/sweetalert/dist/sweetalert.min.js"></script>
+
 
 <section>
 	<div class="content-wrapper">
@@ -34,7 +38,7 @@
 					<tbody>
 					<?php for($i = 0; $i < count($events); $i++): ?>
 						<tr id="event_<?=$events[$i]['id']; ?>">
-							<td class="text-center"><?=$i; ?></td>
+							<td class="text-center"><?=$i+1; ?></td>
 							<td>
 								<div class="media">
 									<img src="<?=URL::base(); ?>uploads/<?=$events[$i]['photo']; ?>" alt="Image" class="img-responsive img-circle">
@@ -60,9 +64,17 @@
 								</div>
 							</td>
 							<td>
+								<!-- логика: 
+									1)заводим в table Events столбец, хранящий информацию о заполненности мероприятия
+									2)при создании мероприятия ставим по умолчанию 25
+									3)если мы создали не менее двух участников, не менее одного жюри и не менее 1 этапа с 1 критерием , то +25
+									4) если мы настраиваем порядок выступления, то +25
+									5) если мы создаем приветственную страницу мероприятия то +25
+								-->
 								<div class="col-xs-4 text-center">
 									<div data-label="50%" class="radial-bar radial-bar-50 radial-bar-xs"></div>
 								</div>
+								<!--  Если заполненности мероприятия равна 100, то меняем класс icon-publish-no на icon-publish-yes и разрешаем создавать домен 3 уровня-->
 								<div class="col-xs-4 text-center">
 									<a href="#" data-toggle="tooltip" data-title="Опубликовать мероприятие">
 										<em class="fa fa-share-alt icon-publish-no"></em>
@@ -80,7 +92,6 @@
 								</a>
 							</td>
 						</tr>
-						<tr>
 					<?php endfor; ?>
 					</tbody>
 				</table>

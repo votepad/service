@@ -59,22 +59,17 @@
     top: 22%;
     font-size: 1.5em;
 }
-a:hover, a:focus {
-    color: #2a6496;
-    text-decoration: underline;
-}
 .description{
-	width: 95%;
-	margin-left: 2.5%;
 	color: #31708f;
 	font-weight: bold;
 	background-color: #d9edf7;
 	border-color: #bce8f1;
-	padding: 1em;
+	height: 120px; 
+	overflow-y:auto;
 }
 .participant{
-	width:150px;
-	height: 150px; 
+	width: 120px;
+	height: 120px; 
 	border-radius:10%; 
 	margin:0 auto;
 }
@@ -95,20 +90,72 @@ input:checked + span
 	text-shadow: 1px 1px 15px #1E88E5,
 		1px 1px 3px #000;
 }
-.btn:active, .btn.active { 
+.btn-s:active, .btn-s.active { 
 	border: none !important; 
 	background-image: none !important; 
 	background-color: #2C2 !important; 
-	font-size: 1.7em !important; 
+	font-size: 1.5em !important; 
 }
 .btn {
-	font-size: 1.5em;
-	margin: 0.001em;
+	font-size: 1.3em;
+	font-weight: bold;
 }
 .errorMsg{
 	background: #fbe3e4;
     border: 1px solid #fbc2c4;
     color: #8a1f11;
+}
+.tab-content{
+	border-width: 0 !important;
+	padding: 0;
+}
+@media only screen and (max-width:991px) {
+	.score-area{
+		text-align: center;
+	}
+}
+.score-area{
+	border-width: 0.2em !important;
+	border-radius: 10px;
+	padding: 10px 20px;
+    border-style: solid;    
+    border-color: #dde6e9;
+    margin-bottom: 5px;
+    position: relative;
+}
+.portlets-wrapper{
+	padding-left: 1px;
+	padding-right: 1px;
+}
+.wizard > .content{
+	margin: 0;
+}
+.wizard > .content > .body{
+	padding: 0;
+}
+.img-pos{
+	position: absolute;
+	right: 20px;
+	top: 0px;
+}
+@media only screen and (max-width:768px) {
+	.img-pos{
+		display: none;
+	}
+}
+fieldset {
+    padding-bottom: 20px;
+    border-bottom: 1px dashed #eee;
+    margin-bottom: 20px;
+}
+.btn-default a{
+	color: #31708f;
+}
+.btn-danger a{
+	color: #fff;
+}
+.wizard > .content > .body ul > li{
+	display: block;
 }
 .wizard > .actions > ul > li, .wizard > .steps > ul > li{
 	margin-top: 1em;
