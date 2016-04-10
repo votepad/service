@@ -1,6 +1,3 @@
-<?php
-?>
-
 <section>
 	<div class="content-wrapper">
 		<h3>Настройка порядка выступления участников

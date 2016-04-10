@@ -307,7 +307,7 @@ $(document).ready (function() {
 	});
 
 	$('#input-event-status').editable({
-		url: '',
+		url: url+'/updateEventsSubstance/updateeventinfo/',
 		type: 'select',
 		name: 'input-event-status',
 		emptytext: 'Не заполнено',
@@ -332,33 +332,11 @@ $(document).ready (function() {
 			if($.trim(value) === '') return 'Заполните поле';
 		}
 	});
-
-	$('#input-event-organization').editable({
-		name:'input-event-organization',
-		source: [
-              {id: 'gb', text: 'Great Britain'},
-              {id: 'sus', text: 'United States'},
-              {id: 'sd', text: 'United States'},
-           ],
-        select2: {
-        	width:250,
-			multiple: true,
-        },
-        ajaxOptions: {
-    		dataType: 'json'
-		},
-		success: function(data, config) {
-    		console.log(data);
-		},
-		error: function(data) {
-    		console.log(data);
-		},
-    });
     
 	moment.lang('ru');
 
     $('#input-event-city').editable({
-		url: '',
+		url: url+'/updateEventsSubstance/updateeventinfo/',
 		type: 'select',
 		name: 'input-event-status',
 		emptytext: 'Не заполнено',
@@ -381,7 +359,7 @@ $(document).ready (function() {
 	});
 
 	$('#input-event-type').editable({
-		url: '',
+		url: url+'/updateEventsSubstance/updateeventinfo/',
 		type: 'select',
 		name: 'input-event-status',
 		emptytext: 'Не заполнено',
@@ -527,12 +505,12 @@ $(document).ready (function() {
 });
 
 $(document).ready( function() {
-	$("tr a").on('click', function() {
+	$(".icon-remove").on('click', function() {
 
-		if ( !confirm('Вы увереиы?'))
+		if ( !confirm('Вы уверены?'))
 			return false;
 
-		var id = $(this).attr('id');
+		var id = $(this).parent().attr('id');
 		var list = id.split('_');
 
 		var substance = list[0];

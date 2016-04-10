@@ -1,20 +1,3 @@
-<?php
-?>
-
-	<link rel="stylesheet" href="<?=$assets; ?>css/table-my-event.css">
-	
-	<!-- DATATABLES-->
-	<link rel="stylesheet" href="<?=$assets; ?>vendor/datatables/media/css/jquery.dataTables.css">
-	<script src="<?=$assets; ?>vendor/datatables/media/js/jquery.dataTables.js"></script>
-	<script src="<?=$assets; ?>vendor/datatables/media/plugins/date-de.js"></script>
-	<script src="<?=$assets; ?>vendor/datatable-bootstrap/js/dataTables.bootstrap.js"></script>
-	<script src="<?=$assets; ?>js/myevent.js"></script>
-
-	<!-- SWEETALERT -->
-	<link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert/dist/sweetalert.css">
-	<script src="<?=$assets; ?>vendor/sweetalert/dist/sweetalert.min.js"></script>
-
-
 <section>
 	<div class="content-wrapper">
 		<h3>Мои мероприятия

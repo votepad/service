@@ -57,6 +57,7 @@ $(document).ready (function() {
 			type:"input",
 			showCancelButton: true,
 			closeOnConfirm: false,
+			confirmButtonColor: "#27c24c",
 			cancelButtonText: "Отменить",
 			confirmButtonText: "Создать",
 			animation: "slide-from-top",

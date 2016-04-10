@@ -35,7 +35,7 @@ class Controller_Events_Index extends Dispatch {
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
 
-        array_push($this->css, 'css/edit-event.css');
+        array_push($this->css,  'css/edit-event.css');
         array_push( $this->css, 'vendor/x-editable/bootstrap3-editable/css/bootstrap-editable.css');
         array_push( $this->js,  'vendor/x-editable/bootstrap3-editable/js/bootstrap-editable.min.js');
         array_push( $this->css, 'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css');
@@ -124,6 +124,15 @@ class Controller_Events_Index extends Dispatch {
         $this->template->description    = 'Мои мероприятия';
         $this->template->keywords       = 'Мои мероприятия';
 
+        array_push( $this->css, 'vendor/datatables/media/css/jquery.dataTables.css');
+        array_push( $this->js,  'vendor/datatables/media/js/jquery.dataTables.js');
+        array_push( $this->js,  'vendor/datatables/media/plugins/date-de.js');
+        array_push( $this->js,  'vendor/datatable-bootstrap/js/dataTables.bootstrap.js');        
+        array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
+        array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
+        array_push( $this->css, 'css/table-my-event.css');
+        array_push( $this->js,  'js/myevent.js');
+    
         $this->template->css = $this->css;
         $this->template->js = $this->js;
 
@@ -143,6 +152,8 @@ class Controller_Events_Index extends Dispatch {
         $this->template->title          = 'Все мероприятия';
         $this->template->description    = 'Все мероприятия';
         $this->template->keywords       = 'Все мероприятия';
+
+        array_push( $this->js,  'js/all-events.js');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -234,6 +245,12 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->css, 'css/judge.panel-2.css');
         array_push( $this->js,  'js/judge.panel-2.js');
 
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
+    
+
         $types = Kohana::$config->load('type');
 
         $this->template->css = $this->css;
@@ -280,10 +297,25 @@ class Controller_Events_Index extends Dispatch {
 
         $id_event = $this->request->param('id');
 
-        $this->template->title          = 'Редактирование мероприятия';
+        $this->template->title          = 'Панель администрирования мероприятия';
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
 
+        array_push( $this->js,  'vendor/jquery-ui/ui/core.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/widget.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/mouse.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/sortable.js');
+        array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
+        array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
+        array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
+        array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
+        array_push( $this->css, 'css/administrate-event.css');
+        array_push( $this->js,  'js/administrate-event.js');
+        
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
         $types = Kohana::$config->load('type');
 
         $this->template->css = $this->css;
