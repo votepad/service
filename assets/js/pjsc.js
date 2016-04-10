@@ -529,6 +529,9 @@ $(document).ready( function() {
 				if (substance == 'delstage') {
 					window.location.reload();
 				}
+				else if (substance == 'delcriteria') {
+					window.location.reload();
+				}
 				else {
 					$('#' + id).closest('tr').hide();
 				}

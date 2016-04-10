@@ -17,6 +17,7 @@ class Controller_Profile_Ajax extends Ajax {
             $pk     = Arr::get($_POST, 'pk');
 
             Model_User::updateUserByFieldName($fields, $value, $pk);
+            return 1;
         }
     }
 

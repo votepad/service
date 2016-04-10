@@ -100,6 +100,15 @@ class Model_Stages extends Model {
 
     public static function deleteCriteria($id)
     {
+        $select = DB::select()->from('Criteria')->where('id', '=', $id)->execute()->as_array();
+        $select = Arr::get($select, '0');
+
+        $id_stage = $select['id_stage'];
+        $select = DB::select()->from('Criteria')->where('id_stage', '=', $id_stage)->execute()->as_array();
+
+        if (count($select) == 1)
+            $delete = DB::delete('Stages')->where('id', '=', $select[0]['id_stage'])->execute();
+
         $delete = DB::delete('Criteria')->where('id', '=', $id)->execute();
         return $delete;
     }

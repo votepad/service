@@ -26,7 +26,7 @@ class Controller_Events_Modify extends Controller {
         $result = $model_events->save();
 
         if ($result)
-            $this->redirect('/events');
+            $this->redirect('/events/my');
 
     }
 
@@ -35,7 +35,7 @@ class Controller_Events_Modify extends Controller {
         $id_event = $this->request->param('id');
 
         $k = 0;
-        for($i = 0; $i < count($_POST) / 3; $i++)
+        for($i = 0; $i < count($_POST) / 2; $i++)
         {
             $k++;
             $name           = $_POST['participant_name_'. $k];
@@ -61,7 +61,7 @@ class Controller_Events_Modify extends Controller {
 
         $k = 0;
 
-        for($i = 0; $i < count($_POST) /3 ; $i++)
+        for($i = 0; $i < count($_POST) / 3 ; $i++)
         {
             $k++ ;
             $name       = $_POST['judgename_' . $k];
