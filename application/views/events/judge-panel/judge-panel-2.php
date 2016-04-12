@@ -41,7 +41,8 @@
 														<div class="buttons" data-toggle="buttons">
 															<?php for($l = 0; $l <= $maxscores; $l++) : ?>
 																<button class="mb-sm btn btn-primary">
-																	<input type="radio" name="score-<?=$stages[$i]['id']; ?>-1" autocomplete="off" value="<?=$l; ?>" checked=""> <?=$l; ?>
+																	<!-- score-idStage-idParticipant-1 -->
+																	<input type="radio" name="score-<?=$stages[$i]['id']; ?>-<?=$participants[$k]['id']; ?>-1" autocomplete="off" value="<?=$l; ?>" checked=""> <?=$l; ?>
 																</button>
 															<?php endfor; ?>
 														</div>
