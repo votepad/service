@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>NoteWorthyEvent - События, заслуживающие внимания</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Проект, с множеством возможностей для организации и проведения мероприятий.">
+    <meta name="author" content="NoteWortyEvent" />
+    <meta name="keywords"  content="noteworthy,event,мероприятие,конкурс,организатор,жюри,судья,рейтинг" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <!-- Иконка сайта -->
+    <link rel="icon" type="image/png" href="assets/imgs/NWELOGO.svg">
+    <!-- Стили -->
+    <link rel="stylesheet" href="assets/css/pronwe.css">
+    <link rel="stylesheet" href="assets/css/remodal.css">
+    <link rel="stylesheet" href="assets/css/remodal-default-theme.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/jquery.fullPage.css" />
+    <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/i-style.css">
+	<link rel="stylesheet" href="animate.min.css">
+
+    <!-- Подключаем скрипты -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>
+    <script type="text/javascript" src="assets/js/jquery.fullPage.js"></script>
+    <script src="assets/js/remodal.min.js"></script>
+    <script src="assets/js/js.js"></script>
+	<!-- include Cycle2 -->
+	<script src="assets/js/jquery.cycle2.js"></script>
+	<!-- include one or more optional Cycle2 plugins 
+	<script src="assets/js/jquery.cycle2.carousel.js"></script>-->
+  </head>
+  <body>
+    <div class="pl">
+      <div class="round1"></div>
+      <div class="pl_r"></div>
+      <div class="pl_l"></div>
+    </div>
+    <div class="remodal-bg">
+     
+      <ul id="menu">
+        <li class="menu__li" data-menuanchor="Welcome"><a class="menu__a" href="#Welcome">Приветствие</a></li>
+        <li class="menu__li" data-menuanchor="About"><a class="menu__a" href="#About">О нас</a></li>
+        <li class="menu__li" data-menuanchor="Organizator"><a class="menu__a" href="#Organizator">Организаторам</a></li>
+        <!--<li class="menu__li" data-menuanchor="Customer"><a class="menu__a" href="#Customer">Заказчикам</a></li>
+        <li class="menu__li" data-menuanchor="Review"><a class="menu__a" href="#Review">Отзывы</a></li>-->
+        <li class="menu__li" data-menuanchor="Feedback"><a class="menu__a" href="#Feedback">Обратная связь</a></li>
+        
+      </ul>  
+      <div id="fullpage">
+        <div class="p1 section" id="section0" data-anchor="Welcome">
+			<div id="login">
+				<img src="assets/imgs/NWELOGO.svg" class="mobile_logo">
+				<div class="button1"> <a href="">Авторизация</a></div>
+				<div class="button1"> <a href="http://misteritmo.pronwe.ru">Мероприятия</a></div>
+			</div>
+          <div class="p_left">
+            <div class="p1_logo">
+                <img src="assets/imgs/NWELOGO.svg" width="70%">
+            </div>
+            <div class="p1_slogan">
+              <h1>С ProNWE Ваши мероприятия выходят на новый уровень!</h1>
+            </div>
+            <div class="p1_down">
+              <a class="tooltips" href="#About">
+                <span>Подробнее</span>
+                <i class="p1_center fa fa-angle-double-down fa-5x"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+        
+        <div class="p2 section" id="section1" data-anchor="About">
+		    <div class="p2_title lightbox">
+			    <h2>Что такое <a href="http://pronwe.ru" style="color:#2f95ea">ProNWE</a>?</h2>
+			</div>
+				<ul class="side-container">
+					<li class="lightbox"><span>Информационное сопровождение мероприятия в интернет</span></li><br>
+					<li class="lightbox"><span>Индивидуальная страница для каждого мероприятия</span></li><br>
+					<li class="lightbox"><span>Автоматизация голосования для жюри</span></li><br>
+					<li class="lightbox"><span>Иными словами, переход на новый уровень!</span></li>
+				</ul>
+        </div>
+        
+        <div class="p3 section" id="section2" data-anchor="Organizator">
+			<div class="container">
+				<div class="slide1" id="slide_0">
+					<img src="assets/imgs/domain3.jpg">
+					<h3>Домен третьего уровня</h3>
+					<p>Каждое Ваше мероприятие получит
+					 страницу на домене третьего уровня в зоне pronwe.ru оформленную по Вашим нуждам в стиле мероприятия.
+					</p>
+				</div>
+				<div class="slide1" style="display:none;" id="slide_1">
+					<img src="assets/imgs/controlpanel.png">
+					<h3>Панель управления мероприятием</h3>
+					<p>Мы предоставим Вам удобную панель настройки и
+					управления мероприятием, из которой вы сможете заполнить интересующую ваших гостей информацию, а также следить за мероприятием, за
+					рейтингом, за выставлением баллов.
+					</p>
+				</div>
+				<div class="slide1" style="display:none;" id="slide_2">
+					<img src="assets/imgs/rating.jpg">
+					<h3>Онлайн статистика для Ваших гостей</h3>
+					<p>С нашим сервисом Вы можете сделать публичный доступ
+					к текущиму рейтингу конкурсантов, доступный на персональной странице Вашего мероприятия.
+					</p>
+				</div>
+				<div class="slide1" style="display:none;" id="slide_3">
+					<img src="assets/imgs/social.png">
+					<h3>О Вас узнают!</h3>
+					<p>С нами вы не пройдете мимо популярных социальных
+					сетей. Гости Вашего мероприятия, а также другие пользователи ProNWE смогут рассказывать всем о мероприятиях, а также ставить "лайк".
+					</p>
+				</div>
+				<div class="slide1" style="display:none;" id="slide_4">
+					<img src="assets/imgs/service.png">
+					<h3>Оффлайн поддержка мероприятия</h3>
+					<p>Если Вам не удастся обеспечить мероприятие необходимым оборудованием
+					(например, интернет для судей и гостей, или отсутствие гаджетов для судей), вы можете получить оффлайн поддержку, наши мастера настроят Ваше, или
+					предоставят свое оборудование.
+					</p>
+				</div>
+			</div>
+			
+				<!--<div class="cycle-slideshow"
+					data-cycle-fx=carousel
+					data-cycle-speed="1000"
+					data-cycle-slides="> div"
+					style="width:70%; height:50%; border:2px solid red; margin:0 auto;"
+				>
+					<div style=" border:2px solid blue; width:inherit; height:inherit;">
+						<img src="http://malsup.github.io/images/p1.jpg" style="width:300px; height:300px;">
+					</div>
+					<div style=" border:2px solid blue;">
+						<img src="http://malsup.github.io/images/p2.jpg" style="">
+					</div>
+					<div style="border:2px solid blue;">
+						<img src="http://malsup.github.io/images/p3.jpg" style="">
+					</div>
+					<div style=" border:2px solid blue;">
+						<img src="http://malsup.github.io/images/p4.jpg" style="">
+					</div>
+				</div>-->
+		
+			
+			<!-- <div class="slider">
+			  <div class="slide clearfix p3_1" data-anchor="1">
+				<p>Создание страницы не займёт более пяти минут!</p>
+				<p>Используте разные инструменты, чтобы сделать страницу оригинальной!</p>
+			  </div>
+			  <div class="slide clearfix p3_2" data-anchor="2">
+				<p>Все действия, необходимые для эффективной работы находятся на удобной админ-панели! Вы можете не только создавать или редактировать мероприятия, но и получать обратную связь от гостей Вашего мероприятия.</p>
+			  </div>
+			  <div class="slide clearfix " data-anchor="3">
+				<p>Создание мероприятие стало ещё проще!</p>
+				<p>Всего три простые шага и Ваше страница готова:</p>
+				<ul class="p3_list">
+				  <li>Общая информация о мероприятии</li>
+				  <li>Выбор необходимых элементов на странице</li>
+				  <li>Условия пользования сайтом</li>
+				</ul>
+			  </div>
+			  <div class="slide clearfix" data-anchor="4">
+				  <p>Проводите мероприятие, нуждающиеся в оценке участников?</p>
+				  <p>Представляем впервые разработанную и выпущенную в массовое употребление жюри-панель</p>
+				  <p>Если мероприятие проходит в несколько этапов, то для вас доступна админ-панель, где вы сможете проконтролировать  работу жюри и проверить корректность выстановления баллов!</p>
+				  <p>Выбери подходящую формулу, для выставления баллов, а если её нет - предложи свою!</p>
+			  </div>
+			  <div class="slide clearfix" data-anchor="5">
+				  <p>Придумай оригинальное имя своей страницы и предоставь к ней доступ!</p>
+				  <p>Поставь онлайн-трансляцию вашего мероприятия прямо на главную страницу!</p>
+				  <p>Добавь различные виджеты, чтобы сделать страницу максимально функциональной!</p>
+			  </div>
+			  <div class="slide clearfix" data-anchor="6">
+				<p>Вы будите готовы провести мероприятие, как с интернетом, так и без него!</p>
+				<p>Для этого скачай нашу программу, которая делает Ваш компьютер беспроводной точкой доступа! Жюри и гости мероприятия могут увидеть все преимущества Вашей организации, наслаждаясь выбранными Вами опциями.</p>
+			  </div>
+			</div> -->
+        </div>
+		
+        <div class="p6 section" id="section5" data-anchor="Feedback">
+            <div class="getready">
+              <h2 class="quote">Мы уже во всю готовимся к открытию!</h2>
+              <p>Проект <a class="pronwe_Link-small" style="color:#1565C0;" href="http://pronwe.ru">ProNWE</a> 
+              уже готов и находится на стадии тестирования. Уже скоро каждый 
+              организатор сможет оценить возможности данного проекта! Если у Вас
+              появились какие-нибудь вопросы, то можете связаться с нами</p>
+              
+              <ul class="listStyle-inline">
+                <li>
+                  <a class="icon icon-envelop hover-Message" href="mailto:support@pronwe.ru">
+                    <span style="font-family:arial,helvetica; font-size:1.1em;">support@pronwe.ru</span>
+                  </a>
+                </li>
+                <br><br>
+                <li>
+                  <a class="icon icon-facebook2 icon_tooltips hover-Facebook" href="https://www.facebook.com/groups/ProNWE/">
+                    <span>Facebook</span>
+                  </a> 
+                </li>
+                <li>
+                  <a class="icon icon-instagram icon_tooltips hover-Instagram" href="https://www.instagram.com/pronwe/">
+                    <span>Instagram</span>    
+                  </a>
+                </li>
+                <li>
+                <a class="icon icon-twitter icon_tooltips hover-Twitter" href="https://twitter.com/ProNWERU">
+                  <span>Twitter</span>
+                </a>
+                </li>
+                <li>
+                  <a class="icon icon-vk icon_tooltips hover-Vk" href="https://vk.com/pronwe">
+                    <span>Вконтакте</span>
+                  </a>
+                </li>
+              </ul>
+            </div>
+		
+          <!--Помощь:
+          <a class="icon-envelop" href=""></a>
+          <a class="icon-whatsapp" href=""></a>
+          <a class="icon-telegram" href=""></a>
+          <a class="icon-skype" href=""></a>
+          <br><br>-->
+        </div>
+        
+      </div>
+    </div>
+  </body>
+  <script>
+  var slideCounter = 0;
+  setInterval(function(){
+    $("#slide_"+slideCounter++).fadeToggle("slow", function(){
+		$("#slide_"+slideCounter).fadeToggle("slow");
+	});
+	
+	if (slideCounter == 5)
+			slideCounter = 0;
+  },10000);
+
+  /*
+	var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+    
+	$(document).ready(function(){
+		setTimeout(function(){ 
+			if($('#menu li:nth-child(2)').hasClass("active"))
+			{
+				$('.p2_title').each(function(){
+					$(this).addClass("animated fadeInLeft").css('opacity','1').one(animationEnd, function() {
+						$(this).removeClass('animated fadeInLeft');
+					});
+				});
+			}
+		}, 2000);
+	});
+	$(document).on("click", function(){
+		setTimeout(function(){
+			if($('#menu li:nth-child(2)').hasClass("active"))
+			{
+				$('.p2_title').each(function(){
+					$(this).addClass("animated fadeInLeft").css('opacity','1').one(animationEnd, function() {
+						$(this).removeClass('animated fadeInLeft');
+					});
+				});
+			}
+			else
+			{
+				$('.p2_title').each(function(){
+					$(this).css('opacity','0');
+				});
+			}
+		}, 500);	
+	});*/
+  </script>
+</html>
