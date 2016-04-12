@@ -175,7 +175,7 @@ class Controller_Events_Index extends Dispatch {
 
         $this->template->title          = 'Настройка порядка выступления участников';
         $this->template->description    = 'Описание страницы';
-        $this->template->keywords       = 'C';
+        $this->template->keywords       = 'Настройка порядка выступления участников';
         
         array_push( $this->js,  'vendor/jquery-ui/ui/core.js');
         array_push( $this->js,  'vendor/jquery-ui/ui/widget.js');
@@ -196,8 +196,8 @@ class Controller_Events_Index extends Dispatch {
             ->set('types', $types)
             ->bind('event', $event)
             ->bind('participants', $participants)
-            ->bind('judges', $judges)
-            ->bind('stages', $stages);
+            ->bind('stages', $stages)
+            ->set('criteria', new Model_Stages());
 
 
         /**
@@ -212,12 +212,6 @@ class Controller_Events_Index extends Dispatch {
          */
 
         $participants = Model_Participants::getAll($id_event);
-
-        /**
-         * Getting Events Judges by id_event
-         */
-
-        $judges = Model_Judge::getAll($id_event);
 
         /**
          * Getting Events stages
@@ -261,8 +255,8 @@ class Controller_Events_Index extends Dispatch {
             ->set('types', $types)
             ->bind('event', $event)
             ->bind('participants', $participants)
-            ->bind('judges', $judges)
-            ->bind('stages', $stages);
+            ->bind('stages', $stages)
+            ->set('criteria', new Model_Stages());
 
 
         /**
@@ -277,12 +271,6 @@ class Controller_Events_Index extends Dispatch {
          */
 
         $participants = Model_Participants::getAll($id_event);
-
-        /**
-         * Getting Events Judges by id_event
-         */
-
-        $judges = Model_Judge::getAll($id_event);
 
         /**
          * Getting Events stages
