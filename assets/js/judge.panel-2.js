@@ -73,4 +73,7 @@ $(function ()
             }
         },
     });
+
+    $('.buttons button:first-child').addClass('active');
+    
 });
