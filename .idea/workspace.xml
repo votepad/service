@@ -1,12 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="0c17d8bf-f912-4e95-90ac-11d3604d932c" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Controller/Events/Index.php" afterPath="$PROJECT_DIR$/application/classes/Controller/Events/Index.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/events/judge-panel/judge-panel-1.php" afterPath="$PROJECT_DIR$/application/views/events/judge-panel/judge-panel-1.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/events/judge-panel/judge-panel-2.php" afterPath="$PROJECT_DIR$/application/views/events/judge-panel/judge-panel-2.php" />
-    </list>
+    <list default="true" id="0c17d8bf-f912-4e95-90ac-11d3604d932c" name="Default" comment="" />
     <ignored path="pronwe.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path=".idea/dataSources.local.xml" />
@@ -26,32 +21,13 @@
     <favorites_list name="pronwe" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="judge-panel-2.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/views/events/judge-panel/judge-panel-2.php">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.44958678">
               <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-              <folding>
-                <marker date="1460440608800" expanded="true" signature="8:592" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="39:592" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="46:187" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="97:179" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="223:592" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="251:592" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="298:592" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="309:592" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="622:704" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="862:935" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="903:935" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="1318:1336" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="1376:1530" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="1413:1530" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="1489:1530" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="1713:1753" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="1828:2146" placeholder="..." />
-                <marker date="1460440608800" expanded="true" signature="1954:2093" placeholder="..." />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -503,7 +479,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="0" width="1280" height="760" extended-state="0" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19794953" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -896,26 +872,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.44958678">
           <caret line="16" column="26" selection-start-line="16" selection-start-column="26" selection-end-line="16" selection-end-column="26" />
-          <folding>
-            <marker date="1460440608800" expanded="true" signature="8:592" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="39:592" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="46:187" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="97:179" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="223:592" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="251:592" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="298:592" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="309:592" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="622:704" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="862:935" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="903:935" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="1318:1336" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="1376:1530" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="1413:1530" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="1489:1530" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="1713:1753" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="1828:2146" placeholder="..." />
-            <marker date="1460440608800" expanded="true" signature="1954:2093" placeholder="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
