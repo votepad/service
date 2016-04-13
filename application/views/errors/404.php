@@ -1,9 +1,16 @@
-<?php
-/**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 27.02.2016
- * Time: 1:15
- */
+<link rel='stylesheet' href='assets/css/404.css'>
+<link rel='stylesheet' href='assets/css/pronwe.css'>
 
-echo 'UPS/404';
+<div class='main-container'>
+	<img src="assets/img/ProNWE_logo.svg" alt="ProNWE logo" class='topLogo'>
+	<h1>Ошибка 404. Страница не найдена</h1>
+</div>
+<div class='secondary-container'>
+	<p>Очень жаль, искомая страница не найдена. Но мы можем вам предложить что-то интересное.</p>
+	<ul class='submenu'>
+		<li><a href='http://pronwe.ru' class='pronwe_Link-small pronwe_color'>Главная</a></li>
+		<li><a href='' class='pronwe_Link-small pronwe_color'>Организации</a></li>
+		<li><a href='' class='pronwe_Link-small pronwe_color'>Мероприятия</a></li>
+		<li><a href='' class='pronwe_Link-small pronwe_color'>FAQ</a></li>
+	</ul>
+</div>

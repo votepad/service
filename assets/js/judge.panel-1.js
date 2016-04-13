@@ -1,7 +1,7 @@
 $(function ()
 {
-    var form1 = $("#rating-area-2");
-    form1.children("div").steps({
+    var form = $("#rating-area-2");
+    form.children("div").steps({
         headerTag: "h3",
         bodyTag: "div",
         transitionEffect: "slideLeft",
@@ -88,4 +88,10 @@ $(function ()
         },
     });
     $('.nav-s').sortable();
+
+    $('.portlets-wrapper ul li:first-child').addClass('active');
+    $('.tab-content div:first-child').addClass('active');
+    $('.buttons button:first-child').addClass('active');
+    
+
 });

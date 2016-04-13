@@ -100,20 +100,26 @@ Class Model_User {
         $this->role     = $data['role'];
     }
 
-    function signUpContinue($lastname, $name, $surname, $sex, $number, $country, $city)
+    function signUpContinue($lastname, $name, $surname, $sex, $number, $city, $avatar)
     {
         $update = DB::update('Users')->set(array(
             'lastname'  => $lastname,
             'name'      => $name,
             'surname'   => $surname,
-            'sex'       => $sex,
             'number'    => $number,
-            'country'   => $country,
+            'sex'       => $sex,
             'city'      => $city,
+            'avatar'    => $avatar,
             'done'      => 1,
         ))->where('id', '=', Session::Instance()->get('user_id'))->execute();
 
         return $update;
+    }
+
+    public function getCities()
+    {
+        $select = DB::select()->from('Cities')->execute()->as_array();
+        return $select;
     }
 
     public function getUserInfo()

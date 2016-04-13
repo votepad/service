@@ -102,7 +102,6 @@ Route::set('EVENTS', 'events(/<id>(/<action>))')
         'action'     => 'index',
     ));
 
-
 Route::set('Default', '<controller>(/<action>(/<id>))')
     ->defaults(array(
         'controller' => 'Welcome',

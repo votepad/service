@@ -12,13 +12,18 @@ class Controller_Profile_Index extends Dispatch {
          * Page decoration
          */
 
+        $city = Kohana::$config->load('city');
+        $gender = Kohana::$config->load('gender');
+
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('profile/profile');
+        $this->template->section    = View::factory('profile/profile')
+                                                ->set('city', $city)
+                                                ->set('gender', $gender);
 
         /*
          * Meta datas
          */
-        $this->template->title  ='Профиль пользователя';
+        $this->template->title          = 'Профиль пользователя';
         $this->template->description    = 'Профиль пользователя';
         $this->template->keywords       = 'SEO';
 
@@ -35,7 +40,6 @@ class Controller_Profile_Index extends Dispatch {
 
         $this->template->css    = $this->css;
         $this->template->js     = $this->js;
-
-
+        
     }
 }

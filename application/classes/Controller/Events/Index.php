@@ -10,21 +10,6 @@ class Controller_Events_Index extends Dispatch {
 
     public $template = 'main';
 
-    public function action_index()
-    {
-        parent::isLogged();
-
-        $this->template->title          = 'Мои мероприятия';
-        $this->template->description    = 'Описание страницы';
-        $this->template->keywords       = 'C';
-
-        $this->template->css = $this->css;
-        $this->template->js = $this->js;
-
-        $this->template->aside      = View::factory('aside');
-        $this->template->section    = 'content';
-    }
-
     public function action_edit()
     {
         parent::isLogged();
@@ -46,6 +31,9 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'js/pjsc.js');
 
         $types = Kohana::$config->load('type');
+        $status = Kohana::$config->load('status');
+        $city = Kohana::$config->load('city');
+
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -53,6 +41,8 @@ class Controller_Events_Index extends Dispatch {
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('events/edit-event')
                                                 ->set('types', $types)
+                                                ->set('status', $status)
+                                                ->set('city', $city)
                                                 ->bind('event', $event)
                                                 ->bind('participants', $participants)
                                                 ->bind('judges', $judges)
@@ -187,6 +177,8 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'js/judge.panel-1.js');
         
         $types = Kohana::$config->load('type');
+        $status = Kohana::$config->load('status');
+        $city = Kohana::$config->load('city');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -194,6 +186,8 @@ class Controller_Events_Index extends Dispatch {
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('events/judge-panel/judge-panel-1')
             ->set('types', $types)
+            ->set('status', $status)
+            ->set('city', $city)
             ->bind('event', $event)
             ->bind('participants', $participants)
             ->bind('stages', $stages)
@@ -246,6 +240,8 @@ class Controller_Events_Index extends Dispatch {
     
 
         $types = Kohana::$config->load('type');
+        $status = Kohana::$config->load('status');
+        $city = Kohana::$config->load('city');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -253,6 +249,8 @@ class Controller_Events_Index extends Dispatch {
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('events/judge-panel/judge-panel-2')
             ->set('types', $types)
+            ->set('status', $status)
+            ->set('city', $city)
             ->bind('event', $event)
             ->bind('participants', $participants)
             ->bind('stages', $stages)
@@ -305,6 +303,8 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'js/app.js');
         
         $types = Kohana::$config->load('type');
+        $status = Kohana::$config->load('status');
+        $city = Kohana::$config->load('city');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -312,6 +312,8 @@ class Controller_Events_Index extends Dispatch {
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('events/eventmaker')
             ->set('types', $types)
+            ->set('status', $status)
+            ->set('city', $city)
             ->bind('event', $event)
             ->bind('participants', $participants)
             ->bind('judges', $judges)

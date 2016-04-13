@@ -3,11 +3,11 @@ input {
 	
 	outline:none;
 	margin: 1em auto;
-	padding:2%;
+	padding:1%;
 	width:100%;
 	background-color: rgba(0,0,0,0.05);
 	border:none;
-	height:2.5em; 	
+	height:2em; 	
 	/*width: 250px; 
 	margin-top:25px;*/ 
 	color:#757575; 
@@ -16,7 +16,7 @@ input {
 } 
 
 label { 
-	font-size:1.285714285714286em; 
+	
 	position:absolute;
 	bottom:0.8em;
 	left:0.25em;
@@ -28,8 +28,8 @@ label {
 
 input:focus ~ .label-box label, 
 input:valid ~ .label-box label { 
-	font-size: 1em; 
-	transform: translateY(-2.4em); 
+	font-size: 0.85em; 
+	transform: translateY(-2.5em); 
 	color:#757575; 
 	font-weight:bolder; 
 } 
@@ -65,4 +65,25 @@ input:valid ~ .label-box label {
 input:focus ~ .label-box::before, 
 input:focus ~ .label-box::after { 
 	width: 100%; 
+}
+
+.btn {
+    border-radius: 3px;
+    -webkit-transition: all .1s;
+    -o-transition: all .1s;
+    transition: all .1s;
+    color: #fff;
+    background-color: #5d9cec;
+    border-color: #5899eb;
+    display: inline-block;
+    font-weight: 400;
+    text-align: center;
+    cursor: pointer;
+    padding: 6px 16px;
+    line-height: 1.52857143;
+    width: 100%;
+}
+.btn:hover{
+	color:#fff;
+    background-color: #2f80e7;
 }
