@@ -13,7 +13,8 @@ class Controller_Auth extends Dispatch {
     function action_index()
     {
         array_push( $this->css, 'css/font-awesome.min.css');
-        array_push( $this->css, 'css/ownPronwe.css');
+        array_push( $this->css, 'css/ProNWE_input.css');
+        array_push( $this->css, 'css/pronwe.css');
         array_push( $this->css, 'css/auth.css');
         unset( $this->css[5] );
 
@@ -55,7 +56,7 @@ class Controller_Auth extends Dispatch {
             if ($logIn == 2)
                 $this->redirect('signup/continue');
             else
-                $this->redirect('profile');
+                $this->redirect('events/my');
         }
     }
 
