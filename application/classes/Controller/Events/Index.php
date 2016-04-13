@@ -100,7 +100,11 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'js/event.js');
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/new-event');
+        $this->template->section    = View::factory('events/new-event')
+                                                ->bind('cities', $cities);
+
+        $arrcity = new Model_Events;
+        $cities = $arrcity->getCities();
 
         $this->template->css    = $this->css;
         $this->template->js     = $this->js;

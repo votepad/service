@@ -24,9 +24,12 @@
                   <div class="col-md-9">
                      <select id="input-event-status" name="input-event-status" data-validation="required" data-validation-error-msg="Выберите статус мероприятия, он нужен для поиска мероприятия в системе" class="form-control" >
                         <option value=""></option>
-                        <? for($i = 0; $i < count($cities); $i++) : ?>
-                           <option value="<?=$cities[$i]['id']; ?>"><?=$cities[$i]['name']; ?></option>
-                        <? endfor;  ?>
+                        <option value="1">Международное мероприятие</option>
+                        <option value="2">Всероссийское мероприятие</option>
+                        <option value="3">Региональное мероприятие</option>
+                        <option value="4">Городское мероприятие</option>
+                        <option value="5">Университетское мероприятие</option>
+                        <option value="6">Школьное мероприятие</option>
                      </select>
                   </div>
                </div>
@@ -58,11 +61,11 @@
                   <label for="input-event-city" class="col-md-3 control-label">Город</label>
                   <div class="col-md-9">
                      <select id="input-event-city" name="input-event-city" data-validation="required" data-validation-error-msg="Выберите город" class="form-control">
-                           <option value=""></option>
-                           <option value="Санкт-Петербург">Санкт-Петербург</option>
-                           <option value="Москва">Москва</option>
-                           <!-- и так далее, делаем запрос из бд,, где располагаются города РФ  -->
-                        </select>
+                        <option value=""></option>
+                        <? for($i = 0; $i < count($cities); $i++) : ?>
+                           <option value="<?=$cities[$i]['id']; ?>"><?=$cities[$i]['name']; ?></option>
+                        <? endfor;  ?>
+                     </select>
                   </div>
                </div>
                <div class="form-group">

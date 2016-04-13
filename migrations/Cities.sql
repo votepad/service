@@ -23,29 +23,25 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Events`
+-- Структура таблицы `Cities`
 --
 
-CREATE TABLE IF NOT EXISTS `Events` (
-  `id` int(18) NOT NULL AUTO_INCREMENT,
-  `title` varchar(30) NOT NULL,
-  `description` varchar(1000) NOT NULL,
-  `event_status` int(11) NOT NULL,
-  `start_datetime` datetime NOT NULL,
-  `finish_datetime` datetime NOT NULL,
-  `city` varchar(65) NOT NULL,
-  `type` int(11) NOT NULL,
-  `photo` varchar(65) NOT NULL,
-  `full` int(11) NOT NULL DEFAULT '0',
+CREATE TABLE IF NOT EXISTS `Cities` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=11 ;
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=6 ;
 
 --
--- Дамп данных таблицы `Events`
+-- Дамп данных таблицы `Cities`
 --
 
-INSERT INTO `Events` (`id`, `title`, `description`, `event_status`, `start_datetime`, `finish_datetime`, `city`, `type`, `photo`, `full`) VALUES
-(10, 'testing VV   3', 'testing    3testing    3testing    3testing    3testing    3', 1, '2025-01-04 05:10:00', '2023-02-07 03:20:00', '1', 1, 'Chrysanthemum.jpg', 0);
+INSERT INTO `Cities` (`id`, `name`) VALUES
+(1, 'Санкт-Петербург'),
+(2, 'Москва'),
+(3, 'Пермь'),
+(4, 'Екатеренбург'),
+(5, 'Сочи');
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

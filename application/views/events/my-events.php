@@ -1,7 +1,7 @@
 <section>
 	<div class="content-wrapper">
 		<h3>Мои мероприятия
-			<small>Здесь Вы можете реактировать мероприятие, создать панель для Жюри, где они будут выставлять оценки, создать приветственную страницу Вашего мероприятия, а также удалить мероприятие</small>
+			<small>Здесь Вы можете отреактировать мероприятие, настроить очереность выступления участников, создать приветственную страницу Вашего мероприятия, а также удалить мероприятие.</small>
 		</h3>
 		<div class="panel panel-default">
 			<div class="panel-body">
@@ -12,7 +12,7 @@
 							<th class="sorting text-center" style="width: 5%">#</th>
 							<th class="no-sort text-center" style="width: 5%">Логотип</th>
 							<th class="sorting" >Название мероприятия</th>
-							<th class="no-sort" style="width: 15%">Дата начала</th>
+							<th class="sorting" style="width: 15%">Дата начала</th>
 							<th class="no-sort text-center" style="width: 15%">Редактирование</th>
 							<th class="no-sort text-center" style="width: 15%">Управление</th>
 							<th class="no-sort text-center" style="width: 5%">Удаление</th>
@@ -28,7 +28,7 @@
 								</div>
 							</td>
 							<td><?=$events[$i]['title'] ;?></td>
-							<td><?=$events[$i]['start_datetime'] ;?></td>
+							<td><?php echo strftime('%d %b %Y  в  %H:%M', strtotime($events[$i]['start_datetime'])); ?></td>
 							<td>
 								<div class="col-xs-4 text-center">
 									<a href="<?=URL::base(). 'events/'. $events[$i]['id']. '/edit/'; ?>" data-toggle="tooltip" data-title="Редактирование информации о мероприятии">

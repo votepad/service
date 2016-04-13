@@ -3,19 +3,22 @@ $(document).ready (function() {
    $("#input-event-description").restrictLength( $("#pres-max-length") );
    moment.lang('ru');
    $('#input-event-start').combodate({
-      format:'D MMM YYYY в HH:mm',
+      format:'YYYY-MM-DD HH:mm',
+      viewformat:'D MMM YYYY в HH:mm',
+      template: 'D - MMM - YYYY          в           HH : mm',   
       minYear: 2016,
       maxYear: 2026,
       minuteStep: 10,
-      template:'D MMM YYYY в HH:mm', 
       customClass: 'form-control-2 btn_area1'
+   
    });
    $('#input-event-end').combodate({
-      format:'D MMM YYYY в HH:mm',
+      format:'YYYY-MM-DD HH:mm',
+      viewformat:'D MMM YYYY в HH:mm',
+      template: 'D - MMM - YYYY          в           HH : mm',   
       minYear: 2016,
       maxYear: 2026,
       minuteStep: 10,
-      template:'D MMM YYYY в HH:mm', 
       customClass: 'form-control-1 btn_area1'
    });
 
