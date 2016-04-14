@@ -81,7 +81,10 @@ class Model_Participants extends Model {
                 ->and_where('Positions.id_stage', '=', $stage)
                 ->order_by('Positions.position');*/
 
-        return $select;
+        if (count($select) == 0)
+            return self::getAll($event);
+        else
+            return $select;
     }
 
     public static function updateParticipantByFieldName($field, $value, $id)
