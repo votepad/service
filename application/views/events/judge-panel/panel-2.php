@@ -4,14 +4,13 @@
 
 <head>
 <meta charset="utf-8">
-
+	
+			<!-- =============== VENDOR STYLES ===============-->
 	<? foreach($css as $styles): ?>
 		<link rel="stylesheet" href="<?=$assets;?><?=$styles;?>">
 	<? endforeach;?>
 
-	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-
-	<!-- =============== VENDOR SCRIPTS ===============-->
+			<!-- =============== VENDOR SCRIPTS ===============-->
 	<? foreach ($js as $scripts): ?>
 		<script src="<?=$assets.$scripts; ?>"></script>
 	<? endforeach; ?>
@@ -21,7 +20,7 @@
 	<div class="content-wrapper">
 		<div class="content-heading">
 			<div class="col-sm-4 col-md-3 hidden-xs">
-				<img src="img/temp/vesnavitmo.jpg" alt="EventImage" class="img-thumbnail img-circle">
+				<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="EventImage" class="img-thumbnail img-circle">
 			</div>
 			<div class="col-sm-8 col-md-9 text-white text-left orgName">
 				<h1>Название мероприятия</h1>
@@ -47,7 +46,7 @@
 										<div class="panel-wrapper">
 											<div class="panel-body">
 												<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
-													<img src="img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
+													<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
 												</div>
 												<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
 													<h2>Имя участника</h2>
@@ -80,7 +79,7 @@
 										<div class="panel-wrapper">
 											<div class="panel-body">
 												<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
-													<img src="img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
+													<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
 												</div>
 												<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
 													<h2>Имя участника</h2>
@@ -123,7 +122,7 @@
 										<div class="panel-wrapper">
 											<div class="panel-body">
 												<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
-													<img src="img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
+													<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
 												</div>
 												<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
 													<h2>Имя участника</h2>

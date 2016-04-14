@@ -16,7 +16,7 @@ $(function ()
         },
         onStepChanging: function (event, currentIndex, newIndex)
         {
-            /*var index= currentIndex+1;
+            var index= currentIndex+1;
             var area = $('#stage-'+index+' .buttons').length;
             var k = 0;
             for (var i = 1; i <= area; i++) {
@@ -27,7 +27,7 @@ $(function ()
                     break;
                 }
             }
-            if ( k == 0 ){ return true; }*/
+            if ( k == 0 ){ return true; }
 
         },
         onFinishing: function (event, currentIndex)
@@ -148,5 +148,4 @@ $(function ()
 
     $('.buttons button:first-child').addClass('active');
 
-    
 });
