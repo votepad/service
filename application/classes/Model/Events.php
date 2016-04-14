@@ -26,7 +26,7 @@ class Model_Events extends Model {
 
     public static function delete($id)
     {
-        $delete = DB::delete('Events')->where('id', '=', $id);
+        $delete = DB::delete('Events')->where('id', '=', $id)->execute();
         return $delete;
     }
 

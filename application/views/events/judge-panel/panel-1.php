@@ -5,23 +5,16 @@
 <head>
 <meta charset="utf-8">
 
-	<link rel="stylesheet" href="vendor/fontawesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="css/app.css">
-	<link rel="stylesheet" href="css/bootstrap.css">
-	<link rel="stylesheet" href="css/judge.panel.css">
-	<link rel="stylesheet" href="css/pronwe.css">
+	<? foreach($css as $styles): ?>
+		<link rel="stylesheet" href="<?=$assets;?><?=$styles;?>">
+	<? endforeach;?>
 
 	<script src="https://code.jquery.com/jquery-1.12.0.min.js"></script>
-	<script src="vendor/jquery.steps/jquery.steps.js"></script>
 
-	<script src="js/judge.panel.js"></script>
-
-   <script src="js/app.js"></script>
-   <script src="vendor/bootstrap/dist/js/bootstrap.js"></script>
-   <script src="vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
-   
-   
-
+	<!-- =============== VENDOR SCRIPTS ===============-->
+	<? foreach ($js as $scripts): ?>
+		<script src="<?=$assets.$scripts; ?>"></script>
+	<? endforeach; ?>
 
 </head>
 <body>

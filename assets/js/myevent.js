@@ -31,17 +31,21 @@ $(document).ready (function() {
 	$("a[id~='deleteEvent'").click( function() {
 		var data = $(this).closest('tr').attr('id');
 
+		if ( !confirm('Вы уверены?'))
+			return false;
+
 		list = data.split('_');
 		id = list[1];
 
 		$.ajax({
 			url: url+'deleteEvent/',
+			type: "POST",
 			data: {
-				'id' : id
+				'id' : id,
 			},
 			success: function(data, config) {
 				console.log(data);
-				//window.location.reload();
+				window.location.reload();
 			},
 			error: function(data, config) {
 				console.log(data);
@@ -78,4 +82,6 @@ $(document).ready (function() {
 			swal("Готово!", "Ссылка на мероприятие " + inputValue, "success");
 		});
 	});
+
+
 });

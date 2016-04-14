@@ -188,7 +188,7 @@ class Controller_Events_Index extends Dispatch {
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/judge-panel/judge-panel-1')
+        $this->template->section    = View::factory('events/settings/judge-panel-1')
             ->set('types', $types)
             ->set('status', $status)
             ->set('city', $city)
@@ -251,7 +251,7 @@ class Controller_Events_Index extends Dispatch {
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/judge-panel/judge-panel-2')
+        $this->template->section    = View::factory('events/settings/judge-panel-2')
             ->set('types', $types)
             ->set('status', $status)
             ->set('city', $city)
@@ -267,18 +267,22 @@ class Controller_Events_Index extends Dispatch {
 
         $event = new Model_Events();
         $event = $event->getEvent($id_event);
-
-        /**
-         * Getting Events Participant by Id
-         */
-
-        $participants = Model_Participants::getAll($id_event);
-
         /**
          * Getting Events stages
          */
 
         $stages = Model_Stages::getAll($id_event);
+
+
+        /**
+         * Getting Events Participant by Id And Ordered by Positions
+         */
+
+        for($i = 0; $i < count($stages); $i++)
+        {
+            $id = $stages[$i]['id'];
+            $participants[] = Model_Participants::getParticipantsByPosition($event['id'], $id);
+        }
     }
 
     public function action_eventmaker()

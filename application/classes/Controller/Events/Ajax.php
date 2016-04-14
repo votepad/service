@@ -134,4 +134,14 @@ class Controller_Events_Ajax extends Ajax {
 
     }
 
+    public function action_participantposition()
+    {
+        $id_event       = Arr::get($_POST, 'id_event');
+        $id_stage       = Arr::get($_POST, 'stage');
+        $id_participant = Arr::get($_POST, 'participant');
+        $position       = Arr::get($_POST, 'position');
+
+        Model_Participants::setPosition($id_event, $id_stage, $id_participant, $position);
+    }
+
 }

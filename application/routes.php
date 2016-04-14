@@ -84,16 +84,22 @@ ROUTE::set('EVENTMAKER', 'events/<id>/eventmaker')
         'action'     => 'eventmaker',
     ));
 
-Route::set('JudgePanel1', 'events/<id>/judgepanel1')
+Route::set('Settings-1', 'events/<id>/judgepanel1')
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'judgepanel1'
     ));
 
-Route::set('JudgePanel2', 'events/<id>/judgepanel2')
+Route::set('Settings-2', 'events/<id>/judgepanel2')
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'judgepanel2'
+    ));
+
+Route::set('Judge-panel-1', 'event/start/panel1')
+    ->defaults(array(
+        'controller' => 'Judges_Index',
+        'action'     => 'panel1',
     ));
 
 Route::set('EVENTS', 'events(/<id>(/<action>))')

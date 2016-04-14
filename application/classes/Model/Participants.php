@@ -53,6 +53,37 @@ class Model_Participants extends Model {
         return self::get($id, $id_event);
     }
 
+    public static function getParticipantsByPosition($event, $stage)
+    {
+        /*
+         *
+         * Generating this SQL query with Query Builder Kohana.
+         */
+        $sql = "SELECT *
+            FROM  `Participants`
+            JOIN  `Positions`
+            WHERE  `Participants`.id =  `Positions`.id_participant
+            AND  `Participants`.id_event =  `Positions`.id_event
+            AND `Participants`.id_event = :event
+            AND `Positions`.id_stage = :stage
+            ORDER BY `Positions`.position";
+
+        $select = DB::query(Database::SELECT, $sql)->parameters(array(
+            ':event' => $event,
+            ':stage' => $stage,
+        ), false)->execute()->as_array();
+
+        /*$select = DB::select()->from('Participants')->join('Positions')
+                ->on('Participants.id', '=', 'Positions.id_participant')
+                ->where('Participants.id', '=', 'Positions.id_participant')
+                ->and_where('Participants.id_event', '=', 'Positions.id_event')
+                ->and_where('Participants.id_event', '=', $event)
+                ->and_where('Positions.id_stage', '=', $stage)
+                ->order_by('Positions.position');*/
+
+        return $select;
+    }
+
     public static function updateParticipantByFieldName($field, $value, $id)
     {
         $update = DB::update('Participants')->set(array(
@@ -66,6 +97,33 @@ class Model_Participants extends Model {
     {
         $delete = DB::delete('Participants')->where('id', '=', $id)->execute();
         return $delete;
+    }
+
+    public static function setPosition($event, $stage, $participant, $position)
+    {
+        $select = DB::select()->from('Positions')->where('id_event', '=', $event)
+                                                ->and_where('id_stage', '=', $stage)
+                                                ->and_where('id_participant', '=', $participant)
+                                                ->limit(1)
+                                                ->execute()
+                                                ->as_array();
+        if ( count($select) == 0) {
+            $insert = DB::insert('Positions', array(
+                'id_event', 'id_stage', 'id_participant', 'position',
+            ))->values(array(
+                $event, $stage, $participant, $position
+            ))->execute();
+        }
+        else {
+            $update = DB::update('Positions')->set(array(
+                'position' => $position
+                ))->where('id_event', '=', $event)
+                ->and_where('id_stage', '=', $stage)
+                ->and_where('id_participant', '=', $participant)
+                ->execute();
+        }
+
+        return true;
     }
 
 }
