@@ -27,6 +27,8 @@ class Model_Participants extends Model {
         $insert = DB::insert('Participants', array('id_event', 'name', 'description', 'photo'))
                             ->values(array($this->id_event, $this->name, $this->description, $this->photo))->execute();
 
+
+
         return $insert;
     }
 
@@ -81,7 +83,7 @@ class Model_Participants extends Model {
                 ->and_where('Positions.id_stage', '=', $stage)
                 ->order_by('Positions.position');*/
 
-        if (count($select) == 0)
+        if ( count($select) == 0 )
             return self::getAll($event);
         else
             return $select;

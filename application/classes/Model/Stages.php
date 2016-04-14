@@ -16,6 +16,14 @@ class Model_Stages extends Model {
     {
     }
 
+    function __clone()
+    {
+    }
+
+    function __sleep()
+    {
+    }
+
     function insertStages($name, $description, $id_event)
     {
         $insert = DB::insert('Stages', array(

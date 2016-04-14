@@ -1,3 +1,7 @@
+<?php
+
+?>
+
 <section>
 	<div class="content-wrapper">
 		<h3>Настройка порядка выступления участников
@@ -15,17 +19,28 @@
 
 							<div>
 								<?php
-									$criterias = $criteria->getCriteriasByStageId($stages[$i]['id']);
-									$maxscores = $criterias[0]['maxscore'];
+
+								$criterias = Model_Stages::getCriteriasByStageId($stages[$i]['id']);
+
+								try {
+									$criteria = Arr::get($criterias, '0');
+									$maxscore = $criteria['maxscore'];
+
+								} catch (Exception $e) {
+									echo $e->getMessage();
+									echo Debug::vars($stage[$i]['id']);
+									return ;
+								}
+
 								?>
 								<div class="col-md-12 ">
 									<div class="alert description">
-										<p><?=$criterias[0]['name']; ?></p>
+										<p><?=$criteria['name']; ?></p>
 									</div>
 								</div>
 
 								<div id="stage <?=$i. ' ' . $stages[$i]['id']; ?>" data-toggle="portlet" class="portlets-wrapper">
-									<?php for($k = 0; $k < count($participants); $k++): ?>
+									<?php for($k = 0; $k < count($participants[$i]); $k++): ?>
 
 										<div id="participant-id <?=$participants[$i][$k]['id']; ?>" class="panel panel-primary">
 											<div class="panel-heading portlet-handler">
@@ -40,7 +55,7 @@
 														<h2><?=$participants[$i][$k]['name']; ?></h2>
 
 														<div class="buttons" data-toggle="buttons">
-															<?php for($l = 0; $l <= $maxscores; $l++) : ?>
+															<?php for($l = 0; $l <= $maxscore; $l++) : ?>
 																<button class="mb-sm btn btn-primary">
 																	<!-- score-idStage-idParticipant-1 -->
 																	<input type="radio" name="score-<?=$stages[$i]['id']; ?>-<?=$participants[$i][$k]['id']; ?>-1" autocomplete="off" value="<?=$l; ?>" checked=""> <?=$l; ?>

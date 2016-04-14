@@ -257,9 +257,7 @@ class Controller_Events_Index extends Dispatch {
             ->set('city', $city)
             ->bind('event', $event)
             ->bind('participants', $participants)
-            ->bind('stages', $stages)
-            ->set('criteria', new Model_Stages());
-
+            ->bind('stages', $stages);
 
         /**
          * Getting Event INFO.
