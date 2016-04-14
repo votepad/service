@@ -286,6 +286,7 @@ $(document).ready (function() {
 	//defaults
 	$.fn.editable.defaults.url = '/Ajax/Editable';
 	$.fn.editable.defaults.mode = 'inline';
+    moment.lang('ru');
 
 	var url = location.protocol+'//'+location.hostname+'/pronwe/';
 
@@ -293,34 +294,7 @@ $(document).ready (function() {
 		url: url+'/updateEventsSubstance/updateeventinfo/',
 		emptytext: 'Не заполнено',
 		ajaxOptions: {
-		dataType: 'json'
-		},
-		success: function(data, config) {
-			console.log(data);
-		},
-		error: function(data) {
-			console.log(data);
-		},
-		validate: function(value) {
-			if($.trim(value) === '') return 'Заполните поле';
-		}
-	});
-
-	$('#input-event-status').editable({
-		url: url+'/updateEventsSubstance/updateeventinfo/',
-		type: 'select',
-		name: 'input-event-status',
-		emptytext: 'Не заполнено',
-		source: [
-			{value: 'Международное мероприятие', text: 'Международное мероприятие'},
-			{value: 'Всероссийское мероприятие', text: 'Всероссийское мероприятие'},
-			{value: 'Региональное мероприятие', text: 'Региональное мероприятие'},
-			{value: 'Городское мероприятие', text: 'Городское мероприятие'},
-			{value: 'Университетское мероприятие', text: 'Университетское мероприятие'},
-			{value: 'Школьное мероприятие', text: 'Школьное мероприятие'}
-		],
-		ajaxOptions: {
-			dataType: 'json'
+		  dataType: 'json'
 		},
 		success: function(data, config) {
 			console.log(data);
@@ -333,54 +307,6 @@ $(document).ready (function() {
 		}
 	});
     
-	moment.lang('ru');
-
-    $('#input-event-city').editable({
-		url: url+'/updateEventsSubstance/updateeventinfo/',
-		type: 'select',
-		name: 'input-event-status',
-		emptytext: 'Не заполнено',
-		source: [
-			{value: 'Санкт-Петербург', text: 'Санкт-Петербург'},
-			{value: 'Москва', text: 'Москва'},
-		],
-		ajaxOptions: {
-			dataType: 'json'
-		},
-		success: function(data, config) {
-			console.log(data);
-		},
-		error: function(data) {
-			console.log(data);
-		},
-		validate: function(value) {
-			if($.trim(value) === '') return 'Заполните поле';
-		}
-	});
-
-	$('#input-event-type').editable({
-		url: url+'/updateEventsSubstance/updateeventinfo/',
-		type: 'select',
-		name: 'input-event-status',
-		emptytext: 'Не заполнено',
-		source: [
-			{value: 'Оценивание участников по нескольким критериям на каждом этапе', text: 'Оценивание участников по нескольким критериям на каждом этапе'},
-			{value: 'Оценивание участников по одному критерию на каждом этапе', text: 'Оценивание участников по одному критерию на каждом этапе'},
-		],
-		ajaxOptions: {
-			dataType: 'json'
-		},
-		success: function(data, config) {
-			console.log(data);
-		},
-		error: function(data) {
-			console.log(data);
-		},
-		validate: function(value) {
-			if($.trim(value) === '') return 'Заполните поле';
-		}
-	});
-
 	function readURL(input) {
         if (input.files && input.files[0]) {
             var type   = ['image/gif','image/jpg','image/jpeg','image/png'];

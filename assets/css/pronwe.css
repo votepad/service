@@ -86,3 +86,16 @@ ul{
 .success-border{
 	border-color:#27c24c;
 }
+.logo-preview{
+  width:150px; 
+  height: 150px; 
+  border-radius:10%; 
+  margin:0 auto;
+}
+.logo-input{
+  position: absolute; 
+  clip: rect(0px 0px 0px 0px);
+}
+label {
+    padding-top: 5px;
+}

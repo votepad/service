@@ -35,29 +35,14 @@
             }
         });
 
-        $('#surname').editable({
-            type: 'text',
-            name: 'surname',
-        });
-
-        $('#name').editable({
-            type: 'text',
-            name: 'name',
-        });
-
-        $('#lastname').editable({
-            type: 'text',
-            name: 'lastname',
-        });
-
         $('#sex').editable({
             url: url+'/Profile_Ajax/update/',
             type: 'select',
             name: 'sex',
             emptytext: 'Не заполнено',
             source: [
-                {value: 'Мужской', text: 'Мужской'},
-                {value: 'Женский', text: 'Женский'}
+                {value: 1, text: 'Мужской'},
+                {value: 2, text: 'Женский'}
             ],
             ajaxOptions: {
                 dataType: 'json'
@@ -81,7 +66,8 @@
         
         $('#city').editable({
             url: url+'/Profile_Ajax/update/',
-            type: 'typeaheadjs',
+            type: 'select',
+            name: 'city',
             emptytext: 'Не заполнено',
             ajaxOptions: {
                 dataType: 'json'
@@ -95,10 +81,13 @@
             validate: function(value) {
                 if($.trim(value) === '') return 'Заполните поле';
             },
-            typeahead: {
-                name: 'city',
-                local: ["Санкт-Петербург","Москва","Выборг","Екатеринбурге","Пермь","Сочи","Краснодар"] /*more: typeahead database php*/
-            }
+            source: [
+                {value: 1, text: 'Санкт-Петербург'},
+                {value: 2, text: 'Москва'},
+                {value: 3, text: 'Пермь'},
+                {value: 4, text: 'Екатеренбург'},
+                {value: 5, text: 'Сочи'},
+            ],
         });    
 
         function readURL(input) {

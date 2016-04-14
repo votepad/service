@@ -46,7 +46,7 @@
 
 					<button type="submit" id="sigin-button" type="submit" class="btn pronwe_background">Войти</button>
 
-					<p class="text-center" onclick="showReg()"><span class="pronwe_Link-small">Моментальная регистрация</span></p>
+					<p class="text-center" onclick="showReg()"><span class="pronwe_Link-small">Быстрая регистрация</span></p>
 				</form>    			
     		</div>
     		<!--  REGISTRATION -->
