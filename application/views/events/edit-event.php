@@ -1,6 +1,7 @@
+
 <section>
    <div class="content-wrapper">
-      <h3>Редактирование информации о мероприятии "<a  data-name="title" data-type="text" class="editable" data-pk="<?=$event['id']; ?>"><?=$event['title']; ?></a>"</h3>
+      <h3>Редактирование информации о мероприятии "<a data-type="text" data-name="title" class="editable" data-pk="<?=$event['id']; ?>"><?=$event['title']; ?></a>"</h3>
       <!-- EDIT MAIN EVENT INFO -->
       <div class="panel-group">
          <div class="panel panel-default">
@@ -12,7 +13,7 @@
                         <div class="form-group">
                            <label class="col-md-4 control-label">Описание</label>
                            <div class="col-md-8">
-                              <a data-name="description" data-type="textarea" class="editable control-size" data-pk="<?=$event['id']; ?>"><?=$event['description']; ?></a>
+                              <a data-type="textarea" data-name="description" class="editable control-size" data-pk="<?=$event['id']; ?>"><?=$event['description']; ?></a>
                            </div>
                         </div>
 
@@ -26,14 +27,14 @@
                         <div class="form-group">
                            <label class="col-md-4 control-label">Мероприятие начнется</label>
                            <div class="col-md-8">
-                              <a data-type="combodate" data-template="D MMM YYYY  HH:mm" data-format="YYYY-MM-DD HH:mm" data-viewformat=" D MMM YYYY в HH:mm" class="editable" data-combodate='{"minYear": "2016", "maxYear": "2026"}' data-pk="<?=$event['id']; ?>" data-value="<?=$event['start_datetime']; ?>"><?=$event['start_datetime']; ?></a>
+                              <a class="editable" data-type="combodate" data-format="YYYY-MM-DD HH:mm" data-viewformat="DD MMM YYYY в HH:mm" data-template="DD MMM YYYY в HH : mm" data-combodate='{"minYear": "2016", "maxYear": "2026"}' data-value="<?=$event['start_datetime']; ?>" data-pk="<?=$event['id']; ?>"><?php echo strftime("%d %b %G в %H:%M",strtotime($event['start_datetime'])); ?></a>
                            </div>
                         </div>
 
                         <div class="form-group">
                            <label class="col-md-4 control-label">Мероприятие завершится</label>
                            <div class="col-md-8">
-                              <a data-type="combodate" data-template="D MMM YYYY в HH:mm" data-format="D MMM YYYY в HH:mm" data-viewformat=" D MMM YYYY в HH:mm" class="editable" data-combodate='{"minYear": "2016", "maxYear": "2026"}' data-pk="<?=$event['id']; ?>" data-value="<?=$event['finish_datetime']; ?>"><?=$event['finish_datetime']; ?></a>
+                              <a class="editable" data-type="combodate" data-format="YYYY-MM-DD HH:mm" data-viewformat="DD MMM YYYY в HH:mm" data-template="DD MMM YYYY в HH : mm" data-combodate='{"minYear": "2016", "maxYear": "2026"}' data-value="<?=$event['finish_datetime']; ?>" data-pk="<?=$event['id']; ?>"><?php echo strftime("%d %b %G в %H:%M", strtotime($event['finish_datetime'])); ?></a>
                            </div>
                         </div>
 

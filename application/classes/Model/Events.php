@@ -60,4 +60,10 @@ class Model_Events extends Model {
 
         return $update;
     }
+
+    public function getCities()
+    {
+        $select = DB::select()->from('Cities')->execute()->as_array();
+        return $select;
+    }
 }
