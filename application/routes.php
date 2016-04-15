@@ -23,6 +23,9 @@ Route::set('AjaxForSubstances', 'updateEventsSubstance(/<action>)')
 * defaults for the URI.
 */
 
+/**
+ * Authentifications
+ */
 Route::set('AUTH', 'auth(/<action>)')
     ->defaults(array(
         'controller' => 'Auth',
@@ -36,29 +39,18 @@ Route::set('SINGUP', 'signup(/<action>)')
     ));
 
 
+/**
+ * Profile
+ */
 Route::set('PROFILE', 'profile(/<subaction>)')
     ->defaults(array(
         'controller' => 'Profile_Index',
         'action'     => 'index',
     ));
 
-Route::set('ADDPARTICIPANTS', 'events/addparticipants/<id>')
-    ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addParticipant'
-    ));
-
-Route::set('ADDJUDGE', 'events/addjudge/<id>')
-    ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addjudge'
-    ));
-
-Route::set('ADDSTAGE', 'events/addStage/<id>')
-    ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addStage'
-    ));
+/**
+ * Events
+ */
 
 Route::set('MYEVENTS', 'events/my')
     ->defaults(array(
@@ -78,35 +70,69 @@ Route::set('NEWEVENT', 'events/new')
         'action'     => 'New'
     ));
 
+
+
+/**
+ * Add substances
+ */
+Route::set('ADDPARTICIPANTS', 'events/addparticipants/<id>')
+    ->defaults(array(
+        'controller'  => 'Events_Modify',
+        'action'      => 'addParticipant'
+    ));
+
+Route::set('ADDJUDGE', 'events/addjudge/<id>')
+    ->defaults(array(
+        'controller'  => 'Judges_Modify',
+        'action'      => 'addjudge'
+    ));
+
+Route::set('ADDSTAGE', 'events/addStage/<id>')
+    ->defaults(array(
+        'controller'  => 'Events_Modify',
+        'action'      => 'addStage'
+    ));
+
+
 ROUTE::set('EVENTMAKER', 'events/<id>/eventmaker')
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'eventmaker',
     ));
 
-Route::set('Settings-1', 'events/<id>/judgepanelsetting1')
+
+/**
+ * Judges
+ */
+
+Route::set('Judge-Settings-1', 'event/<id>/<action>')
     ->defaults(array(
-        'controller' => 'Events_Index',
+        'controller' => 'Judges_Settings_Index',
         'action'     => 'judgepanelsetting1'
     ));
 
-Route::set('Settings-2', 'events/<id>/judgepanelsetting2')
+Route::set('Judge-Settings-2', 'event/<id>/<action>')
     ->defaults(array(
-        'controller' => 'Events_Index',
+        'controller' => 'Judges_Settings_Index',
         'action'     => 'judgepanelsetting2'
     ));
 
-Route::set('Judge-panel-1', 'event/start/judgepanel1')
+Route::set('Judge-panel-1', 'event/<id>/judge/<action>')
     ->defaults(array(
-        'controller' => 'Judges_Index',
+        'controller' => 'Judges_Panels_Index',
         'action'     => 'judgepanel1',
     ));
 
-Route::set('Judge-panel-2', 'event/start/judgepanel2')
+Route::set('Judge-panel-2', 'event/<id>/judge/<action>')
     ->defaults(array(
-        'controller' => 'Judges_Index',
+        'controller' => 'Judges_Panels_Index',
         'action'     => 'judgepanel2',
     ));
+
+
+/**
+ * Default Route
+ */
 
 Route::set('EVENTS', 'events(/<id>(/<action>))')
     ->defaults(array(
@@ -120,7 +146,6 @@ Route::set('Default', '<controller>(/<action>(/<id>))')
         'action'     => 'Index',
     ));
 ?>
-
 
 
 

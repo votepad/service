@@ -30,7 +30,8 @@ date_default_timezone_set('Europe/Moscow');
  * @link http://kohanaframework.org/guide/using.configuration
  * @link http://www.php.net/manual/function.setlocale
  */
-setlocale(LC_ALL, 'en_US.utf-8');
+//setlocale(LC_ALL, 'en_US.utf-8');
+setlocale(LC_ALL, 'ru_RU.utf8');
 
 /**
  * Enable the Kohana auto-loader.
@@ -127,7 +128,7 @@ Kohana::modules(array(
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
 	 'database'   => MODPATH.'database',   // Database access
 	 'image'      => MODPATH.'image',      // Image manipulation
-	 'minion'     => MODPATH.'minion',     // CLI Tasks
+	 //'minion'     => MODPATH.'minion',     // CLI Tasks
 	 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	 'unittest'   => MODPATH.'unittest',   // Unit testing
 	 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
@@ -145,5 +146,5 @@ Kohana::modules(array(
 /**
  * Include Composer libraries
 */
-require './vendor/autoload.php';
+require '/vendor/autoload.php';
 require APPPATH.'routes'.EXT;
