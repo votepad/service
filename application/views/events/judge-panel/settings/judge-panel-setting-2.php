@@ -1,7 +1,3 @@
-<?php
-
-?>
-
 <section>
 	<div class="content-wrapper">
 		<h3>Настройка порядка выступления участников
@@ -57,8 +53,7 @@
 														<div class="buttons" data-toggle="buttons">
 															<?php for($l = 0; $l <= $maxscore; $l++) : ?>
 																<button class="mb-sm btn btn-primary">
-																	<!-- score-idStage-idParticipant-1 -->
-																	<input type="radio" name="score-<?=$stages[$i]['id']; ?>-<?=$participants[$i][$k]['id']; ?>-1" autocomplete="off" value="<?=$l; ?>" checked=""> <?=$l; ?>
+																	<input type="radio"> <?=$l; ?>
 																</button>
 															<?php endfor; ?>
 														</div>
@@ -66,7 +61,7 @@
 												</div>
 											</div>
 										</div>
-									<? endfor; ?>
+									<?php endfor; ?>
 								</div>
 							</div>
 						<?php endfor; ?>

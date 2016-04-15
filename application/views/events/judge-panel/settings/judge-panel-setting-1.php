@@ -9,6 +9,7 @@
 			<div class="panel-body">
 				<form id="setting-rating-area-2" action="#">
 					<div>
+						<input type="hidden" id="id_event" value="<?=$event['id']; ?>">
 						<?php for($i = 0; $i < count($stages); $i++) : ?>
 						<h3><?=$stages[$i]['name'] ; ?></h3>
 						<div>
@@ -17,28 +18,26 @@
 									<p><?=$stages[$i]['description']; ?></p>
 								</div>
 							</div>
-							<div id="stage-<?=$stages[$i]['id']; ?>" data-toggle="portlet" class="portlets-wrapper">
+							<div id="stage <?=$i. ' ' . $stages[$i]['id']; ?>" data-toggle="portlet" class="portlets-wrapper">
 								<div class="col-lg-4 col-md-5">
 									<ul role="tablist" class="text-center nav nav-s">
-										<?php for($j = 0; $j < count($participants); $j++): ?>
-											<li id="part-<?=$participants[$j]['id'] ;?>" role="presentation" class="btn btn-default btn_area1 ">
-												<a href="#stage-<?=$stages[$i]['id']; ?>-part-<?=$participants[$j]['id']; ?>" aria-controls="stage-<?=$stages[$i]['id']; ?>-part-<?=$participants[$j]['id']; ?>" role="tab" data-toggle="tab"><?=$participants[$j]['name']; ?></a>
+										<?php for($j = 0; $j < count($participants[$i]); $j++): ?>
+											<li id="part <?=$participants[$i][$j]['id'] ;?>" role="presentation" class="btn btn-default btn_area1 ">
+												<a href="#stage-<?=$i; ?>-part-<?=$j; ?>" aria-controls="stage-<?=$i; ?>-part-<?=$j; ?>" role="tab" data-toggle="tab"><?=$participants[$i][$j]['name']; ?></a>
 											</li>
 										<?php endfor; ?>
 									</ul>
 								</div>
 
 								<div class="tab-content col-lg-offset-4 col-md-offset-5">
-									<?php for($j = 0; $j < count($participants); $j++) : ?>
-									<!--participant 1-->
-									<div id="stage-<?=$stages[$i]['id']; ?>-part-<?=$participants[$j]['id']; ?>" role="tabpanel" class="tab-pane ">
-										<img src="<?=URL::base(). 'uploads/' . $participants[$j]['photo'] ; ?>" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
+									<?php for($j = 0; $j < count($participants[$i]); $j++) : ?>
+									<div id="stage-<?=$i; ?>-part-<?=$j; ?>" role="tabpanel" class="tab-pane ">
+										<img src="<?=URL::base(). 'uploads/' . $participants[$i][$j]['photo'] ; ?>" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
 										<div class="score-area">
-											<!--criterion 1-->
-											<?php
-													$criterias = $criteria->getCriteriasByStageId($stages[$i]['id']);
-													for($k = 0; $k < count($criterias); $k++):
-												?>
+												<?php
+														$criterias = Model_Stages::getCriteriasByStageId($stages[$i]['id']);
+														for($k = 0; $k < count($criterias); $k++):
+													?>
 											<fieldset>
 												<div class="btn_area1">
 													<?=$criterias[$k]['name']; ?>
@@ -46,8 +45,7 @@
 												<div class="buttons" data-toggle="buttons">
 													<?php for($l = 0; $l <= $criterias[$k]['maxscore']; $l++): ?>
 														<button class="mb-sm btn btn-s btn-primary">
-															<!--  score-idStage-idParticipant-idCriterion -->
-															<input type="radio" name="score-<?=$stages[$i]['id'] . '-' . $participants[$j]['id'] . '-'. $criterias[$k]['id']; ?>" autocomplete="off" value="<?=$l; ?>" checked=""> <?=$l; ?>
+															<input type="radio" autocomplete="off"> <?=$l; ?>
 														</button>
 													<?php endfor; ?>
 												</div>

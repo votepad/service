@@ -1,8 +1,8 @@
-<link rel='stylesheet' href='assets/css/404.css'>
-<link rel='stylesheet' href='assets/css/pronwe.css'>
+<link rel='stylesheet' href="<?=URL::base(). 'assets/css/404.css'; ?>">
+<link rel='stylesheet' href="<?=URL::base(). 'assets/css/pronwe.css'; ?>">
 
 <div class='main-container'>
-	<img src="assets/img/ProNWE_logo.svg" alt="ProNWE logo" class='topLogo'>
+	<img src="<?=URL::base(). 'assets/img/ProNWE_logo.svg'; ?>" alt="ProNWE logo" class='topLogo'>
 	<h1>Ошибка 404. Страница не найдена</h1>
 </div>
 <div class='secondary-container'>

@@ -36,7 +36,7 @@
 									</a>
 								</div>
 								<div class="col-xs-4 text-center">
-									<a href="<?=URL::base(). 'events/'. $events[$i]['id']. '/judgepanel'. $events[$i]['type']; ?>" data-toggle="tooltip" data-title="Настройка панели жюри">
+									<a href="<?=URL::base(). 'events/'. $events[$i]['id']. '/judgepanelsetting'. $events[$i]['type']; ?>" data-toggle="tooltip" data-title="Настройка панели жюри">
 										<em class="fa fa-user icon-edit"></em>
 									</a>
 								</div>

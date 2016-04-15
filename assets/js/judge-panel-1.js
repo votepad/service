@@ -1,5 +1,8 @@
 $(function ()
 {
+
+    var url = location.protocol+'//'+location.hostname+'/pronwe/';
+
     var form = $("#rating-area-2");
     form.children("div").steps({
         headerTag: "h3",
@@ -77,14 +80,81 @@ $(function ()
         },
         onFinished: function (event, currentIndex)
         {
-            var s = currentIndex+1; /*количество этапов, выводим из бд*/
-            for (var i = 1; i <= s; i++) {
-                var ids = []; // тут массив айди блоков
-                $('#stage-'+i+' ul li').each(function(index) {
-                    ids[index] = $(this).attr('id');
-                });
-                alert(ids.join(' ')); /*отправка ID участников в таблицу для вывода*/
-            }
+            var el;
+            var eventId = $("input[id='id_event']").val();
+            var position = 0;
+
+            $("li[id~='part']").each(function () {
+                el = $(this);
+
+                var mainParent = el.parent().parent().parent("div[id~='stage']").attr('id');
+                var list = mainParent.split(' ');
+                var stage = list[1];
+                var realId = list[2];
+
+                if (stage == currentIndex)
+                {
+                    position++;
+
+                    var caughtParticipantsFromStage = el.attr('id').split(' ');
+                    var participantId = caughtParticipantsFromStage[1];
+
+                    $.ajax({
+                        url: url + '/updateEventsSubstance/participantposition/',
+                        type: "POST",
+                        data: {
+                            id_event: eventId,
+                            participant: participantId,
+                            stage: realId,
+                            position: position,
+                        },
+                        success: function(data, config) {
+                        },
+                        error: function(data, config) {
+                        }
+                    });
+                }
+            });
+
+            alert("Порядок выступлений сохранен!");
+        },
+        onStepChanging: function (event, currentIndex, newIndex)
+        {
+            var el;
+            var eventId = $("input[id='id_event']").val();
+            var position = 0;
+            $("li[id~='part']").each(function () {
+                el = $(this);
+
+                var mainParent = el.parent().parent().parent("div[id~='stage']").attr('id');
+                var list = mainParent.split(' ');
+                var stage = list[1];
+                var realId = list[2];
+
+                if (stage == currentIndex)
+                {
+                    position++;
+                    var caughtParticipantsFromStage = el.attr('id').split(' ');
+                    var participantId = caughtParticipantsFromStage[1];
+                    
+                    $.ajax({
+                        url: url + '/updateEventsSubstance/participantposition/',
+                        type: "POST",
+                        data: {
+                            id_event: eventId,
+                            participant: participantId,
+                            stage: realId,
+                            position: position,
+                        },
+                        success: function(data, config) {
+                        },
+                        error: function(data, config) {
+                        }
+                    });
+                }
+            });
+
+            return true;
         },
     });
     $('.nav-s').sortable();

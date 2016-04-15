@@ -1,29 +1,19 @@
-<?php
-?>
-
-	<link rel="stylesheet" href="<?=$assets; ?>css/judge.panel.css">
-	<script src="<?=$assets; ?>js/judge.panel.js"></script>
-
-	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery.steps/jquery.steps.js"></script>
-
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/core.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/widget.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/mouse.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/sortable.js"></script>
-	<script src="<?=$assets; ?>vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-	
-	
-<section>
-	<div class="content-wrapper">
-		<h3>Настройка порядка выступления участников
-			<small>Вы можете 
-				<a href="">посмотреть, как видят эту страницу жюри.</a>
-			</small>
-		</h3>
+<div class="content-wrapper">
+	<div class="content-heading">
+		<div class="col-sm-4 col-md-3 hidden-xs">
+			<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="EventImage" class="img-thumbnail img-circle">
+		</div>
+		<div class="col-sm-8 col-md-9 text-white text-left orgName">
+			<h1>Название мероприятия</h1>
+		</div>
+		<a href="#" class="btn-logout">
+			<em class="fa fa-sign-out logout-position"></em>
+		</a>
+	</div>
+	<div class="col-xs-10 col-xs-offset-1">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form id="setting-rating-area" action="#">
+				<form id="rating-area" action="#">
 					<div>
 						<h3>Название первого этапа</h3>
 						<div>
@@ -34,13 +24,12 @@
 							</div>
 							<div id="stage-1" data-toggle="portlet" class="portlets-wrapper">
 								<div id="partisipant-id1" class="panel panel-primary">
-									<div class="panel-heading portlet-handler"></div>
 									<div class="panel-wrapper">
 										<div class="panel-body">
-											<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 text-center">
-												<img src="" class="pronwe_boxShadow pronwe_border-1px participant">
+											<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
+												<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
 											</div>
-											<div class="col-lg-9 col-md-8 col-sm-6 col-xs-12">
+											<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
 												<h2>Имя участника</h2>
 												<div class="buttons" data-toggle="buttons">
 													<button class="mb-sm btn btn-primary active">
@@ -68,13 +57,12 @@
 								</div>
 		                     	
 								<div id="partisipant-id2" class="panel panel-primary">
-									<div class="panel-heading portlet-handler"></div>
 									<div class="panel-wrapper">
 										<div class="panel-body">
-											<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 text-center">
-												<img src="" class="pronwe_boxShadow pronwe_border-1px participant">
+											<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
+												<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
 											</div>
-											<div class="col-lg-9 col-md-8 col-sm-6 col-xs-12">
+											<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
 												<h2>Имя участника</h2>
 												<div class="buttons" data-toggle="buttons">
 													<button class="mb-sm btn btn-primary active">
@@ -112,13 +100,12 @@
 							</div>
 							<div id="stage-2" data-toggle="portlet" class="portlets-wrapper">
 								<div id="partisipant-id8" class="panel panel-primary">
-									<div class="panel-heading portlet-handler"></div>
 									<div class="panel-wrapper">
 										<div class="panel-body">
-											<div class="col-lg-3 col-md-4 col-sm-5 col-xs-12 text-center">
-												<img src="" class="pronwe_boxShadow pronwe_border-1px participant">
+											<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
+												<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="Participant1" class="pronwe_boxShadow pronwe_border-1px participant">
 											</div>
-											<div class="col-lg-9 col-md-8 col-sm-6 col-xs-12">
+											<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
 												<h2>Имя участника</h2>
 												<div class="buttons" data-toggle="buttons">
 													<button class="mb-sm btn btn-primary active">
@@ -144,6 +131,7 @@
 										</div>
 									</div>
 								</div>
+							</div>
 						</div>
 
 						<!-- и так далее -->
@@ -152,4 +140,5 @@
 			</div>
 		</div>
 	</div>
-</section>
+</div>
+<button id="errorMsg" type="button" data-notify="" data-message="Вы забыли поставить балл участнику" data-options="{&quot;status&quot;:&quot;danger&quot;}" style="display: none;"></button>
