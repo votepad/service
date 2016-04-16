@@ -2,7 +2,7 @@
 
 
 /**
- * Testing Routes
+ * AJAX Routes
  */
 
 Route::set('AjaxForEvents', 'deleteEvent')
@@ -17,6 +17,11 @@ Route::set('AjaxForSubstances', 'updateEventsSubstance(/<action>)')
         'action'     => 'index'
     ));
 
+Route::set('AjaxSetScore', 'setScore')
+    ->defaults(array(
+        'controller' => 'Judges_Ajax',
+        'action'     => 'setScore'
+    ));
 
 /**
 * Set the routes. Each route must have a minimum of a name, a URI and a set of
@@ -49,7 +54,7 @@ Route::set('PROFILE', 'profile(/<subaction>)')
     ));
 
 /**
- * Events
+ * Events Static
  */
 
 Route::set('MYEVENTS', 'events/my')
@@ -105,36 +110,30 @@ ROUTE::set('EVENTMAKER', 'events/<id>/eventmaker')
  * Judges
  */
 
-Route::set('Judge-Settings-1', 'event/<id>/<action>')
+Route::set('Judge-Settings', 'event/<id>/<action>')
     ->defaults(array(
         'controller' => 'Judges_Settings_Index',
-        'action'     => 'judgepanelsetting1'
+        'action'     => ''
     ));
 
-Route::set('Judge-Settings-2', 'event/<id>/<action>')
-    ->defaults(array(
-        'controller' => 'Judges_Settings_Index',
-        'action'     => 'judgepanelsetting2'
-    ));
-
-Route::set('Judge-panel-1', 'event/<id>/judge/<action>')
+Route::set('Judge-panels', 'event/<id>/judge/<action>')
     ->defaults(array(
         'controller' => 'Judges_Panels_Index',
-        'action'     => 'judgepanel1',
+        'action'     => 'panel1',
     ));
-
-Route::set('Judge-panel-2', 'event/<id>/judge/<action>')
-    ->defaults(array(
-        'controller' => 'Judges_Panels_Index',
-        'action'     => 'judgepanel2',
-    ));
-
 
 /**
  * Default Route
  */
 
 Route::set('EVENTS', 'events(/<id>(/<action>))')
+    ->filter(function($route, $params, $request){
+
+        $id = Arr::get($params, 'id');
+        if ( !Model_Events::EventExist($id) || !isset($id))
+            return false;
+
+    })
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'index',

@@ -20,9 +20,9 @@
 						</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
-								<p>Иванов Иван Иванович 1</p>
-								<p>Иванов Иван Иванович 2</p>
-								<p>Иванов Иван Иванович 3</p>
+								<?php for($i = 0; $i < count($judges); $i++) : ?>
+									<p><?=$judges[$i]['name']; ?></p>
+								<?php endfor; ?>
 							</div>
 						</div>
 					</div>
@@ -64,26 +64,20 @@
 									<thead>
 										<tr>
 											<th style="width: 50%">Название этапа</th>
-											<th class="text-center" style="width: 25%">Выставили баллы, чел</th>
+											<th class="text-center" style="width: 25%">Оценивают</th>
 											<th class="text-center" style="width: 25%">Следующий этап</th>
 										</tr>
 									</thead>
 									<tbody>
+									<?php for($i = 0; $i < count($stages); $i++) : ?>
 										<tr>
-											<td>этап 1</td>
-											<td class="text-center">3</td>
+											<td><?=$stages[$i]['name']; ?></td>
+											<td class="text-center"><?=count($judges); ?></td>
 											<td class="text-center">
 												<a href="#" class="btn btn-default">Открыть доступ</a>
 											</td>
 										</tr>
-										<tr>
-											<td>этап 2</td>
-											<td class="text-center">2</td>
-											<td class="text-center">
-												<a href="#" class="btn btn-default">Открыть доступ</a>
-											</td>
-										</tr>
-										
+									<?php endfor; ?>
 									</tbody>
 								</table>
 							</div>
@@ -103,25 +97,22 @@
 									<div class="form-group">
 										<select name="stage" class="form-control">
 											<!-- выводим список этапов -->
-											<option>этап 1</option>
-											<option>этап 2</option>
+											<?php for($i = 0; $i < count($stages); $i++) : ?>
+												<option value="<?=$stages[$i]['id']; ?>"><?=$stages[$i]['name']; ?></option>
+											<?php endfor; ?>
 										</select>
 									</div>
 									<div class="form-group">
 										<div class="col-lg-5">
 											<!-- выводим список участников -->
+											<?php for($i = 0; $i < count($participants_1); $i++) : ?>
 											<div class="checkbox c-checkbox needsclick">
 												<label class="needsclick">
-													<input type="checkbox" value="" class="needsclick">
-													<span class="fa fa-check"></span>Участник 1
+													<input type="checkbox" name="id[]" value="<?=$participants_1[$i]['id']; ?>" class="needsclick">
+													<span class="fa fa-check"></span><?=$participants_1[$i]['name']; ?>
 												</label>
 											</div>
-											<div class="checkbox c-checkbox needsclick">
-												<label class="needsclick">
-													<input type="checkbox" value="" class="needsclick">
-													<span class="fa fa-check"></span>Участник 2
-												</label>
-											</div>
+											<?php endfor; ?>
 										</div>
 										<div class="col-lg-7">
 											<label class="col-lg-5 control-label">Введитее балл</label>
@@ -153,84 +144,42 @@
 							<div class="panel-body">
 								<div class="tabpanel">
 									<ul role="tablist" class="nav nav-tabs">
-										<li role="presentation" class="active" style="width: 25%"><a href="#stage-1" aria-controls="stage-1" role="tab" data-toggle="tab">Этап 1</a></li>
-										<li role="presentation" style="width: 25%"><a href="#stage-2" aria-controls="stage-2" role="tab" data-toggle="tab">Этап 2</a></li>
-										<li role="presentation" style="width: 25%"><a href="#stage-3" aria-controls="stage-3" role="tab" data-toggle="tab">Этап 3</a></li>
-										<li role="presentation" style="width: 25%"><a href="#total" aria-controls="total" role="tab" data-toggle="tab">Общий рейтинг</a></li>
+										<?php for($i = 0; $i < count($stages); $i++): ?>
+										<li role="presentation" <?=($i == 0)? "class='active'": '' ; ?> style="width: <?=100/( count($stages) + 1); ?>%"><a href="#stage-<?=($i + 1); ?>" aria-controls="stage-<?=($i + 1); ?>" role="tab" data-toggle="tab"><?=$stages[$i]['name']; ?></a></li>
+										<?php endfor; ?>
+										<li role="presentation" style="width: <?=100/( count($stages) + 1); ?>%"><a href="#total" aria-controls="total" role="tab" data-toggle="tab">Общий рейтинг</a></li>
 									</ul>
 									<div class="tab-content">
-										<div id="stage-1" role="tabpanel" class="tab-pane active">
-											<table class="table table-hover" id="for-stage-1">
+										<?php for($i = 0; $i < count($stages); $i++): ?>
+										<div id="stage-<?=($i + 1); ?>" role="tabpanel" class="tab-pane active">
+											<table class="table table-hover" id="for-stage-<?=($i + 1); ?>">
 												<thead>
 													<tr>
 														<td></td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
+														<?php for($j = 0; $j < count($judges); $j++): ?>
+															<td><?=$judges[$j]['name']; ?></td>
+														<?php endfor; ?>
 													</tr>
 												</thead>
 												<tbody>
+												<?php for($j = 0; $j < count($participants); $j++) : ?>
 													<tr>
-														<td>Иванов Иван Иванович</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
+														<td><?=$participants[$i][$j]['name']; ?></td>
+														<?php for($k = 0; $k < count($judges); $k++): ?>
+															<td>
+																<?php
+																	$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants[$i][$j]['id']);
+																	echo $score ?: 0;
+																?>
+															</td>
+														<?php endfor; ?>
 													</tr>
-													<tr>
-														<td>участник 2</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 3</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 4</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 6</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
+												<?php endfor; ?>
 												</tbody>
 											</table>
 										</div>
-										<div id="stage-2" role="tabpanel" class="tab-pane">
+										<?php endfor; ?>
+										<!--<div id="stage-2" role="tabpanel" class="tab-pane">
 											<table class="table table-hover" id="for-stage-2">
 												<thead>
 													<tr>
@@ -440,7 +389,7 @@
 														<td>5</td>
 														<td>5</td>
 													</tr>
-												</tbody>
+												</tbody>-->
 											</table>
 										</div>
 									</div>

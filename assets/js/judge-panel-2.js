@@ -19,15 +19,44 @@ $(function ()
             var index= currentIndex+1;
             var area = $('#stage-'+index+' .buttons').length;
             var k = 0;
+
             for (var i = 1; i <= area; i++) {
-                var radio = $('input[type=radio][name="score-'+index+'-'+i+'"]:checked').val();
-                if (radio == 0) {
+
+                var radio = $('input[type=radio][name="score-'+index+'-'+i+'"]:checked');
+                var score = radio.val();
+                if (score == 0 || score == null) {
                     k=1;
                     $("#errorMsg").click();
                     break;
                 }
+                if (k == 1)
+                    return false;
+
+                var id_participant  = radio.parent().parent().parent().find('h2').attr('id');
+                var id_stage        = radio.parent().parent().parent().attr('id');
+                var id_event        = $("input[name='id_event']").val();
+                var id_judge        = $("input[name='id_judge']").val();
+
+                $.ajax({
+                    url: url+'setScore/',
+                    type: "POST",
+                    data: {
+                        id_participant: id_participant,
+                        id_stage: id_stage,
+                        id_event: id_event,
+                        id_judge: id_judge,
+                        score: score,
+                    },
+                    success: function(data, config) {
+                        console.log(data);
+                    },
+                    error: function(data, config) {
+                    }
+                });
             }
-            if ( k == 0 ){ return true; }
+            if ( k == 0 ) {
+                return true;
+            }
 
         },
         onFinishing: function (event, currentIndex)
@@ -36,18 +65,43 @@ $(function ()
             var area = $('#stage-'+index+' .buttons').length;
             var k = 0;
             for (var i = 1; i <= area; i++) {
-                var radio = $('input[type=radio][name="score-'+index+'-'+i+'"]:checked').val();
-                if (radio == 0) {
+
+                var radio = $('input[type=radio][name="score-'+index+'-'+i+'"]:checked');
+                var score = radio.val();
+                if (score == 0 || score == null) {
                     k=1;
                     $("#errorMsg").click();
                     break;
                 }
+                if (k == 1)
+                    return false;
+
+                var id_participant  = radio.parent().parent().parent().find('h2').attr('id');
+                var id_stage        = radio.parent().parent().parent().attr('id');
+                var id_event        = $("input[name='id_event']").val();
+                var id_judge        = $("input[name='id_judge']").val();
+
+                $.ajax({
+                    url: url+'setScore/',
+                    type: "POST",
+                    data: {
+                        id_participant: id_participant,
+                        id_stage: id_stage,
+                        id_event: id_event,
+                        id_judge: id_judge,
+                        score: score,
+                    },
+                    success: function(data, config) {
+                    },
+                    error: function(data, config) {
+                    }
+                });
             }
             if ( k == 0 ){ return true; }
         },
         onFinished: function (event, currentIndex)
         {
-            alert("Submitted!");
+            alert("Спасибо за участние!!!");
         },
     });
 

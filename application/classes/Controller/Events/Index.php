@@ -195,14 +195,11 @@ class Controller_Events_Index extends Dispatch {
 
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('events/eventmaker')
-            ->set('types', $types)
-            ->set('status', $status)
-            ->set('city', $city)
-            ->bind('event', $event)
-            ->bind('participants', $participants)
+            ->set('id_event', $id_event)
             ->bind('judges', $judges)
-            ->bind('stages', $stages);
-
+            ->bind('stages', $stages)
+            ->bind('participants_1', $participants_1)
+            ->bind('participants', $participants);
 
         /**
          * Getting Event INFO.
@@ -212,21 +209,31 @@ class Controller_Events_Index extends Dispatch {
         $event = $event->getEvent($id_event);
 
         /**
-         * Getting Events Participant by Id
-         */
-
-        $participants = Model_Participants::getAll($id_event);
-
-        /**
          * Getting Events Judges by id_event
          */
 
-        $judges = Model_Judge::getAll($id_event);
+        $online = Model_Judge::JudgesOnline($event['id']);
+
+        for($i = 0; $i < count($online); $i++)
+        {
+            $judges[] = Model_Judge::getJudge($online[$i]['id_judge'], $event['id']);
+        }
 
         /**
          * Getting Events stages
          */
 
         $stages = Model_Stages::getAll($id_event);
+
+        /**
+         * Getting Participants
+         */
+        $participants_1 = Model_Participants::getAll($event['id']);
+
+        for($i = 0; $i < count($stages); $i++)
+        {
+            $id = $stages[$i]['id'];
+            $participants[] = Model_Participants::getParticipantsByPosition($event['id'], $id);
+        }
     }
 }

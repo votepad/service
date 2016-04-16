@@ -75,14 +75,6 @@ class Model_Participants extends Model {
             ':stage' => $stage,
         ), false)->execute()->as_array();
 
-        /*$select = DB::select()->from('Participants')->join('Positions')
-                ->on('Participants.id', '=', 'Positions.id_participant')
-                ->where('Participants.id', '=', 'Positions.id_participant')
-                ->and_where('Participants.id_event', '=', 'Positions.id_event')
-                ->and_where('Participants.id_event', '=', $event)
-                ->and_where('Positions.id_stage', '=', $stage)
-                ->order_by('Positions.position');*/
-
         if ( count($select) == 0 )
             return self::getAll($event);
         else

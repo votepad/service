@@ -37,6 +37,35 @@ class Model_Judge extends Model {
         return $insert;
     }
 
+    public static function logInAsJudge($email, $password)
+    {
+        $select = DB::select()->from('Judges')->where('email', '=', $email)->limit(1)->execute();
+        $result = Arr::get($select, '0');
+
+        $online = DB::select()->from('Online')->where('id_event', '=', $result['id_event'])
+            ->and_where('id_judge', '=', $result['id'])
+            ->execute()->as_array();
+
+        if ( count($online) == 0 ) {
+
+            $insert = DB::insert('Online', array(
+                'id_event', 'id_judge'
+            ))->values(array(
+                'id_event' => $result['id_event'],
+                'id_judge' => $result['id'],
+            ))->execute();
+
+        }
+
+        return $result;
+    }
+
+    public static function JudgesOnline($id_event)
+    {
+        $select = DB::select()->from('Online')->where('id_event', '=', $id_event)->execute()->as_array();
+        return $select;
+    }
+
     private static function get($id = 0, $id_event)
     {
         $select = DB::select()->from('Judges')->where('id_event', '=', $id_event);

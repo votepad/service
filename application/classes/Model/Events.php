@@ -24,6 +24,12 @@ class Model_Events extends Model {
         return $insert;
     }
 
+    public static function EventExist($id)
+    {
+        $select = DB::select('id')->from('Events')->where('id', '=', $id)->execute()->as_array();
+        return count($select) ?: 0;
+    }
+
     public static function delete($id)
     {
         $delete = DB::delete('Events')->where('id', '=', $id)->execute();

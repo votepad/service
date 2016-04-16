@@ -5,7 +5,7 @@ class Controller_Judges_Settings_Index extends Dispatch {
 
     public $template = 'main';
 
-    public function action_judgepanelsetting1()
+    public function action_setting1()
     {
         parent::isLogged();
 
@@ -32,7 +32,7 @@ class Controller_Judges_Settings_Index extends Dispatch {
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/judge-panel/settings/judge-panel-setting-1')
+        $this->template->section    = View::factory('events/judge-panel/settings/setting-1')
             ->set('types', $types)
             ->set('status', $status)
             ->set('city', $city)
@@ -66,7 +66,7 @@ class Controller_Judges_Settings_Index extends Dispatch {
         }
     }
 
-    public function action_judgepanelsetting2()
+    public function action_setting2()
     {
         parent::isLogged();
 
@@ -99,7 +99,7 @@ class Controller_Judges_Settings_Index extends Dispatch {
         $this->template->js = $this->js;
 
         $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/judge-panel/settings/judge-panel-setting-2')
+        $this->template->section    = View::factory('events/judge-panel/settings/setting-2')
             ->set('types', $types)
             ->set('status', $status)
             ->set('city', $city)
