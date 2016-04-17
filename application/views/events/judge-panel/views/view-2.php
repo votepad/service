@@ -6,7 +6,7 @@
 		<div class="col-sm-8 col-md-9 text-white text-left orgName">
 			<h1><?=$event['title']; ?></h1>
 		</div>
-		<a href="#" class="btn-logout">
+		<a href="<?=URL::site('auth/logout'); ?>" title="Выход" class="btn-logout">
 			<em class="fa fa-sign-out logout-position"></em>
 		</a>
 	</div>
@@ -38,7 +38,7 @@
 									<div class="panel-wrapper">
 										<div class="panel-body">
 											<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
-												<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="Participant<?=$j;?>" class="pronwe_boxShadow pronwe_border-1px participant">
+												<img src="<?=URL::base(); ?>uploads/<?=$participants[$i][$j]['photo']; ?>" alt="Participant<?=$j;?>" class="pronwe_boxShadow pronwe_border-1px participant">
 											</div>
 											<div id="<?=$stages[$i]['id']; ?>" class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
 												<h2 id="<?=$participants[$i][$j]['id']; ?>"><?=$participants[$i][$j]['name'];?></h2>
@@ -54,11 +54,9 @@
 									</div>
 								</div>
 		                     	<?php endfor; ?>
-
 							</div>
 						</div>
 						<?php endfor; ?>
-						<!-- и так далее -->
 					</div>
 				</form>
 			</div>
