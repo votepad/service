@@ -63,35 +63,7 @@ body{
 .color-gr:hover{
 	border-bottom:1px dashed #909fa7;
 }
-
-
 span{
 	text-align: center;
 	color:#2f95ea;
 }
-
-
-/*#signin{
-	transition:1s;
-}
-#signin:hover{
-	
-}*/
-/*.central-box #first:focus{
-	transition:0.1s;
-	-moz-transform: rotate(1deg); /* Для Firefox 
-    -ms-transform: rotate(1deg); /* Для IE 
-    -webkit-transform: rotate(1deg); /* Для Safari, Chrome, iOS 
-    -o-transform: rotate(1deg); /* Для Opera 
-    transform: rotate(1deg);
-	box-shadow: 0 0 3px 1px rgba(100,100,100,0);
-}
-.central-box #last:focus{
-	transition:0.1s;
-	-moz-transform: rotate(-1deg); /* Для Firefox 
-    -ms-transform: rotate(-1deg); /* Для IE 
-    -webkit-transform: rotate(-1deg); /* Для Safari, Chrome, iOS 
-    -o-transform: rotate(-1deg); /* Для Opera 
-    transform: rotate(-1deg);
-	box-shadow: 0 0 3px 1px rgba(100,100,100,0.5);
-}*/

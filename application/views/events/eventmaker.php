@@ -10,18 +10,22 @@
 				<div id="portles-1-1" data-toggle="portlet" class="col-md-4">
 
 					<div id="judges-online" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Авторизованных жюри 3
+						<div class="panel-heading portlet-handler">Авторизованные жюри
 							<a href="#" data-tool="panel-collapse" class="pull-right">
 								<em class="fa fa-minus"></em>
-							</a>
-							<a href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Обновить информацию" data-spinner="standard" class="pull-right">
-								<em class="fa fa-refresh"></em>
 							</a>
 						</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
 								<?php for($i = 0; $i < count($judges); $i++) : ?>
-									<p><?=$judges[$i]['name']; ?></p>
+									<div class="col-xs-3">
+										<div class="media">
+											<img src="<?=URL::base().'uploads/' . $judges[$i]['photo']; ?>" class="img-responsive img-circle">
+										</div>
+									</div>
+									<div class="col-xs-9">
+										<p><?=$judges[$i]['name']; ?></p>
+									</div>
 								<?php endfor; ?>
 							</div>
 						</div>
@@ -54,9 +58,6 @@
 							<a href="#" data-tool="panel-collapse" class="pull-right">
 								<em class="fa fa-minus"></em>
 							</a>
-							<a href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Обновить информацию" data-spinner="standard" class="pull-right">
-								<em class="fa fa-refresh"></em>
-							</a>
 						</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
@@ -74,7 +75,8 @@
 											<td><?=$stages[$i]['name']; ?></td>
 											<td class="text-center"><?=count($judges); ?></td>
 											<td class="text-center">
-												<a href="#" class="btn btn-default">Открыть доступ</a>
+												<a href="#" class="btn btn-default btn-open">Открыть доступ</a>
+												<a href="#" style="display: none" class="btn btn-success btn-open">Закрыть доступ</a>
 											</td>
 										</tr>
 									<?php endfor; ?>
@@ -103,41 +105,41 @@
 										</select>
 									</div>
 									<div class="form-group">
-										<div class="col-lg-5">
-											<!-- выводим список участников -->
-											<?php for($i = 0; $i < count($participants_1); $i++) : ?>
-											<div class="checkbox c-checkbox needsclick">
-												<label class="needsclick">
-													<input type="checkbox" name="id[]" value="<?=$participants_1[$i]['id']; ?>" class="needsclick">
-													<span class="fa fa-check"></span><?=$participants_1[$i]['name']; ?>
-												</label>
+										<div class="row">
+											<div class="col-lg-5">
+												<!-- выводим список участников -->
+												<?php for($i = 0; $i < count($participants_1); $i++) : ?>
+												<div class="checkbox c-checkbox needsclick">
+													<label class="needsclick">
+														<input type="checkbox" name="id[]" value="<?=$participants_1[$i]['id']; ?>" class="needsclick">
+														<span class="fa fa-check"></span><?=$participants_1[$i]['name']; ?>
+													</label>
+												</div>
+												<?php endfor; ?>
 											</div>
-											<?php endfor; ?>
-										</div>
-										<div class="col-lg-7">
-											<label class="col-lg-5 control-label">Введитее балл</label>
 											<div class="col-lg-7">
-												<input type="number" class="form-control">
+												<div class="row">
+													<label class="col-lg-5 control-label">Введитее балл</label>
+													<div class="col-lg-7">
+														<input type="number" class="form-control">
+													</div>
+												</div>
+												<button type="submit" class="btn btn-default btn_area pull-right">Запретить участвовать</button>
 											</div>
-											<button type="submit" class="btn btn-default btn_area pull-right">Запретить участвовать</button>
 										</div>
 									</div>
-									
 								</form>
 							</div>
 						</div>
 					</div>
+				</div>
 
-				</div>				
 				<div id="portlet-3" data-toggle="portlet" class="col-md-12">
-					
+
 					<div id="raiting" class="panel panel-primary">
 						<div class="panel-heading portlet-handler">Рейтинг
 							<a href="#" data-tool="panel-collapse" class="pull-right">
 								<em class="fa fa-minus"></em>
-							</a>
-							<a href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Обновить информацию" data-spinner="standard" class="pull-right">
-								<em class="fa fa-refresh"></em>
 							</a>
 						</div>
 						<div class="panel-wrapper collapse in">
@@ -151,7 +153,7 @@
 									</ul>
 									<div class="tab-content">
 										<?php for($i = 0; $i < count($stages); $i++): ?>
-										<div id="stage-<?=($i + 1); ?>" role="tabpanel" class="tab-pane active">
+										<div id="stage-<?=($i + 1); ?>" role="tabpanel" <?=($i == 0)? "class='tab-pane active'": "class='tab-pane'" ; ?>>
 											<table class="table table-hover" id="for-stage-<?=($i + 1); ?>">
 												<thead>
 													<tr>
@@ -179,219 +181,6 @@
 											</table>
 										</div>
 										<?php endfor; ?>
-										<!--<div id="stage-2" role="tabpanel" class="tab-pane">
-											<table class="table table-hover" id="for-stage-2">
-												<thead>
-													<tr>
-														<td></td>
-														<td>Жюри1</td>
-														<td>Жюри2</td>
-														<td>Жюри3</td>
-														<td>Жюри4</td>
-														<td>Жюри5</td>
-														<td>Жюри6</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>участник 1</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 2</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 3</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 4</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 6</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div id="stage-3" role="tabpanel" class="tab-pane">
-											<table class="table table-hover" id="for-stage-3">
-												<thead>
-													<tr>
-														<td></td>
-														<td>Жюри1</td>
-														<td>Жюри2</td>
-														<td>Жюри3</td>
-														<td>Жюри4</td>
-														<td>Жюри5</td>
-														<td>Жюри6</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>участник 1</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 2</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 3</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 4</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 6</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div id="total" role="tabpanel" class="tab-pane">
-											<table class="table table-hover" id="for-tatal">
-												<thead>
-													<tr>
-														<td></td>
-														<td>Жюри1</td>
-														<td>Жюри2</td>
-														<td>Жюри3</td>
-														<td>Жюри4</td>
-														<td>Жюри5</td>
-														<td>Жюри6</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>участник 1</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 2</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 3</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 4</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 6</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-												</tbody>-->
-											</table>
-										</div>
 									</div>
 								</div>
 							</div>
