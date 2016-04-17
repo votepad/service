@@ -40,7 +40,6 @@ $(document).ready(function(){
   });
 
   $('.btn-open').click(function(){
-    $(this).toggle("slow");    
+    $(this).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт');
   });
-  
 });

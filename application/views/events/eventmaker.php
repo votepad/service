@@ -76,7 +76,6 @@
 											<td class="text-center"><?=count($judges); ?></td>
 											<td class="text-center">
 												<a href="#" class="btn btn-default btn-open">Открыть доступ</a>
-												<a href="#" style="display: none" class="btn btn-success btn-open">Закрыть доступ</a>
 											</td>
 										</tr>
 									<?php endfor; ?>
