@@ -333,6 +333,7 @@ a:hover.tooltips span {
 	width:70%;
 	margin:0 auto; 
 	color:#fff;	
+	vertical-align:bottom;
 }
 .p3_1{
 
@@ -345,16 +346,23 @@ a:hover.tooltips span {
 }
 
 .slide1 img{
-	width:250px;
+	height:inherit;
 	float:left;
 	margin:0 2em;
 }
 
+.selector{
+	margin:2em;
+}
+
+.slide1{
+	height:150px;
+}
+
 .slide1 p{
 	text-shadow:2px 1px rgba(0,0,0,1);
-	color:#fff; 
-	
-text-align:justify;
+	color:#fff;
+	text-align:justify;
 }
 
 /*.cycle-slideshow{
@@ -572,6 +580,10 @@ a:hover.icon_tooltips span {
   }
   .slide1 img{
 	  float:none;
+	  margin:0;
+  }
+  .selector{
+	  display:none;
   }
 }
 
