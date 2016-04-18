@@ -83,6 +83,7 @@
         </div>
         
         <div class="p3 section" id="section2" data-anchor="Organizator">
+		<div class="p3_container">
 			<div class="container">
 				<div class="slide1" id="slide_0">
 					<img src="assets/imgs/domain3.jpg">
@@ -122,61 +123,14 @@
 					</p>
 				</div>
 			</div>
-			
-				<!--<div class="cycle-slideshow"
-					data-cycle-fx=carousel
-					data-cycle-speed="1000"
-					data-cycle-slides="> div"
-					style="width:70%; height:50%; border:2px solid red; margin:0 auto;"
-				>
-					<div style=" border:2px solid blue; width:inherit; height:inherit;">
-						<img src="http://malsup.github.io/images/p1.jpg" style="width:300px; height:300px;">
-					</div>
-					<div style=" border:2px solid blue;">
-						<img src="http://malsup.github.io/images/p2.jpg" style="">
-					</div>
-					<div style="border:2px solid blue;">
-						<img src="http://malsup.github.io/images/p3.jpg" style="">
-					</div>
-					<div style=" border:2px solid blue;">
-						<img src="http://malsup.github.io/images/p4.jpg" style="">
-					</div>
-				</div>-->
-		
-			
-			<!-- <div class="slider">
-			  <div class="slide clearfix p3_1" data-anchor="1">
-				<p>Создание страницы не займёт более пяти минут!</p>
-				<p>Используте разные инструменты, чтобы сделать страницу оригинальной!</p>
-			  </div>
-			  <div class="slide clearfix p3_2" data-anchor="2">
-				<p>Все действия, необходимые для эффективной работы находятся на удобной админ-панели! Вы можете не только создавать или редактировать мероприятия, но и получать обратную связь от гостей Вашего мероприятия.</p>
-			  </div>
-			  <div class="slide clearfix " data-anchor="3">
-				<p>Создание мероприятие стало ещё проще!</p>
-				<p>Всего три простые шага и Ваше страница готова:</p>
-				<ul class="p3_list">
-				  <li>Общая информация о мероприятии</li>
-				  <li>Выбор необходимых элементов на странице</li>
-				  <li>Условия пользования сайтом</li>
-				</ul>
-			  </div>
-			  <div class="slide clearfix" data-anchor="4">
-				  <p>Проводите мероприятие, нуждающиеся в оценке участников?</p>
-				  <p>Представляем впервые разработанную и выпущенную в массовое употребление жюри-панель</p>
-				  <p>Если мероприятие проходит в несколько этапов, то для вас доступна админ-панель, где вы сможете проконтролировать  работу жюри и проверить корректность выстановления баллов!</p>
-				  <p>Выбери подходящую формулу, для выставления баллов, а если её нет - предложи свою!</p>
-			  </div>
-			  <div class="slide clearfix" data-anchor="5">
-				  <p>Придумай оригинальное имя своей страницы и предоставь к ней доступ!</p>
-				  <p>Поставь онлайн-трансляцию вашего мероприятия прямо на главную страницу!</p>
-				  <p>Добавь различные виджеты, чтобы сделать страницу максимально функциональной!</p>
-			  </div>
-			  <div class="slide clearfix" data-anchor="6">
-				<p>Вы будите готовы провести мероприятие, как с интернетом, так и без него!</p>
-				<p>Для этого скачай нашу программу, которая делает Ваш компьютер беспроводной точкой доступа! Жюри и гости мероприятия могут увидеть все преимущества Вашей организации, наслаждаясь выбранными Вами опциями.</p>
-			  </div>
-			</div> -->
+			<div class="selector">
+				<input type="radio" name="sliderSelector" id="selector_0" checked></input>
+				<input type="radio" name="sliderSelector" id="selector_1"></input>
+				<input type="radio" name="sliderSelector" id="selector_2"></input>
+				<input type="radio" name="sliderSelector" id="selector_3"></input>
+				<input type="radio" name="sliderSelector" id="selector_4"></input>
+			</div>
+		</div>
         </div>
 		
         <div class="p6 section" id="section5" data-anchor="Feedback">
@@ -229,48 +183,33 @@
     </div>
   </body>
   <script>
-  var slideCounter = 0;
-  setInterval(function(){
-    $("#slide_"+slideCounter++).fadeToggle("slow", function(){
-		$("#slide_"+slideCounter).fadeToggle("slow");
-	});
-	
-	if (slideCounter == 5)
+	var slideCounter = 0;
+	var allow = true;
+	var slider = function(){
+		$("#slide_"+slideCounter++).fadeToggle("slow", function(){
+			$("#slide_"+slideCounter).fadeToggle("slow");
+			$("#selector_"+slideCounter).prop('checked',true);
+			allow = true;
+		});
+		allow = false;
+		if (slideCounter == 5)
 			slideCounter = 0;
-  },10000);
-
-  /*
-	var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
-    
-	$(document).ready(function(){
-		setTimeout(function(){ 
-			if($('#menu li:nth-child(2)').hasClass("active"))
-			{
-				$('.p2_title').each(function(){
-					$(this).addClass("animated fadeInLeft").css('opacity','1').one(animationEnd, function() {
-						$(this).removeClass('animated fadeInLeft');
-					});
-				});
-			}
-		}, 2000);
+	}
+	
+	var timer = setInterval(slider,10000);
+	
+	$('.selector input').on('click',function(){
+		if (allow == true){
+			clearInterval(timer);
+			timer = setInterval(slider,10000);
+			$("#slide_"+slideCounter).fadeToggle("slow", function(){
+				$("#slide_"+slideCounter).fadeToggle("slow");
+				allow = true;
+			});
+			allow = false;
+			
+			slideCounter = $(this).attr('id')[9];
+		}
 	});
-	$(document).on("click", function(){
-		setTimeout(function(){
-			if($('#menu li:nth-child(2)').hasClass("active"))
-			{
-				$('.p2_title').each(function(){
-					$(this).addClass("animated fadeInLeft").css('opacity','1').one(animationEnd, function() {
-						$(this).removeClass('animated fadeInLeft');
-					});
-				});
-			}
-			else
-			{
-				$('.p2_title').each(function(){
-					$(this).css('opacity','0');
-				});
-			}
-		}, 500);	
-	});*/
   </script>
 </html>
