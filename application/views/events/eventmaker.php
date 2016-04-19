@@ -74,14 +74,8 @@
 									<?php for($i = 0; $i < count($stages); $i++) : ?>
 										<tr>
 											<td><?=$stages[$i]['name']; ?></td>
-<<<<<<< HEAD
-											<td class="text-center"><?=count($judges); ?></td>
-											<td class="text-center">
-												<a href="#" class="btn btn-default btn-open">Открыть доступ</a>
-=======
 											<td id="<?=$stages[$i]['id']; ?>" class="text-center">
 												<button id="openStage" class="btn btn-default btn-open">Открыть доступ</button>
->>>>>>> e66ef896c286f98089393026485852013ae0d20a
 											</td>
 										</tr>
 									<?php endfor; ?>
