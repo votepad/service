@@ -130,7 +130,7 @@ class Model_Stages extends Model {
             $insert = DB::insert('BlockedStages', array(
                 'id_stage', 'block',
             ))->values(array(
-                $id, '1',
+                $id, '0',
             ))->execute();
         }
         else

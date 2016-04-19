@@ -4,6 +4,7 @@ $(document).ready(function(){
 
     // BlockStages
     $("button[id='openStage']").click( function() {
+      $(this).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт');
         var stage = $(this).closest("td").attr('id');
 
         $.ajax({
@@ -21,7 +22,32 @@ $(document).ready(function(){
         });
     });
 
-
+    function isOpen(id) {
+      var result;
+      $.ajax({
+          url: url + 'block/getBlocked',
+          type: "POST",
+          data: {
+              stage: id,
+          },
+          success: function(data, config) {
+              result = parseInt(data);
+              console.log(result);
+          },
+          async: false,
+      });
+      return result;
+    }
+    
+    var x = $('.btn-open').length;
+    for (var i = 0; i < x; i++) {
+      var stage_id = $(".btn-open-"+i).parents("td").attr('id');  
+      var blocked = isOpen(stage_id);
+      if (blocked == 0) {
+        $(".btn-open-"+i).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт');
+      }
+    }
+   
   /* SWEETALERT STRAT AGAIN */
   $("#start-again").on("click",function(){
     swal({   
@@ -59,11 +85,6 @@ $(document).ready(function(){
       function(){
         swal( "Успешно!", "Проверьте файл в папке 'Закгрузки'", "success" );
     });
-  });
-
-
-  $('.btn-open').click(function(){
-    $(this).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт');
   });
   
 });

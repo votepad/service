@@ -1,8 +1,8 @@
 $( function ()
 {
     var url = location.protocol+'//'+location.hostname+'/pronwe/';
-    var currentStage;
-    var id_stage ;
+
+    var id_stage;
     var kh = new Array();
     var pos = new Array();
     var m = 0;
@@ -14,6 +14,23 @@ $( function ()
                 break;
             }
         }
+    }
+
+    function stageStatus(id) {
+        var result;
+        $.ajax({
+            url: url + 'block/getBlocked',
+            type: "POST",
+            data: {
+                stage: id,
+            },
+            success: function(data, config) {
+                result = parseInt(data);
+                console.log(result);
+            },
+            async: false,
+        });
+        return result;
     }
 
     function hideParticipant(stage) {
@@ -57,7 +74,6 @@ $( function ()
             var area = $('#stage-' + index + ' .buttons').length;
             var k = 0;
 
-
             for (var i = 0; i < area; i++) {
                 var radio = $('input[type=radio][name="score-' + (index + 1) + '-' + pos[i] + '"]:checked');
                 var score = radio.val();
@@ -71,24 +87,24 @@ $( function ()
                     return false;
                 }
                 else {
-                     var id_participant = kh[i];
+                    var id_participant = kh[i];
                     $.ajax({
-                         url: url+'setScore/',
-                         type: "POST",
-                         data: {
-                             id_participant: id_participant,
-                             id_stage: id_stage,
-                             id_event: id_event,
-                             id_judge: id_judge,
-                             score: score,
-                         },
-                         success: function(data, config) {
-                            console.log(data);
-                         },
-                         error: function(data, config) {
-                            console.log(data);
-                         }
-                     });
+                        url: url+'setScore/',
+                        type: "POST",
+                        data: {
+                            id_participant: id_participant,
+                            id_stage: id_stage,
+                            id_event: id_event,
+                            id_judge: id_judge,
+                            score: score,
+                        },
+                        success: function(data, config) {
+                           console.log(data);
+                        },
+                        error: function(data, config) {
+                           console.log(data);
+                        }
+                    });
                 }
             }
 
@@ -97,34 +113,32 @@ $( function ()
             m = 0;
 
             /** RM PARTS FROM NEW STAGE **/
-             index = newIndex;
-             var id_participant ;
-             var adminBlocked = new Array();
-             counter = 0;
+            index = newIndex;
+            var id_participant ;
+            var adminBlocked = new Array();
+            counter = 0;
 
-             var id = $('#stage-'+index+' input[type=hidden]').attr('id');
-             id_stage = parseInt(id);
+            var id = $('#stage-'+index+' input[type=hidden]').attr('id');
+            id_stage = parseInt(id);
 
-             var bbg = hideParticipant(id_stage);
-             for(var i = 0; i < bbg.length; i++)
-             adminBlocked[i] = bbg[i].id_participant;
+            var bbg = hideParticipant(id_stage);
+            for(var i = 0; i < bbg.length; i++)
+            adminBlocked[i] = bbg[i].id_participant;
 
-             $('#stage-'+index).children('div').each( function() {
-                 var parts = $(this).children('div').attr('id');
-                 id_participant = parts;
+            $('#stage-'+index).children('div').each( function() {
+                var parts = $(this).children('div').attr('id');
+                id_participant = parts;
+                m ++;
+                var rm = $.inArray(id_participant, adminBlocked);
 
-                 m ++;
-                 var rm = $.inArray(id_participant, adminBlocked);
-
-                 if (rm != -1)
-                     $(this).remove();
-                 else {
-                     pos[counter] = m;
-                     kh[counter] = id_participant;
-                     counter ++ ;
-                 }
-             });
-
+                if (rm != -1)
+                    $(this).remove();
+                else {
+                    pos[counter] = m;
+                    kh[counter] = id_participant;
+                    counter ++ ;
+                }
+            });
             /** END **/
 
             if ( k == 0 ) {
@@ -162,33 +176,24 @@ $( function ()
             });
         },
         onStepChanged: function(event, currentIndex, priorIndex) {
-            var index = currentIndex + 1;
-            currentStage = currentIndex + 1;
-            var blocked;
 
+            var blocked;
             var id_stage = $('#stage-' + currentIndex).find('input[type=hidden]').attr('id');
             id_stage = parseInt(id_stage);
-
-
-            /*blocked = stageStatus(id_stage);
-            if (blocked == 1)
-                $('#confirm-step-'+index).val(0);
-            else
-                $('#confirm-step-'+index).val(1);*/
-
+            
+            blocked = stageStatus(id_stage);
+            
             if ( blocked == 1 )
             {
-                $('.thanks'+index).css("display","block");
-                $('#stage-'+(index-1)).css("display","none");
-                $('#confirm-step-'+index).on('change', function(){
-                   $('.show-part'+index).css("display","block");                   
-                });
-                $('.show-part'+index).on('click', function(){
-                    $(".thanks"+index).css("display","none");
-                    $('#stage-'+(index-1)).css("display","block");
-                    $('#confirm-step-'+index).val("2");
-                });
+                $('.thanks-'+currentIndex).css("display","block");
+                $('#stage-'+currentIndex).css("display","none");
+                $('.show-part-'+currentIndex).on('click', function(){
+                    $(".thanks-"+currentIndex).css("display","none");
+                    $('#stage-'+currentIndex).css("display","block");
+                    $('#confirm-step-'+currentIndex).val("2");
+                });                
             }
+            check(id_stage, currentIndex);
         },
         onFinishing: function (event, currentIndex)
         {
@@ -203,6 +208,7 @@ $( function ()
             for (var i = 0; i < area; i++) {
                 var radio = $('input[type=radio][name="score-' + (index + 1) + '-' + pos[i] + '"]:checked');
                 var score = radio.val();
+                console.log(score);
 
                 if (score == 0 || score == null) {
                     k = 1;
@@ -214,7 +220,6 @@ $( function ()
                 }
                 else {
                     var id_participant = kh[i];
-
                     $.ajax({
                         url: url+'setScore/',
                         type: "POST",
@@ -226,10 +231,10 @@ $( function ()
                             score: score,
                         },
                         success: function(data, config) {
-                            console.log(data);
+                           console.log(data);
                         },
                         error: function(data, config) {
-                            console.log(data);
+                           console.log(data);
                         }
                     });
                 }
@@ -242,14 +247,66 @@ $( function ()
             if ( k == 0 ) {
                 return true;
             }
-
         },
         onFinished: function (event, currentIndex)
         {
-            alert("Спасибо за участние!!!");
+            swal({
+                title: "Голосование закончилось",
+                text: "<p>Спасибо, что воспользовались нашей платформой</p><a href='#linktoeventpage' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
+                html: true,
+                showCancelButton: false,
+                showConfirmButton: false,
+              });
         },
     });
+    
 
+    function check(id_stage, id){
+        var counter = 0;
+
+        var timerId = setInterval(function() {
+            var blocked = stageStatus(id_stage);
+                
+                kh = [];
+                pos = [];
+                m = 0;
+                alert(id );
+                /** RM PARTS FROM NEW STAGE **/
+                var index = id;
+                var id_participant;
+                var adminBlocked = new Array();
+                counter = 0;
+
+                var bbg = hideParticipant(id_stage);
+                for(var i = 0; i < bbg.length; i++)
+                adminBlocked[i] = bbg[i].id_participant;
+
+                $('#stage-'+index).children('div').each( function() {
+                    var parts = $(this).children('div').attr('id');
+                    id_participant = parts;
+                    m ++;
+                    var rm = $.inArray(id_participant, adminBlocked);
+
+                    if (rm != -1)
+                        $(this).remove();
+                    else {
+                        pos[counter] = m;
+                        kh[counter] = id_participant;
+                        counter ++ ;
+                    }
+                });
+                /** END **/
+
+            if (blocked == 0){
+                $('.show-part-'+id).css("display","block");
+                clearInterval(timerId);
+            }
+        }, 1000);
+    }
+    
+        
+        
+    /* SETTINGS PANEL */                
     var form1 = $("#setting-rating-area");
     form1.children("div").steps({
         headerTag: "h3",
@@ -344,28 +401,5 @@ $( function ()
             return true;
         },
     });
-
-});
-
-$(document).ready( function() {
-    var url = location.protocol+'//'+location.hostname+'/pronwe/';
-
-    function stageStatus(id) {
-        var result ;
-        $.ajax({
-            url: url + 'block/getBlocked',
-            type: "POST",
-            data: {
-                stage: id,
-            },
-            success: function(data, config) {
-                //result = parseInt(data);
-                console.log('here');
-            },
-            async: true,
-        });
-    }
-
-    setInterval(stageStatus(20), 1000);
 
 });

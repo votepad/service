@@ -75,7 +75,7 @@
 										<tr>
 											<td><?=$stages[$i]['name']; ?></td>
 											<td id="<?=$stages[$i]['id']; ?>" class="text-center">
-												<button id="openStage" class="btn btn-default btn-open">Открыть доступ</button>
+												<button id="openStage" class="btn btn-default btn-open btn-open-<?=$i; ?>">Открыть доступ</button>
 											</td>
 										</tr>
 									<?php endfor; ?>

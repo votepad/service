@@ -1,4 +1,3 @@
-
 <div class="content-wrapper">
 	<div class="content-heading">
 		<div class="col-sm-4 col-md-3 hidden-xs">
@@ -58,14 +57,14 @@
 								</div>
 		                     	<?php endfor; ?>
 							</div>
-							<div class="col-md-12 thanks<?=($i+1); ?> text-center" style="display: none;">
+							<div class="col-md-12 thanks-<?=($i); ?> text-center" style="display: none;">
 								<p style="font-size: 1.5em">Проставленные баллы зафиксированны.</p>
 								<p style="font-size: 1.5em">Дождитесь появления кнопки "Показать участников".</p>
-								<div class="col-sm-4 col-sm-offset-4 text-center">
-									<a class="btn btn-primary show-part<?=($i+1); ?>" style="display: none;">Показать участников</a>
+								<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
+									<a class="btn btn-primary show-part-<?=($i); ?>" style="display: none;">Показать участников</a>
 								</div>
 							</div>
-							<input type="hidden" id='confirm-step-<?=($i+1); ?>' value="1">
+							<input type="hidden" id='confirm-step-<?=($i); ?>'>
 						</div>
 						<?php endfor; ?>
 					</div>
@@ -75,9 +74,3 @@
 	</div>
 </div>
 <button id="errorMsg" type="button" data-notify="" data-message="Вы забыли поставить балл участнику" data-options="{&quot;status&quot;:&quot;danger&quot;}" style="display: none;"></button>
-<button id="errorMsg1" type="button" data-notify="" data-message="Потерпите немножко, пусть все оценят" data-options="{&quot;status&quot;:&quot;danger&quot;}" style="display: none;"></button>
-<script>
-	$(document).ready ( function() {
-
-	});
-</script>
