@@ -1,5 +1,27 @@
 $(document).ready(function(){
 
+    var url = location.protocol+'//'+location.hostname+'/pronwe/';
+
+    // BlockStages
+    $("button[id='openStage']").click( function() {
+        var stage = $(this).closest("td").attr('id');
+
+        $.ajax({
+            url: url + 'block/',
+            type: "POST",
+            data: {
+                stage: stage,
+            },
+            success: function(data, config) {
+                console.log(data);
+            },
+            error: function(data, config) {
+                console.log(data);
+            }
+        });
+    });
+
+
   /* SWEETALERT STRAT AGAIN */
   $("#start-again").on("click",function(){
     swal({   
@@ -38,8 +60,11 @@ $(document).ready(function(){
         swal( "Успешно!", "Проверьте файл в папке 'Закгрузки'", "success" );
     });
   });
+<<<<<<< HEAD
 
   $('.btn-open').click(function(){
     $(this).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт');
   });
+=======
+>>>>>>> e66ef896c286f98089393026485852013ae0d20a
 });

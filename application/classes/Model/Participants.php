@@ -123,4 +123,22 @@ class Model_Participants extends Model {
         return true;
     }
 
+    public static function block($id, $id_stage) {
+        $select = DB::select()->from('BlockedParticipants')->where('id_participant', '=', $id)
+                ->and_where('id_stage', '=', $id_stage)->execute()->as_array();
+
+        if (count($select) == 0) {
+            $insert = DB::insert('BlockedParticipants', array(
+                'id_participant', 'id_stage',
+            ))->values(array(
+                $id, $id_stage
+            ))->execute();
+        }
+    }
+
+    public static function getBlocked($id_stage) {
+        $select = DB::select()->from('BlockedParticipants')->where('id_stage', '=', $id_stage)->execute()->as_array();
+        return $select;
+    }
+
 }

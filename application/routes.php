@@ -23,6 +23,24 @@ Route::set('AjaxSetScore', 'setScore')
         'action'     => 'setScore'
     ));
 
+Route::set('AjaxBlockStages', 'block(/<action>)')
+    ->defaults(array(
+       'controller' => 'Judges_Settings_Ajax',
+        'action'    => 'block',
+    ));
+
+Route::set('HideParticipants', 'hide')
+    ->defaults(array(
+        'controller' => 'Judges_Settings_Ajax',
+        'action'     => 'getBlockedParticipants'
+    ));
+
+Route::set('BlockParticipants', 'blockparticipants')
+    ->defaults(array(
+        'controller' => 'Judges_Settings_Modify',
+        'action'     => 'blockParticipants',
+    ));
+
 /**
 * Set the routes. Each route must have a minimum of a name, a URI and a set of
 * defaults for the URI.

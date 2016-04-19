@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
 	<div class="content-heading">
 		<div class="col-sm-4 col-md-3 hidden-xs">
@@ -30,11 +31,13 @@
 								</div>
 							</div>
 
-							<div id="stage-<?=($i+1); ?>" data-toggle="portlet" class="portlets-wrapper">
-								<?php
+							<div id="stage-<?=$i; ?>" data-toggle="portlet" class="portlets-wrapper">
+								<input type="hidden" id="<?=$stages[$i]['id']; ?>">
+									<?php
 										for($j = 0; $j < count($participants[$i]); $j++):
 									?>
-								<div id="partisipant-id-<?=$participants[$i][$j]['id']; ?>" class="panel panel-primary">
+								<div id="partisipant-id-<?=($j+1);?>" class="panel panel-primary">
+									<div id="<?=$participants[$i][$j]['id']; ?>"></div>
 									<div class="panel-wrapper">
 										<div class="panel-body">
 											<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
@@ -73,3 +76,4 @@
 	</div>
 </div>
 <button id="errorMsg" type="button" data-notify="" data-message="Вы забыли поставить балл участнику" data-options="{&quot;status&quot;:&quot;danger&quot;}" style="display: none;"></button>
+<button id="errorMsg1" type="button" data-notify="" data-message="Потерпите немножко, пусть все оценят" data-options="{&quot;status&quot;:&quot;danger&quot;}" style="display: none;"></button>

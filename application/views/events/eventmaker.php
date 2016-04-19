@@ -18,13 +18,15 @@
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
 								<?php for($i = 0; $i < count($judges); $i++) : ?>
-									<div class="col-xs-3">
-										<div class="media">
-											<img src="<?=URL::base().'uploads/' . $judges[$i]['photo']; ?>" class="img-responsive img-circle">
+									<div class="row btn_area1">
+										<div class="col-xs-3">
+											<div class="media">
+												<img src="<?=URL::base().'uploads/' . $judges[$i]['photo']; ?>" class="img-responsive img-circle">
+											</div>
 										</div>
-									</div>
-									<div class="col-xs-9">
-										<p><?=$judges[$i]['name']; ?></p>
+										<div class="col-xs-9">
+											<p><?=$judges[$i]['name']; ?></p>
+										</div>
 									</div>
 								<?php endfor; ?>
 							</div>
@@ -65,7 +67,6 @@
 									<thead>
 										<tr>
 											<th style="width: 50%">Название этапа</th>
-											<th class="text-center" style="width: 25%">Оценивают</th>
 											<th class="text-center" style="width: 25%">Следующий этап</th>
 										</tr>
 									</thead>
@@ -73,9 +74,14 @@
 									<?php for($i = 0; $i < count($stages); $i++) : ?>
 										<tr>
 											<td><?=$stages[$i]['name']; ?></td>
+<<<<<<< HEAD
 											<td class="text-center"><?=count($judges); ?></td>
 											<td class="text-center">
 												<a href="#" class="btn btn-default btn-open">Открыть доступ</a>
+=======
+											<td id="<?=$stages[$i]['id']; ?>" class="text-center">
+												<button id="openStage" class="btn btn-default btn-open">Открыть доступ</button>
+>>>>>>> e66ef896c286f98089393026485852013ae0d20a
 											</td>
 										</tr>
 									<?php endfor; ?>
@@ -94,7 +100,7 @@
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
 								<!-- отправляем через ajax -->
-								<form method="POST">
+								<form method="POST" action="<?=URL::site('blockparticipants') ;?>">
 									<div class="form-group">
 										<select name="stage" class="form-control">
 											<!-- выводим список этапов -->
@@ -120,7 +126,7 @@
 												<div class="row">
 													<label class="col-lg-5 control-label">Введитее балл</label>
 													<div class="col-lg-7">
-														<input type="number" class="form-control">
+														<input type="number" class="form-control" name="score">
 													</div>
 												</div>
 												<button type="submit" class="btn btn-default btn_area pull-right">Запретить участвовать</button>
