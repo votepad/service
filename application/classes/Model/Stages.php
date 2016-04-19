@@ -121,4 +121,39 @@ class Model_Stages extends Model {
         return $delete;
     }
 
+
+    public static function block($id)
+    {
+        $select = DB::select()->from('BlockedStages')->where('id_stage', '=', $id)->limit(1)->execute();
+
+        if ( count($select) == 0 ) {
+            $insert = DB::insert('BlockedStages', array(
+                'id_stage', 'block',
+            ))->values(array(
+                $id, '1',
+            ))->execute();
+        }
+        else
+        {
+            $stage = Arr::get($select, '0');
+            if ( $stage['block'] == 1) {
+                $update = DB::update('BlockedStages')->set(array(
+                    'block' => '0',
+                ))->where('id_stage', '=', $id)->execute();
+            }
+            else {
+                $update = DB::update('BlockedStages')->set(array(
+                    'block' => '1',
+                ))->where('id_stage', '=', $id)->execute();
+            }
+        }
+
+        return true;
+    }
+
+    public static function stageStatus($stage)
+    {
+        $select = DB::select()->from("BlockedStages")->where('id_stage', '=', $stage)->limit(1)->execute()->as_array();
+        return Arr::get($select, '0')['block'];
+    }
 }

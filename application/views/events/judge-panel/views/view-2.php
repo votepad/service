@@ -1,3 +1,4 @@
+
 <div class="content-wrapper">
 	<div class="content-heading">
 		<div class="col-sm-4 col-md-3 hidden-xs">
@@ -30,18 +31,20 @@
 								</div>
 							</div>
 
-							<div id="stage-<?=($i+1); ?>" data-toggle="portlet" class="portlets-wrapper">
-								<?php
+							<div id="stage-<?=$i; ?>" data-toggle="portlet" class="portlets-wrapper">
+								<input type="hidden" id="<?=$stages[$i]['id']; ?>">
+									<?php
 										for($j = 0; $j < count($participants[$i]); $j++):
 									?>
 								<div id="partisipant-id-<?=($j+1);?>" class="panel panel-primary">
+									<div id="<?=$participants[$i][$j]['id']; ?>"></div>
 									<div class="panel-wrapper">
 										<div class="panel-body">
 											<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
 												<img src="<?=URL::base(); ?>uploads/<?=$participants[$i][$j]['photo']; ?>" alt="Participant<?=$j;?>" class="pronwe_boxShadow pronwe_border-1px participant">
 											</div>
-											<div id="<?=$stages[$i]['id']; ?>" class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
-												<h2 id="<?=$participants[$i][$j]['id']; ?>"><?=$participants[$i][$j]['name'];?></h2>
+											<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
+												<h2><?=$participants[$i][$j]['name'];?></h2>
 												<div class="buttons" data-toggle="buttons">
 													<?php for($k = 0; $k < $criteria['maxscore']; $k++):?>
 													<button class="mb-sm btn btn-primary">
@@ -64,3 +67,4 @@
 	</div>
 </div>
 <button id="errorMsg" type="button" data-notify="" data-message="Вы забыли поставить балл участнику" data-options="{&quot;status&quot;:&quot;danger&quot;}" style="display: none;"></button>
+<button id="errorMsg1" type="button" data-notify="" data-message="Потерпите немножко, пусть все оценят" data-options="{&quot;status&quot;:&quot;danger&quot;}" style="display: none;"></button>

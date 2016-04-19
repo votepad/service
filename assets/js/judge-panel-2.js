@@ -1,6 +1,37 @@
-$(function ()
+$( function ()
 {
     var url = location.protocol+'//'+location.hostname+'/pronwe/';
+    var id_stage ;
+    var kh = new Array();
+    var pos = new Array();
+    var m = 0;
+
+    function sleep(milliseconds) {
+        var start = new Date().getTime();
+        for (var i = 0; i < 1e7; i++) {
+            if ((new Date().getTime() - start) > milliseconds){
+                break;
+            }
+        }
+    }
+
+    function hideParticipant(stage) {
+        var result = 'none';
+        $.ajax({
+            url: url + 'hide/',
+            dataType: "json",
+            type: "POST",
+            data: {
+                stage: stage,
+            },
+            success: function(data, config) {
+                result = data;
+            },
+            async: false,
+        });
+
+        return result;
+    }
 
     var form = $("#rating-area");
     form.children("div").steps({
@@ -14,90 +45,178 @@ $(function ()
             next:"Следующий этап",
             finish:"Посмотреть результаты",
         },
-        onStepChanging: function (event, currentIndex, newIndex)
-        {
-            var index= currentIndex+1;
-            var area = $('#stage-'+index+' .buttons').length;
+        onStepChanging: function (event, currentIndex, newIndex) {
+            var id_event = $("input[name='id_event']").val();
+            var id_judge = $("input[name='id_judge']").val();
+            var counter = 0;
+
+            var index = currentIndex;
+            var area = $('#stage-' + index + ' .buttons').length;
             var k = 0;
 
-            for (var i = 1; i <= area; i++) {
-
-                var radio = $('input[type=radio][name="score-'+index+'-'+i+'"]:checked');
+            for (var i = 0; i < area; i++) {
+                var radio = $('input[type=radio][name="score-' + (index + 1) + '-' + pos[i] + '"]:checked');
                 var score = radio.val();
+
                 if (score == 0 || score == null) {
-                    k=1;
+                    k = 1;
                     $("#errorMsg").click();
-                    break;
                 }
-                if (k == 1)
+
+                if (k == 1) {
                     return false;
-
-                var id_participant  = radio.parent().parent().parent().find('h2').attr('id');
-                var id_stage        = radio.parent().parent().parent().attr('id');
-                var id_event        = $("input[name='id_event']").val();
-                var id_judge        = $("input[name='id_judge']").val();
-
-                $.ajax({
-                    url: url+'setScore/',
-                    type: "POST",
-                    data: {
-                        id_participant: id_participant,
-                        id_stage: id_stage,
-                        id_event: id_event,
-                        id_judge: id_judge,
-                        score: score,
-                    },
-                    success: function(data, config) {
-                        console.log(data);
-                    },
-                    error: function(data, config) {
-                    }
-                });
+                }
+                else {
+                     var id_participant = kh[i];
+                    $.ajax({
+                         url: url+'setScore/',
+                         type: "POST",
+                         data: {
+                             id_participant: id_participant,
+                             id_stage: id_stage,
+                             id_event: id_event,
+                             id_judge: id_judge,
+                             score: score,
+                         },
+                         success: function(data, config) {
+                            console.log(data);
+                         },
+                         error: function(data, config) {
+                            console.log(data);
+                         }
+                     });
+                }
             }
+
+             kh = [];
+             pos = [];
+             m = 0;
+
+            /** RM PARTS FROM NEW STAGE **/
+             index = newIndex;
+             var id_participant ;
+             var adminBlocked = new Array();
+             counter = 0;
+
+             var id = $('#stage-'+index+' input[type=hidden]').attr('id');
+             id_stage = parseInt(id);
+
+             var bbg = hideParticipant(id_stage);
+             for(var i = 0; i < bbg.length; i++)
+             adminBlocked[i] = bbg[i].id_participant;
+
+             $('#stage-'+index).children('div').each( function() {
+                 var parts = $(this).children('div').attr('id');
+                 id_participant = parts;
+
+                 m ++;
+                 var rm = $.inArray(id_participant, adminBlocked);
+
+                 if (rm != -1)
+                     $(this).remove();
+                 else {
+                     pos[counter] = m;
+                     kh[counter] = id_participant;
+                     counter ++ ;
+                 }
+             });
+
+            /** END **/
+
+
             if ( k == 0 ) {
                 return true;
             }
 
+
+
+        },
+        onInit: function(event, currentIndex) {
+
+            var index = currentIndex;
+            var id_participant ;
+            var adminBlocked = new Array();
+            var counter = 0;
+
+            var id = $('#stage-'+index+' input[type=hidden]').attr('id');
+            id_stage = parseInt(id);
+
+            var bbg = hideParticipant(id_stage);
+            for(var i = 0; i < bbg.length; i++)
+                adminBlocked[i] = bbg[i].id_participant;
+
+            $('#stage-'+index).children('div').each( function() {
+                var parts = $(this).children('div').attr('id');
+                id_participant = parts;
+
+                m ++;
+                var rm = $.inArray(id_participant, adminBlocked);
+
+                if (rm != -1)
+                    $(this).remove();
+                else {
+                    pos[counter] = m;
+                    kh[counter] = id_participant;
+                    counter ++;
+                }
+            });
+        },
+        onStepChanged: function(event, currentIndex, priorIndex) {
+            
         },
         onFinishing: function (event, currentIndex)
         {
-            var index= currentIndex+1;
-            var area = $('#stage-'+index+' .buttons').length;
+            var id_event = $("input[name='id_event']").val();
+            var id_judge = $("input[name='id_judge']").val();
+            var counter = 0;
+
+            var index = currentIndex;
+            var area = $('#stage-' + index + ' .buttons').length;
             var k = 0;
-            for (var i = 1; i <= area; i++) {
 
-                var radio = $('input[type=radio][name="score-'+index+'-'+i+'"]:checked');
+            for (var i = 0; i < area; i++) {
+                var radio = $('input[type=radio][name="score-' + (index + 1) + '-' + pos[i] + '"]:checked');
                 var score = radio.val();
+
                 if (score == 0 || score == null) {
-                    k=1;
+                    k = 1;
                     $("#errorMsg").click();
-                    break;
                 }
-                if (k == 1)
+
+                if (k == 1) {
                     return false;
+                }
+                else {
+                    var id_participant = kh[i];
 
-                var id_participant  = radio.parent().parent().parent().find('h2').attr('id');
-                var id_stage        = radio.parent().parent().parent().attr('id');
-                var id_event        = $("input[name='id_event']").val();
-                var id_judge        = $("input[name='id_judge']").val();
-
-                $.ajax({
-                    url: url+'setScore/',
-                    type: "POST",
-                    data: {
-                        id_participant: id_participant,
-                        id_stage: id_stage,
-                        id_event: id_event,
-                        id_judge: id_judge,
-                        score: score,
-                    },
-                    success: function(data, config) {
-                    },
-                    error: function(data, config) {
-                    }
-                });
+                    $.ajax({
+                        url: url+'setScore/',
+                        type: "POST",
+                        data: {
+                            id_participant: id_participant,
+                            id_stage: id_stage,
+                            id_event: id_event,
+                            id_judge: id_judge,
+                            score: score,
+                        },
+                        success: function(data, config) {
+                            console.log(data);
+                        },
+                        error: function(data, config) {
+                            console.log(data);
+                        }
+                    });
+                }
             }
-            if ( k == 0 ){ return true; }
+
+            kh = [];
+            pos = [];
+            m = 0;
+
+            if ( k == 0 ) {
+                return true;
+            }
+
         },
         onFinished: function (event, currentIndex)
         {
