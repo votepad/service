@@ -34,18 +34,18 @@
 								<?php
 										for($j = 0; $j < count($participants[$i]); $j++):
 									?>
-								<div id="partisipant-id-<?=($j+1);?>" class="panel panel-primary">
+								<div id="partisipant-id-<?=$participants[$i][$j]['id']; ?>" class="panel panel-primary">
 									<div class="panel-wrapper">
 										<div class="panel-body">
 											<div class="col-lg-3 col-md-3 col-sm-4 col-xs-12 text-center">
 												<img src="<?=URL::base(); ?>uploads/<?=$participants[$i][$j]['photo']; ?>" alt="Participant<?=$j;?>" class="pronwe_boxShadow pronwe_border-1px participant">
 											</div>
-											<div id="<?=$stages[$i]['id']; ?>" class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
-												<h2 id="<?=$participants[$i][$j]['id']; ?>"><?=$participants[$i][$j]['name'];?></h2>
+											<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
+												<h2><?=$participants[$i][$j]['name'];?></h2>
 												<div class="buttons" data-toggle="buttons">
-													<?php for($k = 0; $k < $criteria['maxscore']; $k++):?>
+													<?php for($k = 0; $k <= $criteria['maxscore']; $k++):?>
 													<button class="mb-sm btn btn-primary">
-														<input type="radio" name="score-<?=($i+1); ?>-<?=($j+1);?>" autocomplete="off" value="<?=$k;?>"><?=$k;?>
+														<input type="radio" name="score-<?=($i+1); ?>-<?=($j+1);?>" autocomplete="off" value="<?=$k; ?>"><?=$k;?>
 													</button>
 													<? endfor; ?>
 												</div>
@@ -55,6 +55,15 @@
 								</div>
 		                     	<?php endfor; ?>
 							</div>
+							<div class="col-md-12 thanks<?=($i+1); ?> text-center" style="display: none;">
+								<p style="font-size: 1.5em">Проставленные баллы зафиксированны.</p>
+								<p style="font-size: 1.5em">Дождитесь появления кнопки "Показать участников".</p>
+								<div class="col-sm-4 col-sm-offset-4 text-center">
+									<a class="btn btn-primary show-part<?=($i+1); ?>" style="display: none;">Показать участников</a>
+								</div>
+							</div>	
+							<input type="text" id='confirm-step-<?=($i+1); ?>' value="0">
+							аяксом получаем значение в реджиме онлайн, ждем изменение
 						</div>
 						<?php endfor; ?>
 					</div>

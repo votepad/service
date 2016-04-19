@@ -2,6 +2,8 @@ $(function ()
 {
     var url = location.protocol+'//'+location.hostname+'/pronwe/';
 
+    $('.buttons button:first-child').addClass('active');
+
     var form = $("#rating-area");
     form.children("div").steps({
         headerTag: "h3",
@@ -16,10 +18,11 @@ $(function ()
         },
         onStepChanging: function (event, currentIndex, newIndex)
         {
+
             var index= currentIndex+1;
             var area = $('#stage-'+index+' .buttons').length;
             var k = 0;
-
+            
             for (var i = 1; i <= area; i++) {
 
                 var radio = $('input[type=radio][name="score-'+index+'-'+i+'"]:checked');
@@ -54,10 +57,28 @@ $(function ()
                     }
                 });
             }
-            if ( k == 0 ) {
+            if ( k == 0) {
                 return true;
             }
-
+        },
+        onStepChanged: function (event, currentIndex, newIndex)
+        {
+            var index = currentIndex+1;
+            var maxscore = $('#maxscore').val();
+            if ( $('#confirm-step-'+index).val() != 2)
+            {
+                $('.thanks'+index).css("display","block");
+                $('#stage-'+index).css("display","none");
+                $('#confirm-step-'+index).on('change', function(){
+                   $('.show-part'+index).css("display","block");                   
+                });
+                $('.show-part'+index).on('click', function(){
+                    $(".thanks"+index).css("display","none");
+                    $('#stage-'+index).css("display","block");
+                    $('#confirm-step-'+index).val("2");
+                    //$('#stage-'+index).children('#partisipant-id-33').css('display','none');
+                });
+            }
         },
         onFinishing: function (event, currentIndex)
         {
@@ -199,7 +220,5 @@ $(function ()
             return true;
         },
     });
-
-    $('.buttons button:first-child').addClass('active');
 
 });
