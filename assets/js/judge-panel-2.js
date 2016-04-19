@@ -1,6 +1,7 @@
 $( function ()
 {
     var url = location.protocol+'//'+location.hostname+'/pronwe/';
+    var currentStage;
     var id_stage ;
     var kh = new Array();
     var pos = new Array();
@@ -162,7 +163,20 @@ $( function ()
         },
         onStepChanged: function(event, currentIndex, priorIndex) {
             var index = currentIndex + 1;
-            if ( $('#confirm-step-'+index).val() != 2)
+            currentStage = currentIndex + 1;
+            var blocked;
+
+            var id_stage = $('#stage-' + currentIndex).find('input[type=hidden]').attr('id');
+            id_stage = parseInt(id_stage);
+
+
+            /*blocked = stageStatus(id_stage);
+            if (blocked == 1)
+                $('#confirm-step-'+index).val(0);
+            else
+                $('#confirm-step-'+index).val(1);*/
+
+            if ( blocked == 1 )
             {
                 $('.thanks'+index).css("display","block");
                 $('#stage-'+(index-1)).css("display","none");
@@ -173,7 +187,6 @@ $( function ()
                     $(".thanks"+index).css("display","none");
                     $('#stage-'+(index-1)).css("display","block");
                     $('#confirm-step-'+index).val("2");
-                    //$('#stage-'+index).children('#partisipant-id-33').css('display','none');
                 });
             }
         },
@@ -331,5 +344,28 @@ $( function ()
             return true;
         },
     });
+
+});
+
+$(document).ready( function() {
+    var url = location.protocol+'//'+location.hostname+'/pronwe/';
+
+    function stageStatus(id) {
+        var result ;
+        $.ajax({
+            url: url + 'block/getBlocked',
+            type: "POST",
+            data: {
+                stage: id,
+            },
+            success: function(data, config) {
+                //result = parseInt(data);
+                console.log('here');
+            },
+            async: true,
+        });
+    }
+
+    setInterval(stageStatus(20), 1000);
 
 });

@@ -26,8 +26,8 @@ class Controller_Judges_Settings_Ajax extends Ajax {
          * Не впускать прямые Get запросы
          */
 
-        //if ( !parent::_is_ajax())
-          //  $this->request('/');
+        if ( !parent::_is_ajax())
+            $this->request('/');
 
 
         $stage = Arr::get($_POST, 'stage');
