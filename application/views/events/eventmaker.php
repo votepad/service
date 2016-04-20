@@ -95,6 +95,7 @@
 							<div class="panel-body">
 								<!-- отправляем через ajax -->
 								<form method="POST" action="<?=URL::site('blockparticipants') ;?>">
+									<input type="hidden" name="id_event" value="<?=$id_event; ?>">
 									<div class="form-group">
 										<select name="stage" class="form-control">
 											<!-- выводим список этапов -->
@@ -151,7 +152,8 @@
 										<li role="presentation" style="width: <?=100/( count($stages) + 1); ?>%"><a href="#total" aria-controls="total" role="tab" data-toggle="tab">Общий рейтинг</a></li>
 									</ul>
 									<div class="tab-content">
-										<?php for($i = 0; $i < count($stages); $i++): ?>
+										<?php for($i = 0; $i < count($stages); $i++):
+											?>
 										<div id="stage-<?=($i + 1); ?>" role="tabpanel" <?=($i == 0)? "class='tab-pane active'": "class='tab-pane'" ; ?>>
 											<table class="table table-hover" id="for-stage-<?=($i + 1); ?>">
 												<thead>
@@ -160,26 +162,69 @@
 														<?php for($j = 0; $j < count($judges); $j++): ?>
 															<td><?=$judges[$j]['name']; ?></td>
 														<?php endfor; ?>
+														<td style="color: blue;">Сумма:</td>
 													</tr>
 												</thead>
 												<tbody>
-												<?php for($j = 0; $j < count($participants_1); $j++) : ?>
+												<?php for($j = 0; $j < count($participants_1); $j++) :
+														$amount[$j] = 0;
+													?>
 													<tr>
 															<td><?=$participants_1[$j]['name']; ?></td>
 														<?php for($k = 0; $k < count($judges); $k++): ?>
 															<td class="text-center">
 																<?php
 																	$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants_1[$j]['id']);
-																	echo $score ?: 0;
+																	$additional = Model_Score::getAdditionalScores($id_event, $stages[$i]['id'], $participants_1[$j]['id']);
+																 	$amount[$j] += $score;
+																    echo $score ?: 0;
+
+																	$count = ($additional == 0 && Model_Stages::isBlockedParticipantsExist($stages[$i]['id']) ) ? count($judges) : 1;
 																?>
 															</td>
 														<?php endfor; ?>
+														<td><?=$amount[$j] / $count; ?><?=$additional != 0 ? '(+'. $additional .')':'' ; ?></td>
 													</tr>
 												<?php endfor; ?>
 												</tbody>
 											</table>
 										</div>
 										<?php endfor; ?>
+
+										<div id="total" role="tabpanel" class="tab-pane">
+											<table class="table table-hover" id="total">
+												<thead>
+												<tr>
+													<td></td>
+													<?php for($j = 0; $j < count($judges); $j++): ?>
+														<td> Итог ( <?=$judges[$j]['name']; ?> )</td>
+													<?php endfor; ?>
+													<td>Результат:</td>
+												</tr>
+												</thead>
+												<tbody>
+												<?php for($j = 0; $j < count($participants_1); $j++) :
+														$sum[$j] 		= 0;
+														$additional[$j] = 0;
+													?>
+													<tr>
+														<td><?=$participants_1[$j]['name']; ?></td>
+														<?php for($k = 0; $k < count($judges); $k++): ?>
+															<td class="text-center">
+																<?php
+																	$score = Model_Score::getTotalScore($id_event, $judges[$k]['id'], $participants_1[$j]['id']);
+																	$additional[$j] = Model_Score::getAdditionalScores($id_event, '0', $participants_1[$j]['id']) ?: 0;
+																	$sum[$j] 	+= $score;
+																	echo $score ;
+																?>
+															</td>
+														<?php endfor; ?>
+														<td><?=$sum[$j]. ' (+'. $additional[$j] .') = '  . ($sum[$j] + $additional[$j]);?></td>
+													</tr>
+												<? endfor; ?>
+												</tbody>
+											</table>
+										</div>
 									</div>
 								</div>
 							</div>

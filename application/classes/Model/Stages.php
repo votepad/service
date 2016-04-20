@@ -121,6 +121,15 @@ class Model_Stages extends Model {
         return $delete;
     }
 
+    public static function isBlockedParticipantsExist($id_stage)
+    {
+        $select = DB::select()->from('BlockedParticipants')->where('id_stage', '=', $id_stage)->execute()->as_array();
+        if ( count($select) == 0)
+            return false;
+        else
+            return true;
+    }
+
 
     public static function block($id)
     {
