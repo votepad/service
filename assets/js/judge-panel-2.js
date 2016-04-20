@@ -2,7 +2,6 @@ $( function ()
 {
     var url = location.protocol+'//'+location.hostname+'/pronwe/';
 
-    var id_stage;
     var check_func;
     var kh = new Array();
     var pos = new Array();
@@ -124,16 +123,12 @@ $( function ()
             var k = 0;
             var blocked;
             var area = $('#stage-' + currentIndex + ' .buttons').length;
-            var id_nextStage = $('#stage-' + newIndex).find('input[type=hidden]').attr('id');
-            id_nextStage = parseInt(id_nextStage);
             var id_stage = $('#stage-' + currentIndex).find('input[type=hidden]').attr('id');
             id_stage = parseInt(id_stage);
-            blocked = stageStatus(id_nextStage);
 
             for (var i = 0; i < area; i++) {
                 var radio = $('input[type=radio][name="score-' + newIndex + '-' + pos[i] + '"]:checked');
                 var score = radio.val();
-                console.log(area,pos[i]);
                 
                 if (score == 0 || score == null) {
                     k = 1;
@@ -165,10 +160,10 @@ $( function ()
                 }
             }
 
-            if ( k == 0 ) {
-                return true;
-            }
-
+            var id_nextStage = $('#stage-' + newIndex).find('input[type=hidden]').attr('id');
+            id_nextStage = parseInt(id_nextStage);
+            blocked = stageStatus(id_nextStage);
+            
             if( blocked == 0 ){
                 kh = [];
                 pos = [];
@@ -211,6 +206,11 @@ $( function ()
                 check(id_nextStage, newIndex);
             }
 
+
+            if ( k == 0 ) {
+                return true;
+            }
+
         },
         onStepChanged: function(event, currentIndex, priorIndex) {
 
@@ -222,13 +222,12 @@ $( function ()
             var area = $('#stage-' + currentIndex + ' .buttons').length;
             var id_stage = $('#stage-' + currentIndex).find('input[type=hidden]').attr('id');
             id_stage = parseInt(id_stage);
-
+            check(id_stage, currentIndex);
             var k = 0;
             
             for (var i = 0; i < area; i++) {
                 var radio = $('input[type=radio][name="score-' + (currentIndex + 1) + '-' + pos[i] + '"]:checked');
                 var score = radio.val();
-                alert(pos[i],area);
                 
                 if (score == 0 || score == null) {
                     k = 1;
@@ -266,10 +265,9 @@ $( function ()
         },
         onFinished: function (event, currentIndex)
         {
-            alert('done');
             swal({
                 title: "Голосование закончилось",
-                text: "<p>Спасибо, что воспользовались нашей платформой</p><a href='#linktoeventpage' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
+                text: "<p>Спасибо, что воспользовались нашей платформой</p><br><a href='<?=URL::site('auth/logout'); ?>' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
                 html: true,
                 showCancelButton: false,
                 showConfirmButton: false,
@@ -279,12 +277,10 @@ $( function ()
     
 
     function check(id_stage, id){
-
         var counter = 0;
-        alert('here');
         var timerId = setInterval(function() {
             var blocked = stageStatus(id_stage);
-                
+                console.log(blocked);
                 kh = [];
                 pos = [];
                 m = 0;
@@ -296,19 +292,17 @@ $( function ()
 
                 var bbg = hideParticipant(id_stage);
                 for(var i = 0; i < bbg.length; i++)
-                adminBlocked[i] = bbg[i].id_participant;
+                    adminBlocked[i] = bbg[i].id_participant;
 
-                $('#stage-'+id).children('div').each( function() {
+                $('#stage-' + id).children('div').each( function() {
                     var parts = $(this).children('div').attr('id');
                     id_participant = parts;
                     
-                    m = $(this).find('input[type=hidden][name=buttons]').val();
-                    
+                    m = $(this).find('input[type=hidden][name=buttons]').val();                    
                     var rm = $.inArray(id_participant, adminBlocked);
 
                     if (rm != -1)
                         $(this).remove();
-
                     else {
                         pos[counter] = m;
                         kh[counter] = id_participant;
