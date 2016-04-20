@@ -42,7 +42,7 @@ class Model_Score extends Model {
                 ->limit(1)
                 ->execute()
                 ->as_array();
-        return Arr::get($select, '0')['score'];
+        return Arr::get($select, '0')['score'] ?: 0;
     }
 
     public static function getTotalScore($id_event, $id_judge, $id_participant) {
@@ -52,7 +52,7 @@ class Model_Score extends Model {
             ->execute()
             ->as_array();
 
-        return Arr::get($select, '0')['total'];
+        return Arr::get($select, '0')['total'] ?: 0;
     }
 
     public static function getAdditionalScores($id_event, $id_stage, $participant) {
@@ -74,6 +74,6 @@ class Model_Score extends Model {
                 ->execute()
                 ->as_array();
         }
-        return Arr::get($select, '0')['total'];
+        return Arr::get($select, '0')['total'] ?: 0;
     }
 }

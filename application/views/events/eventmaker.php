@@ -160,9 +160,9 @@
 													<tr>
 														<td></td>
 														<?php for($j = 0; $j < count($judges); $j++): ?>
-															<td><?=$judges[$j]['name']; ?></td>
+															<td class="text-center"><?=$judges[$j]['name']; ?></td>
 														<?php endfor; ?>
-														<td style="color: blue;">Сумма:</td>
+														<td class="text-center" style="color: blue;">Сумма:</td>
 													</tr>
 												</thead>
 												<tbody>
@@ -180,10 +180,11 @@
 																    echo $score ?: 0;
 
 																	$count = ($additional == 0 && Model_Stages::isBlockedParticipantsExist($stages[$i]['id']) ) ? count($judges) : 1;
+
 																?>
 															</td>
 														<?php endfor; ?>
-														<td><?=$amount[$j] / $count; ?><?=$additional != 0 ? '(+'. $additional .')':'' ; ?></td>
+															<td class="text-center"><?=$amount[$j] / $count; ?><?=$additional != 0 ? '(+'. $additional .')':'' ; ?></td>
 													</tr>
 												<?php endfor; ?>
 												</tbody>
@@ -197,15 +198,15 @@
 												<tr>
 													<td></td>
 													<?php for($j = 0; $j < count($judges); $j++): ?>
-														<td> Итог ( <?=$judges[$j]['name']; ?> )</td>
+														<td class="text-center"> Итог ( <?=$judges[$j]['name']; ?> )</td>
 													<?php endfor; ?>
-													<td>Результат:</td>
+													<td class="text-center">Результат:</td>
 												</tr>
 												</thead>
 												<tbody>
 												<?php for($j = 0; $j < count($participants_1); $j++) :
 														$sum[$j] 		= 0;
-														$additional[$j] = 0;
+														$additional1[$j] = 0;
 													?>
 													<tr>
 														<td><?=$participants_1[$j]['name']; ?></td>
@@ -213,13 +214,13 @@
 															<td class="text-center">
 																<?php
 																	$score = Model_Score::getTotalScore($id_event, $judges[$k]['id'], $participants_1[$j]['id']);
-																	$additional[$j] = Model_Score::getAdditionalScores($id_event, '0', $participants_1[$j]['id']) ?: 0;
+																	$additional1[$j] = Model_Score::getAdditionalScores($id_event, '0', $participants_1[$j]['id']) ?: 0;
 																	$sum[$j] 	+= $score;
 																	echo $score ;
 																?>
 															</td>
 														<?php endfor; ?>
-														<td><?=$sum[$j]. ' (+'. $additional[$j] .') = '  . ($sum[$j] + $additional[$j]);?></td>
+															<td class="text-center"><?=$sum[$j]. ' (+'. $additional1[$j] .') = '  . ($sum[$j] + $additional1[$j]);?></td>
 													</tr>
 												<? endfor; ?>
 												</tbody>
