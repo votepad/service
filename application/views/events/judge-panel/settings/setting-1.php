@@ -43,7 +43,7 @@
 													<?=$criterias[$k]['name']; ?>
 												</div>
 												<div class="buttons" data-toggle="buttons">
-													<?php for($l = 0; $l <= $criterias[$k]['maxscore']; $l++): ?>
+													<?php for($l = 1; $l <= $criterias[$k]['maxscore']; $l++): ?>
 														<button class="mb-sm btn btn-s btn-primary">
 															<input type="radio" autocomplete="off"> <?=$l; ?>
 														</button>

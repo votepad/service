@@ -83,7 +83,8 @@ class Controller_Events_Modify extends Controller {
 
             $model_stages = new Model_Stages();
             $id_stage = $model_stages->insertStages($stageName[$i - 1], $stageDescription[$i - 1], $id_event);
-
+            $model_stages->block($id_stage);
+            
             foreach($_POST as $item => $value)
             {
                 $str1 = 'criterion-name_'. $i . '_' . $criteriaNameIndex ;

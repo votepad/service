@@ -7,8 +7,6 @@ $( function ()
     var pos = new Array();
     var m = 0;
 
-    $('.buttons button:first-child').addClass('active');
-
     function sleep(milliseconds) {
         var start = new Date().getTime();
         for (var i = 0; i < 1e7; i++) {
@@ -206,7 +204,6 @@ $( function ()
                 check(id_nextStage, newIndex);
             }
 
-
             if ( k == 0 ) {
                 return true;
             }
@@ -267,15 +264,14 @@ $( function ()
         {
             swal({
                 title: "Голосование закончилось",
-                text: "<p>Спасибо, что воспользовались нашей платформой</p><br><a href='<?=URL::site('auth/logout'); ?>' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
+                text: "<p>Спасибо, что воспользовались нашей платформой</p><br><a href='"+url+"auth/logout' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
                 html: true,
                 showCancelButton: false,
                 showConfirmButton: false,
-              });
+            });
         },
     });
     
-
     function check(id_stage, id){
         var counter = 0;
         var timerId = setInterval(function() {
@@ -372,7 +368,7 @@ $( function ()
                 }
             });
 
-            alert("Порядок выступлений сохранен!");
+            swal("Порядок выступлений сохранен!","","success");
         },
         onStepChanging: function (event, currentIndex, newIndex)
         {
@@ -415,5 +411,4 @@ $( function ()
             return true;
         },
     });
-
 });

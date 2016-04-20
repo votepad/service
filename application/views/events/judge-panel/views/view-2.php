@@ -1,7 +1,7 @@
 <div class="content-wrapper">
 	<div class="content-heading">
 		<div class="col-sm-4 col-md-3 hidden-xs">
-			<img src="<?=$assets; ?>img/temp/vesnavitmo.jpg" alt="EventImage" class="img-thumbnail img-circle">
+			<img src="<?=URL::base(); ?>uploads/<?=$event['photo']; ?>" alt="EventImage" class="img-thumbnail img-circle">
 		</div>
 		<div class="col-sm-8 col-md-9 text-white text-left orgName">
 			<h1><?=$event['title']; ?></h1>
@@ -46,7 +46,7 @@
 												<h2><?=$participants[$i][$j]['name'];?></h2>
 												<div class="buttons" data-toggle="buttons" >
 													<input type="hidden" name="buttons" value="<?=($j+1);?>">
-													<?php for($k = 0; $k <= $criteria['maxscore']; $k++):?>
+													<?php for($k = 1; $k <= $criteria['maxscore']; $k++):?>
 													<button class="mb-sm btn btn-primary">
 														<input type="radio" name="score-<?=($i+1); ?>-<?=($j+1);?>" autocomplete="off" value="<?=$k; ?>"><?=$k;?>
 													</button>

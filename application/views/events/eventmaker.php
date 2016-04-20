@@ -122,7 +122,7 @@
 													<div class="col-lg-7">
 														<input type="number" class="form-control" name="score">
 													</div>
-												</div>
+												</div>	
 												<button type="submit" class="btn btn-default btn_area pull-right">Запретить участвовать</button>
 											</div>
 										</div>
@@ -163,13 +163,13 @@
 													</tr>
 												</thead>
 												<tbody>
-												<?php for($j = 0; $j < count($participants); $j++) : ?>
+												<?php for($j = 0; $j < count($participants_1); $j++) : ?>
 													<tr>
-														<td><?=$participants[$i][$j]['name']; ?></td>
+															<td><?=$participants_1[$j]['name']; ?></td>
 														<?php for($k = 0; $k < count($judges); $k++): ?>
-															<td>
+															<td class="text-center">
 																<?php
-																	$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants[$i][$j]['id']);
+																	$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants_1[$j]['id']);
 																	echo $score ?: 0;
 																?>
 															</td>

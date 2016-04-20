@@ -21,6 +21,9 @@ class Controller_Judges_Settings_Index extends Dispatch {
         array_push( $this->js,  'vendor/jquery-ui/ui/sortable.js');
         array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
+        array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
+        array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
+
         array_push( $this->css, 'css/judge-panel-1.css');
         array_push( $this->js,  'js/judge-panel-1.js');
         
@@ -82,6 +85,8 @@ class Controller_Judges_Settings_Index extends Dispatch {
         array_push( $this->js,  'vendor/jquery-ui/ui/sortable.js');
         array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
+        array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
+        array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
         array_push( $this->css, 'css/judge-panel-2.css');
         array_push( $this->js,  'js/judge-panel-2.js');
 
