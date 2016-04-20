@@ -44,7 +44,8 @@
 											</div>
 											<div class="col-lg-9 col-md-9 col-sm-7 col-xs-12">
 												<h2><?=$participants[$i][$j]['name'];?></h2>
-												<div class="buttons" data-toggle="buttons">
+												<div class="buttons" data-toggle="buttons" >
+													<input type="hidden" name="buttons" value="<?=($j+1);?>">
 													<?php for($k = 0; $k <= $criteria['maxscore']; $k++):?>
 													<button class="mb-sm btn btn-primary">
 														<input type="radio" name="score-<?=($i+1); ?>-<?=($j+1);?>" autocomplete="off" value="<?=$k; ?>"><?=$k;?>
@@ -58,8 +59,7 @@
 		                     	<?php endfor; ?>
 							</div>
 							<div class="col-md-12 thanks-<?=($i); ?> text-center" style="display: none;">
-								<p style="font-size: 1.5em">Проставленные баллы зафиксированны.</p>
-								<p style="font-size: 1.5em">Дождитесь появления кнопки "Показать участников".</p>
+								<p style="font-size: 1.5em">Проставленные баллы зафиксированны. Дождитесь появления кнопки "Показать участников".</p>
 								<div class="col-md-4 col-md-offset-4 col-sm-6 col-sm-offset-3 text-center">
 									<a class="btn btn-primary show-part-<?=($i); ?>" style="display: none;">Показать участников</a>
 								</div>

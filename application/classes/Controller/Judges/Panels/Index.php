@@ -32,6 +32,8 @@ class Controller_Judges_Panels_Index extends Dispatch {
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
         array_push( $this->js,  'js/judge-panel-2.js');
         array_push( $this->css, 'css/judge-panel-2.css');
+        array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
+        array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
 
         $this->template->css    = $this->css;
         $this->template->js     = $this->js;
