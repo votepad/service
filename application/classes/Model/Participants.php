@@ -123,7 +123,7 @@ class Model_Participants extends Model {
         return true;
     }
 
-    public static function block($id, $id_stage, $score, $id_event) {
+    public static function block($id, $id_stage, $id_event) {
         $select = DB::select()->from('BlockedParticipants')->where('id_participant', '=', $id)
                 ->and_where('id_stage', '=', $id_stage)->execute()->as_array();
 
@@ -132,12 +132,7 @@ class Model_Participants extends Model {
                 'id_event', 'id_participant', 'id_stage',
             ))->values(array(
                 $id_event, $id, $id_stage
-            ))->execute();
-
-            /**
-             * @params score, when id_judge equals to 0 -> admin
-             */
-            Model_Score::set($id_event, $id, $id_stage, '0', $score);
+            ))->execute();            
         }
     }
 

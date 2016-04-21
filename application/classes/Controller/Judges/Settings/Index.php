@@ -23,9 +23,12 @@ class Controller_Judges_Settings_Index extends Dispatch {
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
         array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
         array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
-
         array_push( $this->css, 'css/judge-panel-1.css');
         array_push( $this->js,  'js/judge-panel-1.js');
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
         
         $types = Kohana::$config->load('type');
         $status = Kohana::$config->load('status');
@@ -89,7 +92,6 @@ class Controller_Judges_Settings_Index extends Dispatch {
         array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
         array_push( $this->css, 'css/judge-panel-2.css');
         array_push( $this->js,  'js/judge-panel-2.js');
-
         array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
         array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
         array_push( $this->js,  'js/app.js');

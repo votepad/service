@@ -19,6 +19,10 @@ class Controller_Judges_Panels_Index extends Dispatch {
         array_push( $this->css, 'css/judge-panel-1.css');
         array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
         array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
 
 
         $this->template->css    = $this->css;
@@ -65,6 +69,10 @@ class Controller_Judges_Panels_Index extends Dispatch {
         array_push( $this->css, 'css/judge-panel-2.css');
         array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
         array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
 
         $this->template->css    = $this->css;
         $this->template->js     = $this->js;

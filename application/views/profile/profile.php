@@ -21,13 +21,13 @@
                         <div class="">
                             <img id="image" src="<?=URL::base().'uploads/' . $user['avatar']; ?>" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px logo-preview">
                         </div>
-                        <div class="btn_area">
+                        <!--<div class="btn_area">
                             <input id="choose-image" type="file"tabindex="-1" class="logo-input" onchange="readURL(this)">
                             <label for="choose-image" class="btn btn-default fileinput-button">
                                 <span class="fa fa-folder-open"></span>
                                 <span class="buttonText">Обновить фото</span>
                             </label>
-                        </div>
+                        </div>-->
                     </form>
                 </div>
                 <div class="col-sm-8">

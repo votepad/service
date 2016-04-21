@@ -16,6 +16,7 @@ class Controller_Auth extends Dispatch {
         array_push( $this->css, 'css/ProNWE_input.css');
         array_push( $this->css, 'css/pronwe.css');
         array_push( $this->css, 'css/auth.css');
+        
         unset( $this->css[5] );
 
 

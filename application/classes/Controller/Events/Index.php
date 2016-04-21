@@ -29,6 +29,10 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'vendor/moment/min/moment.js');
         array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
         array_push( $this->js,  'js/pjsc.js');
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
 
         $types = Kohana::$config->load('type');
         $status = Kohana::$config->load('status');
@@ -98,6 +102,10 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'vendor/moment/min/moment.js');
         array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
         array_push( $this->js,  'js/event.js');
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
 
         $types = Kohana::$config->load('type');
         $status = Kohana::$config->load('status');
@@ -131,6 +139,10 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
         array_push( $this->css, 'css/table-my-event.css');
         array_push( $this->js,  'js/myevent.js');
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
     
         $this->template->css = $this->css;
         $this->template->js = $this->js;

@@ -16,6 +16,10 @@ class Controller_Test extends Dispatch {
         $this->template->description    = 'Тест';
         $this->template->keywords       = 'Тест';
 
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
         $this->template->css = $this->css;
         $this->template->js = $this->js;
 

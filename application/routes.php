@@ -35,12 +35,6 @@ Route::set('HideParticipants', 'hide')
         'action'     => 'getBlockedParticipants'
     ));
 
-Route::set('BlockParticipants', 'blockparticipants')
-    ->defaults(array(
-        'controller' => 'Judges_Settings_Modify',
-        'action'     => 'blockParticipants',
-    ));
-
 /**
 * Set the routes. Each route must have a minimum of a name, a URI and a set of
 * defaults for the URI.
@@ -132,6 +126,12 @@ Route::set('Judge-Settings', 'event/<id>/<action>')
     ->defaults(array(
         'controller' => 'Judges_Settings_Index',
         'action'     => ''
+    ));
+
+Route::set('Judge-Modify', '<action>')
+    ->defaults(array(
+        'controller' => 'Judges_Settings_Modify',
+        'action'     => '',
     ));
 
 Route::set('Judge-panels', 'event/<id>/judge/<action>')

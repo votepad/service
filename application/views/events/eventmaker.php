@@ -9,6 +9,24 @@
 			<div class="row">
 				<div id="portles-1-1" data-toggle="portlet" class="col-md-4">
 
+					<div id="setting" class="panel panel-primary">
+						<div class="panel-heading portlet-handler">Настройки
+							<a href="#" data-tool="panel-collapse" class="pull-right">
+								<em class="fa fa-minus"></em>
+							</a>
+						</div>
+						<div class="panel-wrapper collapse">
+							<div class="panel-body">
+								<p>
+									<a id="start-again" href="#" class="btn btn-default col-xs-12 btn_area1">Сбросить результаты</a>
+								</p>
+								<p>
+									<a id="download" href="#" class="btn btn-default col-xs-12">Скачать результаты</a>
+								</p>
+							</div>
+						</div>
+					</div>
+
 					<div id="judges-online" class="panel panel-primary">
 						<div class="panel-heading portlet-handler">Авторизованные жюри
 							<a href="#" data-tool="panel-collapse" class="pull-right">
@@ -33,20 +51,39 @@
 						</div>
 					</div>
 
-					<div id="setting" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Настройки
+					<div id="ban-participant" class="panel panel-primary">
+						<div class="panel-heading portlet-handler">Запретить участвовать
 							<a href="#" data-tool="panel-collapse" class="pull-right">
 								<em class="fa fa-minus"></em>
 							</a>
 						</div>
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
-								<p>
-									<a id="start-again" href="#" class="btn btn-default col-xs-12 btn_area1">Сбросить результаты</a>
-								</p>
-								<p>
-									<a id="download" href="#" class="btn btn-default col-xs-12">Скачать результаты</a>
-								</p>
+								<!-- отправляем через ajax -->
+								<form method="POST" action="<?=URL::site('blockparticipants') ;?>">
+									<input type="hidden" name="id_event" value="<?=$id_event; ?>">
+									<div class="form-group">
+										<select name="stage" class="form-control">
+											<!-- выводим список этапов -->
+											<?php for($i = 0; $i < count($stages); $i++) : ?>
+												<option value="<?=$stages[$i]['id']; ?>"><?=$stages[$i]['name']; ?></option>
+											<?php endfor; ?>
+										</select>
+									</div>
+									<div class="form-group">
+										<!-- выводим список участников -->
+										<?php for($i = 0; $i < count($participants_1); $i++) : ?>
+											<div class="checkbox c-checkbox needsclick">
+												<label class="needsclick">
+													<input type="checkbox" name="id[]" value="<?=$participants_1[$i]['id']; ?>" class="needsclick">
+													<span class="fa fa-check"></span><?=$participants_1[$i]['name']; ?>
+												</label>
+											</div>
+										<?php endfor; ?>
+											
+										<button type="submit" class="btn btn-default btn_area pull-right">Запретить участвовать</button>
+									</div>
+								</form>
 							</div>
 						</div>
 					</div>
@@ -85,8 +122,8 @@
 						</div>
 					</div>
 
-					<div id="ban-participant" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Запретить участвовать
+					<div id="addscore-participant" class="panel panel-primary">
+						<div class="panel-heading portlet-handler">Поставить дополнитеьный балл
 							<a href="#" data-tool="panel-collapse" class="pull-right">
 								<em class="fa fa-minus"></em>
 							</a>
@@ -94,7 +131,7 @@
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
 								<!-- отправляем через ajax -->
-								<form method="POST" action="<?=URL::site('blockparticipants') ;?>">
+								<form method="POST" action="<?=URL::site('addadditionalscore') ;?>">
 									<input type="hidden" name="id_event" value="<?=$id_event; ?>">
 									<div class="form-group">
 										<select name="stage" class="form-control">
@@ -124,7 +161,7 @@
 														<input type="number" class="form-control" name="score">
 													</div>
 												</div>	
-												<button type="submit" class="btn btn-default btn_area pull-right">Запретить участвовать</button>
+												<button type="submit" class="btn btn-default btn_area pull-right">Поставить</button>
 											</div>
 										</div>
 									</div>
@@ -132,7 +169,9 @@
 							</div>
 						</div>
 					</div>
+
 				</div>
+					
 
 				<div id="portlet-3" data-toggle="portlet" class="col-md-12">
 

@@ -135,7 +135,7 @@ class Model_Stages extends Model {
     {
         $select = DB::select()->from('BlockedStages')->where('id_stage', '=', $id)->limit(1)->execute();
 
-        if ( count($select) == 0 ) {
+        /*if ( count($select) == 0 ) {
             $insert = DB::insert('BlockedStages', array(
                 'id_stage', 'block',
             ))->values(array(
@@ -143,19 +143,19 @@ class Model_Stages extends Model {
             ))->execute();
         }
         else
-        {
+        {*/
             $stage = Arr::get($select, '0');
             if ( $stage['block'] == 1) {
                 $update = DB::update('BlockedStages')->set(array(
                     'block' => '0',
                 ))->where('id_stage', '=', $id)->execute();
-            }
+            }/*
             else {
                 $update = DB::update('BlockedStages')->set(array(
                     'block' => '1',
                 ))->where('id_stage', '=', $id)->execute();
             }
-        }
+        }*/
 
         return true;
     }

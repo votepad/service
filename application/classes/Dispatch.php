@@ -37,11 +37,8 @@ class Dispatch extends Controller_Template
             "vendor/jquery/dist/jquery.js",
             "vendor/jquery.localize-i18n/dist/jquery.localize.js",
             "vendor/slimScroll/jquery.slimscroll.min.js",
-            "vendor/jQuery-Storage-API/jquery.storageapi.js",
-            "vendor/bootstrap/dist/js/bootstrap.js"
         ];
 
-        array_push($this->js, 'js/app.js');
         array_push($this->js, 'js/twitter.js');
 
 

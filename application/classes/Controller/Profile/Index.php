@@ -36,6 +36,10 @@ class Controller_Profile_Index extends Dispatch {
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js');
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
         array_push( $this->js,  'js/profile.js');
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+        
 
         $this->template->css    = $this->css;
         $this->template->js     = $this->js;

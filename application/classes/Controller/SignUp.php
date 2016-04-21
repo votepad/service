@@ -37,6 +37,10 @@ class Controller_SignUp extends Dispatch
         $city = Kohana::$config->load('city');
         $gender = Kohana::$config->load('gender');
 
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
+
         $this->template->css = $this->css;
         $this->template->js = $this->js;
 

@@ -31,12 +31,12 @@
                         <span>Мои мероприятия</span>
                     </a>
                 </li>
-                <li class="">
+                <!--<li class="">
                     <a href="<?=URL::site('events/all'); ?>" title="Все мероприятия" >
                         <em class="icon-list"></em>
                         <span>Все мероприятия</span>
                     </a>
-                </li>
+                </li>-->
 
                 <li class="">
                     <a href="<?=URL::site('events/new/');?>" title="Создать мероприятие">
