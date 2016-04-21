@@ -4,7 +4,7 @@ $(document).ready(function(){
 
     // BlockStages
     $("button[id='openStage']").click( function() {
-      $(this).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт');
+      $(this).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт').prop('disabled',true);
         var stage = $(this).closest("td").attr('id');
 
         $.ajax({

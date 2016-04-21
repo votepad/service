@@ -32,8 +32,9 @@ class Controller_Events_Index extends Dispatch {
 
         $types = Kohana::$config->load('type');
         $status = Kohana::$config->load('status');
-        $city = Kohana::$config->load('city');
 
+        $arrcity = new Model_Events;
+        $cities = $arrcity->getCities();
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -42,12 +43,11 @@ class Controller_Events_Index extends Dispatch {
         $this->template->section    = View::factory('events/edit-event')
                                                 ->set('types', $types)
                                                 ->set('status', $status)
-                                                ->set('city', $city)
+                                                ->bind('cities', $cities)
                                                 ->bind('event', $event)
                                                 ->bind('participants', $participants)
                                                 ->bind('judges', $judges)
                                                 ->bind('stages', $stages);
-
 
         /**
          * Getting Event INFO.
@@ -99,15 +99,20 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
         array_push( $this->js,  'js/event.js');
 
-        $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/new-event')
-                                                ->bind('cities', $cities);
+        $types = Kohana::$config->load('type');
+        $status = Kohana::$config->load('status');
 
         $arrcity = new Model_Events;
         $cities = $arrcity->getCities();
 
         $this->template->css    = $this->css;
         $this->template->js     = $this->js;
+
+        $this->template->aside      = View::factory('aside');
+        $this->template->section    = View::factory('events/new-event')
+                                                ->set('types', $types)
+                                                ->set('status', $status)
+                                                ->bind('cities', $cities);
     }
 
     public function action_myevents()

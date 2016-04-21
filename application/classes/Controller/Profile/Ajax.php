@@ -10,15 +10,18 @@ class Controller_Profile_Ajax extends Ajax {
 
     public function action_update()
     {
-        if (parent::_is_ajax($this->request->method()))
-        {
-            $fields  = Arr::get($_POST, 'name');
-            $value  = Arr::get($_POST, 'value');
-            $pk     = Arr::get($_POST, 'pk');
+        /**
+         * Не впускать прямые Get запросы
+         */
 
-            Model_User::updateUserByFieldName($fields, $value, $pk);
-            return 1;
-        }
+        if ( !parent::_is_ajax())
+            $this->request('/');
+
+        $name   = Arr::get($_POST, 'name');  // Column name
+        $value  = Arr::get($_POST, 'value');
+        $id     = Arr::get($_POST, 'pk');
+
+        echo Model_User::updateUserByFieldName($name, $value, $id);
     }
 
 }

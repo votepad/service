@@ -1,4 +1,14 @@
-<?php $user   = $user->getUserInfo(); ?>
+<?php 
+    $user   = $user->getUserInfo();
+    $list = '';
+    for($i = 0; $i < count($cities); $i++) {
+        $list = $list .'"' . $cities[$i]['id'] . '":"' . $cities[$i]['name'] . '", ';
+    }
+    if ( $user['city'] == 0 )
+        $namecity = '';
+    else
+        $namecity = $cities[($user['city'] - 1)]['name'];
+?>
 <section>
     <div class="content-wrapper">
         <h3>Добро подаловать в личный кабинет
@@ -50,7 +60,7 @@
                             <label class="col-sm-4 control-label">Пол</label>
                             <div class="col-sm-8">
                                 <p>
-                                    <a href="#" id="sex" data-value="<?=$user['sex']; ?>" data-pk="<?=$user['id']; ?>"><?=$gender->get( $user['sex']); ?></a>
+                                    <a href="#" class="editable" data-type="select" data-name="sex" data-source="{'Мужской':'Мужской','Женский':'Женский'}" data-value="<?=$user['sex']; ?>" data-pk="<?=$user['id']; ?>"><?=$user['sex']; ?></a>
                                 </p>
                             </div>
                         </div>
@@ -58,7 +68,7 @@
                             <label class="col-sm-4 control-label">Номер телефона</label>
                             <div class="col-sm-8">
                                 <p>
-                                    <a href="#" id="number" class="editable" data-pk="<?=$user['id']; ?>"><?=$user['number']; ?></a>
+                                    <a href="#" class="editable" data-type="tel" data-name="number" data-placeholder="+79991234567" data-pk="<?=$user['id']; ?>"><?=$user['number']; ?></a>
                                 </p>
                             </div>
                         </div>
@@ -66,7 +76,7 @@
                             <label class="col-sm-4 control-label">Город</label>
                             <div class="col-sm-8">
                                 <p>
-                                    <a href="#" id="city" data-value="<?=$user['city']; ?>" data-pk="<?=$user['id']; ?>"><?=$city->get( $user['city']); ?></a>
+                                    <a href="#" class="editable" data-type="select" data-name="city" data-source='{<?=$list; ?>}' data-value="<?=$user['city']; ?>" data-pk="<?=$user['id']; ?>"><?=$namecity; ?></a>
                                 </p>
                             </div>
                         </div>

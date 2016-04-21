@@ -14,7 +14,6 @@
         //defaults
         $.fn.editable.defaults.url = '/Ajax/Editable';
         $.fn.editable.defaults.mode = 'inline';
-        //enable / disable
         
         var url = location.protocol+'//'+location.hostname+'/pronwe/';
         
@@ -34,61 +33,6 @@
                 if($.trim(value) === '') return 'Заполните поле';
             }
         });
-
-        $('#sex').editable({
-            url: url+'/Profile_Ajax/update/',
-            type: 'select',
-            name: 'sex',
-            emptytext: 'Не заполнено',
-            source: [
-                {value: 1, text: 'Мужской'},
-                {value: 2, text: 'Женский'}
-            ],
-            ajaxOptions: {
-                dataType: 'json'
-            },
-            success: function(data, config) {
-                console.log(data);
-            },
-            error: function(data) {
-                console.log(data);
-            },
-            validate: function(value) {
-                if($.trim(value) === '') return 'Заполните поле';
-            }
-        });
-
-        $('#number').editable({
-            type: 'tel',
-            name: 'number',
-            placeholder: '+79991234567',
-        });
-        
-        $('#city').editable({
-            url: url+'/Profile_Ajax/update/',
-            type: 'select',
-            name: 'city',
-            emptytext: 'Не заполнено',
-            ajaxOptions: {
-                dataType: 'json'
-            },
-            success: function(data, config) {
-                console.log(data);
-            },
-            error: function(data) {
-                console.log(data);
-            },
-            validate: function(value) {
-                if($.trim(value) === '') return 'Заполните поле';
-            },
-            source: [
-                {value: 1, text: 'Санкт-Петербург'},
-                {value: 2, text: 'Москва'},
-                {value: 3, text: 'Пермь'},
-                {value: 4, text: 'Екатеренбург'},
-                {value: 5, text: 'Сочи'},
-            ],
-        });    
 
         function readURL(input) {
             if (input.files && input.files[0]) {

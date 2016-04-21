@@ -12,13 +12,12 @@ class Controller_Profile_Index extends Dispatch {
          * Page decoration
          */
 
-        $city = Kohana::$config->load('city');
-        $gender = Kohana::$config->load('gender');
+        $model_user = Model_User::Instance();
+        $cities = $model_user->getCities();
 
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('profile/profile')
-                                                ->set('city', $city)
-                                                ->set('gender', $gender);
+                                                ->bind('cities', $cities);
 
         /*
          * Meta datas

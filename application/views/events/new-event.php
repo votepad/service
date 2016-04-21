@@ -24,12 +24,9 @@
                   <div class="col-md-9">
                      <select id="input-event-status" name="input-event-status" data-validation="required" data-validation-error-msg="Выберите статус мероприятия, он нужен для поиска мероприятия в системе" class="form-control" >
                         <option value=""></option>
-                        <option value="1">Международное мероприятие</option>
-                        <option value="2">Всероссийское мероприятие</option>
-                        <option value="3">Региональное мероприятие</option>
-                        <option value="4">Городское мероприятие</option>
-                        <option value="5">Университетское мероприятие</option>
-                        <option value="6">Школьное мероприятие</option>
+                        <?php for($i = 1; $i <= count($status); $i++): ?>
+                           <option value="<?=$i; ?>"><?=$status->get($i); ?></option>
+                        <?php endfor; ?>
                      </select>
                   </div>
                </div>
@@ -74,8 +71,9 @@
                      <select id="input-event-type" name="input-event-type" data-validation="required" data-validation-error-msg="Выберите тип" class="form-control" >
                         <!-- для value: XYZ == этап(X) участник(Y) критерии(Z) -->
                         <option value=""></option>
-                        <option value="1">Оценивание участников по нескольким критериям на каждом этапе</option>
-                        <option value="2">Оценивание участников по одному критерию на каждом этапе</option>
+                        <?php for($i = 1; $i <= count($types); $i++): ?>
+                           <option value="<?=$i; ?>"><?=$types->get($i); ?></option>
+                        <?php endfor; ?>
                      </select>
                      <span class="pronwe_comment help-block m-b-none">*Вы можете предложить свой тип мероприятия, отправив подробное описание типа на support@pronwe.ru.</span>
                   </div>

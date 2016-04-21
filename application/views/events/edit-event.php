@@ -1,4 +1,24 @@
-
+<?php
+   // cities
+   $list = '';
+   for($i = 0; $i < count($cities); $i++) {
+      $list = $list .'"' . $cities[$i]['id'] . '":"' . $cities[$i]['name'] . '", ';
+   }
+   if ( $event['city'] == 0 )
+      $namecity = '';
+   else
+      $namecity = $cities[($event['city'] - 1)]['name'];
+   // event ststus
+   $stat = '';
+   for($i = 1; $i <= count($status); $i++) {
+      $stat = $stat .'"' . $i . '":"' . $status->get($i) . '", ';
+   }
+   // event type
+   $typ = '';
+   for($i = 1; $i <= count($types); $i++) {
+      $typ = $typ .'"' . $i . '":"' . $types->get($i) . '", ';
+   }
+?>
 <section>
    <div class="content-wrapper">
       <h3>Редактирование информации о мероприятии "<a data-type="text" data-name="title" class="editable" data-pk="<?=$event['id']; ?>"><?=$event['title']; ?></a>"</h3>
@@ -20,35 +40,35 @@
                         <div class="form-group">
                            <label class="col-md-4 control-label">Статус мероприятия</label>
                            <div class="col-md-8">
-                              <a class="editable" data-type="select" data-name="input-event-status" data-source='{"1":"Международное мероприятие","2":"Всероссийское мероприятие","3":"Региональное мероприятие","4":"Городское мероприятие","5":"Университетское мероприятие","6":"Школьное мероприятие"}' data-value="<?=$event['event_status']; ?>" data-pk="<?=$event['id']; ?>"><?=$status->get( $event['event_status'] ); ?></a>
+                              <a class="editable" data-type="select" data-name="event_status" data-source='{<?=$stat; ?>}' data-value="<?=$event['event_status']; ?>" data-pk="<?=$event['id']; ?>"><?=$status->get( $event['event_status'] ); ?></a>
                            </div>
                         </div>
 
                         <div class="form-group">
                            <label class="col-md-4 control-label">Мероприятие начнется</label>
                            <div class="col-md-8">
-                              <a class="editable" data-type="combodate" data-format="YYYY-MM-DD HH:mm" data-viewformat="DD MMM YYYY в HH:mm" data-template="DD MMM YYYY в HH : mm" data-combodate='{"minYear": "2016", "maxYear": "2026"}' data-value="<?=$event['start_datetime']; ?>" data-pk="<?=$event['id']; ?>"><?php echo strftime("%d %b %G в %H:%M",strtotime($event['start_datetime'])); ?></a>
+                              <a class="editable" data-type="combodate" data-name="start_datetime" data-format="YYYY-MM-DD HH:mm" data-viewformat="DD MMM YYYY в HH:mm" data-template="DD MMM YYYY в HH : mm" data-combodate='{"minYear": "2016", "maxYear": "2026"}' data-value="<?=$event['start_datetime']; ?>" data-pk="<?=$event['id']; ?>"><?php echo strftime("%d %b %G в %H:%M",strtotime($event['start_datetime'])); ?></a>
                            </div>
                         </div>
 
                         <div class="form-group">
                            <label class="col-md-4 control-label">Мероприятие завершится</label>
                            <div class="col-md-8">
-                              <a class="editable" data-type="combodate" data-format="YYYY-MM-DD HH:mm" data-viewformat="DD MMM YYYY в HH:mm" data-template="DD MMM YYYY в HH : mm" data-combodate='{"minYear": "2016", "maxYear": "2026"}' data-value="<?=$event['finish_datetime']; ?>" data-pk="<?=$event['id']; ?>"><?php echo strftime("%d %b %G в %H:%M", strtotime($event['finish_datetime'])); ?></a>
+                              <a class="editable" data-type="combodate" data-name="finish_datetime" data-format="YYYY-MM-DD HH:mm" data-viewformat="DD MMM YYYY в HH:mm" data-template="DD MMM YYYY в HH : mm" data-combodate='{"minYear": "2016", "maxYear": "2026"}' data-value="<?=$event['finish_datetime']; ?>" data-pk="<?=$event['id']; ?>"><?php echo strftime("%d %b %G в %H:%M", strtotime($event['finish_datetime'])); ?></a>
                            </div>
                         </div>
 
                         <div class="form-group">
                            <label class="mylabel col-md-4 control-label">Мероприятие пройдет в</label>
                            <div class="col-md-8">
-                              <a class="editable" data-type="select" data-name="input-event-status" data-source='{"1":"Санкт-Петербург","2":"Москва","3":"Пермь","4":"Екатеренбург","5":"Сочи"}' data-pk="<?=$event['id']; ?>" data-value="<?=$event['city']; ?>"><?=$city->get( $event['city'] ); ?></a>
+                              <a class="editable" data-type="select" data-name="city" data-source='{<?=$list; ?>}' data-pk="<?=$event['id']; ?>" data-value="<?=$event['city']; ?>"><?=$namecity; ?></a>
                            </div>
                         </div>
 
                         <div class="form-group">
                            <label class="mylabel col-md-4 control-label">Тип мероприятия</label>
                            <div class="col-md-8">
-                              <a class="editable" data-type="select" data-name="input-event-status" data-source='{"1":"Оценивание участников по нескольким критериям на каждом этапе","2":"Оценивание участников по одному критерию на каждом этапе"}' data-value="<?=$event['type']; ?>" data-pk="<?=$event['id']; ?>"><?=$types->get( $event['type'] ); ?></a>
+                              <a class="editable" data-type="select" data-name="type" data-source='{<?=$typ; ?>}' data-value="<?=$event['type']; ?>" data-pk="<?=$event['id']; ?>"><?=$types->get( $event['type'] ); ?></a>
                            </div>
                         </div>
                      </div>

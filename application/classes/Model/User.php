@@ -133,8 +133,7 @@ Class Model_User {
 
     public static function updateUserByFieldName($field, $value, $id)
     {
-        $update = DB::update('Users')
-            ->set(array(
+        $update = DB::update('Users')->set(array(
                 $field => $value
             ))->where('id', '=', $id)->execute();
 
