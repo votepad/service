@@ -9,7 +9,7 @@
                <div class="form-group">
                   <label for="input-event-name" class="col-md-3 control-label">Название мероприятия</label>
                   <div class="col-md-9">
-                     <input id="input-event-name" name="input-event-name" type="text" data-validation="length" data-validation-length="5-30" data-validation-error-msg="Название мероприятия должно быть от 5 до 30 символов" class="form-control" >
+                     <input id="input-event-name" name="input-event-name" type="text" data-validation="length" data-validation-length="5-100" data-validation-error-msg="Название мероприятия должно быть от 5 до 100 символов" class="form-control" >
                   </div>
                </div>
                <div class="form-group">

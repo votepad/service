@@ -165,7 +165,6 @@ CREATE TABLE IF NOT EXISTS `Participants` (
   `name` varchar(65) NOT NULL,
   `description` text NOT NULL,
   `photo` varchar(65) NOT NULL,
-  `score` int(11) NOT NULL DEFAULT '0',
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
 

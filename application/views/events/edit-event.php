@@ -101,11 +101,11 @@
                   <div role="tabpanel">
                      <!-- Nav tabs-->
                      <ul role="tablist" class="nav nav-tabs text-center">
-                        <li role="presentation" class="col-md-4 nav-tabs-li active"><a href="#participant" aria-controls="participant" role="tab" data-toggle="tab">Участники</a>
+                        <li role="presentation" class="col-xs-4 nav-tabs-li active"><a href="#participant" aria-controls="participant" role="tab" data-toggle="tab">Участники</a>
                         </li>
-                        <li role="presentation" class="col-md-4 nav-tabs-li"><a href="#judge" aria-controls="judge" role="tab" data-toggle="tab">Жюри</a>
+                        <li role="presentation" class="col-xs-4 nav-tabs-li"><a href="#judge" aria-controls="judge" role="tab" data-toggle="tab">Жюри</a>
                         </li>
-                        <li role="presentation" class="col-md-4 nav-tabs-li"><a href="#stage" aria-controls="stage" role="tab" data-toggle="tab">Этапы</a>
+                        <li role="presentation" class="col-xs-4 nav-tabs-li"><a href="#stage" aria-controls="stage" role="tab" data-toggle="tab">Этапы</a>
                         </li>
                      </ul>
                      <!-- Tab panes-->

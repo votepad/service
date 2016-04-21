@@ -144,9 +144,9 @@ input:checked + span
 	}
 }
 fieldset {
-    padding-bottom: 20px;
+    padding-bottom: 5px;
     border-bottom: 1px dashed #eee;
-    margin-bottom: 20px;
+    margin-bottom: 0;
 }
 .btn-default a{
 	color: #31708f;

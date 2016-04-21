@@ -20,7 +20,7 @@
 						<?php for($i = 0; $i < count($stages); $i++) : ?>
 						<h3><?=$stages[$i]['name'] ; ?></h3>
 						<div>
-							<div class="col-xs-12 btn_area1">
+							<div class="col-xs-12">
 								<div class="col-lg-10 col-md-9 col-sm-8 alert description">
 									<p><?=$stages[$i]['description']; ?></p>
 								</div>
