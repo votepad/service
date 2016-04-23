@@ -1,6 +1,6 @@
 $(document).ready(function() {
   $('#fullpage').fullpage({
-    anchors: ['Welcome', 'About', 'Organizator', /*'Customer', 'Review',*/ 'Feedback'],
+    anchors: ['Welcome', 'About', 'Organizator', 'Feedback'],
     menu: '#menu',
     slidesNavigation: true
   });
@@ -57,4 +57,16 @@ $(document).ready(function() {
     }
   });
 
+  $('[data-toggle="tooltip"]').tooltip();
+
+  $('.fa-envelope-o').on('click',function(){
+    $(".alert").removeClass("bounceOut").addClass("bounceIn").css("display","block");
+    $('.p4').css('background-color', 'rgba(0,0,0,.4)','opacity', '1.07');
+    $('.getready').css('-webkit-user-select','none','-moz-user-select','none','-ms-user-select', 'none');
+  });
+  $('.alert-close').on('click',function(){
+    $(".alert").removeClass("bounceIn").addClass("bounceOut");
+    $('.p4').css('background-color', '#fff','opacity', '1');
+    $('.getready').css('-webkit-user-select','auto','-moz-user-select','auto','-ms-user-select', 'auto');
+  });
 });

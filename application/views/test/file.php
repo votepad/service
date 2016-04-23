@@ -1,476 +1,187 @@
-<?php
-?>
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <title>NoteWorthyEvent - События, заслуживающие внимания</title>
+    <meta charset="UTF-8">
+    <meta name="description" content="Проект, с множеством возможностей для организации и проведения мероприятий.">
+    <meta name="author" content="NoteWortyEvent" />
+    <meta name="keywords"  content="noteworthy,event,мероприятие,конкурс,организатор,жюри,судья,рейтинг" />
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
-	<link rel="stylesheet" href="<?=$assets; ?>css/administrate-event.css">
-	<script src="<?=$assets; ?>js/administrate-event.js"></script>
+    <!-- Стили -->
+    <link rel="stylesheet" type="text/css" href="../pronwe/assets/css/pronwe.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/animate.css/animate.min.css">
+	<link rel="stylesheet" type="text/css" href="assets/vendor/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" type="text/css" href="assets/vendor/jquery.cycle2/jquery.fullPage.css">
+    <link rel="stylesheet" type="text/css" href="../pronwe/assets/css/welcome.css">
 
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/core.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/widget.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/mouse.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/draggable.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/droppable.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-ui/ui/sortable.js"></script>
-	<script src="<?=$assets; ?>vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js"></script>
-	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap.js"></script>
-	<script src="<?=$assets; ?>vendor/jQuery-Storage-API/jquery.storageapi.js"></script>
-	<script src="<?=$assets; ?>js/app.js"></script>
-
-	<link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert/dist/sweetalert.css">
-	<script src="<?=$assets; ?>vendor/sweetalert/dist/sweetalert.min.js"></script>
+    <!-- Подключаем скрипты -->
+	<script src="assets/vendor/jquery/dist/jquery.js"></script>    
+    <script src="../pronwe/assets/vendor/jquery.cycle2/jquery.fullPage.js"></script>
+    <script src="../pronwe/assets/js/welcome.js"></script>
+	<script src="assets/vendor/jquery.cycle2/jquery.cycle2.js"></script>
+	<script src="assets/vendor/bootstrap/dist/js/bootstrap.js"></script>
 
 
-<section>
-	<div class="content-wrapper">
-		<h3>Панель администрирования мероприятия
-			<small>Во время мероприятия, вы можете отследить сколько жюри онлайн, сколько подтвердили выставленные баллы на каждом этапе, разрешить переход к следующему этапу, запретить оценивание некоторых участников, предварительно поставив им балл</small>
-		</h3>
-		
-		<div class="portlets-wrapper">
-			<!-- START row-->
-			<div class="row">
-				<div id="portles-1-1" data-toggle="portlet" class="col-md-4">
-
-					<div id="judges-online" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Авторизованных жюри 3
-							<a href="#" data-tool="panel-collapse" class="pull-right">
-								<em class="fa fa-minus"></em>
-							</a>
-							<a href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Обновить информацию" data-spinner="standard" class="pull-right">
-								<em class="fa fa-refresh"></em>
-							</a>
-						</div>
-						<div class="panel-wrapper collapse in">
-							<div class="panel-body">
-								<p>Иванов Иван Иванович 1</p>
-								<p>Иванов Иван Иванович 2</p>
-								<p>Иванов Иван Иванович 3</p>
-							</div>
-						</div>
-					</div>
-
-					<div id="setting" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Настройки
-							<a href="#" data-tool="panel-collapse" class="pull-right">
-								<em class="fa fa-minus"></em>
-							</a>
-						</div>
-						<div class="panel-wrapper collapse in">
-							<div class="panel-body">
-								<p>
-									<a id="start-again" href="#" class="btn btn-default col-xs-12 btn_area1">Сбросить результаты</a>
-								</p>
-								<p>
-									<a id="download" href="#" class="btn btn-default col-xs-12">Скачать результаты</a>
-								</p>
-							</div>
-						</div>
-					</div>
-
+	</head>
+ 	<body>
+	<div class="pl">
+		<div class="round1"></div>
+		<div class="pl_r"></div>
+		<div class="pl_l"></div>
+	</div>
+    
+	<ul id="menu">
+		<li class="menu__li" data-menuanchor="Welcome"><a class="menu__a" href="#Welcome">Приветствие</a></li>
+		<li class="menu__li" data-menuanchor="About"><a class="menu__a" href="#About">О нас</a></li>
+		<li class="menu__li" data-menuanchor="Organizator"><a class="menu__a" href="#Organizator">Организаторам</a></li>
+		<li class="menu__li" data-menuanchor="Feedback"><a class="menu__a" href="#Feedback">Обратная связь</a></li> 
+	</ul>  
+    
+	<div id="fullpage">
+		<div class="p1 section" id="section0" data-anchor="Welcome">
+			<div id="login">
+				<img src="assets/img/ProNWE_logo.svg" class="mobile_logo">
+				<div class="button1"> <a href="">Авторизация</a></div>
+				<div class="button1"> <a href="http://misteritmo.pronwe.ru">Мероприятия</a></div>
+			</div>
+			<div class="p_left">
+				<div class="p1_logo">
+					<img src="assets/img/ProNWE_logo.svg" width="70%">
 				</div>
-
-				<div id="portles-1-2" data-toggle="portlet" class="col-md-8">
-					
-					<div id="confirm-steps" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Переход к следующему этапу
-							<a href="#" data-tool="panel-collapse" class="pull-right">
-								<em class="fa fa-minus"></em>
-							</a>
-							<a href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Обновить информацию" data-spinner="standard" class="pull-right">
-								<em class="fa fa-refresh"></em>
-							</a>
-						</div>
-						<div class="panel-wrapper collapse in">
-							<div class="panel-body">
-								<table class="table table-hover">
-									<thead>
-										<tr>
-											<th style="width: 50%">Название этапа</th>
-											<th class="text-center" style="width: 25%">Выставили баллы, чел</th>
-											<th class="text-center" style="width: 25%">Следующий этап</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr>
-											<td>этап 1</td>
-											<td class="text-center">3</td>
-											<td class="text-center">
-												<a href="#" class="btn btn-default">Открыть доступ</a>
-											</td>
-										</tr>
-										<tr>
-											<td>этап 2</td>
-											<td class="text-center">2</td>
-											<td class="text-center">
-												<a href="#" class="btn btn-default">Открыть доступ</a>
-											</td>
-										</tr>
-										
-									</tbody>
-								</table>
-							</div>
-						</div>
+				<div class="p1_slogan">
+					<h1>Новый формат оцениания мероприятий!</h1>
+				</div>
+				<div class="p1_down">
+					<a class="tooltips" href="#About">
+						<span>Подробнее</span>
+						<i class="p1_center fa fa-angle-double-down fa-5x"></i>
+					</a>
+				</div>
+			</div>
+		</div>
+      
+		<div class="p2 section" id="section1" data-anchor="About">
+			<div class="p2_title lightbox">
+				<h2>Что такое <a href="http://pronwe.ru" class="pronwe_Link-small pronwe_color">ProNWE</a>?</h2>
+			</div>
+			<ul class="side-container">
+				<li class="lightbox"><span>Информационное сопровождение мероприятия в интернет</span></li>
+				<li class="lightbox"><span>Индивидуальная страница для каждого мероприятия</span></li>
+				<li class="lightbox"><span>Автоматизация голосования для жюри</span></li>
+				<li class="lightbox"><span>Иными словами, переход на новый формат оценки мероприятий!</span></li>
+			</ul>
+		</div>
+      
+		<div class="p3 section" id="section2" data-anchor="Organizator">
+			<div class="container">
+				<div id="slide_0">
+					<div class="col-6 text-center">
+						<img class="p3_img" src="assets/img/p3_0.jpg">  
 					</div>
-
-					<div id="ban-participant" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Запретить участвовать
-							<a href="#" data-tool="panel-collapse" class="pull-right">
-								<em class="fa fa-minus"></em>
-							</a>
-						</div>
-						<div class="panel-wrapper collapse in">
-							<div class="panel-body">
-								<!-- отправляем через ajax -->
-								<form method="POST">
-									<div class="form-group">
-										<select name="stage" class="form-control">
-											<!-- выводим список этапов -->
-											<option>этап 1</option>
-											<option>этап 2</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<div class="col-lg-5">
-											<!-- выводим список участников -->
-											<div class="checkbox c-checkbox needsclick">
-												<label class="needsclick">
-													<input type="checkbox" value="" class="needsclick">
-													<span class="fa fa-check"></span>Участник 1
-												</label>
-											</div>
-											<div class="checkbox c-checkbox needsclick">
-												<label class="needsclick">
-													<input type="checkbox" value="" class="needsclick">
-													<span class="fa fa-check"></span>Участник 2
-												</label>
-											</div>
-										</div>
-										<div class="col-lg-7">
-											<label class="col-lg-5 control-label">Введитее балл</label>
-											<div class="col-lg-7">
-												<input type="number" class="form-control">
-											</div>
-											<button type="submit" class="btn btn-default btn_area pull-right">Запретить участвовать</button>
-										</div>
-									</div>
-									
-								</form>
-							</div>
-						</div>
+					<div class="col-6 text-center">
+						<h2>Домен третьего уровня</h2>
+						<p class="p3_text">Каждое Ваше мероприятие получит страницу на домене третьего уровня в зоне pronwe.ru оформленную по Вашим нуждам в стиле мероприятия.</p><br><br>
 					</div>
-
-				</div>				
-				<div id="portlet-3" data-toggle="portlet" class="col-md-12">
-					
-					<div id="raiting" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Рейтинг
-							<a href="#" data-tool="panel-collapse" class="pull-right">
-								<em class="fa fa-minus"></em>
-							</a>
-							<a href="#" data-tool="panel-refresh" data-toggle="tooltip" title="Обновить информацию" data-spinner="standard" class="pull-right">
-								<em class="fa fa-refresh"></em>
-							</a>
-						</div>
-						<div class="panel-wrapper collapse in">
-							<div class="panel-body">
-								<div class="tabpanel">
-									<ul role="tablist" class="nav nav-tabs">
-										<li role="presentation" class="active" style="width: 25%"><a href="#stage-1" aria-controls="stage-1" role="tab" data-toggle="tab">Этап 1</a></li>
-										<li role="presentation" style="width: 25%"><a href="#stage-2" aria-controls="stage-2" role="tab" data-toggle="tab">Этап 2</a></li>
-										<li role="presentation" style="width: 25%"><a href="#stage-3" aria-controls="stage-3" role="tab" data-toggle="tab">Этап 3</a></li>
-										<li role="presentation" style="width: 25%"><a href="#total" aria-controls="total" role="tab" data-toggle="tab">Общий рейтинг</a></li>
-									</ul>
-									<div class="tab-content">
-										<div id="stage-1" role="tabpanel" class="tab-pane active">
-											<table class="table table-hover" id="for-stage-1">
-												<thead>
-													<tr>
-														<td></td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-														<td>Иванов Иван Иванович</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>Иванов Иван Иванович</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 2</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 3</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 4</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 6</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div id="stage-2" role="tabpanel" class="tab-pane">
-											<table class="table table-hover" id="for-stage-2">
-												<thead>
-													<tr>
-														<td></td>
-														<td>Жюри1</td>
-														<td>Жюри2</td>
-														<td>Жюри3</td>
-														<td>Жюри4</td>
-														<td>Жюри5</td>
-														<td>Жюри6</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>участник 1</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 2</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 3</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 4</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 6</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div id="stage-3" role="tabpanel" class="tab-pane">
-											<table class="table table-hover" id="for-stage-3">
-												<thead>
-													<tr>
-														<td></td>
-														<td>Жюри1</td>
-														<td>Жюри2</td>
-														<td>Жюри3</td>
-														<td>Жюри4</td>
-														<td>Жюри5</td>
-														<td>Жюри6</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>участник 1</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 2</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 3</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 4</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 6</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-										<div id="total" role="tabpanel" class="tab-pane">
-											<table class="table table-hover" id="for-tatal">
-												<thead>
-													<tr>
-														<td></td>
-														<td>Жюри1</td>
-														<td>Жюри2</td>
-														<td>Жюри3</td>
-														<td>Жюри4</td>
-														<td>Жюри5</td>
-														<td>Жюри6</td>
-													</tr>
-												</thead>
-												<tbody>
-													<tr>
-														<td>участник 1</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 2</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 3</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 4</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-													<tr>
-														<td>участник 6</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-														<td>5</td>
-													</tr>
-												</tbody>
-											</table>
-										</div>
-									</div>
-								</div>
-							</div>
-						</div>
+  				</div>
+				<div style="display:none;" id="slide_1">
+					<div class="col-6 text-center">
+						<img class="p3_img" src="assets/img/p3_1.png">
 					</div>
+					<div class="col-6 text-center">
+						<h2>Панель управления мероприятием</h2>
+						<p class="p3_text">Мы предоставим Вам удобную панель настройки и управления мероприятием, из которой вы сможете заполнить интересующую ваших гостей информацию, а также следить за мероприятием, за рейтингом, за выставлением баллов.</p><br>
+					</div>
+				</div>
+				<div style="display:none;" id="slide_2">
+					<div class="col-6 text-center">
+						<img class="p3_img" src="assets/img/p3_2.png">
+					</div>
+					<div class="col-6 text-center">
+						<h2>Онлайн статистика для Ваших гостей</h2>
+						<p class="p3_text">С нашим сервисом Вы можете сделать публичный доступ к текущиму рейтингу конкурсантов, доступный на персональной странице Вашего мероприятия.</p><br><br>
+					</div>
+				</div>
+				<div style="display:none;" id="slide_3">
+					<div class="col-6 text-center">
+						<img class="p3_img" src="assets/img/p3_3.png">
+					</div>
+					<div class="col-6 text-center">
+						<h2>О Вас узнают!</h2>
+						<p class="p3_text">С нами вы не пройдете мимо популярных социальных сетей. Гости Вашего мероприятия, а также другие пользователи ProNWE смогут рассказывать всем о мероприятиях, поделившись ими в социальных сетях.</p><br>
+					</div>
+				</div>
+				<div style="display:none;" id="slide_4">
+					<div class="col-6 text-center">
+						<img class="p3_img" src="assets/img/p3_4.png">
+					</div>
+					<div class="col-6 text-center">
+						<h2>Оффлайн поддержка мероприятия</h2>
+						<p class="p3_text">Если Вам не удастся обеспечить мероприятие необходимым оборудованием (например, интернет для судей и гостей, или отсутствие гаджетов для судей), вы можете получить оффлайн поддержку, наши мастера настроят Ваше, или предоставят свое оборудование.</p><br>
+					</div>
+				</div>
+			</div>
+			<div class="selector text-center">
+				<input type="radio" name="sliderSelector" id="selector_0" checked></input>
+				<input type="radio" name="sliderSelector" id="selector_1"></input>
+				<input type="radio" name="sliderSelector" id="selector_2"></input>
+				<input type="radio" name="sliderSelector" id="selector_3"></input>
+				<input type="radio" name="sliderSelector" id="selector_4"></input>
+			</div>
+		</div>
+	
+		<div class="p4 section" id="section3" data-anchor="Feedback">
+			<div class="getready text-center">
+				<h2 class="quote">Мы уже во всю готовимся к открытию!</h2>
+				<p>Проект <a class="pronwe_Link-small pronwe_color" href="http://pronwe.ru">ProNWE</a> уже готов и находится на стадии тестирования. Уже скоро каждый организатор сможет оценить возможности данного проекта! Если у Вас появились какие-нибудь вопросы, то можете связаться с нами</p>
+
+				<ul class="connection">
+					<li>
+						<a data-toggle="tooltip" data-placement="bottom" title="Почта" href="mailto:support@pronwe.ru">
+							<em class="fa fa-2x fa-envelope-o"></em>
+						</a>
+					</li>
+					<li>
+						<a data-toggle="tooltip" data-placement="bottom" title="Facebook" href="//www.facebook.com/groups/ProNWE/">
+							<em class="fa fa-2x fa-facebook"></em>
+						</a> 
+					</li>
+					<li>
+						<a data-toggle="tooltip" data-placement="bottom" title="Twitter" href="//twitter.com/ProNWERU">
+							<em class="fa fa-2x fa-twitter"></em>
+						</a>
+					</li>
+					<li>
+						<a data-toggle="tooltip" data-placement="bottom" title="Вконтакте" href="//vk.com/pronwe">
+							<em class="fa fa-2x fa-vk"></em>
+						</a>
+					</li>
+				</ul>
+			</div>
+			<div class="alert animated" data-allow-outside-click="false" style="display:none">
+				<div class="alert-header">
+					<button type="button" class="alert-close">Закрыть</button>
+					<h4 class="alert-title">Обратная связь</h4>
+				</div>
+				<div class="alert-body">
+					<form>
+						<div class="form-group">
+							<label class="control-label">Ваш емайл</label>
+							<input name="email" class="form-control" type="email" required="">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Ваше сообщение</label>
+							<textarea name="messadge" class="form-control" name="email" required="" rows="7" style="resize: none;" required=""></textarea>
+						</div>
+						<div style="text-align: right;">
+							<button class="btn-primary" type="submit">Отправить</button>
+						</div>
+					</form>
 				</div>
 			</div>
 		</div>
 	</div>
-</section>
+
+</body>
+
+</html>
