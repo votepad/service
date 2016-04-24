@@ -1,6 +1,6 @@
 $( function ()
 {
-    var url = location.protocol+'//'+location.hostname+'/pronwe/';
+    var url = location.protocol+'//pronwe.local/';
 
     var check_func;
     var kh = new Array();

@@ -1,6 +1,6 @@
 $(document).ready (function() {
 
-    var nophoto = location.protocol+'//'+location.hostname+'/pronwe/assets/img/user/no-user.png';
+    var nophoto = location.protocol+'//pronwe.local/assets/img/user/no-user.png';
 
 /* START PARTICIPANT */
 	var participant_list_counter = $(".participant-list li").length;
@@ -289,7 +289,7 @@ $(document).ready (function() {
 	$.fn.editable.defaults.mode = 'inline';
     moment.lang('ru');
 
-	var url = location.protocol+'//'+location.hostname+'/pronwe/';
+	var url = location.protocol+'//pronwe.local/';
 
 	$('.editable').editable({
 		url: url+'/updateEventsSubstance/updateeventinfo/',
@@ -443,7 +443,7 @@ $(document).ready( function() {
 		var substance = list[0];
 		var identif = list[1];
 
-		var url = location.protocol+'//'+location.hostname+'/pronwe/';
+		var url = location.protocol+'//pronwe.local/';
 		$.ajax({
 			url: url + '/updateEventsSubstance/deleteEventsSubstance/',
 			type: "POST",

@@ -223,7 +223,7 @@
 																?>
 															</td>
 														<?php endfor; ?>
-															<td class="text-center"><?=$amount[$j] / $count; ?><?=$additional != 0 ? '(+'. $additional .')':'' ; ?></td>
+														<td class="text-center"><?=$amount[$j] / (count($judges) ? $count : 1); ?><?=( isset($additional) && $additional != 0) ? '(+'. $additional .')': '' ; ?></td>
 													</tr>
 												<?php endfor; ?>
 												</tbody>

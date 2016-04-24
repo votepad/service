@@ -105,7 +105,7 @@
 
 	<!-- JS -->
 	<? foreach($js as $scripts): ?>
-		<script src="<?=URL::site('media/js').'/'.$scripts; ?>"></script>
+		<script src="<?=$assets.$scripts; ?>"></script>
 	<? endforeach ; ?>
 
 	<script>
