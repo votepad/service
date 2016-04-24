@@ -22,14 +22,14 @@
 					<?php for($i = 0; $i < count($events); $i++): ?>
 						<tr id="event_<?=$events[$i]['id']; ?>">
 							<td class="text-center"><?=$i+1; ?></td>
-							<td>
+							<td style="width: 5%">
 								<div class="media">
 									<img src="<?=URL::base(); ?>uploads/<?=$events[$i]['photo']; ?>" alt="Image" class="img-responsive img-circle">
 								</div>
 							</td>
 							<td><?=$events[$i]['title'] ;?></td>
-							<td><?php echo strftime('%d %b %Y  в  %H:%M', strtotime($events[$i]['start_datetime'])); ?></td>
-							<td>
+							<td style="width: 15%"><?php echo strftime('%d %b %Y  в  %H:%M', strtotime($events[$i]['start_datetime'])); ?></td>
+							<td style="width: 15%">
 								<div class="col-xs-4 text-center">
 									<a href="<?=URL::base(). 'events/'. $events[$i]['id']. '/edit/'; ?>" data-toggle="tooltip" data-title="Редактирование информации о мероприятии">
 										<em class="fa fa-edit icon-edit"></em>
@@ -48,7 +48,7 @@
 									</a>
 								</div>
 							</td>
-							<td>
+							<td style="width: 15%">
 								<!-- логика: 
 									1)заводим в table Events столбец, хранящий информацию о заполненности мероприятия
 									2)при создании мероприятия ставим по умолчанию 25
@@ -62,7 +62,7 @@
 								<!--  Если заполненности мероприятия равна 100, то меняем класс icon-publish-no на icon-publish-yes и разрешаем создавать домен 3 уровня-->
 								<div class="col-xs-4 text-center">
 									<a href="#" data-toggle="tooltip" data-title="Опубликовать мероприятие">
-										<em class="fa fa-share-alt icon-publish-no"></em>
+										<em class="fa fa-check icon-publish-no"></em>
 									</a>
 								</div>
 								<div class="col-xs-4 text-center">
@@ -71,7 +71,7 @@
 									</a>
 								</div>
 							</td>
-							<td class="text-center">
+							<td class="text-center" style="width: 15%">
 								<a id="deleteEvent" href="#">
 									<em class="fa fa-remove icon-remove"></em>
 								</a>
