@@ -131,7 +131,7 @@
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
 								<!-- отправляем через ajax -->
-								<form method="POST" action="<?=URL::site('addadditionalscore') ;?>">
+								<form method="POST" action="<?=URL::site('addExtraScore') ;?>">
 									<input type="hidden" name="id_event" value="<?=$id_event; ?>">
 									<div class="form-group">
 										<select name="stage" class="form-control">

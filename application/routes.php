@@ -5,6 +5,12 @@
  * AJAX Routes
  */
 
+Route::set('ExtraScores', 'addExtraScore')
+    ->defaults(array(
+        'controller' => 'Judges_Settings_Modify',
+        'action'     => 'addExtraScore',
+    ));
+
 Route::set('AjaxForEvents', 'deleteEvent')
     ->defaults(array(
         'controller' => 'Events_Ajax',

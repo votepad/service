@@ -18,7 +18,7 @@ class Controller_Judges_Settings_Modify extends Controller {
         $this->redirect('events/'. $id_event. '/eventmaker');
     }
 
-    public function action_addAdditionalScore()
+    public function action_addExtraScore()
     {
         $id_event   = Arr::get($_POST, 'id_event');
         $stage      = Arr::get($_POST, 'stage');
