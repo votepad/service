@@ -132,6 +132,7 @@ Kohana::modules(array(
 	 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	 'unittest'   => MODPATH.'unittest',   // Unit testing
 	 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
+	 'email'      => MODPATH.'email' , // EMail module (SwiftMailer)
 	));
 
 /**
@@ -146,5 +147,5 @@ Kohana::modules(array(
 /**
  * Include Composer libraries
 */
-require '/vendor/autoload.php';
+require APPPATH.'vendor/autoload.php';
 require APPPATH.'routes'.EXT;

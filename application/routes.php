@@ -47,8 +47,22 @@ Route::set('HideParticipants', 'hide')
 */
 
 /**
+ * Default Welcome page
+ */
+
+Route::set('Welcome_Page', '')
+    ->filter(function(Route $route, $params, Request $request) {
+    })
+    ->defaults(array(
+        'controller' => 'Welcome',
+        'action'     => 'index',
+    ))
+    ->cache();
+
+/**
  * Authentifications
  */
+
 Route::set('AUTH', 'auth(/<action>)')
     ->defaults(array(
         'controller' => 'Auth',

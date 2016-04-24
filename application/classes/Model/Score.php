@@ -76,4 +76,5 @@ class Model_Score extends Model {
         }
         return Arr::get($select, '0')['total'] ?: 0;
     }
+
 }

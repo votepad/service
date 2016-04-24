@@ -126,7 +126,6 @@ class Controller_Events_Index extends Dispatch {
     public function action_myevents()
     {
        // parent::isLogged();
-
         $this->template->title          = 'Мои мероприятия';
         $this->template->description    = 'Мои мероприятия';
         $this->template->keywords       = 'Мои мероприятия';

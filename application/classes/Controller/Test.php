@@ -8,13 +8,14 @@
 
 class Controller_Test extends Dispatch {
 
-    public $template = 'main';
+    //public $template = 'main';
+    public $template = 'test/file';
 
     public function action_index()
     {
-        $this->template->title          = 'Тестирование страницы';
+        /*$this->template->title          = 'Тестирование страницы';
         $this->template->description    = 'Тест';
-        $this->template->keywords       = 'Тест';
+        $this->template->keywords       = 'Тест';*/
 
         array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
         array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
@@ -23,7 +24,7 @@ class Controller_Test extends Dispatch {
         $this->template->css = $this->css;
         $this->template->js = $this->js;
 
-        $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('test/file');
+        //$this->template->aside      = View::factory('aside');
+        //$this->template->section    = View::factory('test/file');
     }
 }
