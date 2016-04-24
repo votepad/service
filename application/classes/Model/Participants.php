@@ -30,6 +30,7 @@ class Model_Participants extends Model {
         return $insert;
     }
 
+
     private static function get($id = 0, $id_event)
     {
         $select = DB::select()->from('Participants')->where('id_event', '=', $id_event);
@@ -50,6 +51,21 @@ class Model_Participants extends Model {
     public static function getParticipant($id, $id_event)
     {
         return self::get($id, $id_event);
+    }
+
+    public static function updateParticipantByFieldName($field, $value, $id)
+    {
+        $update = DB::update('Participants')->set(array(
+            $field  => $value
+        ))->where('id', '=', $id)->execute();
+
+        return $update;
+    }
+
+    public static function deleteParticipantById($id)
+    {
+        $delete = DB::delete('Participants')->where('id', '=', $id)->execute();
+        return $delete;
     }
 
 }

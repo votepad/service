@@ -124,4 +124,14 @@ Class Model_User {
 
         return Arr::get($select, '0');
     }
+
+    public static function updateUserByFieldName($field, $value, $id)
+    {
+        $update = DB::update('Users')
+            ->set(array(
+                $field => $value
+            ))->where('id', '=', $id)->execute();
+
+        return $update;
+    }
 }

@@ -1,6 +1,3 @@
-// Xeditable Demo
-// ----------------------------------- 
-
 (function(window, document, $, undefined){
     
     $(function(){

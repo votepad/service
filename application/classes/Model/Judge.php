@@ -58,4 +58,19 @@ class Model_Judge extends Model {
     {
         return self::get($id, $id_event);
     }
+
+    public static function updateJudgeByFieldName($field, $value, $id)
+    {
+        $update = DB::update('Judges')->set(array(
+            $field  => $value
+        ))->where('id', '=', $id)->execute();
+
+        return $update;
+    }
+
+    public static function deleteJudgesById($id)
+    {
+        $delete = DB::delete('Judges')->where('id', '=', $id)->execute();
+        return $delete;
+    }
 }

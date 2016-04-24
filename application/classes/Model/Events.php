@@ -18,10 +18,16 @@ class Model_Events extends Model {
     function save()
     {
         $insert = DB::insert('Events', array(
-            'title', 'description', 'event_status', 'start_time', 'finish_time', 'city', 'type'
+            'title', 'description', 'event_status', 'start_datetime', 'finish_datetime', 'city', 'type', 'photo'
         ))->values($this->event)->execute();
 
         return $insert;
+    }
+
+    public static function delete($id)
+    {
+        $delete = DB::delete('Events')->where('id', '=', $id);
+        return $delete;
     }
 
     private static function get($id = null)
@@ -44,5 +50,14 @@ class Model_Events extends Model {
     public function getEvents()
     {
         return self::getAll();
+    }
+
+    public static function updateEventByFieldName($field, $value, $id)
+    {
+        $update = DB::update('Events')->set(array(
+            $field  => $value
+        ))->where('id', '=', $id)->execute();
+
+        return $update;
     }
 }

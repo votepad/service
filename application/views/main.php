@@ -28,10 +28,10 @@
             <div class="navbar-header">
                 <a href="<?=URL::base(); ?>" class="navbar-brand">
                     <div class="brand-logo">
-                        <img src="<?=$assets; ?>/img/ProNWE_logo.svg" alt="App Logo" class="img-responsive">
+                        <img src="<?=$assets; ?>img/ProNWE_logo.svg" alt="App Logo" class="img-responsive">
                     </div>
                     <div class="brand-logo-collapsed">
-                        <img src="<?=$assets; ?>/img/ProNWE_logo_small.svg" alt="Logo" class="img-responsive">
+                        <img src="<?=$assets; ?>img/ProNWE_logo_small.svg" alt="Logo" class="img-responsive">
                     </div>
                 </a>
             </div>
