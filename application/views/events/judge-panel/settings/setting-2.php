@@ -14,8 +14,17 @@
 						<form class="form-horizontal">
 							<div class="form-group">
 								<label class="col-md-3 control-label">"Шапка" страницы</label>
-								<div class="col-md-9">
-								1
+								<div class="col-sm-4">
+									<input type="file" name="" data-classbutton="btn btn-default" data-classinput="form-control inline" data-buttonText="Выбрать файл" data-iconName="fa fa-folder-open" data-placeholder="не выбрано" class="form-control filestyle">	
+								</div> 
+								<div class="col-sm-1 text-center" style="padding-top: 5px">
+									<p>или</p>
+								</div>
+								<div class="col-sm-4">
+									<div class="input-group colorpicker-component">
+										<input type="text" name="" value="#4154ff" class="form-control" />
+										<span class="input-group-addon"><i></i></span>
+									</div>
 								</div>
 							</div>
 							<div class="form-group">

@@ -413,6 +413,8 @@ $( function ()
         },
     });
 
+    $('.colorpicker-component').colorpicker();
+
     $("#panel-view").click(function(){
         $("#partposition").removeClass("in");
         $("#panel-view-save").prop("disabled",false);
