@@ -267,11 +267,9 @@ $(document).ready (function() {
 
 	$("#main-info").click(function(){
 		$("#moreeventinfo").removeClass("in");
-		$("#main-info-save").prop("disabled",false);
 	});
 	$("#extra-info").click(function(){
 		$("#eventinfo").removeClass("in");
-		$("#main-info-save").prop("disabled",true);
 	});
 
 

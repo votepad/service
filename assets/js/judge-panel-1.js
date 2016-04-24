@@ -444,4 +444,15 @@ $(function ()
     $('.nav-s').sortable();
     $('.portlets-wrapper ul li:first-child').addClass('active');
     $('.tab-content div:first-child').addClass('active');
+
+    $("#panel-view").click(function(){
+        $("#partposition").removeClass("in");
+        $("#panel-view-save").prop("disabled",false);
+    });
+    $("#part-position").click(function(){
+        $("#panelview").removeClass("in");
+        $("#panel-view-save").prop("disabled",true);
+    });
+
+    
 });

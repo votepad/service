@@ -47,7 +47,7 @@
 												<div class="buttons" data-toggle="buttons" >
 													<input type="hidden" name="buttons" value="<?=($j+1);?>">
 													<?php for($k = 1; $k <= $criteria['maxscore']; $k++):?>
-													<button class="mb-sm btn btn-primary">
+													<button class="mb-sm btn btn-s btn-primary">
 														<input type="radio" name="score-<?=($i+1); ?>-<?=($j+1);?>" autocomplete="off" value="<?=$k; ?>"><?=$k;?>
 													</button>
 													<? endfor; ?>
