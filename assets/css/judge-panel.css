@@ -163,3 +163,10 @@ fieldset {
 .wizard > .actions > ul > li, .wizard > .steps > ul > li{
 	margin-top: 1em;
 }
+body .bootstrap-filestyle{
+	max-width: 100%;
+}
+.buttonText, .pull-right{
+	font-weight: normal;
+	font-size: 1em;
+}

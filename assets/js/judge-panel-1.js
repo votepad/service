@@ -445,6 +445,7 @@ $(function ()
     $('.portlets-wrapper ul li:first-child').addClass('active');
     $('.tab-content div:first-child').addClass('active');
 
+    $('.colorpicker-component').colorpicker();
     $("#panel-view").click(function(){
         $("#partposition").removeClass("in");
         $("#panel-view-save").prop("disabled",false);
