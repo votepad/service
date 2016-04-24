@@ -21,6 +21,7 @@
     <script src="../pronwe/assets/js/welcome.js"></script>
 	<script src="assets/vendor/jquery.cycle2/jquery.cycle2.js"></script>
 	<script src="assets/vendor/bootstrap/dist/js/bootstrap.js"></script>
+	<script src='https://www.google.com/recaptcha/api.js'></script>
 
 
 	</head>
@@ -173,6 +174,7 @@
 							<label class="control-label">Ваше сообщение</label>
 							<textarea name="messadge" class="form-control" name="email" required="" rows="7" style="resize: none;" required=""></textarea>
 						</div>
+						<div class="g-recaptcha" data-sitekey="6LdR4BgTAAAAAIuvZ3UsCQ_xpLkQFC79B8bVVs9C"></div>
 						<div style="text-align: right;">
 							<button class="btn-primary" type="submit">Отправить</button>
 						</div>
