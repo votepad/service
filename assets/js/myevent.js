@@ -1,4 +1,6 @@
 $(document).ready (function() {
+	var url = location.protocol+'//pronwe.local/';
+
 	$('#table-my-event').dataTable({
 		'paging': true,
 		'ordering':  true,
@@ -25,8 +27,6 @@ $(document).ready (function() {
 			{ 'targets': 'datetime','sType': 'de_datetime' }
 		]
 	});
-
-	var url = location.protocol+'//pronwe.local/';
 
 	$("a[id~='deleteEvent'").click( function() {
 		var data = $(this).closest('tr').attr('id');

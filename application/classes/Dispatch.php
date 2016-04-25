@@ -75,6 +75,6 @@ class Dispatch extends Controller_Template
         $this->user = Model_User::Instance();
         View::set_global('user', $this->user);
 
-        View::set_global('assets', 'http://pronwe.local/assets/');
+        View::set_global('assets', 'http://192.168.0.103/assets/');
     }
 }
