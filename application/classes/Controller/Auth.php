@@ -12,9 +12,10 @@ class Controller_Auth extends Dispatch {
 
     function action_index()
     {
-        array_push( $this->css, 'css/font-awesome.min.css');
-        array_push( $this->css, 'css/ownPronwe.css');
         array_push( $this->css, 'css/auth.css');
+        array_push( $this->css, 'css/ProNWE_input.css');
+        array_push( $this->js, 'js/auth.js');
+        
         unset( $this->css[5] );
 
 
@@ -26,7 +27,6 @@ class Controller_Auth extends Dispatch {
     {
         $email = Arr::get($_POST, 'email', '');
         $password = Arr::get($_POST, 'password', '');
-
 
         /**
          * Проверяем, если поля пустые, то отправляем обратно на авторизацию
@@ -44,6 +44,14 @@ class Controller_Auth extends Dispatch {
          */
 
         if ( !$logIn ) {
+            $asJudge = Model_Judge::logInAsJudge($email, $email);
+
+            if (count($asJudge) != 0)
+            {
+                Session::instance()->set('id_judge', $asJudge['id']);
+                $this->redirect('event/' . $asJudge['id_event']. '/judge/panel2/');
+            }
+
             $this->redirect('auth/');
         }
 
@@ -55,7 +63,7 @@ class Controller_Auth extends Dispatch {
             if ($logIn == 2)
                 $this->redirect('signup/continue');
             else
-                $this->redirect('profile');
+                $this->redirect('events/my');
         }
     }
 

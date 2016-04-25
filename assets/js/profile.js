@@ -1,6 +1,3 @@
-// Xeditable Demo
-// ----------------------------------- 
-
 (function(window, document, $, undefined){
     
     $(function(){
@@ -17,9 +14,8 @@
         //defaults
         $.fn.editable.defaults.url = '/Ajax/Editable';
         $.fn.editable.defaults.mode = 'inline';
-        //enable / disable
-        
-        var url = location.protocol+'//'+location.hostname+'/pronwe/';
+
+        var url = location.protocol+'//' + location.hostname;
         
         $('.editable').editable({
             url: url+'/Profile_Ajax/update/',
@@ -37,72 +33,6 @@
                 if($.trim(value) === '') return 'Заполните поле';
             }
         });
-
-        $('#surname').editable({
-            type: 'text',
-            name: 'surname',
-        });
-
-        $('#name').editable({
-            type: 'text',
-            name: 'name',
-        });
-
-        $('#lastname').editable({
-            type: 'text',
-            name: 'lastname',
-        });
-
-        $('#sex').editable({
-            url: url+'/Profile_Ajax/update/',
-            type: 'select',
-            name: 'sex',
-            emptytext: 'Не заполнено',
-            source: [
-                {value: 'Мужской', text: 'Мужской'},
-                {value: 'Женский', text: 'Женский'}
-            ],
-            ajaxOptions: {
-                dataType: 'json'
-            },
-            success: function(data, config) {
-                console.log(data);
-            },
-            error: function(data) {
-                console.log(data);
-            },
-            validate: function(value) {
-                if($.trim(value) === '') return 'Заполните поле';
-            }
-        });
-
-        $('#number').editable({
-            type: 'tel',
-            name: 'number',
-            placeholder: '+79991234567',
-        });
-        
-        $('#city').editable({
-            url: url+'/Profile_Ajax/update/',
-            type: 'typeaheadjs',
-            emptytext: 'Не заполнено',
-            ajaxOptions: {
-                dataType: 'json'
-            },
-            success: function(data, config) {
-                console.log(data);
-            },
-            error: function(data) {
-                console.log(data);
-            },
-            validate: function(value) {
-                if($.trim(value) === '') return 'Заполните поле';
-            },
-            typeahead: {
-                name: 'city',
-                local: ["Санкт-Петербург","Москва","Выборг","Екатеринбурге","Пермь","Сочи","Краснодар"] /*more: typeahead database php*/
-            }
-        });    
 
         function readURL(input) {
             if (input.files && input.files[0]) {

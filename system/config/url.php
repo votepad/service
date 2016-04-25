@@ -4,6 +4,9 @@ return array(
 
 	'trusted_hosts' => array(
 		'localhost',
+		'pronwe.local',
+		'192.168.0.103',
+		'192.168.10.2',
 		// Set up your hostnames here
 		//
 		// Example:

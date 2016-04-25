@@ -4,10 +4,12 @@ CONSTANTS
 }
 
 */
-
+html {
+	font-size: 1em !important;
+}
 @font-face {
 	font-family: pronwe;
-	src: url(Exo2-Medium.ttf);
+	src: url(../fonts/Exo2-Medium.ttf);
 }
 
 .pronwe_Link-small{
@@ -43,6 +45,9 @@ ul{
 .btn_area{
 	margin:1em auto;
 }
+.btn_area1{
+	margin-bottom: 1em;
+}
 .btn-another{
 	color: #fff;
     background-color: #BDBDBD;
@@ -54,4 +59,43 @@ ul{
 	color: #fff;
 	background-color: #BDBDBD;
     border-color: #757575;
+}
+.date-inline{
+	vertical-align: top;
+    display: inline-block;
+    width: auto;
+    white-space: normal;
+    zoom: 1;
+}
+.form-control-1, .form-control-2{
+	width: auto;
+    display: inline;
+    height: 35px;
+    padding: 6px 16px;
+    color: #3a3f51;
+    background-color: #fff;
+    border: 1px solid #dde6e9;
+    border-radius: 4px;
+}
+.form-control-1:focus, .form-control-2:focus{
+	border-color: #66afe9;
+}
+.error-border{
+	border-color: rgb(185, 74, 72);
+}
+.success-border{
+	border-color:#27c24c;
+}
+.logo-preview{
+  width:150px; 
+  height: 150px; 
+  border-radius:10%; 
+  margin:0 auto;
+}
+.logo-input{
+  position: absolute; 
+  clip: rect(0px 0px 0px 0px);
+}
+label {
+    padding-top: 5px;
 }

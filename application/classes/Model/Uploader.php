@@ -26,10 +26,18 @@ class Model_Uploader extends Model {
 
         if ((($this->file['type'] == "image/png")
                 || ($this->file["type"] == "image/jpg")
-                || ($this->file["type"] == "image/jpeg")))
+                || ($this->file["type"] == "image/jpeg")
+                || ($this->file["type"] == "image/gif" )))
         {
             move_uploaded_file($this->file['tmp_name'], DOCROOT. '/uploads/' . basename($this->file['name']) );
         }
+    }
+
+
+
+    public static function fileTransport($file, $uploadInputName)
+    {
+        move_uploaded_file($file[$uploadInputName]["tmp_name"], DOCROOT. '/uploads/' . basename($file[$uploadInputName]['name']) );
     }
 
 

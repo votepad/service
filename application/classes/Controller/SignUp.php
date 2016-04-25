@@ -8,7 +8,7 @@
 
 class Controller_SignUp extends Dispatch
 {
-    public $template = 'auth/continue-registration';
+    public $template = 'main';
 
     function action_index()
     {
@@ -28,13 +28,28 @@ class Controller_SignUp extends Dispatch
 
     function action_continue()
     {
-        /*
-         * CSS
-         */
+        parent::isLogged();
+
+        $this->template->title          = 'Продолжение регистрации';
+        $this->template->description    = 'Описание страницы';
+        $this->template->keywords       = 'C';
+
+        $city = Kohana::$config->load('city');
+        $gender = Kohana::$config->load('gender');
+
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
 
+        $this->template->aside      = View::factory('aside');
+        $this->template->section    = View::factory('auth/continregistr')   
+                                                ->bind('cities', $cities);
+
+        $model_user = Model_User::Instance();
+        $cities = $model_user->getCities();
     }
 
     function action_save()
@@ -42,23 +57,24 @@ class Controller_SignUp extends Dispatch
         $lastname   = Arr::get($_POST, 'lastname');
         $name       = Arr::get($_POST, 'name');
         $surname    = Arr::get($_POST, 'surname');
-        $sex        = Arr::get($_POST, 'sex');
         $phone      = Arr::get($_POST, 'number');
-        $country    = Arr::get($_POST, 'country');
+        $sex        = Arr::get($_POST, 'sex');
         $city       = Arr::get($_POST, 'city');
+        $avatar     = $_FILES['avatar']['name'] ?: 'no-user.png';
 
+        Model_Uploader::fileTransport($_FILES, 'avatar');
         $model_user = Model_User::Instance();
-
+        
         $model_user->signUpContinue(
                                     $lastname,
                                     $name,
                                     $surname,
                                     $sex,
                                     $phone,
-                                    $country,
-                                    $city
+                                    $city,
+                                    $avatar
             );
 
-        $this->redirect('profile');
+        $this->redirect('events/my');
     }
 }

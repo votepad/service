@@ -1,4 +1,8 @@
 $(document).ready (function() {
+
+    var nophoto = location.protocol + '//' +location.hostname + '/assets/img/user/no-user.png';
+	var url = location.protocol+ '//' + location.hostname;
+
 /* START PARTICIPANT */
 	var participant_list_counter = $(".participant-list li").length;
 	/* ADD PARTICIPANT */
@@ -6,7 +10,7 @@ $(document).ready (function() {
  		var name = $("#name-participant").val();
  		if (name != '') {
     		participant_list_counter++;
-    		var temp = "<li><div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'><div id='participant_" + participant_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-participant' title='Удалить участника' id='delete-participant_" + participant_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='description_" + participant_list_counter + "' class='panel-collapse'><div class='panel-body'> <div class='col-md-6 btn_area'><textarea style='resize: none;' name='participant_description_" + participant_list_counter + "' placeholder='Описание участника, его достижения и др.' class='form-control error' aria-required='true' maxlength='1000' rows='6' required></textarea></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию участника</label><br><small>допустимые форматы jpeg,png,gif</small><div class='col-md-12 btn_area'><label for='participant_photo_" + participant_list_counter + "' class='btn btn-primary btn-add-photo'>Выберите фото</label></div></div><div class='col-md-3 btn_area text-center'><div class='file-upload' id='file-upload_" + participant_list_counter + "'><div class='image-preview-wrapper' title=' '><div class='image-preview' id='image-viewer-participant_" + participant_list_counter + "'></div><input type='hidden' name='participant_name_" + participant_list_counter + "' value='"+ name +"'><input type='file' id='participant_photo_" + participant_list_counter + "' name='participant_photo_" + participant_list_counter + "' class='imageUploader' onchange='readURL1(this);'></div></div></div></div></div></div></li>";
+    		var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='participant_" + participant_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-participant' title='Удалить участника' id='delete-participant_" + participant_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div class='panel-body'> <div class='col-md-6 btn_area'><textarea style='resize: none;' name='participant_description_" + participant_list_counter + "' placeholder='Описание участника, его достижения и др.' class='form-control error' aria-required='true' maxlength='1000' rows='6' required></textarea><input type='hidden' name='participant_name_" + participant_list_counter + "' value='"+ name +"'></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию участника</label><br><small>допустимые форматы jpeg,png,gif</small><div class='btn_area'><input type='file' id='participant_photo_" + participant_list_counter + "' name='participant_photo_" + participant_list_counter + "' tabindex='-1' class='logo-input change'><label for='participant_photo_" + participant_list_counter + "' class='btn btn-default fileinput-button'><span class='fa fa-folder-open'></span><span class='buttonText'> Выбрать фото</span></label></div></div><div class='col-md-3 btn_area text-center'><img id='participant_preview_" + participant_list_counter + "' src='" + nophoto + "' class='pronwe_boxShadow pronwe_border-1px logo-preview'></div></div></div></li>";
     		$('.participant-list').append(temp);
     		$("#name-participant").val('');
  		}
@@ -25,12 +29,12 @@ $(document).ready (function() {
     		var setHTML = liElem.html();
     		setHTML = setHTML.replace("id=\"participant_"+i+"\"","id=\"participant_"+(i-1)+"\"");
     		setHTML = setHTML.replace("id=\"name_"+i+"\"","id=\"name_"+(i-1)+"\"");
-    		setHTML = setHTML.replace("href=\"#description_"+i+"\"","href=\"#description_"+(i-1)+"\""); 
-    		setHTML = setHTML.replace("aria-controls=\"description_"+i+"\"","aria-controls=\"description_"+(i-1)+"\"");
     		setHTML = setHTML.replace("id=\"delete-participant_"+i+"\"","id=\"delete-participant_"+(i-1)+"\"");
-    		setHTML = setHTML.replace("id=\"description_"+i+"\"","id=\"description_"+(i-1)+"\"");
-    		setHTML = setHTML.replace("name=\"participant_description_"+i+"\"","name=\"participant_description_"+(i-1)+"\""); //
+    		setHTML = setHTML.replace("name=\"participant_description_"+i+"\"","name=\"participant_description_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("id=\"participant_photo_"+i+"\"","id=\"participant_photo_"+(i-1)+"\"");
     		setHTML = setHTML.replace("name=\"participant_photo_"+i+"\"","name=\"participant_photo_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("for=\"participant_photo_"+i+"\"","for=\"participant_photo_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("id=\"participant_preview_"+i+"\"","id=\"participant_preview_"+(i-1)+"\"");
     		liElem.html(setHTML);
  		}
  		participant_list_counter--;
@@ -40,52 +44,55 @@ $(document).ready (function() {
  		}
 	});
 	/* SELECT PARTICIPANT PHOTO*/
-	function readURL1(input){
-		var number = $(input).attr('id');
-	 	number = number.substr(number.lastIndexOf('_')+1,number.length);
-	 	var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
-	 	var width  = 1024;
-	 	var minwidth  = 150;
-	 	var height = 768;
-	 	var minheight = 150;
-	 	var size   = 307200; // bytes
-	 	var file   = input.files[0];
-	 	function errType () {
-		    alert('Error type ...');
-		    input.value = '';
-	 	}
-	 	function errSize () {
-		    alert('Error size ...');
-		    input.value = '';
-	 	}
-	 	function errWidth() {
-		    alert('Error width ...');
-		    input.value = '';
-	 	}
-	 	function errHeight() {
-		    alert('Error height ...');
-		    input.value = '';
-	 	}
-	 	if (type.indexOf(file.type) == -1) {
-		    errType ();
-		    return false;
-	 	} else if (file.size > size) {
-		    errSize();
-		    return false;
-	 	} else if (file.width > minwidth && file.width < width) {
-		    errWidth();
-		    return false;
-	 	} else if (file.height > minheight && file.height < height) {
-		    errHeight();
-		    return false;
-	 	} else {
-		    var reader = new FileReader();
-		    reader.onload = function(e){
-	       		$('#image-viewer-participant_'+number).css('background-image', 'url('+e.target.result+')');
-	    	}
-	    	reader.readAsDataURL(input.files[0]);
-	 	}
-	}
+	function readURL1(input) {
+        if (input.files && input.files[0]) {
+        	var number = $(input).attr('id');
+	 		number = number.substr(number.lastIndexOf('_')+1,number.length);
+            var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
+            var width  = 1024;
+            var height = 768;
+            var size   = 525000; // bytes
+            var file   = input.files[0];
+            function errType () {
+                alert('Error type ...');
+                input.value = '';
+            }
+            function errSize () {
+                alert('Error size ...');
+                input.value = '';
+            }
+            function errWidth() {
+                alert('Error width ...');
+                input.value = '';
+            }
+            function errHeight() {
+                alert('Error height ...');
+                input.value = '';
+            }
+            if (type.indexOf(file.type) == -1) {
+                errType ();
+                return false;
+            } else if (file.size > size) {
+                errSize();
+                return false;
+            } else if (file.width < width) {
+                errWidth();
+                return false;
+            } else if (file.height < height) {
+                errHeight();
+                return false;
+            } else {
+                var reader = new FileReader();            
+                    reader.onload = function (e) {
+                        $('#participant_preview_'+number).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+    $('.panel-body').on('change','.change',function(){
+       	readURL1(this);
+    });
 /* END PARTICIPANT */
 
 /* START JUDGE */
@@ -95,7 +102,7 @@ $(document).ready (function() {
 	 	var name = $("#name-judge").val();
 	 	if (name != '') {
 	    	judge_list_counter++;
-	    	var temp = "<li><div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'><div id='judge_" + judge_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-judge' title='Удалить члена жюри' id='delete-judge_" + judge_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='description_" + judge_list_counter + "' role='tabpanel' class='panel-collapse'><div class='panel-body'> <div class='col-md-6 btn_area'><input name='judge_email_" + judge_list_counter + "' type='email' placeholder='Укажите e-mail члена жюри' class='form-control btn_area' required> <input name='judge_status_" + judge_list_counter + "' type='text' placeholder='Укажите кем является член жюри' class='form-control btn_area' required></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию жюри</label><br><small>допустимые форматы jpeg,png,gif</small><div class='col-md-12 btn_area'><label for='judge_photo_" + judge_list_counter + "' id='btn-add-photo_" + judge_list_counter + "' class='btn btn-primary btn-add-photo'>Выберите фото</label></div></div><div class='col-md-3 btn_area text-center'><div class='file-upload' id='file-upload_" + judge_list_counter + "'><div class='image-preview-wrapper' title=' '><div class='image-preview' id='image-viewer-judge_" + judge_list_counter + "'></div><input type='file' id='judge_photo_" + judge_list_counter + "' name='judge_photo_" + judge_list_counter + "' class='imageUploader' onchange='readURL2(this);'></div></div></div></div></div></div></li>";
+	    	var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='judge_" + judge_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-judge' title='Удалить члена жюри' id='delete-judge_" + judge_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div class='panel-body'> <div class='col-md-6 btn_area'><input name='judge_email_" + judge_list_counter + "' type='email' placeholder='Укажите e-mail члена жюри' class='form-control btn_area' autocomplete='off' required><input type='hidden' name='judgename_" + judge_list_counter + "' value='"+ name +"'><input name='judge_status_" + judge_list_counter + "' type='text' placeholder='Укажите кем является член жюри' class='form-control btn_area' autocomplete='off' required></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию жюри</label><br><small>допустимые форматы jpeg,png,gif</small><div class='btn_area'><input type='file' id='judge_photo_" + judge_list_counter + "' name='judge_photo_" + judge_list_counter + "' tabindex='-1' class='logo-input change'><label for='judge_photo_" + judge_list_counter + "' class='btn btn-default fileinput-button'><span class='fa fa-folder-open'></span><span class='buttonText'> Выбрать фото</span></label></div></div><div class='col-md-3 btn_area text-center'><img id='judge_preview_" + judge_list_counter + "' src='" + nophoto + "' class='pronwe_boxShadow pronwe_border-1px logo-preview'></div></div></div></li>";
 	    	$('.judge-list').append(temp);
 	    	$("#name-judge").val('');
 	 	}
@@ -114,13 +121,13 @@ $(document).ready (function() {
 	    	var setHTML = liElem.html();
 	    	setHTML = setHTML.replace("id=\"judge_"+i+"\"","id=\"judge_"+(i-1)+"\"");
 	    	setHTML = setHTML.replace("id=\"judge_name_"+i+"\"","id=\"judge_name_"+(i-1)+"\"");
-	    	setHTML = setHTML.replace("href=\"#judge_description_"+i+"\"","href=\"#judge_description_"+(i-1)+"\""); 
-	    	setHTML = setHTML.replace("aria-controls=\"judge_description_"+i+"\"","aria-controls=\"judge_description_"+(i-1)+"\"");
 	    	setHTML = setHTML.replace("id=\"delete-judge_"+i+"\"","id=\"delete-judge_"+(i-1)+"\"");
-	    	setHTML = setHTML.replace("id=\"judge_description_"+i+"\"","id=\"judge_description_"+(i-1)+"\"");
 	    	setHTML = setHTML.replace("name=\"judge_status_"+i+"\"","name=\"judge_status_"+(i-1)+"\""); //
 	    	setHTML = setHTML.replace("name=\"judge_email_"+i+"\"","name=\"judge_email_"+(i-1)+"\"");
 	    	setHTML = setHTML.replace("name=\"judge_photo_"+i+"\"","name=\"judge_photo_"+(i-1)+"\"");
+	    	setHTML = setHTML.replace("id=\"judge_photo_"+i+"\"","id=\"judge_photo_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("for=\"judge_photo_"+i+"\"","for=\"judge_photo_"+(i-1)+"\"");
+    		setHTML = setHTML.replace("id=\"judge_preview_"+i+"\"","id=\"judge_preview_"+(i-1)+"\"");
 	    	liElem.html(setHTML);
 	 	}
 	 	judge_list_counter--;
@@ -130,52 +137,55 @@ $(document).ready (function() {
  		}
 	});
 	/* SELECT JUDGE PHOTO*/
-	function readURL2(input){
-	 	var number = $(input).attr('id');
-	 	number = number.substr(number.lastIndexOf('_')+1,number.length);
-	 	var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
-	 	var width  = 1024;
-	 	var minwidth  = 150;
-	 	var height = 768;
-	 	var minheight = 150;
-	 	var size   = 307200; // bytes
-	 	var file   = input.files[0];
-	 	function errType () {
-		    alert('Error type ...');
-		    input.value = '';
-	 	}
-	 	function errSize () {
-		    alert('Error size ...');
-		    input.value = '';
-	 	}
-	 	function errWidth() {
-		    alert('Error width ...');
-		    input.value = '';
-	 	}
-	 	function errHeight() {
-		    alert('Error height ...');
-		    input.value = '';
-	 	}
-	 	if (type.indexOf(file.type) == -1) {
-		    errType ();
-		    return false;
-	 	} else if (file.size > size) {
-		    errSize();
-		    return false;
-	 	} else if (file.width > minwidth && file.width < width) {
-		    errWidth();
-	    	return false;
-	 	} else if (file.height > minheight && file.height < height) {
-		    errHeight();
-		    return false;
-	 	} else {
-		    var reader = new FileReader();
-		    reader.onload = function(e){
-	       		$('#image-viewer-judge_'+number).css('background-image', 'url('+e.target.result+')');
-	    	}
-	    	reader.readAsDataURL(input.files[0]);
-	 	}
-	}
+	function readURL2(input) {
+        if (input.files && input.files[0]) {
+        	var number = $(input).attr('id');
+	 		number = number.substr(number.lastIndexOf('_')+1,number.length);
+            var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
+            var width  = 1024;
+            var height = 768;
+            var size   = 525000; // bytes
+            var file   = input.files[0];
+            function errType () {
+                alert('Error type ...');
+                input.value = '';
+            }
+            function errSize () {
+                alert('Error size ...');
+                input.value = '';
+            }
+            function errWidth() {
+                alert('Error width ...');
+                input.value = '';
+            }
+            function errHeight() {
+                alert('Error height ...');
+                input.value = '';
+            }
+            if (type.indexOf(file.type) == -1) {
+                errType ();
+                return false;
+            } else if (file.size > size) {
+                errSize();
+                return false;
+            } else if (file.width < width) {
+                errWidth();
+                return false;
+            } else if (file.height < height) {
+                errHeight();
+                return false;
+            } else {
+                var reader = new FileReader();            
+                    reader.onload = function (e) {
+                        $('#judge_preview_'+number).attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+    $('.panel-body').on('change','.change', function(){
+       	readURL2(this);
+    });
 /* END JUDGE */
 
 /* START STAGE */
@@ -185,7 +195,7 @@ $(document).ready (function() {
  		var name = $("#name-stage").val();
  		if (name != '') {
     		stage_list_counter++;
-    		var temp = "<li><div class='panel panel-default animated fadeInDown' style='border-color:#5d9cec;'><div id='stage_" + stage_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'><a id='stage_name_" + stage_list_counter + "'>" + name + "</a><a type='button' class='pull-right delete-stage' title='Удалить этап' id='delete-stage_" + stage_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='stage_description_" + stage_list_counter + "'><div class='panel-body'><input type='hidden' name='stage_name_" + stage_list_counter + "' value='"+ name +"'><textarea name='stage_description_" + stage_list_counter + "' rows='4' type='text' maxlength='1000' style='resize: none;' placeholder='Описание этапа' class='form-control' required></textarea><ul class='criterion-list_" + stage_list_counter + " row'><!-- criterions --><fieldset class='btn_area'></fieldset><fieldset id='criterion_"+stage_list_counter+"_1' class='row' ><div class='col-md-6 btn_area'><input type='text' name='criterion-name_"+stage_list_counter+"_1' placeholder='Название критерия' class='form-control' maxlength='500' required></div><div class='col-xs-10 col-sm-10 col-md-5 btn_area'><input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+stage_list_counter+"_1' required></div><div class='col-md-1 col-xs-2 btn_area'><a type='button' id='btn-add-criterion_"+stage_list_counter+"' class='btn-add-criterion btn btn-primary'><i class='fa fa-plus'></i></a></div></fieldset></ul></div></div></li>";
+    		var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='stage_" + stage_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'><a id='stage_name_" + stage_list_counter + "'>" + name + "</a><a type='button' class='pull-right delete-stage' title='Удалить этап' id='delete-stage_" + stage_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='stage_description_" + stage_list_counter + "'><div class='panel-body'><input type='hidden' name='stage_name_" + stage_list_counter + "' value='"+ name +"'><textarea name='stage_description_" + stage_list_counter + "' rows='4' type='text' maxlength='1000' style='resize: none;' placeholder='Описание этапа' class='form-control' required></textarea><ul class='criterion-list_" + stage_list_counter + " row'><!-- criterions --><fieldset class='btn_area'></fieldset><fieldset id='criterion_"+stage_list_counter+"_1' class='row' ><div class='col-md-6 btn_area'><input type='text' name='criterion-name_"+stage_list_counter+"_1' placeholder='Название критерия' class='form-control' maxlength='500' autocomplete='off' required></div><div class='col-xs-10 col-sm-10 col-md-5 btn_area'><input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+stage_list_counter+"_1' required autocomplete='off'></div><div class='col-md-1 col-xs-2 btn_area'><a type='button' id='btn-add-criterion_"+stage_list_counter+"' class='btn-add-criterion btn btn-primary'><i class='fa fa-plus'></i></a></div></fieldset></ul></div></div></li>";
     		$('.stage-list').append(temp);
     		$("#name-stage").val('');
  		}
@@ -223,7 +233,7 @@ $(document).ready (function() {
  		snumber = snumber.substr(snumber.lastIndexOf('_')+1,snumber.length);
  		var criterion_list_counter = $(".criterion-list_"+snumber+" fieldset").length - 1;
 		criterion_list_counter++;
-		var temp = "<fieldset id='criterion_"+snumber+"_"+criterion_list_counter+"' class='row'><div class='col-md-6 btn_area'><input type='text' name='criterion-name_"+snumber+"_"+ criterion_list_counter +"' placeholder='Название критерия' class='form-control' maxlength='500' required></div><div class='col-xs-10 col-sm-10 col-md-5 btn_area'><input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+snumber+"_"+ criterion_list_counter +"' required></div><div class='col-md-1 col-xs-2 btn_area'><a type='button' class='btn btn-danger delete-criterion' id='delete-criterion_"+snumber+"_"+ criterion_list_counter +"'><i class='fa fa-times'></i></a></div></fieldset>";
+		var temp = "<fieldset id='criterion_"+snumber+"_"+criterion_list_counter+"' class='row'><div class='col-md-6 btn_area'><input type='text' name='criterion-name_"+snumber+"_"+ criterion_list_counter +"' placeholder='Название критерия' class='form-control' maxlength='500' autocomplete='off' required></div><div class='col-xs-10 col-sm-10 col-md-5 btn_area'><input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+snumber+"_"+ criterion_list_counter +"' autocomplete='off' required></div><div class='col-md-1 col-xs-2 btn_area'><a type='button' class='btn btn-danger delete-criterion' id='delete-criterion_"+snumber+"_"+ criterion_list_counter +"'><i class='fa fa-times'></i></a></div></fieldset>";
 		$('.criterion-list_'+snumber).append(temp);
 	});
 	/* DELETE CRITERION */
@@ -254,14 +264,207 @@ $(document).ready (function() {
 		stage.html(stageHTML);
 	});
 	/* END STAGE */
+
+
 	$("#main-info").click(function(){
 		$("#moreeventinfo").removeClass("in");
-		$("#main-info-save").prop("disabled",false);
 	});
 	$("#extra-info").click(function(){
 		$("#eventinfo").removeClass("in");
-		$("#main-info-save").prop("disabled",true);
 	});
 
 
-})
+
+	/* EDIT MAIN EVENT INFO */
+   
+	$.fn.editableform.buttons =
+		'<button type="submit" class="btn btn-success btn-sm editable-submit">'+
+	    	'<i class="fa fa-fw fa-check"></i>'+
+		'</button>'+
+		'<button type="button" class="btn btn-default btn-sm editable-cancel">'+
+	    	'<i class="fa fa-fw fa-times"></i>'+
+		'</button>';
+
+	//defaults
+	$.fn.editable.defaults.url = '/Ajax/Editable';
+	$.fn.editable.defaults.mode = 'inline';
+    moment.lang('ru');
+
+	$('.editable').editable({
+		url: url+'/updateEventsSubstance/updateeventinfo/',
+		emptytext: 'Не заполнено',
+		ajaxOptions: {
+		  dataType: 'json'
+		},
+		success: function(data, config) {
+			console.log(data);
+		},
+		error: function(data) {
+			console.log(data);
+		},
+		validate: function(value) {
+			if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+    
+	function readURL(input) {
+        if (input.files && input.files[0]) {
+            var type   = ['image/gif','image/jpg','image/jpeg','image/png'];
+            var width  = 1024;
+            var height = 768;
+            var size   = 525000; // bytes
+            var file   = input.files[0];
+            function errType () {
+                alert('Error type ...');
+                input.value = '';
+            }
+            function errSize () {
+                alert('Error size ...');
+                input.value = '';
+            }
+            function errWidth() {
+                alert('Error width ...');
+                input.value = '';
+            }
+            function errHeight() {
+                alert('Error height ...');
+                input.value = '';
+            }
+            if (type.indexOf(file.type) == -1) {
+                errType ();
+                //return false;
+            } else if (file.size > size) {
+                errSize();
+                //return false;
+            } else if (file.width < width) {
+                errWidth();
+                //return false;
+            } else if (file.height < height) {
+                errHeight();
+                //return false;
+            } else {
+                var reader = new FileReader();            
+                    reader.onload = function (e) {
+                        $('#image').attr('src', e.target.result);
+                    }
+                    reader.readAsDataURL(input.files[0]);
+            }
+        }
+    }
+    $("#choose-image").change(function(){
+       	readURL(this);
+    });
+    
+
+
+
+    /* PARTICIPANT EDITABLE */
+	$('.editable-part').editable({
+		url: url+'/updateEventsSubstance/updateparticipant/',
+		emptytext: 'Не заполнено',
+		ajaxOptions: {
+		dataType: 'json'
+		},
+		success: function(data, config) {
+			console.log(data);
+		},
+		error: function(data) {
+
+			console.log(data);
+		},
+		validate: function(value) {
+			if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+	/* JUDGE EDITABLE */
+	$('.editable-judge').editable({
+		url: url+'/updateEventsSubstance/updatejudge/',
+		emptytext: 'Не заполнено',
+		ajaxOptions: {
+		dataType: 'json'
+		},
+		success: function(data, config) {
+			console.log(data);
+		},
+		error: function(data) {
+			console.log(data);
+		},
+		validate: function(value) {
+			if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+	/* STAGE EDITABLE */
+	$('.editable-stage').editable({
+		url: url+'/updateEventsSubstance/updatestage/',
+		emptytext: 'Не заполнено',
+		ajaxOptions: {
+		dataType: 'json'
+		},
+		success: function(data, config) {
+		console.log(data);
+		},
+		error: function(data) {
+			console.log(data);
+		},
+		validate: function(value) {
+			if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+	/* CRITERION EDITABLE */
+	$('.editable-criterion').editable({
+		url: url+'/updateEventsSubstance/updatecriteria/',
+		emptytext: 'Не заполнено',
+		ajaxOptions: {
+		dataType: 'json'
+		},
+		success: function(data, config) {
+		console.log(data);
+		},
+		error: function(data) {
+			console.log(data);
+		},
+		validate: function(value) {
+			if($.trim(value) === '') return 'Заполните поле';
+		}
+	});
+
+	$(".icon-remove").on('click', function() {
+
+		if ( !confirm('Вы уверены?'))
+			return false;
+
+		var id = $(this).parent().attr('id');
+		var list = id.split('_');
+
+		var substance = list[0];
+		var identif = list[1];
+
+		$.ajax({
+			url: url + '/updateEventsSubstance/deleteEventsSubstance/',
+			type: "POST",
+			data: {
+				'substance': substance,
+				'id': identif,
+			},
+			success: function(data, config){
+
+				if (substance == 'delstage') {
+					window.location.reload();
+				}
+				else if (substance == 'delcriteria') {
+					window.location.reload();
+				}
+				else {
+					$('#' + id).closest('tr').hide();
+				}
+
+			},
+			error: function(data, config) {
+				console.log(data);
+			}
+		});
+	});
+});
+
+
+

@@ -21,26 +21,25 @@ class Dispatch extends Controller_Template
     function before()
     {
         $this->css = [
-            "css/simple-line-icons.css",
+            "vendor/simple-line-icons/css/simple-line-icons.css",
+            "vendor/fontawesome/css/font-awesome.min.css",
+            "vendor/bootstrap/dist/css/bootstrap.css",
         ];
 
-        array_push($this->css, 'css/font-awesome.min.css');
         array_push($this->css, 'vendor/whirl/dist/whirl.css');
         array_push($this->css, 'vendor/animate.css/animate.min.css');
-        array_push($this->css, 'vendor/cropper/dist/cropper.css');
-        array_push($this->css, 'css/bootstrap.css');
         array_push($this->css, 'css/app.css');
         array_push($this->css, 'css/pronwe.css');
 
 
-        array_push($this->js, 'vendor/jquery/dist/jquery.js');
-        array_push($this->js, 'vendor/bootstrap/dist/js/bootstrap.js');
-        array_push($this->js, 'vendor/jQuery-Storage-API/jquery.storageapi.js');
-        array_push($this->js, 'vendor/jquery-localize-i18n/dist/jquery.localize.js');
-        array_push($this->js, 'vendor/cropper/dist/cropper.js');
-        array_push($this->js, 'js/app.js');
+
+        $this->js = [
+            "vendor/jquery/dist/jquery.js",
+            "vendor/jquery.localize-i18n/dist/jquery.localize.js",
+            "vendor/slimScroll/jquery.slimscroll.min.js",
+        ];
+
         array_push($this->js, 'js/twitter.js');
-        array_push($this->js, 'http://api-maps.yandex.ru/2.0-stable/?load=package.standard&lang=ru-RU');
 
 
         /** Disallow requests from other domains */
@@ -76,6 +75,6 @@ class Dispatch extends Controller_Template
         $this->user = Model_User::Instance();
         View::set_global('user', $this->user);
 
-        View::set_global('assets', 'http://localhost/pronwe/assets/');
+        View::set_global('assets', 'http://pronwe.local/assets/');
     }
 }

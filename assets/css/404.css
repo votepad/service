@@ -1,0 +1,45 @@
+body{
+	background-color:#fcfcfc;
+	font-family:pronwe;
+}
+
+.main-container{
+	margin:0 auto;
+	text-align:center;
+	width:50%;
+	padding:2em;
+	/*border:1px solid #ccc;
+	border-top:3px solid #ccc;
+	border-radius:50%3px*/;
+}
+
+.submenu{
+	width:auto;
+	padding:0;
+}
+
+.submenu li{
+	display:inline-block;
+	width:10em;
+	margin:1em;
+	text-align:center;
+}
+
+.submenu li>a{
+	/*padding:0.75em 0;*/
+}
+
+.submenu li>a:hover{
+	text-decoration:underline;
+}
+
+.secondary-container{
+	width:80%;
+	margin:0 auto;
+	text-align:center;
+}
+
+.topLogo{
+	width:80%;
+	max-width:300px;
+}

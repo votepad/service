@@ -6,18 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <meta name="description" content="<?=$description; ?>">
     <meta name="keywords" content="<?=$keywords; ?>!">
-
+    <link rel="icon" href="<?=$assets; ?>img/favicon.png" type="image/png">
     <title><?=$title; ?></title>
 
     <!-- =============== VENDOR STYLES ===============-->
-    <? foreach($css as $styles): ?>
-        <link rel="stylesheet" href="<?=$assets;?><?=$styles;?>">
-    <? endforeach;?>
+<? foreach($css as $styles): ?>
+    <link rel="stylesheet" href="<?=$assets;?><?=$styles;?>">
+<? endforeach;?>
 
     <!-- =============== VENDOR SCRIPTS ===============-->
-    <? foreach ($js as $scripts): ?>
-        <script src="<?=$assets.$scripts; ?>"></script>
-    <? endforeach; ?>
+<? foreach ($js as $scripts): ?>
+    <script src="<?=$assets.$scripts; ?>"></script>
+<? endforeach; ?>
 
 </head>
 
@@ -26,12 +26,12 @@
     <header class="topnavbar-wrapper">
         <nav role="navigation" class="navbar topnavbar">
             <div class="navbar-header">
-                <a href="<?=URL::base(); ?>" class="navbar-brand">
+                <a href="<?=URL::site('events/my'); ?>" class="navbar-brand">
                     <div class="brand-logo">
-                        <img src="<?=$assets; ?>/img/ProNWE_logo.svg" alt="App Logo" class="img-responsive">
+                        <img src="<?=$assets; ?>img/ProNWE_logo.svg" alt="App Logo" class="img-responsive">
                     </div>
                     <div class="brand-logo-collapsed">
-                        <img src="<?=$assets; ?>/img/ProNWE_logo_small.svg" alt="Logo" class="img-responsive">
+                        <img src="<?=$assets; ?>img/ProNWE_logo.svg" alt="Logo" class="img-responsive" style="padding-top: 15px">
                     </div>
                 </a>
             </div>
@@ -64,14 +64,14 @@
                 </ul>
                 <!-- RIGHT NAVBAR -->
                 <ul class="nav navbar-nav navbar-right" style="margin-right:0px;">
-                    <!-- SEARCH ICON -->
+                    <!--
                     <li>
                         <a href="#" data-search-open="" title="Поиск">
                             <em class="icon-magnifier"></em>
                         </a>
                     </li>
 
-                    <!-- NOTIFICATION -->
+                    
                     <li class="dropdown dropdown-list">
                         <a href="#" data-toggle="dropdown" aria-expanded="true" title="Уведомления">
                             <em class="icon-bell"></em>
@@ -127,7 +127,7 @@
                         </ul>
                     </li>
 
-                    <!-- TWITTER -->
+                    
                     <li class="dropdown dropdown-list">
                         <a href="#" data-toggle="dropdown" title="Твиттер">
                             <em class="icon-social-twitter"></em>
@@ -136,8 +136,7 @@
                             <a class="twitter-timeline list-group-item" height="300" width="100%" data-dnt="true" href="https://twitter.com/ProNWERU" data-widget-id="700100240783896577">Твиты от @ProNWERU</a>
                         </div>
                     </li>
-
-                    <!-- LOGOUT -->
+                -->
                     <li>
                         <a href="<?=URL::site('auth/logout'); ?>" title="Выход">
                             <em class="icon-logout"></em>

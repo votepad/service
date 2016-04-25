@@ -7,8 +7,33 @@
 }
 .icon-remove{
 	color: #f47f7f;	
-	font-size: 1.7em;
+	font-size: 1.8em;
 }
 .icon-remove:hover{
 	color:#ec2121;
+}
+.icon-publish-no{
+	padding-top: 0.2em;
+	color: #dde6e9;
+	font-size: 1.8em;
+}
+.icon-publish-yes{
+	padding-top: 0.2em;
+	color: #43d967;
+	font-size: 1.8em;
+}
+.icon-publish-yes:hover{
+	color: #27c24c;
+}
+.icon-organel{
+	padding-top: 0.2em;
+	color: #ffab5e;
+	font-size: 1.8em;
+}
+.icon-organel:hover{
+	color: #ff902b;
+}
+.col-xs-4, .col-xs-6{
+	padding-left: 0;
+    padding-right: 0;
 }

@@ -30,7 +30,8 @@ date_default_timezone_set('Europe/Moscow');
  * @link http://kohanaframework.org/guide/using.configuration
  * @link http://www.php.net/manual/function.setlocale
  */
-setlocale(LC_ALL, 'en_US.utf-8');
+//setlocale(LC_ALL, 'en_US.utf-8');
+setlocale(LC_ALL, 'ru_RU.utf8');
 
 /**
  * Enable the Kohana auto-loader.
@@ -103,7 +104,7 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
 Kohana::init(array(
-	'base_url'   => '/pronwe/',
+	'base_url'   => '/',
 	'index_file' => false,
 	'errors' => true,
 ));
@@ -127,10 +128,11 @@ Kohana::modules(array(
 	// 'codebench'  => MODPATH.'codebench',  // Benchmarking tool
 	 'database'   => MODPATH.'database',   // Database access
 	 'image'      => MODPATH.'image',      // Image manipulation
-	 'minion'     => MODPATH.'minion',     // CLI Tasks
+	 //'minion'     => MODPATH.'minion',     // CLI Tasks
 	 'orm'        => MODPATH.'orm',        // Object Relationship Mapping
 	 'unittest'   => MODPATH.'unittest',   // Unit testing
 	 'userguide'  => MODPATH.'userguide',  // User guide and API documentation
+	 'email'      => MODPATH.'email' , // EMail module (SwiftMailer)
 	));
 
 /**
@@ -145,5 +147,5 @@ Kohana::modules(array(
 /**
  * Include Composer libraries
 */
-require './vendor/autoload.php';
+require APPPATH.'vendor/autoload.php';
 require APPPATH.'routes'.EXT;

@@ -1,0 +1,13 @@
+.portlets-wrapper{
+	overflow: hidden !important;
+}
+@media only screen and (max-width:767px) {
+	table {
+		display: block;
+		overflow: auto;
+	}
+}
+.media{
+	width: 35px;
+	height: 35px
+}
