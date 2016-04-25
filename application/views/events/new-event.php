@@ -9,7 +9,7 @@
                <div class="form-group">
                   <label for="input-event-name" class="col-md-3 control-label">Название мероприятия</label>
                   <div class="col-md-9">
-                     <input id="input-event-name" name="input-event-name" type="text" data-validation="length" data-validation-length="5-100" data-validation-error-msg="Название мероприятия должно быть от 5 до 100 символов" class="form-control" >
+                     <input id="input-event-name" name="input-event-name" type="text" data-validation="length" data-validation-length="5-100" data-validation-error-msg="Название мероприятия должно быть от 5 до 100 символов" class="form-control" autocomplete="off">
                   </div>
                </div>
                <div class="form-group">
@@ -30,18 +30,6 @@
                      </select>
                   </div>
                </div>
-               <!--<div class="form-group">
-                  <label for="input-event-organization" class="col-md-3 control-label">Выберите организацию</label>
-                  <div class="col-md-9">
-                     <select name="input-event-organization" data-validation="required" data-validation-error-msg="Выберите организацию или организации" multiple class="form-control chosen-select" required>
-                        <option value="Университет ИТМО">Университет ИТМО</option>
-                        <option value="Профком ИТМО">Профком ИТМО</option>
-                        <option value="Совет обучающихся университета ИТМО">Совет обучающихся университета ИТМО</option>
-                        <!- и так далее, делаем запрос из бд,, где располагаются организации
-                     </select>
-                     <span class="pronwe_comment help-block m-b-none">* Можно выбрать более одной организации. Если вашей организации нет в списке, свяжитесь с нами support@pronwe.ru</span>
-                  </div>
-               </div>-->
                <div class="form-group">
                   <label for="input-event-start" class="col-md-3 control-label">Дата начала мероприятия</label>
                   <div class="col-md-9">
@@ -75,7 +63,7 @@
                            <option value="<?=$i; ?>"><?=$types->get($i); ?></option>
                         <?php endfor; ?>
                      </select>
-                     <span class="pronwe_comment help-block m-b-none">*Вы можете предложить свой тип мероприятия, отправив подробное описание типа на support@pronwe.ru.</span>
+                     <span class="pronwe_comment">*Вы можете предложить свой тип мероприятия, отправив подробное описание типа на support@pronwe.ru.</span>
                   </div>
                </div>
                <label for="update-photo" class="btn btn-primary col-md-3 col-md-offset-1 col-sm-5 col-xs-12 btn_area1" >

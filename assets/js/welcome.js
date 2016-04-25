@@ -41,7 +41,7 @@ $(document).ready(function() {
       slideCounter = 0;
   }
   
-  var timer = setInterval(slider,10000);
+  //var timer = setInterval(slider,10000);
   
   $('.selector input').on('click',function(){
     if (allow == true){

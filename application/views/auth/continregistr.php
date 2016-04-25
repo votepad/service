@@ -14,19 +14,19 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Фамилия</label>
                               <div class="col-sm-10">
-                                 <input name="surname" type="text" class="form-control" placeholder="Ивонов" maxlength="20" required>
+                                 <input name="surname" type="text" class="form-control" placeholder="Ивонов" autocomplete="off" maxlength="20" required>
                               </div>
                            </div>
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Имя</label>
                               <div class="col-sm-10">
-                                 <input name="name" type="text" class="form-control" placeholder="Иван" maxlength="20" required>
+                                 <input name="name" type="text" class="form-control" placeholder="Иван" autocomplete="off" maxlength="20" required>
                               </div>
                            </div>
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Отчество</label>
                               <div class="col-sm-10">
-                                 <input name="lastname" type="text" class="form-control" placeholder="Ивонович" maxlength="20" required>
+                                 <input name="lastname" type="text" class="form-control" placeholder="Ивонович" autocomplete="off" maxlength="20" required>
                               </div>
                            </div>
                         </div>
@@ -35,7 +35,7 @@
                            <div class="form-group">
                               <label class="col-sm-2 control-label">Телефон</label>
                               <div class="col-sm-10">
-                                 <input type="text" name="number" data-parsley-type="number" class="form-control" placeholder="+79991234567" maxlength="12" required>
+                                 <input type="text" name="number" data-parsley-type="number" class="form-control" placeholder="+79991234567" autocomplete="off" maxlength="12" required>
                               </div>
                            </div>
                            <div class="form-group">

@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var url = location.protocol+'//pronwe.local/';
+    var url = location.protocol + '//' + location.hostname;
 
     // BlockStages
     $("button[id='openStage']").click( function() {
@@ -8,7 +8,7 @@ $(document).ready(function(){
         var stage = $(this).closest("td").attr('id');
 
         $.ajax({
-            url: url + 'block/',
+            url: url + '/block/',
             type: "POST",
             data: {
                 stage: stage,
@@ -25,7 +25,7 @@ $(document).ready(function(){
     function isOpen(id) {
       var result;
       $.ajax({
-          url: url + 'block/getBlocked',
+          url: url + '/block/getBlocked',
           type: "POST",
           data: {
               stage: id,

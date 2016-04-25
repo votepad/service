@@ -155,7 +155,7 @@
                                     </ul>
                                     <div class="col-md-8 btn_area">
                                        <div class="input-group">
-                                          <input id="name-participant" type="text" placeholder="ФИО участника" class="form-control">
+                                          <input id="name-participant" type="text" placeholder="ФИО участника" class="form-control" autocomplete="off">
                                           <div class="input-group-btn">
                                              <input type="button" id="add-participant-btn" class="btn btn-primary" value="Добавить">
                                           </div>
@@ -219,7 +219,7 @@
                                     </ul>
                                     <div class="col-md-8 btn_area">
                                        <div class="input-group">
-                                          <input id="name-judge" type="text" placeholder="ФИО жюри" class="form-control">
+                                          <input id="name-judge" type="text" placeholder="ФИО жюри" class="form-control" autocomplete="off">
                                           <div class="input-group-btn">
                                              <button type="button" id="add-judge-btn" class="btn btn-primary">Добавить</button>
                                           </div>
@@ -297,7 +297,7 @@
                                        </ul>
                                        <div class="col-md-8 btn_area">
                                           <div class="input-group">
-                                             <input id="name-stage" type="text" placeholder="Название этапа" class="form-control">
+                                             <input id="name-stage" type="text" placeholder="Название этапа" class="form-control" autocomplete="off">
                                              <div class="input-group-btn">
                                                 <button type="button" id="add-stage-btn" class="btn btn-primary">Добавить</button>
                                              </div>

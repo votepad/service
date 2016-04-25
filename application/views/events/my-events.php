@@ -21,7 +21,7 @@
 					<tbody>
 					<?php for($i = 0; $i < count($events); $i++): ?>
 						<tr id="event_<?=$events[$i]['id']; ?>">
-							<td class="text-center"><?=$i+1; ?></td>
+							<td style="width: 5%"class="text-center"><?=$i+1; ?></td>
 							<td style="width: 5%">
 								<div class="media">
 									<img src="<?=URL::base(); ?>uploads/<?=$events[$i]['photo']; ?>" alt="Image" class="img-responsive img-circle">
@@ -71,7 +71,7 @@
 									</a>
 								</div>
 							</td>
-							<td class="text-center" style="width: 15%">
+							<td class="text-center" style="width: 5%">
 								<a id="deleteEvent" href="#">
 									<em class="fa fa-remove icon-remove"></em>
 								</a>

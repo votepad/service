@@ -1,5 +1,5 @@
 $(document).ready (function() {
-	var url = location.protocol+'//pronwe.local/';
+	var url = location.protocol + '//' +location.hostname;
 
 	$('#table-my-event').dataTable({
 		'paging': true,
@@ -27,7 +27,6 @@ $(document).ready (function() {
 			{ 'targets': 'datetime','sType': 'de_datetime' }
 		]
 	});
-
 	$("a[id~='deleteEvent'").click( function() {
 		var data = $(this).closest('tr').attr('id');
 
@@ -38,7 +37,7 @@ $(document).ready (function() {
 		id = list[1];
 
 		$.ajax({
-			url: url+'deleteEvent/',
+			url: url+'/deleteEvent/',
 			type: "POST",
 			data: {
 				'id' : id,

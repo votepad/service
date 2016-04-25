@@ -26,7 +26,7 @@
     <header class="topnavbar-wrapper">
         <nav role="navigation" class="navbar topnavbar">
             <div class="navbar-header">
-                <a href="<?=URL::base(); ?>" class="navbar-brand">
+                <a href="<?=URL::site('events/my'); ?>" class="navbar-brand">
                     <div class="brand-logo">
                         <img src="<?=$assets; ?>img/ProNWE_logo.svg" alt="App Logo" class="img-responsive">
                     </div>

@@ -1,6 +1,6 @@
 $( function ()
 {
-    var url = location.protocol+'//pronwe.local/';
+    var url = location.protocol + '//' + location.hostname ;
 
     var check_func;
     var kh = new Array();
@@ -19,7 +19,7 @@ $( function ()
     function stageStatus(id) {
         var result;
         $.ajax({
-            url: url + 'block/getBlocked',
+            url: url + '/block/getBlocked',
             type: "POST",
             data: {
                 stage: id,
@@ -35,7 +35,7 @@ $( function ()
     function hideParticipant(stage) {
         var result = 'none';
         $.ajax({
-            url: url + 'hide/',
+            url: url + '/hide/',
             dataType: "json",
             type: "POST",
             data: {
@@ -139,7 +139,7 @@ $( function ()
                 else {
                     var id_participant = kh[i];
                     $.ajax({
-                        url: url+'setScore/',
+                        url: url+'/setScore/',
                         type: "POST",
                         data: {
                             id_participant: id_participant,
@@ -237,7 +237,7 @@ $( function ()
                 else {
                     var id_participant = kh[i];
                     $.ajax({
-                        url: url+'setScore/',
+                        url: url+'/setScore/',
                         type: "POST",
                         data: {
                             id_participant: id_participant,
@@ -402,8 +402,10 @@ $( function ()
                             position: position,
                         },
                         success: function(data, config) {
+                            alert(1);
                         },
                         error: function(data, config) {
+                            alert(2);
                         }
                     });
                 }
