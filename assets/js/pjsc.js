@@ -1,6 +1,6 @@
 $(document).ready (function() {
 
-    var nophoto = location.protocol+'//pronwe.local/assets/img/user/no-user.png';
+    var nophoto = location.protocol + '//' + location.hostname +'/pronwe/assets/img/user/no-user.png';
 
 /* START PARTICIPANT */
 	var participant_list_counter = $(".participant-list li").length;
@@ -101,7 +101,7 @@ $(document).ready (function() {
 	 	var name = $("#name-judge").val();
 	 	if (name != '') {
 	    	judge_list_counter++;
-	    	var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='judge_" + judge_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-judge' title='Удалить члена жюри' id='delete-judge_" + judge_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div class='panel-body'> <div class='col-md-6 btn_area'><input name='judge_email_" + judge_list_counter + "' type='email' placeholder='Укажите e-mail члена жюри' class='form-control btn_area' required><input type='hidden' name='judgename_" + judge_list_counter + "' value='"+ name +"'><input name='judge_status_" + judge_list_counter + "' type='text' placeholder='Укажите кем является член жюри' class='form-control btn_area' required></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию жюри</label><br><small>допустимые форматы jpeg,png,gif</small><div class='btn_area'><input type='file' id='judge_photo_" + judge_list_counter + "' name='judge_photo_" + judge_list_counter + "' tabindex='-1' class='logo-input change'><label for='judge_photo_" + judge_list_counter + "' class='btn btn-default fileinput-button'><span class='fa fa-folder-open'></span><span class='buttonText'> Выбрать фото</span></label></div></div><div class='col-md-3 btn_area text-center'><img id='judge_preview_" + judge_list_counter + "' src='" + nophoto + "' class='pronwe_boxShadow pronwe_border-1px logo-preview'></div></div></div></li>";
+	    	var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='judge_" + judge_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'>" + name + "<a type='button' class='pull-right delete-judge' title='Удалить члена жюри' id='delete-judge_" + judge_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div class='panel-body'> <div class='col-md-6 btn_area'><input name='judge_email_" + judge_list_counter + "' type='email' placeholder='Укажите e-mail члена жюри' class='form-control btn_area' autocomplete='off' required><input type='hidden' name='judgename_" + judge_list_counter + "' value='"+ name +"'><input name='judge_status_" + judge_list_counter + "' type='text' placeholder='Укажите кем является член жюри' class='form-control btn_area' autocomplete='off' required></div><div class='col-md-3 btn_area text-center'><label>Выберите фотографию жюри</label><br><small>допустимые форматы jpeg,png,gif</small><div class='btn_area'><input type='file' id='judge_photo_" + judge_list_counter + "' name='judge_photo_" + judge_list_counter + "' tabindex='-1' class='logo-input change'><label for='judge_photo_" + judge_list_counter + "' class='btn btn-default fileinput-button'><span class='fa fa-folder-open'></span><span class='buttonText'> Выбрать фото</span></label></div></div><div class='col-md-3 btn_area text-center'><img id='judge_preview_" + judge_list_counter + "' src='" + nophoto + "' class='pronwe_boxShadow pronwe_border-1px logo-preview'></div></div></div></li>";
 	    	$('.judge-list').append(temp);
 	    	$("#name-judge").val('');
 	 	}
@@ -194,7 +194,7 @@ $(document).ready (function() {
  		var name = $("#name-stage").val();
  		if (name != '') {
     		stage_list_counter++;
-    		var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='stage_" + stage_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'><a id='stage_name_" + stage_list_counter + "'>" + name + "</a><a type='button' class='pull-right delete-stage' title='Удалить этап' id='delete-stage_" + stage_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='stage_description_" + stage_list_counter + "'><div class='panel-body'><input type='hidden' name='stage_name_" + stage_list_counter + "' value='"+ name +"'><textarea name='stage_description_" + stage_list_counter + "' rows='4' type='text' maxlength='1000' style='resize: none;' placeholder='Описание этапа' class='form-control' required></textarea><ul class='criterion-list_" + stage_list_counter + " row'><!-- criterions --><fieldset class='btn_area'></fieldset><fieldset id='criterion_"+stage_list_counter+"_1' class='row' ><div class='col-md-6 btn_area'><input type='text' name='criterion-name_"+stage_list_counter+"_1' placeholder='Название критерия' class='form-control' maxlength='500' required></div><div class='col-xs-10 col-sm-10 col-md-5 btn_area'><input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+stage_list_counter+"_1' required></div><div class='col-md-1 col-xs-2 btn_area'><a type='button' id='btn-add-criterion_"+stage_list_counter+"' class='btn-add-criterion btn btn-primary'><i class='fa fa-plus'></i></a></div></fieldset></ul></div></div></li>";
+    		var temp = "<li><div class='panel panel-default' style='border-color:#5d9cec;'><div id='stage_" + stage_list_counter + "' role='tab' class='panel-heading'><h4 class='panel-title'><a id='stage_name_" + stage_list_counter + "'>" + name + "</a><a type='button' class='pull-right delete-stage' title='Удалить этап' id='delete-stage_" + stage_list_counter + "'><em class='fa fa-times'></em></a></h4></div><div id='stage_description_" + stage_list_counter + "'><div class='panel-body'><input type='hidden' name='stage_name_" + stage_list_counter + "' value='"+ name +"'><textarea name='stage_description_" + stage_list_counter + "' rows='4' type='text' maxlength='1000' style='resize: none;' placeholder='Описание этапа' class='form-control' required></textarea><ul class='criterion-list_" + stage_list_counter + " row'><!-- criterions --><fieldset class='btn_area'></fieldset><fieldset id='criterion_"+stage_list_counter+"_1' class='row' ><div class='col-md-6 btn_area'><input type='text' name='criterion-name_"+stage_list_counter+"_1' placeholder='Название критерия' class='form-control' maxlength='500' autocomplete='off' required></div><div class='col-xs-10 col-sm-10 col-md-5 btn_area'><input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+stage_list_counter+"_1' required autocomplete='off'></div><div class='col-md-1 col-xs-2 btn_area'><a type='button' id='btn-add-criterion_"+stage_list_counter+"' class='btn-add-criterion btn btn-primary'><i class='fa fa-plus'></i></a></div></fieldset></ul></div></div></li>";
     		$('.stage-list').append(temp);
     		$("#name-stage").val('');
  		}
@@ -232,7 +232,7 @@ $(document).ready (function() {
  		snumber = snumber.substr(snumber.lastIndexOf('_')+1,snumber.length);
  		var criterion_list_counter = $(".criterion-list_"+snumber+" fieldset").length - 1;
 		criterion_list_counter++;
-		var temp = "<fieldset id='criterion_"+snumber+"_"+criterion_list_counter+"' class='row'><div class='col-md-6 btn_area'><input type='text' name='criterion-name_"+snumber+"_"+ criterion_list_counter +"' placeholder='Название критерия' class='form-control' maxlength='500' required></div><div class='col-xs-10 col-sm-10 col-md-5 btn_area'><input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+snumber+"_"+ criterion_list_counter +"' required></div><div class='col-md-1 col-xs-2 btn_area'><a type='button' class='btn btn-danger delete-criterion' id='delete-criterion_"+snumber+"_"+ criterion_list_counter +"'><i class='fa fa-times'></i></a></div></fieldset>";
+		var temp = "<fieldset id='criterion_"+snumber+"_"+criterion_list_counter+"' class='row'><div class='col-md-6 btn_area'><input type='text' name='criterion-name_"+snumber+"_"+ criterion_list_counter +"' placeholder='Название критерия' class='form-control' maxlength='500' autocomplete='off' required></div><div class='col-xs-10 col-sm-10 col-md-5 btn_area'><input type='number' placeholder='Максимальный балл' class='form-control' name='criterion-maxscore_"+snumber+"_"+ criterion_list_counter +"' autocomplete='off' required></div><div class='col-md-1 col-xs-2 btn_area'><a type='button' class='btn btn-danger delete-criterion' id='delete-criterion_"+snumber+"_"+ criterion_list_counter +"'><i class='fa fa-times'></i></a></div></fieldset>";
 		$('.criterion-list_'+snumber).append(temp);
 	});
 	/* DELETE CRITERION */
@@ -289,7 +289,7 @@ $(document).ready (function() {
 	$.fn.editable.defaults.mode = 'inline';
     moment.lang('ru');
 
-	var url = location.protocol+'//pronwe.local/';
+	var url = location.protocol + '//' + location.hostname + '/pronwe/';
 
 	$('.editable').editable({
 		url: url+'/updateEventsSubstance/updateeventinfo/',
@@ -443,7 +443,8 @@ $(document).ready( function() {
 		var substance = list[0];
 		var identif = list[1];
 
-		var url = location.protocol+'//pronwe.local/';
+		var url = location.protocol + '//' + location.hostname + '/pronwe/';
+
 		$.ajax({
 			url: url + '/updateEventsSubstance/deleteEventsSubstance/',
 			type: "POST",

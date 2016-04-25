@@ -15,7 +15,7 @@
         $.fn.editable.defaults.url = '/Ajax/Editable';
         $.fn.editable.defaults.mode = 'inline';
         
-        var url = location.protocol+'//pronwe.local/';
+        var url = location.protocol + '//' + location.hostname + '/pronwe/';
         
         $('.editable').editable({
             url: url+'/Profile_Ajax/update/',

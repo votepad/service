@@ -1,6 +1,6 @@
 $(document).ready(function(){
 
-    var url = location.protocol+'//pronwe.local/';
+    var url = location.protocol + '//' + location.hostname + '/pronwe/';
 
     // BlockStages
     $("button[id='openStage']").click( function() {

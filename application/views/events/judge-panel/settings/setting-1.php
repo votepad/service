@@ -8,7 +8,7 @@
 		<!-- SETTING JUDGE PANEL VIEW -->
 		<div class="panel-group">
 			<div class="panel panel-default">
-				<div class="panel-heading panel-title" style="font-size: 1.2em"><a data-toggle="collapse" data-parent="#accordion" href="#panelview" aria-expanded="true" aria-controls="panelview" id="panel-view">Настроека внешнего вида панели жюри</a></div>
+				<div class="panel-heading panel-title" style="font-size: 1.2em"><a data-toggle="collapse" data-parent="#accordion" href="#panelview" aria-expanded="true" aria-controls="panelview" id="panel-view">Настройка внешнего вида панели жюри</a></div>
 				<div id="panelview" role="tabpanel" aria-labelledby="headingOne" class="panel-collapse collapse">
 					<div class="panel-body">
 						<form class="form-horizontal">

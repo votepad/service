@@ -2,7 +2,7 @@
 RewriteEngine On
 
 # Installation directory
-RewriteBase /
+RewriteBase /pronwe/
 
 # Protect hidden files from being viewed
 <Files .*>

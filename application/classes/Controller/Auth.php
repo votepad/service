@@ -12,10 +12,9 @@ class Controller_Auth extends Dispatch {
 
     function action_index()
     {
-        array_push( $this->css, 'css/font-awesome.min.css');
-        array_push( $this->css, 'css/ProNWE_input.css');
-        array_push( $this->css, 'css/pronwe.css');
         array_push( $this->css, 'css/auth.css');
+        array_push( $this->css, 'css/ProNWE_input.css');
+        array_push( $this->js, 'js/auth.js');
         
         unset( $this->css[5] );
 

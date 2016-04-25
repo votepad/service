@@ -1,6 +1,6 @@
 $( function ()
 {
-    var url = location.protocol+'//pronwe.local/';
+    var url = location.protocol + '//' + location.hostname + '/pronwe/';
 
     var check_func;
     var kh = new Array();
@@ -402,8 +402,10 @@ $( function ()
                             position: position,
                         },
                         success: function(data, config) {
+                            alert(1);
                         },
                         error: function(data, config) {
+                            alert(2);
                         }
                     });
                 }

@@ -9,7 +9,7 @@ html {
 }
 @font-face {
 	font-family: pronwe;
-	src: url(Exo2-Medium.ttf);
+	src: url(../fonts/Exo2-Medium.ttf);
 }
 
 .pronwe_Link-small{

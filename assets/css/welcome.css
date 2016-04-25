@@ -259,7 +259,7 @@ a:hover.tooltips span {
   height: 2.375em;
   margin-top:-3px;
   margin-left:-3px;
-  padding-top:5px;
+  padding-top:7px;
   text-decoration: none;
 }
 
@@ -302,8 +302,10 @@ a:hover.tooltips span {
   color:#fff;	
 }
 .col-6{
+  height: inherit;
   display: inline-block;
-  width: 49%
+  width: 49%;
+  height: 200px;
 }
 .p3_img{
   position: relative;  
@@ -314,7 +316,7 @@ a:hover.tooltips span {
   position: relative;
   text-shadow:2px 1px rgba(0,0,0,1);
   color:#fff;
-  text-align:justify;
+  
 }
 .selector{
 	margin:2em;
