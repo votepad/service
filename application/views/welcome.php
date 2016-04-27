@@ -65,56 +65,56 @@
 				<h2>Что такое <a href="http://pronwe.ru" class="pronwe_Link-small pronwe_color">ProNWE</a>?</h2>
 			</div>
 			<ul class="side-container">
-				<li class="lightbox"><span>Информационное сопровождение мероприятия в интернет</span></li>
-				<li class="lightbox"><span>Индивидуальная страница для каждого мероприятия</span></li>
-				<li class="lightbox"><span>Автоматизация голосования для жюри</span></li>
+				<li class="lightbox"><span>Информационное сопровождение мероприятия в интернет</span></li><br>
+				<li class="lightbox"><span>Индивидуальная страница для каждого мероприятия</span></li><br>
+				<li class="lightbox"><span>Автоматизация голосования для жюри</span></li><br>
 				<li class="lightbox"><span>Иными словами, переход на новый формат оценки мероприятий!</span></li>
 			</ul>
 		</div>
       
 		<div class="p3 section" id="section2" data-anchor="Organizator">
 			<div class="container">
-				<div id="slide_0">
-					<div class="col-6 text-center">
+				<div id="slide_0" class="slides">
+					<div class="col-6 text-center p3_left">
 						<img class="p3_img" src="assets/img/p3_0.jpg">  
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-6 text-center p3_right">
 						<h2>Домен третьего уровня</h2>
 						<p class="p3_text">Каждое Ваше мероприятие получит страницу на домене третьего уровня в зоне pronwe.ru оформленную по Вашим нуждам в стиле мероприятия.</p>
 					</div>
   				</div>
-				<div style="display:none;" id="slide_1">
-					<div class="col-6 text-center">
+				<div style="display:none;" id="slide_1" class="slides">
+					<div class="col-6 text-center p3_left">
 						<img class="p3_img" src="assets/img/p3_1.png">
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-6 text-center p3_right">
 						<h2>Панель управления мероприятием</h2>
 						<p class="p3_text">Мы предоставим Вам удобную панель настройки и управления мероприятием, из которой вы сможете заполнить интересующую ваших гостей информацию, а также следить за мероприятием, за рейтингом, за выставлением баллов.</p>
 					</div>
 				</div>
-				<div style="display:none;" id="slide_2">
-					<div class="col-6 text-center">
+				<div style="display:none;" id="slide_2" class="slides">
+					<div class="col-6 text-center p3_left">
 						<img class="p3_img" src="assets/img/p3_2.png">
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-6 text-center p3_right">
 						<h2>Онлайн статистика для Ваших гостей</h2>
 						<p class="p3_text">С нашим сервисом Вы можете сделать публичный доступ к текущиму рейтингу конкурсантов, доступный на персональной странице Вашего мероприятия.</p>
 					</div>
 				</div>
-				<div style="display:none;" id="slide_3">
-					<div class="col-6 text-center">
+				<div style="display:none;" id="slide_3" class="slides">
+					<div class="col-6 text-center p3_left">
 						<img class="p3_img" src="assets/img/p3_3.png">
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-6 text-center p3_right">
 						<h2>О Вас узнают!</h2>
 						<p class="p3_text">С нами вы не пройдете мимо популярных социальных сетей. Гости Вашего мероприятия, а также другие пользователи ProNWE смогут рассказывать всем о мероприятиях, поделившись ими в социальных сетях.</p>
 					</div>
 				</div>
-				<div style="display:none;" id="slide_4">
-					<div class="col-6 text-center">
+				<div style="display:none;" id="slide_4" class="slides">
+					<div class="col-6 text-center p3_left">
 						<img class="p3_img" src="assets/img/p3_4.png">
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-6 text-center p3_right">
 						<h2>Оффлайн поддержка мероприятия</h2>
 						<p class="p3_text">Если Вам не удастся обеспечить мероприятие необходимым оборудованием (например, интернет для судей и гостей, или отсутствие гаджетов для судей), вы можете получить оффлайн поддержку, наши мастера настроят Ваше, или предоставят свое оборудование.</p>
 					</div>
