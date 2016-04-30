@@ -5,7 +5,7 @@ $(function ()
 
     var check_func;
     var kh = new Array();
-    var pos = new Array();    
+    var pos = new Array();
     var m = 0;
 
     function sleep(milliseconds) {
@@ -100,7 +100,7 @@ $(function ()
 
                 $('#stage-'+currentIndex).find('li').each( function() {
                     var desc = $(this).attr('id').substr($(this).attr('id').lastIndexOf('-')+1,$(this).attr('id').length);
-                    desc = 'partisipant-'+desc;
+                    desc = 'partisipant-'+currentIndex+'-'+desc;
                     var parts = $(this).children('div').attr('id');
                     
                     id_participant = parts;
@@ -128,6 +128,7 @@ $(function ()
             var id_judge = $("input[name='id_judge']").val();
             var counter = 0;
             var k = 0;
+            var check_pos = 0;
             var blocked;
             var score;
             var part = $('#stage-'+currentIndex+' ul li').length;
@@ -144,19 +145,19 @@ $(function ()
             for (var i = 0; i < part; i++) {
                 score = 0;
                 for (var j = 0; j < crit; j++) {
-                    $('#partisipant-id-'+i).removeClass('btn-danger').addClass('btn-default');
+                    $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-danger').addClass('btn-default');
                     var radio = $('input[type=radio][name="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
-                    console.log(currentIndex,pos[i],j,'part: ',kh[i],'score: ',radio);
                     if (radio == 0 || radio == null) {
                         k=1;
-                        $('#partisipant-id-'+i).removeClass('btn-default').addClass('btn-danger');
+                        check_pos = 1;
+                        $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
                         break;
                     }
                     score = score + parseInt(radio);
                 }
                 if ( k == 0 ){
                     var id_participant = kh[i];
-                    //console.log(id_participant,id_stage,id_event,id_judge,score)
+                    
                     $.ajax({
                         url: url+'/setScore/',
                         type: "POST",
@@ -176,50 +177,53 @@ $(function ()
                     });
                 }
             }
-            if( blocked == 0 ){
-                kh = [];
-                pos = [];
-                m = 0;
+            if ( check_pos == 0){
+                if( blocked == 0 ){
+                    kh = [];
+                    pos = [];
+                    m = 0;
 
-                /** RM PARTS FROM NEW STAGE **/
-                var id_participant;
-                var adminBlocked = new Array();
+                    /** RM PARTS FROM NEW STAGE **/
+                    var id_participant;
+                    var adminBlocked = new Array();
 
-                var bbg = hideParticipant(id_nextStage);
-                for(var i = 0; i < bbg.length; i++)
-                    adminBlocked[i] = bbg[i].id_participant;
+                    var bbg = hideParticipant(id_nextStage);
+                    for(var i = 0; i < bbg.length; i++)
+                        adminBlocked[i] = bbg[i].id_participant;
 
-                $('#stage-'+newIndex).find('li').each( function() {
-                    var desc = $(this).attr('id').substr($(this).attr('id').lastIndexOf('-')+1,$(this).attr('id').length);
-                    desc = 'partisipant-'+desc;
-                    var parts = $(this).children('div').attr('id');
-                    
-                    id_participant = parts;
-                    var rm = $.inArray(id_participant, adminBlocked);
-                    
-                    if (rm != -1){
-                        $(this).remove();
-                        $('#stage-'+newIndex).find('#'+desc).remove();
+                    $('#stage-'+newIndex).find('li').each( function() {
+                        var desc = $(this).attr('id').substr($(this).attr('id').lastIndexOf(newIndex+'-')+2,$(this).attr('id').length);
+                        alert(desc);
+                        desc = 'partisipant-'+newIndex+'-'+desc;
+                        alert(desc);
+                        var parts = $(this).children('div').attr('id');
+                        
+                        id_participant = parts;
+                        var rm = $.inArray(id_participant, adminBlocked);
+                        
+                        if (rm != -1){
+                            $(this).remove();
+                            $('#stage-'+newIndex).find('#'+desc).remove();
 
-                    }
-                    else {
-                        m = $('#stage-'+newIndex).find('#'+desc).find('input[type=hidden][name=buttons]').val();
-                        pos[counter] = m; //id участника
-                        kh[counter] = id_participant;
-                        //console.log(pos1[counter],kh[counter]);
-                        counter ++;
-                    }
-                });
-            } else
-            {
-                $('.thanks-'+newIndex).css("display","block");
-                $('#stage-'+newIndex).css("display","none");
-                $('.show-part-'+newIndex).on('click', function(){
-                    $(".thanks-"+newIndex).css("display","none");
-                    $('#stage-'+newIndex).css("display","block");
-                    $('#confirm-step-'+newIndex).val("2");
-                });
-                check(id_nextStage, newIndex);
+                        }
+                        else {
+                            m = $('#stage-'+newIndex).find('#'+desc).find('input[type=hidden][name=buttons]').val();
+                            pos[counter] = m; //id участника
+                            kh[counter] = id_participant;
+                            counter ++;
+                        }
+                    });
+                } else
+                {
+                    $('.thanks-'+newIndex).css("display","block");
+                    $('#stage-'+newIndex).css("display","none");
+                    $('.show-part-'+newIndex).on('click', function(){
+                        $(".thanks-"+newIndex).css("display","none");
+                        $('#stage-'+newIndex).css("display","block");
+                        $('#confirm-step-'+newIndex).val("2");
+                    });
+                    check(id_nextStage, newIndex);
+                }
             }
             if ( k == 0 ){ 
                 return true; 
@@ -247,19 +251,18 @@ $(function ()
             for (var i = 0; i < part; i++) {
                 score = 0;
                 for (var j = 0; j < crit; j++) {
-                    $('#partisipant-id-'+i).removeClass('btn-danger').addClass('btn-default');
+                    $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-danger').addClass('btn-default');
                     var radio = $('input[type=radio][name="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
-                    console.log(currentIndex,pos[i],j,'part: ',kh[i],'score: ',radio);
                     if (radio == 0 || radio == null) {
                         k=1;
-                        $('#partisipant-id-'+i).removeClass('btn-default').addClass('btn-danger');
+                        check_pos = 1;
+                        $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
                         break;
                     }
                     score = score + parseInt(radio);
                 }
                 if ( k == 0 ){
                     var id_participant = kh[i];
-                    //console.log(id_participant,id_stage,id_event,id_judge,score)
                     $.ajax({
                         url: url+'/setScore/',
                         type: "POST",
@@ -302,7 +305,6 @@ $(function ()
         var counter = 0;
         var timerId = setInterval(function() {
             var blocked = stageStatus(id_stage);
-                console.log(blocked);
                 kh = [];
                 pos = [];
                 m = 0;
@@ -317,7 +319,7 @@ $(function ()
 
                 $('#stage-'+id).find('li').each( function() {
                     var desc = $(this).attr('id').substr($(this).attr('id').lastIndexOf('-')+1,$(this).attr('id').length);
-                    desc = 'partisipant-'+desc;
+                    desc = 'partisipant-'+id+'-'+desc;
                     var parts = $(this).children('div').attr('id');
                     
                     id_participant = parts;
@@ -332,7 +334,6 @@ $(function ()
                         m = $('#stage-'+id).find('#'+desc).find('input[type=hidden][name=buttons]').val();
                         pos[counter] = m; //id участника
                         kh[counter] = id_participant;
-                        //console.log(pos1[counter],kh[counter]);
                         counter ++;
                     }
                 });
@@ -441,15 +442,18 @@ $(function ()
             return true;
         },
     });
+
     $('.nav-s').sortable();
     $('.portlets-wrapper ul li:first-child').addClass('active');
     $('.tab-content div:first-child').addClass('active');
 
     $('.colorpicker-component').colorpicker();
+    
     $("#panel-view").click(function(){
         $("#partposition").removeClass("in");
         $("#panel-view-save").prop("disabled",false);
     });
+    
     $("#part-position").click(function(){
         $("#panelview").removeClass("in");
         $("#panel-view-save").prop("disabled",true);

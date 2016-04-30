@@ -76,7 +76,7 @@
                   <div class="col-md-4 text-center">
                      <form id="image-upload" method="POST">
                         <div class="">
-                            <img id="image" src="<?=URL::base(); ?>/uploads/<?=$event['photo']; ?>" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px logo-preview">
+                            <img id="image" src="<?=URL::base().'uploads/'. $event['photo']; ?>" alt="Avatar" class="pronwe_boxShadow pronwe_border-1px logo-preview">
                         </div>
                         <!--<div class="btn_area">
                             <input id="choose-image" type="file" tabindex="-1" class="logo-input">

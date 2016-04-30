@@ -1,10 +1,5 @@
-@font-face{
-  font-family: Exo2;
-  src: url('Exo2-Medium.ttf');
-}
-
 body{
-  font-family:Exo2;
+  font-family:pronwe;
   font-size:1em;
 }
 /*Прелоадер на CSS3*/
@@ -407,11 +402,11 @@ a:hover.tooltips span {
 .fa-vk:hover, .fa-vk:focus{
   color: #4c75a3;
 }
-
-
-
-
 @media screen and (max-width: 735px) {
+  body{
+    font-size:0.8em;
+  }
+
   #menu{
     display: none;
   }

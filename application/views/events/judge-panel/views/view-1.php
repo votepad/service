@@ -30,9 +30,9 @@
 								<div class="col-lg-4 col-md-5">
 									<ul role="tablist" class="text-center nav nav-s">
 										<?php for($j = 0; $j < count($participants[$i]); $j++): ?>
-											<li id="partisipant-id-<?=$j; ?>" role="presentation" class="btn btn-default btn_area1 ">
+											<li id="partisipant-id-<?=$i; ?>-<?=$j; ?>" role="presentation" class="btn btn-default btn_area1 ">
 												<div id="<?=$participants[$i][$j]['id']; ?>"></div>
-												<a href="#partisipant-<?=$j; ?>" aria-controls="partisipant-<?=$j; ?>" role="tab" data-toggle="tab"><?=$participants[$i][$j]['name']; ?></a>
+												<a href="#partisipant-<?=$i; ?>-<?=$j; ?>" aria-controls="partisipant-<?=$j; ?>" role="tab" data-toggle="tab"><?=$participants[$i][$j]['name']; ?></a>
 											</li>
 										<?php endfor; ?>
 									</ul>
@@ -40,7 +40,7 @@
 
 								<div class="tab-content col-lg-offset-4 col-md-offset-5">
 									<?php for($j = 0; $j < count($participants[$i]); $j++) : ?>
-									<div id="partisipant-<?=$j; ?>" role="tabpanel" class="tab-pane ">
+									<div id="partisipant-<?=$i; ?>-<?=$j; ?>" role="tabpanel" class="tab-pane ">
 										<img src="<?=URL::base(). 'uploads/' . $participants[$i][$j]['photo'] ; ?>" alt="" class="pronwe_boxShadow pronwe_border-1px participant img-pos">
 										<div class="score-area">
 												<?php
