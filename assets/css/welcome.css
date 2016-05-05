@@ -267,8 +267,8 @@ a:hover.tooltips span {
 }
 .p2_title{
 	position:absolute;
-	top:10em;
-	left:5em;
+	top:8em;
+	right: 15em;
 }
 .side-container{
   position:absolute;
@@ -406,7 +406,6 @@ a:hover.tooltips span {
   body{
     font-size:0.8em;
   }
-
   #menu{
     display: none;
   }
@@ -422,8 +421,9 @@ a:hover.tooltips span {
 	  right:0;
   }
   .p2_title{
-	  left:0;
-	  top:0;
+  	left: 0;
+  	width: 190px;
+	top:0;
   }
   #login{
 	  position:static;
