@@ -466,6 +466,13 @@ $(document).ready (function() {
 	});
 
     /* CACHE TABS */
+    $("#tabs").tabs({
+        active   : $.cookie('activetab'),
+        activate : function( event, ui ){
+            $.cookie( 'activetab', ui.newTab.index(),{
+                expires : 10
+            });
+        }
+    });
     
-
 });
