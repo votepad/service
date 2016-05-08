@@ -82,6 +82,7 @@ class Controller_Judges_Panels_Index extends Dispatch {
             ->bind('participants', $participants)
             ->bind('stages', $stages);
 
+
         /**
          * Getting Event INFO.
          */
@@ -103,7 +104,5 @@ class Controller_Judges_Panels_Index extends Dispatch {
             $id = $stages[$i]['id'];
             $participants[] = Model_Participants::getParticipantsByPosition($event['id'], $id);
         }
-
-
     }
 }

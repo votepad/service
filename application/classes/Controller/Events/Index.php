@@ -203,8 +203,6 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'js/app.js');
         
         $types = Kohana::$config->load('type');
-        $status = Kohana::$config->load('status');
-        $city = Kohana::$config->load('city');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -214,6 +212,7 @@ class Controller_Events_Index extends Dispatch {
             ->set('id_event', $id_event)
             ->bind('judges', $judges)
             ->bind('stages', $stages)
+            ->bind('criterias', $criterias)
             ->bind('participants_1', $participants_1)
             ->bind('participants', $participants);
 
@@ -250,6 +249,8 @@ class Controller_Events_Index extends Dispatch {
         {
             $id = $stages[$i]['id'];
             $participants[] = Model_Participants::getParticipantsByPosition($event['id'], $id);
+
+            $criterias[] = Model_Stages::getCriteriasByStageId($id);
         }
     }
 }

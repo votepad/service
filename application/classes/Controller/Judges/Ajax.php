@@ -19,11 +19,12 @@ class Controller_Judges_Ajax extends Ajax {
 
         $id_event       = Arr::get($_POST, 'id_event');
         $id_stage       = Arr::get($_POST, 'id_stage');
+        $id_criteria    = Arr::get($_POST, 'id_criteria');
         $id_participant = Arr::get($_POST, 'id_participant');
         $id_judge       = Arr::get($_POST, 'id_judge');
         $score          = Arr::get($_POST, 'score');
 
-        Model_Score::set($id_event, $id_participant, $id_stage, $id_judge, $score);
+        Model_Score::set($id_event, $id_participant, $id_stage, $id_criteria, $id_judge, $score);
         return true;
     }
 }

@@ -46,7 +46,7 @@ class Model_Judge extends Model {
             ->and_where('id_judge', '=', $result['id'])
             ->execute()->as_array();
 
-        if ( count($online) == 0 ) {
+        if ( count($online) == 0 && !empty($result) ) {
 
             $insert = DB::insert('Online', array(
                 'id_event', 'id_judge'

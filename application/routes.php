@@ -50,7 +50,25 @@ Route::set('HideParticipants', 'hide')
  * Default Welcome page
  */
 
-Route::set('Welcome_Page', '')
+Route::set('MissITMO', '')
+    ->defaults(array(
+       'controller' => 'Miss',
+        'action'    => 'Index',
+    ));
+
+Route::set('MissITMO1', 'ppp')
+    ->defaults(array(
+        'controller' => 'Miss',
+        'action'     => 'participants',
+    ));
+
+Route::set('MissITMO2', 'partners')
+    ->defaults(array(
+        'controller' => 'Miss',
+        'action'     => 'partners',
+    ));
+
+Route::set('Welcome_Page', 'Welcome')
     ->filter(function(Route $route, $params, Request $request) {
     })
     ->defaults(array(
@@ -130,6 +148,10 @@ Route::set('ADDSTAGE', 'events/addStage/<id>')
         'action'      => 'addStage'
     ));
 
+
+/**
+ * EventMakers Page
+ */
 
 ROUTE::set('EVENTMAKER', 'events/<id>/eventmaker')
     ->defaults(array(

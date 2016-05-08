@@ -8,19 +8,20 @@
 
 class Model_Score extends Model {
 
-    public static function set($id_event, $id_participant, $id_stage, $id_judge, $score)
+    public static function set($id_event, $id_participant, $id_stage, $id_criteria, $id_judge, $score)
     {
         $select = DB::select()->from('Scores')->where('id_event', '=', $id_event)
                     ->and_where('id_participant', '=', $id_participant)
                     ->and_where('id_stage', '=', $id_stage)
+                    ->and_where('id_criteria', '=' , $id_criteria )
                     ->and_where('id_judge', '=', $id_judge)
                     ->execute();
 
         if ( count($select) == 0 || !isset($select) ) {
             $insert = DB::insert('Scores', array(
-              'id_event', 'id_participant', 'id_stage', 'id_judge', 'score'
+              'id_event', 'id_participant', 'id_stage', 'id_judge', 'id_criteria', 'score'
             ))->values(array(
-                $id_event, $id_participant, $id_stage, $id_judge, $score
+                $id_event, $id_participant, $id_stage, $id_judge, $id_criteria, $score
             ))->execute();
         }
         else {
@@ -30,18 +31,21 @@ class Model_Score extends Model {
                 ->and_where('id_participant', '=', $id_participant)
                 ->and_where('id_stage', '=', $id_stage)
                 ->and_where('id_judge', '=', $id_judge)
+                ->and_where('id_criteria','=', $id_criteria)
                 ->execute();
         }
     }
 
-    public static function getScore($id_event, $id_stage, $id_judge, $id_participant) {
+    public static function getScore($id_event, $id_stage, $id_judge, $id_criteria, $id_participant) {
         $select = DB::select()->from('Scores')->where('id_event', '=', $id_event)
                 ->and_where('id_stage', '=', $id_stage)
                 ->and_where('id_judge', '=', $id_judge)
                 ->and_where('id_participant', '=', $id_participant)
+                ->and_where('id_criteria', '=', $id_criteria)
                 ->limit(1)
                 ->execute()
                 ->as_array();
+
         return Arr::get($select, '0')['score'] ?: 0;
     }
 
@@ -54,6 +58,8 @@ class Model_Score extends Model {
 
         return Arr::get($select, '0')['total'] ?: 0;
     }
+    
+    
 
     public static function getAdditionalScores($id_event, $id_stage, $participant) {
 

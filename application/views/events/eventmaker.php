@@ -197,11 +197,11 @@
 											<table class="table table-hover" id="for-stage-<?=($i + 1); ?>">
 												<thead>
 													<tr>
-														<td></td>
+														<th></th>
 														<?php for($j = 0; $j < count($judges); $j++): ?>
-															<td class="text-center"><?=$judges[$j]['name']; ?></td>
+															<th class="text-center"><?=$judges[$j]['name']; ?></th>
 														<?php endfor; ?>
-														<td class="text-center" style="color: blue;">Сумма:</td>
+														<th class="text-center" style="color: blue;">Сумма:</th>
 													</tr>
 												</thead>
 												<tbody>
@@ -213,13 +213,13 @@
 														<?php for($k = 0; $k < count($judges); $k++): ?>
 															<td class="text-center">
 																<?php
-																	$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants_1[$j]['id']);
+																	/*$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants_1[$j]['id']);
 																	$additional = Model_Score::getAdditionalScores($id_event, $stages[$i]['id'], $participants_1[$j]['id']);
 																 	$amount[$j] += $score;
 																    echo $score ?: 0;
 
 																	$count = ($additional == 0 && Model_Stages::isBlockedParticipantsExist($stages[$i]['id']) ) ? count($judges) : 1;
-
+																	*/
 																?>
 															</td>
 														<?php endfor; ?>

@@ -55,7 +55,7 @@ class Dispatch extends Controller_Template
         }
 
         $this->setGlobals();
-
+        
         parent::before();
 
         // XSS clean in POST and GET requests
