@@ -15,10 +15,7 @@ class Controller_Judges_Settings_Index extends Dispatch {
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'Настройка порядка выступления участников';
         
-        array_push( $this->js,  'vendor/jquery-ui/ui/core.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/widget.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/mouse.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/sortable.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/jquery-ui.js');
         array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
         array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
@@ -87,10 +84,7 @@ class Controller_Judges_Settings_Index extends Dispatch {
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
 
-        array_push( $this->js,  'vendor/jquery-ui/ui/core.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/widget.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/mouse.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/sortable.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/jquery-ui.js');
         array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
         array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
