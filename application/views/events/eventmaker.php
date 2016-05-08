@@ -182,6 +182,7 @@
 							</a>
 						</div>
 						<div class="panel-wrapper collapse in">
+<<<<<<< HEAD
 							<div class="panel-body">
 								<div class="tabpanel">
 									<ul class="nav nav-tabs">
@@ -217,55 +218,86 @@
 																	$additional = Model_Score::getAdditionalScores($id_event, $stages[$i]['id'], $participants_1[$j]['id']);
 																 	$amount[$j] += $score;
 																    echo $score ?: 0;
-
-																	$count = ($additional == 0 && Model_Stages::isBlockedParticipantsExist($stages[$i]['id']) ) ? count($judges) : 1;
-																	*/
-																?>
-															</td>
-														<?php endfor; ?>
-														<td class="text-center"><?=$amount[$j] / (count($judges) ? $count : 1); ?><?=( isset($additional) && $additional != 0) ? '(+'. $additional .')': '' ; ?></td>
-													</tr>
+							<div class="panel-body" id="tabs">
+								<ul class="nav nav-tabs">
+									<?php for($i = 0; $i < count($stages); $i++): ?>
+									<li style="width: <?=100/( count($stages) + 1); ?>%"><a href="#stage-<?=($i + 1); ?>" ><?=$stages[$i]['name']; ?></a></li>
+									<?php endfor; ?>
+									<li style="width: <?=100/( count($stages) + 1); ?>%"><a href="#total" >Общий рейтинг</a></li>
+								</ul>
+								<?php for($i = 0; $i < count($stages); $i++):
+									?>
+								<div id="stage-<?=($i + 1); ?>">
+									<table class="table table-hover" id="for-stage-<?=($i + 1); ?>">
+										<thead>
+											<tr>
+												<td></td>
+												<?php for($j = 0; $j < count($judges); $j++): ?>
+													<td class="text-center"><?=$judges[$j]['name']; ?></td>
 												<?php endfor; ?>
-												</tbody>
-											</table>
-										</div>
-										<?php endfor; ?>
+												<td class="text-center" style="color: blue;">Сумма:</td>
+											</tr>
+										</thead>
+										<tbody>
+										<?php for($j = 0; $j < count($participants_1); $j++) :
+												$amount[$j] = 0;
+										?>
+											<tr>
+													<td><?=$participants_1[$j]['name']; ?></td>
+												<?php for($k = 0; $k < count($judges); $k++): ?>
+													<td class="text-center scoreinfo" title="Подробно" value="<?=$stages[$i]['id'].'-'. $judges[$k]['id'].'-'. $participants_1[$j]['id']; ?>">
+														<?php
+															$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants_1[$j]['id']);
+															$additional = Model_Score::getAdditionalScores($id_event, $stages[$i]['id'], $participants_1[$j]['id']);
+															$amount[$j] += $score;
+															echo $score ?: 0;
 
-										<div id="total" role="tabpanel" class="tab-pane">
-											<table class="table table-hover" id="total">
-												<thead>
-												<tr>
-													<td></td>
-													<?php for($j = 0; $j < count($judges); $j++): ?>
-														<td class="text-center"> Итог ( <?=$judges[$j]['name']; ?> )</td>
-													<?php endfor; ?>
-													<td class="text-center">Результат:</td>
-												</tr>
-												</thead>
-												<tbody>
-												<?php for($j = 0; $j < count($participants_1); $j++) :
-														$sum[$j] 		= 0;
-														$additional1[$j] = 0;
-													?>
-													<tr>
-														<td><?=$participants_1[$j]['name']; ?></td>
-														<?php for($k = 0; $k < count($judges); $k++): ?>
-															<td class="text-center">
-																<?php
-																	$score = Model_Score::getTotalScore($id_event, $judges[$k]['id'], $participants_1[$j]['id']);
-																	$additional1[$j] = Model_Score::getAdditionalScores($id_event, '0', $participants_1[$j]['id']) ?: 0;
-																	$sum[$j] 	+= $score;
-																	echo $score ;
-																?>
-															</td>
-														<?php endfor; ?>
-															<td class="text-center"><?=$sum[$j]. ' (+'. $additional1[$j] .') = '  . ($sum[$j] + $additional1[$j]);?></td>
-													</tr>
-												<? endfor; ?>
-												</tbody>
-											</table>
-										</div>
-									</div>
+															$count = ($additional == 0 && Model_Stages::isBlockedParticipantsExist($stages[$i]['id']) ) ? count($judges) : 1;
+
+														?>
+													</td>
+												<?php endfor; ?>
+												<td class="text-center"><?=$amount[$j] / (count($judges) ? $count : 1); ?><?=( isset($additional) && $additional != 0) ? '(+'. $additional .')': '' ; ?></td>
+											</tr>
+										<?php endfor; ?>
+										</tbody>
+									</table>
+								</div>
+								<?php endfor; ?>
+
+								<div id="total">
+									<table class="table table-hover" id="total">
+										<thead>
+										<tr>
+											<td></td>
+											<?php for($j = 0; $j < count($judges); $j++): ?>
+												<td class="text-center"> Итог ( <?=$judges[$j]['name']; ?> )</td>
+											<?php endfor; ?>
+											<td class="text-center">Результат:</td>
+										</tr>
+										</thead>
+										<tbody>
+										<?php for($j = 0; $j < count($participants_1); $j++) :
+												$sum[$j] 		= 0;
+												$additional1[$j] = 0;
+											?>
+											<tr>
+												<td><?=$participants_1[$j]['name']; ?></td>
+												<?php for($k = 0; $k < count($judges); $k++): ?>
+													<td class="text-center">
+														<?php
+															$score = Model_Score::getTotalScore($id_event, $judges[$k]['id'], $participants_1[$j]['id']);
+															$additional1[$j] = Model_Score::getAdditionalScores($id_event, '0', $participants_1[$j]['id']) ?: 0;
+															$sum[$j] 	+= $score;
+															echo $score ;
+														?>
+													</td>
+												<?php endfor; ?>
+													<td class="text-center"><?=$sum[$j]. ' (+'. $additional1[$j] .') = '  . ($sum[$j] + $additional1[$j]);?></td>
+											</tr>
+										<? endfor; ?>
+										</tbody>
+									</table>
 								</div>
 							</div>
 						</div>
@@ -275,3 +307,23 @@
 		</div>
 	</div>
 </section>
+<!-- Modal-->
+<div tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade" id="CriteriaScore">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<button type="button" data-dismiss="modal" aria-label="Close" class="close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+				<h4 id="myModalLabel" class="modal-title">Оценки по критериям</h4>
+			</div>
+			<div id="criteriasWithScores" class="modal-body">
+
+			</div>
+			<div class="modal-footer">
+				<button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+				<button type="button" class="btn btn-primary">Save changes</button>
+			</div>
+		</div>
+	</div>
+</div>

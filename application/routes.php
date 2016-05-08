@@ -5,6 +5,12 @@
  * AJAX Routes
  */
 
+Route::set('GetCriterias', 'getCriteasWithScores')
+    ->defaults(array(
+        'controller' => 'Judges_Ajax',
+        'action'     => 'getCriteriaScore',
+    ));
+
 Route::set('ExtraScores', 'addExtraScore')
     ->defaults(array(
         'controller' => 'Judges_Settings_Modify',

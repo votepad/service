@@ -13,7 +13,7 @@
 	<div class="col-xs-10 col-xs-offset-1">
 		<div class="panel panel-default">
 			<div class="panel-body">
-				<form id="rating-area-2" action="#">
+				<form id="rating-area" action="#">
 					<div>
 						<input type="hidden" name="id_event" value="<?=$event['id']; ?>">
 						<input type="hidden" name="id_judge" value="<?=Session::instance()->get('id_judge'); ?>">
@@ -54,8 +54,8 @@
 												<div class="buttons" data-toggle="buttons">
 													<input type="hidden" name="buttons" value="<?=$j; ?>">
 													<?php for($l = 1; $l <= $criterias[$k]['maxscore']; $l++): ?>
-														<button class="mb-sm btn btn-s btn-primary">
-															<input type="radio" name="score-<?=$i.'-'.$j.'-'.$k; ?>" autocomplete="off" value="<?=$l; ?>"> <?=$l; ?>
+														<button class="mb-sm btn btn-s btn-primary mark">
+															<input type="radio" id="score-<?=$i . '-'. $j. '-'. $k; ?>" name="score-<?=$stages[$i]['id'].'-'.$participants[$i][$j]['id'].'-'.$criterias[$k]['id']; ?>" autocomplete="off" value="<?=$l; ?>"> <?=$l; ?>
 														</button>
 													<?php endfor; ?>
 												</div>

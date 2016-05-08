@@ -69,10 +69,12 @@ hr {
     padding: 10px 20px;
 }
 
-.nav-tabs > li.active > a, .nav-tabs > li.active > a:focus, .nav-tabs > li.active > a:hover {
-    color: inherit;
-    border-bottom-color: #fff;
+.nav-tabs > li.ui-tabs-active > a, .nav-tabs > li.ui-tabs-active > a:focus, .nav-tabs > li.ui-tabs-active > a:hover {
+    background: #fff;
+    font-weight: 700;
+    color: #515253;
 }
+
 
 .tab-content {
     padding: 10px 20px;

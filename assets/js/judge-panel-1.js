@@ -51,7 +51,7 @@ $(function ()
         return result;
     }
 
-    var form = $("#rating-area-2");
+    var form = $("#rating-area");
     form.children("div").steps({
         headerTag: "h3",
         bodyTag: "div",
@@ -65,10 +65,51 @@ $(function ()
         },
         onInit: function(event, currentIndex) {
 
+            /**
+             * Event And Judge ID
+             */
+            var id_event = $("input[name='id_event']").val();
+            var id_judge = $("input[name='id_judge']").val();
+
+            /**
+             * Setting Marks.
+             */
+
+            $('.mark').on('click', function() {
+                var input = $(this).children('input');
+
+                var score = input.val();
+                var mark = input.attr('name');
+
+                marks = mark.split('-');
+
+                var id_stage = marks[1];
+                var id_participant = marks[2];
+                var id_criteria = marks[3];
+
+                $.ajax({
+                    url: url + '/setScore/',
+                    type: "POST",
+                    data: {
+                        id_participant: id_participant,
+                        id_stage: id_stage,
+                        id_criteria: id_criteria,
+                        id_event: id_event,
+                        id_judge: id_judge,
+                        score: score,
+                    },
+                    success: function (data, config) {
+                    },
+                    error: function (data, config) {
+
+                    }
+                });
+            });
+
             var blocked;
             var id_stage = $('#stage-' + currentIndex).find('input[type=hidden]').attr('id');
             id_stage = parseInt(id_stage);
-            
+
             blocked = stageStatus(id_stage);
             
             if ( blocked == 1 )
@@ -145,7 +186,11 @@ $(function ()
                 score = 0;
                 for (var j = 0; j < crit; j++) {
                     $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-danger').addClass('btn-default');
+<<<<<<< HEAD
                     var radio = $('input[type=radio][name="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
+=======
+                    var radio = $('input[type=radio][id="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
+>>>>>>> today
                     if (radio == 0 || radio == null) {
                         k=1;
                         $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
@@ -155,6 +200,7 @@ $(function ()
                 }
                 if ( k == 0 ){
                     var id_participant = kh[i];
+<<<<<<< HEAD
                     
                     $.ajax({
                         url: url+'/setScore/',
@@ -173,6 +219,8 @@ $(function ()
                            console.log(data);
                         }
                     });
+=======
+>>>>>>> today
                 }
             }
             if ( k == 0){
@@ -191,9 +239,15 @@ $(function ()
 
                     $('#stage-'+newIndex).find('li').each( function() {
                         var desc = $(this).attr('id').substr($(this).attr('id').lastIndexOf(newIndex+'-')+2,$(this).attr('id').length);
+<<<<<<< HEAD
                         alert(desc);
                         desc = 'partisipant-'+newIndex+'-'+desc;
                         alert(desc);
+=======
+                        //alert(desc);
+                        desc = 'partisipant-'+newIndex+'-'+desc;
+                        //alert(desc);
+>>>>>>> today
                         var parts = $(this).children('div').attr('id');
                         
                         id_participant = parts;
@@ -248,7 +302,11 @@ $(function ()
                 score = 0;
                 for (var j = 0; j < crit; j++) {
                     $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-danger').addClass('btn-default');
+<<<<<<< HEAD
                     var radio = $('input[type=radio][name="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
+=======
+                    var radio = $('input[type=radio][id="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
+>>>>>>> today
                     if (radio == 0 || radio == null) {
                         k=1;
                         $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
@@ -258,6 +316,7 @@ $(function ()
                 }
                 if ( k == 0 ){
                     var id_participant = kh[i];
+<<<<<<< HEAD
                     $.ajax({
                         url: url+'/setScore/',
                         type: "POST",
@@ -275,6 +334,8 @@ $(function ()
                            console.log(data);
                         }
                     });
+=======
+>>>>>>> today
                 }
             }
             if ( k == 0 ){ 
@@ -345,7 +406,7 @@ $(function ()
 
 
     /* SETTING PANEL   */
-    var form1 = $("#setting-rating-area-2");
+    var form1 = $("#setting-rating-area");
     form1.children("div").steps({
         headerTag: "h3",
         bodyTag: "div",
@@ -438,11 +499,19 @@ $(function ()
         },
     });
 
+<<<<<<< HEAD
     $('.nav-s').sortable();
     $('.portlets-wrapper ul li:first-child').addClass('active');
     $('.tab-content div:first-child').addClass('active');
 
     $('.colorpicker-component').colorpicker();
+=======
+    //$('.nav-s').sortable();
+    $('.portlets-wrapper ul li:first-child').addClass('active');
+    $('.tab-content div:first-child').addClass('active');
+
+    //$('.colorpicker-component').colorpicker();
+>>>>>>> today
     
     $("#panel-view").click(function(){
         $("#partposition").removeClass("in");

@@ -35,18 +35,26 @@ class Model_Score extends Model {
                 ->execute();
         }
     }
+    public static function getScores($id_judge, $id_stage, $id_participant) {
+        $select = DB::select()->from('Scores')->where('id_judge', '=', $id_judge )
+                                ->and_where('id_stage', '=' , $id_stage )
+                                ->and_where('id_participant', '=' , $id_participant )
+                                ->execute()
+                                ->as_array();
 
-    public static function getScore($id_event, $id_stage, $id_judge, $id_criteria, $id_participant) {
-        $select = DB::select()->from('Scores')->where('id_event', '=', $id_event)
+        return $select;
+    }
+
+    public static function getScore($id_event, $id_stage, $id_judge, $id_participant) {
+        $select = DB::select(array(DB::expr('SUM(`score`)'), 'total'))->from('Scores')->where('id_event', '=', $id_event)
                 ->and_where('id_stage', '=', $id_stage)
                 ->and_where('id_judge', '=', $id_judge)
                 ->and_where('id_participant', '=', $id_participant)
-                ->and_where('id_criteria', '=', $id_criteria)
                 ->limit(1)
                 ->execute()
                 ->as_array();
 
-        return Arr::get($select, '0')['score'] ?: 0;
+        return Arr::get($select, '0')['total'] ?: 0;
     }
 
     public static function getTotalScore($id_event, $id_judge, $id_participant) {
@@ -81,6 +89,16 @@ class Model_Score extends Model {
                 ->as_array();
         }
         return Arr::get($select, '0')['total'] ?: 0;
+    }
+
+
+    public static function getCriteriasWithScores($id_judge, $id_stage, $id_participant) {
+        $select = DB::select()->from('Scores')->where('id_stage', '=', $id_stage)
+                                ->and_where('id_participant', '=', $id_participant )
+                                ->and_where('id_judge' , '=' , $id_judge )
+                                ->execute()
+                                ->as_array();
+        return $select;
     }
 
 }

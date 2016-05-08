@@ -75,6 +75,12 @@ class Dispatch extends Controller_Template
         $this->user = Model_User::Instance();
         View::set_global('user', $this->user);
 
+<<<<<<< HEAD
         View::set_global('assets', 'http://pronwe/assets/');
+=======
+        $address = 'http://' . $_SERVER['SERVER_NAME'] ;
+
+        View::set_global('assets', $address . '/assets/');
+>>>>>>> today
     }
 }

@@ -87,6 +87,7 @@ $(document).ready(function(){
     });
   });
   
+<<<<<<< HEAD
   $('.nav-tabs').tabs({
     spinner: 'Loading...',
     cache: true,
@@ -95,4 +96,71 @@ $(document).ready(function(){
   
 
 
+=======
+  $('.scoreinfo').on('click', function(){
+        var s = $(this).attr("value");
+        var stage, criterion, judge, participant;
+
+        stage = s.substr(0,s.indexOf('-'));
+        s = s.substr(stage.length+1,s.length);
+
+        //criterion = s.substr(0,s.indexOf('-'));
+        //s = s.substr(criterion.length+1,s.length);
+
+        judge = s.substr(0,s.indexOf('-'));
+        s = s.substr(judge.length+1,s.length);
+
+        participant = s;
+
+        $.ajax({
+            url: url+'/getCriteasWithScores/',
+            type: "POST",
+            data: {
+                id_stage: stage,
+                id_judge: judge,
+                id_participant: participant,
+            },
+            success: function(data, config) {
+                var result = JSON.parse(data);
+
+                document.getElementById('criteriasWithScores').innerHTML = '';
+
+                var div = document.createElement('div');
+
+                var ul = document.createElement('ul');
+                ul.setAttribute('class', 'ScoresList');
+
+                var node;
+
+                for(var i = 0; i < result.length; i++)
+                {
+                    var li = document.createElement('li');
+                    div.setAttribute('class', 'list');
+
+                    var p = document.createElement('p');
+                    p.appendChild( document.createTextNode('Критерий: ' + result[i].name + '; ') );
+                    p.appendChild( document.createTextNode('Оценка: ' + result[i].score) );
+
+                    li.appendChild(p);
+                    ul.appendChild(li);
+                }
+
+                document.getElementById('criteriasWithScores').appendChild(ul);
+
+                $('#CriteriaScore').modal();
+            },
+        })
+    
+  });
+
+  /* CACHE TABS */
+    $("#tabs").tabs({
+        active   : $.cookie('activetab'),
+        activate : function( event, ui ){
+            $.cookie( 'activetab', ui.newTab.index(),{
+                expires : 10
+            });
+        }
+    });
+>>>>>>> today
 });
