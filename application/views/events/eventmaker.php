@@ -182,42 +182,6 @@
 							</a>
 						</div>
 						<div class="panel-wrapper collapse in">
-<<<<<<< HEAD
-							<div class="panel-body">
-								<div class="tabpanel">
-									<ul class="nav nav-tabs">
-										<?php for($i = 0; $i < count($stages); $i++): ?>
-										<li role="presentation" <?=($i == 0)? "class='active'": '' ; ?> style="width: <?=100/( count($stages) + 1); ?>%"><a href="#stage-<?=($i + 1); ?>" aria-controls="stage-<?=($i + 1); ?>" role="tab" data-toggle="tab"><?=$stages[$i]['name']; ?></a></li>
-										<?php endfor; ?>
-										<li role="presentation" style="width: <?=100/( count($stages) + 1); ?>%"><a href="#total" aria-controls="total" role="tab" data-toggle="tab">Общий рейтинг</a></li>
-									</ul>
-									<div class="tab-content">
-										<?php for($i = 0; $i < count($stages); $i++):
-											?>
-										<div id="stage-<?=($i + 1); ?>" role="tabpanel" <?=($i == 0)? "class='tab-pane active'": "class='tab-pane'" ; ?>>
-											<table class="table table-hover" id="for-stage-<?=($i + 1); ?>">
-												<thead>
-													<tr>
-														<th></th>
-														<?php for($j = 0; $j < count($judges); $j++): ?>
-															<th class="text-center"><?=$judges[$j]['name']; ?></th>
-														<?php endfor; ?>
-														<th class="text-center" style="color: blue;">Сумма:</th>
-													</tr>
-												</thead>
-												<tbody>
-												<?php for($j = 0; $j < count($participants_1); $j++) :
-														$amount[$j] = 0;
-													?>
-													<tr>
-															<td><?=$participants_1[$j]['name']; ?></td>
-														<?php for($k = 0; $k < count($judges); $k++): ?>
-															<td class="text-center">
-																<?php
-																	/*$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants_1[$j]['id']);
-																	$additional = Model_Score::getAdditionalScores($id_event, $stages[$i]['id'], $participants_1[$j]['id']);
-																 	$amount[$j] += $score;
-																    echo $score ?: 0;
 							<div class="panel-body" id="tabs">
 								<ul class="nav nav-tabs">
 									<?php for($i = 0; $i < count($stages); $i++): ?>
@@ -253,7 +217,6 @@
 															echo $score ?: 0;
 
 															$count = ($additional == 0 && Model_Stages::isBlockedParticipantsExist($stages[$i]['id']) ) ? count($judges) : 1;
-
 														?>
 													</td>
 												<?php endfor; ?>

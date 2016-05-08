@@ -86,17 +86,7 @@ $(document).ready(function(){
         swal( "Успешно!", "Проверьте файл в папке 'Закгрузки'", "success" );
     });
   });
-  
-<<<<<<< HEAD
-  $('.nav-tabs').tabs({
-    spinner: 'Loading...',
-    cache: true,
-    ajaxOptions: {cache: true}
-  });
-  
 
-
-=======
   $('.scoreinfo').on('click', function(){
         var s = $(this).attr("value");
         var stage, criterion, judge, participant;
@@ -162,5 +152,4 @@ $(document).ready(function(){
             });
         }
     });
->>>>>>> today
 });

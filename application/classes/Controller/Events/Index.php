@@ -189,12 +189,8 @@ class Controller_Events_Index extends Dispatch {
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
 
-<<<<<<< HEAD
-        array_push( $this->js,  'vendor/jquery-ui/ui/jquery-ui.js');
-=======
         array_push( $this->js,  'vendor/jquery-ui/jquery-ui.js');
         array_push( $this->js,  'vendor/jquery.cookie/jquery.cookie.js');
->>>>>>> today
         array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
         array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');

@@ -186,11 +186,7 @@ $(function ()
                 score = 0;
                 for (var j = 0; j < crit; j++) {
                     $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-danger').addClass('btn-default');
-<<<<<<< HEAD
-                    var radio = $('input[type=radio][name="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
-=======
                     var radio = $('input[type=radio][id="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
->>>>>>> today
                     if (radio == 0 || radio == null) {
                         k=1;
                         $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
@@ -200,27 +196,6 @@ $(function ()
                 }
                 if ( k == 0 ){
                     var id_participant = kh[i];
-<<<<<<< HEAD
-                    
-                    $.ajax({
-                        url: url+'/setScore/',
-                        type: "POST",
-                        data: {
-                            id_participant: id_participant,
-                            id_stage: id_stage,
-                            id_event: id_event,
-                            id_judge: id_judge,
-                            score: score,
-                        },
-                        success: function(data, config) {
-                           console.log(data);
-                        },
-                        error: function(data, config) {
-                           console.log(data);
-                        }
-                    });
-=======
->>>>>>> today
                 }
             }
             if ( k == 0){
@@ -239,15 +214,9 @@ $(function ()
 
                     $('#stage-'+newIndex).find('li').each( function() {
                         var desc = $(this).attr('id').substr($(this).attr('id').lastIndexOf(newIndex+'-')+2,$(this).attr('id').length);
-<<<<<<< HEAD
-                        alert(desc);
-                        desc = 'partisipant-'+newIndex+'-'+desc;
-                        alert(desc);
-=======
                         //alert(desc);
                         desc = 'partisipant-'+newIndex+'-'+desc;
                         //alert(desc);
->>>>>>> today
                         var parts = $(this).children('div').attr('id');
                         
                         id_participant = parts;
@@ -302,11 +271,7 @@ $(function ()
                 score = 0;
                 for (var j = 0; j < crit; j++) {
                     $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-danger').addClass('btn-default');
-<<<<<<< HEAD
-                    var radio = $('input[type=radio][name="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
-=======
                     var radio = $('input[type=radio][id="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
->>>>>>> today
                     if (radio == 0 || radio == null) {
                         k=1;
                         $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
@@ -316,26 +281,6 @@ $(function ()
                 }
                 if ( k == 0 ){
                     var id_participant = kh[i];
-<<<<<<< HEAD
-                    $.ajax({
-                        url: url+'/setScore/',
-                        type: "POST",
-                        data: {
-                            id_participant: id_participant,
-                            id_stage: id_stage,
-                            id_event: id_event,
-                            id_judge: id_judge,
-                            score: score,
-                        },
-                        success: function(data, config) {
-                           console.log(data);
-                        },
-                        error: function(data, config) {
-                           console.log(data);
-                        }
-                    });
-=======
->>>>>>> today
                 }
             }
             if ( k == 0 ){ 
@@ -499,19 +444,11 @@ $(function ()
         },
     });
 
-<<<<<<< HEAD
-    $('.nav-s').sortable();
-    $('.portlets-wrapper ul li:first-child').addClass('active');
-    $('.tab-content div:first-child').addClass('active');
-
-    $('.colorpicker-component').colorpicker();
-=======
     //$('.nav-s').sortable();
     $('.portlets-wrapper ul li:first-child').addClass('active');
     $('.tab-content div:first-child').addClass('active');
 
     //$('.colorpicker-component').colorpicker();
->>>>>>> today
     
     $("#panel-view").click(function(){
         $("#partposition").removeClass("in");
