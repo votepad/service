@@ -87,12 +87,23 @@ $(document).ready(function(){
     });
   });
   
-  $('.nav-tabs').tabs({
-    spinner: 'Loading...',
-    cache: true,
-    ajaxOptions: {cache: true}
+  $('.scoreinfo').on('click', function(){
+    var s = $(this).attr("value");
+    var stage, criterion, judge, participant;
+
+    stage = s.substr(0,s.indexOf('-'));
+    s = s.substr(stage.length+1,s.length);
+    
+    //criterion = s.substr(0,s.indexOf('-'));
+    //s = s.substr(criterion.length+1,s.length);
+
+    judge = s.substr(0,s.indexOf('-'));
+    s = s.substr(judge.length+1,s.length);
+    
+
+    participant = s;
+    
   });
-  
 
 
 });

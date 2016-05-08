@@ -464,7 +464,8 @@ $(document).ready (function() {
 			}
 		});
 	});
+
+    /* CACHE TABS */
+    
+
 });
-
-
-

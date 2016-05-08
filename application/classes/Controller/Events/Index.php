@@ -28,6 +28,7 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
         array_push( $this->js,  'vendor/moment/min/moment.js');
         array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
+        array_push( $this->js,  'vendor/jquery-ui/ui/jquery-ui.js');
         array_push( $this->js,  'js/pjsc.js');
         array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
         array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
