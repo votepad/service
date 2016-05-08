@@ -123,7 +123,7 @@
 					</div>
 
 					<div id="addscore-participant" class="panel panel-primary">
-						<div class="panel-heading portlet-handler">Поставить дополнитеьный балл
+						<div class="panel-heading portlet-handler">Поставить дополнительный балл
 							<a href="#" data-tool="panel-collapse" class="pull-right">
 								<em class="fa fa-minus"></em>
 							</a>
@@ -209,14 +209,15 @@
 											<tr>
 													<td><?=$participants_1[$j]['name']; ?></td>
 												<?php for($k = 0; $k < count($judges); $k++): ?>
-													<td class="text-center scoreinfo" title="Подробно" value="<?=$stages[$i]['id'].'-'. $judges[$k]['id'].'-'. $participants_1[$j]['id']; ?>">
+													<td class="text-center">
+														<a tabindex="-2" class="scoreinfo" title="Подробно" value="<?=$stages[$i]['id'].'-'. $judges[$k]['id'].'-'. $participants_1[$j]['id']; ?>" data-toggle="tooltip" data-placement="right" title="Подробно">
 														<?php
 															$score = Model_Score::getScore($id_event, $stages[$i]['id'], $judges[$k]['id'], $participants_1[$j]['id']);
 															$additional = Model_Score::getAdditionalScores($id_event, $stages[$i]['id'], $participants_1[$j]['id']);
 															$amount[$j] += $score;
 															echo $score ?: 0;
 															$count = ($additional == 0 && Model_Stages::isBlockedParticipantsExist($stages[$i]['id']) ) ? count($judges) : 1;
-														?>
+														?></a>
 													</td>
 												<?php endfor; ?>
 												<td class="text-center"><?=$amount[$j] / (count($judges) ? $count : 1); ?><?=( isset($additional) && $additional != 0) ? '(+'. $additional .')': '' ; ?></td>
