@@ -196,6 +196,24 @@ $(function ()
                 }
                 if ( k == 0 ){
                     var id_participant = kh[i];
+                    
+                    $.ajax({
+                        url: url+'/setScore/',
+                        type: "POST",
+                        data: {
+                            id_participant: id_participant,
+                            id_stage: id_stage,
+                            id_event: id_event,
+                            id_judge: id_judge,
+                            score: score,
+                        },
+                        success: function(data, config) {
+                           console.log(data);
+                        },
+                        error: function(data, config) {
+                           console.log(data);
+                        }
+                    });
                 }
             }
             if ( k == 0){
@@ -281,6 +299,23 @@ $(function ()
                 }
                 if ( k == 0 ){
                     var id_participant = kh[i];
+                    $.ajax({
+                        url: url+'/setScore/',
+                        type: "POST",
+                        data: {
+                            id_participant: id_participant,
+                            id_stage: id_stage,
+                            id_event: id_event,
+                            id_judge: id_judge,
+                            score: score,
+                        },
+                        success: function(data, config) {
+                           console.log(data);
+                        },
+                        error: function(data, config) {
+                           console.log(data);
+                        }
+                    });
                 }
             }
             if ( k == 0 ){ 
@@ -444,7 +479,7 @@ $(function ()
         },
     });
 
-    //$('.nav-s').sortable();
+    $('.nav-s').sortable();
     $('.portlets-wrapper ul li:first-child').addClass('active');
     $('.tab-content div:first-child').addClass('active');
 

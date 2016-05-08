@@ -14,7 +14,7 @@ class Controller_Judges_Settings_Index extends Dispatch {
         $this->template->title          = 'Настройка порядка выступления участников';
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'Настройка порядка выступления участников';
-
+        
         array_push( $this->js,  'vendor/jquery-ui/jquery-ui.js');
         array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');

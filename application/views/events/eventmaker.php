@@ -205,7 +205,7 @@
 										<tbody>
 										<?php for($j = 0; $j < count($participants_1); $j++) :
 												$amount[$j] = 0;
-										?>
+											?>
 											<tr>
 													<td><?=$participants_1[$j]['name']; ?></td>
 												<?php for($k = 0; $k < count($judges); $k++): ?>
@@ -215,7 +215,6 @@
 															$additional = Model_Score::getAdditionalScores($id_event, $stages[$i]['id'], $participants_1[$j]['id']);
 															$amount[$j] += $score;
 															echo $score ?: 0;
-
 															$count = ($additional == 0 && Model_Stages::isBlockedParticipantsExist($stages[$i]['id']) ) ? count($judges) : 1;
 														?>
 													</td>
@@ -290,3 +289,23 @@
 		</div>
 	</div>
 </div>
+	<!-- Modal-->
+   <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
+      <div class="modal-dialog">
+         <div class="modal-content">
+            <div class="modal-header">
+               <button type="button" data-dismiss="modal" aria-label="Close" class="close">
+                  <span aria-hidden="true">&times;</span>
+               </button>
+               <h4 id="myModalLabel" class="modal-title">Modal title</h4>
+            </div>
+            <div class="modal-body">...</div>
+            <div class="modal-footer">
+               <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
+               <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+         </div>
+      </div>
+   </div>
+
+</section>
