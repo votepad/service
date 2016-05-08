@@ -275,37 +275,25 @@
 		<div class="modal-content">
 			<div class="modal-header">
 				<button type="button" data-dismiss="modal" aria-label="Close" class="close">
-					<span aria-hidden="true">&times;</span>
+					<span aria-hidden="true">х</span>
 				</button>
 				<h4 id="myModalLabel" class="modal-title">Оценки по критериям</h4>
 			</div>
-			<div id="criteriasWithScores" class="modal-body">
-
-			</div>
-			<div class="modal-footer">
-				<button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-				<button type="button" class="btn btn-primary">Save changes</button>
+			<div class="modal-body">
+				<table class="table table-striped table-bordered table-hover">
+					<thead>
+						<tr>
+							<td class="text-center">Критерий</td>
+							<td class="text-center">Балл</td>
+						</tr>
+					</thead>
+					<tbody id="criteriasWithScores">
+						
+					</tbody>
+				</table>
 			</div>
 		</div>
 	</div>
 </div>
-	<!-- Modal-->
-   <div tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" class="modal fade">
-      <div class="modal-dialog">
-         <div class="modal-content">
-            <div class="modal-header">
-               <button type="button" data-dismiss="modal" aria-label="Close" class="close">
-                  <span aria-hidden="true">&times;</span>
-               </button>
-               <h4 id="myModalLabel" class="modal-title">Modal title</h4>
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-               <button type="button" data-dismiss="modal" class="btn btn-default">Close</button>
-               <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
-         </div>
-      </div>
-   </div>
 
 </section>

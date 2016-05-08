@@ -115,29 +115,23 @@ $(document).ready(function(){
 
                 document.getElementById('criteriasWithScores').innerHTML = '';
 
-                var div = document.createElement('div');
-
-                var ul = document.createElement('ul');
-                ul.setAttribute('class', 'ScoresList');
-
-                var node;
-
                 for(var i = 0; i < result.length; i++)
                 {
-                    var li = document.createElement('li');
-                    div.setAttribute('class', 'list');
+                    var tr  = document.createElement('tr');
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    td2.setAttribute('class', 'text-center');
 
-                    var p = document.createElement('p');
-                    p.appendChild( document.createTextNode('Критерий: ' + result[i].name + '; ') );
-                    p.appendChild( document.createTextNode('Оценка: ' + result[i].score) );
+                    td1.appendChild( document.createTextNode(result[i].name) );
+                    td2.appendChild( document.createTextNode(result[i].score) );
 
-                    li.appendChild(p);
-                    ul.appendChild(li);
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    document.getElementById('criteriasWithScores').appendChild(tr);
                 }
 
-                document.getElementById('criteriasWithScores').appendChild(ul);
-
                 $('#CriteriaScore').modal();
+                $("body").removeClass('modal-open');
             },
         })
     

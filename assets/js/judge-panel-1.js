@@ -329,7 +329,7 @@ $(function ()
         {
             swal({
                 title: "Голосование закончилось",
-                text: "<p>Спасибо, что воспользовались нашей платформой</p><br><a href='"+url+"auth/logout' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
+                text: "<p>Спасибо, что воспользовались нашей платформой</p><br><a href='"+url+"/auth/logout' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
                 html: true,
                 showCancelButton: false,
                 showConfirmButton: false,
