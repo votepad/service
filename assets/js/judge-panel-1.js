@@ -127,8 +127,7 @@ $(function ()
             var id_event = $("input[name='id_event']").val();
             var id_judge = $("input[name='id_judge']").val();
             var counter = 0;
-            var k = 0;
-            var check_pos = 0;
+            var k = 0;        
             var blocked;
             var score;
             var part = $('#stage-'+currentIndex+' ul li').length;
@@ -149,7 +148,6 @@ $(function ()
                     var radio = $('input[type=radio][name="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
                     if (radio == 0 || radio == null) {
                         k=1;
-                        check_pos = 1;
                         $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
                         break;
                     }
@@ -177,7 +175,7 @@ $(function ()
                     });
                 }
             }
-            if ( check_pos == 0){
+            if ( k == 0){
                 if( blocked == 0 ){
                     kh = [];
                     pos = [];
@@ -224,8 +222,6 @@ $(function ()
                     });
                     check(id_nextStage, newIndex);
                 }
-            }
-            if ( k == 0 ){ 
                 return true; 
             } else
             {
@@ -255,7 +251,6 @@ $(function ()
                     var radio = $('input[type=radio][name="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
                     if (radio == 0 || radio == null) {
                         k=1;
-                        check_pos = 1;
                         $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
                         break;
                     }
@@ -363,6 +358,44 @@ $(function ()
             previous:"Предыдущий этап",
             finish:"Сохранить порядок выступления",
         },
+        onStepChanging: function (event, currentIndex, newIndex)
+        {
+            var el;
+            var eventId = $("input[id='id_event']").val();
+            var position = 0;
+            $("li[id~='part']").each(function () {
+                el = $(this);
+
+                var mainParent = el.parent().parent().parent("div[id~='stage']").attr('id');
+                var list = mainParent.split(' ');
+                var stage = list[1];
+                var realId = list[2];
+
+                if (stage == currentIndex)
+                {
+                    position++;
+                    var caughtParticipantsFromStage = el.attr('id').split(' ');
+                    var participantId = caughtParticipantsFromStage[1];
+                    
+                    $.ajax({
+                        url: url + '/updateEventsSubstance/participantposition/',
+                        type: "POST",
+                        data: {
+                            id_event: eventId,
+                            participant: participantId,
+                            stage: realId,
+                            position: position,
+                        },
+                        success: function(data, config) {
+                        },
+                        error: function(data, config) {
+                        }
+                    });
+                }
+            });
+
+            return true;
+        },
         onFinished: function (event, currentIndex)
         {
             var el;
@@ -403,44 +436,6 @@ $(function ()
 
             swal("Порядок выступлений сохранен!","","success");
         },
-        onStepChanging: function (event, currentIndex, newIndex)
-        {
-            var el;
-            var eventId = $("input[id='id_event']").val();
-            var position = 0;
-            $("li[id~='part']").each(function () {
-                el = $(this);
-
-                var mainParent = el.parent().parent().parent("div[id~='stage']").attr('id');
-                var list = mainParent.split(' ');
-                var stage = list[1];
-                var realId = list[2];
-
-                if (stage == currentIndex)
-                {
-                    position++;
-                    var caughtParticipantsFromStage = el.attr('id').split(' ');
-                    var participantId = caughtParticipantsFromStage[1];
-                    
-                    $.ajax({
-                        url: url + '/updateEventsSubstance/participantposition/',
-                        type: "POST",
-                        data: {
-                            id_event: eventId,
-                            participant: participantId,
-                            stage: realId,
-                            position: position,
-                        },
-                        success: function(data, config) {
-                        },
-                        error: function(data, config) {
-                        }
-                    });
-                }
-            });
-
-            return true;
-        },
     });
 
     $('.nav-s').sortable();
@@ -459,5 +454,4 @@ $(function ()
         $("#panel-view-save").prop("disabled",true);
     });
 
-    
 });

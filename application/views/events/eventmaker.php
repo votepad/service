@@ -184,7 +184,7 @@
 						<div class="panel-wrapper collapse in">
 							<div class="panel-body">
 								<div class="tabpanel">
-									<ul role="tablist" class="nav nav-tabs">
+									<ul class="nav nav-tabs">
 										<?php for($i = 0; $i < count($stages); $i++): ?>
 										<li role="presentation" <?=($i == 0)? "class='active'": '' ; ?> style="width: <?=100/( count($stages) + 1); ?>%"><a href="#stage-<?=($i + 1); ?>" aria-controls="stage-<?=($i + 1); ?>" role="tab" data-toggle="tab"><?=$stages[$i]['name']; ?></a></li>
 										<?php endfor; ?>

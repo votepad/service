@@ -268,7 +268,7 @@ a:hover.tooltips span {
 .p2_title{
 	position:absolute;
 	top:8em;
-	right: 15em;
+	right: 5em;
 }
 .side-container{
   position:absolute;
@@ -433,8 +433,10 @@ a:hover.tooltips span {
   }
   .mobile_logo{
 	  display:block;
-	  margin-top:-5em;
-	  margin-bottom:2em;
+    width: 50%;
+  }
+  .p1_down{
+    display: none;
   }
   .p1_logo{
 	  display:none;
@@ -469,7 +471,11 @@ a:hover.tooltips span {
       font-size: 1.8em;
   }
 }
-
+@media screen and (max-width: 500px) {
+  .mobile_logo{
+    width: 100%;
+  }
+}
 
 
 
@@ -570,3 +576,11 @@ button.alert-close {
         background-color: #4b91ea;
         border-color: #3483e7;
     }
+
+.img-responsive{
+	width: 50px; 
+	vertical-align: middle;
+}
+.link-pos{
+	vertical-align: middle;
+}

@@ -87,4 +87,12 @@ $(document).ready(function(){
     });
   });
   
+  $('.nav-tabs').tabs({
+    spinner: 'Loading...',
+    cache: true,
+    ajaxOptions: {cache: true}
+  });
+  
+
+
 });

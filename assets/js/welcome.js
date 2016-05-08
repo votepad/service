@@ -37,7 +37,7 @@ $(document).ready(function() {
       allow = true;
     });
     allow = false;
-    if (slideCounter == 5)
+    if (slideCounter == 3)
       slideCounter = 0;
   }
   
@@ -61,12 +61,22 @@ $(document).ready(function() {
 
   $('.fa-envelope-o').on('click',function(){
     $(".alert").removeClass("bounceOut").addClass("bounceIn").css("display","block");
-    $('.p4').css('background-color', 'rgba(0,0,0,.4)','opacity', '1.07');
-    $('.getready').css('-webkit-user-select','none','-moz-user-select','none','-ms-user-select', 'none');
+    $('.p4').css('background-color', 'rgba(0,0,0,0.4)','opacity', '1.07');
+    $('.getready').css('display','none');
   });
   $('.alert-close').on('click',function(){
     $(".alert").removeClass("bounceIn").addClass("bounceOut");
     $('.p4').css('background-color', '#fff','opacity', '1');
-    $('.getready').css('-webkit-user-select','auto','-moz-user-select','auto','-ms-user-select', 'auto');
+    $('.getready').css('display','block');
   });
+
+  var url = location.protocol + '//' +location.hostname;
+
+  $('.ev').on('click', function(){
+    swal({   
+      title: "Мероприятия",   
+      text: "<div><img class='img-responsive' src='" + url + "/assets/img/temp/misteritmo15.png'> <a class='pronwe_Link-small pronwe_color link-pos' style='font-size: 1.5em' href='//misteritmo.pronwe.ru'>Мистер ИТМО 2016</a></div><div style='margin-top:10px'><img class='img-responsive' src='" + url + "/assets/img/temp/missitmo16.png'> <a class='pronwe_Link-small pronwe_color link-pos' style='font-size: 1.5em' href='//missitmo.pronwe.ru'>Мисс ИТМО 2016</a></div>",
+      html: true });
+  });
+
 });
