@@ -51,7 +51,7 @@
 					</div>
 					<p class="text-right" id="showReset"><span class="pronwe_Link-small color-gr">Забыли пароль?</span></p>
 
-					<button type="submit" id="sigin-button" type="submit" class="btn btn-primary col-xs-12 btn_area1">Войти</button>
+					<button type="submit" id="sigin-button"class="btn btn-primary col-xs-12 btn_area1">Войти</button>
 
 					<p class="text-center" id="showReg"><span class="pronwe_Link-small">Быстрая регистрация</span></p>
 				</form>    			
