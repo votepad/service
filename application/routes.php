@@ -56,25 +56,7 @@ Route::set('HideParticipants', 'hide')
  * Default Welcome page
  */
 
-Route::set('MissITMO', '')
-    ->defaults(array(
-       'controller' => 'Miss',
-        'action'    => 'Index',
-    ));
-
-Route::set('MissITMO1', 'ppp')
-    ->defaults(array(
-        'controller' => 'Miss',
-        'action'     => 'participants',
-    ));
-
-Route::set('MissITMO2', 'partners')
-    ->defaults(array(
-        'controller' => 'Miss',
-        'action'     => 'partners',
-    ));
-
-Route::set('Welcome_Page', 'Welcome')
+Route::set('Welcome_Page', '')
     ->filter(function(Route $route, $params, Request $request) {
     })
     ->defaults(array(
