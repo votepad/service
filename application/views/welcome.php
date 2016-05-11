@@ -14,6 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="<?=URL::base(); ?>assets/vendor/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" type="text/css" href="<?=URL::base(); ?>assets/vendor/jquery.cycle2/jquery.fullPage.css">
     <link rel="stylesheet" type="text/css" href="<?=URL::base(); ?>assets/css/welcome.css">
+    <link rel="stylesheet" type="text/css" href="<?=URL::base(); ?>assets/vendor/sweetalert/dist/sweetalert.css">
 
     <!-- Подключаем скрипты -->
 	<script src="<?=URL::base(); ?>assets/vendor/jquery/dist/jquery.js"></script>
@@ -21,9 +22,11 @@
     <script src="<?=URL::base(); ?>assets/js/welcome.js"></script>
 	<script src="<?=URL::base(); ?>assets/vendor/jquery.cycle2/jquery.cycle2.js"></script>
 	<script src="<?=URL::base(); ?>assets/vendor/bootstrap/dist/js/bootstrap.js"></script>
-	<script src='<?=URL::base(); ?>https://www.google.com/recaptcha/api.js'></script>
+	<script src="<?=URL::base(); ?>assets/vendor/sweetalert/dist/sweetalert.min.js"></script>
+
 	</head>
- 	<body>
+ <body>
+ 	<img style="position:absolute; width: 0px; margin-left: 0px" src="assets/img/ProNWE_logo.png">
 	<div class="pl">
 		<div class="round1"></div>
 		<div class="pl_r"></div>
@@ -42,14 +45,14 @@
 			<div id="login">
 				<img src="assets/img/ProNWE_logo.svg" class="mobile_logo">
 				<div class="button1"> <a href="<?=URL::site('auth'); ?>">Авторизация</a></div>
-				<div class="button1"> <a href="http://misteritmo.pronwe.ru">Мероприятия</a></div>
+				<div class="button1"> <a href="#" class="ev">Мероприятия</a></div>
 			</div>
 			<div class="p_left">
 				<div class="p1_logo">
 					<img src="assets/img/ProNWE_logo.svg" width="70%">
 				</div>
 				<div class="p1_slogan">
-					<h1>Новый формат оценивания мероприятий!</h1>
+					<h1>Новый формат оценивания участников (спикеров) на мероприятии!</h1>
 				</div>
 				<div class="p1_down">
 					<a class="tooltips" href="#About">
@@ -65,58 +68,39 @@
 				<h2>Что такое <a href="http://pronwe.ru" class="pronwe_Link-small pronwe_color">ProNWE</a>?</h2>
 			</div>
 			<ul class="side-container">
-				<li class="lightbox"><span>Информационное сопровождение мероприятия в интернет</span></li>
-				<li class="lightbox"><span>Индивидуальная страница для каждого мероприятия</span></li>
-				<li class="lightbox"><span>Автоматизация голосования для жюри</span></li>
-				<li class="lightbox"><span>Иными словами, переход на новый формат оценки мероприятий!</span></li>
+				<li class="lightbox"><span>Автоматизация голосования для жюри</span></li><br>
+				<li class="lightbox"><span>Рейтинг участников в режиме онлайн</span></li><br>
+				<li class="lightbox"><span>Оценка спикеров в режиме онлайн</span></li>
 			</ul>
 		</div>
       
 		<div class="p3 section" id="section2" data-anchor="Organizator">
 			<div class="container">
-				<div id="slide_0">
-					<div class="col-6 text-center">
-						<img class="p3_img" src="assets/img/p3_0.jpg">  
-					</div>
-					<div class="col-6 text-center">
-						<h2>Домен третьего уровня</h2>
-						<p class="p3_text">Каждое Ваше мероприятие получит страницу на домене третьего уровня в зоне pronwe.ru оформленную по Вашим нуждам в стиле мероприятия.</p>
-					</div>
-  				</div>
-				<div style="display:none;" id="slide_1">
-					<div class="col-6 text-center">
+				<div id="slide_0" class="slides">
+					<div class="col-6 text-center p3_left">
 						<img class="p3_img" src="assets/img/p3_1.png">
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-6 text-center p3_right">
 						<h2>Панель управления мероприятием</h2>
-						<p class="p3_text">Мы предоставим Вам удобную панель настройки и управления мероприятием, из которой вы сможете заполнить интересующую ваших гостей информацию, а также следить за мероприятием, за рейтингом, за выставлением баллов.</p>
+						<p class="p3_text">Удобная панель настройки и управления мероприятием, где заполняется необходимая информация для гостей и происходит контроль процесса выставления баллов.</p>
 					</div>
 				</div>
-				<div style="display:none;" id="slide_2">
-					<div class="col-6 text-center">
+				<div style="display:none;" id="slide_1" class="slides">
+					<div class="col-6 text-center p3_left">
 						<img class="p3_img" src="assets/img/p3_2.png">
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-6 text-center p3_right">
 						<h2>Онлайн статистика для Ваших гостей</h2>
-						<p class="p3_text">С нашим сервисом Вы можете сделать публичный доступ к текущиму рейтингу конкурсантов, доступный на персональной странице Вашего мероприятия.</p>
+						<p class="p3_text">Вы можете сделать публичный доступ к текущиму рейтингу конкурсантов.</p>
 					</div>
 				</div>
-				<div style="display:none;" id="slide_3">
-					<div class="col-6 text-center">
-						<img class="p3_img" src="assets/img/p3_3.png">
-					</div>
-					<div class="col-6 text-center">
-						<h2>О Вас узнают!</h2>
-						<p class="p3_text">С нами вы не пройдете мимо популярных социальных сетей. Гости Вашего мероприятия, а также другие пользователи ProNWE смогут рассказывать всем о мероприятиях, поделившись ими в социальных сетях.</p>
-					</div>
-				</div>
-				<div style="display:none;" id="slide_4">
-					<div class="col-6 text-center">
+				<div style="display:none;" id="slide_2" class="slides">
+					<div class="col-6 text-center p3_left">
 						<img class="p3_img" src="assets/img/p3_4.png">
 					</div>
-					<div class="col-6 text-center">
+					<div class="col-6 text-center p3_right">
 						<h2>Оффлайн поддержка мероприятия</h2>
-						<p class="p3_text">Если Вам не удастся обеспечить мероприятие необходимым оборудованием (например, интернет для судей и гостей, или отсутствие гаджетов для судей), вы можете получить оффлайн поддержку, наши мастера настроят Ваше, или предоставят свое оборудование.</p>
+						<p class="p3_text">Если Вам не удастся обеспечить мероприятие необходимым оборудованием (например: интернет для судей и гостей или отсутствие гаджетов для судей), Вы можете получить оффлайн поддержку, наши мастера настроят Ваше или предоставят свое оборудование.</p>
 					</div>
 				</div>
 			</div>
@@ -124,15 +108,13 @@
 				<input type="radio" name="sliderSelector" id="selector_0" checked></input>
 				<input type="radio" name="sliderSelector" id="selector_1"></input>
 				<input type="radio" name="sliderSelector" id="selector_2"></input>
-				<input type="radio" name="sliderSelector" id="selector_3"></input>
-				<input type="radio" name="sliderSelector" id="selector_4"></input>
 			</div>
 		</div>
 	
 		<div class="p4 section" id="section3" data-anchor="Feedback">
 			<div class="getready text-center">
-				<h2 class="quote">Мы уже во всю готовимся к открытию!</h2>
-				<p>Проект <a class="pronwe_Link-small pronwe_color" href="http://pronwe.ru">ProNWE</a> уже готов и находится на стадии тестирования. Уже скоро каждый организатор сможет оценить возможности данного проекта! Если у Вас появились какие-нибудь вопросы, то можете связаться с нами</p>
+				<h2 class="quote">Запуск проекта запланирован на сентябрь!</h2>
+				<p>Несмотря на то, что проект <a class="pronwe_Link-small pronwe_color" href="http://pronwe.ru">ProNWE</a> разрабатывается, уже сегодня Вы можете оценить все его преимущества! Для этого свяжитесь с нами! И мы поможем усовершенствовать голосование на Вашем мероприятии.</p>
 
 				<ul class="connection">
 					<li>
@@ -163,25 +145,31 @@
 					<h4 class="alert-title">Обратная связь</h4>
 				</div>
 				<div class="alert-body">
-					<form>
-						<div class="form-group">
-							<label class="control-label">Ваш емайл</label>
-							<input name="email" class="form-control" type="email" required="">
-						</div>
-						<div class="form-group">
-							<label class="control-label">Ваше сообщение</label>
-							<textarea name="messadge" class="form-control" name="email" required="" rows="7" style="resize: none;" required=""></textarea>
-						</div>
-						<div class="g-recaptcha" data-sitekey="6LdR4BgTAAAAAIuvZ3UsCQ_xpLkQFC79B8bVVs9C"></div>
-						<div style="text-align: right;">
-							<button class="btn-primary" type="submit">Отправить</button>
-						</div>
-					</form>
+					<div class="form-group text-center">
+						<label class="control-label">
+							<em class="fa fa-envelope-o"></em>
+							support@pronwe.ru
+						</label>
+						<br><br>
+						<label class="control-label">
+							<em class="fa fa-phone"></em>
+							+79819592650  -  Николай
+						</label>
+					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 
 </body>
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
 
+  ga('create', 'UA-77163890-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
 </html>

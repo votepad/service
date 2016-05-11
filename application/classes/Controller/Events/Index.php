@@ -28,6 +28,8 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
         array_push( $this->js,  'vendor/moment/min/moment.js');
         array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
+        array_push( $this->js,  'vendor/jquery-ui/jquery-ui.js');
+        array_push( $this->js,  'vendor/jquery.cookie/jquery.cookie.js');
         array_push( $this->js,  'js/pjsc.js');
         array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
         array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
@@ -187,10 +189,8 @@ class Controller_Events_Index extends Dispatch {
         $this->template->description    = 'Описание страницы';
         $this->template->keywords       = 'C';
 
-        array_push( $this->js,  'vendor/jquery-ui/ui/core.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/widget.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/mouse.js');
-        array_push( $this->js,  'vendor/jquery-ui/ui/sortable.js');
+        array_push( $this->js,  'vendor/jquery-ui/jquery-ui.js');
+        array_push( $this->js,  'vendor/jquery.cookie/jquery.cookie.js');
         array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
         array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
@@ -203,8 +203,6 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'js/app.js');
         
         $types = Kohana::$config->load('type');
-        $status = Kohana::$config->load('status');
-        $city = Kohana::$config->load('city');
 
         $this->template->css = $this->css;
         $this->template->js = $this->js;
@@ -214,6 +212,7 @@ class Controller_Events_Index extends Dispatch {
             ->set('id_event', $id_event)
             ->bind('judges', $judges)
             ->bind('stages', $stages)
+            ->bind('criterias', $criterias)
             ->bind('participants_1', $participants_1)
             ->bind('participants', $participants);
 
@@ -250,6 +249,8 @@ class Controller_Events_Index extends Dispatch {
         {
             $id = $stages[$i]['id'];
             $participants[] = Model_Participants::getParticipantsByPosition($event['id'], $id);
+
+            $criterias[] = Model_Stages::getCriteriasByStageId($id);
         }
     }
 }

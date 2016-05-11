@@ -55,7 +55,7 @@ class Dispatch extends Controller_Template
         }
 
         $this->setGlobals();
-
+        
         parent::before();
 
         // XSS clean in POST and GET requests
@@ -74,7 +74,9 @@ class Dispatch extends Controller_Template
     {
         $this->user = Model_User::Instance();
         View::set_global('user', $this->user);
+        
+        $address = 'http://' . $_SERVER['SERVER_NAME'] ;
 
-        View::set_global('assets', 'http://pronwe.local/assets/');
+        View::set_global('assets', $address . '/assets/');
     }
 }

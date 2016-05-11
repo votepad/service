@@ -67,6 +67,11 @@ class Model_Events extends Model {
         return $update;
     }
 
+    public static function EventsType($id_event) {
+        $select = DB::select('type')->from('Events')->where('id', '=', $id_event)->limit(1)->execute()->as_array();
+        return Arr::get($select, '0')['type'];
+    }
+
     public function getCities()
     {
         $select = DB::select()->from('Cities')->execute()->as_array();

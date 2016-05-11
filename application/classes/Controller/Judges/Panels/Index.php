@@ -15,16 +15,14 @@ class Controller_Judges_Panels_Index extends Dispatch {
         $this->template->keywords       = 'C';
 
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
-        array_push( $this->js,  'js/judge-panel-1.js');
-        array_push( $this->css, 'css/judge-panel.css');
         array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
         array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
         array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
         array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
         array_push( $this->js,  'js/app.js');
+        array_push( $this->js,  'js/judge-panel-1.js');
+        array_push( $this->css, 'css/judge-panel.css');
         
-
-
         $this->template->css    = $this->css;
         $this->template->js     = $this->js;
 
@@ -65,14 +63,13 @@ class Controller_Judges_Panels_Index extends Dispatch {
         $this->template->keywords       = 'C';
 
         array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
-        array_push( $this->js,  'js/judge-panel-2.js');
-        array_push( $this->css, 'css/judge-panel.css');
         array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
         array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
         array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
         array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
         array_push( $this->js,  'js/app.js');
-        
+        array_push( $this->js,  'js/judge-panel-2.js');
+        array_push( $this->css, 'css/judge-panel.css');
 
         $this->template->css    = $this->css;
         $this->template->js     = $this->js;
@@ -81,6 +78,7 @@ class Controller_Judges_Panels_Index extends Dispatch {
             ->bind('event', $event)
             ->bind('participants', $participants)
             ->bind('stages', $stages);
+
 
         /**
          * Getting Event INFO.
@@ -103,7 +101,5 @@ class Controller_Judges_Panels_Index extends Dispatch {
             $id = $stages[$i]['id'];
             $participants[] = Model_Participants::getParticipantsByPosition($event['id'], $id);
         }
-
-
     }
 }

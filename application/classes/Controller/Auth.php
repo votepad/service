@@ -49,7 +49,7 @@ class Controller_Auth extends Dispatch {
             if (count($asJudge) != 0)
             {
                 Session::instance()->set('id_judge', $asJudge['id']);
-                $this->redirect('event/' . $asJudge['id_event']. '/judge/panel2/');
+                $this->redirect('event/' . $asJudge['id_event']. '/judge/panel'. Model_Events::EventsType($asJudge['id_event']) );
             }
 
             $this->redirect('auth/');

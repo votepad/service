@@ -90,7 +90,7 @@
 				<div class="panel-heading panel-title" style="font-size: 1.2em"><a data-toggle="collapse" data-parent="#accordion" href="#partposition" aria-expanded="true" aria-controls="partposition" id="part-position">Настройка порядка выступления участников</a></div>
 				<div id="partposition" role="tabpanel" aria-labelledby="headingOne" class="panel-collapse collapse in">
 					<div class="panel-body">
-						<form id="setting-rating-area-2" action="#">
+						<form id="setting-rating-area" action="#">
 							<div>
 								<input type="hidden" id="id_event" value="<?=$event['id']; ?>">
 								<?php for($i = 0; $i < count($stages); $i++) : ?>

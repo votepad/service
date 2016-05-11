@@ -14,8 +14,7 @@
 							<th class="sorting" >Название мероприятия</th>
 							<th class="sorting" style="width: 15%">Дата начала</th>
 							<th class="no-sort text-center" style="width: 15%">Редактирование</th>
-							<th class="no-sort text-center" style="width: 15%">Управление</th>
-							<th class="no-sort text-center" style="width: 5%">Удаление</th>
+							<th class="no-sort text-center" style="width: 10%">Управление</th>
 						</tr>
 					</thead>
 					<tbody>
@@ -43,38 +42,22 @@
 									</a>
 								</div>
 								<div class="col-xs-4 text-center">
-									<a href="#1" data-toggle="tooltip" data-title="Настройка приветственной страницы мероприятия">
-										<em class="fa fa-users icon-edit"></em>
+									<a href="#1" data-toggle="tooltip" data-title="Настройка страницы рейтинга">
+										<em class="fa fa-bar-chart icon-edit"></em>
 									</a>
 								</div>
 							</td>
-							<td style="width: 15%">
-								<!-- логика: 
-									1)заводим в table Events столбец, хранящий информацию о заполненности мероприятия
-									2)при создании мероприятия ставим по умолчанию 25
-									3)если мы создали не менее двух участников, не менее одного жюри и не менее 1 этапа с 1 критерием , то +25
-									4) если мы настраиваем порядок выступления, то +25
-									5) если мы создаем приветственную страницу мероприятия то +25
-								-->
-								<div class="col-xs-4 text-center">
-									<div data-label="50%" class="radial-bar radial-bar-50 radial-bar-xs"></div>
-								</div>
-								<!--  Если заполненности мероприятия равна 100, то меняем класс icon-publish-no на icon-publish-yes и разрешаем создавать домен 3 уровня-->
-								<div class="col-xs-4 text-center">
-									<a href="#" data-toggle="tooltip" data-title="Опубликовать мероприятие">
-										<em class="fa fa-check icon-publish-no"></em>
-									</a>
-								</div>
-								<div class="col-xs-4 text-center">
+							<td class="text-center" style="width: 10%">
+								<div class="col-xs-6 text-center">
 									<a href="<?=URL::base(). 'events/'. $events[$i]['id']. '/eventmaker/'; ?>" data-toggle="tooltip" data-title="Панель организатора">
 										<em class="fa fa-table icon-organel"></em>
 									</a>
 								</div>
-							</td>
-							<td class="text-center" style="width: 5%">
-								<a id="deleteEvent" href="#">
-									<em class="fa fa-remove icon-remove"></em>
-								</a>
+								<div class="col-xs-6 text-center">
+									<a id="deleteEvent" href="#">
+										<em class="fa fa-remove icon-remove"></em>
+									</a>
+								</div>
 							</td>
 						</tr>
 					<?php endfor; ?>

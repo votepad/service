@@ -5,6 +5,12 @@
  * AJAX Routes
  */
 
+Route::set('GetCriterias', 'getCriteasWithScores')
+    ->defaults(array(
+        'controller' => 'Judges_Ajax',
+        'action'     => 'getCriteriaScore',
+    ));
+
 Route::set('ExtraScores', 'addExtraScore')
     ->defaults(array(
         'controller' => 'Judges_Settings_Modify',
@@ -130,6 +136,10 @@ Route::set('ADDSTAGE', 'events/addStage/<id>')
         'action'      => 'addStage'
     ));
 
+
+/**
+ * EventMakers Page
+ */
 
 ROUTE::set('EVENTMAKER', 'events/<id>/eventmaker')
     ->defaults(array(

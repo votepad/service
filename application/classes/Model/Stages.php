@@ -80,6 +80,11 @@ class Model_Stages extends Model {
         return $select;
     }
 
+    public static function getCriteria($id_criteria) {
+        $select = DB::select()->from('Criteria')->where('id', '=', $id_criteria)->limit(1)->execute()->as_array();
+        return Arr::get($select, '0');
+    }
+
     public static function updateStageByFieldName($field, $value, $id)
     {
         $update = DB::update('Stages')->set(array(

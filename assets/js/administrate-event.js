@@ -86,5 +86,64 @@ $(document).ready(function(){
         swal( "Успешно!", "Проверьте файл в папке 'Закгрузки'", "success" );
     });
   });
-  
+
+  $('.scoreinfo').on('click', function(){
+        var s = $(this).attr("value");
+        var stage, criterion, judge, participant;
+
+        stage = s.substr(0,s.indexOf('-'));
+        s = s.substr(stage.length+1,s.length);
+
+        //criterion = s.substr(0,s.indexOf('-'));
+        //s = s.substr(criterion.length+1,s.length);
+
+        judge = s.substr(0,s.indexOf('-'));
+        s = s.substr(judge.length+1,s.length);
+
+        participant = s;
+
+        $.ajax({
+            url: url+'/getCriteasWithScores/',
+            type: "POST",
+            data: {
+                id_stage: stage,
+                id_judge: judge,
+                id_participant: participant,
+            },
+            success: function(data, config) {
+                var result = JSON.parse(data);
+
+                document.getElementById('criteriasWithScores').innerHTML = '';
+
+                for(var i = 0; i < result.length; i++)
+                {
+                    var tr  = document.createElement('tr');
+                    var td1 = document.createElement('td');
+                    var td2 = document.createElement('td');
+                    td2.setAttribute('class', 'text-center');
+
+                    td1.appendChild( document.createTextNode(result[i].name) );
+                    td2.appendChild( document.createTextNode(result[i].score) );
+
+                    tr.appendChild(td1);
+                    tr.appendChild(td2);
+                    document.getElementById('criteriasWithScores').appendChild(tr);
+                }
+
+                $('#CriteriaScore').modal();
+                $("body").removeClass('modal-open');
+            },
+        })
+    
+  });
+
+  /* CACHE TABS */
+    $("#tabs").tabs({
+        active   : $.cookie('activetab'),
+        activate : function( event, ui ){
+            $.cookie( 'activetab', ui.newTab.index(),{
+                expires : 10
+            });
+        }
+    });
 });

@@ -31,7 +31,8 @@
 							</div>
 
 							<div id="stage-<?=$i; ?>" data-toggle="portlet" class="portlets-wrapper">
-								<input type="hidden" id="<?=$stages[$i]['id']; ?>">
+								<input type="hidden" id="<?=$stages[$i]['id']; ?>" name="stage">
+								<input type="hidden" id="<?=$criteria['id']; ?>" name="criteria">
 									<?php
 										for($j = 0; $j < count($participants[$i]); $j++):
 									?>

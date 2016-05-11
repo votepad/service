@@ -117,12 +117,17 @@ $( function ()
         onStepChanging: function (event, currentIndex, newIndex) {
             var id_event = $("input[name='id_event']").val();
             var id_judge = $("input[name='id_judge']").val();
+           
             var counter = 0;
             var k = 0;
             var blocked;
+           
             var area = $('#stage-' + currentIndex + ' .buttons').length;
-            var id_stage = $('#stage-' + currentIndex).find('input[type=hidden]').attr('id');
-            id_stage = parseInt(id_stage);
+            var id_stage = $('#stage-' + currentIndex).find('input[name=stage]').attr('id');
+            var id_criteria = $('#stage-' + currentIndex).find('input[name=criteria]').attr('id');
+
+            id_stage    = parseInt(id_stage);
+            id_criteria = parseInt(id_criteria);
 
             for (var i = 0; i < area; i++) {
                 var radio = $('input[type=radio][name="score-' + newIndex + '-' + pos[i] + '"]:checked');
@@ -144,6 +149,7 @@ $( function ()
                         data: {
                             id_participant: id_participant,
                             id_stage: id_stage,
+                            id_criteria: id_criteria,
                             id_event: id_event,
                             id_judge: id_judge,
                             score: score,
@@ -217,8 +223,13 @@ $( function ()
             var id_event = $("input[name='id_event']").val();
             var id_judge = $("input[name='id_judge']").val();
             var area = $('#stage-' + currentIndex + ' .buttons').length;
+
             var id_stage = $('#stage-' + currentIndex).find('input[type=hidden]').attr('id');
+            var id_criteria = $('#stage-' + currentIndex).find('input[name=criteria]').attr('id');
+
             id_stage = parseInt(id_stage);
+            id_criteria = parseInt(id_criteria);
+
             check(id_stage, currentIndex);
             var k = 0;
             
@@ -242,6 +253,7 @@ $( function ()
                         data: {
                             id_participant: id_participant,
                             id_stage: id_stage,
+                            id_criteria: id_criteria,
                             id_event: id_event,
                             id_judge: id_judge,
                             score: score,
@@ -264,7 +276,7 @@ $( function ()
         {
             swal({
                 title: "Голосование закончилось",
-                text: "<p>Спасибо, что воспользовались нашей платформой</p><br><a href='"+url+"auth/logout' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
+                text: "<p>Спасибо, что воспользовались нашей платформой</p><br><a href='"+url+"/auth/logout' class='pronwe_Link-small pronwe_color'>Выйти и просмотреть рейтинг участников</a>",
                 html: true,
                 showCancelButton: false,
                 showConfirmButton: false,

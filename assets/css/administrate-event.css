@@ -11,3 +11,14 @@
 	width: 35px;
 	height: 35px
 }
+
+.scoreinfo{
+	cursor: pointer;
+	color: #656565;
+	font-weight: 600;
+}
+
+a:hover, a:focus{
+	color: #656565;
+	text-decoration: none;
+}
