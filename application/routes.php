@@ -52,6 +52,7 @@ Route::set('HideParticipants', 'hide')
 * defaults for the URI.
 */
 
+
 /**
  * Default Welcome page
  */
@@ -192,7 +193,6 @@ Route::set('Default', '<controller>(/<action>(/<id>))')
         'controller' => 'Welcome',
         'action'     => 'Index',
     ));
+
+
 ?>
-
-
-

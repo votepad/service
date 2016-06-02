@@ -1,0 +1,29 @@
+<ul class="no-li">
+  <li class="col-xs-6 col-xss" ng-repeat="event in organization.eventInfo | filter:organization.search.event | orderBy: organization.search.sort">
+    <div class="event-block shadow-8dp">
+      <div class="event-logo shadow-5dp" style="background: url(../assets/img/temp/{{event.logo}}) no-repeat;"></div>
+      <div class="event-body">
+        <div class="event-title">
+          <p><b>{{event.name}}</b></p>
+          <p>{{event.start | date:"Пройдёт с d MMMM HH:mm "}}{{event.end | date:"по d MMMM HH:mm"}}</p>
+          <p>По адресу: {{event.address}}</p>
+        </div>
+        <md-card-actions layout="row" layout-align="end center" ng-controller="EventLikesCtrl">
+          <share></share>
+          <md-button class="md-icon-button" aria-label="likes" ng-click="addLikes(event.name)" md-ink-ripple="#64b5f6">
+            <md-tooltip md-visible="tooltipVisible" md-autohide="false">{{showLikes(event.likes)}}</md-tooltip>
+            <md-icon ng-class="{ 'likes':addClass }" md-svg-icon="../assets/img/icons/favorite.svg"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Preview" ng-href="#/event" md-ink-ripple="#64b5f6">
+            <md-tooltip md-visible="tooltipVisible" md-autohide="false">Подробнее о мероприятие</md-tooltip>
+            <md-icon md-svg-icon="../assets/img/icons/file-text.svg"></md-icon>
+          </md-button>
+          <md-button class="md-icon-button" aria-label="Edit" ng-href="#/event/edit" ng-hide="organization.HiddenEdit" md-ink-ripple="#64b5f6">
+            <md-tooltip md-visible="tooltipVisible" md-autohide="false">Редактировать мероприятие</md-tooltip>
+            <md-icon md-svg-icon="../assets/img/icons/pencil.svg"></md-icon>
+          </md-button>
+        </md-card-actions>
+      </div>
+    </div>
+  </li>
+</ul>

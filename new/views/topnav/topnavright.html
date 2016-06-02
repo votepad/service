@@ -1,0 +1,17 @@
+<div layout="row" layout-align="center center">
+  <md-fab-speed-dial ng-hide="user.hidden" md-direction="left" md-open="user.isOpen"
+                     class="md-scale" ng-class="{ 'md-hover-full': user.hover }"
+                     ng-mouseenter="user.isOpen=true" ng-mouseleave="user.isOpen=false">
+    <md-fab-trigger>
+      <img class="user-settings shadow-5dp" src="../assets/img/user/{{user.avatar}}">
+    </md-fab-trigger>
+    <md-fab-actions>
+      <div ng-repeat="item in user.items">
+        <md-button aria-label="{{item.name}}" class="{{item.class}}" ng-href="{{item.link}}" md-ink-ripple="#64b5f6">
+          <md-tooltip md-direction="{{item.direction}}" md-visible="tooltipVisible" md-autohide="false">{{item.name}}</md-tooltip>
+          <md-icon md-svg-src="{{item.icon}}" aria-label="{{item.name}}"></md-icon>
+        </md-button>
+      </div>
+    </md-fab-actions>
+  </md-fab-speed-dial>
+</div>

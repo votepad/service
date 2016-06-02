@@ -134,7 +134,7 @@
 																	<h2><?=$participants[$i][$k]['name']; ?></h2>
 
 																	<div class="buttons" data-toggle="buttons">
-																		<?php for($l = 1; $l <= $maxscore; $l++) : ?>
+																		<?php for($l = 0; $l <= $maxscore; $l++) : ?>
 																			<button class="mb-sm btn btn-s btn-primary">
 																				<input type="radio"> <?=$l; ?>
 																			</button>

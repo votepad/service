@@ -1,0 +1,12 @@
+<md-fab-trigger>
+  <md-button aria-label="menu" class="md-icon-button">
+    <md-icon md-svg-src="../assets/img/icons/menu.svg" aria-label="PageSettings"></md-icon>
+  </md-button>
+</md-fab-trigger>
+<md-fab-actions>
+  <div ng-repeat="item in organization.Settingsitems">
+    <md-button aria-label="{{item.name}}" class="md-fab md-raised md-mini" ng-href="{{item.link}}" md-ink-ripple="#64b5f6">
+      <md-icon md-svg-src="{{item.icon}}" aria-label="{{item.name}}"></md-icon>
+    </md-button>
+  </div>
+</md-fab-actions>

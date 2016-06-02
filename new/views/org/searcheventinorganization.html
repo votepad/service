@@ -1,0 +1,18 @@
+<div class="event-options">
+  <md-input-container class="col-xs-6 md-block">
+    <label>Поиск мероприятия</label>
+    <input ng-model="organization.search.event">
+  </md-input-container>
+  <md-input-container class="col-xs-4 md-block">
+    <label>Сортировать по</label>
+    <md-select ng-model="organization.search.sort">
+      <md-option ng-repeat="param in organization.searchFilter" value="{{param.id}}" md-ink-ripple="#64b5f6">
+        {{param.name}}
+      </md-option>
+    </md-select>
+  </md-input-container>
+  <md-button class="col-xs-1 pull-right md-icon-button addevent" aria-label="AddEvent" ng-href="#/event/add" md-ink-ripple="#64b5f6" ng-hide="organization.HiddenEdit">
+    <md-tooltip md-visible="tooltipVisible" md-autohide="false">Добавить мерприятие</md-tooltip>
+    <md-icon md-svg-icon="../assets/img/icons/plus.svg"></md-icon>
+  </md-button>
+</div>
