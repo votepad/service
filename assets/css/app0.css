@@ -182,6 +182,7 @@ a, a:hover, a:focus{
 	header .md-button{
 		font-weight: bold;
 		font-size: 16px;
+		z-index: 1000;
 	}
 	.wrapper .topnavbar-wrapper {
 	    position: relative;;
@@ -255,31 +256,68 @@ a, a:hover, a:focus{
     padding: 10px;
     width: 100%;
 }
-.organization-info{
+.organization-column-lg{
 	padding: 20px;
 	display: inline-block;
 }
+.organization-column-sm{
+	display: none;
+}
 @media only screen and (max-width:767px) {
-	.organization-info{
+	.organization-column-sm{
+		display: inline-block;
+		margin-top: 17px !important;
+	}
+	.organization-column-lg{
 		display: none;
 	}
 }
+@media only screen and (max-width:660px) { .search-opt-1{	width: 30% !important; } }
+@media only screen and (max-width:558px) { .search-input{	width: 45% !important; }  }
+@media only screen and (max-width:454px) {
+	.search-input{
+		width: 40% !important;
+	}
+	topnavright{
+		position: absolute;
+		right: 5px;
+		top: 10px;
+		z-index: 100 !important;
+	}
+	.curent-organization{
+		display: none;
+	}
+}
+@media only screen and (max-width:400px) {
+	.search-input{
+		width: 100% !important;
+		margin-bottom: 0 !important;
+	}
+	.md-errors-spacer{
+		display: none;
+	}
+	.search-opt-1{
+		margin-top: 0 !important;
+		margin-bottom: 10px !important;
+		width: 65% !important;
+	}
+	.md-button.md-icon-button{
+		margin-top: 0 !important;
+	}
+	.addevent{
+		margin-bottom: 10px !important;
+	}
+	.search-opt{
+		width: 100% !important;
+	}
+}
+@media only screen and (max-width:335px) { .search-opt-1{	width: 61% !important; } }
+
 .setting-lg{
 	position: absolute;
 	right:15px;
 	top:20px;
 	z-index: 1;
-}
-.setting-sm{
-	display: none;
-}
-@media only screen and (max-width:767px) {
-	.setting-sm{
-		display: block;
-	}
-	.events-list-container{
-		padding-top: 0 !important;
-	}
 }
 .events-search{
 	padding-left: 15px;

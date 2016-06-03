@@ -7,7 +7,7 @@
     <md-button class="curent-organization" ng-href="{{Orgslist.curOrg.pronwelink}}">{{Orgslist.curOrg.name}}</md-button>
   <!-- ORGANIZATIONS LIST -->
   <md-menu ng-hide="Orgslist.hidden">
-    <md-button aria-label="Organizations" class="md-icon-button" ng-click="user.openMenu($mdOpenMenu)">
+    <md-button aria-label="Organizations" class="md-icon-button" ng-click="$mdOpenMenu($event)">
       <md-icon md-svg-icon="../assets/img/icons/more_vert.svg"></md-icon>
     </md-button>
     <md-menu-content class="organizations">

@@ -48,7 +48,6 @@ app.directive("topnavright", function () {
            { name: "Выйти из системы", icon: url+"assets/img/icons/exit.svg", direction: "bottom", link: "", class: "md-fab md-raised md-mini" },
            { name: "Настройки профиля", icon: url+"assets/img/icons/user-tie.svg", direction: "botton", link: "", class: "md-fab md-raised md-minimd-fab md-raised md-mini" },
            { name: "Помощь", icon: url+"assets/img/icons/info.svg", direction: "bottom", link: "", class:"md-fab md-raised md-mini" },
-           { name: "Редактировать страницу организации", icon: url+"assets/img/icons/cogs.svg", direction: "bottom", link: "#/org/edit", class:"md-fab md-raised md-mini setting-sm" }
         ];
         this.avatar = user.avatar;
        }
@@ -70,10 +69,10 @@ app.directive("eventsinorganization", function () {
     controller: 'CurentOrganizationCtrl'
   };
 });
-app.directive("organizationcolumn", function () {
+app.directive("organizationbody", function () {
   return {
     restrict: 'E',
-    templateUrl: "views/org/organizationcolumn.html",
+    templateUrl: "views/org/organizationbody.html",
     controller: "CurentOrganizationCtrl"
   };
 });
@@ -84,15 +83,8 @@ app.directive("searcheventinorganization", function () {
     controller: 'CurentOrganizationCtrl'
   };
 });
-app.directive("organizationlinks", function () {
-  return {
-    restrict: 'E',
-    templateUrl: 'views/org/organizationlinks.html',
-    controller: 'CurentOrganizationCtrl'
-  };
-});
 
-app.controller("CurentOrganizationCtrl", function($location, url){
+app.controller("CurentOrganizationCtrl", function($timeout, $mdSidenav, $log, url){
   this.info = organizations[curOrg];
   this.eventInfo = events;
   this.settings = { name: "Редактировать страницу организации", icon: url+"assets/img/icons/cogs.svg", direction: "top", link: "#/org/edit", class:"md-icon-button setting-lg" }
@@ -100,7 +92,51 @@ app.controller("CurentOrganizationCtrl", function($location, url){
   if (status == 1) { this.HiddenEdit = false; } else { this.HiddenEdit = true; }
   this.search = {};
   this.searchFilter = [{id: "name", name: "Название мероприятия"},{id: "start", name: "Дата начала мероприятия"},{id: "publishedDate", name: "Дата публикации"}];
+  this.toggleLeft = buildDelayedToggler('left');
+  this.toggleRight = buildToggler('right');
+  this.isOpenRight = function(){
+    return $mdSidenav('right').isOpen();
+  };
+  function debounce(func, wait, context) {
+      var timer;
+      return function debounced() {
+        var context = this,
+            args = Array.prototype.slice.call(arguments);
+        $timeout.cancel(timer);
+        timer = $timeout(function() {
+          timer = undefined;
+          func.apply(context, args);
+        }, wait || 10);
+      };
+    }
+  function buildDelayedToggler(navID) {
+      return debounce(function() {
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+            $log.debug("toggle " + navID + " is done");
+          });
+      }, 200);
+    };
+    function buildToggler(navID) {
+      return function() {
+        $mdSidenav(navID)
+          .toggle()
+          .then(function () {
+            $log.debug("toggle " + navID + " is done");
+          });
+      }
+    };
 });
+app.controller('OrganizationColumnRightCtrl', function ($scope, $timeout, $mdSidenav, $log) {
+  $scope.close = function () {
+    $mdSidenav('right').close()
+      .then(function () {
+        $log.debug("close RIGHT is done");
+      });
+  };
+});
+
 app.directive("share", function () {
   return {
     restrict: 'E',
@@ -159,7 +195,7 @@ app.config(function ($routeProvider) {
 });
 
 // информация о пользователе
-var user = {name: "", avatar:"01.jpg"};
+var user = {name: "", avatar:"02.jpg"};
 
 // информация об организациях конкретного пользователя
 var organizations = [

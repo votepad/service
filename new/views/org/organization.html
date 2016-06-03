@@ -1,9 +1,18 @@
 <div ng-controller="CurentOrganizationCtrl as organization" class="content-wrapper" style="background-color:{{organization.info.style.background}}; font-family: {{organization.info.style.font}}; color: {{organization.info.style.color}}")>
+  <md-sidenav class="md-sidenav-right md-whiteframe-4dp" md-component-id="right">
+    <md-content ng-controller="OrganizationColumnRightCtrl">
+      <organizationbody></organizationbody>
+    </md-content>
+  </md-sidenav>
   <div class="row">
     <div class="events-list-container col-sm-8 col-xs-12">
       <searcheventinorganization></searcheventinorganization>
       <eventsinorganization></eventsinorganization>
     </div>
-    <organizationcolumn></organizationcolumn>
+    <div class="organization-column-lg col-sm-4">
+      <div class="organization-block shadow-8dp">
+        <organizationbody></organizationbody>
+      </div>
+    </div>
   </div>
 </div>
