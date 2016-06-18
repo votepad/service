@@ -1,0 +1,425 @@
+@font-face {
+	font-family: pronwe;
+	src: url(../../../assets/fonts/Exo2-Medium.ttf);
+}
+
+body {
+	height: 100%;
+	width: 100%;
+	overflow: visible !important;
+    font-family: pronwe;
+}
+html, body{
+	color: #656565;
+    background-color: #f5f7fa;
+}
+a, a:hover, a:focus, button, button:hover, button:focus{
+	outline: none;
+	text-decoration: none;
+	color: #656565;
+}
+ul{
+	padding: 0;
+	margin: 0;
+}
+.tooltip-inner{
+	background-color: rgba(0,0,0,0.54);
+	color: #fff;
+	font-size: 10px;
+}
+.content-body{
+	padding: 20px;
+}
+.event-group{
+	position: relative;
+	border-radius: 3px;
+	margin: 0 15px 50px 15px;
+	background-color: #fff;
+	display: inline-block;
+	list-style: none;
+	padding: 0;
+	width: 220px;
+	height: 190px;
+	box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
+}
+.event-wrapper{
+	position: relative;
+	height: 170px;
+	padding: 10px;
+}
+.event-image{
+	position: relative;
+	border-radius: 3px;
+	width: 200px;
+	height: 150px;
+	background-size: cover !important;
+}
+.event-link{
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 160px;
+}
+.event-preview{
+	opacity: 0;
+	position: relative;
+	margin: 10px;
+	height: 150px;
+	border: 1px;
+}
+.event-link:hover > .event-preview, .event-link:focus > .event-preview{
+	transition: 0.4s;
+	opacity: 0.95;
+	background-color: #fff;
+}
+.event-preview h2{
+	margin-top: 3px;
+	margin-left: 3px;
+	width: 80%;
+	font-size: 14px;
+	color: #000;
+	font-weight: bold;
+}
+.event-preview p{
+	margin: 3px;
+	font-size: 11px;
+}
+.event-preview h3{
+	margin: 0;
+	position: absolute;
+	bottom: 0;
+	right: 0;
+	width: 100px;
+	height: 20px;
+	text-align: center;
+	font-size: 10px;
+}
+.event-result{
+	position: absolute;
+	top: 13px;
+	right: 13px;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	background-color: #fff;
+	opacity: 0.75;
+	border-radius: 20%;
+	-webkit-box-sizing: content-box;
+}
+	.event-result .md-button{
+		border-radius: 20%;
+		position: relative;
+		width: 20px;
+		min-width: 18px;
+		height: 20px;
+		min-height: 18px;
+		margin: 0;
+		padding: 0;		
+		line-height: 0;
+	}
+	.event-result .md-button:hover, .event-result .md-button:focus{
+		background-color: #fff;
+		box-shadow: 0 1px 1px 1px rgba(0,0,0,.08), 0 0 2px 2px rgba(0,0,0,0.1);
+	}
+	.event-result .md-button md-icon{
+		position: relative;
+		width: 20px;
+		height: 20px;
+		padding: 2px;
+		min-width: 15px;
+		min-height: 15px;
+		opacity: 0.45;
+	}
+	.event-result:hover, .event-result:focus{
+		opacity: 1;
+	}
+
+.event-footer{
+	position: relative;
+	padding: 0;
+}
+.event-footer-left{
+	position: relative;
+	list-style: none;
+	margin-top: 6px;
+	width: 40%;
+	height: 18px;
+	float: left;
+	padding: 0;
+}
+	.event-footer-left md-menu-bar{
+		padding: 0;
+	}
+	.event-footer-left li{
+		display: table-cell;
+		height: 18px !important;
+		border-radius: 20%;
+		padding-right: 10px;
+	}
+	.event-footer-left .md-button{
+		position: relative;
+		width: 18px;
+		min-width: 18px;
+		height: 18px;
+		min-height: 18px;
+		margin: 0;
+		padding: 3px;
+		line-height: 0;
+	}
+	.event-footer-left .md-button md-icon{
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: 15px;
+		height: 15px;
+		min-width: 15px;
+		min-height: 15px;
+		opacity: 0.45;
+	}
+
+.event-footer-right{
+	position: relative;
+	list-style: none;
+	margin-top: 6px;
+	width: 60%;
+	height: 18px;
+	float: right;
+	padding: 0;
+}
+	.event-footer-right li{
+		display: table-cell;
+		float: right;
+		height: 18px !important;
+		border-radius: 20%;
+		padding-left: 10px;
+	}
+	.event-footer-right .md-button, .event-footer-right .div-views{
+		position: relative;
+		width: auto;
+		min-width: 18px;
+		height: 18px;
+		min-height: 18px;
+		margin: 0;
+		padding: 0;
+		line-height: 0;
+	}
+	.event-footer-right .md-button md-icon, .event-footer-right .div-views img{
+		position: relative;
+		top: 4px;
+		left: 2px;
+		width: 12px;
+		height: 12px;
+		min-width: 12px;
+		min-height: 12px;
+		opacity: 0.45;
+	}
+	.event-footer-right .md-button span, .event-footer-right .div-views span{
+		position: relative;
+		vertical-align: -webkit-baseline-middle;
+		font-size: 12px;
+		padding-left: 2px;
+		padding-right: 2px;
+	}
+	.event-footer-right li:hover, .event-footer-right .md-button:hover{
+		font-weight: 600;
+	}
+
+.event-footer-left .md-button:hover, .event-footer-right .md-button:hover{
+	box-shadow: 0 1px 1px 1px rgba(0,0,0,.08), 0 0 2px 2px rgba(0,0,0,0.1);
+	transition: .4s;
+	background-color: #fff;
+}
+
+.fav .active{
+	color: #ec2121;
+}
+
+.md-menu-sm{
+	padding: 0 !important;
+}
+.md-menu-sm md-menu-item{
+	min-height: 24px;
+	height: 24px;
+	width: auto;
+}
+.md-menu-sm md-menu-divider{
+	margin: 0;
+}
+.md-menu-sm md-menu-item .md-button{
+	min-height: 24px;
+	height: 24px;
+	font-size: 12px;
+	padding: 0 8px 0 8px;
+	line-height: normal;
+}
+.md-menu-sm md-menu-item .md-button md-icon{
+	margin: 3px 5px 3px 0;
+	height: 18px;
+    width: 18px;
+    min-height: 18px;
+    min-width: 18px;
+}
+.md-menu-md{
+	padding: 0 !important;
+}
+.md-menu-md md-menu-item{
+	min-height: 36px;
+	height: 36px;
+	width: auto;
+}
+.md-menu-md md-menu-divider{
+	margin: 0;
+}
+.md-menu-md md-menu-item .md-button{
+	min-height: 36px;
+	height: 36px;
+	font-size: 14px;
+	padding: 0 8px 0 8px;
+	line-height: normal;
+}
+.md-menu-md md-menu-item .md-button md-icon{
+	margin-top: auto;
+	margin-bottom: auto;
+	margin-right: 5px;
+	height: 20px;
+    width: 20px;
+    min-height: 20px;
+    min-width: 20px;
+}
+.md-menu-lg{
+	padding: 0 !important;
+}
+.md-menu-lg md-menu-divider{
+	margin: 0;
+}
+
+.md-btn-sm{
+	margin: 3px 5px;
+	line-height: normal;
+	text-transform: none;
+	min-height: 24px;
+	min-width: 50px;
+	padding: 0 6px 0 6px;
+	font-size: 12px;   
+}
+.md-btn-md{
+	margin: 3px 5px;
+	line-height: normal;
+	text-transform: none;
+	min-height: 36px;
+	min-width: 50px;
+	padding: 0 8px 0 8px;
+	font-size: 14px;
+}
+.md-btn-lg{
+	margin: 3px 5px;
+	line-height: normal;
+	text-transform: none;
+	min-height: 48px;
+	min-width: 50px;
+	padding: 0 10px 0 10px;
+	font-size: 14px;
+}
+.md-btn{
+
+}
+.md-btn:hover, .md-focused{
+	box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
+	transition: .4s;
+}
+.md-btn-default{
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+	background-color: rgb(250,250,250) !important;
+}
+.md-btn-primary{
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+	color: #fff;
+	background-color: #4b91ea !important;
+}
+.md-btn-primary:hover, .md-btn-primary:focus
+{
+	color: #fff;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.btn {
+	display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	-ms-touch-action: manipulation;
+		touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+		-moz-user-select: none;
+		-ms-user-select: none;
+		    user-select: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+}
+.btn:hover,
+.btn:focus,
+.btn.focus {
+	outline: none;
+	color: #333;
+	text-decoration: none;
+}
+.btn.disabled, .btn[disabled] {
+	cursor: not-allowed;
+	filter: alpha(opacity=65);
+	-webkit-box-shadow: none;
+	box-shadow: none;
+	opacity: .65;
+}
+
+.btn-default {
+	color: #333;
+	background-color: #fff;
+	border-color: #ccc;
+}
+.btn-default:focus,
+.btn-default.focus {
+	color: #333;
+	outline: none;
+	background-color: #e6e6e6;
+	border-color: #8c8c8c;
+}
+.btn-default:hover {
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+	outline: none;
+	transition: 1s;
+}
+.btn-default:active, .btn-default.active{
+	outline: none;
+	color: #333;
+	background-color: #e6e6e6;
+	border-color: #adadad;
+	background-image: none;
+}
+.btn-default.disabled:hover, .btn-default[disabled]:hover, 
+.btn-default.disabled:focus, .btn-default[disabled]:focus,
+.btn-default.disabled.focus, .btn-default[disabled].focus {
+	background-color: #fff;
+	border-color: #ccc;
+}

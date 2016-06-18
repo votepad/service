@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html ng-app="pronwe">
+<head>
+	<meta charset="utf-8">
+	<title>UI KIT</title>
+	<script type="text/javascript" src="../../../assets/vendor/jquery/dist/jquery.js"></script>
+	<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.css">
+	<script type="text/javascript" src="vendor/bootstrap/js	/bootstrap-tooltip.js"></script>
+	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/angular-material/css/angular-material.min.css">
+	<link rel="stylesheet" type="text/css" href="app.css">
+
+
+	<script type="text/javascript" src="../../../assets/vendor/angular/angular.min.js"></script>
+	<script src="../../../assets/vendor/angular/i18n/angular-locale_ru-ru.js"></script>
+	<script src="../../../assets/vendor/angular/angular-aria.min.js"></script>
+	<script src="../../../assets/vendor/angular/angular-animate.min.js"></script>
+	<script src="../../../assets/vendor/angular-socialshare/angular-socialshare.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/angular-material/js/angular-material.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+
+</head>
+<body ng-controller="appCtrl">
+<div class="content-body">
+	<ul>
+		<li class="event-group">
+			<div class="event-wrapper">
+				<div class="event-shot">
+					<div class="event-image" style="background: url(img/bg2.jpg) no-repeat;"></div>
+					<a class="event-link" href="#">
+						<div class="event-preview">
+							<h2>Федеральный конкурс Ты нужен людям</h2>
+							<p>Этоконурспрободитсяежегодно,чтоб ы развивать креативное мышление у молодого поколения, а так же знакомить с различными социальными проблемами я ежегодно, чтобы развивать креатиdyjt</p>
+							<h3>20 сентября в 15:00</h3>
+						</div>
+					</a>
+					<div class="event-result">
+						<md-button ng-href="###" aria-label="Rating" data-toggle="tooltip" data-placement="top" title="Рейтинг">
+							<md-icon md-svg-icon="icons/rating.svg"></md-icon>
+						</md-button>
+					</div>
+				</div>
+				<div class="event-footer">
+					<ul class="event-footer-left">
+						<li>
+							<md-menu-bar>
+								<md-menu>
+									<md-button ng-href="" aria-label="Settings" ng-click="$mdOpenMenu($event)">
+										<md-icon md-svg-icon="icons/cog.svg"></md-icon>
+									</md-button>
+									<md-menu-content class="md-menu-sm" width="1">
+										<md-menu-item>
+											<md-button ng-href="">
+												<md-icon md-svg-icon="icons/edit.svg"></md-icon>
+												Редактировать
+											</md-button>
+										</md-menu-item>
+										<md-menu-item>
+											<md-button ng-href="">
+												<md-icon md-svg-icon="icons/trash-o.svg" style="color: #f47f7f"></md-icon>
+												Удалить
+											</md-button>
+										</md-menu-item>
+									</md-menu-content>
+								</md-menu>
+							</md-menu-bar>
+						
+						</li>
+						<li>
+							<md-menu-bar>
+								<md-menu ng-controller="ShareCtrl as share">
+									<md-button ng-href="" aria-label="Share" ng-click="$mdOpenMenu($event)">
+										<md-icon md-svg-icon="icons/share2.svg"></md-icon>
+									</md-button>
+									<md-menu-content class="md-menu-sm" width="1">
+										<md-menu-item ng-repeat="item in share.array" class="{{item.class}}">
+											<md-button socialshare
+															socialshare-provider="{{item.id}}"
+															socialshare-text=""
+															socialshare-description=""
+															socialshare-hashtags=""
+															socialshare-url=""
+															socialshare-media="">
+												<md-icon md-svg-icon="{{item.icon}}"></md-icon>
+												{{item.name}}
+											</md-button>
+										</md-menu-item>
+									</md-menu-content>
+								</md-menu>
+							</md-menu-bar>
+						</li>
+						<li>
+							<md-button ng-href="" aria-label="Feedback" data-toggle="tooltip" data-placement="bottom" title="Связаться с организатором">
+								<md-icon md-svg-icon="icons/feedback.svg"></md-icon>
+							</md-button>
+						</li>
+					</ul>
+					<ul class="event-footer-right">
+						<li class="fav">
+							<md-button ng-href="" aria-label="Likes" md-ink-ripple="#f47f7f">
+								<md-icon md-svg-icon="icons/fav.svg"></md-icon>
+								<span>1</span>
+							</md-buttn>
+						</li>
+						<li class="views">
+							<div class="div-views" aria-label="Views" data-toggle="tooltip" data-placement="bottom" title="Просмотров">
+								<img src="icons/eye.svg">
+								<span>120</span>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</li>
+	</ul>
+
+	<div>
+		<p>Примеры <b>md-menu-bar</b>:</p>
+		<div style="display: inline-block;">
+			<md-menu-bar>
+				<md-menu ng-controller="ShareCtrl as share">
+					<md-button ng-href="" aria-label="Ex1" ng-click="$mdOpenMenu($event)">
+						md-menu-sm
+					</md-button>
+					<md-menu-content class="md-menu-sm" width="1">
+						<md-menu-item ng-repeat="item in share.array" class="{{item.class}}">
+							<md-button hg-href>
+								<md-icon md-svg-icon="{{item.icon}}"></md-icon>
+								{{item.name}}
+							</md-button>
+						</md-menu-item>
+						<md-menu-divider></md-menu-divider>
+						<md-menu-item>
+							<md-button hg-href>
+								<md-icon md-svg-icon="icons/cog.svg"></md-icon>
+								добавить
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</md-menu-bar>	
+		</div>
+		<div style="display: inline-block;">
+			<md-menu-bar>
+				<md-menu ng-controller="ShareCtrl as share">
+					<md-button ng-href="" aria-label="Ex1" ng-click="$mdOpenMenu($event)">
+						md-menu-md
+					</md-button>
+					<md-menu-content class="md-menu-md" width="2">
+						<md-menu-item ng-repeat="item in share.array" class="{{item.class}}">
+							<md-button hg-href>
+								<md-icon md-svg-icon="{{item.icon}}"></md-icon>
+								{{item.name}}
+							</md-button>
+						</md-menu-item>
+						<md-menu-divider></md-menu-divider>
+						<md-menu-item>
+							<md-button hg-href>
+								<md-icon md-svg-icon="icons/cog.svg"></md-icon>
+								добавить
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</md-menu-bar>	
+		</div>
+		<div style="display: inline-block;">
+			<md-menu-bar>
+				<md-menu ng-controller="ShareCtrl as share">
+					<md-button ng-href="" aria-label="Ex1" ng-click="$mdOpenMenu($event)">
+						md-menu-lg
+					</md-button>
+					<md-menu-content class="md-menu-lg" width="1">
+						<md-menu-item ng-repeat="item in share.array" class="{{item.class}}">
+							<md-button hg-href>
+								<md-icon md-svg-icon="{{item.icon}}"></md-icon>
+								{{item.name}}
+							</md-button>
+						</md-menu-item>
+						<md-menu-divider></md-menu-divider>
+						<md-menu-item>
+							<md-button hg-href>
+								<md-icon md-svg-icon="icons/cog.svg"></md-icon>
+								добавить
+							</md-button>
+						</md-menu-item>
+					</md-menu-content>
+				</md-menu>
+			</md-menu-bar>	
+		</div>
+	</div>
+
+	<div>
+		<p>Примеры <b>md-button</b>:</p>
+		<div>
+			<md-button class="md-btn md-btn-sm">md-btn-sm</md-button>
+			<md-button class="md-btn md-btn-sm md-btn-default">md-btn-default</md-button>
+			<md-button class="md-btn md-btn-sm md-btn-primary">md-btn-primary</md-button>
+		</div>
+		<br>
+		<div>
+			<md-button class="md-btn md-btn-md">md-btn-md</md-button>
+			<md-button class="md-btn md-btn-md md-btn-default">md-btn-default</md-button>
+			<md-button class="md-btn md-btn-md md-btn-primary">md-btn-primary</md-button>
+		</div>
+		<br>
+		<div>
+			<md-button class="md-btn md-btn-lg">md-btn-lg</md-button>
+			<md-button class="md-btn md-btn-lg md-btn-default">md-btn-default</md-button>
+			<md-button class="md-btn md-btn-lg md-btn-primary">md-btn-primary</md-button>
+		</div>
+	</div>
+		
+</div>
+</body>
+</html>
