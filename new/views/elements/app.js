@@ -16,7 +16,12 @@ $(function () {
   		$('.fav md-icon').addClass('active');
   	}
   });
+
 });
+
+
+
+/* ANGULAR */ 
 
 
 var app = angular.module('pronwe', ["ngAria","ngAnimate", "ngMaterial","720kb.socialshare"]);
