@@ -1,51 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 
-/**
- * AJAX Routes
- */
 
-Route::set('GetCriterias', 'getCriteasWithScores')
-    ->defaults(array(
-        'controller' => 'Judges_Ajax',
-        'action'     => 'getCriteriaScore',
-    ));
-
-Route::set('ExtraScores', 'addExtraScore')
-    ->defaults(array(
-        'controller' => 'Judges_Settings_Modify',
-        'action'     => 'addExtraScore',
-    ));
-
-Route::set('AjaxForEvents', 'deleteEvent')
-    ->defaults(array(
-        'controller' => 'Events_Ajax',
-        'action'     => 'deleteEvent'
-    ));
-
-Route::set('AjaxForSubstances', 'updateEventsSubstance(/<action>)')
-    ->defaults(array(
-        'controller' => 'Events_Ajax',
-        'action'     => 'index'
-    ));
-
-Route::set('AjaxSetScore', 'setScore')
-    ->defaults(array(
-        'controller' => 'Judges_Ajax',
-        'action'     => 'setScore'
-    ));
-
-Route::set('AjaxBlockStages', 'block(/<action>)')
-    ->defaults(array(
-       'controller' => 'Judges_Settings_Ajax',
-        'action'    => 'block',
-    ));
-
-Route::set('HideParticipants', 'hide')
-    ->defaults(array(
-        'controller' => 'Judges_Settings_Ajax',
-        'action'     => 'getBlockedParticipants'
-    ));
+require_once ('ajax_routes.php');
+require_once ('events_routes.php');
 
 /**
 * Set the routes. Each route must have a minimum of a name, a URI and a set of
@@ -91,72 +49,7 @@ Route::set('PROFILE', 'profile(/<subaction>)')
         'action'     => 'index',
     ));
 
-/**
- * Events Static
- */
 
-Route::set('MYEVENTS', 'events/my')
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'myevents'
-    ));
-
-Route::set('ALLEVENTS', 'events/all')
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'all'
-    ));
-
-Route::set('NEWEVENT', 'events/new')
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'New'
-    ));
-
-
-
-/**
- * Add substances
- */
-Route::set('ADDPARTICIPANTS', 'events/addparticipants/<id>')
-    ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addParticipant'
-    ));
-
-Route::set('ADDJUDGE', 'events/addjudge/<id>')
-    ->defaults(array(
-        'controller'  => 'Judges_Modify',
-        'action'      => 'addjudge'
-    ));
-
-Route::set('ADDSTAGE', 'events/addStage/<id>')
-    ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addStage'
-    ));
-
-
-/**
- * EventMakers Page
- */
-
-ROUTE::set('EVENTMAKER', 'events/<id>/eventmaker')
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'eventmaker',
-    ));
-
-
-/**
- * Judges
- */
-
-Route::set('Judge-Settings', 'event/<id>/<action>')
-    ->defaults(array(
-        'controller' => 'Judges_Settings_Index',
-        'action'     => ''
-    ));
 
 Route::set('Judge-Modify', '<action>')
     ->defaults(array(

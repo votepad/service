@@ -89,7 +89,7 @@ class Controller_Events_Index extends Dispatch {
         /*
          * Meta Datas
          */
-
+        
         $this->template->title  ='Создать новое мероприятие';
         $this->template->description    = 'Новое мероприятие';
         $this->template->keywords       = 'SEO';
@@ -109,7 +109,7 @@ class Controller_Events_Index extends Dispatch {
         array_push( $this->js,  'js/app.js');
         
 
-        $types = Kohana::$config->load('type');
+        $types  = Kohana::$config->load('type');
         $status = Kohana::$config->load('status');
 
         $arrcity = new Model_Events;
@@ -154,7 +154,7 @@ class Controller_Events_Index extends Dispatch {
 
 
         $model_events = new Model_Events();
-        $events = $model_events->getEvents();
+        $events       = $model_events->getEvents();
     }
 
     public function action_all()

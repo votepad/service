@@ -1,9 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 22.02.2016
- * Time: 12:32
+ * @team ProNWE team
+ * @author Khaydarov Murod
  */
 
 class Controller_Auth extends Dispatch {
@@ -25,8 +23,8 @@ class Controller_Auth extends Dispatch {
 
     function action_signin()
     {
-        $email = Arr::get($_POST, 'email', '');
-        $password = Arr::get($_POST, 'password', '');
+        $email      = Arr::get($_POST, 'email', '');
+        $password   = Arr::get($_POST, 'password', '');
 
         /**
          * Проверяем, если поля пустые, то отправляем обратно на авторизацию
@@ -37,7 +35,7 @@ class Controller_Auth extends Dispatch {
         }
 
         $model_user = Model_User::Instance();
-        $logIn = $model_user->login($email, $password);
+        $logIn      = $model_user->login($email, $password);
 
         /**
          * Если не получилось авторизоваться - обратно на Auth/
@@ -46,8 +44,7 @@ class Controller_Auth extends Dispatch {
         if ( !$logIn ) {
             $asJudge = Model_Judge::logInAsJudge($email, $email);
 
-            if (count($asJudge) != 0)
-            {
+            if (count($asJudge) != 0) {
                 Session::instance()->set('id_judge', $asJudge['id']);
                 $this->redirect('event/' . $asJudge['id_event']. '/judge/panel'. Model_Events::EventsType($asJudge['id_event']) );
             }
