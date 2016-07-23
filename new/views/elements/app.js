@@ -9,11 +9,11 @@ $(function () {
   $('.twitter').hover(function(){$('.twitter md-icon').css("color","#35b0ed");}, function(){$('.twitter md-icon').css("color","#656565");});
   /* add likes */
   $('.fav').on('click', function(){
-  	if ( $('.fav md-icon').hasClass('active') ) {
-  		$('.fav md-icon').removeClass('active');
+  	if ( $("md-icon", this).hasClass('active') ) {
+  		$("md-icon", this).removeClass('active');
   	}
   	else {
-  		$('.fav md-icon').addClass('active');
+  		$("md-icon", this).addClass('active');
   	}
   });
 
