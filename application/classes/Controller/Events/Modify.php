@@ -25,6 +25,13 @@ class Controller_Events_Modify extends Controller {
         $model_events->NewEvent($data);
         $result = $model_events->save();
 
+
+        /**
+         * Creating WorkBook
+         */
+        Model_Excel::createNewEventsSheet($data['title']);
+
+
         if ($result)
             $this->redirect('/events/my');
 

@@ -1,7 +1,12 @@
 {
+	"config": {
+		"vendor-dir" : "application/vendor"
+	},
 	"require": {
 		"phpunit/phpunit": "3.7.24",
 		"phing/phing": "dev-master",
-		"shadowhand/purifier": "v1.2.2"
+		"shadowhand/purifier": "v1.2.2",
+		"phpoffice/phpexcel": "dev-develop",
+		"doctrine/orm": "*"
 	}
 }

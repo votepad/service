@@ -8,6 +8,10 @@
 
 Class Model_User {
 
+    const ADMIN = 1;
+    const JUDGE = 2;
+    const GUEST = 3;
+
     private static $_instance;
 
     public $id;

@@ -15,6 +15,8 @@ class Controller_Profile_Index extends Dispatch {
         $model_user = Model_User::Instance();
         $cities = $model_user->getCities();
 
+        
+        exit;
         $this->template->aside      = View::factory('aside');
         $this->template->section    = View::factory('profile/profile')
                                                 ->bind('cities', $cities);
