@@ -1,0 +1,145 @@
+﻿@font-face {
+    font-family: "MyriadProRegular";
+    src: url("../fonts/MyriadProRegular/MyriadProRegular.eot");
+    src: url("../fonts/MyriadProRegular/MyriadProRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/MyriadProRegular/MyriadProRegular.woff") format("woff"),
+    url("../fonts/MyriadProRegular/MyriadProRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body::-webkit-scrollbar 
+{
+	width: 0; 
+}
+
+body{
+	font-family: MyriadProRegular;
+	font-size:16px;
+	background-color:#fff;
+	background-image:url(../img/bg.png);
+	background-size:cover;
+	background-repeat:no-repeat;
+	/*background-position:0 4.5em;*/
+	
+	-ms-overflow-style: none;
+	overflow: -moz-scrollbars-none;
+}
+
+.top-bar{
+	position:absolute;
+	left:0;
+	top:0;
+	width:100%;
+	z-index:10;
+	height:4.5em;
+	background-image: url(../img/topbg.png);
+	background-color:#315572;
+	/*box-shadow:inset 0 -5px 13px -5px rgba(0,0,0,0.75);*/
+}
+
+.pronwe_logo{
+	height:80%;
+	position:relative;
+	left:5%;
+	top:10%;
+}
+
+.menu{
+	display:inline-block;
+	list-style:none;
+}
+
+.topmenu{
+	position:absolute;
+	right:1em;
+	top: 1,375em;
+}
+
+.topmenu li{
+	display:inline-block;
+	box-shadow: 0px 1px 3px 0px #000;
+	margin:0 0.25em;
+	border-radius: 2px;
+}
+
+.topmenu li a{
+	display:inline-block;
+	font-size:1.25em;
+	font-stretch:300;
+	padding:0.25em 0.5em;
+	color:#fff;
+	text-decoration:none;
+}
+
+.topmenu li a:hover{
+	border-radius: 2px;
+	background-color:rgba(232,228,9,0.2);
+}
+
+.firstVisibleContent{
+	padding-top:4.5em;
+	position:absolute;
+	left:0;
+	height:100%;
+	width:100%;
+}
+
+.community{
+	position:absolute;
+	top:125%;
+	left:0;
+	background-color:yellow;
+}
+
+.site_description{
+	margin: 0 auto;
+	width:33.33%;
+	font-size:3.75em;
+	text-align:center;
+	
+	color:#fff;
+	text-shadow: 0 0 5px #fff,
+	0px 2px 5px #000,
+	2px 0px 5px #000;
+}
+
+.one_third{
+	width:33.33%;
+	display:inline-block;
+}
+
+.active_button{
+	margin: 0 auto;
+	margin-left:-2px;
+	width:100%;
+	position:absolute;
+	bottom:20%;
+}
+
+.button{
+	border-radius:2px;
+	color:#ebebeb;
+	background: linear-gradient(to top, rgba(0,0,0,0.2), rgba(255,255,255,0.2));
+	text-shadow: 0px 1px 1px rgba(71,71,71,0.75);
+	text-decoration:none;
+	box-shadow: 0px 1px 3px 0px #000,
+	inset 0px 0px 15px 0px rgba(255,255,255,0.2);
+	padding:0.25em 0.75em;
+}
+
+.medium_button{
+	font-size:1.25em;
+}
+
+.big_button{
+	font-size:2em;
+}
+
+.green_button{
+	background-color:rgba(0,196,65,1)!important;
+}
+
+.blue_button{
+	background-color:rgba(3,62,109,1)!important;
+}
