@@ -1,0 +1,21 @@
+<md-menu ng-controller="ShareCtrl as share">
+  <md-button aria-label="Share" class="md-icon-button" ng-click="$mdOpenMenu($event)" md-ink-ripple="#64b5f6">
+    <md-icon md-svg-icon="../assets/img/icons/share-arrow.svg"></md-icon>
+  </md-button>
+  <md-menu-content width="2">
+    <md-menu-item ng-repeat="item in share.array">
+      <md-button ng-href=""
+            socialshare
+            socialshare-provider="{{item.id}}"
+            socialshare-text="{{event.name}}!"
+            socialshare-description="{{event.start | date:'Мероприятие пройдёт с d MMMM HH:mm '}}{{event.end | date:'по d MMMM HH:mm'}} по адресу: {{event.adress}}."
+            socialshare-hashtags="{{organization.info.id}}, {{event.id}}, pronwe"
+            socialshare-url="http://{{organization.info.id}}.pronwe.ru/events/{{event.id}}"
+            socialshare-media="http://pronwe.ru/assets/img/temp/{{event.logo}}"
+            md-ink-ripple="#64b5f6">
+        <md-icon md-svg-icon="{{item.icon}}"></md-icon>
+        {{item.name}}
+      </md-button>
+    </md-menu-item>
+  </md-menu-content>
+</md-menu>
