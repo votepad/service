@@ -38,6 +38,18 @@ ul{
 .inline{
 	display: inline-block;
 }
+.no-li{
+	list-style: none;
+}
+.form-control {
+    box-shadow: 0 0 0 #000 !important;
+    border-radius: 3px;
+    border-color: #bbbbbb;
+}
+.form-control:focus {
+	border-color: #64b5f6;
+}
+
 .tooltip-inner{
 	background-color: rgba(0,0,0,0.54);
 	color: #fff;
@@ -46,10 +58,14 @@ ul{
 .content-body{
 	padding: 20px;
 }
+md-icon{
+	min-height: 5px;
+	min-width: 5px;
+}
 .md-menu-sm{
 	padding: 0 !important;
 }
-.md-menu-sm md-menu-item{
+.md-menu-sm md-menu-item, .md-select-sm{
 	min-height: 24px;
 	height: 24px;
 	width: auto;
@@ -74,7 +90,7 @@ ul{
 .md-menu-md{
 	padding: 0 !important;
 }
-.md-menu-md md-menu-item{
+.md-menu-md md-menu-item, .md-select-md{
 	min-height: 36px;
 	height: 36px;
 	width: auto;
@@ -148,7 +164,7 @@ ul{
 }
 .md-btn-sm{
 	padding: 5px 10px;
-	font-size: 13px;
+	font-size: 12px;
 	line-height: 1.5;
 }
 .md-btn-md{
@@ -276,6 +292,18 @@ ul{
 			padding: 10px 20px;
 		}
 
+.input-group-btn .md-btn, .input-group-btn .md-btn:hover, .input-group-btn .md-btn:focus{
+	border-top-left-radius: 0;
+	border-bottom-left-radius: 0;
+	border-top-right-radius: 3px;
+	border-bottom-right-radius: 3px;
+	border: 1px solid #adadad;
+	margin-left: -1px;
+}
+.input-group-btn .md-btn-sm{
+	height: 30px;
+	padding: 2px 10px !important;
+}
 .panel {
 	border-radius: 3px !important;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);

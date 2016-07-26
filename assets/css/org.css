@@ -124,6 +124,24 @@
 }
 
 /* left column */
+.search-block{
+	position: relative;
+    overflow: hidden;
+    margin-top: -15px;
+}
+	.search-block md-input-container{
+		margin-bottom: 0px;
+	}
+		.search-block md-input-container label{
+			padding-left: 15px !important;
+		}
+
+@media (max-width: 991px) {
+	.search-block{
+		margin-bottom: 20px;
+	}
+}
+
 .event-group{
 	position: relative;
 	border-radius: 3px;
@@ -156,6 +174,7 @@
 	height: 160px;
 }
 .event-preview{
+	text-align: left;
 	padding:5px;
 	opacity: 0;
 	position: relative;
@@ -171,14 +190,19 @@
 .event-preview h2{
 	margin-top: 3px;
 	margin-left: 3px;
-	width: 80%;
+	width: 85%;
 	font-size: 14px;
 	color: #000;
 	font-weight: bold;
+	height: 30px;
+	overflow: hidden;
 }
 .event-preview p{
-	margin: 3px;
+	position: relative;
+	margin: 0 3px;
 	font-size: 11px;
+	height: 80px;
+	overflow: hidden;
 }
 .event-preview span{
 	margin: 0;
@@ -371,4 +395,68 @@
 	min-height: 18px;
 	margin-right: -5px;
 	margin-top: -5px;
+}
+.person-in-team{
+	margin-bottom: 10px;
+}
+	.person-in-team img{
+		border: 1px solid #bbbbbb;
+		width: 33px;
+		height: 33px;
+	}
+	.person-in-team p{
+		position: absolute;
+		font-weight: bold;
+		font-size: 1.2em;
+		margin: 0 5px 0 5px;
+		width: 65%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+	.person-in-team small{
+		position: absolute;
+		margin: 20px 0 0 5px;
+		width: 65%;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+.add-person-to-team{
+	margin: 10px 0 0 0;
+}
+	.add-person-to-team label{
+		font-weight: normal;
+	}
+	.add-person-to-team small{
+		font-size: 10px;
+	}
+
+.log-activites small{
+	color: #bbb;
+	padding-left: 5px;
+}
+.log-activites p{
+	padding-left: 5px;
+}
+.log-activites p .md-btn{
+	font-size: 1em;
+	padding: 0 1px;
+	max-width: 100%;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.logs-description{
+	padding-right: 10px;
+	margin-bottom: 3px;
+}
+.logs-description span{
+	width: 10px;
+	height: 10px;
+}
+.logs-description p{
+	padding-left: 2px;
+	padding-bottom: 2px;
+	margin: 0;
 }
