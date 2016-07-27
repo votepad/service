@@ -22,13 +22,16 @@
 	border-left: 1px solid #bbbbbb;
 	font-size: 18px;
 }
-	.org-nav a{
+	.org-nav .md-btn{
+		border-radius: 0;
 		position: relative;
 		display: inline-block;
-		padding: 9.25px 15px;
+		padding: 9.5px 15px;
+		height: 40px;
+		vertical-align: top;
 		border-right: 1px solid #bbbbbb;
 	}
-	.org-nav a:nth-child(n+2){
+	.org-nav .md-btn:nth-child(n+2){
 		margin-left: -4px; 
 	}
 	.active-tab{
@@ -42,22 +45,22 @@
 		bottom: -3px;
 		left: 45%;
 	}
-		.org-nav a.active > .active-tab{
-			display: block;
+		.org-nav .md-btn.active{
+			pointer-events: none;
+			height: 41px;
+		}
+		.org-nav .md-btn.active > .active-tab{
+			display: block;	
 		}
 
-		.org-nav a:hover, .org-nav a:focus{
-			position: relative;
+		.org-nav .md-btn:hover, .org-nav .md-btn:focus{
 			background-color: rgb(236,236,236);
-			-webkit-transform: translate3d(0,-1px,0);
-			transform: translate3d(0,-1px,0); 
-			box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
-		}
-		.org-nav a.active:hover, .org-nav a.active:focus{
 			-webkit-transform: none;
-			background-color: transparent;
 			transform: none; 
 			box-shadow: none;
+		}
+		.org-nav .md-btn.active:hover, .org-nav .md-btm.active:focus{
+			background-color: transparent;
 		}
 
 .org-avatar{
@@ -202,49 +205,49 @@
 	height: 150px;
 	border: 1px;
 }
-.event-link:hover > .event-preview, .event-link:focus > .event-preview{
-	transition: 0.4s;
-	opacity: 0.95;
-	background-color: #fff;
-}
-.event-preview h2{
-	margin-top: 3px;
-	margin-left: 3px;
-	width: 85%;
-	font-size: 14px;
-	color: #000;
-	font-weight: bold;
-	height: 30px;
-	overflow: hidden;
-}
-.event-preview p{
-	position: relative;
-	margin: 0 3px;
-	font-size: 11px;
-	height: 80px;
-	overflow: hidden;
-}
-.event-preview span{
-	margin: 0;
-	position: absolute;
-	bottom: 0;
-	right: 0;
-	width: 100px;
-	height: 20px;
-	text-align: center;
-	font-size: 10px;
-}
-.event-preview small{
-	position: absolute;
-	bottom: 5px;
-	left: 5px;
-	padding: 0 3px 2px 3px;
-	font-size: 10px;
-	background-color: #f5f7fa;
-	border-radius: 3px;
-	border: 1px solid #bbb;
-	transition: 0.4s;
-}
+	.event-link:hover > .event-preview, .event-link:focus > .event-preview{
+		transition: 0.4s;
+		opacity: 0.95;
+		background-color: #fff;
+	}
+	.event-preview h2{
+		margin-top: 3px;
+		margin-left: 3px;
+		width: 85%;
+		font-size: 14px;
+		color: #000;
+		font-weight: bold;
+		height: 30px;
+		overflow: hidden;
+	}
+	.event-preview p{
+		position: relative;
+		margin: 0 3px;
+		font-size: 11px;
+		height: 80px;
+		overflow: hidden;
+	}
+	.event-preview span{
+		margin: 0;
+		position: absolute;
+		bottom: 0;
+		right: 0;
+		width: 100px;
+		height: 20px;
+		text-align: center;
+		font-size: 10px;
+	}
+	.event-preview small{
+		position: absolute;
+		bottom: 5px;
+		left: 5px;
+		padding: 0 3px 2px 3px;
+		font-size: 10px;
+		background-color: #f5f7fa;
+		border-radius: 3px;
+		border: 1px solid #bbb;
+		transition: 0.4s;
+	}
 .event-result{
 	position: absolute;
 	top: 13px;
@@ -483,21 +486,13 @@
 	}
 
 .create-org{
+	position: relative;
 	margin-top: 30px;
-    padding: 0 15%;
 }
 	.create-org .help-block{
 		color: #bbb;
 	}
-	.create-org .form-group{
-		display: flex;
-	}
-	.create-org .col-sm-2{
-		min-width: 200px;
-	}
-	.create-org .col-sm-6{
-		min-width: 400px;
-	}
+	
 @media (max-width: 767px) {
 	.create-org .form-group{
 		display: block;

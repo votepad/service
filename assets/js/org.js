@@ -23,7 +23,7 @@ $(function () {
 /* ANGULAR */
 
 
-var app = angular.module('pronwe', ["ngAria","ngAnimate", "ngMaterial","720kb.socialshare"]);
+var app = angular.module('pronwe', ["ngAria","ngAnimate", "ngMask", "ngMaterial","720kb.socialshare"]);
 app.constant("url","http://pronwe/");
 app.controller("appCtrl", function(){
 
@@ -52,7 +52,7 @@ app.controller("eventsCtrl", function($timeout, $mdSidenav, $log, url){
   this.eventInfo = events;
   this.search = {};
   this.sortparam = [{id: "name", name: "Название мероприятия"},{id: "startdata", name: "Дата начала мероприятия"}];
-  this.typeparam = [{id: "1", name: "Черновик"},{id: "2", name: "Виден всем"},{id: "3", name: "Виден команде"}];
+  this.typeparam = [{id: "", name: "Все"},{id: "1", name: "Черновик"},{id: "2", name: "Виден всем"},{id: "3", name: "Виден команде"}];
 });
 app.controller("teamCtrl", function(){
   this.teamInfo = team;
@@ -121,7 +121,23 @@ app.filter('userName', function () {
     }
   }
 });
+app.filter('toEnglish', function () {
+  return function (item) {
+    return translateEntoRu(item);
+  }
+});
 
+var translateEntoRu = function(str){
+  var replacer = {"а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e","ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"kh","ц":"ts","ч":"ch","щ":"shch","ъ":"ie","ы":"y","ь":"'","э":"e","ю":"iu","я":"ya"};
+  var temp = str;
+  if (str != undefined) {
+    alert( replacer [ str[i] ])
+    alert(2);
+    return temp;
+    
+  }
+  
+};
 
 
 var events = [
@@ -148,6 +164,18 @@ var events = [
     rating: "0", // 0 - нет страницы рейтинга, 1 - есть страница рейтинга
     views: "545",
     likes: "50"
+  },
+  { id: "3",
+    name: "Мистер ИТМО", 
+    shortdescription: "Этот конкурс проходит ежегодно, чтобы мужики показали себя",
+    startdata: "2017-01-30T14:00:00",
+    logo: "bg3.jpg",
+    type: "3", // 1 - черновик, 2 - виден всем, 3 - виден команде
+    link: "misteritmo",
+    hashtags: "#misteritmo#ifmo#pronwe",
+    rating: "1", // 0 - нет страницы рейтинга, 1 - есть страница рейтинга
+    views: "175",
+    likes: "150"
   },
 ];
 

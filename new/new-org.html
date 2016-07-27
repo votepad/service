@@ -37,59 +37,59 @@
 			на "опубликовать мероприятие", если пользователь авторизован, то идёт переадресация на создание меропрития
 			от имеющийся организации; есди пользователь не авторизован, то идёт переадреация на страницу "Введите информацию об организаторе"(первая форма на странице). Пока не знаю как оформить эту страницу, сделал только форму. Ещё есть одна переадресация, если в header будет выбрана ссылка на "добавить организацию", то идёт переадресация на страницу создания организации (упрощённая версия: вторая форма на странице)</p>
 			
-			<div class="panel panel-default" style="margin: auto; margin-bottom: 30px;">
+			<div class="panel panel-default" style="margin: auto; margin-bottom: 30px; width: 80%">
 				<div class="panel-heading">Новая организация - неавторзованный пользователь</div>
 				<div class="panel-body" ng-controller="organizationCtrl as org">
 					<h2>Введите информацию об организации</h2>
 					<p>Заполните форму и Вы получите личный кабинет. В нём Вы сможете создавать и публиковать мероприятия.</p>
 					<form class="create-org">
 						<div class="form-group">
-							<label class="col-sm-2 control-label">Название организации <span style="color: red">*</span></label>
-							<div class="col-sm-6">
-								<input type="text" name="orgname" class="form-control" required="">
-								<span class="help-block">Например: "ООО Ивент". Его увидят на странице организеции, где будут показзаны все Ваши мероприятия.</span>
+							<label class="col-sm-3 control-label">Название организации<span style="color: red">*</span></label>
+							<div class="col-sm-9">
+								<input type="text" name="orgname" class="form-control" required="" ng-model="site">
+								<span class="help-block">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">Доверенное лицо <span style="color: red">*</span></label>
-							<div class="col-sm-6">
-								<input type="text" name="person" class="form-control" required="">
-								<span class="help-block">Например: "Иванов Иван Иванович". Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
+							<label class="col-sm-3 control-label">Доверенное лицо<span style="color: red">*</span></label>
+							<div class="col-sm-9">
+								<input type="text" name="person" class="form-control" required="" placeholder="Иванов Иван Иванович">
+								<span class="help-block">Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">E-mail <span style="color: red">*</span></label>
-							<div class="col-sm-6">
+							<label class="col-sm-3 control-label">E-mail<span style="color: red">*</span></label>
+							<div class="col-sm-9">
 								<input type="email" name="email" class="form-control" required="" placeholder="email@address.ru">
 								<span class="help-block">Для входа в систему и сервисной информации.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">Пароль <span style="color: red">*</span></label>
-							<div class="col-sm-6">
+							<label class="col-sm-3 control-label">Пароль<span style="color: red">*</span></label>
+							<div class="col-sm-9">
 								<input type="password" name="password" class="form-control" required="">
 								<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">Сайт организации</label>
-							<div class="col-sm-6">
+							<label class="col-sm-3 control-label">Сайт организации</label>
+							<div class="col-sm-9">
 								<div class="input-group">
-									<input type="text" name="orgname" class="form-control">
+									<input type="text" name="orgname" class="form-control" value="{{site | toEnglish}}">
 									<span class="input-group-addon">.votepad.ru</span>
 								</div>
 								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-2 control-label">Телефон <span style="color: red">*</span></label>
-							<div class="col-sm-6">
-								<input type="tel" name="tel" class="form-control" required="" mask="(999) 999-9999" clean="true">
+							<label class="col-sm-3 control-label">Телефон<span style="color: red">*</span></label>
+							<div class="col-sm-9">
+								<input type="text" name="phone" class="form-control" required="" mask="+9 (999) 999-9999" clean="true" ng-model="phone" placeholder="+7 (999) 987-6543">
 								<span class="help-block">Нужен для связи с Вами.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="checkbox col-sm-offset-2">
+							<label class="col-sm-offset-3" style="padding: 0 15px">
 								<input type="checkbox" value="" required="">
 								Я прочитал 
 								<md-button ng-href="" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</md-button>

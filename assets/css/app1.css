@@ -9,8 +9,11 @@ body {
 	overflow: visible !important;
     font-family: pronwe;
     font-size: 1.3em;
+    color: #656565;
+    background-color: #f5f7fa;
 }
-html, body{
+html{
+	overflow-x:hidden !important;
 	color: #656565;
     background-color: #f5f7fa;
 }
@@ -86,7 +89,7 @@ md-icon{
 	line-height: normal;
 }
 .md-menu-sm md-menu-item .md-button md-icon{
-	margin: 3px 5px 3px 0;
+	margin: 6px 5px 3px 0;
 	height: 18px;
     width: 18px;
     min-height: 18px;
