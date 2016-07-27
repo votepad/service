@@ -101,6 +101,25 @@
 		width: 100%;
 	}
 }
+.columns-area{
+	width: 100%;
+}
+.left-column{
+	padding-left: 15px;
+	padding-right: 5px;
+	vertical-align: top;
+	display: inline-block;
+	width: 70%;
+}
+.right-column{
+	float: right;
+	vertical-align: top;
+	margin-right: -15px;
+	padding: 0;
+	display: inline-block;
+	width: 30%;
+}
+
 @media (max-width: 768px) {
 	.org-block, header{
 		width: 753px;
@@ -119,6 +138,7 @@
 		padding: 0;
 		display: inline-block;
 		margin-left: 20px;
+		margin-right: 0;
 		width: 300px;
 	}
 }
@@ -373,6 +393,7 @@
 
 
 /* right column */
+
 .right-column .quick-start-icon{
 	min-width: 15px;
 	min-height: 15px;
@@ -451,12 +472,40 @@
 	padding-right: 10px;
 	margin-bottom: 3px;
 }
-.logs-description span{
-	width: 10px;
-	height: 10px;
+	.logs-description span{
+		width: 10px;
+		height: 10px;
+	}
+	.logs-description p{
+		padding-left: 2px;
+		padding-bottom: 2px;
+		margin: 0;
+	}
+
+.create-org{
+	margin-top: 30px;
+    padding: 0 15%;
 }
-.logs-description p{
-	padding-left: 2px;
-	padding-bottom: 2px;
-	margin: 0;
+	.create-org .help-block{
+		color: #bbb;
+	}
+	.create-org .form-group{
+		display: flex;
+	}
+	.create-org .col-sm-2{
+		min-width: 200px;
+	}
+	.create-org .col-sm-6{
+		min-width: 400px;
+	}
+@media (max-width: 767px) {
+	.create-org .form-group{
+		display: block;
+	}
+	.create-org .col-sm-2{
+		text-align: left;
+	}
+	.create-org{
+		padding: 0;
+	}
 }

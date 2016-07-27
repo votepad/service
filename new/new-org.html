@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html ng-app="pronwe">
+<head>
+		<meta charset="utf-8">
+		<title>Новая организация</title>
+
+    <!-- =============== VENDOR STYLES ===============-->
+    	<link rel="stylesheet" href="../assets/vendor/fontawesome/css/font-awesome.min.css">
+		<link rel="stylesheet" href="../assets/vendor/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="../assets/vendor/angular-material/css/angular-material.min.css">
+		<link rel="stylesheet" href="../assets/css/app1.css">
+		<link rel="stylesheet" href="../assets/css/org.css">
+
+
+    <!-- =============== VENDOR SCRIPTS ===============-->
+    	<script src="../assets/vendor/jquery/dist/jquery.js"></script>
+		<script src="../assets/vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
+
+		<script src="../assets/vendor/angular/angular.min.js"></script>
+		<script src="../assets/vendor/angular/i18n/angular-locale_ru-ru.js"></script>
+		<script src="../assets/vendor/angular/angular-aria.min.js"></script>
+		<script src="../assets/vendor/angular/angular-animate.min.js"></script>
+		<script src="../assets/vendor/angular/angular-ngmask.min.js"></script>
+		<script src="../assets/vendor/angular-socialshare/angular-socialshare.js"></script>
+		<script src="../assets/vendor/angular-material/js/angular-material.min.js"></script>
+		<script src="../assets/js/org.js"></script>
+
+</head>
+<body ng-controller="appCtrl">
+	<div class="wrapper">
+		<header></header>
+
+		<div class="content-wrapper">
+
+			<!-- адресс что-то типо ..orgs/new -->
+			<p>Парни, пока не знаю куда и как отнести эти формы, но знаю, что с главной должна идти ссылка
+			на "опубликовать мероприятие", если пользователь авторизован, то идёт переадресация на создание меропрития
+			от имеющийся организации; есди пользователь не авторизован, то идёт переадреация на страницу "Введите информацию об организаторе"(первая форма на странице). Пока не знаю как оформить эту страницу, сделал только форму. Ещё есть одна переадресация, если в header будет выбрана ссылка на "добавить организацию", то идёт переадресация на страницу создания организации (упрощённая версия: вторая форма на странице)</p>
+			
+			<div class="panel panel-default" style="margin: auto; margin-bottom: 30px;">
+				<div class="panel-heading">Новая организация - неавторзованный пользователь</div>
+				<div class="panel-body" ng-controller="organizationCtrl as org">
+					<h2>Введите информацию об организации</h2>
+					<p>Заполните форму и Вы получите личный кабинет. В нём Вы сможете создавать и публиковать мероприятия.</p>
+					<form class="create-org">
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Название организации <span style="color: red">*</span></label>
+							<div class="col-sm-6">
+								<input type="text" name="orgname" class="form-control" required="">
+								<span class="help-block">Например: "ООО Ивент". Его увидят на странице организеции, где будут показзаны все Ваши мероприятия.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Доверенное лицо <span style="color: red">*</span></label>
+							<div class="col-sm-6">
+								<input type="text" name="person" class="form-control" required="">
+								<span class="help-block">Например: "Иванов Иван Иванович". Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">E-mail <span style="color: red">*</span></label>
+							<div class="col-sm-6">
+								<input type="email" name="email" class="form-control" required="" placeholder="email@address.ru">
+								<span class="help-block">Для входа в систему и сервисной информации.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Пароль <span style="color: red">*</span></label>
+							<div class="col-sm-6">
+								<input type="password" name="password" class="form-control" required="">
+								<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Сайт организации</label>
+							<div class="col-sm-6">
+								<div class="input-group">
+									<input type="text" name="orgname" class="form-control">
+									<span class="input-group-addon">.votepad.ru</span>
+								</div>
+								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="col-sm-2 control-label">Телефон <span style="color: red">*</span></label>
+							<div class="col-sm-6">
+								<input type="tel" name="tel" class="form-control" required="" mask="(999) 999-9999" clean="true">
+								<span class="help-block">Нужен для связи с Вами.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="checkbox col-sm-offset-2">
+								<input type="checkbox" value="" required="">
+								Я прочитал 
+								<md-button ng-href="" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</md-button>
+								 об оказании услуг VotePad и согласен с ним
+							</label>
+						</div>
+						<div class="text-center">
+							<md-button type="submit" class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</md-button>
+						</div>
+					</form>
+				</div>
+			</div>
+
+			<div class="panel panel-default" style="width: 80%; margin: auto;">
+				<div class="panel-heading">Новая организация - авторизованный пользователь</div>
+				<div class="panel-body">
+					<form>
+						
+					</form>
+				</div>
+			</div>
+		</div>
+
+		<footer></footer>
+	</div>
+</body>
+</html>

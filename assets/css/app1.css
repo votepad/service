@@ -31,6 +31,9 @@ a, a:hover, a:focus, button, button:hover, button:focus{
 	text-decoration: none;
 	color: #656565;
 }
+.link{
+	color: red;	
+}
 ul{
 	padding: 0;
 	margin: 0;
@@ -49,7 +52,9 @@ ul{
 .form-control:focus {
 	border-color: #64b5f6;
 }
-
+.control-label{
+	text-align: right;
+}
 .tooltip-inner{
 	background-color: rgba(0,0,0,0.54);
 	color: #fff;

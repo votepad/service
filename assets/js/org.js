@@ -61,7 +61,11 @@ app.controller("logCtrl", function(){
   this.logInfo = logactivites;
   this.logDesc = logdescription;
 });
-
+app.controller("organizationCtrl", function(){
+  this.RUtoEN = function(sim){
+    
+  };
+});
 
 
 
