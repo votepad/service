@@ -75,7 +75,7 @@
 							<label class="col-sm-3 control-label">Сайт организации</label>
 							<div class="col-sm-9">
 								<div class="input-group">
-									<input type="text" name="orgname" class="form-control" value="{{site | toEnglish}}">
+									<input type="text" name="orgname" class="form-control" maxlength="25"value="{{site | checkAllowedSim}}">
 									<span class="input-group-addon">.votepad.ru</span>
 								</div>
 								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>

@@ -12,6 +12,11 @@ body {
     color: #656565;
     background-color: #f5f7fa;
 }
+@media (max-width: 768px) {
+	body{
+		overflow-x:scroll !important;
+	}
+}
 html{
 	overflow-x:hidden !important;
 	color: #656565;

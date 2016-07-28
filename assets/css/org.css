@@ -42,12 +42,12 @@
 		display: none;
 		height: 9px;
 		width: 16px;
-		bottom: -3px;
+		bottom: -1.5px;
 		left: 45%;
 	}
 		.org-nav .md-btn.active{
 			pointer-events: none;
-			height: 41px;
+			height: 41.5px;
 		}
 		.org-nav .md-btn.active > .active-tab{
 			display: block;	
