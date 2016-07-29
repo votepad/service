@@ -23,10 +23,11 @@
 	font-size: 18px;
 }
 	.org-nav .md-btn{
+		font-size: 18px;
 		border-radius: 0;
 		position: relative;
 		display: inline-block;
-		padding: 9.5px 15px;
+		padding: 6px 30px;
 		height: 40px;
 		vertical-align: top;
 		border-right: 1px solid #bbbbbb;
@@ -125,7 +126,7 @@
 
 @media (max-width: 768px) {
 	.org-block, header{
-		width: 753px;
+		width: 768px;
 	}
 	.columns-area{
 		width: 768px;
@@ -504,3 +505,77 @@
 		padding: 0;
 	}
 }
+
+.panel-default > .panel-heading{
+	box-shadow: inset 0px -1px 0 0 #bbb;
+	border-bottom: 0 !important;
+}
+	.panel-tabs{
+		margin: -10px -15px;
+	}
+	.panel-tabs .md-btn{
+		font-size: 18px;
+		border-radius: 0;
+		position: relative;
+		display: inline-block;
+		padding: 6px 30px;
+		height: 40px;
+		vertical-align: top;
+		border-right: 1px solid #bbbbbb;
+	}
+		.panel-tabs .md-btn:nth-child(n+2){
+			margin-left: -4px;
+		}
+		.panel-tabs .md-btn:first-child{
+			border-top-left-radius: 2px;
+		}
+		.panel-tabs .md-btn:hover, .panel-tabs .md-btn:focus{
+			position: relative;
+			-webkit-transform: none;
+			transform: none; 
+			box-shadow: none;
+		}
+		.panel-tabs .md-btn.active{
+			pointer-events: none;
+		}
+
+	.active-link{
+		background-image: url(../img/icons/link-2.svg);
+		background-repeat: no-repeat;
+		background-size: auto;
+		position: absolute;
+		display: none;
+		height: 8px;
+		width: 16px;
+		bottom: -2px;
+		left: 45%;
+		z-index: 2;
+	}
+		.panel-tabs .md-btn.active > .active-link{
+			display: block;
+		}
+
+.settings-main-c1{
+	position: relative;
+	float: left;
+	padding-left: 15px;
+	padding-right: 30px;
+	width: 50%;
+}
+.settings-main-c2{
+	position: relative;
+	float: left;
+	padding-left: 30px;
+	padding-right: 15px;
+	width: 50%;
+}
+.settings-main-c1 .help-block, .settings-main-c2 .help-block{
+	font-size: 10px;
+}
+	.settings-main-c1 .help-block a, .settings-main-c2 .help-block a{
+		color:#2f95ea;
+	}
+	.settings-main-c1 .help-block a:hover, .settings-main-c1 .help-block a:focus
+	.settings-main-c2 .help-block a:hover, .settings-main-c2 .help-block a:focus{
+		border-bottom:1px dashed #1565C0;
+	}
