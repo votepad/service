@@ -54,7 +54,7 @@ body{
 .topmenu{
 	position:absolute;
 	right:1em;
-	top: 1;
+	top: 1em;
 }
 
 .topmenu li{
@@ -97,7 +97,7 @@ body{
 	background-color:rgba(0,196,65,1);
 }
 
-.community>.title_bar>span, .news_container>.title>span{
+.community>.title_bar>span, .title>span{
 	font-size:2em;
 	margin:1em;
 	color:#ebebeb;
@@ -185,14 +185,14 @@ body{
 	padding:0.5em;
 }
 
-.news_container .news{
+.news, .block{
 	width:100%;
 	margin:0;
 	box-shadow: 0px 0px 3px 0px rgba(74,74,74,0.5)/*,
 		0px 0px 0px 0px rgba(74,74,74,0.5)*/;
 }
 
-.news_container .title{
+.title{
 	background-color:#315572;
 	margin:0;
 	text-align:left;
@@ -201,9 +201,14 @@ body{
 	font-size:0.9em;
 }
 
+.right-side .title{
+	background-color:rgba(0,196,65,1);
+}
+
 .content{
 	margin-top:3em;
 	text-align:center;
+	vertical-align:top;
 }
 
 .left-side, .right-side{
@@ -215,13 +220,14 @@ body{
 }
 
 .right-side{
-	width:25%;
-	margin-left:2em;
+	width:23%;
+	margin-right:3em;
+	float:right;
 }
 
 .filter{
 	background-color:#f7f7f7;
-	background-image:url(../img/filter.png);
+	background-image:url(../img/icon/filter.png);
 	background-size:2em;
 	background-repeat:no-repeat;
 	background-position:1em 50%;
@@ -241,26 +247,39 @@ body{
 
 .news .date{
 	background:url(../img/calendar.png);
-	background-size:60%;
+	background-size:2.1em;
 	background-position:50% 0;
 	background-repeat:no-repeat;
 	width:18%;
 	min-height:4em;
 	font-size:3em;
 	color:#505050;
+	margin-right:0.1em;
+}
+
+.news .date>.month{
+	display:block;
+	margin-top:0.1em;
+	font-size:0.49em;
 }
 
 .news .date span{
 	position:relative;
-	top:0.7em;
+	top:0.75em;
 }
 
 .news .news-item{
 	width:80%;
-	
+	text-align:left;
+	color:#505050;
 }
 
-.news ul{
+.news-title span{
+	font-size:1.75em;
+	color:#315672;
+}
+
+ul{
 	margin:0;
 	padding:0;
 	list-style:none;
@@ -277,4 +296,180 @@ body{
 
 .news ul li:nth-child(2n){
 	background-color:#f7f7f7;
+}
+
+.news-item .info{
+	margin-left:-1.5em;
+	max-width:100%;
+	color:#315672;
+	font-size:0.9em;
+	
+}
+
+.info span{
+	display:inline-block;
+	float:right;
+}
+
+.small-text{
+	width:95%;
+}
+
+.small-text p::after{
+	content:'Читать полностью';
+	color:#315672;
+}
+
+a{
+	text-decoration:none;
+	color:inherit;
+}
+
+date,url,org{
+	display:inline-block;
+	color:#505050;
+	padding-left:1.75em;
+	height:31px;
+	line-height:30px;
+	background-repeat:no-repeat;
+	background-position:0;
+	background-size:25px;
+	transition:0.25s;
+	transition-delay:0.1s;
+	cursor:default;
+}
+
+date{
+	background-image:url(../img/icon/bw-calendar.png);
+}
+
+date:hover{
+	background-image:url(../img/icon/calendar.png);
+}
+
+url{
+	background-image:url(../img/icon/bw-url.png);
+}
+
+url:hover{
+	background-image:url(../img/icon/url.png);
+}
+
+.block_container{
+	margin-bottom:1em;
+}
+
+.sub-title{
+	background-color:#f7f7f7;
+	min-height:2em;
+}
+
+.right-side .title>span{
+	margin:0em;
+}
+
+.search{
+	background-color:rgba(0,0,0,0);
+	color:#5a5a5a;
+	margin:0.5em;
+	padding:0.25em 0;
+	padding-right:25px;
+	padding-left:0.25em;
+	outline:none;
+	border:0;
+	width:80%;
+	font-size:0.9em;
+	border-bottom:1px solid rgba(0,196,65,1);
+	min-height:21px;
+	
+	background-repeat:no-repeat;
+	background-position:99% 50%;
+	background-size:18px;
+	background-image:url(../img/icon/bw-search.png);
+	transition-delay:0.1s;
+	transition:0.5s;
+}
+
+.search:focus{
+	background-image:url(../img/icon/search.png);
+}
+
+.block-content{
+	padding:0.5em;
+}
+
+.block-content ul .name>span{
+	color:rgba(0,196,65,1);
+}
+
+.block-content .logo{
+	max-width:200px;
+	margin:0 auto;
+}
+
+.block-content .logo img{
+	max-width:100%;
+	display:block;
+}
+
+.block-content .logo{
+	width:100%;
+	color:#505050;
+	text-align:left;
+}
+
+.block-content .logo>.view_counter{
+	padding-left:23px;
+	background-repeat:no-repeat;
+	background-position:0 50%;
+	background-image:url(../img/icon/eye.png);
+	display:inline-block;
+}
+
+#feedback .sub-title{
+	transition:0.25s;
+}
+
+#feedback .sub-title:hover{
+	cursor:pointer;
+	text-shadow: 0px 0px 1px rgba(71,71,71,0.5);
+}
+
+#feedback .sub-title span{
+	color:#5a5a5a;
+	line-height:2em;
+}
+
+
+#feedback .logo{
+	width:150px;
+	height:150px;
+	border-bottom:5px solid rgba(0,196,65,0.75);
+	border-radius:50%;
+	margin-bottom:0.5em;
+}
+
+#feedback .name span{
+	font-weight:500;
+	font-size:1.25em;
+}
+
+#feedback .name .org{
+	font-size:0.75em;
+	color:#333;
+}
+
+#feedback img{
+	border-radius:inherit;
+}
+
+#feedback p{
+	margin:0.5em 0;
+	font-size:0.9em;
+	color:#505050;
+}
+
+#feedback p::after{
+	content:'Читать полностью';
+	color: rgba(0,196,65,0.75);
 }
