@@ -61,21 +61,6 @@ app.controller("logCtrl", function(){
   this.logInfo = logactivites;
   this.logDesc = logdescription;
 });
-app.controller("organizationCtrl", function(){
-  this.site = "";
-  this.checksimforsite = function(event){
-    alert(event.keyCode);
-    // A..Z 65..90
-    //0..9 48..57
-    // - 45
-    //a..z 97..112
-    //А..Я 1040..1071
-    //а..я 1072..1103
-    this.site = this.site + " " + event.keyCode;
-  };
-});
-
-
 
 app.filter('eventType', function () {
   return function (item) {
@@ -136,31 +121,17 @@ app.filter('checkAllowedSim', function () {
 });
 
 var checkingsim = function(str){
-  var replacer = {"а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e","ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"kh","ц":"ts","ч":"ch","ш":"sh","щ":"shch","ъ":"ie","ы":"y","ь":"","э":"e","ю":"iu","я":"ya","a":"a","b":"b","c":"c","d":"d","e":"e","f":"f","g":"g","h":"h","i":"i","j":"j","k":"k","l":"l","m":"m","n":"n","o":"o","p":"p","q":"q","r":"r","s":"s","t":"t","u":"u","v":"v","w":"w","x":"x","y":"y","z":"z","-":"-","1":"1","2":"2","3":"3","4":"4","5":"5","6":"6","7":"7","8":"8","9":"9","0":"0"};
+  var replacer = {"а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e","ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"kh","ц":"ts","ч":"ch","ш":"sh","щ":"shch","ъ":"ie","ы":"y","ь":"","э":"e","ю":"iu","я":"ya","a":"a","b":"b","c":"c","d":"d","e":"e","f":"f","g":"g","h":"h","i":"i","j":"j","k":"k","l":"l","m":"m","n":"n","o":"o","p":"p","q":"q","r":"r","s":"s","t":"t","u":"u","v":"v","w":"w","x":"x","y":"y","z":"z","-":"-","1":"1","2":"2","3":"3","4":"4","5":"5","6":"6","7":"7","8":"8","9":"9","0":"0"," ":"-"};
   var error = {"~":"","!":"","@":"","#":"","$":"","%":"","^":"","&":"","*":"","(":"",")":"","_":"","+":"","`":"","=":"","/":""," ":"",".":"",",":"",'"':'',"'":"","[":"","]":"","{":"","}":"",";":"",":":"","?":"",">":"","<":"","!":"","№":""}
 
   if (str != undefined) {
-    var len = str.length;
-    for (var i = 0; i < len; i++) {
+    for (var i = 0; i < str.length; i++) {
       if (replacer [ str[i].toLowerCase() ] != undefined){
         replace = replacer [ str[i].toLowerCase() ];
         str = str.replace(str[i], replace);
       }
-      else if (error [ str[i].toLowerCase() ] != undefined){
-        var j=i;
-        while (j < len){
-          if (error [ str[j+1].toLowerCase() ] != undefined){
-            str = str.replace(str[j], "");
-            j++;
-          }
-          else{
-            str = str.replace(str[j], "-");
-            i=j;
-            break;
-          }
-        }
-      }
     }
+    str = str.toLowerCase().replace(/[^-0-9a-z]/gim,'').replace(/-{2,}/gim, '-');
     return str;
   }
 };

@@ -57,9 +57,9 @@ ul{
     border-radius: 3px;
     border-color: #bbbbbb;
 }
-.form-control:focus {
-	border-color: #64b5f6;
-}
+	.form-control:focus {
+		border-color: #64b5f6;
+	}
 .control-label{
 	text-align: right;
 }
@@ -74,6 +74,18 @@ ul{
 md-icon{
 	min-height: 5px;
 	min-width: 5px;
+}
+.error{
+	display: block;
+	margin-top: 5px;
+	margin-bottom: 10px;
+	color: red;
+}
+.ng-untouched{
+	border-color: #bbb !important;
+}
+.ng-invalid,.ng-invalid-required {
+	border-color: red;
 }
 .md-menu-sm{
 	padding: 0 !important;
