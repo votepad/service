@@ -569,8 +569,11 @@
 	padding-right: 15px;
 	width: 50%;
 }
-.settings-main-c1 .help-block, .settings-main-c2 .help-block{
-	font-size: 10px;
+.settings-main-c1 .control-label, .settings-main-c2 .control-label{
+	font-weight: normal;
+}
+.help-block{
+	font-size: .8em;
 }
 	.settings-main-c1 .help-block a, .settings-main-c2 .help-block a{
 		color:#2f95ea;
@@ -579,3 +582,94 @@
 	.settings-main-c2 .help-block a:hover, .settings-main-c2 .help-block a:focus{
 		border-bottom:1px dashed #1565C0;
 	}
+@media (max-width: 960px) {
+	.settings-main-c1 .md-btn, .settings-main-c2 .md-btn{
+		width: 100%;
+		margin-bottom: 10px;
+	}
+	.settings-main-c2 .md-btn .md-btn-icon{
+		width: 30%;
+    	float: left;
+	}
+	.settings-main-c2 .md-btn .ng-scope{
+	    vertical-align: -webkit-baseline-middle;
+	}
+}
+
+.pad-l-r-15{
+	padding-left: 15px;
+	padding-right: 15px;
+}
+.input-width{
+	width: 400px;
+}
+.rools span{
+	width: 100%;
+	display: block;
+	padding-left: 20px;
+	font-size: .8em;
+}
+.newUser{
+	margin-top: 30px;
+}
+.newUserForm .control-label,.newUserBlock .control-label{
+	font-weight: normal;
+}
+.newUserForm{
+	display: none;
+}
+.user-block{
+	position: relative;
+	margin-top: 15px;
+	width: 100%;
+	background-color: #f3f3f3;
+	border: 1px solid #bbbbbb;
+}	
+	.user-block:nth-child(n+2), .newUserForm{
+		margin-top: 30px;
+	}
+	.user-block > .userImageBlock{
+		margin: 15px;
+		height: 80px;
+		width: 80px;
+		background-color: #fff;
+		border: 1px solid #bbbbbb;
+		vertical-align: top;
+	}
+		.user-block > .userImageBlock img{
+			position: relative;
+			height: 74px;
+			width: 74px;
+			margin: 2px;
+		}
+	
+	.user-block > .edit-team-btn{
+		position: absolute;
+		top: 0;
+		right: 0;
+		margin: 0 !important;
+		padding: 0 !important;
+	}
+	
+	.user-block-right-column > .user-header{
+		position: relative;
+		vertical-align: top;
+		margin-top: 15px;
+	}
+		.user-block-right-column > .user-header h4{
+			margin-top: 0;
+		}
+		.user-block-right-column > .user-header span{
+		    font-size: 10px;
+			vertical-align: text-top;
+			background-color: #fff;
+			border: 1px solid #bbb;
+			border-radius: 3px;
+			padding: 1px 3px;
+			margin-left: 5px;
+			cursor: default;
+		}
+	.user-block-right-column > .collapse.in{
+		margin-bottom: 15px;
+	}
+	

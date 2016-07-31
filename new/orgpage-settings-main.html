@@ -48,11 +48,11 @@
 				</div>
 				<div class="org-nav-block">
 					<div class="org-nav">
-						<md-button class="md-btn active" ng-href="#/events" aria-label="tabEvents" md-ink-ripple="#64b5f6">
+						<md-button ng-href="#/events" class="md-btn" aria-label="tabEvents" md-ink-ripple="#64b5f6">
 							Мероприятия
 							<div class="active-tab"></div>
 						</md-button>
-						<md-button ng-href="#/settings" class="md-btn" aria-label="tabSettings" md-ink-ripple="#64b5f6">
+						<md-button ng-href="#/settings" class="md-btn active" aria-label="tabSettings" md-ink-ripple="#64b5f6">
 							Настройки
 							<div class="active-tab"></div>
 						</md-button>
@@ -99,8 +99,8 @@
 									<label class="control-label">Ссылка на официальный сайт</label>
 									<input type="text" name="orgofficialsite" class="form-control input-sm" value="http://ifmo.ru" required>
 								</div>
-								<md-button class="md-btn md-btn-md md-btn-default">Обновить фото логотипа</md-button>
-								<md-button class="md-btn md-btn-md md-btn-default" style="float: right;">Обновить фото обложки</md-button>
+								<md-button class="md-btn md-btn-md md-btn-default" md-ink-ripple="#64b5f6">Обновить фото логотипа</md-button>
+								<md-button class="md-btn md-btn-md md-btn-default" md-ink-ripple="#64b5f6" style="float: right;">Обновить фото обложки</md-button>
 							</div>
 							<div class="settings-main-c2 inline">
 								<h4>Контактная информация</h4>
@@ -115,7 +115,7 @@
 								</div>
 								<div class="form-group">
 									<label class="control-label">Контактный телефон</label>
-									<input type="text" name="phone" ng-model="phone" class="form-control" mask="+9 (999) 999-9999" clean="true" ng-value="79999876543" >
+									<input type="text" name="phone" ng-model="phone" class="form-control" mask="+9 (999) 999-9999" clean="true" ng-value="79999876543" required>
 								</div>	
 								<md-button type="submit" class="md-btn md-btn-md md-btn-labeled md-btn-success ">
 									<span class="md-btn-icon"><i class="fa fa-check"></i></span> Сохранить
