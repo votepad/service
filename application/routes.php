@@ -2,8 +2,8 @@
 
 
 
-require_once ('ajax_routes.php');
-require_once ('events_routes.php');
+require_once('routes/ajax_routes.php');
+require_once('routes/events_routes.php');
 
 /**
 * Set the routes. Each route must have a minimum of a name, a URI and a set of
