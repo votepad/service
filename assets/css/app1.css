@@ -4,21 +4,18 @@
 }
 
 body {
-	height: 100%;
+	height: auto !important;
 	width: 100%;
-	overflow: visible !important;
     font-family: pronwe;
     font-size: 1.3em;
     color: #656565;
     background-color: #f5f7fa;
 }
-@media (max-width: 768px) {
-	body{
-		overflow-x:scroll !important;
-	}
+body.blocked{
+	overflow: hidden;
 }
 html{
-	overflow-x:hidden !important;
+	height: 100%;
 	color: #656565;
     background-color: #f5f7fa;
 }
@@ -105,6 +102,12 @@ md-icon{
 }
 .ng-invalid,.ng-invalid-required {
 	border-color: red;
+}
+.displayblock{
+	display: block;
+}
+.displaynone{
+	display: none;
 }
 .md-menu-sm{
 	padding: 0 !important;
@@ -207,12 +210,12 @@ md-icon{
 	line-height: 1.5;
 }
 .md-btn-sm{
-	padding: 5px 10px;
+	padding: 4px 10px;
 	font-size: 12px;
 	line-height: 1.5;
 }
 .md-btn-md{
-	padding: 6px 18px;
+	padding: 4.5px 18px;
 	font-size: 14px;
 	line-height: 1.4;
 }
@@ -315,6 +318,9 @@ md-icon{
     padding-top: 0;
     padding-bottom: 0;
 }
+	.md-btn-labeled span:nth-child(2){
+		vertical-align: text-bottom;
+	}
 	.md-btn-icon{
 		position: relative;
 		background: 0 0;
@@ -330,10 +336,19 @@ md-icon{
 			padding: 5px 10px;
 		}
 		.md-btn-md .md-btn-icon{
-			padding: 6px 12px;
+			padding: 5.5px 12px;
 		}
 		.md-btn-lg .md-btn-icon{
 			padding: 10px 20px;
+		}
+	.md-btn-icon-sq{
+		padding: 0;
+		height: 30px;
+	}
+		.md-btn-icon-sq md-icon{
+			margin: 4px;
+			height: 20px;
+			width: 20px;
 		}
 
 .input-group-btn .md-btn, .input-group-btn .md-btn:hover, .input-group-btn .md-btn:focus{

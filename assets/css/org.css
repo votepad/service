@@ -60,7 +60,7 @@
 			transform: none; 
 			box-shadow: none;
 		}
-		.org-nav .md-btn.active:hover, .org-nav .md-btm.active:focus{
+		.org-nav .md-btn.active:hover, .org-nav .md-btn.active:focus{
 			background-color: transparent;
 		}
 
@@ -582,7 +582,7 @@
 	.settings-main-c2 .help-block a:hover, .settings-main-c2 .help-block a:focus{
 		border-bottom:1px dashed #1565C0;
 	}
-@media (max-width: 960px) {
+@media (max-width: 1060px) {
 	.settings-main-c1 .md-btn, .settings-main-c2 .md-btn{
 		width: 100%;
 		margin-bottom: 10px;

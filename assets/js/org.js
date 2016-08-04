@@ -43,14 +43,6 @@ app.controller("appCtrl", function(){
 });
 
 
-app.directive("share", function () {
-  return {
-    restrict: 'E',
-    templateUrl: 'orgpage/share.html',
-    controller: 'ShareCtrl'
-  }
-});
-
 app.controller("ShareCtrl", function (url) {
   this.array =[
     {id:"vk", name:"Вконтакте", icon: url + "assets/img/icons/vk.svg", class:"vk"},
