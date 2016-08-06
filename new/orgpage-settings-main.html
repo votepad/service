@@ -16,7 +16,7 @@
     <!-- =============== VENDOR SCRIPTS ===============-->
     	<script src="../assets/vendor/jquery/dist/jquery.js"></script>
 		<script src="../assets/vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-
+		
 		<script src="../assets/vendor/angular/angular.min.js"></script>
 		<script src="../assets/vendor/angular/i18n/angular-locale_ru-ru.js"></script>
 		<script src="../assets/vendor/angular/angular-aria.min.js"></script>
@@ -55,11 +55,11 @@
 				</div>
 				<div class="org-nav-block">
 					<div class="org-nav">
-						<md-button ng-href="#/events" class="md-btn" aria-label="tabEvents" md-ink-ripple="#64b5f6">
+						<md-button ng-href="orgpage-events.html" class="md-btn" aria-label="tabEvents" md-ink-ripple="#64b5f6">
 							Мероприятия
 							<div class="active-tab"></div>
 						</md-button>
-						<md-button ng-href="#/settings" class="md-btn active" aria-label="tabSettings" md-ink-ripple="#64b5f6">
+						<md-button ng-href="orgpage-settings-main.html" class="md-btn active" aria-label="tabSettings" md-ink-ripple="#64b5f6">
 							Настройки
 							<div class="active-tab"></div>
 						</md-button>
@@ -70,19 +70,19 @@
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<div class="panel-tabs">
-							<md-button class="md-btn active" ng-href="#/settings/main" aria-label="tabSettingsMain" md-ink-ripple="#64b5f6">
+							<md-button class="md-btn active" ng-href="orgpage-settings-main.html" aria-label="tabSettingsMain" md-ink-ripple="#64b5f6">
 								Организация
 								<div class="active-link"></div>
 							</md-button>
-							<md-button class="md-btn" ng-href="#/settings/team" aria-label="tabSettingsTeam" md-ink-ripple="#64b5f6">
+							<md-button class="md-btn" ng-href="orgpage-settings-team.html" aria-label="tabSettingsTeam" md-ink-ripple="#64b5f6">
 								Команда
 								<div class="active-link"></div>
 							</md-button>
-							<md-button class="md-btn" ng-href="#/settings/logs" aria-label="tabSettingsLogs" md-ink-ripple="#64b5f6">
+							<md-button class="md-btn" ng-href="orgpage-settings-logs.html" aria-label="tabSettingsLogs" md-ink-ripple="#64b5f6">
 								Активности
 								<div class="active-link"></div>
 							</md-button>
-							<md-button class="md-btn" ng-href="#/settings/balance" aria-label="tabSettingsBalance" md-ink-ripple="#64b5f6">
+							<md-button class="md-btn" ng-href="orgpage-settings-balance.html" aria-label="tabSettingsBalance" md-ink-ripple="#64b5f6">
 								Оплата услуг
 								<div class="active-link"></div>
 							</md-button>
@@ -105,8 +105,8 @@
 									<label class="control-label">Ссылка на официальный сайт</label>
 									<input type="text" name="orgofficialsite" class="form-control input-sm" value="http://ifmo.ru" required>
 								</div>
-								<md-button id="upload_logo" class="md-btn md-btn-md md-btn-default" md-ink-ripple="#64b5f6">Обновить фото логотипа</md-button>
-								<md-button class="md-btn md-btn-md md-btn-default" md-ink-ripple="#64b5f6" style="float: right;">Обновить фото обложки</md-button>
+								<md-button id="logo_upload" class="md-btn md-btn-md md-btn-default upload" md-ink-ripple="#64b5f6">Обновить фото логотипа</md-button>
+								<md-button id="back_upload" class="md-btn md-btn-md md-btn-default upload" md-ink-ripple="#64b5f6" style="float: right;">Обновить фото обложки</md-button>
 							</div>
 							<div class="settings-main-c2 inline">
 								<h4>Контактная информация</h4>
@@ -135,77 +135,7 @@
 				</div>
 			</div>
 		</div>
-
-		<div id="upload_logo_block" class="displaynone">
-			<div class="upload-fone displaynone"></div>
-			<div class="upload-layer">
-				<form action="">
-					<div class="upload-box">
-						<a class="photo_close">Закрыть</a>
-						<div id="logo_photo_upload" class="upload_input displayblock">
-							<div class="photo_title">Загрузка логотипа организации</div>
-							<div class="photo_desc">
-								Вашу организацию будет проще узнать, если загрузите настоящий логотип.
-								<br>
-								Вы можете загрузить изображение в формате JPG, JPEG или PNG.
-							</div>
-							<div class="msg" id="logo_photo_error"></div>
-							<div id="logo_photo_input">
-								<label for="photo_input" class="md-btn md-btn-md md-btn-success">Выбрать файл</label>
-								<input type="file" id="photo_input" class="photo_input" name="photo">
-							</div>
-							<div id="logo_progress_bar" class="progress-bar-box displaynone">
-								<div class="bar"></div>
-							</div>
-						</div>
-						<!--<div id="logo_dropbox" class="dropbox displaynone">
-							<div class="dropbox_wrap">
-								<div class="dropbox_area">
-									<div class="dropbox_label">Перетащите файлы сюда</div>
-								</div>
-							</div>
-						</div>-->
-						<div id="logo_photo_edit" class="photo_edit displaynone">
-							<div class="photo_title">Редактирование изображения</div>
-							<div class="photo_desc">
-								Выберите область, которая будет показываться.
-								<br>
-								Если изображение ориентировано неправильно, фотографию можно повернуть.
-							</div>
-							<img id="logo_edited" class="edited_photo" src="">
-
-							<md-button aria-label="submit_photo" class="md-btn md-btn-md md-btn-success update-photo-btn">Обновить</md-button>
-							
-							<div class="edit-btns">
-								<md-button aria-label="rotateLeft" class="md-btn md-btn-md md-btn-default md-btn-icon-sq">
-									<md-icon md-svg-icon="../../assets/img/icons/rotateLeft.svg"></md-icon>
-								</md-button>
-								<md-button aria-label="rotateRight" class="md-btn md-btn-md md-btn-default md-btn-icon-sq">
-									<md-icon md-svg-icon="../../assets/img/icons/rotateRight.svg"></md-icon>
-								</md-button>
-							</div>
-
-							<div class="edit-btns">
-								<md-button aria-label="zoomin" class="md-btn md-btn-md md-btn-default md-btn-icon-sq">
-									<md-icon md-svg-icon="../../assets/img/icons/zoom-in.svg"></md-icon>
-								</md-button>
-								<md-button aria-label="zoomout" class="md-btn md-btn-md md-btn-default md-btn-icon-sq">
-									<md-icon md-svg-icon="../../assets/img/icons/zoom-out.svg"></md-icon>
-								</md-button>
-							</div>
-						</div>
-					</div>
-				</form>
-			</div>
-		</div>
-		
-		
 		<footer></footer>
 	</div>
 </body>
 </html>
-<!--
-
-<div class="msg" id="owner_photo_error" style="overflow: visible; margin-top: 20px; margin-bottom: 0px; padding-top: 8px; padding-bottom: 8px; display: block;"><b>К сожалению, произошла ошибка</b>.<br>Фотография должна иметь размер не меньше 200 точек и не больше 7<span class="num_delim"> </span>000 точек по каждой из сторон.<br>Кроме того, нельзя использовать фотографии, у которых одна из сторон в несколько раз превышает другую.<br><a onclick="OwnerPhoto.detailsError(this);">Скрыть подробности</a><div class="unshown" style="overflow: visible; margin-top: 0px; margin-bottom: 0px; padding-top: 0px; padding-bottom: 0px; display: block;">Error: ERR_UPLOAD_BAD_IMAGE_SIZE. Details: owner photo min size 200x200, 0.25 &lt; aspect &lt; 3, from upl_636324?act=owner_photo</div></div>
-
--->

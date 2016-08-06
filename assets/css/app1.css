@@ -1,5 +1,5 @@
 @font-face {
-	font-family: pronwe;
+	font-family: pronwe !important;
 	src: url(../fonts/Exo2-Medium.ttf);
 }
 
@@ -318,9 +318,6 @@ md-icon{
     padding-top: 0;
     padding-bottom: 0;
 }
-	.md-btn-labeled span:nth-child(2){
-		vertical-align: text-bottom;
-	}
 	.md-btn-icon{
 		position: relative;
 		background: 0 0;
@@ -344,6 +341,7 @@ md-icon{
 	.md-btn-icon-sq{
 		padding: 0;
 		height: 30px;
+		color: #656565;
 	}
 		.md-btn-icon-sq md-icon{
 			margin: 4px;

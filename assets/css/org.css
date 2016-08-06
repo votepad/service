@@ -447,15 +447,6 @@
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-.add-person-to-team{
-	margin: 10px 0 0 0;
-}
-	.add-person-to-team label{
-		font-weight: normal;
-	}
-	.add-person-to-team small{
-		font-size: 10px;
-	}
 
 .log-activites small{
 	color: #bbb;
@@ -672,4 +663,22 @@
 	.user-block-right-column > .collapse.in{
 		margin-bottom: 15px;
 	}
-	
+
+.sale{
+	font-size: 18px;
+	font-weight: 500;
+    line-height: 1.1;
+	margin-bottom: 15px;
+}
+	.sale a{
+		font-size: 11px;
+		color:#2f95ea;
+		margin-left: 15px;
+	}
+		.sale a:hover, .sale a:focus{
+			border-bottom:1px dashed #1565C0;
+		}
+.linktopaymentpage{
+	float: right;
+	font-size: 18px;
+}

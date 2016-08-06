@@ -48,11 +48,11 @@
 				</div>
 				<div class="org-nav-block">
 					<div class="org-nav">
-						<md-button class="md-btn active" ng-href="#/events" aria-label="tabEvents" md-ink-ripple="#64b5f6">
+						<md-button ng-href="orgpage-events.html" class="md-btn active" aria-label="tabEvents" md-ink-ripple="#64b5f6">
 							Мероприятия
 							<div class="active-tab"></div>
 						</md-button>
-						<md-button ng-href="#/settings" class="md-btn" aria-label="tabSettings" md-ink-ripple="#64b5f6">
+						<md-button ng-href="orgpage-settings-main.html" class="md-btn" aria-label="tabSettings" md-ink-ripple="#64b5f6">
 							Настройки
 							<div class="active-tab"></div>
 						</md-button>
@@ -199,11 +199,11 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">Быстрый старт</div>
 						<div class="panel-body">
-							<md-button ng-href="" class="md-btn md-btn-md" md-ink-ripple="#64b5f6" aria-label="newEvent">
+							<md-button ng-href="new-event.html" class="md-btn md-btn-md" md-ink-ripple="#64b5f6" aria-label="newEvent">
 								<md-icon class="quick-start-icon" md-svg-icon="../../assets/img/icons/add.svg"></md-icon>
 								Создать мероприятие
 							</md-button>
-							<md-button ng-href="" class="md-btn md-btn-md" md-ink-ripple="#64b5f6" aria-label="newUser">
+							<md-button ng-href="orgpage-settings-team.html" class="md-btn md-btn-md" md-ink-ripple="#64b5f6" aria-label="newUser">
 								<md-icon class="quick-start-icon" md-svg-icon="../../assets/img/icons/sendmail.svg"></md-icon>
 								Пригласить организатора
 							</md-button>
@@ -224,7 +224,7 @@
 						<div class="panel-heading">Последние активности</div>
 						<div class="panel-body">
 							<ul>
-								<li class="log-activites no-li" ng-repeat="log in logs.logInfo | orderBy: 'date' | limitTo: 3" style="border-left: 3px solid {{log.type | getTypeofLog}};">
+								<li class="log-activites no-li" ng-repeat="log in logs.logInfo | orderBy: '-date' | limitTo: 3" style="border-left: 3px solid {{log.type | getTypeofLog}};">
 									<small>{{log.date | date:"d MMMM"}}</small>
 									<p>
 										{{log.iduser | userName}} {{log.type | getLogAction}}
@@ -234,7 +234,7 @@
 									</p>
 								</li>
 							</ul>
-							<md-button ng-href="#/setting/logs" class="md-btn md-btn-xs" aria-label="logsHistory" md-ink-ripple="#64b5f6" style="color: #bbb">
+							<md-button ng-href="orgpage-settings-logs.html" class="md-btn md-btn-xs" aria-label="logsHistory" md-ink-ripple="#64b5f6" style="color: #bbb">
 								Посмотреть всю историю
 							</md-button>
 						</div>
@@ -251,7 +251,7 @@
 					<div class="panel panel-default" ng-controller="teamCtrl as team">
 						<div class="panel-heading">
 							Организаторы
-							<a href="#/settings/team" class="pull-right">
+							<a href="orgpage-settings-team.html" class="pull-right">
 								<md-icon class="panel-top-right-link-icon" md-svg-icon="../../assets/img/icons/edit.svg"></md-icon>
 							</a>
 						</div>
@@ -263,20 +263,6 @@
 									<small>{{person.position}}</small>
 								</li>
 							</ul>
-							<div class="add-person-to-team">
-								<label for="">Пригласить организатора</label>
-								<form action="">
-									<div class="input-group">
-										<input type="email" class="form-control input-sm" placeholder="E-mail">
-										<span class="input-group-btn">
-											<md-button type="submit" aria-label="newUser2" class="md-btn md-btn-sm md-btn-default" md-ink-ripple="#64b5f6">
-												<md-icon md-svg-icon="../../assets/img/icons/sendmail.svg"></md-icon>
-											</md-button>
-										</span>
-									</div>
-									<small>Открыть доступ к организации своим сотрудникам</small>
-								</form>
-							</div>
 						</div>
 					</div>
 				</div>	
