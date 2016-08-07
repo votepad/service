@@ -682,3 +682,20 @@
 	float: right;
 	font-size: 18px;
 }
+
+
+
+/* datatables */
+.dataTables_length{
+	display: inline-block;
+}
+	.dataTables_length label{
+		font-weight: normal;
+	}
+.dataTables_filter{
+	display: inline-block;
+	float: right;
+}
+
+
+

@@ -52,7 +52,7 @@
 				</div>
 				<div class="org-nav-block">
 					<div class="org-nav">
-						<md-button ng-href="orgpage-mian-authorized.html" class="md-btn" aria-label="tabEvents" md-ink-ripple="#64b5f6">
+						<md-button ng-href="orgpage-events.html" class="md-btn" aria-label="tabEvents" md-ink-ripple="#64b5f6">
 							Мероприятия
 							<div class="active-tab"></div>
 						</md-button>
@@ -76,35 +76,24 @@
 								Команда
 								<div class="active-link"></div>
 							</md-button>
-							<md-button class="md-btn active" ng-href="orgpage-settings-logs.html" aria-label="tabSettingsLogs" md-ink-ripple="#64b5f6">
+							<md-button class="md-btn" ng-href="orgpage-settings-logs.html" aria-label="tabSettingsLogs" md-ink-ripple="#64b5f6">
 								Активности
 								<div class="active-link"></div>
 							</md-button>
-							<md-button class="md-btn" ng-href="orgpage-settings-balance.html" aria-label="tabSettingsBalance" md-ink-ripple="#64b5f6">
+							<md-button class="md-btn active" ng-href="orgpage-settings-balance.html" aria-label="tabSettingsBalance" md-ink-ripple="#64b5f6">
 								Оплата услуг
 								<div class="active-link"></div>
 							</md-button>
 						</div>
 					</div>
-					<div class="panel-body" ng-controller="logCtrl as logs">
-						<h4>Лог активностей</h4>
-						<ul style="margin: 10px 0;">
-							<li class="logs-description no-li inline" ng-repeat="item in logs.logDesc">
-								<span class="inline" style="background-color: {{item.color}}"></span>
-								<p class="inline">{{item.name}}</p>
-							</li>
-						</ul>
-						<ul>
-							<li class="log-activites no-li" ng-repeat="log in logs.logInfo | orderBy: '-date' | limitTo: 3" style="border-left: 3px solid {{log.type | getTypeofLog}};">
-								<small>{{log.date | date:"d MMMM y"}}</small>
-								<p>
-									{{log.iduser | userName}} {{log.type | getLogAction}}
-									<md-button ng-href="#/{{log.idevent | eventLink}}" aria-label="logs" class="md-btn md-btn-xs" md-ink-ripple="#64b5f6">
-										{{log.idevent | eventName}}
-									</md-button>
-								</p>
-							</li>
-						</ul>
+					<div class="panel-body">
+						<md-button ng-href="" class="md-btn md-btn-md md-btn-success linktopaymentpage">Произвести оплату</md-button>
+						<div class="sale">
+							Текущая скидка организации: <b>2%</b>
+							<a href="">Как увеличить скидку?</a>
+						</div>
+						<h4>Текущие заявки на оплату</h4>
+						<h4>История платежей</h4>
 					</div>
 				</div>
 			</div>

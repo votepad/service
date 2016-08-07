@@ -30,6 +30,40 @@ $(function () {
     $('form[name=newUserForm]').trigger('reset');
     $(".eventsToUser").select2("val", "");
   });
+
+  $('#table-curent-application').dataTable({
+    /*'paging': true,
+    'ordering':  true,
+    'searching': true,
+    'info': true,
+    'scrollX': true,
+    oLanguage:{
+      oPaginate:{
+        sNext:"<em class='fa fa-angle-right' style='font-size:1.2em'></em>",
+        sPrevious:"<em class='fa fa-angle-left' style='font-size:1.2em'></em>"
+      },
+      sEmptyTable:"Вы не создали ещё мероприятия. Нажмите в левом меня на 'Создать мероприятие'",
+      sInfo:"Показано _START_-_END_  из _TOTAL_ мероприятий",
+      sInfoEmpty:"Показано 0 мероприятий",
+      sInfoFiltered:"(отсортировано из _MAX_ мероприятий)",
+      sLengthMenu:"Показано _MENU_ мероприятий",
+      sLoadingRecords:"Загружается...",
+      sProcessing:"Обрабатывается...",
+      sSearch:"Введите для поиска:",
+      sZeroRecords:"Мероприятия не найдены"
+    },
+    columnDefs: [ 
+      { 'targets' : 'no-sort', 'orderable': false },
+      { 'targets': 'datetime','sType': 'de_datetime' }
+    ]*/
+    columnDefs: [
+      {
+        targets: [ 0, 1, 2 ],
+        className: 'mdl-data-table__cell--non-numeric'
+      }
+    ]
+  });
+
 });
 
 

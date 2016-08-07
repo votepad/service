@@ -2,7 +2,7 @@
 <html ng-app="pronwe">
 <head>
 		<meta charset="utf-8">
-		<title>Настройки - Активности</title>
+		<title>Настройки - Оплата услуг</title>
 
     <!-- =============== VENDOR STYLES ===============-->
     	<link rel="stylesheet" href="../assets/vendor/fontawesome/css/font-awesome.min.css">
@@ -52,7 +52,7 @@
 				</div>
 				<div class="org-nav-block">
 					<div class="org-nav">
-						<md-button ng-href="orgpage-events.html" class="md-btn" aria-label="tabEvents" md-ink-ripple="#64b5f6">
+						<md-button ng-href="orgpage-mian-authorized.html" class="md-btn" aria-label="tabEvents" md-ink-ripple="#64b5f6">
 							Мероприятия
 							<div class="active-tab"></div>
 						</md-button>
@@ -93,6 +93,27 @@
 							<a href="">Как увеличить скидку?</a>
 						</div>
 						<h4>Текущие заявки на оплату</h4>
+						<table id="table-curent-application" class="table table-bordered table-striped table-hover" cellspacing="0">
+							<thead>
+								<tr>
+									<th class="sorting text-center" style="width: 5%">Пользователь</th>
+									<th class="no-sort text-center" style="width: 5%">Сумма</th>
+									<th class="no-sort" >Скидка</th>
+									<th class="sorting" style="width: 15%">Дата поступления заявки</th>
+									<th class="sorting text-center" style="width: 15%">Дата проведения мероприятия</th>
+								</tr>
+							</thead>
+							<tbody>
+								<tr id="event_<?=$events[$i]['id']; ?>">
+									<td style="width: 5%" class="text-center">1</td>
+									<td style="width: 5%">2</td>
+									<td>3</td>
+									<td style="width: 15%">4</td>
+									<td style="width: 15%">5</td>
+								</tr>
+							</tbody>
+						</table>
+
 						<h4>История платежей</h4>
 					</div>
 				</div>
