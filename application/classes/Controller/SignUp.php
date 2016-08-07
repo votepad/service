@@ -15,7 +15,7 @@ class Controller_SignUp extends Dispatch
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
 
-        /** auto_render Disallow rendering */
+        /** Disallow template rendering */
         $this->auto_render = false;
 
         if (!$email && !$password) {

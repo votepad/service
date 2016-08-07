@@ -9,8 +9,6 @@
 class Dispatch extends Controller_Template
 {
     public $template = '';
-    public $css = array();
-    public $js = array();
 
     protected $errors;
     protected $_session;
@@ -21,7 +19,7 @@ class Dispatch extends Controller_Template
 
     function before()
     {
-        $this->css = [
+        /**$this->css = [
             "vendor/simple-line-icons/css/simple-line-icons.css",
             "vendor/fontawesome/css/font-awesome.min.css",
             "vendor/bootstrap/dist/css/bootstrap.css",
@@ -36,14 +34,12 @@ class Dispatch extends Controller_Template
             "vendor/jquery/dist/jquery.js",
             "vendor/jquery.localize-i18n/dist/jquery.localize.js",
             "vendor/slimScroll/jquery.slimscroll.min.js",
-        ];
-
-        array_push($this->js, 'js/twitter.js');
-
+        ];*/
 
         /** Disallow requests from other domains */
 
         if (Kohana::$environment === Kohana::PRODUCTION) {
+
             if ((Arr::get($_SERVER, 'SERVER_NAME') != '') &&
                 (Arr::get($_SERVER, 'SERVER_NAME') != '')
             ) {

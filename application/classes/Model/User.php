@@ -39,14 +39,4 @@ Class Model_User {
         return false;
 
     }
-
-    /** @deprecated  */
-    public static function updateUserByFieldName($field, $value, $id)
-    {
-        $update = DB::update('Users')->set(array(
-                $field => $value
-            ))->where('id', '=', $id)->execute();
-
-        return $update;
-    }
 }

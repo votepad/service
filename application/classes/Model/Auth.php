@@ -43,8 +43,7 @@ class Model_Auth extends Model {
             Session::instance()->delete();
 
         }
-
-        // Double check
+        
         return false;
     }
 
