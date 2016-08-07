@@ -10,9 +10,10 @@
     <title><?=$title; ?></title>
 
     <!-- =============== VENDOR STYLES ===============-->
-<? foreach($css as $styles): ?>
-    <link rel="stylesheet" href="<?=$assets;?><?=$styles;?>">
-<? endforeach;?>
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/bootstrap/dist/css/bootstrap.css">
+    <link rel="stylesheet" href="<?=$assets; ?>css/app.css">
+    <link rel="stylesheet" href="<?=$assets; ?>css/pronwe.css">
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/whirl/dist/whirl.css">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
 <? foreach ($js as $scripts): ?>
