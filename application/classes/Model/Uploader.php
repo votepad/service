@@ -1,11 +1,9 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 03.04.2016
- * Time: 12:31
- */
 
+/**
+ * @deprecated
+ * @todo Use Kohana upload method
+ */
 class Model_Uploader extends Model {
 
     public $file;

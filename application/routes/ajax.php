@@ -1,7 +1,7 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * @team ProNWE team
- * @author Khaydarov Murod
+ * @author ProNWE team
+ * @copyright Khaydarov Murod
  */
 
 Route::set('GetCriterias', 'getCriteasWithScores')
