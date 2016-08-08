@@ -15,3 +15,15 @@ Route::set('SHOW_ORGANIZATION', 'organization(/<id>)')
        'controller'  => 'Organizations_Index',
         'action'     => 'show'
     ));
+
+Route::set('SHOW_ALL_ORGANIZATIONS', 'organizations')
+    ->defaults(array(
+        'controller' => 'Organizations_Index',
+        'action'     => 'showAll'
+    ));
+
+Route::set('ORGANIZATIONS_SETTINGS', 'organization/<id>/<action>')
+    ->defaults(array(
+        'controller' => 'Organizations_Index',
+        'action'     => 'main'
+    ));

@@ -1,18 +1,19 @@
 <?php
 /**
  * Class Organizations_Index
+ * All pages which has relationship with Organizations will be here
  * @author Pronwe team
  * @copyright Khaydarov Murod
  */
 
 class Controller_Organizations_Index extends Dispatch
 {
-    public $template = 'org/main';
-
     public function before()
     {
-        if ($this->request->action() == 'new')
-            $this->template = 'org/new_logged';
+        switch ($this->request->action()) {
+            case 'new' : $this->template = 'organizations/new_logged';    break;
+            default    : $this->template = 'organizations/main';          break;
+        }
 
         parent::before();
     }
@@ -26,7 +27,7 @@ class Controller_Organizations_Index extends Dispatch
     /** Shows organization */
     public function action_show()
     {
-        
+        $this->template->main_section = View::factory('organizations/events/all');
     }
 
     /** Shows list of organizations */
@@ -34,4 +35,28 @@ class Controller_Organizations_Index extends Dispatch
     {
 
     }
+
+    /**
+     * Organizations Settings
+     */
+    public function action_balance()
+    {
+        $this->template->main_section = View::factory('organizations/settings/balance');
+    }
+
+    public function action_logs()
+    {
+        $this->template->main_section = View::factory('organizations/settings/logs');
+    }
+
+    public function action_team()
+    {
+        $this->template->main_section = View::factory('organizations/settings/team');
+    }
+
+    public function action_main()
+    {
+        $this->template->main_section = View::factory('organizations/settings/main');
+    }
+
 }
