@@ -2,23 +2,19 @@
 	font-family: pronwe !important;
 	src: url(../fonts/Exo2-Medium.ttf);
 }
+body, html {
+    height: 100%;
+}
 
 body {
-	height: auto !important;
-	width: 100%;
-    font-family: pronwe;
-    font-size: 1.3em;
+    font-family: pronwe;    
     color: #656565;
     background-color: #f5f7fa;
 }
-body.blocked{
-	overflow: hidden;
-}
-html{
-	height: 100%;
-	color: #656565;
-    background-color: #f5f7fa;
-}
+	body.blocked{
+		overflow: hidden;
+	}
+
 header{
 	height: 50px;
 	width: 100%;
@@ -35,6 +31,11 @@ a, a:hover, a:focus, button, button:hover, button:focus{
 	outline: none;
 	text-decoration: none;
 	color: #656565;
+}
+button{
+	background-color: transparent;
+	border: 0;
+	padding: 0;
 }
 .link{
 	color: red;	
@@ -87,6 +88,23 @@ ul{
 .content-body{
 	padding: 20px;
 }
+.dropdown-menu{
+	min-width: 20px;
+}
+	.dropdown-menu > li > a{
+		padding: 3px 10px;
+	}
+		.dropdown-menu > li > a > i{
+			padding-right: 5px;
+			vertical-align: middle;
+		}
+
+    
+
+
+
+
+
 md-icon{
 	min-height: 5px;
 	min-width: 5px;

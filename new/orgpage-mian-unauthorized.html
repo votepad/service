@@ -98,7 +98,6 @@
 														<h2>{{event.name}}</h2>
 														<p>{{event.shortdescription}}</p>
 														<span>{{event.startdata | date:"d MMMM 'в' HH:mm "}}</span>
-														<small>{{event.type | eventType}}</small>
 													</div>
 												</a>
 												<div class="event-result" style="display: {{event.rating | eventRating }}">
@@ -109,29 +108,7 @@
 											</div>
 											<div class="event-footer">
 												<ul class="event-footer-left">
-													<li>
-														<md-menu-bar>
-															<md-menu>
-																<button class="md-button" aria-label="Settings" ng-click="$mdOpenMenu()">
-																	<md-icon md-svg-icon="../../assets/img/icons/cog.svg"></md-icon>
-																</button>
-																<md-menu-content class="md-menu-sm" width="1">
-																	<md-menu-item>
-																		<md-button ng-href="#/{{event.link}}/edit">
-																			<md-icon md-svg-icon="../../assets/img/icons/edit.svg"></md-icon>
-																			Редактировать
-																		</md-button>
-																	</md-menu-item>
-																	<md-menu-item>
-																		<md-button ng-href="#" aria-label="DeleteEvent">
-																			<md-icon md-svg-icon="../../assets/img/icons/trash-o.svg" style="color: #f47f7f"></md-icon>
-																			Удалить
-																		</md-button>
-																	</md-menu-item>
-																</md-menu-content>
-															</md-menu>
-														</md-menu-bar>
-													</li>
+													
 													<li>
 														<md-menu-bar>
 															<md-menu ng-controller="ShareCtrl as share">

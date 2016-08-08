@@ -15,6 +15,7 @@
 	height: 40px;
 	background-color: #fff;
 }
+
 .org-nav{
 	position: relative;
 	margin-left: 220px;
@@ -95,10 +96,12 @@
 	left: 240px;
 	color: #fff;
 }
-	.org-name md-icon{
-		color: #fff;
+	.org-name a{
+		color: #f5f7fa;
+		position: absolute;
+		top: 15px;
+		right: -25px;
 	}
-
 
 @media (max-width: 992px) {
 	.content-wrapper{
@@ -151,18 +154,11 @@
 .search-block{
 	position: relative;
     overflow: hidden;
-    margin-top: -15px;
 }
-	.search-block md-input-container{
-		margin-bottom: 0px;
-	}
-		.search-block md-input-container label{
-			padding-left: 15px !important;
-		}
 
 @media (max-width: 991px) {
-	.search-block{
-		margin-bottom: 20px;
+	.search-block div{
+		margin-bottom: 5px;
 	}
 }
 
@@ -212,8 +208,8 @@
 		background-color: #fff;
 	}
 	.event-preview h2{
-		margin-top: 3px;
-		margin-left: 3px;
+		margin: 3px 3px 3px 0;
+		
 		width: 85%;
 		font-size: 14px;
 		color: #000;
@@ -261,29 +257,20 @@
 	border-radius: 20%;
 	-webkit-box-sizing: content-box;
 }
-	.event-result .md-button{
+	.event-result a{
 		border-radius: 20%;
-		position: relative;
+		position: absolute;
+		top: 0;
+		left: 0;
 		width: 20px;
-		min-width: 18px;
 		height: 20px;
-		min-height: 18px;
-		margin: 0;
-		padding: 0;		
-		line-height: 0;
 	}
-	.event-result .md-button:hover, .event-result .md-button:focus{
+		.event-result a i{
+			padding-top: 2.5px;
+		}
+	.event-result a:hover, .event-result a:focus{
 		background-color: #fff;
 		box-shadow: 0 1px 1px 1px rgba(0,0,0,.08), 0 0 2px 2px rgba(0,0,0,0.1);
-	}
-	.event-result .md-button md-icon{
-		position: relative;
-		width: 20px;
-		height: 20px;
-		padding: 2px;
-		min-width: 15px;
-		min-height: 15px;
-		opacity: 0.45;
 	}
 	.event-result:hover, .event-result:focus{
 		opacity: 1;
@@ -300,37 +287,30 @@
 	width: 40%;
 	height: 18px;
 	float: left;
-	padding: 0;
 }
-	.event-footer-left md-menu-bar{
-		padding: 0;
-	}
-	.event-footer-left li{
-		display: table-cell;
-		height: 18px !important;
-		border-radius: 20%;
+	.event-footer-left .li{
+		display: inline-block;
 		padding-right: 10px;
-	}
-	.event-footer-left .md-button{
-		position: relative;
-		width: 18px;
-		min-width: 18px;
+		float: left;
 		height: 18px;
-		min-height: 18px;
+	}
+	.event-footer-left .item{
+		position: relative;
+		vertical-align: super;
+		padding: 0;
 		margin: 0;
-		padding: 3px;
 		line-height: 0;
+		width: 18px;
+		height: 18px;
 	}
-	.event-footer-left .md-button md-icon{
-		position: absolute;
-		top: 2px;
-		left: 2px;
-		width: 15px;
-		height: 15px;
-		min-width: 15px;
-		min-height: 15px;
-		opacity: 0.45;
-	}
+		.event-footer-left .item i{
+			height: 14px;
+			width: 14px;
+			vertical-align: sub;
+		}
+.vk i, .facebook i, .twitter i{
+	width: 20px
+}
 
 .event-footer-right{
 	position: relative;
@@ -342,51 +322,29 @@
 	padding: 0;
 }
 	.event-footer-right li{
-		display: table-cell;
+		display: inline-block;
 		float: right;
-		height: 18px !important;
+		height: 18px;
 		border-radius: 20%;
 		padding-left: 10px;
 	}
-	.event-footer-right .md-button, .event-footer-right .div-views{
-		position: relative;
-		width: auto;
-		min-width: 18px;
+	.event-footer-right .md-btn{
+		padding: 0 2px;
+		vertical-align: super;
 		height: 18px;
-		min-height: 18px;
-		margin: 0;
-		padding: 0;
-		line-height: 0;
 	}
-	.event-footer-right .md-button md-icon, .event-footer-right .div-views img{
-		position: relative;
-		top: 4px;
-		left: 2px;
-		width: 12px;
-		height: 12px;
-		min-width: 12px;
-		min-height: 12px;
-		opacity: 0.45;
-	}
-	.event-footer-right .md-button span, .event-footer-right .div-views span{
-		position: relative;
-		vertical-align: -webkit-baseline-middle;
-		font-size: 12px;
-		padding-left: 2px;
-		padding-right: 2px;
-	}
-	.event-footer-right .div-views span{
-		position: relative;
-		vertical-align: middle;
-		font-size: 12px;
-		padding-left: 2px;
-		padding-right: 2px;	
-	}
-	.event-footer-right li:hover, .event-footer-right .md-button:hover{
+		.event-footer-right .md-btn i{
+			vertical-align: text-top;
+		}
+		.event-footer-right .md-btn span{
+			vertical-align: top;
+			font-size: 13px;
+		}
+	.event-footer-right .md-btn:hover{
 		font-weight: 600;
 	}
 
-.event-footer-left .md-button:hover, .event-footer-right .md-button:hover{
+.event-footer-left .md-btn:focus, .event-footer-right .md-btn:focus{
 	box-shadow: 0 1px 1px 1px rgba(0,0,0,.08), 0 0 2px 2px rgba(0,0,0,0.1);
 	transition: .4s;
 	background-color: #fff;
@@ -398,29 +356,14 @@
 
 /* right column */
 
-.right-column .quick-start-icon{
-	min-width: 15px;
-	min-height: 15px;
-	margin-bottom: 2px;
-	margin-right: 10px;
-	color: #656565;
+.right-column .quick-start{
+	padding-left: 10px;
 }
-.right-column .md-button:first-child .quick-start-icon{
-	width: 15px;
-	height: 15px;
-}
-.right-column .md-button:nth-child(2) .quick-start-icon{
-	margin-left: -10px;
-}
+	.right-column .quick-start i{
+		width: 14px;
+		margin-right: 5px;
+	}
 
-.panel-top-right-link-icon{
-	width: 18px;
-	height: 18px;
-	min-width: 18px;
-	min-height: 18px;
-	margin-right: -5px;
-	margin-top: -5px;
-}
 .person-in-team{
 	margin-bottom: 10px;
 }

@@ -1,21 +1,29 @@
 $(function () {
+
+  
+  
   $('[data-toggle="tooltip"]').tooltip({
     template: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>'
   });
 
 
-  $('.vk').hover(function(){$('.vk md-icon').css("color","#4c75a3");}, function(){$('.vk md-icon').css("color","#656565");});
-  $('.facebook').hover(function(){$('.facebook md-icon').css("color","#3b5998");}, function(){$('.facebook md-icon').css("color","#656565");});
-  $('.twitter').hover(function(){$('.twitter md-icon').css("color","#35b0ed");}, function(){$('.twitter md-icon').css("color","#656565");});
+  $('.vk').hover(function(){$('.vk i').css("color","#4c75a3");}, function(){$('.vk i').css("color","#656565");});
+  $('.facebook').hover(function(){$('.facebook i').css("color","#3b5998");}, function(){$('.facebook i').css("color","#656565");});
+  $('.twitter').hover(function(){$('.twitter i').css("color","#35b0ed");}, function(){$('.twitter i').css("color","#656565");});
   /* add likes */
   $('.fav').on('click', function(){
-    if ( $("md-icon", this).hasClass('active') ) {
-      $("md-icon", this).removeClass('active');
+    if ( $("i", this).hasClass('active') ) {
+      $("i", this).removeClass('active');
     }
     else {
-      $("md-icon", this).addClass('active');
+      $("i", this).addClass('active');
     }
   });
+
+
+
+
+
 
   $(".newUser").on("click", function(){
     $(".newUser").css("display","none");
@@ -30,6 +38,10 @@ $(function () {
     $('form[name=newUserForm]').trigger('reset');
     $(".eventsToUser").select2("val", "");
   });
+
+
+
+
 
   $('#table-curent-application').dataTable({
     /*'paging': true,
@@ -56,16 +68,15 @@ $(function () {
       { 'targets' : 'no-sort', 'orderable': false },
       { 'targets': 'datetime','sType': 'de_datetime' }
     ]*/
-    columnDefs: [
+  /*  columnDefs: [
       {
         targets: [ 0, 1, 2 ],
         className: 'mdl-data-table__cell--non-numeric'
       }
-    ]
+    ]*/
   });
 
 });
-
 
 /* ANGULAR */
 
@@ -177,7 +188,7 @@ var checkingsim = function(str){
 
 var events = [
   { id: "1", 
-    name: "ФедеральныйФедеральный конкурс Ты нужен людям", 
+    name: "Федеральный конкурс Ты нужен людям", 
     shortdescription: "Этот конкурс проходит ежегодно, чтобы развивать креативное мышление у молодого поколения, а так же знакомить с различными социальными делами",
     startdata: "2017-05-27T14:00:00", 
     logo: "bg2.jpg", 
