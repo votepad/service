@@ -1,0 +1,88 @@
+<div class="panel panel-default" style="margin: auto; margin-bottom: 30px; width: 80%">
+    <div class="panel-heading">Новая организация - неавторзованный пользователь</div>
+    <div class="panel-body">
+        <h2>Введите информацию об организации</h2>
+        <p>Заполните форму и Вы получите личный кабинет. В нём Вы сможете создавать и публиковать мероприятия.</p>
+        <form class="create-org" name="newOrgForm" >
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Название организации<span style="color: red">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" name="orgname" ng-model="orgname" class="form-control" required>
+                    <span class="help-block" ng-show="newOrgForm.orgname.$valid || newOrgForm.orgname.$pristine">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
+								<span class="error" ng-show="newOrgForm.orgname.$dirty && newOrgForm.orgname.$invalid">
+  									<span ng-show="newOrgForm.orgname.$error.required">Введите название организации</span>
+								</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Доверенное лицо<span style="color: red">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" name="person" ng-model="person" class="form-control" required placeholder="Иванов Иван Иванович">
+                    <span class="help-block" ng-show="newOrgForm.person.$valid || newOrgForm.person.$pristine">Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
+								<span class="error" ng-show="newOrgForm.person.$dirty && newOrgForm.person.$invalid">
+									<span ng-show="newOrgForm.person.$error.required">Введите ФИО доверенного лица</span>
+								</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">E-mail<span style="color: red">*</span></label>
+                <div class="col-sm-9">
+                    <input type="email" name="email" ng-model="email" class="form-control" required placeholder="email@address.ru">
+                    <span class="help-block" ng-show="newOrgForm.email.$valid || newOrgForm.email.$pristine">Для входа в систему и сервисной информации.</span>
+								<span class="error" ng-show="newOrgForm.email.$dirty && newOrgForm.email.$invalid">
+  									<span ng-show="newOrgForm.email.$error.required">Введите email</span>
+  									<span ng-show="newOrgForm.email.$error.email">Неправильно введен email</span>
+								</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Пароль<span style="color: red">*</span></label>
+                <div class="col-sm-9">
+                    <input type="password" name="password" ng-model="password" class="form-control" required>
+                    <span class="help-block" ng-show="newOrgForm.password.$valid || newOrgForm.password.$pristine">Используется для доступа в личный кабинет организации вместе с email.</span>
+								<span class="error" ng-show="newOrgForm.password.$dirty && newOrgForm.password.$invalid">
+									<span ng-show="newOrgForm.password.$error.required">Введите пароль</span>
+								</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Сайт организации</label>
+                <div class="col-sm-9">
+                    <div class="input-group">
+                        <!--
+                        1) если сайт не указан то сделай автоматичесое присвоение адреса сайт.
+                        2) нужно сделать проверку из БД занят ли сайт или нет, а так же email
+                        -->
+                        <input type="text" name="orgsite" class="form-control" maxlength="25" value="{{orgname | checkAllowedSim}}">
+                        <span class="input-group-addon">.votepad.ru</span>
+                    </div>
+                    <span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
+                </div>
+            </div>
+            <div class="form-group">
+                <label class="col-sm-3 control-label">Телефон<span style="color: red">*</span></label>
+                <div class="col-sm-9">
+                    <input type="text" name="phone" ng-model="phone" class="form-control" required mask="+9 (999) 999-9999" clean="true" placeholder="+7 (999) 987-6543" >
+                    <span class="help-block">Нужен для связи с Вами.</span>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label class="col-sm-offset-3" style="padding: 0 15px">
+                    <input type="checkbox" value="" required="" name="confirmrools" ng-model="confirmrools">
+                    Я прочитал <md-button ng-href="" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</md-button> об оказании услуг VotePad и согласен с ним
+                </label>
+            </div>
+            <div class="text-center">
+                <md-button type="submit" ng-disabled="
+											newOrgForm.orgname.$dirty && newOrgForm.orgname.$invalid || newOrgForm.orgname.$pristine ||
+											newOrgForm.person.$dirty && newOrgForm.person.$invalid || newOrgForm.person.$pristine ||
+											newOrgForm.email.$dirty && newOrgForm.email.$invalid || newOrgForm.email.$pristine ||
+											newOrgForm.password.$dirty && newOrgForm.password.$invalid || newOrgForm.password.$pristine ||
+											newOrgForm.phone.$dirty && newOrgForm.phone.$invalid || newOrgForm.phone.$pristine ||
+											newOrgForm.confirmrools.$dirty && newOrgForm.confirmrools.$invalid || newOrgForm.confirmrools.$pristine"
+                           class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</md-button>
+            </div>
+        </form>
+    </div>
+</div>
