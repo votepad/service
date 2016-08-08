@@ -12,29 +12,15 @@ class Dispatch extends Controller_Template
 
     protected $errors;
     protected $_session;
-    public $user;
+    public    $user;
 
     const POST = 'POST';
     const GET  = 'GET';
 
     function before()
     {
-        /**$this->css = [
-            "vendor/simple-line-icons/css/simple-line-icons.css",
-            "vendor/fontawesome/css/font-awesome.min.css",
-            "vendor/bootstrap/dist/css/bootstrap.css",
-        ];
-
-        array_push($this->css, 'vendor/whirl/dist/whirl.css');
-        array_push($this->css, 'vendor/animate.css/animate.min.css');
-        array_push($this->css, 'css/app.css');
-        array_push($this->css, 'css/pronwe.css');
-
-        $this->js = [
-            "vendor/jquery/dist/jquery.js",
-            "vendor/jquery.localize-i18n/dist/jquery.localize.js",
-            "vendor/slimScroll/jquery.slimscroll.min.js",
-        ];*/
+        $GLOBALS['SITE_NAME']   = "ProNWE";
+        $GLOBALS['FROM_ACTION'] = $this->request->action();
 
         /** Disallow requests from other domains */
 
@@ -58,6 +44,54 @@ class Dispatch extends Controller_Template
         // XSS clean in POST and GET requests
 //        self::XSSfilter();
 
+        if ($this->auto_render) {
+            // Initialize with empty values
+            $this->template->title = $this->title = $GLOBALS['SITE_NAME'];
+            $this->template->keywords    = '';
+            $this->template->description = '';
+            $this->template->content     = '';
+        }
+
+    }
+
+    /**
+    * The after() method is called after your controller action.
+    * In our template controller we override this method so that we can
+    * make any last minute modifications to the template before anything
+    * is rendered.
+    */
+    public function after()
+    {
+        echo View::factory('profiler/stats');
+
+        parent::after();
+    }
+
+    /**
+    * Sanitizes GET and POST params
+    * @uses HTMLPurifier
+    * @todo Rewrite under ProNWE
+    */
+    public function XSSfilter()
+    {
+        $exceptions = array( 'long_desc' , 'blog_text', 'long_description' , 'content',
+                             'article_text', 'contest_text', 'results_contest' ); // Исключения для полей с визуальным редактором
+
+        foreach ($_POST as $key => $value){
+
+            $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
+
+            if ( in_array($key, $exceptions) === false ){
+                $_POST[$key] = Security::xss_clean(HTML::chars($value));
+            } else {
+                $_POST[$key] = Security::xss_clean( strip_tags(trim($value), '<br><em><del><p><a><b><strong><i><strike><blockquote><ul><li><ol><img><tr><table><td><th><span><h1><h2><h3><iframe><div><code>'));
+            }
+        }
+
+        foreach ($_GET  as $key => $value) {
+            $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
+            $_GET[$key] = Security::xss_clean(HTML::chars($value));
+        }
     }
 
     public static function isLogged()

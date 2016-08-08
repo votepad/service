@@ -1,18 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-
-/**
-* Set the routes. Each route must have a minimum of a name, a URI and a set of
-* defaults for the URI.
-*/
-
-
 /**
  * Default Welcome page
  */
 
 Route::set('Welcome_Page', '')
     ->filter(function(Route $route, $params, Request $request) {
+        // code
     })
     ->defaults(array(
         'controller' => 'Welcome',
@@ -61,13 +55,8 @@ Route::set('Judge-panels', 'event/<id>/judge/<action>')
     ));
 
 
-/**Route::set('Default', '<controller>(/<action>(/<id>))')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'Index',
-    ));**/
-
-require_once('routes/ajax.php');
-require_once('routes/events.php');
+require_once ('routes/organizations.php');
+require_once ('routes/ajax.php');
+require_once ('routes/events.php');
 
 ?>

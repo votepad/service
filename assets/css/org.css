@@ -468,6 +468,8 @@
 			-webkit-transform: none;
 			transform: none; 
 			box-shadow: none;
+			background-color: rgb(219,220,223);
+			border-bottom: 1px solid #bbb;
 		}
 		.panel-tabs .md-btn.active{
 			pointer-events: none;
@@ -481,7 +483,7 @@
 		display: none;
 		height: 8px;
 		width: 16px;
-		bottom: -2px;
+		bottom: -1px;
 		left: 45%;
 		z-index: 2;
 	}
@@ -579,10 +581,13 @@
 	
 	.user-block > .edit-team-btn{
 		position: absolute;
-		top: 0;
-		right: 0;
+		top: 15px;
+		right: 15px;
 		margin: 0 !important;
 		padding: 0 !important;
+	}
+	.user-block > .edit-team-btn i{
+		font-size: 1.5em;
 	}
 	
 	.user-block-right-column > .user-header{
