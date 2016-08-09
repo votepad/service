@@ -1,9 +1,9 @@
 <?php
+
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 16.03.2016
- * Time: 21:42
+ * Class Ajax
+ * @author ProNWE team
+ * @copyright Khaydarov Murod
  */
 class Ajax extends Controller {
 
