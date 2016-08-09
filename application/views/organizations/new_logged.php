@@ -35,11 +35,11 @@
 				<div class="panel-body">
 					<h2>Введите информацию об организации</h2>
 					<p>Заполните форму и Вы получите личный кабинет. В нём Вы сможете создавать и публиковать мероприятия.</p>
-					<form class="create-org" name="newOrgForm1" >
+					<form class="create-org" name="newOrgForm1" method="POST" action="<?=URL::site('organization/add'); ?>">
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Название организации<span style="color: red">*</span></label>
 							<div class="col-sm-9">
-								<input type="text" name="orgname" class="form-control" required="" ng-model="orgname">
+								<input type="text" name="org_name" class="form-control" required="" ng-model="orgname">
 								<span class="help-block" ng-show="newOrgForm1.orgname.$valid || newOrgForm1.orgname.$pristine">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 								<span class="error" ng-show="newOrgForm1.orgname.$dirty && newOrgForm1.orgname.$invalid">
   									<span ng-show="newOrgForm1.orgname.$error.required">Введите название организации</span>
@@ -50,7 +50,7 @@
 							<label class="col-sm-3 control-label">Сайт организации</label>
 							<div class="col-sm-9">
 								<div class="input-group">
-									<input type="text" name="orgsite" class="form-control" maxlength="25" value="{{orgname | checkAllowedSim}}">
+									<input type="text" name="org_site" class="form-control" maxlength="25" value="">
 									<span class="input-group-addon">.votepad.ru</span>
 								</div>
 								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
@@ -59,7 +59,7 @@
 						<div class="form-group">
 							<label class="col-sm-3 control-label">Телефон<span style="color: red">*</span></label>
 							<div class="col-sm-9">
-								<input type="text" name="phone" ng-model="phone" class="form-control" required="" mask="+9 (999) 999-9999" clean="true" placeholder="+7 (999) 987-6543" >
+								<input type="text" name="org_phone" ng-model="phone" class="form-control" required="" mask="+9 (999) 999-9999" clean="true" placeholder="+7 (999) 987-6543" >
 								<span class="help-block">Нужен для связи с Вами.</span>
 							</div>
 						</div>
@@ -71,11 +71,7 @@
 							</label>
 						</div>
 						<div class="text-center">
-							<md-button type="submit" ng-disabled="
-											newOrgForm1.orgname.$dirty && newOrgForm1.orgname.$invalid || newOrgForm1.orgname.$pristine ||
-											newOrgForm1.phone.$dirty && newOrgForm1.phone.$invalid || newOrgForm1.phone.$pristine ||
-											newOrgForm1.confirmrools.$dirty && newOrgForm1.confirmrools.$invalid || newOrgForm1.confirmrools.$pristine" 
-											class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</md-button>	
+							<button type="submit" class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</button>
 						</div>	
 					</form>
 				</div>

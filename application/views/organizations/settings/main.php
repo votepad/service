@@ -1,30 +1,24 @@
 <!-- нужно подключить вначале страницы, иначе не работает -->
-
 <link rel="stylesheet" href="<?=$assets; ?>vendor/cropper/dist/cropper.css">
 <link rel="stylesheet" href="<?=$assets; ?>css/upload.css">
-
-<script src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-<script src="<?=$assets; ?>vendor/cropper/dist/cropper.js"></script>
-<script src="<?=$assets; ?>js/upload.js"></script>
-
 
 <div class="columns-area">
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="panel-tabs">
-				<a class="md-btn active" href="//pronwe/organization/1/settings/main">
+				<a class="md-btn active" href="http://pronwe.local/organization/10/settings/main">
 					Организация
 					<div class="active-link"></div>
 				</a>
-				<a class="md-btn" href="//pronwe/organization/1/settings/team">
+				<a class="md-btn" href="http://pronwe.local/organization/10/settings/team">
 					Команда
 					<div class="active-link"></div>
 				</a>
-				<a class="md-btn" href="//pronwe/organization/1/settings/logs">
+				<a class="md-btn" href="http://pronwe.local/organization/10/settings/logs">
 					Активности
 					<div class="active-link"></div>
 				</a>
-				<a class="md-btn" href="//pronwe/organization/1/settings/balance">
+				<a class="md-btn" href="http://pronwe.local/organization/10/settings/balance">
 					Оплата услуг
 					<div class="active-link"></div>
 				</a>
@@ -76,3 +70,7 @@
 		</div>
 	</div>
 </div>
+
+<script src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+<script src="<?=$assets; ?>vendor/cropper/dist/cropper.js"></script>
+<script src="<?=$assets; ?>js/upload.js"></script>

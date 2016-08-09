@@ -10,13 +10,6 @@
 	<link rel="stylesheet" href="<?=$assets; ?>css/app1.css">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css">
 
-
-	<!-- =============== VENDOR SCRIPTS ===============-->
-	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-	<script src="<?=$assets; ?>js/org.js"></script>
-
-
 </head>
 <body ng-controller="appCtrl">
 <div class="wrapper">
@@ -39,11 +32,11 @@
 				</div>
 				<div class="org-nav-block">
 					<div class="org-nav">
-						<a href="//pronwe/organization/1" class="md-btn active">
+						<a href="http://pronwe.local/organization/10/" class="md-btn active">
 							Мероприятия
 							<div class="active-tab"></div>
 						</a>
-						<a href="//pronwe/organization/1/settings/main" class="md-btn">
+						<a href="http://pronwe.local/organization/10/settings/main" class="md-btn">
 							Настройки
 							<div class="active-tab"></div>
 						</a>
@@ -60,5 +53,11 @@
 
 	<footer></footer>
 </div>
+
+<!-- =============== VENDOR SCRIPTS ===============-->
+<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
+<script src="<?=$assets; ?>js/org.js"></script>
+
 </body>
 </html>
