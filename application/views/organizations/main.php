@@ -10,13 +10,10 @@
 	<link rel="stylesheet" href="<?=$assets; ?>css/app1.css">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css">
 
-
 	<!-- =============== VENDOR SCRIPTS ===============-->
-	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-	<script src="<?=$assets; ?>js/org.js"></script>
-
-
+	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org.js"></script>
 </head>
 <body ng-controller="appCtrl">
 <div class="wrapper">
