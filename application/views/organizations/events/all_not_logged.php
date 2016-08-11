@@ -1,3 +1,5 @@
+<!-- необходимо изменить блок org-nav -->
+
 <div class="row columns-area">
     <div class="left-column">
         <div class="panel panel-default">
@@ -5,7 +7,7 @@
                 <div class="row">
                     <!-- SEARCHING PARAM -->
                     <div class="form-group search-block">
-                        <div class="col-md-7 col-xs-12">
+                        <div class="col-md-9 col-xs-6">
                             <label class="control-label">Поиск мероприятия</label>
                             <input type="text" class="form-control input-sm">
                         </div>
@@ -16,16 +18,6 @@
                                 <option></option>
                                 <option>Название мероприятия</option>
                                 <option>Дата начала мероприятия</option>
-                            </select>
-                        </div>
-
-                        <div class="col-md-2 col-xs-5 col-xs-offset-1 col-md-offset-0">
-                            <label class="control-label">Тип</label>
-                            <select class="form-control input-sm">
-                                <option></option>
-                                <option>Черновик</option>
-                                <option>Виден всем</option>
-                                <option>Виден команде</option>
                             </select>
                         </div>
                     </div>
@@ -135,94 +127,12 @@
     <!-- RIGHT COLUMN -->
     <div class="right-column">
         <div class="panel panel-default">
-            <div class="panel-heading">Быстрый старт</div>
-            <div class="panel-body">
-                <a href="newevent.html" class="md-btn md-btn-md quick-start">
-                    <i class="fa fa-plus" aria-hidden="true"></i>
-                    Создать мероприятие
-                </a>
-                <a href="orgpage-settings-team.html" class="md-btn md-btn-md quick-start">
-                    <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                    Пригласить организатора
-                </a>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
             <div class="panel-heading">Календарь мероприятий</div>
             <div class="panel-body">
                 в разработке ...
             </div>
             <div class="panel-footer">
                 
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">Последние активности</div>
-            <div class="panel-body">
-                <ul>
-                    <li class="log-activites no-li" style="border-left: 3px solid blue">
-                        <small>7 мая</small>
-                        <p>
-                            Иван Иванов создал(а) новое мероприятие
-                            <a href="#/tnl"  class="md-btn md-btn-xs">
-                                Федеральный конкурс Ты нужен людям
-                            </a>
-                        </p>
-                    </li>
-                    <li class="log-activites no-li" style="border-left: 3px solid red">
-                        <small>1 мая</small>
-                        <p>
-                            Иван Иванов изменил(а) мероприятие
-                            <a href="#/missitmo"  class="md-btn md-btn-xs">
-                                Мисс ИТМО
-                            </a>
-                        </p>
-                    </li>
-                </ul>
-                <a href="orgpage-settings-logs.html" class="md-btn md-btn-xs" style="color: #bbb">
-                    Посмотреть всю историю
-                </a>
-            </div>
-            <div class="panel-footer">
-                <ul>
-                    <li class="logs-description no-li inline">
-                        <span class="inline" style="background-color: blue"></span>
-                        <p class="inline">Новое мероприятие</p>
-                    </li>
-                    <li class="logs-description no-li inline">
-                        <span class="inline" style="background-color: red"></span>
-                        <p class="inline">Измененное мероприятие</p>
-                    </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="panel panel-default">
-            <div class="panel-heading">
-                Организаторы
-                <a href="orgpage-settings-team.html" class="pull-right">
-                    <i class="fa fa-edit" aria-hidden="true"></i>
-                </a>
-            </div>
-            <div class="panel-body">
-                <ul>
-                    <li class="person-in-team no-li">
-                        <img class="inline" src="<?=$assets; ?>img/user/02.jpg">
-                        <div class="inline">
-                            <p>Иван ИвановИван ИвановИван ИвановИван ИвановИван Иванов</p>
-                            <small>основатель организацииИван ИвановИван Иванов</small>    
-                        </div>
-                    </li>
-                    <li class="person-in-team no-li">
-                        <img class="inline" src="<?=$assets; ?>img/user/01.jpg">
-                        <div class="inline">
-                            <p>Екатерина Иванова</p>
-                            <small>модератор</small>
-                        </div>
-                    </li>
-                </ul>
             </div>
         </div>
     </div>

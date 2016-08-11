@@ -12,11 +12,10 @@
 
 
     <!-- =============== VENDOR SCRIPTS ===============-->
-	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
-	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-
-	<script src="<?=$assets; ?>js/organizations/org.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-new.js"></script>
 
 </head>
 <body>
@@ -31,30 +30,40 @@
 				<div class="panel-body">
 					<h2>Введите информацию об организации</h2>
 					<p>Заполните форму и Вы получите личный кабинет. В нём Вы сможете создавать и публиковать мероприятия.</p>
-					<form class="create-org">
+					<form id="new_org_logged" method="POST">
 						<div class="form-group">
-							<label class="control-label">Название организации<span style="color: red">*</span></label>
-							<input type="text" name="orgname" class="form-control" required="" >
-							<span class="help-block">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
-						</div>
-						<div class="form-group">
-							<label class="control-label">Сайт организации</label>
-							<div class="input-group">
-								<input type="text" name="orgsite" class="form-control" maxlength="25"">
-								<span class="input-group-addon">.votepad.ru</span>
+							<label for="orgname" class="control-label">Название организации</label>
+							<div class="input-area">
+								<input type="text" id="orgname" name="orgname" class="form-control" required>
+								<label id="orgname-error" class="error-input" for="orgname"></label>
+								<span class="help-block">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 							</div>
-							<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
 						</div>
 						<div class="form-group">
-							<label class="control-label">Телефон<span style="color: red">*</span></label>
-							<input type="text" name="phone" class="form-control" required="" placeholder="+7 (999) 987-6543" >
-							<span class="help-block">Нужен для связи с Вами.</span>
+							<label for="orgsite" class="control-label">Сайт организации</label>
+							<div class="input-area">
+								<div class="input-group">
+									<input type="text" id="orgsite" name="orgsite" class="form-control" maxlength="25" required>
+									<span class="input-group-addon">.votepad.ru</span>
+								</div>
+								<label id="orgsite-error" class="error-input" for="orgsite"></label>
+								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
+							</div>
 						</div>
-
 						<div class="form-group">
-							<label class="" style="padding: 0 15px">
-								<input type="checkbox" value="" required="" name="confirmrools">
+							<label for="orgphone" class="control-label">Телефон</label>
+							<div class="input-area">
+								<input type="text" id="orgphone" name="orgphone" class="form-control" placeholder="+7 (999) 999-9999" minlength="10" required>
+								<label id="orgphone-error" class="error-input" for="orgphone"></label>
+								<span class="help-block">Нужен для связи с Вами.</span>
+							</div>
+						</div>
+						<div class="form-group">
+							<label class="confirm-rools">
+								<input type="checkbox" id="confirmrools" name="confirmrools" required>
 								Я прочитал <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен с ним
+								<br>
+								<label id="confirmrools-error" class="error-input" for="confirmrools"></label>
 							</label>
 						</div>
 						<div class="text-center">

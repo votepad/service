@@ -96,11 +96,13 @@
 	left: 240px;
 	color: #fff;
 }
-	.org-name a{
+	.org-name h2 a {
+		font-size: .6em;
 		color: #f5f7fa;
-		position: absolute;
-		top: 15px;
-		right: -25px;
+		position: relative;
+		display: inline-block;
+		left: 11px;
+		top: -14px;
 	}
 
 @media (max-width: 992px) {
@@ -131,7 +133,7 @@
 	.org-block, header{
 		width: 768px;
 	}
-	.columns-area{
+	.columns-area, .neworg-wrapper{
 		width: 768px;
 	}
 	.left-column{
@@ -365,27 +367,36 @@
 	}
 
 .person-in-team{
-	margin-bottom: 10px;
+	margin-bottom: 5px;
+	height: 40px;
 }
 	.person-in-team img{
+		position: relative;
+		top: -20px;
 		border: 1px solid #bbbbbb;
 		width: 33px;
 		height: 33px;
 	}
-	.person-in-team p{
-		position: absolute;
+	.person-in-team div{
+		position: relative;
+		width: 80%;
+		margin-left: 5px;
+	}
+	.person-in-team div p{
+		display: block;
+		position: relative;
 		font-weight: bold;
+		margin-top: 5px;
 		font-size: 1.2em;
-		margin: 0 5px 0 5px;
-		width: 65%;
+		margin: 0;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
 	}
-	.person-in-team small{
-		position: absolute;
-		margin: 20px 0 0 5px;
-		width: 65%;
+	.person-in-team div small{
+		display: block;
+		position: relative;
+		top: -5px;
 		white-space: nowrap;
 		overflow: hidden;
 		text-overflow: ellipsis;
@@ -622,11 +633,15 @@
 .neworg-wrapper{
 	padding: 0 100px;
 }
+	.neworg-wrapper p{
+		margin-bottom: 30px;
+	}
 	.neworg-wrapper .form-group label{
 		width: 200px;
 		display: inline-block;
+		vertical-align: top;
 	}
-	.neworg-wrapper .form-group .form-control{
+	.neworg-wrapper .form-group .input-area{
 		margin-left: 30px;
 		width: 486px;
 		display: inline-block;
@@ -636,17 +651,18 @@
 		width: 486px;
 	}
 		.neworg-wrapper .form-group .input-group input{
-			width: 376px;
+			width: 389px;
 		}
-@media (max-width: 767px) {
+
+	.neworg-wrapper .confirm-rools{
+		width: 100% !important;
+		margin-left: 240px;
+	}
+
+@media (max-width: 1075px) {
 	.neworg-wrapper{
 		padding: 0;
 	}
-	.create-org{
-		padding: 0;
-	}
 }
-	.create-org .help-block{
-		color: #bbb;
-	}
+
 	

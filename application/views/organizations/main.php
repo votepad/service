@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app="pronwe">
+<html>
 <head>
 	<meta charset="utf-8">
 	<title>Организация</title>
@@ -15,7 +15,7 @@
 	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org.js"></script>
 </head>
-<body ng-controller="appCtrl">
+<body>
 <div class="wrapper">
 	<header></header>
 
@@ -28,10 +28,12 @@
 					</div>
 					<div class="org-name-background"></div>
 					<div class="org-name">
-						<h2 class="inline">Университет ИТМО</h2>
-						<a href="http://ifmo.ru" class="inline" data-toggle="tooltip" data-placement="top" title="Официальный сайт">
-							<i class="fa fa-external-link" aria-hidden="true"></i>
-						</a>
+						<h2>
+							Университет ИТМО
+							<a href="http://ifmo.ru" class="inline" data-toggle="tooltip" data-placement="top" title="Официальный сайт">
+								<i class="fa fa-external-link" aria-hidden="true"></i>
+							</a>
+						</h2>
 					</div>
 				</div>
 				<div class="org-nav-block">
