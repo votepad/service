@@ -53,7 +53,7 @@
 												</div>
 												<div class="buttons" data-toggle="buttons">
 													<input type="hidden" name="buttons" value="<?=$j; ?>">
-													<?php for($l = 0; $l <= $criterias[$k]['maxscore']; $l++): ?>
+													<?php for($l = 1; $l <= $criterias[$k]['maxscore']; $l++): ?>
 														<button class="mb-sm btn btn-s btn-primary mark">
 															<input type="radio" id="score-<?=$i . '-'. $j. '-'. $k; ?>" name="score-<?=$stages[$i]['id'].'-'.$participants[$i][$j]['id'].'-'.$criterias[$k]['id']; ?>" autocomplete="off" value="<?=$l; ?>"> <?=$l; ?>
 														</button>

@@ -4,16 +4,7 @@ $(document).ready(function(){
 
     // BlockStages
     $("button[id='openStage']").click( function() {
-      if ( $(this).hasClass('btn-default') ) 
-      {
-        $(this).removeClass('btn-default').addClass('btn-opened').text('Закрыть доступ');
-      }
-      else
-      {
-        $(this).removeClass('btn-opened').addClass('btn-default').text('Открыть доступ');
-      }
-
-      
+      $(this).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт').prop('disabled',true);
         var stage = $(this).closest("td").attr('id');
 
         $.ajax({
@@ -53,7 +44,7 @@ $(document).ready(function(){
       var stage_id = $(".btn-open-"+i).parents("td").attr('id');  
       var blocked = isOpen(stage_id);
       if (blocked == 0) {
-        $(".btn-open-"+i).removeClass('btn-default').addClass('btn-opened').text('Закрыть доступ');
+        $(".btn-open-"+i).removeClass('btn-default').addClass('disabled').css('background-color' ,'#24b145').css('border-color','#1f9c3d').css('color','#fff').css('opacity','1').text('Доступ открыт');
       }
     }
    

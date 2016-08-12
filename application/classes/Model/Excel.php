@@ -1,7 +1,7 @@
 <?php
 /**
- * @author ProNWE team
- * @copyright Khaydarov Murod
+ * @team ProNWE team
+ * @author Khaydarov Murod
  */
 
 class Model_Excel {

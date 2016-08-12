@@ -187,7 +187,7 @@ $(function ()
                 for (var j = 0; j < crit; j++) {
                     $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-danger').addClass('btn-default');
                     var radio = $('input[type=radio][id="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
-                    if (radio == null) {
+                    if (radio == 0 || radio == null) {
                         k=1;
                         $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
                         break;
@@ -290,7 +290,7 @@ $(function ()
                 for (var j = 0; j < crit; j++) {
                     $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-danger').addClass('btn-default');
                     var radio = $('input[type=radio][id="score-'+currentIndex+'-'+pos[i]+'-'+j+'"]:checked').val();
-                    if (radio == null) {
+                    if (radio == 0 || radio == null) {
                         k=1;
                         $('#partisipant-id-'+currentIndex+'-'+i).removeClass('btn-default').addClass('btn-danger');
                         break;
@@ -482,7 +482,6 @@ $(function ()
     $('.nav-s').sortable();
     $('.portlets-wrapper ul li:first-child').addClass('active');
     $('.tab-content div:first-child').addClass('active');
-    $('.buttons button:first-child').addClass('active');
 
     //$('.colorpicker-component').colorpicker();
     
