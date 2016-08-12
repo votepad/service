@@ -147,5 +147,5 @@ Kohana::modules(array(
 /**
  * Include Composer libraries
 */
-//require APPPATH.'vendor/autoload.php';
+require APPPATH.'vendor/autoload.php';
 require APPPATH.'routes'.EXT;

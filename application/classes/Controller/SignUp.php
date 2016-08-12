@@ -1,9 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-
 /**
- * Class Controller_SignUp
- * @author ProNWE team
- * @copyright Khaydarov Murod
+ * Created by PhpStorm.
+ * User: Murod's Macbook Pro
+ * Date: 07.03.2016
+ * Time: 22:50
  */
 
 class Controller_SignUp extends Dispatch
@@ -12,73 +12,69 @@ class Controller_SignUp extends Dispatch
 
     function action_index()
     {
-        $email      = Arr::get($_POST, 'email', '');
-        $password   = Arr::get($_POST, 'password', '');
+        $email = Arr::get($_POST, 'email', '');
+        $password = Arr::get($_POST, 'password', '');
 
-        /** Disallow template rendering */
-        $this->auto_render = false;
+        /**
+         * TODO: Email - Validation
+         */
 
-        if (!$email && !$password) {
-            $this->redirect('auth/');
-        }
-
-        $user = new ORM_User();
-
-        try {
-            $user->email    = $email;
-            $user->password = $password;
-            
-            $user->save();
-        }
-        catch (ORM_Validation_Exception $e) {
-            echo Debug::vars($e);
-        }
+        $model_user = Model_User::Instance();
+        $model_user->signUp($email, $password);
 
         $this->redirect('signup/continue');
 
     }
 
-    /** @todo FIle transport */
     function action_continue()
     {
         parent::isLogged();
 
-        if ($this->request->method() == self::POST){
+        $this->template->title          = 'Продолжение регистрации';
+        $this->template->description    = 'Описание страницы';
+        $this->template->keywords       = 'C';
 
-            $user = new ORM_User();
-            $user->where('id', '=', $this->_session->get('id_user'))
-                ->find();
+        $city = Kohana::$config->load('city');
+        $gender = Kohana::$config->load('gender');
 
-            if ($user->loaded())
-            {
-                $user->lastname   = Arr::get($_POST, 'lastname', '');
-                $user->name       = Arr::get($_POST, 'name', '');
-                $user->surname    = Arr::get($_POST, 'surname', '');
-                $user->phone      = Arr::get($_POST, 'number', '');
-                $user->sex        = Arr::get($_POST, 'sex', '');
-                $user->city       = Arr::get($_POST, 'city', '');
-                $user->avatar     = $_FILES['avatar']['name'] ?: 'no-user.png';
+        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
+        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
+        array_push( $this->js,  'js/app.js');
 
-                $user->save();
-            }
+        $this->template->css = $this->css;
+        $this->template->js = $this->js;
 
-        } else {
+        $this->template->aside      = View::factory('aside');
+        $this->template->section    = View::factory('auth/continregistr')   
+                                                ->bind('cities', $cities);
 
-            $this->template->title          = 'Продолжение регистрации';
-            $this->template->description    = 'Продолжение регистрации на сайте Pronwe.ru';
-            $this->template->keywords       = 'Продолжение регистрации на сайте Pronwe.ru';
+        $model_user = Model_User::Instance();
+        $cities = $model_user->getCities();
+    }
 
-            array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
-            array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
-            array_push( $this->js,  'js/app.js');
+    function action_save()
+    {
+        $lastname   = Arr::get($_POST, 'lastname');
+        $name       = Arr::get($_POST, 'name');
+        $surname    = Arr::get($_POST, 'surname');
+        $phone      = Arr::get($_POST, 'number');
+        $sex        = Arr::get($_POST, 'sex');
+        $city       = Arr::get($_POST, 'city');
+        $avatar     = $_FILES['avatar']['name'] ?: 'no-user.png';
 
-            $this->template->css = $this->css;
-            $this->template->js  = $this->js;
+        Model_Uploader::fileTransport($_FILES, 'avatar');
+        $model_user = Model_User::Instance();
+        
+        $model_user->signUpContinue(
+                                    $lastname,
+                                    $name,
+                                    $surname,
+                                    $sex,
+                                    $phone,
+                                    $city,
+                                    $avatar
+            );
 
-            $this->template->aside      = View::factory('aside');
-            $this->template->section    = View::factory('auth/continregistr');
-
-        }
-
+        $this->redirect('events/my');
     }
 }

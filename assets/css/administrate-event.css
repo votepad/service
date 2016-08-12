@@ -22,9 +22,3 @@ a:hover, a:focus{
 	color: #656565;
 	text-decoration: none;
 }
-.btn-opened, .btn-opened:focus, .btn-opened:hover{
-	background-color: #24b145;
-	border-color: #1f9c3d;
-	color: #fff;
-	opacity:1;
-}

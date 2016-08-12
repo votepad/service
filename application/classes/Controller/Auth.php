@@ -1,17 +1,24 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * @author ProNWE team
- * @copyright Khaydarov Murod
+ * @team ProNWE team
+ * @author Khaydarov Murod
  */
 
 class Controller_Auth extends Dispatch {
 
     public $template = 'auth/auth';
 
-    protected $model = null;
-
     function action_index()
     {
+        array_push( $this->css, 'css/auth.css');
+        array_push( $this->css, 'css/ProNWE_input.css');
+        array_push( $this->js, 'js/auth.js');
+        
+        unset( $this->css[5] );
+
+
+        $this->template->css = $this->css;
+        $this->template->js = $this->js;
     }
 
     function action_signin()
@@ -19,42 +26,70 @@ class Controller_Auth extends Dispatch {
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
 
-        $this->model = new Model_Auth();
-
         /**
-         * If fields are empty
+         * Проверяем, если поля пустые, то отправляем обратно на авторизацию
          */
         if ( empty($email) || empty($password)) {
+            $this->errors = 'Something happen';
             $this->redirect('auth/');
         }
 
-        $auth = $this->login($email, $password);
+        $model_user = Model_User::Instance();
+        $logIn      = $model_user->login($email, $password);
 
-        if (!$auth)
-        {
+        /**
+         * Если не получилось авторизоваться - обратно на Auth/
+         */
+
+        if ( !$logIn ) {
+            $asJudge = Model_Judge::logInAsJudge($email, $email);
+
+            if (count($asJudge) != 0) {
+                Session::instance()->set('id_judge', $asJudge['id']);
+                $this->redirect('event/' . $asJudge['id_event']. '/judge/panel'. Model_Events::EventsType($asJudge['id_event']) );
+            }
+
             $this->redirect('auth/');
         }
-        else
-        {
-            if (!$auth['done'])
+
+        /**
+         * Удачная авторизация - перекидываем в приложение.
+         */
+
+        else {
+            if ($logIn == 2)
                 $this->redirect('signup/continue');
             else
                 $this->redirect('events/my');
         }
-
-
-        $this->auth_render = false;
     }
-    
-    private function login($email, $password, $remember = FALSE)
+
+    function action_logout()
     {
-        return $this->model->login($email, $password);
+        $model_user = Model_User::Instance();
+        $model_user->logout();
+        Controller::redirect('/auth');
     }
 
-    private function action_logout($email)
+    function action_vk()
     {
-        return $this->model->logout($email, FALSE);
+
     }
+
+    function action_facebook()
+    {
+
+    }
+
+    function action_twitter()
+    {
+
+    }
+
+
+    /*
+     * Продолжение регистрации
+     */
 
 }
 

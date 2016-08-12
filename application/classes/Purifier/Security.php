@@ -39,11 +39,11 @@ class Purifier_Security extends Kohana_Security {
                 {
                     // Load the all of HTML Purifier right now.
                     // This increases performance with a slight hit to memory usage.
-                    require 'application/vendor/ezyang/htmlpurifier/library/HTMLPurifier.includes.php';
+                    require 'modules/purifier/vendor/htmlpurifier/library/HTMLPurifier.includes.php';
                 }
 
                 // Load the HTML Purifier auto loader
-                require 'application/vendor/ezyang/htmlpurifier/library/HTMLPurifier.auto.php';
+                require 'modules/purifier/vendor/htmlpurifier/library/HTMLPurifier.auto.php';
             }
 
             // Create a new configuration object
