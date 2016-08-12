@@ -12,11 +12,9 @@
 
 
     <!-- =============== VENDOR SCRIPTS ===============-->
-	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
-	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-
-	<script src="<?=$assets; ?>js/organizations/org.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-new.js"></script>
 
 </head>
 <body>
@@ -27,65 +25,72 @@
 			<a href="">Задать вопрос</a>
 		</header>
 		<div class="content-wrapper">
-			<div class="panel panel-default" style="width: 80%; margin: auto;">
+			<div class="panel panel-default neworg-wrapper">
 				<div class="panel-body">
 					<h2>Введите информацию об организации</h2>
 					<p>Заполните форму и Вы получите личный кабинет. В нём Вы сможете создавать и публиковать мероприятия.</p>
-					<form class="create-org">
+					<form id="new_org_not_logged" method="POST">
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Название организации<span style="color: red">*</span></label>
-							<div class="col-sm-9">
-								<input type="text" name="orgname" class="form-control" required>
+							<label for="orgname" class="control-label">Название организации</label>
+							<div class="input-area">
+								<input type="text" id="orgname" name="orgname" class="form-control">
+								<label id="orgname-error" class="error-input" for="orgname"></label>
 								<span class="help-block">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Доверенное лицо<span style="color: red">*</span></label>
-							<div class="col-sm-9">
-								<input type="text" name="person" class="form-control" required placeholder="Иванов Иван Иванович">
+							<label for="orguser" class="control-label">Доверенное лицо</label>
+							<div class="input-area">
+								<input type="text" id="orguser" name="orguser" class="form-control" placeholder="Иванов Иван Иванович">
+								<label id="orgser-error" class="error-input" for="orguser"></label>
 								<span class="help-block">Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">E-mail<span style="color: red">*</span></label>
-							<div class="col-sm-9">
-								<input type="email" name="email" class="form-control" required placeholder="email@address.ru">
+							<label for="email" class="control-label">E-mail</label>
+							<div class="input-area">
+								<input type="email" id="email" name="email" class="form-control" placeholder="email@address.ru">
+								<label id="email-error" class="error-input" for="email"></label>
 								<span class="help-block">Для входа в систему и сервисной информации.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Пароль<span style="color: red">*</span></label>
-							<div class="col-sm-9">
-								<input type="password" name="password" class="form-control" required>
+							<label for="password" class="control-label">Пароль</label>
+							<div class="input-area">
+								<input type="password" id="password" name="password" class="form-control">
+								<label id="password-error" class="error-input" for="password"></label>
 								<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Сайт организации</label>
-							<div class="col-sm-9">
+							<label for="orgsite" class="control-label">Сайт организации</label>
+							<div class="input-area">
 								<div class="input-group">
-									<input type="text" name="orgsite" class="form-control" maxlength="25">
+									<input type="text" id="orgsite" name="orgsite" class="form-control">
 									<span class="input-group-addon">.votepad.ru</span>
 								</div>
+								<label id="orgsite-error" class="error-input" for="orgsite"></label>
 								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">Телефон<span style="color: red">*</span></label>
-							<div class="col-sm-9">
-								<input type="text" name="phone" class="form-control" required placeholder="+7 (999) 987-6543" >
+							<label for="orgphone" class="control-label">Телефон</label>
+							<div class="input-area">
+								<input type="tel" id="orgphone" name="orgphone" class="form-control" placeholder="+79999999999">
+								<label id="orgphone-error" class="error-input" for="orgphone"></label>
 								<span class="help-block">Нужен для связи с Вами.</span>
 							</div>
 						</div>
-
 						<div class="form-group">
-							<label class="col-sm-offset-3" style="padding: 0 15px">
-								<input type="checkbox" value="" required="" name="confirmrools">
-								Я прочитал <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен с ним
+							<label class="confirm-rools">
+								<input type="checkbox" id="confirmrools" name="confirmrools">
+								Я прочитал(а) <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен с ним
+								<br>
+								<label id="confirmrools-error" class="error-input" for="confirmrools"></label>
 							</label>
 						</div>
 						<div class="text-center">
-							<button type="submit" class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</button>
+							<button type="submit" class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</button>	
 						</div>	
 					</form>
 				</div>

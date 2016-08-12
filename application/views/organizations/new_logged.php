@@ -13,7 +13,6 @@
 
     <!-- =============== VENDOR SCRIPTS ===============-->
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-new.js"></script>
 
@@ -34,7 +33,7 @@
 						<div class="form-group">
 							<label for="orgname" class="control-label">Название организации</label>
 							<div class="input-area">
-								<input type="text" id="orgname" name="orgname" class="form-control" required>
+								<input type="text" id="orgname" name="orgname" class="form-control">
 								<label id="orgname-error" class="error-input" for="orgname"></label>
 								<span class="help-block">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 							</div>
@@ -43,7 +42,7 @@
 							<label for="orgsite" class="control-label">Сайт организации</label>
 							<div class="input-area">
 								<div class="input-group">
-									<input type="text" id="orgsite" name="orgsite" class="form-control" maxlength="25" required>
+									<input type="text" id="orgsite" name="orgsite" class="form-control">
 									<span class="input-group-addon">.votepad.ru</span>
 								</div>
 								<label id="orgsite-error" class="error-input" for="orgsite"></label>
@@ -53,15 +52,15 @@
 						<div class="form-group">
 							<label for="orgphone" class="control-label">Телефон</label>
 							<div class="input-area">
-								<input type="text" id="orgphone" name="orgphone" class="form-control" placeholder="+7 (999) 999-9999" minlength="10" required>
+								<input type="tel" id="orgphone" name="orgphone" class="form-control" placeholder="+79999999999">
 								<label id="orgphone-error" class="error-input" for="orgphone"></label>
 								<span class="help-block">Нужен для связи с Вами.</span>
 							</div>
 						</div>
 						<div class="form-group">
 							<label class="confirm-rools">
-								<input type="checkbox" id="confirmrools" name="confirmrools" required>
-								Я прочитал <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен с ним
+								<input type="checkbox" id="confirmrools" name="confirmrools">
+								Я прочитал(а) <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен с ним
 								<br>
 								<label id="confirmrools-error" class="error-input" for="confirmrools"></label>
 							</label>
