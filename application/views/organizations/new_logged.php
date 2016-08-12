@@ -60,7 +60,7 @@
 						<div class="form-group">
 							<label class="confirm-rools">
 								<input type="checkbox" id="confirmrools" name="confirmrools">
-								Я прочитал(а) <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен с ним
+								Я прочитал(а) <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен(а) с ним
 								<br>
 								<label id="confirmrools-error" class="error-input" for="confirmrools"></label>
 							</label>

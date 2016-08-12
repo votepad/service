@@ -31,6 +31,11 @@ header{
 	margin-right: auto;
 	height: 100%;
 }
+	@media (max-width: 992px) {
+		.content-wrapper{
+			width: 100%;
+		}
+	}
 a, a:hover, a:focus, button, button:hover, button:focus{
 	outline: none;
 	text-decoration: none;
@@ -404,3 +409,54 @@ label.error-input{
 		border-top: 1px solid #bbbbbb;
 		border-top-style: dashed;
 	}
+
+	.panel-default > .panel-heading{
+		box-shadow: inset 0px -1px 0 0 #bbb;
+		border-bottom: 0 !important;
+	}
+		.panel-tabs{
+			margin: -10px -15px;
+		}
+		.panel-tabs .md-btn{
+			font-size: 18px;
+			border-radius: 0;
+			position: relative;
+			display: inline-block;
+			padding: 6px 30px;
+			height: 40px;
+			vertical-align: top;
+			border-right: 1px solid #bbbbbb;
+		}
+			.panel-tabs .md-btn:nth-child(n+2){
+				margin-left: -4px;
+			}
+			.panel-tabs .md-btn:first-child{
+				border-top-left-radius: 2px;
+			}
+			.panel-tabs .md-btn:hover, .panel-tabs .md-btn:focus{
+				position: relative;
+				-webkit-transform: none;
+				transform: none; 
+				box-shadow: none;
+				background-color: rgb(219,220,223);
+				border-bottom: 1px solid #bbb;
+			}
+			.panel-tabs .md-btn.active{
+				pointer-events: none;
+			}
+
+		.active-link{
+			background-image: url(../img/icons/link-2.svg);
+			background-repeat: no-repeat;
+			background-size: auto;
+			position: absolute;
+			display: none;
+			height: 8px;
+			width: 16px;
+			bottom: -1px;
+			left: 45%;
+			z-index: 2;
+		}
+			.panel-tabs .md-btn.active > .active-link{
+				display: block;
+			}

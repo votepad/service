@@ -3,24 +3,31 @@ $(document).ready(function() {
   var cropImgData; // data about croppinf img
 
   // checking btns and adding areas for upload
-  if ($('.upload').is('#logo_upload') == true) {
-    var atr = 'logo';
+  if ($('.upload').is('#orglogo_upload') == true) {
+    var atr = 'orglogo';
     var temp = "<div id='upload_" + atr + "_block' class='displaynone'><div class='upload-fone displaynone'></div><div class='upload-layer'><form name='" + atr + "'><div class='upload-box'><a class='photo_close'>Закрыть</a><div id='" + atr + "_photo_upload' class='upload_input displayblock'><div class='photo_title'>" + getPhotoTitle(atr) + "</div><div class='photo_desc'>" + getPhotoDesc(atr)  + "<br>Вы можете загрузить изображение в формате JPG, JPEG или PNG.</div><div class='msg displaynone' id='" + atr + "_photo_error'></div><div id='" + atr + "_photo_input' class='photo_input-btn'><label for='" + atr + "photo_input' class='md-btn md-btn-md md-btn-success'>Выбрать файл</label><input type='file' id='" + atr + "photo_input' class='photo_input' name='photo" + atr + "'></div></div><div id='" + atr + "_photo_edit' class='photo_edit displaynone'><div class='photo_title'>Редактирование изображения</div><div class='photo_desc'>Выберите область, которая будет показываться.<br>Если изображение ориентировано неправильно, фотографию можно повернуть.</div><img id='" + atr + "_edited' class='edited_photo' src=''><button type='button' aria-label='submit_photo' class='md-btn md-btn-md md-btn-success update-photo-btn'>Обновить</button><div class='edit-btns'><button aria-label='rotateLeft' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-rotate-left'></em></button><button aria-label='rotateRight' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-rotate-right'></em></button></div><div class='edit-btns'><button aria-label='zoomin' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-search-plus'></em></button><button aria-label='zoomout' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-search-minus'></em></button></div><div class='edit-btns'><button aria-label='move' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-arrows'></em></button><button aria-label='crop' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-crop'></em></button></div></div></div></form></div></div>";
     $(".content-wrapper").after(temp);
   }
-  if ($('.upload').is('#back_upload') == true) {
-    var atr = 'back';
+  if ($('.upload').is('#orgback_upload') == true) {
+    var atr = 'orgback';
+    var temp = "<div id='upload_" + atr + "_block' class='displaynone'><div class='upload-fone displaynone'></div><div class='upload-layer'><form name='" + atr + "'><div class='upload-box'><a class='photo_close'>Закрыть</a><div id='" + atr + "_photo_upload' class='upload_input displayblock'><div class='photo_title'>" + getPhotoTitle(atr) + "</div><div class='photo_desc'>" + getPhotoDesc(atr)  + "<br>Вы можете загрузить изображение в формате JPG, JPEG или PNG.</div><div class='msg displaynone' id='" + atr + "_photo_error'></div><div id='" + atr + "_photo_input' class='photo_input-btn'><label for='" + atr + "photo_input' class='md-btn md-btn-md md-btn-success'>Выбрать файл</label><input type='file' id='" + atr + "photo_input' class='photo_input' name='photo" + atr + "'></div></div><div id='" + atr + "_photo_edit' class='photo_edit displaynone'><div class='photo_title'>Редактирование изображения</div><div class='photo_desc'>Выберите область, которая будет показываться.<br>Если изображение ориентировано неправильно, фотографию можно повернуть.</div><img id='" + atr + "_edited' class='edited_photo' src=''><button type='button' aria-label='submit_photo' class='md-btn md-btn-md md-btn-success update-photo-btn'>Обновить</button><div class='edit-btns'><button aria-label='rotateLeft' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-rotate-left'></em></button><button aria-label='rotateRight' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-rotate-right'></em></button></div><div class='edit-btns'><button aria-label='zoomin' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-search-plus'></em></button><button aria-label='zoomout' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-search-minus'></em></button></div><div class='edit-btns'><button aria-label='move' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-arrows'></em></button><button aria-label='crop' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-crop'></em></button></div></div></div></form></div></div>";
+    $(".content-wrapper").after(temp);
+  }
+  if ($('.upload').is('#eventlogo_upload') == true) {
+    var atr = 'eventlogo';
     var temp = "<div id='upload_" + atr + "_block' class='displaynone'><div class='upload-fone displaynone'></div><div class='upload-layer'><form name='" + atr + "'><div class='upload-box'><a class='photo_close'>Закрыть</a><div id='" + atr + "_photo_upload' class='upload_input displayblock'><div class='photo_title'>" + getPhotoTitle(atr) + "</div><div class='photo_desc'>" + getPhotoDesc(atr)  + "<br>Вы можете загрузить изображение в формате JPG, JPEG или PNG.</div><div class='msg displaynone' id='" + atr + "_photo_error'></div><div id='" + atr + "_photo_input' class='photo_input-btn'><label for='" + atr + "photo_input' class='md-btn md-btn-md md-btn-success'>Выбрать файл</label><input type='file' id='" + atr + "photo_input' class='photo_input' name='photo" + atr + "'></div></div><div id='" + atr + "_photo_edit' class='photo_edit displaynone'><div class='photo_title'>Редактирование изображения</div><div class='photo_desc'>Выберите область, которая будет показываться.<br>Если изображение ориентировано неправильно, фотографию можно повернуть.</div><img id='" + atr + "_edited' class='edited_photo' src=''><button type='button' aria-label='submit_photo' class='md-btn md-btn-md md-btn-success update-photo-btn'>Обновить</button><div class='edit-btns'><button aria-label='rotateLeft' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-rotate-left'></em></button><button aria-label='rotateRight' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-rotate-right'></em></button></div><div class='edit-btns'><button aria-label='zoomin' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-search-plus'></em></button><button aria-label='zoomout' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-search-minus'></em></button></div><div class='edit-btns'><button aria-label='move' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-arrows'></em></button><button aria-label='crop' type='button' class='md-btn md-btn-md md-btn-default md-btn-icon-sq'><em class='fa fa-crop'></em></button></div></div></div></form></div></div>";
     $(".content-wrapper").after(temp);
   }
   
   function getPhotoTitle(id){
-    if (id == 'logo') {return("Загрузка логотипа организации")};
-    if (id == 'back') {return("Загрузка фона обложки организации")};
+    if (id == 'orglogo') {return("Загрузка логотипа организации")};
+    if (id == 'orgback') {return("Загрузка фона обложки организации")};
+    if (id == 'eventlogo') {return("Загрузка логотипа мероприятия")};
   };
   function getPhotoDesc(id){
-    if (id == 'logo') {return("Вашу организацию будет проще узнать, если загрузите настоящий логотип.")};
-    if (id == 'back') {return("Ваша страница станет ярче, если обновите фон обложки.")};
+    if (id == 'orglogo') {return("Вашу организацию будет проще узнать, если загрузите настоящий логотип.")};
+    if (id == 'orgback') {return("Ваша страница станет ярче, если обновите фон обложки.")};
+    if (id == 'eventlogo') {return("Ваше мероприятие будет проще узнать, если загрузите настоящий логотип.")};
   };
   function getInputID(str) {
     var temp = "";
@@ -52,8 +59,9 @@ $(document).ready(function() {
   });
 
   var param = [
-    {id:"logo", minImgWidth: "170", minImgHeigth: "170", maxImgSize: "1000000", ImgFormat: '["image/jpg", "image/jpeg", "image/png"]'},
-    {id:"back", minImgWidth: "768", minImgHeigth: "300", maxImgSize: "2000000", ImgFormat: '["image/jpg", "image/jpeg", "image/png"]'},
+    {id:"orglogo", minImgWidth: "170", minImgHeigth: "170", maxImgSize: "1000000", ImgFormat: '["image/jpg", "image/jpeg", "image/png"]'},
+    {id:"orgback", minImgWidth: "768", minImgHeigth: "300", maxImgSize: "2000000", ImgFormat: '["image/jpg", "image/jpeg", "image/png"]'},
+    {id:"eventlogo", minImgWidth: "200", minImgHeigth: "200", maxImgSize: "1000000", ImgFormat: '["image/jpg", "image/jpeg", "image/png"]'},
   ];
 
   function getParamNum(id) {
@@ -165,7 +173,7 @@ $(document).ready(function() {
   });
 
   //  CROPPER SETTINGS
-  $('#logo_edited').cropper({
+  $('#orglogo_edited').cropper({
     aspectRatio: 1 / 1,
     minCropBoxWidth: 100,
     minCropBoxHeight: 100,
@@ -174,9 +182,18 @@ $(document).ready(function() {
       //console.log(cropImgData);   //cropImgData is the returned data from cropper
     },
   });
-  $('#back_edited').cropper({
+  $('#orgback_edited').cropper({
     aspectRatio: 3 / 1,
     minCropBoxWidth: 300,
+    minCropBoxHeight: 100,
+    crop: function (data) {
+      cropImgData = data; // save returned data to cropImgData.
+      //console.log(cropImgData);   //cropImgData is the returned data from cropper
+    },
+  });
+  $('#eventlogo_edited').cropper({
+    aspectRatio: 1 / 1,
+    minCropBoxWidth: 100,
     minCropBoxHeight: 100,
     crop: function (data) {
       cropImgData = data; // save returned data to cropImgData.

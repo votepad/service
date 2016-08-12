@@ -1,0 +1,58 @@
+@media (max-width: 768px) {
+	.newevent-wrapper, header{
+		width: 768px;
+	}
+}
+.panel-tabs .md-btn{
+	padding: 6px 10px;
+}
+.newevent-wrapper .form-group{
+	padding: 15px 15px 0 15px;
+	margin-bottom: 0;
+	text-align: center;
+}
+.newevent-wrapper .form-group .control-label{
+	vertical-align: top;
+	padding-right: 15px;
+	text-align: right;
+	width: 200px;
+}
+@media (max-width: 1105px) {
+	.newevent-wrapper .form-group{
+		text-align: left;
+	}
+	.newevent-wrapper .form-group .control-label{
+		text-align: left;
+	}
+}
+.newevent-wrapper .form-group .input-area{
+	display: inline-block;
+	width: 710px;
+}
+.date-input{
+	display: block;
+	height: 35px;
+	text-align: left;
+}
+	.date-input input{
+		display: inline-block;
+		width: 30%;
+	}
+.org-info-btn, .org-info-btn:hover, .org-info-btn:focus{
+	text-decoration:none; 
+	color:#64b5f6;
+}
+	.org-info-btn i{
+		color: #656565;
+		padding-right: 5px;
+	}
+	.org-info-btn span{
+		border-bottom:1px dashed #1565C0;
+	}
+.select2-width{
+	width: 710px;
+}
+.help-block{
+	text-align: left;
+	font-size: .8em;
+}
