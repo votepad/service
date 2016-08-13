@@ -1,4 +1,3 @@
-<!-- нужно подключить вначале страницы, иначе не работает -->
 <link rel="stylesheet" href="<?=$assets; ?>vendor/cropper/dist/cropper.css">
 <link rel="stylesheet" href="<?=$assets; ?>css/upload.css">
 
@@ -41,8 +40,8 @@
 						<label class="control-label">Ссылка на официальный сайт</label>
 						<input type="text" name="orgofficialsite" class="form-control input-sm" value="http://ifmo.ru" required>
 					</div>
-					<button type="button" id="logo_upload" class="md-btn md-btn-md md-btn-default upload" md-ink-ripple="#64b5f6">Обновить фото логотипа</button>
-					<button type="button" id="back_upload" class="md-btn md-btn-md md-btn-default upload" md-ink-ripple="#64b5f6" style="float: right;">Обновить фото обложки</button>
+					<button type="button" id="logo_upload" class="md-btn md-btn-md md-btn-default upload">Обновить фото логотипа</button>
+					<button type="button" id="back_upload" class="md-btn md-btn-md md-btn-default upload" style="float: right;">Обновить фото обложки</button>
 				</div>
 				<div class="settings-main-c2 inline">
 					<h4>Контактная информация</h4>
@@ -71,6 +70,8 @@
 	</div>
 </div>
 
-<script src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-<script src="<?=$assets; ?>vendor/cropper/dist/cropper.js"></script>
-<script src="<?=$assets; ?>js/upload.js"></script>
+<!-- =============== PAGE SCRIPTS ===============-->
+<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/cropper/dist/cropper.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/upload.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-main.js"></script>

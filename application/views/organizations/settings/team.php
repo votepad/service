@@ -1,5 +1,5 @@
-<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
-
+<!-- =============== PAGE STYLES ===============-->
+<link rel="stylesheet" href="<?=$assets; ?>vendor/select2/dist/css/select2.css">
 
 <div class="columns-area">
 	<div class="panel panel-default">
@@ -220,3 +220,9 @@
 		</div>
 	</div>
 </div>
+
+<!-- =============== PAGE SCRIPTS ===============-->
+<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-team.js"></script>

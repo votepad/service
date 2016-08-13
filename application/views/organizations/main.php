@@ -9,7 +9,7 @@
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="<?=$assets; ?>css/app1.css">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css">
-
+	
 </head>
 <body ng-controller="appCtrl">
 <div class="wrapper">

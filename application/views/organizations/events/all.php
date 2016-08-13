@@ -223,3 +223,5 @@
         </div>
     </div>
 </div>
+<!-- =============== PAGE SCRIPTS ===============-->
+<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-all.js"></script>
