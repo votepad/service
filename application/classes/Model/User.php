@@ -39,4 +39,20 @@ Class Model_User {
         return false;
 
     }
+
+    public static function getCurrentUser() {
+
+        $session = Session::Instance();
+
+        $user = new ORM_User();
+        $user->where('id', '=', $session->get('id_user'))
+            ->find();
+
+        if ($user->loaded())
+        {
+            return $user;
+        }
+
+        return false;
+    }
 }

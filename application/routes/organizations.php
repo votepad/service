@@ -10,6 +10,12 @@ Route::set('NEW_ORGANIZATION', 'organization/new')
         'action'     => 'new'
     ));
 
+Route::set('ADD_ORGANIZATION', 'organization/add')
+    ->defaults(array(
+        'controller' => 'Organizations_Modify',
+        'action'     => 'add'
+    ));
+
 Route::set('SHOW_ORGANIZATION', 'organization(/<id>)')
     ->defaults(array(
        'controller'  => 'Organizations_Index',

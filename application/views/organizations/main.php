@@ -38,11 +38,11 @@
 				</div>
 				<div class="org-nav-block">
 					<div class="org-nav">
-						<a href="//pronwe/organization/1" class="md-btn active">
+						<a href="http://pronwe.local/organization/10/" class="md-btn active">
 							Мероприятия
 							<div class="active-tab"></div>
 						</a>
-						<a href="//pronwe/organization/1/settings/main" class="md-btn">
+						<a href="http://pronwe.local/organization/10/settings/main" class="md-btn">
 							Настройки
 							<div class="active-tab"></div>
 						</a>

@@ -47,11 +47,11 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="email" class="control-label">E-mail</label>
+							<label far="email" class="control-label">E-mail</label>
 							<div class="input-area">
-								<input type="email" id="email" name="email" class="form-control" placeholder="email@address.ru">
+								<input type="email" name="email" class="form-control" placeholder="email@address.ru">
 								<label id="email-error" class="error-input" for="email"></label>
-								<span class="help-block">Для входа в систему и сервисной информации.</span>
+								<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
 							</div>
 						</div>
 						<div class="form-group">
