@@ -6,20 +6,33 @@
 
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/bootstrap/dist/css/bootstrap.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/summernote/dist/summernote.css">
+
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/cropper/dist/cropper.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/upload.css">
+	
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/select2/dist/css/select2.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/app1.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/event.css">
 
 	
 	<script type="text/javascript" src="../../../assets/vendor/jquery/dist/jquery.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
 	<script type="text/javascript" src="../../../assets/vendor/jquery-validation/dist/jquery.validate.js"></script>
+
+	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
+
+	<script type="text/javascript" src="../../../assets/vendor/summernote/dist/summernote.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/summernote/dist/lang/summernote-ru-RU.js"></script>
+	
 	<script type="text/javascript" src="../../../assets/vendor/select2/dist/js/select2.js"></script>
 	<script type="text/javascript" src="../../../assets/vendor/select2/dist/js/i18n/ru.js"></script>
+	
 	<script type="text/javascript" src="../../../assets/vendor/cropper/dist/cropper.js"></script>
 	<script type="text/javascript" src="../../../assets/js/upload.js"></script>
+	
 	<script type="text/javascript" src="../../../assets/js/events/event.js"></script>
 
 </head>
@@ -35,7 +48,7 @@
 		<p>Заполните информацию о мероприятие</p>
 
 
-		<div class="panel panel-default newevent-wrapper">
+		<div class="panel panel-default event-wrapper">
 			<div class="panel-heading">
 				<div class="panel-tabs">
 					<a class="md-btn active" href="#/step1">
@@ -61,12 +74,12 @@
 				</div>
 			</div>
 			<div class="panel-body">
-				<form method="POST" class="">
+				<form method="POST" id="event_step1" class="">
 					<div class="form-group">
 						<label for="eventname" class="control-label">Название мероприятия<span style="color:red">*</span></label>
 						<div class="input-area">
 							<input type="text" id="eventname" name="eventname" class="form-control input-sm">
-							<!--<label id="eventname-error" class="error-input" for="eventname"></label>-->
+							<label id="eventname-error" class="error-input" for="eventname" style="display: none;"></label>
 						</div>
 					</div>
 					<div class="form-group">
@@ -78,20 +91,20 @@
 					</div>
 					<div class="form-group">
 						<label for="eventdesc" class="control-label">Подробное описание</label>
-						<div class="input-area">
-							<textarea type="text" id="eventdesc" name="eventdesc" class="form-control input-sm">HTML редактор</textarea>
-							<span class="help-block">Полное описание будет использовано на странице мероприятия.</span>
+						<div class="eventdesc">
+							<div id="eventdesc"></div>
 						</div>
 					</div>
 					<div class="form-group">
 						<label for="eventdata" class="control-label">Дата и время<span style="color:red">*</span></label>
 						<div class="input-area">
 							<div class="date-input">
-								<input type="datetime-local" id="eventdata" name="eventstart" class="form-control input-sm">
+								<input type="datetime-local" id="eventstart" name="eventstart" class="form-control input-sm">
 								—
-								<input type="datetime-local" id="eventdata" name="eventend" class="form-control input-sm">	
+								<input type="datetime-local" id="eventend" name="eventend" class="form-control input-sm">	
 							</div>
-							<!--<label id="eventdata-error" class="error-input" for="eventdata"></label>-->
+							<label id="eventstart-error" class="error-input" for="eventstart" style="display: none;"></label>
+							<label id="eventend-error" class="error-input" for="eventend" style="display: none;"></label>
 							<span class="help-block">Поставьте произвольную дату, если мероприятие - с открытой датой.</span>
 						</div>
 					</div>
@@ -104,7 +117,7 @@
 								<option value="<?=$i; ?>"><?=$status->get($i); ?></option>
 							<?php endfor; ?>-->
 							</select>
-							<!--<label id="eventstatus-error" class="error-input" for="eventstatus"></label>-->
+							<label id="eventstatus-error" class="error-input" for="eventstatus" style="display: none;"></label>
 							<span class="help-block">Выберите статус мероприятия, он нужен для поиска мероприятия в системе.</span>
 						</div>
 					</div>
@@ -117,7 +130,7 @@
 								<option value="<?=$cities[$i]['id']; ?>"><?=$cities[$i]['name']; ?></option>
 							<? endfor;  ?>-->
 							</select>
-							<!--<label id="eventcity-error" class="error-input" for="eventcity"></label>-->
+							<label id="eventcity-error" class="error-input" for="eventcity" style="display: none;"></label>
 						</div>
 					</div>
 					<div class="form-group">
@@ -140,7 +153,7 @@
 									<option value="1" selected="selected">Туров Николай</option>
 									<option value="2">Иванов Иван</option>
 								</select>
-								<!--<label id="responsible_persons-error" class="error-input" for="responsible_persons"></label>-->
+								<label id="responsible_persons-error" class="error-input" for="responsible_persons" style="display: none;"></label>
 								<span class="help-block">Выберите ответственных за мероприятие, они смогут редактировать его.</span>
 							</div>
 						</div>
@@ -148,7 +161,7 @@
 							<label for="email" class="control-label">E-mail<span style="color:red">*</span></label>
 							<div class="input-area">
 								<input type="email" id="email" name="email" class="form-control input-sm" value="turov96@ya.ru">
-								<!--<label id="email-error" class="error-input" for="email"></label>-->
+								<label id="email-error" class="error-input" for="email" style="display: none;"></label>
 								<span class="help-block">Email для обратной связи.</span>
 							</div>
 						</div>
@@ -158,20 +171,20 @@
 							<input type="checkbox" id="confirmrools" name="confirmrools">
 							Я прочитал(а) <a href="#/rools/publishevent" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">правила публикации мероприятия</a> и согласен(а) с ними
 							<br>
-							<!--<label id="confirmrools-error" class="error-input" for="confirmrools"></label>-->
+							<label id="confirmrools-error" class="error-input" for="confirmrools" style="display: none;"></label>
 						</label>
 					</div>
 					<div class="form-group">
-					<button type="button" class="md-btn md-btn-md md-btn-labeled md-btn-success" style="">
+					<button type="button" id="event_step1_next" class="md-btn md-btn-md md-btn-labeled md-btn-success" style="">
 						<span class="md-btn-icon"><i class="fa fa-arrow-right"></i></span> Продолжить
 					</button>
-					<button type="button" class="md-btn md-btn-md md-btn-labeled md-btn-default" style="margin-left:20px">
+					<button type="button" id="event_step1_draft" class="md-btn md-btn-md md-btn-labeled md-btn-default" style="margin-left:20px">
 						<span class="md-btn-icon"><i class="fa fa-sticky-note-o"></i></span> Сохранить черновик
 					</button>
-					<button type="button" class="md-btn md-btn-md md-btn-labeled md-btn-default" style="margin-left:20px">
+					<button type="button" id="event_step1_cansel" class="md-btn md-btn-md md-btn-labeled md-btn-default" style="margin-left:20px">
 						<span class="md-btn-icon"><i class="fa fa-times"></i></span> Отмена
 					</button>
-					<button type="button" class="md-btn md-btn-md md-btn-labeled md-btn-danger" style="float: right; display:none">
+					<button type="button" id="event_delete" class="md-btn md-btn-md md-btn-labeled md-btn-danger" style="float: right; display:none">
 						<span class="md-btn-icon"><i class="fa fa-trash"></i></span> Удалить мероприятие
 					</button>
 					</div>

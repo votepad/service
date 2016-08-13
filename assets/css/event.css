@@ -1,31 +1,31 @@
 @media (max-width: 768px) {
-	.newevent-wrapper, header{
+	.event-wrapper, header{
 		width: 768px;
 	}
 }
 .panel-tabs .md-btn{
 	padding: 6px 10px;
 }
-.newevent-wrapper .form-group{
+.event-wrapper .form-group{
 	padding: 15px 15px 0 15px;
 	margin-bottom: 0;
 	text-align: center;
 }
-.newevent-wrapper .form-group .control-label{
+.event-wrapper .form-group .control-label{
 	vertical-align: top;
 	padding-right: 15px;
 	text-align: right;
 	width: 200px;
 }
 @media (max-width: 1105px) {
-	.newevent-wrapper .form-group{
+	.event-wrapper .form-group{
 		text-align: left;
 	}
-	.newevent-wrapper .form-group .control-label{
+	.event-wrapper .form-group .control-label{
 		text-align: left;
 	}
 }
-.newevent-wrapper .form-group .input-area{
+.event-wrapper .form-group .input-area{
 	display: inline-block;
 	width: 710px;
 }
@@ -52,7 +52,31 @@
 .select2-width{
 	width: 710px;
 }
-.help-block{
+.help-block, .error-input{
 	text-align: left;
 	font-size: .8em;
+}
+.eventdesc{
+	display: inline-block;
+	width: 710px;
+}
+	.eventdesc > .panel{
+		box-shadow: none;
+		margin-bottom: 0;
+	}
+	.modal-header{
+		padding: 8px 15px;
+		border-bottom: 1px solid #bbb;
+	}
+	.modal-body > .form-group{
+		padding: 0;
+		text-align: left;
+		margin-bottom: 10px;
+	}
+	.modal-footer{
+		padding: 8px 15px;
+		border-top: 1px solid #bbb;
+	}
+.note-editor.note-frame{
+	border: 1px solid #bbb;
 }
