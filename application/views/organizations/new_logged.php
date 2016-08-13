@@ -48,7 +48,6 @@
 								<label id="orgsite-error" class="error-input" for="orgsite"></label>
 								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
 							</div>
-							<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
 						</div>
 						<div class="form-group">
 							<label for="orgphone" class="control-label">Телефон</label>

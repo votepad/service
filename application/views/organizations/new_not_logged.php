@@ -47,9 +47,14 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label class="col-sm-3 control-label">E-mail<span style="color: red">*</span></label>
-							<div class="col-sm-9">
-								<input type="email" name="email" class="form-control" required placeholder="email@address.ru">
+							<label far="email" class="control-label">E-mail</label>
+							<div class="input-area">
+								<input type="email" name="email" class="form-control" placeholder="email@address.ru">
+								<label id="email-error" class="error-input" for="email"></label>
+								<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
+							</div>
+						</div>
+						<div class="form-group">
 							<label for="password" class="control-label">Пароль</label>
 							<div class="input-area">
 								<input type="password" id="password" name="password" class="form-control">

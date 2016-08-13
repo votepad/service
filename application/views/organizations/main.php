@@ -59,11 +59,5 @@
 
 	<footer></footer>
 </div>
-
-<!-- =============== VENDOR SCRIPTS ===============-->
-<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-<script src="<?=$assets; ?>js/org.js"></script>
-
 </body>
 </html>
