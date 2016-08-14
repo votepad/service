@@ -118,8 +118,13 @@ label.error-input{
 	margin: 0;
 	color: #f47f7f;
 }
-.error-input{
+.help-block, .error-input{
 	border-color: #f47f7f;
+	text-align: left !important;
+	font-size: .8em;
+}
+.input-group-addon{
+	border-radius: 3px;
 }
 .ng-untouched{
 	border-color: #bbb !important;

@@ -6,7 +6,7 @@ $().ready (function() {
 
 	$('#eventdesc').parent().css('text-align','left');
 	$('#eventdesc').summernote({
-		lang: 'ru-RU',
+		//lang: 'ru-RU',
 		height: 250,
 		placeholder: "Расскажите основную информацию об мероприятии...",
 		toolbar: [
@@ -22,14 +22,16 @@ $().ready (function() {
 			$(this).removeClass('btn-primary').addClass('md-btn md-btn-success');
 		}
 	});
-	$('#event_step1').validate({
+	$('#new_event').validate({
 		errorClass: "error-input",
 		rules: {
 			eventname: "required",
-			//eventstart: "required",
-			//eventend: "required",
-			//eventstatus: "required",
-			//eventcity: "required",
+			eventsite: "required",
+			eventshortdesc: "required",
+			eventstart: "required",
+			eventend: "required",
+			eventstatus: "required",
+			eventcity: "required",
 			responsible_persons: "required",
 			email: {
 				required: true,
@@ -39,6 +41,8 @@ $().ready (function() {
 		},
 		messages: {
 			eventname: "Пожалуйста, введите название мероприятия.",
+			eventsite: "Пожалуйста, введите адрес мероприятия",
+			eventshortdesc: "Пожалуйста, расскажите кратко о своём мероприятии.",
 			eventstart: "Пожалуйста, введите дату начала мероприятия.",
 			eventend: "Пожалуйста, введите дату завершения мероприятия.",
 			eventstatus: "Пожалуйста, выберите статус мероприятия.",
@@ -52,20 +56,25 @@ $().ready (function() {
 		},
 	});
 
-	$('#event_step1_cansel').click(function(){
-		// go to previous page
-		alert('cansel');
+	$("#eventsite").keyup(function(){
+		$("#eventsite").val(checkingsim($("#eventsite").val()));
 	});
-	$('#event_step1_draft').click(function(){
-		//save as draft
-		$('#event_step1').submit();
+	$("#eventname").keyup(function(){
+		$("#eventsite").val(checkingsim($("#eventname").val()));
 	});
-	$('#event_step1_next').click(function(){
-		//save
-		$('#event_step1').submit();
-	});
-	$('#event_delete').click(function(){
-		//delete
-		alert('delete');
-	});
+
+	var checkingsim = function(str){
+		var replacer = {"а":"a","б":"b","в":"v","г":"g","д":"d","е":"e","ё":"e","ж":"zh","з":"z","и":"i","й":"y","к":"k","л":"l","м":"m","н":"n","о":"o","п":"p","р":"r","с":"s","т":"t","у":"u","ф":"f","х":"kh","ц":"ts","ч":"ch","ш":"sh","щ":"shch","ъ":"ie","ы":"y","ь":"","э":"e","ю":"iu","я":"ya","a":"a","b":"b","c":"c","d":"d","e":"e","f":"f","g":"g","h":"h","i":"i","j":"j","k":"k","l":"l","m":"m","n":"n","o":"o","p":"p","q":"q","r":"r","s":"s","t":"t","u":"u","v":"v","w":"w","x":"x","y":"y","z":"z","-":"-","1":"1","2":"2","3":"3","4":"4","5":"5","6":"6","7":"7","8":"8","9":"9","0":"0"," ":"-"};
+     
+		if (str != undefined) {
+			for (var i = 0; i < str.length; i++) {
+				if (replacer [ str[i].toLowerCase() ] != undefined){
+					replace = replacer [ str[i].toLowerCase() ];
+					str = str.replace(str[i], replace);
+				}
+			}
+			str = str.toLowerCase().replace(/[^-0-9a-z]/gim,'').replace(/-{2,}/gim, '-');
+			return str;
+		}
+	};
 });

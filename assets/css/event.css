@@ -1,4 +1,4 @@
-@media (max-width: 768px) {
+/*@media (max-width: 768px) {
 	.event-wrapper, header{
 		width: 768px;
 	}
@@ -79,4 +79,56 @@
 	}
 .note-editor.note-frame{
 	border: 1px solid #bbb;
+}*/
+
+@media (max-width: 768px) {
+	.newevent-wrapper, header{
+		width: 768px;
+	}
 }
+.newevent-wrapper{
+	margin: auto;
+	width: 768px;
+	padding: 0 15px;
+}
+	.newevent-wrapper p{
+		margin-bottom: 30px;
+	}
+	.newevent-wrapper .form-group label{
+		vertical-align: top;
+		padding-right: 15px;
+		text-align: right;
+		width: 200px;
+	}
+
+	.newevent-wrapper .form-group .input-area{
+		display: inline-block;
+		width: 486px;
+	}
+	.newevent-wrapper .form-group .input-area .date-input{
+		display: block;
+		height: 35px;
+		text-align: left;
+	}
+		.newevent-wrapper .form-group .input-area .date-input input{
+			display: inline-block;
+			width: 30%;
+		}
+	.org-info-btn, .org-info-btn:hover, .org-info-btn:focus{
+		text-decoration:none; 
+		color:#64b5f6;
+	}
+		.org-info-btn i{
+			color: #656565;
+			padding-right: 5px;
+		}
+		.org-info-btn span{
+			border-bottom:1px dashed #1565C0;
+		}
+	.select2-width{
+		width: 486px;
+	}
+
+	.newevent-wrapper .confirm-rools{
+		width: 500px !important;
+	}

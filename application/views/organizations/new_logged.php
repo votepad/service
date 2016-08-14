@@ -57,7 +57,7 @@
 								<span class="help-block">Нужен для связи с Вами.</span>
 							</div>
 						</div>
-						<div class="form-group">
+						<div class="form-group text-center">
 							<label class="confirm-rools">
 								<input type="checkbox" id="confirmrools" name="confirmrools">
 								Я прочитал(а) <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен(а) с ним
@@ -65,7 +65,7 @@
 								<label id="confirmrools-error" class="error-input" for="confirmrools"></label>
 							</label>
 						</div>
-						<div class="text-center">
+						<div class="form-group text-center">
 							<button type="submit" class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</button>	
 						</div>	
 					</form>

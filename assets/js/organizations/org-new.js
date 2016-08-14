@@ -84,11 +84,12 @@ $().ready(function() {
     });
 
 
-
-    $("#orgname").keyup(function(){
-      console.log($("#orgname").val());
-      $("#orgsite").val(checkingsim($("#orgname").val()));
-    });
+  $("#orgsite").keyup(function(){
+    $("#orgsite").val(checkingsim($("#orgsite").val()));
+  });
+  $("#orgname").keyup(function(){
+    $("#orgsite").val(checkingsim($("#orgname").val()));
+  });
 
 
   var checkingsim = function(str){
@@ -104,6 +105,6 @@ $().ready(function() {
       str = str.toLowerCase().replace(/[^-0-9a-z]/gim,'').replace(/-{2,}/gim, '-');
       return str;
     }
-  };    
+  };
 
 });

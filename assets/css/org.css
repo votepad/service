@@ -577,37 +577,24 @@
 
 /* neworg */
 .neworg-wrapper{
-	padding: 0 100px;
+	margin: auto;
+	width: 768px;
+	padding: 0 15px;
 }
 	.neworg-wrapper p{
 		margin-bottom: 30px;
 	}
 	.neworg-wrapper .form-group label{
-		width: 200px;
-		display: inline-block;
 		vertical-align: top;
+		padding-right: 15px;
+		text-align: right;
+		width: 200px;
 	}
 	.neworg-wrapper .form-group .input-area{
-		margin-left: 30px;
-		width: 486px;
 		display: inline-block;
-	}
-	.neworg-wrapper .form-group .input-group{
-		display: inline-table;
 		width: 486px;
 	}
-		.neworg-wrapper .form-group .input-group input{
-			width: 389px;
-		}
-
 	.neworg-wrapper .confirm-rools{
-		width: 100% !important;
-		margin-left: 240px;
+		width: 515px !important;
 	}
-
-@media (max-width: 1075px) {
-	.neworg-wrapper{
-		padding: 0;
-	}
-}
 	
