@@ -31,7 +31,7 @@
                     </div>
 
                     <!-- LIST OF EVENTS -->
-                    <ul class="text-center">
+                    <ul>
                         <li class="event-group">
                             <div class="event-wrapper">
                                 <div class="event-shot">

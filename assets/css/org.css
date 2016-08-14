@@ -1,7 +1,5 @@
 .org-block{
 	margin-bottom: 20px;
-	height: 340px;
-	width: 100%;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
 }
 .org-background{
@@ -48,7 +46,7 @@
 		left: 45%;
 	}
 		.org-nav .md-btn.active{
-			pointer-events: none;
+			/*pointer-events: none;*/
 			height: 41.5px;
 		}
 		.org-nav .md-btn.active > .active-tab{

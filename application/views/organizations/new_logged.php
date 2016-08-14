@@ -29,11 +29,11 @@
 				<div class="panel-body">
 					<h2>Введите информацию об организации</h2>
 					<p>Заполните форму и Вы получите личный кабинет. В нём Вы сможете создавать и публиковать мероприятия.</p>
-					<form id="new_org_logged" method="POST">
+					<form id="new_org_logged" method="POST" action="<?=URL::site('organization/add'); ?>">
 						<div class="form-group">
 							<label for="orgname" class="control-label">Название организации</label>
 							<div class="input-area">
-								<input type="text" id="orgname" name="orgname" class="form-control">
+								<input type="text" id="orgname" name="org_name" class="form-control">
 								<label id="orgname-error" class="error-input" for="orgname"></label>
 								<span class="help-block">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 							</div>
@@ -42,7 +42,7 @@
 							<label for="orgsite" class="control-label">Сайт организации</label>
 							<div class="input-area">
 								<div class="input-group">
-									<input type="text" id="orgsite" name="orgsite" class="form-control">
+									<input type="text" id="orgsite" name="org_site" class="form-control">
 									<span class="input-group-addon">.votepad.ru</span>
 								</div>
 								<label id="orgsite-error" class="error-input" for="orgsite"></label>
@@ -53,7 +53,7 @@
 						<div class="form-group">
 							<label for="orgphone" class="control-label">Телефон</label>
 							<div class="input-area">
-								<input type="tel" id="orgphone" name="orgphone" class="form-control" placeholder="+79999999999">
+								<input type="tel" id="org_phone" name="orgphone" class="form-control" placeholder="+79999999999">
 								<label id="orgphone-error" class="error-input" for="orgphone"></label>
 								<span class="help-block">Нужен для связи с Вами.</span>
 							</div>

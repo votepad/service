@@ -27,9 +27,7 @@ header{
 }
 .content-wrapper{
 	width: 90%;
-	margin-left: auto;
-	margin-right: auto;
-	height: 100%;
+	margin: auto;
 }
 a, a:hover, a:focus, button, button:hover, button:focus{
 	outline: none;

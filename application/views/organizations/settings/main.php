@@ -6,19 +6,19 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="panel-tabs">
-				<a class="md-btn active" href="http://pronwe.local/organization/10/settings/main">
+				<a class="md-btn active" href="<?=URL::site('organization/' . $id . '/settings/main'); ?>">
 					Организация
 					<div class="active-link"></div>
 				</a>
-				<a class="md-btn" href="http://pronwe.local/organization/10/settings/team">
+				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/team'); ?>">
 					Команда
 					<div class="active-link"></div>
 				</a>
-				<a class="md-btn" href="http://pronwe.local/organization/10/settings/logs">
+				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/logs'); ?>">
 					Активности
 					<div class="active-link"></div>
 				</a>
-				<a class="md-btn" href="http://pronwe.local/organization/10/settings/balance">
+				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/balance'); ?>">
 					Оплата услуг
 					<div class="active-link"></div>
 				</a>
@@ -30,16 +30,16 @@
 					<h4>Основная информация</h4>
 					<div class="form-group">
 						<label class="control-label">Название организации</label>
-						<input type="text" name="orgname" class="form-control input-sm" value="Университет ИТМО" required>
+						<input type="text" name="orgname" class="form-control input-sm" value="<?=$organization->name; ?>" required>
 					</div>
 					<div class="form-group">
 						<label class="control-label">Ссылка на страницу</label>
-						<input type="text" name="orgsite" class="form-control input-sm" value="http://ifmo.votepad.ru" disabled>
+						<input type="text" name="orgsite" class="form-control input-sm" value="<?=$organization->website; ?>" disabled>
 						<span class="help-block">Хотите изменить ссылку на Вашу организацию? Напишите нам <a href="">support@votepad.ru</a></span>
 					</div>
 					<div class="form-group">
 						<label class="control-label">Ссылка на официальный сайт</label>
-						<input type="text" name="orgofficialsite" class="form-control input-sm" value="http://ifmo.ru" required>
+						<input type="text" name="orgofficialsite" class="form-control input-sm" value="<?=$organization->website; ?>" required>
 					</div>
 					<button type="button" id="logo_upload" class="md-btn md-btn-md md-btn-default upload">Обновить фото логотипа</button>
 					<button type="button" id="back_upload" class="md-btn md-btn-md md-btn-default upload" style="float: right;">Обновить фото обложки</button>
@@ -48,16 +48,16 @@
 					<h4>Контактная информация</h4>
 					<div class="form-group">
 						<label class="control-label">Доверенное лицо</label>
-						<input type="text" name="person" class="form-control input-sm" value="Туров Николай Дмитриевич" required>
+						<input type="text" name="person" class="form-control input-sm" value="<?=$creator->lastname . ' ' . $creator->name . ' ' . $creator->surname; ?>" required>
 						<span class="help-block">Фамилия Имя Отчество</span>
 					</div>
 					<div class="form-group">
 						<label class="control-label">Электронная почта</label>
-						<input type="email" name="email" class="form-control input-sm" value="ifmo@ya.ru" required>
+						<input type="email" name="email" class="form-control input-sm" value="<?=$creator->email; ?>" required>
 					</div>
 					<div class="form-group">
 						<label class="control-label">Контактный телефон</label>
-						<input type="tel" name="phone" class="form-control input-sm" value="9999876543" required>
+						<input type="tel" name="phone" class="form-control input-sm" value="<?=$creator->number; ?>" required>
 					</div>
 					<button type="submit" class="md-btn md-btn-md md-btn-labeled md-btn-success ">
 						<span class="md-btn-icon"><i class="fa fa-check"></i></span> Сохранить
