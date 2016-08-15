@@ -40,6 +40,22 @@ Class Model_User {
 
     }
 
+    public static function new_user($lastname, $name, $surname, $email, $password, $phone) {
+
+        $user = new ORM_User();
+
+        $user->lastname = $lastname;
+        $user->name     = $name;
+        $user->surname  = $surname;
+        $user->email    = $email;
+        $user->password = $password;
+        $user->number   = $phone;
+
+        $user->save();
+
+        return $user->id;
+    }
+
     public static function getCurrentUser() {
 
         $session = Session::Instance();

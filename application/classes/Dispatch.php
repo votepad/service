@@ -11,6 +11,7 @@ class Dispatch extends Controller_Template
     public $template = '';
 
     protected $errors;
+    protected $_cache;
     protected $_session;
     public    $user;
 
@@ -101,6 +102,15 @@ class Dispatch extends Controller_Template
             Controller::redirect('auth/');
     }
 
+    /**
+     * @todo
+     * Попробовать в бою Redis
+     */
+    public static function _redis()
+    {
+
+    }
+
     private function setGlobals()
     {
         if (!empty($this->_session->get('id_user'))) {
@@ -117,5 +127,9 @@ class Dispatch extends Controller_Template
         
         $address = 'http://' . $_SERVER['SERVER_NAME'] ;
         View::set_global('assets', $address . '/assets/');
+        View::set_global('website', $address);
+
+        /** Set caching method */
+        $this->_cache = Cache::instance();
     }
 }

@@ -1,20 +1,15 @@
 <?php
 
 /**
- *
+ * Class Model_Organizations
+ * @author ProNWE team
+ * @copyright Khaydarov Murod
  */
 
 class Model_Organizations extends Model
 {
-    public $id;
-    public $name;
-    public $website;
-    public $user_created;
-    public $phone;
-
     public function __construct()
     {
-        $this->orm_organization = new ORM_Organizations();
     }
 
     public static function new_organization($name, $website, $user_created, $phone)
@@ -30,10 +25,48 @@ class Model_Organizations extends Model
         return $organization->save();
     }
 
-    public function update_organization($id, $fields = array())
+    public static function update_organization($id, $fields = array())
     {
 
     }
 
+    public static function get($id)
+    {
+        $organization = new ORM_Organizations();
+
+        $organization->where('id','=', $id)
+                    ->find();
+
+        if ($organization->loaded())
+        {
+            return $organization;
+        }
+
+        return false;
+    }
+
+    public static function get_creator($id)
+    {
+        $user = new ORM_User();
+
+        $user->where('id', '=', $id)
+            ->find();
+
+        if ($user->loaded())
+        {
+            return $user;
+        }
+
+        return false;
+    }
+
+    /**
+     * @todo
+     * @param $id
+     */
+    public static function get_events($id)
+    {
+
+    }
 
 }

@@ -7,18 +7,18 @@
 	<!-- =============== VENDOR STYLES ===============-->
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" href="<?=$assets; ?>css/app1.css">
-	<link rel="stylesheet" href="<?=$assets; ?>css/org.css">
+	<link rel="stylesheet" href="<?=$assets; ?>css/app1.css?v=<?= filemtime("assets/css/app1.css") ?>">
+	<link rel="stylesheet" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
-	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org.js"></script>
+	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
+	<script src="<?=$assets; ?>js/org.js"></script>
+	
 </head>
 <body>
 <div class="wrapper">
 	<header></header>
-
 	<div class="content-wrapper">
 		<!-- ORGANIZATION INFO -->
 		<div class="org-block">
@@ -38,11 +38,11 @@
 				</div>
 				<div class="org-nav-block">
 					<div class="org-nav">
-						<a href="http://pronwe.local/organization/10/" class="md-btn active">
+						<a href="<?=URL::site('organization/' . $id); ?>" class="md-btn active">
 							Мероприятия
 							<div class="active-tab"></div>
 						</a>
-						<a href="http://pronwe.local/organization/10/settings/main" class="md-btn">
+						<a href="<?=URL::site('organization/' . $id . '/settings/main'); ?>" class="md-btn">
 							Настройки
 							<div class="active-tab"></div>
 						</a>
