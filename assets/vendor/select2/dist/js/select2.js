@@ -1606,7 +1606,7 @@ S2.define('select2/selection/multiple',[
     var $container = $(
       '<li class="select2-selection__choice">' +
         '<span class="select2-selection__choice__remove" role="presentation">' +
-          '&times;' +
+          'x' +
         '</span>' +
       '</li>'
     );
@@ -1782,7 +1782,7 @@ S2.define('select2/selection/allowClear',[
 
     var $remove = $(
       '<span class="select2-selection__clear">' +
-        '&times;' +
+        'x' +
       '</span>'
     );
     $remove.data('data', data);

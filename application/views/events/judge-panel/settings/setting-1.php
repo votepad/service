@@ -91,7 +91,7 @@
 				<div id="partposition" role="tabpanel" aria-labelledby="headingOne" class="panel-collapse collapse in">
 					<div class="panel-body">
 						<form id="setting-rating-area" action="#">
-							<div>
+							<div style="position: relative;">
 								<input type="hidden" id="id_event" value="<?=$event['id']; ?>">
 								<?php for($i = 0; $i < count($stages); $i++) : ?>
 								<h3><?=$stages[$i]['name'] ; ?></h3>
@@ -126,7 +126,7 @@
 															<?=$criterias[$k]['name']; ?>
 														</div>
 														<div class="buttons" data-toggle="buttons">
-															<?php for($l = 1; $l <= $criterias[$k]['maxscore']; $l++): ?>
+															<?php for($l = 0; $l <= $criterias[$k]['maxscore']; $l++): ?>
 																<button class="mb-sm btn btn-s btn-primary">
 																	<input type="radio" autocomplete="off"> <?=$l; ?>
 																</button>

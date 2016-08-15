@@ -1,23 +1,19 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 14.03.2016
- * Time: 23:11
+ * Class Controller_Events_Ajax
+ * @author Pronwe Team
+ * @copyright Khaydarov Murod
  */
 
 class Controller_Events_Ajax extends Ajax {
 
-    public function action_index()
-    {
-        echo 'Method is: '. __METHOD__;
-    }
-
+    /**
+     * @return object - True or False when event is removed
+     */
     public function action_deleteEvent()
     {
-        /**
-        * Не впускать прямые Get запросы
-        */
+        /** No access for non-ajax requests */
 
         if ( !parent::_is_ajax())
             $this->request('/');
@@ -26,11 +22,12 @@ class Controller_Events_Ajax extends Ajax {
         return Model_Events::delete($id);
     }
 
+    /**
+     * @return [Boolean] - True or False
+     */
     public function action_updateEventInfo()
     {
-        /**
-         * Не впускать прямые Get запросы
-         */
+        /** No access for non-ajax requests */
 
         if ( !parent::_is_ajax())
             $this->request('/');
@@ -39,14 +36,15 @@ class Controller_Events_Ajax extends Ajax {
         $value  = Arr::get($_POST, 'value');
         $id     = Arr::get($_POST, 'pk');
 
-        echo Model_Events::updateEventByFieldName($name, $value, $id);
+        return Model_Events::updateEventByFieldName($name, $value, $id);
     }
 
+    /**
+     * @return [Boolean] - True or False
+     */
     public function action_updateParticipant()
     {
-        /**
-         * Не впускать прямые Get запросы
-         */
+        /** No access for non-ajax requests */
 
         if ( !parent::_is_ajax())
             $this->request('/');
@@ -55,15 +53,13 @@ class Controller_Events_Ajax extends Ajax {
         $value  = Arr::get($_POST, 'value');
         $id     = Arr::get($_POST, 'pk');
 
-        echo Model_Participants::updateParticipantByFieldName($name, $value, $id);
+        return Model_Participants::updateParticipantByFieldName($name, $value, $id);
 
     }
 
     public function action_updateJudge()
     {
-        /**
-         * Не впускать прямые Get запросы
-         */
+        /** No access for non-ajax requests */
 
         if ( !parent::_is_ajax())
             $this->request('/');
@@ -79,9 +75,7 @@ class Controller_Events_Ajax extends Ajax {
 
     public function action_updateStage()
     {
-        /**
-         * Не впускать прямые Get запросы
-         */
+        /** No access for non-ajax requests */
 
         if ( !parent::_is_ajax())
             $this->request('/');
@@ -95,9 +89,7 @@ class Controller_Events_Ajax extends Ajax {
 
     public function action_updateCriteria()
     {
-        /**
-         * Не впускать прямые Get запросы
-         */
+        /** No access for non-ajax requests */
 
         if ( !parent::_is_ajax())
             $this->request('/');
@@ -111,9 +103,7 @@ class Controller_Events_Ajax extends Ajax {
 
     public function action_deleteEventsSubstance()
     {
-        /**
-         * Не впускать прямые Get запросы
-         */
+        /** No access for non-ajax requests */
 
         $substance  = Arr::get($_POST, 'substance');
         $id         = Arr::get($_POST, 'id');

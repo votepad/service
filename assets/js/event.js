@@ -1,5 +1,5 @@
 $(document).ready (function() {  
-   $.validate();   
+   $.validate();
    $("#input-event-description").restrictLength( $("#pres-max-length") );
    moment.lang('ru');
    $('#input-event-start').combodate({

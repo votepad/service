@@ -11,15 +11,14 @@
 		<link rel="icon" type="image/png" href="<?=$assets; ?>img/favicon.png">
 
 		<!-- CSS -->
-		<? foreach($css as $styles): ?>
-			<link rel="stylesheet" href="<?=$assets;?><?=$styles;?>">
-		<? endforeach;?>
-
+		<link rel="stylesheet" href="<?=$assets; ?>vendor/bootstrap/dist/css/bootstrap.css">
+		<link rel="stylesheet" href="<?=$assets; ?>css/pronwe.css">
+		<link rel="stylesheet" href="<?=$assets; ?>css/auth.css">
+		<link rel="stylesheet" href="<?=$assets; ?>css/ProNWE_input.css">
 
 		<!-- JS -->
-		<? foreach($js as $scripts): ?>
-			<script src="<?=$assets.$scripts; ?>"></script>
-		<? endforeach ; ?>
+		<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+		<script src="<?=$assets; ?>js/auth.js"></script>
 	</head>
  
 <body>
