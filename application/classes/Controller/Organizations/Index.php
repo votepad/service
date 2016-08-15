@@ -27,7 +27,7 @@ class Controller_Organizations_Index extends Dispatch
                 break;
 
             /**
-             * Шаблон для организаций по умолчанию
+             * Шаблон для организаций (по умолчанию)
              */
             default :
                 $this->template = 'organizations/main';

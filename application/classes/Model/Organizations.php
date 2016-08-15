@@ -1,7 +1,9 @@
 <?php
 
 /**
- *
+ * Class Model_Organizations
+ * @author ProNWE team
+ * @copyright Khaydarov Murod
  */
 
 class Model_Organizations extends Model
