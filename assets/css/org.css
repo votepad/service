@@ -105,48 +105,6 @@
 		top: -14px;
 	}
 
-.columns-area{
-	width: 100%;
-}
-.left-column{
-	padding-left: 15px;
-	padding-right: 5px;
-	vertical-align: top;
-	display: inline-block;
-	width: 70%;
-}
-.right-column{
-	float: right;
-	vertical-align: top;
-	margin-right: -15px;
-	padding: 0;
-	display: inline-block;
-	width: 30%;
-}
-
-@media (max-width: 768px) {
-	.org-block, header{
-		width: 768px;
-	}
-	.columns-area, .neworg-wrapper{
-		width: 768px;
-	}
-	.left-column{
-		vertical-align: top;
-		padding: 0 0 0 14px;
-		display: inline-block;
-		width: 440px;
-	}
-	.right-column{
-		vertical-align: top;
-		padding: 0;
-		display: inline-block;
-		margin-left: 20px;
-		margin-right: 0;
-		width: 300px;
-	}
-}
-
 /* left column */
 .search-block{
 	position: relative;

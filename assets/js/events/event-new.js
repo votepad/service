@@ -2,26 +2,8 @@ $().ready (function() {
 	$('#eventshortdesc').keyup(function(){
 		$('#shortdesc_max_length').text(parseInt(170-$('#eventshortdesc').val().length));
 	});
-	$("#responsible_persons").select2({language: "ru"});  
-
-	$('#eventdesc').parent().css('text-align','left');
-	$('#eventdesc').summernote({
-		//lang: 'ru-RU',
-		height: 250,
-		placeholder: "Расскажите основную информацию об мероприятии...",
-		toolbar: [
-			['style note-para', ['bold', 'italic', 'underline','paragraph']],
-			['font note-fontsize note-height', ['ul', 'ol','superscript', 'subscript', 'hr', 'fontsize', 'height']],
-			['color', ['color']],
-			['insert', ['table', 'link', 'picture', 'video']],
-			['fullscreen', ['fullscreen','codeview']]
-		]
-	});
-	$('button').each(function() {
-		if ( $(this).hasClass('btn-primary') ) {
-			$(this).removeClass('btn-primary').addClass('md-btn md-btn-success');
-		}
-	});
+	$("#responsible_persons").select2({language: "ru"});
+	
 	$('#new_event').validate({
 		errorClass: "error-input",
 		rules: {

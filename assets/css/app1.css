@@ -21,6 +21,11 @@ header{
 	background-color: #37bde7;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12)
 }
+	@media (max-width: 768px) {
+		.panel, header{
+			width: 768px;
+		}
+	}
 .wrapper{
 	height: 100%;
 	width: 100%;
@@ -31,9 +36,9 @@ header{
 	margin-right: auto;
 	height: 100%;
 }
-	@media (max-width: 992px) {
+	@media (max-width: 890px) {
 		.content-wrapper{
-			width: 100%;
+			width: 768px;
 		}
 	}
 a, a:hover, a:focus, button, button:hover, button:focus{
@@ -91,6 +96,7 @@ ul{
 }
 .tooltip-arrow{
 	border-bottom-color: rgba(0,0,0,0.54) !important;
+	border-top-color: rgba(0,0,0,0.54) !important;
 }
 .tooltip-inner{
 	background-color: rgba(0,0,0,0.54);
@@ -273,7 +279,7 @@ label.error-input{
 	}
 .md-btn-primary{
 	color: #fff;
-	background-color: #5d9cec !important;
+	background-color: #2f95ea !important;
 	border-color: #5899eb !important;
 }
 	.md-btn-primary:focus, .md-btn-primary:hover{
@@ -283,7 +289,7 @@ label.error-input{
 	}
 	.md-btn-primary.disabled, .md-btn-primary.disabled:focus, .md-btn-primary.disabled:hover, .md-btn-primary[disabled],.md-btn-primary[disabled]:focus, .md-btn-primary[disabled]:hover{
 		color: #fff;
-		background-color: #5d9cec !important;
+		background-color: #2f95ea !important;
 	}
 .md-btn-success{
 	color: #fff;
@@ -468,3 +474,62 @@ label.error-input{
 			.panel-tabs .md-btn.active > .active-link{
 				display: block;
 			}
+
+
+.columns-area{
+	width: 100%;
+}
+.left-column{
+	padding-left: 15px;
+	padding-right: 5px;
+	vertical-align: top;
+	display: inline-block;
+	width: 70%;
+}
+.right-column{
+	float: right;
+	vertical-align: top;
+	margin-right: -15px;
+	padding: 0;
+	display: inline-block;
+	width: 30%;
+}
+
+@media (max-width: 768px) {
+	.columns-area{
+		width: 768px;
+	}
+	.left-column{
+		vertical-align: top;
+		padding: 0 0 0 14px;
+		display: inline-block;
+		width: 440px;
+	}
+	.left-column .panel{
+		width: 440px;
+	}
+	.right-column{
+		vertical-align: top;
+		padding: 0;
+		display: inline-block;
+		margin-left: 20px;
+		margin-right: 0;
+		width: 300px;
+	}
+	.right-column .panel{
+		width: 315px;
+	}
+}
+.dropdown.open .drop-orgs[aria-expanded="true"]{
+	background-color: white;
+}
+	.dropdown.open .drop-orgs[aria-expanded="true"] i{
+		color: #656565;
+	}
+.dropdown-menu > li > a:hover{
+	background-color: rgb(236,236,236);
+	color: #656565;
+}
+.dropdown-menu .divider{
+	margin: 1px 0;
+}
