@@ -14,6 +14,7 @@
     <!-- =============== VENDOR SCRIPTS ===============-->
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-new.js"></script>
 
 </head>
@@ -31,18 +32,18 @@
 					<p>Заполните форму и Вы получите личный кабинет. В нём Вы сможете создавать и публиковать мероприятия.</p>
 					<form id="new_org_not_logged" method="POST" action="<?=URL::site('organization/add'); ?>">
 						<div class="form-group">
-							<label for="orgname" class="control-label">Название организации</label>
+							<label for="org_name" class="control-label">Название организации</label>
 							<div class="input-area">
-								<input type="text" id="orgname" name="org_name" class="form-control">
-								<label id="orgname-error" class="error-input" for="orgname"></label>
+								<input type="text" id="org_name" name="org_name" class="form-control">
+								<label id="org_name-error" class="error-input" for="org_name"></label>
 								<span class="help-block">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="orguser" class="control-label">Доверенное лицо</label>
+							<label for="org_user" class="control-label">Доверенное лицо</label>
 							<div class="input-area">
-								<input type="text" id="orguser" name="org_user" class="form-control" placeholder="Иванов Иван Иванович">
-								<label id="orgser-error" class="error-input" for="orguser"></label>
+								<input type="text" id="org_user" name="org_user" class="form-control" placeholder="Иванов Иван Иванович">
+								<label id="org_user-error" class="error-input" for="org_user"></label>
 								<span class="help-block">Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
 							</div>
 						</div>
@@ -63,21 +64,21 @@
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="orgsite" class="control-label">Сайт организации</label>
+							<label for="org_site" class="control-label">Сайт организации</label>
 							<div class="input-area">
 								<div class="input-group">
-									<input type="text" id="orgsite" name="org_site" class="form-control">
+									<input type="text" id="org_site" name="org_site" class="form-control">
 									<span class="input-group-addon">.votepad.ru</span>
 								</div>
-								<label id="orgsite-error" class="error-input" for="orgsite"></label>
+								<label id="org_site-error" class="error-input" for="org_site"></label>
 								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
 							</div>
 						</div>
 						<div class="form-group">
-							<label for="orgphone" class="control-label">Телефон</label>
+							<label for="org_phone" class="control-label">Телефон</label>
 							<div class="input-area">
-								<input type="tel" id="orgphone" name="org_phone" class="form-control" placeholder="+79999999999">
-								<label id="orgphone-error" class="error-input" for="orgphone"></label>
+								<input type="tel" id="org_phone" name="org_phone" class="form-control">
+								<label id="org_phone-error" class="error-input" for="org_phone"></label>
 								<span class="help-block">Нужен для связи с Вами.</span>
 							</div>
 						</div>

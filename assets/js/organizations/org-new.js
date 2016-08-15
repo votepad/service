@@ -3,13 +3,13 @@ $().ready(function() {
     $('#new_org_logged').validate({
       errorClass: "error-input",
       rules: {
-        orgname: "required",
-        orgsite: {
+        org_name: "required",
+        org_site: {
           required: true,
           minlength: 3,
           maxlength: 25
         },
-        orgphone: {
+        org_phone: {
           required: true,
           minlength: 11,
           maxlength: 12
@@ -17,27 +17,36 @@ $().ready(function() {
         confirmrools: "required"
       },
       messages: {
-        orgname: "Пожалуйста, введите название организации.",
-        orgsite: {
+        org_name: "Пожалуйста, введите название организации.",
+        org_site: {
           required: "Пожалуйста, введите название сайта",
           minlength: jQuery.validator.format("Пожалуйста, введите не менее {0} символов."),
           maxlength: jQuery.validator.format("Пожалуйста, введите не более {0} символов.")
         },
-        orgphone: {
+        org_phone: {
           required: "Пожалуйста, введите номер телефона",
           minlength: "Пожалуйста, проверьте правильность ввода номера телефона.",
           maxlength: "Пожалуйста, проверьте правильность ввода номера телефона."
         },
         confirmrools: "Пожалуйста, согласитесь с правилами."
       },
+      submitHandler: function(form) {
+        if($("#org_phone").val().replace(/[^+0-9]/gim,'').length != 12){
+          not_logged.showErrors({
+            'org_phone': 'Пожалуйста, введите проверьте правильность ввода номера телефона'
+          });
+        } else{
+          form.submit();  
+        }
+      }
     });
 
-    $('#new_org_not_logged').validate({
+    var not_logged = $('#new_org_not_logged').validate({
       errorClass: "error-input",
       focusInvalid: false,
       rules: {
-        orgname: "required",
-        orguser: "required",
+        org_name: "required",
+        org_user: "required",
         email: {
           required: true,
           email: true
@@ -46,21 +55,17 @@ $().ready(function() {
           required: true,
           minlength: 6
         },
-        orgsite: {
+        org_site: {
           required: true,
           minlength: 3,
           maxlength: 25
         },
-        orgphone: {
-          required: true,
-          minlength: 11,
-          maxlength: 12
-        },
+        org_phone: "required",
         confirmrools: "required"
       },
       messages: {
-        orgname: "Пожалуйста, введите название организации.",
-        orguser: "Пожалуйста, введите данные о доверенном лице.",
+        org_name: "Пожалуйста, введите название организации.",
+        org_user: "Пожалуйста, введите данные о доверенном лице.",
         email: {
           required: "Пожалуйста, введите адрес электронной почты.",
           email: "Пожалуйста, проверьте правильность ввода адреса электронной почты."
@@ -69,26 +74,38 @@ $().ready(function() {
           required: "Пожалуйста, придумайте пароль.",
           minlength: jQuery.validator.format("Минимальная длина пароля - {0} символов."),
         },
-        orgsite: {
+        org_site: {
           required: "Пожалуйста, введите название сайта",
           minlength: jQuery.validator.format("Пожалуйста, введите не менее {0} символов."),
           maxlength: jQuery.validator.format("Пожалуйста, введите не более {0} символов.")
         },
-        orgphone: {
+        org_phone: {
           required: "Пожалуйста, введите номер телефона",
-          minlength: "Пожалуйста, проверьте правильность ввода номера телефона.",
-          maxlength: "Пожалуйста, проверьте правильность ввода номера телефона."
         },
         confirmrools: "Пожалуйста, прочитайте и согласитесь с правилами."
       },
+      submitHandler: function(form) {
+        if ($('#org_user').val().split(/[\s\.\?]+/).length != 3) {
+          not_logged.showErrors({
+            'org_user': 'Пожалуйста, введите Фамилию Имя Отчeство'
+          });
+        } else if($("#org_phone").val().replace(/[^+0-9]/gim,'').length != 12){
+          not_logged.showErrors({
+            'org_phone': 'Пожалуйста, введите проверьте правильность ввода номера телефона'
+          });
+        } else{
+          form.submit();  
+        }
+      }
     });
 
-
-  $("#orgsite").keyup(function(){
-    $("#orgsite").val(checkingsim($("#orgsite").val()));
+  $("#org_phone").inputmask("+7 (999) 999-9999");
+  
+  $("#org_site").keyup(function(){
+    $("#org_site").val(checkingsim($("#org_site").val()));
   });
-  $("#orgname").keyup(function(){
-    $("#orgsite").val(checkingsim($("#orgname").val()));
+  $("#org_name").keyup(function(){
+    $("#org_site").val(checkingsim($("#org_name").val()));
   });
 
 

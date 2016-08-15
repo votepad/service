@@ -116,16 +116,17 @@ ul{
 		}
 .help-block{
 	margin-top: 0;
+	font-size: .8em;
 }
 label.error-input{
 	width: 100% !important;
 	margin: 0;
+	font-size: .8em;
 	color: #f47f7f;
 }
 .help-block, .error-input{
 	border-color: #f47f7f;
 	text-align: left !important;
-	font-size: .8em;
 }
 .input-group-addon{
 	border-radius: 3px;
