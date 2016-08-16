@@ -95,6 +95,7 @@ ul{
 .tooltip-arrow{
 	border-bottom-color: rgba(0,0,0,0.54) !important;
 	border-top-color: rgba(0,0,0,0.54) !important;
+	margin-bottom: 1px;
 }
 .tooltip-inner{
 	background-color: rgba(0,0,0,0.54);

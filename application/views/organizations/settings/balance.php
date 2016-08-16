@@ -1,5 +1,5 @@
 <!-- =============== PAGE STYLES ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>vendor/datatables/media/css/dataTables.bootstrap.css">
+<link rel="stylesheet" href="<?=$assets; ?>vendor/datatables/dist/css/dataTables.bootstrap.min.css">
 
 <div class="columns-area">
 	<div class="panel panel-default">
@@ -29,7 +29,7 @@
 				Текущая скидка организации: <b>2%</b>
 				<a href="">Как увеличить скидку?</a>
 			</div>
-			<table id="curent_payments_application" class="table table-bordered table-hover" cellspacing="0">
+			<table id="curent_payments_application" class="table table-bordered table-hover" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th class="sorting">Пользователь</th>
@@ -42,23 +42,23 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td style="width: 10%">Туров Николай</td>
-						<td style="width: 10%">Федеральный конкурс Ты Нужен Людям</td>
-						<td style="width: 7.5%">10000</td>
-						<td style="width: 7.5%">5</td>
-						<td style="width: 10%">14.08.2016</td>
+						<td>Туров Николай</td>
+						<td>Федеральный конкурс Ты Нужен Людям</td>
+						<td>10000</td>
+						<td>5</td>
+						<td>14.08.2016</td>
 					</tr>
 					<tr>
-						<td style="width: 10%">Николай</td>
-						<td style="width: 10%">Мисс ИТМО</td>
-						<td style="width: 7.5%">80000</td>
-						<td style="width: 7.5%">7</td>
-						<td style="width: 10%">10.08.2016</td>
+						<td>Николай</td>
+						<td>Мисс ИТМО</td>
+						<td>80000</td>
+						<td>7</td>
+						<td>10.08.2016</td>
 					</tr>
 				</tbody>
 			</table>
 
-			<table id="history_of_payments" class="table table-bordered table-hover" cellspacing="0">
+			<table id="history_of_payments" class="table table-bordered table-hover" cellspacing="0" width="100%">
 				<thead>
 					<tr>
 						<th class="sorting">Пользователь</th>
@@ -71,20 +71,20 @@
 				</thead>
 				<tbody>
 					<tr>
-						<td style="width: 10%">Туров Николай</td>
-						<td style="width: 10%">Федеральный конкурс Ты Нужен Людям</td>
-						<td style="width: 10%">10000</td>
-						<td style="width: 7.5%">5</td>
-						<td style="width: 10%">15.08.2016</td>
-						<td style="width: 7.5%">Успешно</td>
+						<td>Туров Николай</td>
+						<td>Федеральный конкурс Ты Нужен Людям</td>
+						<td>10000</td>
+						<td>5</td>
+						<td>15.08.2016</td>
+						<td>Успешно</td>
 					</tr>
 					<tr>
-						<td style="width: 10%">Туров Николай</td>
-						<td style="width: 10%">Мисс ИТМО</td>
-						<td style="width: 10%">80000</td>
-						<td style="width: 7.5%">7</td>
-						<td style="width: 10%">10.08.2016</td>
-						<td style="width: 7.5%">В обработке</td>
+						<td>Туров Николай</td>
+						<td>Мисс ИТМО</td>
+						<td>80000</td>
+						<td>7</td>
+						<td>10.08.2016</td>
+						<td>В обработке</td>
 					</tr>
 				</tbody>
 			</table>
@@ -93,6 +93,6 @@
 </div>
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>vendor/datatables/media/js/jquery.dataTables.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>vendor/datatables/media/js/dataTables.bootstrap.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/datatables/dist/js/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/datatables/dist/js/dataTables.bootstrap.min.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-balance.js"></script>

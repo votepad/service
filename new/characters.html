@@ -6,7 +6,12 @@
 
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/bootstrap/dist/css/bootstrap.css">
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/summernote/dist/summernote.css">
+
+	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/dist/css/dataTables.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/buttons/css/buttons.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/select/css/select.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/editor.datatables/css/editor.bootstrap.min.css">
+
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/cropper/dist/cropper.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/upload.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/app1.css">
@@ -16,18 +21,24 @@
 	<script type="text/javascript" src="../../../assets/vendor/jquery-validation/dist/jquery.validate.js"></script>
 
 	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
 	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
+
+	<script type="text/javascript" src="../../../assets/vendor/datatables/dist/js/jquery.dataTables.min.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/datatables/dist/js/dataTables.bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/dataTables.buttons.min.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/buttons.html5.min.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/buttons.bootstrap.min.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/datatables/select/js/dataTables.select.min.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/datatables/editor.datatables/js/dataTables.editor.min.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/datatables/editor.datatables/js/editor.bootstrap.min.js"></script>
 	
-	<script type="text/javascript" src="../../../assets/vendor/summernote/dist/summernote.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/summernote/dist/lang/summernote-ru-RU.js"></script>
 
 	<script type="text/javascript" src="../../../assets/vendor/cropper/dist/cropper.js"></script>
 	<script type="text/javascript" src="../../../assets/js/upload.js"></script>
 
 	<script type="text/javascript" src="../../../assets/js/events/event-edit-main-info.js"></script>
-	<script type="text/javascript" src="../../../assets/js/events/event-about.js"></script>
+	<script type="text/javascript" src="../../../assets/js/events/event-characters.js"></script>
 	
 
 </head>
@@ -114,11 +125,11 @@
 			</div>
 			<div class="event-nav-block" style="display:block">
 				<div class="event-nav">
-					<a href="" class="md-btn active">
+					<a href="" class="md-btn">
 						О мероприятии
 						<div class="active-tab"></div>
 					</a>
-					<a href="" class="md-btn">
+					<a href="" class="md-btn active">
 						Участники и жюри
 						<div class="active-tab"></div>
 					</a>
@@ -142,16 +153,18 @@
 		<div class="columns-area">
 			
 			<div class="panel panel-default">
+				<div class="panel-heading">Жюри мероприятия</div>
 				<div class="panel-body">
-					<div class="pull-right">
-						<button id="edit_event_about" class="md-btn md-btn-md md-btn-labeled md-btn-primary">
-							<span class="md-btn-icon"><i class="fa fa-pencil-square-o" aria-hidden="true"></i></span> Редактировать
-						</button>
-					</div>
-					<div id="event_about"></div>
-					<div id="no_event_about">
-						<p>Вы ещё не рассказали о мероприятии, пожалуйста, расскажите о нём.</p>
-					</div>
+					<table id="judges" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">ФИО</th>
+								<th class="sorting">E-mail</th>
+								<th class="no-sort">Должность</th>
+								<th class="no-sort">Фотография</th>
+							</tr>
+						</thead>
+					</table>
 				</div>
 			</div>
 			
