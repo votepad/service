@@ -295,3 +295,40 @@ header{
 .note-editor.note-frame{
 	border: 1px solid #bbb;
 }
+
+/* characters */
+#whom_vote .inline{
+	margin-right: 30px;
+}
+.checking_p_g_t{
+	height: 130px;
+	width: 130px;
+	margin: auto;
+	border: 1px solid #bbb;
+}
+	.checking_p_g_t input{
+		opacity: 0;
+	}
+	.checking_p_g_t div{
+		margin-top: -10px
+	}
+	.checking_p_g_t p{
+		font-size: 20px;
+		margin-top: 10px;
+	}
+	.checking_p_g_t.select{
+		background-color: #fafafa;
+		box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
+	}
+div.dt-buttons,  div.dataTables_wrapper div.dataTables_info{
+	text-align: left;
+}
+div.dataTables_wrapper div.dataTables_filter{
+	text-align: right;
+}
+.DTE_Header_Content{
+	font-size: 20px;
+}
+.DTE_Header modal-header{
+	padding: 15px; 
+}
