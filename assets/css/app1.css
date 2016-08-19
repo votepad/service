@@ -475,6 +475,19 @@ label.error-input{
 				display: block;
 			}
 
+.panel-primary {
+	border-color: #bbbbbb;
+}
+	.panel-primary > .panel-heading{
+		color: #fff;
+		background-color: #2f95ea;
+		border-color: #5899eb;
+		font-size: 16px;
+	}
+		.panel-primary > .panel-heading > a{
+			padding-top: 5px;
+		}
+
 
 .columns-area{
 	width: 100%;

@@ -180,7 +180,7 @@
 						<div class="col-xs-9">
 							<div id="participants" class="text-center col-xs-4">
 								<label class="checking_p_g_t md-btn">
-									<input type="checkbox" name="participants">
+									<input type="checkbox" name="participants" checked>
 									<div>
 										<i class="fa fa-5x fa-user" aria-hidden="true"></i>
 									</div>
@@ -189,7 +189,7 @@
 							</div>
 							<div id="groups" class="text-center col-xs-4">
 								<label class="checking_p_g_t md-btn">
-									<input type="checkbox" name="groups">
+									<input type="checkbox" name="groups" checked>
 									<div>
 										<i class="fa fa-5x fa-users" aria-hidden="true"></i>
 									</div>
@@ -198,7 +198,7 @@
 							</div>
 							<div id="teams" class="text-center col-xs-4">
 								<label class="checking_p_g_t md-btn" style="white-space: normal; padding: 0">
-									<input type="checkbox" name="teams" checked>
+									<input type="checkbox" name="teams">
 									<div>
 										<i class="fa fa-3x fa-users" aria-hidden="true"></i>
 										<i class="fa fa-3x fa-users" aria-hidden="true"></i>
@@ -214,7 +214,7 @@
 					</form>
 				</div>
 			</div>
-			<!--   PARTISIPANTS  -->
+			<!--   PARTISIPANTS  --
 			<div class="panel panel-default">
 				<div class="panel-heading">Участники</div>
 				<div class="panel-body">
@@ -222,14 +222,14 @@
 						<thead>
 							<tr>
 								<th class="sorting">ФИО участника</th>
-								<th class="no-sort">Описание</th>
+								<th class="no-sort">Описание участника</th>
 								<th class="no-sort">Фотография</th>
 							</tr>
 						</thead>
 					</table>
 				</div>
 			</div>
-			<!--   GROPS  -->
+			<!--   GROUPS  --
 			<div class="panel panel-default">
 				<div class="panel-heading">Группы</div>
 				<div class="panel-body">
@@ -237,14 +237,14 @@
 						<thead>
 							<tr>
 								<th class="sorting">Название группы</th>
-								<th class="no-sort">Описание</th>
-								<th class="no-sort">Логотип</th>
+								<th class="no-sort">Описание группы</th>
+								<th class="no-sort">Логотип групп</th>
 							</tr>
 						</thead>
 					</table>
 				</div>
 			</div>
-			<!--   TEAMS  -->
+			<!--   TEAMS  --
 			<div class="panel panel-default">
 				<div class="panel-heading">Команды</div>
 				<div class="panel-body">
@@ -252,8 +252,141 @@
 						<thead>
 							<tr>
 								<th class="sorting">Название команды</th>
-								<th class="no-sort">Описание</th>
+								<th class="no-sort">Описание команды</th>
+								<th class="no-sort">Логотип Команды</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+
+
+			<!--   PARTISIPANTS - GROUPS  --
+			<div class="panel panel-default">
+				<div class="panel-heading">Участники и группы</div>
+				<div class="panel-body">
+					<h4><strong>Создание групп</strong></h4>
+					<p>Создайте группы, по которым будут распределены участники </p>
+					<table id="table_groups" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">Название группы</th>
+								<th class="no-sort">Описание группы</th>
 								<th class="no-sort">Логотип</th>
+							</tr>
+						</thead>
+					</table>
+					<h4><strong>Создание участников</strong></h4>
+					<p>Создайте участников и распределите их по группам</p>
+					<table id="table_participants_groups" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">ФИО участника</th>
+								<th class="sorting">Группа</th>
+								<th class="no-sort">Описание участника</th>
+								<th class="no-sort">Фотография</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+			
+			<!--   PARTISIPANTS - TEAMS  --
+			<div class="panel panel-default">
+				<div class="panel-heading">Участники и команды</div>
+				<div class="panel-body">
+					<h4><strong>Создание команд</strong></h4>
+					<p>Создайте команды, по которым будут распределены участники </p>
+					<table id="table_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">Название команды</th>
+								<th class="no-sort">Описание команды</th>
+								<th class="no-sort">Логотип Команды</th>
+							</tr>
+						</thead>
+					</table>
+					<h4><strong>Создание участников</strong></h4>
+					<p>Создайте участников и распределите их по командам</p>
+					<table id="table_participants_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">ФИО участника</th>
+								<th class="sorting">Команда</th>
+								<th class="no-sort">Описание участника</th>
+								<th class="no-sort">Фотография</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+
+			<!--   GROUPS - TEAMS  --
+			<div class="panel panel-default">
+				<div class="panel-heading">Группы и команды</div>
+				<div class="panel-body">
+					<h4><strong>Создание команд</strong></h4>
+					<p>Создайте команды, по которым будут распределены группы </p>
+					<table id="table_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">Название команды</th>
+								<th class="no-sort">Описание команды</th>
+								<th class="no-sort">Логотип Команды</th>
+							</tr>
+						</thead>
+					</table>
+					<h4><strong>Создание групп</strong></h4>
+					<p>Создайте группы и распределите их по командам</p>
+					<table id="table_groups_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">Название группы</th>
+								<th class="sorting">Команда</th>
+								<th class="no-sort">Описание группы</th>
+								<th class="no-sort">Логотип группы</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+			</div>
+
+			<!--   PARTICIPANTS - GROUPS - TEAMS  -->
+			<div class="panel panel-default">
+				<div class="panel-heading">Участники, группы и команды</div>
+				<div class="panel-body">
+					<h4><strong>Создание команд</strong></h4>
+					<p>Создайте команды, по которым будут распределены группы </p>
+					<table id="table_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">Название команды</th>
+								<th class="no-sort">Описание команды</th>
+								<th class="no-sort">Логотип Команды</th>
+							</tr>
+						</thead>
+					</table>
+					<h4><strong>Создание групп</strong></h4>
+					<p>Создайте группы и распределите их по командам</p>
+					<table id="table_groups_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">Название группы</th>
+								<th class="sorting">Команда</th>
+								<th class="no-sort">Описание группы</th>
+								<th class="no-sort">Логотип группы</th>
+							</tr>
+						</thead>
+					</table>
+					<h4><strong>Создание участников</strong></h4>
+					<p>Создайте участников и распределите их по группам</p>
+					<table id="table_participants_groups" class="table table-bordered table-hover" cellspacing="0" width="100%">
+						<thead>
+							<tr>
+								<th class="sorting">ФИО участника</th>
+								<th class="sorting">Группа</th>
+								<th class="no-sort">Описание участника</th>
+								<th class="no-sort">Фотография</th>
 							</tr>
 						</thead>
 					</table>
