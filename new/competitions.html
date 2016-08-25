@@ -194,7 +194,7 @@
 							<a data-type="textarea" data-name="competition_about" class="editable" data-pk=""></a>
 						</div>
 					</div>
-					<ul class="no-li form-group pad-l-15 pad-r-15" id="stages_1">
+					<ul class="no-li form-group pad-l-15 pad-r-15 stages" id="stages_1">
 						<li>
 							<div class="panel panel-default panel-sm">
 								<div class="panel-heading">
@@ -219,54 +219,7 @@
 									</div>
 									<div class="form-group">
 										<label>Критерии</label>
-										<table id="stage_criterions_1" class="table table-bordered table-hover" cellspacing="0" width="100%">
-											<thead>
-												<tr>
-													<th class="sorting">Название критерия</th>
-													<th class="no-sort">Краткое описание</th>
-													<th class="no-sort">Полное описание</th>
-													<th class="no-sort">Максимальный балл</th>
-													<th class="no-sort">Минимальный балл</th>
-												</tr>
-											</thead>
-										</table>
-									</div>
-								</div>
-							</div>
-						</li>
-						<li>
-							<form class="panel panel-default panel-sm">
-								<div class="panel-heading">
-									<span>Этап №2.</span>
-									<strong><input type="text" name="stage_name_2" class="form-control input-sm" style="width:250px; display:inline-block" placeholder="Введите название этапа" required></strong>
-								</div>
-								<div class="panel-body">
-									<div class="form-group">
-										<label>Об этапе</label>
-										<textarea name="stage_about_2" class="form-control input-sm" rows="3" maxlength="2000"></textarea>
-									</div>
-									<div class="form-group">
-										<label for="competition_judges_select_2">Представители жюри</label>
-										<select name="competition_judges_select_2" id="competition_judges_select_2" class="form-control competition_judges_select input-sm" multiple="multiple" required>
-											<option value="">Жюри 1</option>
-											<option value="">Жюри 2</option>
-											<option value="">Жюри 6</option>
-										</select>
-										<span class="help-block" style="margin-bottom: 2px">Выберите жюри, которые смогут оценивать данный конкурс</span>
-									</div>
-									<div class="form-group">
-										<label for="competition_charecter_2">Жюри будут оценивать</label>
-										<select id="competition_charecter_2" name="competition_charecter_2" class="form-control input-sm" required>
-											<!-- в зависимости от того, кого выбрали на предыдущей табе -->
-											<option></option>
-											<option>участников</option>
-											<option>групп</option>
-											<option>комманд</option>
-										</select>
-									</div>
-									<div class="form-group">
-										<label>Критерии</label>
-										<table class="table table-bordered table-hover stage_criterions" cellspacing="0" width="100%">
+										<table id="stage_criterions_1" class="table table-bordered table-hover stage_criterions" cellspacing="0" width="100%">
 											<thead>
 												<tr>
 													<th>#</th>
@@ -275,8 +228,8 @@
 													<th>Максимальный балл</th>
 													<th>Минимальный балл</th>
 													<th class="text-center">
-														<button class="add_criterion" type="button" data-toggle="tooltip" data-placement="top" title="Добавить критерий">
-															<i class="fa fa-plus" aria-hidden="true"></i>	
+														<button class="add_editable_criterion" type="button" data-toggle="tooltip" data-placement="top" title="Добавить критерий">
+															<i class="fa fa-plus" aria-hidden="true"></i>
 														</button>
 													</th>
 												</tr>
@@ -285,36 +238,31 @@
 												<tr>
 													<th>1</th>
 													<th>
-														<input type='text' name='criterion_name_2_1' class='form-control input-sm'>
+														<a data-type="text" data-name="criterion_name_1_1" class="editable" data-pk="">name</a>
+													</th>
+													<th style="max-width:230px">
+														<a data-type="textarea" data-name="criterion_desc_1_1" class="editable" data-pk="">description</a>
 													</th>
 													<th>
-														<textarea name='criterion_desc_2_1' class='form-control input-sm' style='resize:none'></textarea>
+														<a data-type="number" data-name="criterion_max_1_1" class="editable" data-pk="">5</a>
 													</th>
 													<th>
-														<input type='number' step='1' name='criterion_max_2_1' class='form-control input-sm'>
+														<a data-type="number" data-name="criterion_min_1_1" class="editable" data-pk="">10</a>
 													</th>
 													<th>
-														<input type='number' step='1' name='criterion_min_2_1' class='form-control input-sm'>
-													</th>
-													<th>
-														<button class='delete_criterion' type='button' title='Удалить'><i class='fa fa-trash' aria-hidden='true'></i></button>
+														<button class="delete_editable_criterion" type="button" data-toggle="tooltip" data-placement="top" title="Удалить"><i class="fa fa-trash" aria-hidden="true"></i></button>
 													</th>
 												</tr>
 											</tbody>
 										</table>
-										<span class="ctiterion_total"></span>
-									</div>
-									<div class="form-group pull-right">
-										<button type="button" class="md-btn md-btn-lg md-btn-success new_stage_submit" style="padding: 5px 50px">Создать этап</button>
+										<span class="ctiterion_total">Всего 0 критерев</span>
 									</div>
 								</div>
-							</form>
+							</div>
 						</li>
-
-
 					</ul>
 					<div class="pad-l-15 pad-r-15">
-						<button class="md-btn md-btn-md md-btn-labeled md-btn-success">
+						<button id="add_stage" class="md-btn md-btn-md md-btn-labeled md-btn-success">
 							<span class="md-btn-icon"><i class="fa fa-plus"></i></span> Добавить этап
 						</button>
 					</div>

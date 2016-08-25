@@ -3,9 +3,6 @@ $().ready (function() {
 	$('#competition_about').keyup(function(){
 		$('#competition_about_max_length').text(parseInt(2000-$('#competition_about').val().length));
 	});
-	
-	
-	$(".competition_judges_select").select2({language: "ru"}); 
 
 	
 	$('#new_competition_form').validate({
@@ -26,7 +23,13 @@ $().ready (function() {
 		$(this).parent().children('.ctiterion_total').text(count_criterions($('tbody tr', this).length));
 	});
 
-	$('.panel-sm').on('blur', '.input-sm', function(){
+	$('#add_stage').click(function(){		
+		var next_stage = parseInt($(this).parent().parent().children('.stages').children('li').length) + 1;
+		var stage = '<li><form class="panel panel-default panel-sm"><div class="panel-heading"><span>Этап №' + next_stage + '.</span><strong><input type="text" name="stage_name_' + next_stage + '" class="form-control input-sm" style="width:250px; display:inline-block" placeholder="Введите название этапа" required></strong></div><div class="panel-body"><div class="form-group"><label>Об этапе</label><textarea name="stage_about_' + next_stage + '" class="form-control input-sm" rows="3" maxlength="2000"></textarea></div><div class="form-group"><label for="competition_judges_select_' + next_stage + '">Представители жюри</label><select name="competition_judges_select_' + next_stage + '" id="competition_judges_select_' + next_stage + '" class="form-control competition_judges_select input-sm" multiple="multiple" required><option value="">Жюри 1</option><option value="">Жюри 2</option><option value="">Жюри 6</option></select><span class="help-block" style="margin-bottom: 2px">Выберите жюри, которые смогут оценивать данный конкурс</span></div><div class="form-group"><label for="competition_charecter_' + next_stage + '">Жюри будут оценивать</label><select id="competition_charecter_' + next_stage + '" name="competition_charecter_' + next_stage + '" class="form-control input-sm" required><option></option><option>участников</option><option>групп</option><option>комманд</option></select></div><div class="form-group"><label>Критерии</label><table class="table table-bordered table-hover stage_criterions" cellspacing="0" width="100%"><thead><tr><th>#</th><th>Название критерия</th><th>Полное описание</th><th>Максимальный балл</th><th>Минимальный балл</th><th class="text-center"><button class="add_criterion" type="button" data-toggle="tooltip" data-placement="top" title="Добавить критерий"><i class="fa fa-plus" aria-hidden="true"></i></button></th></tr></thead><tbody><tr><th>1</th><th><input type="text" name="criterion_name_' + next_stage + '_1" class="form-control input-sm"></th><th><textarea name="criterion_desc_' + next_stage + '_1" class="form-control input-sm" style="resize:none"></textarea></th><th><input type="number" step="1" name="criterion_max_' + next_stage + '_1" class="form-control input-sm"></th><th><input type="number" step="1" name="criterion_min_' + next_stage + '_1" class="form-control input-sm"></th><th><button class="delete_criterion" type="button" title="Удалить"><i class="fa fa-trash" aria-hidden="true"></i></button></th></tr></tbody></table><span class="ctiterion_total"></span></div><div class="form-group pull-right"><button type="button" class="md-btn md-btn-lg md-btn-success new_stage_submit" style="padding: 5px 50px">Создать этап</button></div></div></form></li>';
+		$(this).parent().parent().children('.stages').append(stage);
+		$(".competition_judges_select").select2({language: "ru"}); 
+	});
+	$('.stages').on('blur', '.input-sm', function(){
 		if ( $(this).val() != '' ) {
 			$(this).removeClass('error-input');
 			$(this).parent().children('.error').remove();
@@ -37,7 +40,7 @@ $().ready (function() {
 			}
 		}
 	});
-	$('.panel-sm').on('blur', '.select2-search__field', function(){
+	$('.stages').on('blur', '.select2-search__field', function(){
 		if ( $(this).parent().parent().children('.select2-selection__choice').length >= 2 ) {
 			$(this).parent().parent().parent().removeClass('error-input');
 			$(this).parent().parent().parent().parent().parent().parent().children('.error').remove();	
@@ -47,7 +50,7 @@ $().ready (function() {
 			$(this).parent().parent().parent().parent().parent().parent().append('<label class="error-input error" for="' + $(this).attr('name') + '">Выберите не менее 2х жюри</label>');	
 		}
 	});
-	$('.panel-sm').on('click', '.new_stage_submit', function(){
+	$('.stages').on('click', '.new_stage_submit', function(){
 		var form = $(this).parent().parent().parent();
 		$(form).removeClass('novalid');
 		var id = $(form).children('.panel-heading').children('span').text().replace(/[^0-9]/gim,'');
@@ -73,7 +76,7 @@ $().ready (function() {
 			$(form).submit();
 		}
 	});
-	$('.panel-sm').on('click', '.add_criterion', function(){
+	$('.stages').on('click', '.add_criterion', function(){
 		var table = $(this).parent().parent().parent().parent();
 		var id = $(table).parent().parent().parent().children('.panel-heading').children('span').text().replace(/[^0-9]/gim,'');
 		var tr_len = parseInt($(table).children('tbody').children('tr').length) + 1;
@@ -81,7 +84,7 @@ $().ready (function() {
 		$(table).children('tbody').append(temp);
 		$(table).parent().children('.ctiterion_total').text(count_criterions($('tbody tr', table).length));
 	});
-	$('.panel-sm').on('click', '.delete_criterion', function(){
+	$('.stages').on('click', '.delete_criterion', function(){
 		var table = $(this).parent().parent().parent().parent();
 		var id = $(table).parent().parent().parent().children('.panel-heading').children('span').text().replace(/[^0-9]/gim,'');
 		var tr_len = parseInt($(table).children('tbody').children('tr').length);
