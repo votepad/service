@@ -126,7 +126,7 @@ label.error-input{
 	color: #f47f7f;
 }
 .help-block, .error-input{
-	border-color: #f47f7f;
+	border-color: #f47f7f !important;
 	text-align: left !important;
 }
 .input-group-addon{
@@ -404,6 +404,11 @@ label.error-input{
 	border-radius: 3px !important;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
 }
+.panel-heading{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 .panel-default {
 	border-color: #bbbbbb;
 }
@@ -475,6 +480,19 @@ label.error-input{
 				display: block;
 			}
 
+	.panel-sm > .panel-heading{
+		padding: 5px 15px;
+		font-size: 15px;
+	}
+	.panel-sm > .panel-heading > .delete{
+		padding-top: 0;
+		float: right;
+		font-size: 13px;
+	}
+	.panel-sm > .panel-heading > .delete:hover, .panel-sm > .panel-heading > .delete:focus{
+		color: #ee3d3d;
+		border-bottom: dashed 1px #ec2626;
+	}
 .panel-primary {
 	border-color: #bbbbbb;
 }
@@ -545,4 +563,18 @@ label.error-input{
 }
 .dropdown-menu .divider{
 	margin: 1px 0;
+}
+.editable-pre-wrapped {
+	word-wrap: break-word;
+}
+.pad-l-15{
+	padding-left: 15px;
+}
+.pad-r-15{
+	padding-right: 15px;
+}
+@media (max-width: 768px){
+	.panel-sm{
+		width: auto;
+	}
 }

@@ -286,7 +286,7 @@ header{
 	.modal-body > .form-group{
 		padding: 0;
 		text-align: left;
-		margin-bottom: 10px;
+		margin: 0 0 10px 0;
 	}
 	.modal-footer{
 		padding: 8px 15px;
@@ -331,4 +331,63 @@ div.dataTables_wrapper div.dataTables_filter{
 }
 .DTE_Header modal-header{
 	padding: 15px; 
+}
+.ediatable-textarea .editable-container.editable-inline, .ediatable-textarea .editableform .control-group,.ediatable-textarea .editableform .form-control{
+	width: 100%;
+}
+.ediatable-textarea .editable-input{
+	width: 90%;
+}
+.select2{
+	min-width: 300px;
+	width: 100% !important;
+}
+.stage_criterions{
+	margin-top: 15px;
+}
+.stage_criterions th{
+	font-weight: normal;
+	vertical-align: middle !important;
+}
+.stage_criterions thead th{
+	font-weight: bold;
+}
+.stage_criterions tr th:nth-child(1){ width: 5%; }
+.stage_criterions tr th:nth-child(2){ width: 30%; }
+.stage_criterions tr th:nth-child(3){ width: 30%; }
+.stage_criterions tr th:nth-child(4){ width: 15%; }
+.stage_criterions tr th:nth-child(5){ width: 15%; }
+.stage_criterions tr th:nth-child(6){ width: 5%; padding: 0}
+.stage_criterions tr th:nth-child(6) button{ width: 100%; height: 100%; color: #f05050; font-size: 1.3em}
+.stage_criterions thead tr th:nth-child(6) { padding: 0; }
+.stage_criterions thead tr th:nth-child(6) button{ color: #24b145; font-size: 1.5em; width: 100%; height: 100%;}
+
+@media (max-width: 768px){
+	.stage_criterions thead tr th:nth-child(6) .tooltip{ 
+		top: 1165px !important;
+		left: 650px !important;
+		width: 110px;
+	}
+	.stage_criterions thead tr th:nth-child(6) .tooltip .tooltip-arrow{
+		left: 55px !important;
+	}
+	.stage_criterions tbody tr th:nth-child(6) .tooltip{
+		left: 680px !important;
+	}
+	.stage_criterions tbody tr th:nth-child(6) .tooltip .tooltip-arrow{
+		left: 28px !important;
+	}
+}
+.ctiterion_total{
+	position: absolute;
+	margin-top: -15px;
+}
+tbody .input-sm{
+	width: 100%;
+}
+textarea{
+	max-width: 100%;
+}
+.panel-heading .error-input{
+	padding-left: 10px;
 }
