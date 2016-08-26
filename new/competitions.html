@@ -7,15 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/bootstrap/dist/css/bootstrap.css">
 
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/dist/css/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/buttons/css/buttons.bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/select/css/select.bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/editor.datatables/css/editor.bootstrap.min.css">
-
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/select2/dist/css/select2.css">
-
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/x-editable/dist/css/bootstrap-editable.css">
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/x-editable/dist/css/typeahead.js-bootstrap.css">
 
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/cropper/dist/cropper.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/upload.css">
@@ -33,20 +25,6 @@
 
 	<script type="text/javascript" src="../../../assets/vendor/select2/dist/js/select2.full.js"></script>
 	<script type="text/javascript" src="../../../assets/vendor/select2/dist/js/i18n/ru.js"></script>
-
-	<script type="text/javascript" src="../../../assets/vendor/x-editable/dist/js/bootstrap-editable.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/x-editable/dist/js/typeahead.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/x-editable/dist/js/typeaheadjs.js"></script>
-
-	<script type="text/javascript" src="../../../assets/vendor/datatables/dist/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/dist/js/dataTables.bootstrap.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/dataTables.buttons.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/buttons.html5.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/buttons.bootstrap.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/select/js/dataTables.select.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/editor.datatables/js/dataTables.editor.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/editor.datatables/js/editor.bootstrap.min.js"></script>
-	
 
 	<script type="text/javascript" src="../../../assets/vendor/cropper/dist/cropper.js"></script>
 	<script type="text/javascript" src="../../../assets/js/upload.js"></script>
@@ -185,37 +163,42 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					Конкурс №1.
-					<strong><a data-type="text" data-name="competition_name" class="editable" data-pk="" data-value="НАЗВ.КОНКУРСА"></a></strong>
+					<strong class="inline editable">НАЗВ.КОНКУРСА</strong>
+					<div class="pull-right">
+						<button type="button" class="delete_competition">Удалить</button>
+					</div>
 				</div>
 				<div class="panel-body">
 					<div class="form-group pad-l-15 pad-r-15">
 						<label>О конкурсе</label>
-						<div class="ediatable-textarea">
-							<a data-type="textarea" data-name="competition_about" class="editable" data-pk=""></a>
+						<div class="">
+							<span class="editable">fkjgfdjkjgfl</span>
 						</div>
 					</div>
 					<ul class="no-li form-group pad-l-15 pad-r-15 stages" id="stages_1">
 						<li>
 							<div class="panel panel-default panel-sm">
 								<div class="panel-heading">
-									<a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"><span data-toggle="tooltip" data-placement="top" title="Подробнее">Этап №1.</span></a>
-									<strong><a data-type="text" data-name="stage_name_1" class="editable" data-pk="" data-value="НАЗВ.ЭТАПА"></a></strong>
-									<a href="" class="delete">удалить этап</a>
+									<a data-toggle="collapse" href="#collaps_stage_1" aria-expanded="false" aria-controls="collaps_stage_1"><div class="inline" data-toggle="tooltip" data-placement="right" title="Подробнее"><span>Этап №1.</span>
+									<strong class="for_edit_form" name="stage_name_1">НАЗВ.ЭТАПА</strong>
+									</div></a>
+									<div class="pull-right">
+										<button type="button" class="edit">Редактировать</button>
+										<button type="button" class="delete">Удалить</button>
+									</div>
 								</div>
-								<div class="panel-body collapse" id="collapseExample">
+								<div class="panel-body collapse" id="collaps_stage_1">
 									<div class="form-group">
-										<label>Об этапе</label>
-										<div class="ediatable-textarea">
-											<a data-type="textarea" data-name="stage_about_1" class="editable" data-pk=""></a>
-										</div>
+										<label>Об этапе</label><br>
+										<span class="for_edit_form" name="stage_about_1">Что то об этапе</span>
 									</div>
 									<div class="form-group">
 										<label>Представители жюри:</label>
-										<a data-type="select2" data-name="stage_judges_1" class="judges" data-pk="" data-value="[1,2]"></a>
+										<span class="for_edit_form" name="stage_judges_1">Жюри 1, Жюри 2</span>
 									</div>
 									<div class="form-group">
 										<label>Жюри будут оценивать</label>
-										<a data-type="select" data-name="stage_characters_1" class="editable" data-pk="" data-source="{'1':'участников','2':'групп','3':'команд'}" data-value="1"></a>.
+										<span class="for_edit_form" name="stage_characters_1">участников</span>
 									</div>
 									<div class="form-group">
 										<label>Критерии</label>
@@ -227,30 +210,52 @@
 													<th>Полное описание</th>
 													<th>Максимальный балл</th>
 													<th>Минимальный балл</th>
-													<th class="text-center">
-														<button class="add_editable_criterion" type="button" data-toggle="tooltip" data-placement="top" title="Добавить критерий">
-															<i class="fa fa-plus" aria-hidden="true"></i>
-														</button>
-													</th>
 												</tr>
 											</thead>
 											<tbody>
 												<tr>
 													<th>1</th>
 													<th>
-														<a data-type="text" data-name="criterion_name_1_1" class="editable" data-pk="">name</a>
-													</th>
-													<th style="max-width:230px">
-														<a data-type="textarea" data-name="criterion_desc_1_1" class="editable" data-pk="">description</a>
+														<span class="for_edit_form" name="criterion_name_1_1">name</span>
 													</th>
 													<th>
-														<a data-type="number" data-name="criterion_max_1_1" class="editable" data-pk="">5</a>
+														<span class="for_edit_form" name="criterion_desc_1_1">description</span>
 													</th>
 													<th>
-														<a data-type="number" data-name="criterion_min_1_1" class="editable" data-pk="">10</a>
+														<span class="for_edit_form" name="criterion_max_1_1">1</span>
 													</th>
 													<th>
-														<button class="delete_editable_criterion" type="button" data-toggle="tooltip" data-placement="top" title="Удалить"><i class="fa fa-trash" aria-hidden="true"></i></button>
+														<span class="for_edit_form" name="criterion_min_1_1">10</span>
+													</th>
+												</tr>
+												<tr>
+													<th>1</th>
+													<th>
+														<span class="for_edit_form" name="criterion_name_1_2">name 2</span>
+													</th>
+													<th>
+														<span class="for_edit_form" name="criterion_desc_1_2">description 2</span>
+													</th>
+													<th>
+														<span class="for_edit_form" name="criterion_max_1_2">2</span>
+													</th>
+													<th>
+														<span class="for_edit_form" name="criterion_min_1_2">20</span>
+													</th>
+												</tr>
+												<tr>
+													<th>1</th>
+													<th>
+														<span class="for_edit_form" name="criterion_name_1_3">name 3</span>
+													</th>
+													<th>
+														<span class="for_edit_form" name="criterion_desc_1_3">description 3</span>
+													</th>
+													<th>
+														<span class="for_edit_form" name="criterion_max_1_3">3</span>
+													</th>
+													<th>
+														<span class="for_edit_form" name="criterion_min_1_3">30</span>
 													</th>
 												</tr>
 											</tbody>

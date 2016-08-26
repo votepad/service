@@ -1,29 +1,3 @@
-/*
-.eventdesc{
-	display: inline-block;
-	width: 710px;
-}
-	.eventdesc > .panel{
-		box-shadow: none;
-		margin-bottom: 0;
-	}
-	.modal-header{
-		padding: 8px 15px;
-		border-bottom: 1px solid #bbb;
-	}
-	.modal-body > .form-group{
-		padding: 0;
-		text-align: left;
-		margin-bottom: 10px;
-	}
-	.modal-footer{
-		padding: 8px 15px;
-		border-top: 1px solid #bbb;
-	}
-.note-editor.note-frame{
-	border: 1px solid #bbb;
-}*/
-
 /* NEW EVENT */
 .newevent-wrapper{
 	margin: auto;
@@ -332,6 +306,8 @@ div.dataTables_wrapper div.dataTables_filter{
 .DTE_Header modal-header{
 	padding: 15px; 
 }
+
+/* COMPETITIONS, STAGE, CRITERIONS */
 .ediatable-textarea .editable-container.editable-inline, .ediatable-textarea .editableform .control-group,.ediatable-textarea .editableform .form-control{
 	width: 100%;
 }
@@ -390,4 +366,30 @@ textarea{
 }
 .panel-heading .error-input{
 	padding-left: 10px;
+}
+
+.delete, .edit, .save{
+	padding-top: 0;
+	font-size: 13px;
+	margin-left: 10px;
+}
+	.delete:hover, .delete:focus, .delete_competition:hover, .delete_competition:focus{
+		color: #ee3d3d;
+		border-bottom: dashed 1px #ec2626;
+	}
+	.edit:hover, .edit:focus{
+		color: #2f95ea;
+		border-bottom: dashed 1px #5899eb;
+	}
+	.save:hover, .save:focus{
+		color: #27c24c;
+		border-bottom: dashed 1px #26be4a;
+	}
+.delete_competition{
+	font-size: 13px;
+	margin-left: 10px;
+	vertical-align: text-bottom;	
+}
+.table textarea{
+	resize: none;
 }
