@@ -368,28 +368,30 @@ textarea{
 	padding-left: 10px;
 }
 
-.delete, .edit, .save{
+.delete, .edit, .save, .delete_competition, .edit_competition, .save_competition{
 	padding-top: 0;
 	font-size: 13px;
 	margin-left: 10px;
 }
+	.delete, .save{
+		vertical-align: sub;
+	}
+	.delete_competition, .edit_competition, .save_competition{
+		vertical-align: text-bottom;
+	}
+
 	.delete:hover, .delete:focus, .delete_competition:hover, .delete_competition:focus{
 		color: #ee3d3d;
 		border-bottom: dashed 1px #ec2626;
 	}
-	.edit:hover, .edit:focus{
+	.edit:hover, .edit:focus, .edit_competition:hover, .edit_competition:focus{
 		color: #2f95ea;
 		border-bottom: dashed 1px #5899eb;
 	}
-	.save:hover, .save:focus{
+	.save:hover, .save:focus, .save_competition:hover, .save_competition:focus{
 		color: #27c24c;
 		border-bottom: dashed 1px #26be4a;
 	}
-.delete_competition{
-	font-size: 13px;
-	margin-left: 10px;
-	vertical-align: text-bottom;	
-}
 .table textarea{
 	resize: none;
 }

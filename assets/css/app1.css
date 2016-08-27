@@ -123,6 +123,7 @@ label.error-input{
 	margin: 0;
 	font-size: .8em;
 	color: #f47f7f;
+	display: initial;
 }
 .help-block, .error-input{
 	border-color: #f47f7f !important;

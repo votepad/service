@@ -149,10 +149,10 @@
 				<div class="panel-body">
 					<form  method="POST" class="pad-l-15 pad-r-15" id="new_competition_form">
 						<div class="form-group">
-							<input type="text" id="competition_name" name="competition_name" class="form-control" placeholder="Название конкурса">
+							<input type="text" name="competition_name" class="form-control" placeholder="Название конкурса">
 						</div>
 						<div class="form-group">
-							<textarea id="competition_about" name="competition_about" class="form-control" placeholder="Расскажите о конкурсе" rows="3" maxlength="2000"></textarea>
+							<textarea name="competition_about" class="form-control" placeholder="Расскажите о конкурсе" rows="3" maxlength="2000"></textarea>
 							<span class="help-block pull-right">Осталось <span id="competition_about_max_length">2000</span> символов.</span>
 						</div>
 						<button type="submit" class="md-btn md-btn-success col-xs-2">Создать конкурс</button>	
@@ -163,17 +163,15 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					Конкурс №1.
-					<strong class="inline editable">НАЗВ.КОНКУРСА</strong>
+					<strong class="inline">НАЗВ.КОНКУРСА</strong>
 					<div class="pull-right">
-						<button type="button" class="delete_competition">Удалить</button>
+						<button type="button" class="edit_competition">Изменить</button>
 					</div>
 				</div>
 				<div class="panel-body">
 					<div class="form-group pad-l-15 pad-r-15">
 						<label>О конкурсе</label>
-						<div class="">
-							<span class="editable">fkjgfdjkjgfl</span>
-						</div>
+						<div>fkjgfdjkjgfl</div>
 					</div>
 					<ul class="no-li form-group pad-l-15 pad-r-15 stages" id="stages_1">
 						<li>
@@ -183,8 +181,7 @@
 									<strong class="for_edit_form" name="stage_name_1">НАЗВ.ЭТАПА</strong>
 									</div></a>
 									<div class="pull-right">
-										<button type="button" class="edit">Редактировать</button>
-										<button type="button" class="delete">Удалить</button>
+										<button type="button" class="edit">Изменить</button>
 									</div>
 								</div>
 								<div class="panel-body collapse" id="collaps_stage_1">
