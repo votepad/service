@@ -7,10 +7,7 @@
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/bootstrap/dist/css/bootstrap.css">
 
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/dist/css/dataTables.bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/buttons/css/buttons.bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/select/css/select.bootstrap.min.css">
-	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/datatables/editor.datatables/css/editor.bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/handsontable/handsontable.full.min.css">
 
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/cropper/dist/cropper.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/upload.css">
@@ -24,15 +21,7 @@
 	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
 
-	<script type="text/javascript" src="../../../assets/vendor/datatables/dist/js/jquery.dataTables.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/dist/js/dataTables.bootstrap.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/dataTables.buttons.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/buttons.html5.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/buttons/js/buttons.bootstrap.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/select/js/dataTables.select.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/editor.datatables/js/dataTables.editor.min.js"></script>
-	<script type="text/javascript" src="../../../assets/vendor/datatables/editor.datatables/js/editor.bootstrap.min.js"></script>
-	
+	<script type="text/javascript" src="../../../assets/vendor/handsontable/handsontable.full.min.js"></script>
 
 	<script type="text/javascript" src="../../../assets/vendor/cropper/dist/cropper.js"></script>
 	<script type="text/javascript" src="../../../assets/js/upload.js"></script>
@@ -155,65 +144,10 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Жюри мероприятия</div>
 				<div class="panel-body">
-					<table id="table_judges" class="table table-bordered table-hover" cellspacing="0" width="100%">
-						<thead>
-							<tr>
-								<th class="sorting">ФИО жюри</th>
-								<th class="sorting">E-mail</th>
-								<th class="no-sort">Должность</th>
-								<th class="no-sort">Фотография</th>
-							</tr>
-						</thead>
-					</table>
+					<div id="judges"></div>
 				</div>
 			</div>
-			<!--   CHECKING PARTISIPANTS GROPS TEAMS  -->
-			<div class="panel panel-default">
-				<div class="panel-heading">Категория оценивания</div>
-				<div class="panel-body">
-					<form id="whom_vote">
-						<div class="col-xs-3">
-							<h4><strong>Жюри будут оценивать:</strong></h4>
-							<p>Вы можете выбрать несколько вариатов</p>
-							<button  type="submit" class="md-btn md-btn-md md-btn-success" style="margin-top:15px;">Сохранить</button>	
-						</div>
-						<div class="col-xs-9">
-							<div id="participants" class="text-center col-xs-4">
-								<label class="checking_p_g_t md-btn">
-									<input type="checkbox" name="participants" checked>
-									<div>
-										<i class="fa fa-5x fa-user" aria-hidden="true"></i>
-									</div>
-									<p>участников</p>
-								</label>
-							</div>
-							<div id="groups" class="text-center col-xs-4">
-								<label class="checking_p_g_t md-btn">
-									<input type="checkbox" name="groups" checked>
-									<div>
-										<i class="fa fa-5x fa-users" aria-hidden="true"></i>
-									</div>
-									<p>группы</p>
-								</label>
-							</div>
-							<div id="teams" class="text-center col-xs-4">
-								<label class="checking_p_g_t md-btn" style="white-space: normal; padding: 0">
-									<input type="checkbox" name="teams">
-									<div>
-										<i class="fa fa-3x fa-users" aria-hidden="true"></i>
-										<i class="fa fa-3x fa-users" aria-hidden="true"></i>
-										<i class="fa fa-3x fa-users" aria-hidden="true"></i>	
-									</div>
-									<p style="margin-top:0">команды</p>
-								</label>
-							</div>
-						</div>
-						<div class="text-center">
-							
-						</div>
-					</form>
-				</div>
-			</div>
+			
 			<!--   PARTISIPANTS  --
 			<div class="panel panel-default">
 				<div class="panel-heading">Участники</div>

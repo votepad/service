@@ -1,6 +1,52 @@
-var editor_judges, editor_participants, editor_groups, editor_teams, editor_participants_groups, editor_participants_teams, editor_groups_teams;
-
 $().ready (function() {
+
+	var array_judges = [
+		{'judge_name': 'Иванов Иван Иванович', 'judge_role':'главный жюри', 'judge_email':'email1@ya.ru', 'judge_password':'11111', 'judge_send_mail':'true'},
+	];
+
+	var judge_name_validator = function (value, callback) {
+		if (value.split(/[\s\.\?]+/).length == 3) {
+			callback(true);
+		}
+		else {
+			callback(false);
+		}
+	};
+
+	var judge_email_validator = function (value, callback) {
+		if (/.+@.+/.test(value)) {
+			callback(true);
+		}
+		else {
+			callback(false);
+		}
+	};
+
+	var judges_settings = {
+		data: array_judges,
+		minSpareRows: 1,
+		rowHeaders: true,
+		stretchH: 'all',
+		colWidths: [200,100,80,50,70],
+		colHeaders: ['ФИО жюри', 'Роль', 'E-mail', 'Пароль', 'Прислать приглашение'],
+		columns: [
+			{ data:'judge_name', validator: judge_name_validator, allowInvalid: true },
+			{ data:'judge_role', },
+			{ data:'judge_email', validator: judge_email_validator, allowInvalid: true },
+			{ data:'judge_password', type: 'password', editor: false, hashLength: 10},
+			{ data:'judge_send_mail', type: 'checkbox', className: 'htCenter' },
+		],
+		afterChange: function (changes, source) {
+			if (source !== 'loadData') {
+				// отправка данных 
+				console.log(JSON.stringify(changes));
+			}
+		},
+	};
+
+	var jusdes_hot = new Handsontable(document.getElementById('judges'), judges_settings);
+
+	/*
 	$('.checking_p_g_t').click(function(){
 		if( $(this).hasClass('select') ) {
 			$(this).removeClass('select');
@@ -625,5 +671,5 @@ $().ready (function() {
 	$('#table_teams_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
 	$('#table_participants_groups_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
 	$('#table_participants_teams_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
-	$('#table_groups_teams_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
+	$('#table_groups_teams_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');*/
 });
