@@ -63,7 +63,7 @@ class Dispatch extends Controller_Template
     */
     public function after()
     {
-        echo View::factory('profiler/stats');
+//        echo View::factory('profiler/stats');
 
         parent::after();
     }
@@ -98,8 +98,12 @@ class Dispatch extends Controller_Template
     public static function isLogged()
     {
         $session = Session::Instance();
-        if ( empty($session->get('id_user')) )
-            Controller::redirect('auth/');
+        if ( empty($session->get('id_user')) ) {
+            return false;
+        } else {
+            return true;
+        }
+
     }
 
     /**

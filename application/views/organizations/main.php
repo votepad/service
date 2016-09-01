@@ -2,7 +2,7 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Организация</title>
+	<title>Страница организации - <?=$organization->name; ?></title>
 
 	<!-- =============== VENDOR STYLES ===============-->
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
@@ -22,33 +22,33 @@
 	<div class="content-wrapper">
 		<!-- ORGANIZATION INFO -->
 		<div class="org-block">
-				<div class="org-background" style="background-image: url(<?=$assets; ?>img/temp/bg2.jpg);">
-					<div class="org-avatar">
-						<img src="<?=$assets; ?>img/temp/bg4.jpg">
-					</div>
-					<div class="org-name-background"></div>
-					<div class="org-name">
-						<h2>
-							Университет ИТМО
-							<a href="http://ifmo.ru" class="inline" data-toggle="tooltip" data-placement="top" title="Официальный сайт">
-								<i class="fa fa-external-link" aria-hidden="true"></i>
-							</a>
-						</h2>
-					</div>
+			<div class="org-background" style="background-image: url(<?=$assets; ?>img/temp/bg2.jpg);">
+				<div class="org-avatar">
+					<img src="<?=$assets; ?>img/temp/bg4.jpg">
 				</div>
-				<div class="org-nav-block">
-					<div class="org-nav">
-						<a href="<?=URL::site('organization/' . $id); ?>" class="md-btn active">
-							Мероприятия
-							<div class="active-tab"></div>
+				<div class="org-name-background"></div>
+				<div class="org-name">
+					<h2>
+						<?=$organization->name; ?>
+						<a href="<?=$organization->website; ?>" class="inline" data-toggle="tooltip" data-placement="top" title="Официальный сайт">
+							<i class="fa fa-external-link" aria-hidden="true"></i>
 						</a>
-						<a href="<?=URL::site('organization/' . $id . '/settings/main'); ?>" class="md-btn">
-							Настройки
-							<div class="active-tab"></div>
-						</a>
-					</div>
+					</h2>
 				</div>
 			</div>
+			<div class="org-nav-block">
+				<div class="org-nav">
+					<a href="<?=URL::site('organization/' . $id); ?>" class="md-btn active">
+						Мероприятия
+						<div class="active-tab"></div>
+					</a>
+					<a href="<?=URL::site('organization/' . $id . '/settings/main'); ?>" class="md-btn">
+						Настройки
+						<div class="active-tab"></div>
+					</a>
+				</div>
+			</div>
+		</div>
 
 		<!-- SECTION -->
 		<section>

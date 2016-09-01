@@ -9,7 +9,7 @@
                             <label class="control-label">Поиск мероприятия</label>
                             <input type="text" class="form-control input-sm">
                         </div>
-                        
+
                         <div class="col-md-3 col-xs-6">
                             <label class="control-label">Сортировать по</label>
                             <select class="form-control input-sm">
@@ -31,16 +31,17 @@
                     </div>
 
                     <!-- LIST OF EVENTS -->
-                    <ul class="text-center">
+                    <ul>
+                        <? for($i = 0; $i < count($events); $i++) : ?>
                         <li class="event-group">
                             <div class="event-wrapper">
                                 <div class="event-shot">
                                     <div class="event-image" style="background: url(<?=$assets; ?>img/bg2.jpg) no-repeat;"></div>
-                                    <a class="event-link" href="#/tnl">
+                                    <a class="event-link" href="<?=URL::site('events/' . $events[$i]['name']); ?>">
                                         <div class="event-preview">
-                                            <h2>Федеральный конкурс Ты нужен людям</h2>
-                                            <p>Этот конкурс проходит ежегодно, чтобы развивать креативное мышление у молодого поколения, а так же знакомить с различными социальными делами </p>
-                                            <span>27 мая 2017 г.</span>
+                                            <h2><?=$events[$i]['name']; ?></h2>
+                                            <p><?=$events[$i]['short_description']; ?></p>
+                                            <span><?=$events[$i]['start_time']; ?></span>
                                             <small>черновик</small>
                                         </div>
                                     </a>
@@ -122,10 +123,11 @@
                                     </ul>
                                 </div>
                             </div>
-                        </li>                   
+                        </li>
+                        <? endfor; ?>
                     </ul>
                     <div class="text-center">
-                        Показано 1 мероприятие
+                        Показано <?=count($events); ?>
                     </div>
                 </div>
             </div>
@@ -137,7 +139,7 @@
         <div class="panel panel-default">
             <div class="panel-heading">Быстрый старт</div>
             <div class="panel-body">
-                <a href="newevent.html" class="md-btn md-btn-md quick-start">
+                <a href="<?=URL::site($organization->name . '/event/new'); ?>" class="md-btn md-btn-md quick-start">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Создать мероприятие
                 </a>
@@ -154,7 +156,7 @@
                 в разработке ...
             </div>
             <div class="panel-footer">
-                
+
             </div>
         </div>
 
@@ -212,7 +214,7 @@
                         <img class="inline" src="<?=$assets; ?>img/user/02.jpg">
                         <div class="inline">
                             <p>Иван ИвановИван ИвановИван ИвановИван ИвановИван Иванов</p>
-                            <small>основатель организацииИван ИвановИван Иванов</small>    
+                            <small>основатель организацииИван ИвановИван Иванов</small>
                         </div>
                     </li>
                     <li class="person-in-team no-li">
@@ -226,6 +228,7 @@
             </div>
         </div>
     </div>
+
 </div>
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>

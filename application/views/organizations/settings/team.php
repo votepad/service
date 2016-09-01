@@ -25,6 +25,7 @@
 		</div>
 		<div class="panel-body">
 			<ul class="pad-l-r-15">
+				<? for($i = 0; $i < count($team); $i++) : ?>
 				<li class="no-li user-block">
 					<div class="userImageBlock inline">
 						<img src="<?=$assets; ?>img/user/02.jpg">
@@ -34,7 +35,7 @@
 					</button>
 					<div class="inline user-block-right-column">
 						<div class="user-header">
-							<h4 class="inline">Николай Туров</h4>
+							<h4 class="inline"><?=$team[$i]['lastname'] . ' ' . $team[$i]['name'] . ' ' . $team[$i]['surname']; ?></h4>
 							<span class="inline">Создатель организации</span>
 						</div>
 						<div class="">
@@ -94,9 +95,10 @@
 						</div>
 					</div>
 				</li>
-				<li class="no-li user-block">
+				<? endfor; ?>
+				<!--<li class="no-li user-block">
 					<div class="userImageBlock inline">
-						<img src="<?=$assets; ?>img/user/01.jpg">
+						<img src="img/user/01.jpg">
 					</div>
 					<button class="md-icon-button edit-team-btn" data-toggle="collapse" data-target="#user2">
 						<i class="fa fa-edit" aria-hidden="true"></i>
@@ -162,7 +164,7 @@
 							</form>
 						</div>
 					</div>
-				</li>
+				</li>-->
 			</ul>
 
 			<div class="pad-l-r-15">
