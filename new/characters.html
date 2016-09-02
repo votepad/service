@@ -289,7 +289,50 @@
 			<div class="panel panel-default">
 				<div class="panel-heading">Участники, группы и команды</div>
 				<div class="panel-body">
-					<h4><strong>Создание команд</strong></h4>
+					<form class="form-horizontal">
+						<div class="whom_vote form-group">
+							<div class="col-xs-3">
+								<label class="label-control" ">Жюри будут оценивать</label>
+								<span class="help-block">Вы можете выбрать несколько вариатов.</span>
+							</div>
+							<div class="col-xs-9">
+								<div id="participants" class="text-center col-xs-4">
+									<label class="md-btn checked">
+										<input type="checkbox" name="participants" checked>
+										<div class="desc">
+											<i class="fa fa-user" aria-hidden="true"></i>
+											участников	
+										</div>
+									</label>
+								</div>
+								<div id="groups" class="text-center col-xs-4">
+									<label class="md-btn">
+										<input type="checkbox" name="groups">
+										<div class="desc">
+											<i class="fa fa-users" aria-hidden="true"></i>
+											группы
+										</div>
+									</label>
+								</div>
+								<div id="teams" class="text-center col-xs-4">
+									<label class="md-btn">
+										<input type="checkbox" name="teams">
+										<div class="desc">
+											<i class="fa fa-users" aria-hidden="true"></i>
+											<i class="fa fa-users" aria-hidden="true"></i>
+											<i class="fa fa-users" aria-hidden="true"></i>	
+											команды
+										</div>
+									</label>
+								</div>
+							</div>
+						</div>
+					</form>
+					<div id= "panel_p_g_t"></div>					
+
+					
+
+<!--					<h4><strong>Создание команд</strong></h4>
 					<p>Создайте команды, по которым будут распределены группы </p>
 					<table id="table_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
 						<thead>
@@ -323,7 +366,7 @@
 								<th class="no-sort">Фотография</th>
 							</tr>
 						</thead>
-					</table>
+					</table>-->
 				</div>
 			</div>
 

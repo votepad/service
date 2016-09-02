@@ -1,5 +1,7 @@
 $().ready (function() {
 
+	/*   JUDGES   */
+
 	var array_judges = [
 		{'judge_name': 'Иванов Иван Иванович', 'judge_role':'главный жюри', 'judge_email':'email1@ya.ru', 'judge_password':'11111', 'judge_send_mail':'true'},
 	];
@@ -46,6 +48,95 @@ $().ready (function() {
 
 	var jusdes_hot = new Handsontable(document.getElementById('judges'), judges_settings);
 
+	var create_charecters_partisipants = function() {};
+	/*   WHOM VOTE   */
+	var charecters = {'participants':true, 'groups':false, 'teams':false};
+	var create_charecters_body = function(){
+		var temp = '';
+		if (charecters.teams == true) { temp = temp + '<div class="form-group" id="table_teams"></div>';  }
+		if (charecters.groups == true) { temp = temp + '<div class="form-group" id="table_groups"></div>'; }
+		if (charecters.participants == true) { temp = temp + '<div class="form-group" id="table_participants"></div>'; create_charecters_partisipants(); }
+		$('#panel_p_g_t').append(temp);
+	};
+	create_charecters_body();
+	$('.whom_vote').on('click', '.md-btn', function(){
+		var id = $(this).closest('.col-xs-4').attr('id');
+		if ( $(this).hasClass('checked') ) {
+			if ( id == 'participants') { charecters.participants = false } else if ( id == 'groups') {charecters.groups = false} else {charecters.teams = false}
+			$('input',this).attr('checked',false);
+			$(this).removeClass('checked');
+			console.log(charecters);
+			$('#panel_p_g_t').empty();
+		create_charecters_body();
+			return false;
+		} else{
+			if ( id == 'participants') { charecters.participants = true } else if ( id == 'groups') {charecters.groups = true} else {charecters.teams = true}
+			$('input',this).attr('checked',true);
+			$(this).addClass('checked');
+			console.log(charecters);
+			$('#panel_p_g_t').empty();
+			create_charecters_body();
+			return false;
+		}
+	});
+
+
+	/*  CHARECTERS  */
+		
+	create_charecters_partisipants = function() {
+		var array_participants = [
+			{'part_team': 'Команда 1', 'part_group':'Группа 1', 'part_name':'Федя Иванов'},
+		];
+
+		var charecters_settings = {
+			data: array_participants,
+			minSpareRows: 1,
+			rowHeaders: true,
+			stretchH: 'all',
+			colWidths: [200,100,80,50,70],
+			colHeaders: ['ФИО участника'],
+			columns: [
+				{ data:'part_name' },
+			],
+			afterChange: function (changes, source) {
+				if (source !== 'loadData') {
+					// отправка данных 
+					console.log(JSON.stringify(changes));
+				}
+			},
+		};
+	
+		var carecters_hot = new Handsontable(document.getElementById('table_participants'), charecters_settings);
+	};
+	create_charecters_partisipants();
+
+
+/*var d = ['Kia', 'Nissan', 'Toyota', 'Honda'];
+
+	var container = document.getElementById("example1"),
+  hot1;
+
+hot1 = new Handsontable(container, {
+  data: [
+    ['2008', 'Nissan', 11],
+    ['2009', 'Honda', 11],
+    ['2010', 'Kia', 15]
+  ],
+  colHeaders: true,
+  contextMenu: false,
+  columns: [
+    {},
+    {
+      editor: 'select',
+      selectOptions: d
+    },
+    {}
+  ]
+});
+
+$('#222').click(function(){
+	d.push("kek");
+});*/
 	/*
 	$('.checking_p_g_t').click(function(){
 		if( $(this).hasClass('select') ) {

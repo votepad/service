@@ -274,41 +274,21 @@ header{
 #judges{
 	width: 100%;
 }
-
-
-
-#whom_vote .inline{
-	margin-right: 30px;
+.whom_vote{
+	display: block;
+	padding-left: 15px;
+	padding-right: 15px;
 }
-.checking_p_g_t{
-	height: 130px;
-	width: 130px;
-	margin: auto;
-	border: 1px solid #bbb;
+.whom_vote input {
+	opacity: 0;
 }
-	.checking_p_g_t input{
-		opacity: 0;
-	}
-	.checking_p_g_t div{
-		margin-top: -10px
-	}
-	.checking_p_g_t p{
-		font-size: 20px;
-		margin-top: 10px;
-	}
-	.checking_p_g_t.select{
-		background-color: #fafafa;
-		box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
-	}
-div.dt-buttons,  div.dataTables_wrapper div.dataTables_info{
-	text-align: left;
+.whom_vote .desc{
+	margin-left: -15px;
+	display: inline;
 }
-div.dataTables_wrapper div.dataTables_filter{
-	text-align: right;
-}
-.DTE_Header_Content{
-	font-size: 20px;
-}
-.DTE_Header modal-header{
-	padding: 15px; 
+.whom_vote .md-btn.checked{
+	-webkit-transform: translate3d(0,-1px,0);
+	transform: translate3d(0,-1px,0); 
+	box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
+	background-color: #eaeaea;
 }
