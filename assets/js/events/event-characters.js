@@ -40,22 +40,27 @@ $().ready (function() {
 		],
 		afterChange: function (changes, source) {
 			if (source !== 'loadData') {
-				// отправка данных 
+				// отправка данных о жюри
 				console.log(JSON.stringify(changes));
 			}
 		},
 	};
 
-	var jusdes_hot = new Handsontable(document.getElementById('judges'), judges_settings);
+	$('#judges').handsontable(judges_settings);
 
-	var create_charecters_partisipants = function() {};
 	/*   WHOM VOTE   */
+
 	var charecters = {'participants':true, 'groups':false, 'teams':false};
+
 	var create_charecters_body = function(){
 		var temp = '';
-		if (charecters.teams == true) { temp = temp + '<div class="form-group" id="table_teams"></div>';  }
-		if (charecters.groups == true) { temp = temp + '<div class="form-group" id="table_groups"></div>'; }
-		if (charecters.participants == true) { temp = temp + '<div class="form-group" id="table_participants"></div>'; create_charecters_partisipants(); }
+		if (charecters.teams == true && charecters.groups == false && charecters.participants == false) { temp = temp + '<div class="form-group" id="table_teams"></div> <script type="text/javascript" src="../../../assets/js/events/event-characters-teams.js"></script>';  }
+		else if (charecters.groups == true && charecters.teams == false && charecters.participants == false) { temp = temp + '<div class="form-group" id="table_groups"></div> <script type="text/javascript" src="../../../assets/js/events/event-characters-groups.js"></script>'; }
+		else if (charecters.participants == true && charecters.groups == false && charecters.teams == false) { temp = temp + '<div class="form-group" id="table_participants"></div> <script type="text/javascript" src="../../../assets/js/events/event-characters-partisipants.js"></script>'; }
+		else if (charecters.participants == true && charecters.groups == true && charecters.teams == false) { temp = temp + '<div class="form-group" id="table_groups"></div><div class="form-group" id="table_participants"></div> <script type="text/javascript" src="../../../assets/js/events/event-characters-partisipants-groups.js"></script>'; }
+		else if (charecters.participants == true && charecters.teams == true && charecters.groups == false) {  temp = temp + '<div class="form-group" id="table_teams"></div><div class="form-group" id="table_participants"></div> <script type="text/javascript" src="../../../assets/js/events/event-characters-partisipants-teams.js"></script>'; }
+		else if (charecters.groups == true && charecters.teams == true && charecters.participants == false) {}
+		else {}
 		$('#panel_p_g_t').append(temp);
 	};
 	create_charecters_body();
@@ -65,6 +70,7 @@ $().ready (function() {
 			if ( id == 'participants') { charecters.participants = false } else if ( id == 'groups') {charecters.groups = false} else {charecters.teams = false}
 			$('input',this).attr('checked',false);
 			$(this).removeClass('checked');
+			/* отправить изменения массва charecters аяксом*/
 			console.log(charecters);
 			$('#panel_p_g_t').empty();
 		create_charecters_body();
@@ -73,6 +79,7 @@ $().ready (function() {
 			if ( id == 'participants') { charecters.participants = true } else if ( id == 'groups') {charecters.groups = true} else {charecters.teams = true}
 			$('input',this).attr('checked',true);
 			$(this).addClass('checked');
+			/* отправить изменения массва charecters аяксом*/
 			console.log(charecters);
 			$('#panel_p_g_t').empty();
 			create_charecters_body();
@@ -83,32 +90,8 @@ $().ready (function() {
 
 	/*  CHARECTERS  */
 		
-	create_charecters_partisipants = function() {
-		var array_participants = [
-			{'part_team': 'Команда 1', 'part_group':'Группа 1', 'part_name':'Федя Иванов'},
-		];
-
-		var charecters_settings = {
-			data: array_participants,
-			minSpareRows: 1,
-			rowHeaders: true,
-			stretchH: 'all',
-			colWidths: [200,100,80,50,70],
-			colHeaders: ['ФИО участника'],
-			columns: [
-				{ data:'part_name' },
-			],
-			afterChange: function (changes, source) {
-				if (source !== 'loadData') {
-					// отправка данных 
-					console.log(JSON.stringify(changes));
-				}
-			},
-		};
+		
 	
-		var carecters_hot = new Handsontable(document.getElementById('table_participants'), charecters_settings);
-	};
-	create_charecters_partisipants();
 
 
 /*var d = ['Kia', 'Nissan', 'Toyota', 'Honda'];
