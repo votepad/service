@@ -65,7 +65,7 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<h4 class="modal-title" id="myModalLabel">Изменение основной информации о мероприяии</h4>
 						</div>
-						<form method="POST" id="event_main_info" class="">
+						<form method="POST" id="event_main_info" class="form-horizontal">
 							<div class="modal-body">
 									<div class="form-group">
 										<label for="eventname" class="control-label">Название мероприятия</label>
