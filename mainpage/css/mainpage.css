@@ -89,13 +89,67 @@ body{
 	background-repeat:no-repeat;
 }
 
+.organisationHead{
+	margin-top:4.5em;
+	max-height: 300px;/* По стандарту, как и на странице организации */
+	padding:75px;
+	
+	background-color:#fff;
+	background-size:cover;
+	background-repeat:no-repeat;
+
+	
+	color:rgba(255,255,255,1);
+}
+
+.organisationArea{
+	display:inline-block;
+	padding:1em;
+	background-color:rgba(250,250,250,0.2);
+}
+
+.organisationHead .logo{
+	width:150px;
+	height:150px;
+	margin-right:2em;
+	float:left;
+	box-shadow: 0px 0px 13px -2px #000;
+	/*border:5px solid rgba(120,120,120,0.5);*/
+	border-radius:5px;
+}
+
+.title_bar>span, .title_bar>h2, .title>span, .organisationHead span{
+	font-size:2em;
+	margin:1em;
+	color:#ebebeb;
+	text-shadow: 0px 1px 1px rgba(71,71,71,0.75);
+}
+
+.title_bar>h2{
+	margin:0;
+	/* color:rgba(49,85,114,0.01); *//*#315572*/
+	text-shadow: 1px 1px 3px rgba(49,85,114,1);
+}
+
+
+.title_bar a{
+	font-size:0.5em;
+	margin:0;
+}
+
+.organisationHead span{
+	line-height:150px; /* Размер логотипа */
+	text-shadow: 0px 1px 1px rgba(20,20,20,1);
+	margin:0;
+}
+
 .community {
 	width:100%;
 }
 
 /* clearfix*/
 
-.community:after{
+.community:after, .organisationHead:after{
 	content:'';
 	display:table;
 	clear:both;
@@ -108,16 +162,9 @@ body{
 	background-color:rgba(0,196,65,1);
 }
 
-.community>.title_bar>span, .title>span{
-	font-size:2em;
-	margin:1em;
-	color:#ebebeb;
-	text-shadow: 0px 1px 1px rgba(71,71,71,0.75);
-}
-
 .site_description{
 	margin: 0 auto;
-	width:33.33%;
+	width:100%;
 	font-size:3.75em;
 	text-align:center;
 	
@@ -151,6 +198,10 @@ body{
 	padding:0.25em 0.75em;
 }
 
+.button:hover{
+	background: #fff;
+}
+
 .medium_button{
 	font-size:1.25em;
 }
@@ -165,6 +216,18 @@ body{
 
 .blue_button{
 	background-color:rgba(3,62,109,1)!important;
+}
+
+.purple_button{
+	background-color:rgba(128,0,128,1)!important;
+}
+
+.cyan_button{
+	background-color:rgba(0,255,255,1)!important;
+}
+
+.grey_button{
+	background-color:rgba(100,100,100,0.25)!important;
 }
 
 .client_container{
@@ -183,7 +246,6 @@ body{
 
 .client_container ul{
 	display:block;
-	background-color:rgba(214,214,214,0.75);
 	width:100%;
 	margin:0;
 	color:#333;
@@ -191,8 +253,9 @@ body{
 	padding:0;
 }
 
-.client_container ul li{
-	font-size:1.25em;
+.client_container li{
+	font-size:1em;
+	color:#f7f7f7;
 	padding:0.5em;
 }
 
@@ -263,6 +326,7 @@ body{
 	background-repeat:no-repeat;
 	width:18%;
 	min-height:4em;
+	min-width:110px;
 	font-size:3em;
 	color:#505050;
 	margin-right:0.1em;
@@ -327,7 +391,7 @@ ul{
 }
 
 .small-text p::after{
-	content:'Читать полностью';
+	content:' Читать полностью';
 	color:#315672;
 }
 
@@ -339,7 +403,7 @@ a{
 date,url,org{
 	display:inline-block;
 	color:#505050;
-	padding-left:1.75em;
+	padding-left:2em;
 	height:31px;
 	line-height:30px;
 	background-repeat:no-repeat;
@@ -347,7 +411,7 @@ date,url,org{
 	background-size:25px;
 	transition:0.25s;
 	transition-delay:0.1s;
-	cursor:default;
+	cursor:pointer;
 }
 
 date{
@@ -364,6 +428,11 @@ url{
 
 url:hover{
 	background-image:url(../img/icon/url.png);
+}
+
+a[href*='city']{
+	font-size:0.75em;
+	vertical-align:middle;
 }
 
 .block_container{
@@ -407,6 +476,10 @@ url:hover{
 
 .block-content{
 	padding:0.5em;
+}
+
+.block-content li{
+	margin:1em;
 }
 
 .block-content ul .name>span{
@@ -495,9 +568,10 @@ url:hover{
 	text-shadow:0px 1px 1px rgba(71,71,71,0.75);
 }
 
-.counter{
-	max-width:88px;
-	max-height:31px;
-	float:right;
-	margin-right:1em;
+.footer a{
+	margin-left:1em;
+}
+
+.footer a:hover{
+	text-decoration:underline;
 }
