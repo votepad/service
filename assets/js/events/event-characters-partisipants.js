@@ -8,14 +8,14 @@ var charecters_partisipants_settings = {
 	minSpareRows: 1,
 	rowHeaders: true,
 	stretchH: "all",
-	colWidths: [200,400],
+	colWidths: [288,400],
 	colHeaders: ["ФИО участника", "Описание участника"],
 	columns: [
 		{ data:"part_name" },
 		{ data:"part_about" },
 	],
 	afterChange: function (changes, source) {
-		if (source !== "loadData") { 
+		if (source !== "loadData") {
 			// отправка аяксом изменения об участниках
 			console.log(JSON.stringify(changes));
 		}

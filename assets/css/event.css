@@ -28,7 +28,7 @@
 			width: 30%;
 		}
 	.org-info-btn, .org-info-btn:hover, .org-info-btn:focus{
-		text-decoration:none; 
+		text-decoration:none;
 		color:#64b5f6;
 	}
 		.org-info-btn i{
@@ -68,7 +68,7 @@ header{
 }
 .header-link, .drop-orgs{
 	color: white;
-	font-size: 20px;	
+	font-size: 20px;
 }
 .header-link:hover, .header-link:focus{
 	color: #2f95ea;
@@ -125,13 +125,13 @@ header{
 			height: 41.5px;
 		}
 		.event-nav .md-btn.active > .active-tab{
-			display: block;	
+			display: block;
 		}
 
 		.event-nav .md-btn:hover, .event-nav .md-btn:focus{
 			background-color: rgb(236,236,236);
 			-webkit-transform: none;
-			transform: none; 
+			transform: none;
 			box-shadow: none;
 		}
 		.event-nav .md-btn.active:hover, .event-nav .md-btn.active:focus{
@@ -174,7 +174,7 @@ header{
 	left: 20px;
 	bottom: 20px;
 }
-.start-date, .end-date{	
+.start-date, .end-date{
 	position: relative;
 	font-size: 11px;
 	text-align: center;
@@ -275,20 +275,179 @@ header{
 	width: 100%;
 }
 .whom_vote{
-	display: block;
-	padding-left: 15px;
-	padding-right: 15px;
+	padding-left: -15px;
+	padding-right: -15px;
 }
-.whom_vote input {
-	opacity: 0;
+	.whom_vote .icon{
+		width: 25px;
+		height: 25px;
+		padding: 1px 5px;
+		display: inline-block;
+		border: 1px solid #bbb;
+		border-radius: 5px;
+
+	}
+	.whom_vote .text{
+		display: inline-block;
+		padding-left: 5px;
+		font-size: 1.2em;
+	}
+.icon .icon-crowd-of-users{
+	margin-top: -3px;
+	margin-left: -2px;
+	font-size: 1.3em;
+	vertical-align: middle;
 }
-.whom_vote .desc{
-	margin-left: -15px;
-	display: inline;
+.icon .fa-user{
+	 margin-left: 1px;
 }
-.whom_vote .md-btn.checked{
-	-webkit-transform: translate3d(0,-1px,0);
-	transform: translate3d(0,-1px,0); 
-	box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
-	background-color: #eaeaea;
+.icon .fa-users{
+	margin-left: -1px;
 }
+
+
+.onoffswitch {
+    position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		width: 60px;
+    -webkit-user-select:none;
+		-moz-user-select:none;
+		-ms-user-select: none;
+}
+.onoffswitch-checkbox {
+    display: none;
+}
+.onoffswitch-checkbox[disabled] + .onoffswitch-label {
+	opacity: .5;
+}
+.onoffswitch-label {
+    display: block;
+		overflow: hidden;
+		cursor: pointer;
+    border: 1px solid #bbb;
+		border-radius: 20px;
+}
+.onoffswitch-inner {
+    display: block;
+		width: 200%;
+		margin-left: -100%;
+    transition: margin 0.3s ease-in 0s;
+}
+.onoffswitch-inner:before, .onoffswitch-inner:after {
+    display: block;
+		float: left;
+		width: 50%;
+		height: 20px;
+		padding: 0;
+    font-size: 14px;
+		color: white;
+		font-weight: bold;
+    box-sizing: border-box;
+}
+.onoffswitch-inner:before {
+    content: "да";
+    padding-left: 10px;
+    background-color: #2F95EA;
+		color: #fff;
+}
+.onoffswitch-inner:after {
+    content: "нет";
+    padding-right: 10px;
+    background-color: #F5F5F5;
+		color: #bbb;
+    text-align: right;
+}
+.onoffswitch-switch {
+    display: block;
+		width: 16px;
+		height: 16px;
+		margin: 3px;
+    background: #fff;
+    position: absolute;
+		top: 0;
+		bottom: 0;
+    right: 36px;
+    border: 1px solid #bbb;
+		border-radius: 50%;
+    transition: all 0.3s ease-in 0s;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
+    margin-left: 0;
+}
+.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
+    right: 0px;
+}
+
+.teams, .participants, .groups{
+	width: 100%;
+	text-align: center;
+	margin-bottom: 5px;
+}
+.team, .participant, .group{
+	display: inline-block;
+	margin: 0 15px 10px 15px;
+	border: 1px solid #bbb;
+	border-radius: 3px;
+	text-align: center;
+	font-size: 1.3em;
+	height: 40px;
+}
+	.team .label, .group .label{
+		float: left;
+		position: relative;
+		display: inline-block;
+		color: inherit;
+		border-radius: 0;
+		vertical-align: middle;
+		line-height: inherit;
+    font-size: 1em;
+		height: 100%;
+		padding: 0 10px;
+    font-weight: normal;
+	}
+		.team .label span, .group .label span{
+			vertical-align: -webkit-baseline-middle;
+		 	padding: 0 5px;
+		}
+	.team .split-blocks, .group .split-blocks{
+		float: left;
+    display: inline-block;
+    height: 100%;
+    border-left: 1px solid #bbb;
+	}
+	.team .body, .group .body{
+		float: left;
+		position: relative;
+		display: inline-block;
+		vertical-align: middle;
+		height: 100%;
+		padding: 0 10px;
+	}
+	  .team .body i, .group .body i{
+			padding: 0 5px;
+			vertical-align: -webkit-baseline-middle;
+		}
+
+	.participant .label{
+			float: left;
+			position: relative;
+			display: inline-block;
+			color: inherit;
+			border-radius: 0;
+			vertical-align: middle;
+			line-height: inherit;
+	    font-size: 1em;
+			padding: 4 10px;
+	    font-weight: normal;
+		}
+			.participant .label span{
+				vertical-align: middle;
+				padding: 0 5px;
+			}
+			.participant .label i{
+				padding: 0 5px;
+			}
+
+.team1{ color: #27c24c; }
+.team2{ color: #2F95EA; }

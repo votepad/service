@@ -9,14 +9,14 @@ var charecters_teams_settings = {
 	minSpareRows: 1,
 	rowHeaders: true,
 	stretchH: "all",
-	colWidths: [200,400],
+	colWidths: [288,400],
 	colHeaders: ["Название команды", "Описание команды"],
 	columns: [
 		{ data:"team_name" },
 		{ data:"team_about" },
 	],
 	afterChange: function (changes, source) {
-		if (source !== "loadData") { 
+		if (source !== "loadData") {
 			// отправка аяксом изменения об командах
 			console.log(JSON.stringify(changes));
 		}

@@ -5,6 +5,7 @@
 	<title>Новое мероприятие</title>
 
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/fontawesome/css/font-awesome.min.css">
+	<link rel="stylesheet" type="text/css" href="../../../assets/css/votepad_fonts.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/bootstrap/dist/css/bootstrap.css">
 
 	<link rel="stylesheet" type="text/css" href="../../../assets/vendor/handsontable/handsontable.full.min.css">
@@ -13,7 +14,7 @@
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/upload.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/app1.css">
 	<link rel="stylesheet" type="text/css" href="../../../assets/css/event.css">
-	
+
 	<script type="text/javascript" src="../../../assets/vendor/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="../../../assets/vendor/jquery-validation/dist/jquery.validate.js"></script>
 
@@ -28,14 +29,14 @@
 
 	<script type="text/javascript" src="../../../assets/js/events/event-edit-main-info.js"></script>
 	<script type="text/javascript" src="../../../assets/js/events/event-characters.js"></script>
-	
+
 
 </head>
 <body>
 
 
 <div class="wrapper">
-	
+
 
 	<div class="content-wrapper">
 		<!-- EVENT INFO -->
@@ -46,7 +47,7 @@
 					<div class="left-nav pull-left">
 						<ul class="no-li">
 							<li class="inline">
-								<a href="" class="header-link">VotePad</a>		
+								<a href="" class="header-link">VotePad</a>
 							</li>
 							<li class="inline">
 								<a href="" class="header-link">Университет ИТМО</a>
@@ -147,88 +148,66 @@
 					<div id="judges"></div>
 				</div>
 			</div>
-			
+
 			<div class="panel panel-default">
-				<div class="panel-heading">Участники, группы и команды</div>
+				<div class="panel-heading">Выбор действующих лиц</div>
 				<div class="panel-body">
-					<form class="form-horizontal">
-						<div class="whom_vote form-group">
-							<div class="col-xs-3">
-								<label class="label-control" ">Жюри будут оценивать</label>
-								<span class="help-block">Вы можете выбрать несколько вариатов.</span>
-							</div>
-							<div class="col-xs-9">
-								<div id="participants" class="text-center col-xs-4">
-									<label class="md-btn checked">
-										<input type="checkbox" name="participants" checked>
-										<div class="desc">
-											<i class="fa fa-user" aria-hidden="true"></i>
-											участников	
-										</div>
-									</label>
+					<legend>Существует несколько сценарий проведения мероприятия, выберите кого будет оценивать жюри</legend>
+					<div class="col-xs-4">
+						<form class="row whom_vote" action="" method="post">
+							<div class="form-group">
+								<div class="icon">
+										<i class="fa fa-user" aria-hidden="true"></i>
 								</div>
-								<div id="groups" class="text-center col-xs-4">
-									<label class="md-btn">
-										<input type="checkbox" name="groups">
-										<div class="desc">
-											<i class="fa fa-users" aria-hidden="true"></i>
-											группы
-										</div>
-									</label>
+								<div class="icon">
+										<i class="fa fa-user" aria-hidden="true"></i>
 								</div>
-								<div id="teams" class="text-center col-xs-4">
-									<label class="md-btn">
-										<input type="checkbox" name="teams">
-										<div class="desc">
-											<i class="fa fa-users" aria-hidden="true"></i>
-											<i class="fa fa-users" aria-hidden="true"></i>
-											<i class="fa fa-users" aria-hidden="true"></i>	
-											команды
-										</div>
+								<div class="text">участников</div>
+								<div class="onoffswitch">
+									<input type="checkbox" name="participants" class="onoffswitch-checkbox" id="participants_onoffswitch" checked="">
+									<label class="onoffswitch-label checked" for="participants_onoffswitch">
+										<span class="onoffswitch-inner"></span>
+										<span class="onoffswitch-switch"></span>
 									</label>
 								</div>
 							</div>
-						</div>
-					</form>
-					<div id= "panel_p_g_t"></div>					
+							<div class="form-group">
+								<div class="icon">
+										<span class="icon-crowd-of-users"></span>
+								</div>
+								<div class="icon">
+										<span class="icon-crowd-of-users"></span>
+								</div>
+								<div class="text">команды</div>
+								<div class="onoffswitch">
+									<input type="checkbox" name="teams" class="onoffswitch-checkbox" id="teams_onoffswitch">
+									<label class="onoffswitch-label" for="teams_onoffswitch">
+										<span class="onoffswitch-inner"></span>
+										<span class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+							<div class="form-group">
+								<div class="icon">
+										<i class="fa fa-users" aria-hidden="true"></i>
+								</div>
+								<div class="icon">
+										<i class="fa fa-users" aria-hidden="true"></i>
+								</div>
+								<div class="text">группы</div>
+								<div class="onoffswitch">
+									<input type="checkbox" name="groups" class="onoffswitch-checkbox" id="groups_onoffswitch" disabled>
+									<label class="onoffswitch-label" for="groups_onoffswitch">
+										<span class="onoffswitch-inner"></span>
+										<span class="onoffswitch-switch"></span>
+									</label>
+								</div>
+							</div>
+						</form>
+					</div>
+					<div class="col-xs-8 characters_preview">
 
-					
-
-<!--					<h4><strong>Создание команд</strong></h4>
-					<p>Создайте команды, по которым будут распределены группы </p>
-					<table id="table_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
-						<thead>
-							<tr>
-								<th class="sorting">Название команды</th>
-								<th class="no-sort">Описание команды</th>
-								<th class="no-sort">Логотип Команды</th>
-							</tr>
-						</thead>
-					</table>
-					<h4><strong>Создание групп</strong></h4>
-					<p>Создайте группы и распределите их по командам</p>
-					<table id="table_groups_teams" class="table table-bordered table-hover" cellspacing="0" width="100%">
-						<thead>
-							<tr>
-								<th class="sorting">Название группы</th>
-								<th class="sorting">Команда</th>
-								<th class="no-sort">Описание группы</th>
-								<th class="no-sort">Логотип группы</th>
-							</tr>
-						</thead>
-					</table>
-					<h4><strong>Создание участников</strong></h4>
-					<p>Создайте участников и распределите их по группам</p>
-					<table id="table_participants_groups" class="table table-bordered table-hover" cellspacing="0" width="100%">
-						<thead>
-							<tr>
-								<th class="sorting">ФИО участника</th>
-								<th class="sorting">Группа</th>
-								<th class="no-sort">Описание участника</th>
-								<th class="no-sort">Фотография</th>
-							</tr>
-						</thead>
-					</table>-->
+					</div>
 				</div>
 			</div>
 

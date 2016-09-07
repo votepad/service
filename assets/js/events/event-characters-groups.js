@@ -9,14 +9,14 @@ var charecters_groups_settings = {
 	minSpareRows: 1,
 	rowHeaders: true,
 	stretchH: "all",
-	colWidths: [200,400],
+	colWidths: [288,400],
 	colHeaders: ["Название группы", "Описание группы"],
 	columns: [
 		{ data:"group_name" },
 		{ data:"group_about" },
 	],
 	afterChange: function (changes, source) {
-		if (source !== "loadData") { 
+		if (source !== "loadData") {
 			// отправка аяксом изменения об группах
 			console.log(JSON.stringify(changes));
 		}
