@@ -346,13 +346,13 @@ header{
     box-sizing: border-box;
 }
 .onoffswitch-inner:before {
-    content: "да";
+    content: "";
     padding-left: 10px;
     background-color: #2F95EA;
 		color: #fff;
 }
 .onoffswitch-inner:after {
-    content: "нет";
+    content: "";
     padding-right: 10px;
     background-color: #F5F5F5;
 		color: #bbb;
@@ -424,7 +424,7 @@ header{
 		height: 100%;
 		padding: 0 10px;
 	}
-	  .team .body i, .group .body i{
+	  .team .body i, .group .body i, .group .body span{
 			padding: 0 5px;
 			vertical-align: -webkit-baseline-middle;
 		}
@@ -449,5 +449,6 @@ header{
 				padding: 0 5px;
 			}
 
-.team1{ color: #27c24c; }
-.team2{ color: #2F95EA; }
+.team1, .part1{ color: #27c24c; }
+.team2, .part2{ color: #2F95EA; }
+.team3, .part3 { color: #bbb; }

@@ -1,30 +1,40 @@
+$('.columns-area').append('<div class="panel panel-default"><div class="panel-heading">Группы</div><div class="panel-body"><div id="table_groups"></div></div></div><div class="panel panel-default"><div class="panel-heading">Участники</div><div class="panel-body"><div id="table_participants"></div></div></div>')
+
+/*  ARRAYS  */
+
 var array_groups = [
 	// подгрузка аяксом изменения об группах из БД
 	{"group_name": "Группа 1", "group_about":""},
 	{"group_name": "Группа 2", "group_about":""},
 ];
+var array_participants = [
+	// подгрузка аяксом изменения об участниках из БД
+	{"part_group":"Группа 1", "part_name":"Федя Иванов", "part_about": ".."},
+];
+
+/*  GET NAME FOR SELECT  */
+
 // при каждом добавлении группы обновлять массив groups_name
 var groups_name = new Array();
 for (var i = 0; i < array_groups.length; i++){
 	groups_name.push(array_groups[i].group_name)
 }
-var array_participants = [
-	// подгрузка аяксом изменения об участниках из БД
-	{"part_group":"Группа 1", "part_name":"Федя Иванов", "part_about": ".."},
-];
+
+/*  SETTINGS  */
+
 var charecters_groups_settings = {
 	data: array_groups,
 	minSpareRows: 1,
 	rowHeaders: true,
 	stretchH: "all",
-	colWidths: [200,400],
+	colWidths: [288,400],
 	colHeaders: ["Название группы", "Описание группы"],
 	columns: [
 		{ data:"group_name" },
 		{ data:"group_about" },
 	],
 	afterChange: function (changes, source) {
-		if (source !== "loadData") { 
+		if (source !== "loadData") {
 			// отправка аяксом изменения об группах
 			console.log(JSON.stringify(changes));
 		}
@@ -35,7 +45,7 @@ var charecters_partisipants_settings = {
 	minSpareRows: 1,
 	rowHeaders: true,
 	stretchH: "all",
-	colWidths: [150, 200, 300],
+	colWidths: [188, 200, 300],
 	colHeaders: ["Название группы", "ФИО участника", "Описание участника"],
 	columns: [
 		{ data:"part_group", editor: 'select', selectOptions: groups_name },
@@ -43,7 +53,7 @@ var charecters_partisipants_settings = {
 		{ data:"part_about" },
 	],
 	afterChange: function (changes, source) {
-		if (source !== "loadData") { 
+		if (source !== "loadData") {
 			// отправка аяксом изменения об участниках
 			console.log(JSON.stringify(changes));
 		}
