@@ -41,7 +41,10 @@ class Controller_SignUp extends Dispatch
     /** @todo FIle transport */
     function action_continue()
     {
-        parent::isLogged();
+        if (!parent::isLogged()) {
+            Controller::redirect('auth/');
+        }
+
 
         if ($this->request->method() == self::POST){
 

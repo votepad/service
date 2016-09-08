@@ -92,11 +92,10 @@ ul{
 .control-label{
 	text-align: right;
 }
-.tooltip-arrow{
-	border-bottom-color: rgba(0,0,0,0.54) !important;
-	border-top-color: rgba(0,0,0,0.54) !important;
-	margin-bottom: 1px;
-}
+.tooltip.bottom .tooltip-arrow{border-bottom-color: rgba(0,0,0,0.54);}
+.tooltip.top .tooltip-arrow{border-top-color: rgba(0,0,0,0.54);}
+.tooltip.right .tooltip-arrow{border-right-color: rgba(0,0,0,0.54);}
+.tooltip.left .tooltip-arrow{border-left-color: rgba(0,0,0,0.54);}
 .tooltip-inner{
 	background-color: rgba(0,0,0,0.54);
 	color: #fff;
@@ -124,9 +123,10 @@ label.error-input{
 	margin: 0;
 	font-size: .8em;
 	color: #f47f7f;
+	display: initial;
 }
 .help-block, .error-input{
-	border-color: #f47f7f;
+	border-color: #f47f7f !important;
 	text-align: left !important;
 }
 .input-group-addon{
@@ -404,6 +404,11 @@ label.error-input{
 	border-radius: 3px !important;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
 }
+.panel-heading{
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
 .panel-default {
 	border-color: #bbbbbb;
 }
@@ -475,6 +480,10 @@ label.error-input{
 				display: block;
 			}
 
+	.panel-sm > .panel-heading{
+		padding: 5px 15px;
+		font-size: 15px;
+	}
 .panel-primary {
 	border-color: #bbbbbb;
 }
@@ -545,4 +554,18 @@ label.error-input{
 }
 .dropdown-menu .divider{
 	margin: 1px 0;
+}
+.editable-pre-wrapped {
+	word-wrap: break-word;
+}
+.pad-l-15{
+	padding-left: 15px;
+}
+.pad-r-15{
+	padding-right: 15px;
+}
+@media (max-width: 768px){
+	.panel-sm{
+		width: auto;
+	}
 }

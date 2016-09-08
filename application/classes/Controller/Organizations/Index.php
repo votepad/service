@@ -8,17 +8,46 @@
 
 class Controller_Organizations_Index extends Dispatch
 {
+
+    /**
+     * @const ACTION_NEW [String]
+     */
+
+    const ACTION_NEW = 'new';
+
+    /**
+     * @const ACTION_SHOW [String]
+     */
+
+    const ACTION_SHOW = 'show';
+
+    /**
+     * @const ACTION_SHOW_ALL [String]
+     */
+
+    const ACTION_SHOW_ALL = 'showAll';
+
+    /**
+     * @var $id_organization [Int]
+     */
+
     protected $id_organization = null;
+
+    /**
+     * @var $organization [String] - default value is null. Keeps cached render
+     */
+
+    protected $organization    = null;
 
     public function before()
     {
         switch ($this->request->action()) {
             /**
-             * Рассматриваем 2 случая добавления организации - Авторизованный и неавторизованный
+             * Two types of creating orgs: Logged and Not logged
              */
-            case 'new' :
+            case self::ACTION_NEW :
 
-                if (self::isLogged()) {
+                if (parent::isLogged()) {
                     $this->template = 'organizations/new_logged';
                 } else {
                     $this->template = 'organizations/new_not_logged';
@@ -27,7 +56,7 @@ class Controller_Organizations_Index extends Dispatch
                 break;
 
             /**
-             * Шаблон для организаций (по умолчанию)
+             * default template
              */
             default :
                 $this->template = 'organizations/main';
@@ -38,6 +67,23 @@ class Controller_Organizations_Index extends Dispatch
 
         /** @var $id - organization identificator */
         $this->template->id = $this->id_organization = $this->request->param('id');
+
+        /** @var $organization_cached
+         * getting information about organization from cache
+         */
+        $organization_cached = $this->_cache->get('organization_' . $this->id_organization);
+
+        if (isset($organization_cached)) {
+            $this->organization = $organization_cached;
+        } else {
+            $this->organization = Model_Organizations::get($this->id_organization);
+            $this->_cache->set('organization_' . $this->id_organization, $this->organization);
+        }
+
+        /**
+         * Organization info
+         */
+        $this->template->organization = $this->organization;
     }
 
     /** New organization form */
@@ -46,10 +92,27 @@ class Controller_Organizations_Index extends Dispatch
 
     }
 
-    /** Shows organization */
+    /**
+     * Shows organization
+     */
     public function action_show()
     {
-        $this->template->main_section = View::factory('organizations/events/all');
+        /**
+         * Show all events
+         * @uses Controller_Events method ShowAll
+         */
+
+        $params = array(
+            'id_organization' => $this->id_organization,
+        );
+
+        $response = Request::factory('events/all')
+            ->method(Request::POST)
+            ->post($params)
+            ->execute();
+
+        $this->template->main_section = $response->body();
+
     }
 
     /** Shows list of organizations */
@@ -75,8 +138,14 @@ class Controller_Organizations_Index extends Dispatch
 
     public function action_team()
     {
+        /**
+         * Getting team
+         */
+        $team = Model_Organizations::get_team($this->id_organization);
+        
         $this->template->main_section = View::factory('organizations/settings/team')
-            ->set('id', $this->id_organization);
+            ->set('id', $this->id_organization)
+            ->set('team', $team);
     }
 
     /**
@@ -86,23 +155,14 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_main()
     {
-        $organization_cached = $this->_cache->get('organization_' . $this->id_organization);
-
-        if (isset($organization_cached)) {
-            $organization = $organization_cached;
-        } else {
-            $organization = Model_Organizations::get($this->id_organization);
-            $this->_cache->set('organization_' . $this->id_organization, $organization);
-        }
-
-        if ($organization !== false)
+        if ($this->organization !== null)
         {
-            $creator = Model_Organizations::get_creator($organization->user_created);
+            $creator = Model_Organizations::get_creator($this->organization->user_created);
         }
 
         $this->template->main_section = View::factory('organizations/settings/main')
                 ->set('id', $this->id_organization)
-                ->set('organization', $organization)
+                ->set('organization', $this->organization)
                 ->set('creator', $creator);
     }
 

@@ -45,6 +45,21 @@ class Model_Organizations extends Model
         return false;
     }
 
+    public static function getByName($name)
+    {
+        $organization = new ORM_Organizations();
+
+        $organization->where('name', '=', $name)
+            ->find();
+
+        if ($organization->loaded())
+        {
+            return $organization->id;
+        }
+
+        return false;
+    }
+
     public static function get_creator($id)
     {
         $user = new ORM_User();
@@ -60,13 +75,14 @@ class Model_Organizations extends Model
         return false;
     }
 
-    /**
-     * @todo
-     * @param $id
-     */
-    public static function get_events($id)
+    public static function get_team($id)
     {
+        $team = DB::select('*')->from('Users')
+            ->where('id_organization', '=', $id)
+            ->execute()
+            ->as_array();
 
+        return $team;
     }
 
 }

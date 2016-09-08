@@ -4,25 +4,29 @@
  * @copyright Khaydarov Murod
  */
 
-Route::set('MYEVENTS', 'events/my')
+Route::set('ALL_EVENTS', 'events/all')
     ->defaults(array(
         'controller' => 'Events_Index',
-        'action'     => 'myevents'
+        'action'     => 'showAll'
     ));
 
-Route::set('ALLEVENTS', 'events/all')
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'all'
-    ));
-
-Route::set('NEWEVENT', 'events/new')
+Route::set('NEW_EVENT', '<organization>/event/new')
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'New'
     ));
 
+Route::set('ADD_EVENT', 'event/add')
+    ->defaults(array(
+        'controller' => 'Events_Modify',
+        'action'     => 'add'
+    ));
 
+Route::set('SHOW_EVENT', 'events/<eventname>(/<action>)')
+    ->defaults(array(
+        'controller' => 'Events_Index',
+        'action'     => 'show'
+    ));
 
 /**
  * Add substances
@@ -67,7 +71,7 @@ Route::set('Judge-Settings', 'event/<id>/<action>')
         'action'     => ''
     ));
 
-Route::set('EVENTS', 'events(/<id>(/<action>))')
+/*Route::set('EVENTS', 'events(/<id>(/<action>))')
     ->filter(function($route, $params, $request){
 
         $id = Arr::get($params, 'id');
@@ -78,4 +82,4 @@ Route::set('EVENTS', 'events(/<id>(/<action>))')
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'index',
-    ));
+    ));*/
