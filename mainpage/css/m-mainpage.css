@@ -15,10 +15,19 @@ body{
 	font-family: MyriadProRegular;
 }
 
-h1{
+h1,h2{
 	color:#ebebeb;
 	font-weight:500;
+	font-size:2em;
 	text-shadow: 0px 1px 1px rgba(71,71,71,0.75);
+}
+
+.org_title{
+	display:inline-block;
+	margin:0;
+	font-size:5vh;
+	/*position:relative;*/
+	line-height:10vh;
 }
 
 .topmenu{
@@ -71,13 +80,14 @@ h1{
 	margin:10vh 0 0 0;
 	height:90vh;
 	text-align:center;
+	width:100%;
 }
 
 .welcome h1{
 	display:inline-block;
 	max-width:100%;
 	text-align:center;
-	font-size:3em;
+	font-size:2.5em;
 }
 
 .button-area{
@@ -127,14 +137,49 @@ h1{
 	background-color:rgba(0,196,65,1)!important;
 }
 
+.blue_button{
+	background-color:#315572!important;
+}
+
+.nav .main_button{
+	font-size:2.5vmax;
+}
+
+.nav{
+	overflow-y:visible;
+	width:inherit;
+	text-align:center;
+	list-style:none;
+	margin:5% 0 0 0;
+	padding:0;
+}
+
+.nav li{
+	display:inline-block;
+	width:50%;
+}
+
+.nav a{
+	display:block;
+	margin:0.5em;
+}
+
 @media screen and (orientation: landscape) { 
 	.main_button{
 		font-size:3vmax;
+	}
+	
+	.nav li{
+		float:left;
 	}
 }
 @media screen and (orientation: portrait) { 
 	.main_button{
 		font-size:5vmax;
+	}
+	
+	.nav .main_button{
+		font-size:3vmax;
 	}
 }
 
