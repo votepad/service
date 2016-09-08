@@ -283,7 +283,7 @@ header{
 		height: 25px;
 		padding: 1px 5px;
 		display: inline-block;
-		border: 1px solid #bbb;
+		border: 1px solid rgba(110,110,110,0.15);
 		border-radius: 5px;
 
 	}
@@ -291,6 +291,7 @@ header{
 		display: inline-block;
 		padding-left: 5px;
 		font-size: 1.2em;
+		font-weight: normal;
 	}
 .icon .icon-crowd-of-users{
 	margin-top: -3px;
@@ -305,79 +306,53 @@ header{
 	margin-left: -1px;
 }
 
-
 .onoffswitch {
-    position: relative;
-		display: inline-block;
-		vertical-align: middle;
-		width: 60px;
-    -webkit-user-select:none;
-		-moz-user-select:none;
-		-ms-user-select: none;
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
 }
 .onoffswitch-checkbox {
-    display: none;
+	display: none;
 }
 .onoffswitch-checkbox[disabled] + .onoffswitch-label {
 	opacity: .5;
 }
 .onoffswitch-label {
-    display: block;
-		overflow: hidden;
-		cursor: pointer;
-    border: 1px solid #bbb;
-		border-radius: 20px;
+	cursor: pointer;
 }
-.onoffswitch-inner {
-    display: block;
-		width: 200%;
-		margin-left: -100%;
-    transition: margin 0.3s ease-in 0s;
+.onoffswitch-checkbox:not(checked) + .onoffswitch-label {
+	padding: 0 0 0 60px;
 }
-.onoffswitch-inner:before, .onoffswitch-inner:after {
-    display: block;
-		float: left;
-		width: 50%;
-		height: 20px;
-		padding: 0;
-    font-size: 14px;
-		color: white;
-		font-weight: bold;
-    box-sizing: border-box;
-}
-.onoffswitch-inner:before {
-    content: "";
-    padding-left: 10px;
-    background-color: #2F95EA;
-		color: #fff;
-}
-.onoffswitch-inner:after {
-    content: "";
-    padding-right: 10px;
-    background-color: #F5F5F5;
-		color: #bbb;
-    text-align: right;
-}
-.onoffswitch-switch {
-    display: block;
-		width: 16px;
-		height: 16px;
-		margin: 3px;
-    background: #fff;
-    position: absolute;
+	.onoffswitch-checkbox:not(checked) + .onoffswitch-label:before {
+		content: '';
+		position: absolute;
 		top: 0;
-		bottom: 0;
-    right: 36px;
-    border: 1px solid #bbb;
-		border-radius: 50%;
-    transition: all 0.3s ease-in 0s;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-inner {
-    margin-left: 0;
-}
-.onoffswitch-checkbox:checked + .onoffswitch-label .onoffswitch-switch {
-    right: 0px;
-}
+		left: 0;
+		width: 50px;
+		height: 26px;
+		border-radius: 13px;
+		background: #eaeaea;
+		box-shadow: inset 0 2px 3px rgba(0,0,0,.2);
+	}
+	.onoffswitch-checkbox:not(checked) + .onoffswitch-label:after {
+		content: '';
+		position: absolute;
+		top: 2px;
+		left: 2px;
+		width: 22px;
+		height: 22px;
+		border-radius: 10px;
+		background: #FFF;
+		box-shadow: 0 2px 5px rgba(0,0,0,.3);
+		transition: all .2s; /* анимация, чтобы чекбокс переключался плавно */
+	}
+
+	.onoffswitch-checkbox:checked + .onoffswitch-label:before {
+		background: #2F95EA;
+	}
+	.onoffswitch-checkbox:checked + .onoffswitch-label:after {
+		left: 26px;
+	}
 
 .teams, .participants, .groups{
 	width: 100%;
