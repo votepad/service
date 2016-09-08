@@ -1,7 +1,7 @@
 $(document).ready(function(){
 	
-	$('.site_description').fadeIn(1250,function(){
-			$('#enter_button').fadeIn(1250);
+	$('.site_description').fadeIn(850,function(){
+			$('#enter_button').fadeIn(850);
 		});
 	
 	$(".news-item p").each(function(){	
