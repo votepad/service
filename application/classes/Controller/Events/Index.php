@@ -85,7 +85,7 @@ class Controller_Events_Index extends Dispatch
              */
             case self::ACTION_SHOW :
 
-                $this->template = 'events/about';
+                $this->template = 'events/settings/about';
                 break;
 
             /**
@@ -93,7 +93,7 @@ class Controller_Events_Index extends Dispatch
              */
             case self::ACTION_CONTESTS :
 
-                $this->template = 'events/contests';
+                $this->template = 'events/settings/contests';
                 break;
 
             /**
@@ -101,7 +101,7 @@ class Controller_Events_Index extends Dispatch
              */
             case self::ACTION_CHARACTERS :
 
-                $this->template = 'events/characters';
+                $this->template = 'events/settings/characters';
                 break;
 
             /**
@@ -109,7 +109,7 @@ class Controller_Events_Index extends Dispatch
              */
             case self::ACTION_PUBLISH :
 
-                $this->template = 'events/publish';
+                $this->template = 'events/settings/publish';
                 break;
 
             /**
@@ -117,7 +117,7 @@ class Controller_Events_Index extends Dispatch
              */
             case self::ACTION_SCORTING :
 
-                $this->template = 'events/scoring';
+                $this->template = 'events/settings/scoring';
                 break;
             /**
              * Default template for this controller
@@ -168,6 +168,26 @@ class Controller_Events_Index extends Dispatch
     public function action_show()
     {
 
+    }
+    
+    public function action_characters()
+    {
+        
+    }
+
+    public function action_contests()
+    {
+
+    }
+
+    public function action_scoring()
+    {
+
+    }
+
+    public function action_publish()
+    {
+        
     }
 
     public function action_showAll()

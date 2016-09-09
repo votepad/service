@@ -73,23 +73,23 @@
     </div>
     <div class="event-nav-block" style="display:block">
         <div class="event-nav">
-            <a href="<?=URL::site(); ?>" class="md-btn active">
+            <a href="<?=URL::site('events/' . $event['name'] . '/'); ?>" class="md-btn">
                 О мероприятии
                 <div class="active-tab"></div>
             </a>
-            <a href="<?=URL::site(); ?>" class="md-btn">
+            <a href="<?=URL::site('events/' . $event['name'] . '/characters/'); ?>" class="md-btn">
                 Участники и жюри
                 <div class="active-tab"></div>
             </a>
-            <a href="<?=URL::site(); ?>" class="md-btn">
+            <a href="<?=URL::site('events/' . $event['name'] . '/contests/'); ?>" class="md-btn">
                 Конкурсы
                 <div class="active-tab"></div>
             </a>
-            <a href="<?=URL::site(); ?>" class="md-btn">
+            <a href="<?=URL::site('events/' . $event['name'] . '/scoring'); ?>" class="md-btn">
                 Логика оценивания
                 <div class="active-tab"></div>
             </a>
-            <a href="<?=URL::site(); ?>" class="md-btn">
+            <a href="<?=URL::site('events/' . $event['name'] . '/publish'); ?>" class="md-btn">
                 Публикация
                 <div class="active-tab"></div>
             </a>

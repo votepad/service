@@ -36,10 +36,10 @@ class Controller_Auth extends Dispatch {
         }
         else
         {
-            if (!$auth['done'])
-                $this->redirect('signup/continue');
-            else
-                $this->redirect('events/my');
+            $id_user = $this->_session->get('id_user');
+
+            $id = Model_Organizations::getByFields('user_created', $id_user);
+            $this->redirect('organization/' . $id);
         }
 
 

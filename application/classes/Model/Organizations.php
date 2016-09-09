@@ -55,6 +55,21 @@ class Model_Organizations extends Model
         return false;
     }
 
+    public static function getByFields($field, $value)
+    {
+        $organization = new ORM_Organizations();
+
+        $organization->where($field, '=', $value)
+                ->find();
+
+        if ($organization->loaded())
+        {
+            return $organization->id;
+        }
+
+        return false;
+    }
+
     public static function update_organization($id, $fields = array())
     {
         $organization = self::get($id);
