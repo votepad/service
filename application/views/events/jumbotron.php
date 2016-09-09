@@ -5,10 +5,10 @@
             <div class="left-nav pull-left">
                 <ul class="no-li">
                     <li class="inline">
-                        <a href="" class="header-link">VotePad</a>
+                        <a href="#" class="header-link">VotePad</a>
                     </li>
                     <li class="inline">
-                        <a href="" class="header-link">Университет ИТМО</a>
+                        <a href="<?=URL::site('organization/' . $organization->id); ?>" class="header-link"><?=$organization->name; ?></a>
                     </li>
                     <li class="inline">
                         <div class="dropdown">
@@ -34,13 +34,13 @@
                     <li class="inline" style="margin-right: 20px;">
                         <div class="dropdown">
                             <button class="dropdown-toggle header-link" type="button" id="dropdownMenu1" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">
-                                Туров Николай
+                                <?=$user->lastname. ' ' . $user->name; ?>
                                 <span class="caret"></span>
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenu1">
                                 <li><a href="#">Персональные настройки</a></li>
                                 <li role="separator" class="divider"></li>
-                                <li><a href="#">Выйти из системы</a></li>
+                                <li><a href="<?=URL::site(''); ?>">Выйти из системы</a></li>
                             </ul>
                         </div>
                     </li>
@@ -48,7 +48,7 @@
             </div>
         </header>
         <div class="event-name">
-            <h1>Мисс ИТМО</h1>
+            <h1><?=$event['name']; ?></h1>
         </div>
         <div class="event-date">
             <div class="start-date" data-toggle="tooltip" data-placement="top" title="Начнётся в 12:00">

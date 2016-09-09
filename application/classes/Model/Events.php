@@ -28,7 +28,7 @@ class Model_Events extends Model {
         return $event->id;
     }
 
-    public static function get_organization_events($id)
+    public static function getOrganizationEvents($id)
     {
         $select = DB::select()->from('Events')
                         ->where('id_organization', '=', $id)
@@ -36,5 +36,16 @@ class Model_Events extends Model {
                         ->as_array();
 
         return $select;
+    }
+
+    public static function getEventByName($name)
+    {
+        $event = DB::select()->from('Events')
+                            ->where('name', '=', $name)
+                            ->limit(1)
+                            ->execute()
+                            ->as_array();
+
+        return Arr::get($event, '0');
     }
 }

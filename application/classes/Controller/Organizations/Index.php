@@ -147,12 +147,7 @@ class Controller_Organizations_Index extends Dispatch
             ->set('id', $this->id_organization)
             ->set('team', $team);
     }
-
-    /**
-     * @todo
-     * Перепроверить кэширование в Kohana. Сейчас использует файловый драйвер
-     * Возможно нужно будет перейти на memcacheimp
-     */
+    
     public function action_main()
     {
         if ($this->organization !== null)

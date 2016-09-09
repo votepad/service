@@ -25,11 +25,6 @@ class Model_Organizations extends Model
         return $organization->save();
     }
 
-    public static function update_organization($id, $fields = array())
-    {
-
-    }
-
     public static function get($id)
     {
         $organization = new ORM_Organizations();
@@ -58,6 +53,23 @@ class Model_Organizations extends Model
         }
 
         return false;
+    }
+
+    public static function update_organization($id, $fields = array())
+    {
+        $organization = self::get($id);
+
+        foreach ($fields as $key => $values) {
+            $organization->$key = $values;
+        }
+
+        $organization->save();
+    }
+
+    public static function delete_organization($id) {
+
+        $organization = self::get($id);
+        $organization->delete();
     }
 
     public static function get_creator($id)

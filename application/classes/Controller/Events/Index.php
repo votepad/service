@@ -11,17 +11,17 @@ class Controller_Events_Index extends Dispatch
     /**
      * @const ACTION_NEW [String] - for creating a new event
      */
-    const ACTION_NEW = 'New';
+    const ACTION_NEW        = 'New';
 
     /**
      * @const ACTION_SHOW_ALL [String] - Show all action
      */
-    const ACTION_SHOW_ALL = 'showAll';
+    const ACTION_SHOW_ALL   = 'showAll';
 
     /**
      * @const ACTION_SHOW [String] - action that shows an event
      */
-    const ACTION_SHOW = 'show';
+    const ACTION_SHOW       = 'show';
 
     /**
      * @const ACTION_CHARACTERS [String] - for Judge, Participant, Group, Team creation
@@ -31,17 +31,17 @@ class Controller_Events_Index extends Dispatch
     /**
      * @const ACTION_CONTEST [String] - contest handler
      */
-    const ACTION_CONTESTS = 'contests';
+    const ACTION_CONTESTS   = 'contests';
 
     /**
      * @const ACTION_SCORING [String] - Scoring system
      */
-    const ACTION_SCORTING = 'scoring';
+    const ACTION_SCORTING   = 'scoring';
 
     /**
      * @const ACTION_PUBLISH [String] - Publication
      */
-    const ACTION_PUBLISH = 'publish';
+    const ACTION_PUBLISH    = 'publish';
 
     /**
      * @var $organization
@@ -131,17 +131,32 @@ class Controller_Events_Index extends Dispatch
 
         $this->organization = $this->request->param('organization');
 
+        $this->event_name   = $this->request->param('eventname');
+
+        
         /**
          * Getting information about event
          */
 
-        // Code
+        $event = Model_Events::getEventByName($this->event_name);
+
+        /**
+         * Getting information about organization
+         */
+
+        $organization = Model_Organizations::get($event['id_organization']);
+
+        /**
+         * Getting information about user
+         */
 
         /**
          * Connecting jumbotron
-         * @todo Cache
          */
-        $this->template->event_jumbo = View::factory('events/jumbotron');
+        $this->template->event_jumbo = View::factory('events/jumbotron')
+                                                ->set('organization', $organization)
+                                                ->set('event', $event);
+
 
     }
 
@@ -168,7 +183,7 @@ class Controller_Events_Index extends Dispatch
          * Getting all events of organization with id - $id_organization
          */
 
-        $events = Model_Events::get_organization_events($id_organization);
+        $events = Model_Events::getOrganizationEvents($id_organization);
         $this->template->events = $events;
         
     }

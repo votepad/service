@@ -25,7 +25,7 @@
 			</div>
 		</div>
 		<div class="panel-body">
-			<form id="update_main_info">
+			<form action="<?=URL::site('organization/' . $id . '/update'); ?>" method="POST" id="update_main_info">
 				<div class="settings-main-c1 inline">
 					<h4>Основная информация</h4>
 					<div class="form-group">
@@ -34,12 +34,12 @@
 					</div>
 					<div class="form-group">
 						<label for="org_site" class="control-label">Ссылка на страницу</label>
-						<input type="text" id="org_site" name="org_site" class="form-control input-sm" value="http://<?=$organization->website; ?>.votepad.ru" disabled>
+						<input type="text" id="org_site1" name="org_site1" class="form-control input-sm" value="http://<?=$organization->website; ?>.votepad.ru" disabled>
 						<span class="help-block">Хотите изменить ссылку на Вашу организацию? Напишите нам <a href="">support@votepad.ru</a></span>
 					</div>
 					<div class="form-group">
 						<label for="org_official_site" class="control-label">Ссылка на официальный сайт</label>
-						<input type="text" id="org_official_site" name="org_official_site" class="form-control input-sm" value="">
+						<input type="text" id="org_site" name="org_site" class="form-control input-sm" value="<?=$organization->website; ?>">
 					</div>
 					<button type="button" id="orglogo_upload" class="md-btn md-btn-md md-btn-default upload">Обновить фото логотипа</button>
 					<button type="button" id="orgback_upload" class="md-btn md-btn-md md-btn-default upload" style="float: right;">Обновить фото обложки</button>
@@ -57,7 +57,7 @@
 					</div>
 					<div class="form-group">
 						<label for="org_phone" class="control-label">Контактный телефон</label>
-						<input type="tel" id="org_phone" name="org_phone" class="form-control input-sm" value="<?=$creator->number; ?>">
+						<input type="tel" id="org_phone" name="org_phone" class="form-control input-sm" value="<?=$organization->phone ?: $creator->number; ?>">
 					</div>
 					<button type="submit" class="md-btn md-btn-md md-btn-labeled md-btn-success ">
 						<span class="md-btn-icon"><i class="fa fa-check"></i></span> Сохранить

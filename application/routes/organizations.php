@@ -33,3 +33,10 @@ Route::set('ORGANIZATIONS_SETTINGS', 'organization/<id>/settings/<action>')
         'controller' => 'Organizations_Index',
         'action'     => 'main'
     ));
+
+
+Route::set('UPDATE_ORGANIZATION', 'organization/<id>/update')
+    ->defaults(array(
+        'controller' => 'Organizations_Modify',
+        'action'     => 'update'
+    ));
