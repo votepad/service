@@ -1,629 +1,87 @@
-var editor_judges, editor_participants, editor_groups, editor_teams, editor_participants_groups, editor_participants_teams, editor_groups_teams;
-
 $().ready (function() {
-	$('.checking_p_g_t').click(function(){
-		if( $(this).hasClass('select') ) {
-			$(this).removeClass('select');
-			return false;
-		} else{
-			$(this).addClass('select');
-			return false;
-		}
-	});
-	$('.checking_p_g_t').each(function(){
-		if ($('input', this).attr('checked') == 'checked') {
-			$(this).addClass('select');
-			//build_vote_charecters_ID($(this).parent().attr('id'));
+
+	/*   JUDGES   */
+
+	var array_judges = [
+		// судьи, которые уже созданы, выгрузить из БД
+		{'judge_name': 'Иванов Иван Иванович', 'judge_role':'главный жюри', 'judge_email':'email1@ya.ru', 'judge_password':'11111', 'judge_send_mail':'true'},
+	];
+
+	var judge_name_validator = function (value, callback) {
+		if (value.split(/[\s\.\?]+/).length == 3) { callback(true); }
+		else { callback(false); }
+	};
+	var judge_email_validator = function (value, callback) {
+		if (/.+@.+/.test(value)) { callback(true); }
+		else { callback(false); }
+	};
+
+	var judges_settings = {
+		data: array_judges,
+		minSpareRows: 1,
+		rowHeaders: true,
+		stretchH: 'all',
+		colWidths: [200,120,130,90,148],
+		colHeaders: ['ФИО жюри', 'Роль', 'E-mail', 'Пароль', 'Прислать приглашение'],
+		columns: [
+			{ data:'judge_name', validator: judge_name_validator, allowInvalid: true },
+			{ data:'judge_role', },
+			{ data:'judge_email', validator: judge_email_validator, allowInvalid: true },
+			{ data:'judge_password', type: 'password', editor: false, hashLength: 10},
+			{ data:'judge_send_mail', type: 'checkbox', className: 'htCenter' },
+		],
+		afterChange: function (changes, source) {
+			if (source !== 'loadData') {
+				// отправка данных о жюри
+				console.log(JSON.stringify(changes));
+			}
+		},
+	};
+
+	$('#judges').handsontable(judges_settings);
+
+
+	/*   WHOM VOTE   */
+
+	var charecters = {'participants':false, 'groups':false, 'teams':false};
+
+	var check_groups_valid = function(str) {
+		if (str == 'valid') { $('#groups_onoffswitch').removeAttr('disabled'); $('.whom_vote button').css('display','block');}
+		else{ $('#groups_onoffswitch').prop('disabled','disabled'); $('label[for=groups_onoffswitch]').removeClass('checked').parent().children('.onoffswitch-checkbox').prop('checked',false); charecters.groups = false; $('.whom_vote button').css('display','none');}
+	}
+
+	var show_whom_vote = function(){
+	  charecters.participants = false; charecters.teams = false; charecters.groups = false;
+	  if ( $('label[for=participants_onoffswitch]').hasClass('checked') ) { charecters.participants = true; }
+	  if ( $('label[for=groups_onoffswitch]').hasClass('checked') ) { charecters.groups = true; }
+	  if ( $('label[for=teams_onoffswitch]').hasClass('checked') ) { charecters.teams = true; }
+
+	  $('.characters_preview').empty();
+
+		var preview_text = 'Что-то нужно нарисовать или вставить картинку, чтобы было понятно, что нужно выбирать справа. <br>Ещё есть идея, нарисовать картинку: "К сожалению, Вы не выбрали ничего"';
+		var temp = '';
+	  if (charecters.participants == false && charecters.teams == false && charecters.groups == false) { temp = preview_text; check_groups_valid('invalid'); }
+	  else if (charecters.participants == true && charecters.teams == false && charecters.groups == false) { temp = temp + '<div class="participants"><div class="participant clearfix"><div class="label"><i class="fa fa-user" aria-hidden="true"></i><span>Участник №1</span></div></div><div class="participant clearfix"><div class="label"><i class="fa fa-user" aria-hidden="true"></i><span>Участник №2</span></div></div><div class="participant clearfix"><div class="label"><i class="fa fa-user" aria-hidden="true"></i><span>Участник №3</span></div></div></div>'; check_groups_valid('valid');}
+	  else if (charecters.participants == false && charecters.teams == true && charecters.groups == false) { temp = temp + '<div class="teams"><div class="team clearfix"><div class="label"><span class="icon-crowd-of-users"></span><span>Команда №1</span></div></div><div class="team clearfix"><div class="label"><span class="icon-crowd-of-users"></span><span>Команда №2</span></div></div><div class="team clearfix"><div class="label"><span class="icon-crowd-of-users"></span><span>Команда №3</span></div></div></div>'; check_groups_valid('valid');}
+	  else if (charecters.participants == true  && charecters.teams == true && charecters.groups == false) { temp = temp + '<div class="teams"><div class="team clearfix"><div class="label"><span>Команда №1</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user" aria-hidden="true"></i><i class="fa fa-user" aria-hidden="true"></i></div></div><div class="team clearfix"><div class="label"><span>Команда №2</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user" aria-hidden="true"></i><i class="fa fa-user" aria-hidden="true"></i></div></div><div class="team clearfix"><div class="label"><span>Команда №3</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user" aria-hidden="true"></i><i class="fa fa-user" aria-hidden="true"></i></div></div></div>';}
+	  else if (charecters.participants == false  && charecters.teams == true && charecters.groups == true ) { temp = temp + '<div class="teams"><div class="team clearfix"><div class="label"><span class="icon-crowd-of-users team1"></span><span>Команда №1</span></div></div><div class="team clearfix"><div class="label"><span class="icon-crowd-of-users team2"></span><span>Команда №2</span></div></div><div class="team clearfix"><div class="label"><span class="icon-crowd-of-users team3"></span><span>Команда №3</span></div></div><div class="teams"><div class="team clearfix"><div class="label"><span class="icon-crowd-of-users"></span><span>Команда №4</span></div></div></div><legend></legend><div class="groups"><div class="group clearfix"><div class="label"><span>Группа №1</span></div><div class="split-blocks"></div><div class="body"><span class="icon-crowd-of-users team1"></span><span class="icon-crowd-of-users team3"></span></div></div><div class="group clearfix"><div class="label"><span>Группа №2</span></div><div class="split-blocks"></div><div class="body"><span class="icon-crowd-of-users team2"></span><span class="icon-crowd-of-users"></span></div></div></div>'; }
+	  else if (charecters.participants == true  && charecters.teams == false && charecters.groups == true ) { temp = temp + '<div class="participants"><div class="participant clearfix"><div class="label"><i class="fa fa-user part1" aria-hidden="true"></i><span>Участник №1</span></div></div><div class="participant clearfix"><div class="label"><i class="fa fa-user part2" aria-hidden="true"></i><span>Участник №2</span></div></div><div class="participant clearfix"><div class="label"><i class="fa fa-user part3" aria-hidden="true"></i><span>Участник №3</span></div></div><div class="participant clearfix"><div class="label"><i class="fa fa-user" aria-hidden="true"></i><span>Участник №4</span></div></div></div><legend></legend><div class="groups"><div class="group clearfix"><div class="label"><span>Группа №1</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user part1" aria-hidden="true"></i><i class="fa fa-user part3" aria-hidden="true"></i></div></div><div class="group clearfix"><div class="label"><span>Группа №2</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user part2" aria-hidden="true"></i><i class="fa fa-user" aria-hidden="true"></i></div></div></div>'; }
+	  else if (charecters.participants == true  && charecters.teams == true && charecters.groups == true ) { temp = temp + '<div class="teams"><div class="team clearfix"><div class="label"><span>Команда №1</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user team1" aria-hidden="true"></i><i class="fa fa-user team1" aria-hidden="true"></i></div></div><div class="team clearfix"><div class="label"><span>Команда №2</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user team2" aria-hidden="true"></i><i class="fa fa-user team2" aria-hidden="true"></i></div></div><div class="team clearfix"><div class="label"><span>Команда №3</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user" aria-hidden="true"></i><i class="fa fa-user" aria-hidden="true"></i></div></div></div><legend></legend><div class="groups"><div class="group clearfix"><div class="label"><span>Группа №1</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user team2" aria-hidden="true"></i><i class="fa fa-user" aria-hidden="true"></i><i class="fa fa-user team1" aria-hidden="true"></i></div></div><div class="group clearfix"><div class="label"><span>Группа №2</span></div><div class="split-blocks"></div><div class="body"><i class="fa fa-user team1" aria-hidden="true"></i><i class="fa fa-user team2" aria-hidden="true"></i><i class="fa fa-user" aria-hidden="true"></i></div></div></div>'; }
+		else { check_groups_valid('invalid'); temp = preview_text; }
+	  $('.characters_preview').append(temp);
+	}
+
+	show_whom_vote();
+
+	$('.onoffswitch-label').click(function() {
+		if ( $(this).parent().children('.onoffswitch-checkbox').attr('disabled') == 'disabled') { return false; }
+		else {
+			if ( $(this).hasClass('checked') ) { $(this).removeClass('checked'); }
+			else { $(this).addClass('checked'); }
+			show_whom_vote();
 		}
 	});
 
-	editor_judges = new $.fn.dataTable.Editor( {
-		//ajax: "../php/upload.php",
-		table: "#table_judges",
-		fields: [ {
-				label: "ФИО жюри",
-				name: "judge_name"
-			}, {
-				label: "E-mail:",
-				name: "judge_email"
-			}, {
-				label: "Должность",
-				name: "judge_position"
-			}, {
-				label: "Фотография",
-				name: "judge_avatar",
-				type: "upload",
-				display: function ( file_id ) {
-					return '<img class="" src="'+table.file( 'files', file_id ).web_path+'"/>';
-				},
-				clearText: "Clear",
-				noImageText: 'Не выбрано'
-			}
-		],
-		i18n: {
-			create: {
-				title:  "Создать нового жюри",
-				submit: "Создать"
-			},
-			edit: {
-				title: "Изменить информация о жюри",
-				submit: "Изменить"
-			},
-			remove: {
-				title:  "Удалить жюри",
-				submit: "Удалить",
-				confirm: {
-					_: "Вы уверены, что хотите удалить %d жюри?",
-					1: "Вы уверены, что хотите удалить 1 жюри?"
-				}
-			}
-		}
-	});
-	editor_participants = new $.fn.dataTable.Editor( {
-		//ajax: "../php/upload.php",
-		table: "#table_participants",
-		fields: [ {
-				label: "ФИО участника",
-				name: "participant_name"
-			}, {
-				label: "Описание участника",
-				name: "participant_desc",
-				type: "textarea"
-			}, {
-				label: "Фотография участника ",
-				name: "participant_avatar",
-				type: "upload",
-				display: function ( file_id ) {
-					return '<img class="" src="'+table.file( 'files', file_id ).web_path+'"/>';
-				},
-				clearText: "Clear",
-				noImageText: 'Не выбрано'
-			}
-		],
-		i18n: {
-			create: {
-				title:  "Создать нового участника",
-				submit: "Создать"
-			},
-			edit: {
-				title: "Изменить информация об участнике",
-				submit: "Изменить"
-			},
-			remove: {
-				title:  "Удалить участника",
-				submit: "Удалить",
-				confirm: {
-					_: "Вы уверены, что хотите удалить %d участников?",
-					1: "Вы уверены, что хотите удалить 1 участника?"
-				}
-			}
-		}
-	});
-	editor_groups = new $.fn.dataTable.Editor( {
-		//ajax: "../php/upload.php",
-		table: "#table_groups",
-		fields: [ {
-				label: "Название группы",
-				name: "group_name"
-			}, {
-				label: "Описание группы",
-				name: "group_desc",
-				type: "textarea"
-			}, {
-				label: "Логотип группы",
-				name: "group_avatar",
-				type: "upload",
-				display: function ( file_id ) {
-					return '<img class="" src="'+table.file( 'files', file_id ).web_path+'"/>';
-				},
-				clearText: "Clear",
-				noImageText: 'Не выбрано'
-			}
-		],
-		i18n: {
-			create: {
-				title:  "Создать новую группу",
-				submit: "Создать"
-			},
-			edit: {
-				title: "Изменить информацию о группе",
-				submit: "Изменить"
-			},
-			remove: {
-				title:  "Удалить группу",
-				submit: "Удалить",
-				confirm: {
-					_: "Вы уверены, что хотите удалить %d групп?",
-					1: "Вы уверены, что хотите удалить 1 группу?"
-				}
-			}
-		}
-	});
-	editor_teams = new $.fn.dataTable.Editor( {
-		//ajax: "../php/upload.php",
-		table: "#table_teams",
-		fields: [ {
-				label: "Название команды",
-				name: "team_name"
-			}, {
-				label: "Описание команды",
-				name: "team_desc",
-				type: "textarea"
-			}, {
-				label: "Логотип команды",
-				name: "team_avatar",
-				type: "upload",
-				display: function ( file_id ) {
-					return '<img class="" src="'+table.file( 'files', file_id ).web_path+'"/>';
-				},
-				clearText: "Clear",
-				noImageText: 'Не выбрано'
-			}
-		],
-		i18n: {
-			create: {
-				title:  "Создать новую команду",
-				submit: "Создать"
-			},
-			edit: {
-				title: "Изменить информацию о команде",
-				submit: "Изменить"
-			},
-			remove: {
-				title:  "Удалить команду",
-				submit: "Удалить",
-				confirm: {
-					_: "Вы уверены, что хотите удалить %d команд?",
-					1: "Вы уверены, что хотите удалить 1 команду?"
-				}
-			}
-		}
-	});
-	editor_participants_groups = new $.fn.dataTable.Editor( {
-		//ajax: "../php/upload.php",
-		table: "#table_participants_groups",
-		fields: [ {
-				label: "ФИО участника",
-				name: "participant_name"
-			}, {
-				label: "Группа",
-				name: "participant_group",
-				type: "select"
-			}, {
-				label: "Описание участника",
-				name: "participant_desc",
-				type: "textarea"
-			}, {
-				label: "Фотография участника",
-				name: "participant_avatar",
-				type: "upload",
-				display: function ( file_id ) {
-					return '<img class="" src="'+table.file( 'files', file_id ).web_path+'"/>';
-				},
-				clearText: "Clear",
-				noImageText: 'Не выбрано'
-			}
-		],
-		i18n: {
-			create: {
-				title:  "Создать нового участника",
-				submit: "Создать"
-			},
-			edit: {
-				title: "Изменить информацию об участнике",
-				submit: "Изменить"
-			},
-			remove: {
-				title:  "Удалить участника",
-				submit: "Удалить",
-				confirm: {
-					_: "Вы уверены, что хотите удалить %d участников?",
-					1: "Вы уверены, что хотите удалить 1 участника?"
-				}
-			}
-		}
-	});
-	editor_participants_teams = new $.fn.dataTable.Editor( {
-		//ajax: "../php/upload.php",
-		table: "#table_participants_teams",
-		fields: [ {
-				label: "ФИО участника",
-				name: "participant_name"
-			}, {
-				label: "Команда",
-				name: "participant_team",
-				type: "select"
-			}, {
-				label: "Описание участника",
-				name: "participant_desc",
-				type: "textarea"
-			}, {
-				label: "Фотография участника",
-				name: "participant_avatar",
-				type: "upload",
-				display: function ( file_id ) {
-					return '<img class="" src="'+table.file( 'files', file_id ).web_path+'"/>';
-				},
-				clearText: "Clear",
-				noImageText: 'Не выбрано'
-			}
-		],
-		i18n: {
-			create: {
-				title:  "Создать нового участника",
-				submit: "Создать"
-			},
-			edit: {
-				title: "Изменить информацию об участнике",
-				submit: "Изменить"
-			},
-			remove: {
-				title:  "Удалить участника",
-				submit: "Удалить",
-				confirm: {
-					_: "Вы уверены, что хотите удалить %d участников?",
-					1: "Вы уверены, что хотите удалить 1 участника?"
-				}
-			}
-		}
-	});
-	editor_groups_teams = new $.fn.dataTable.Editor( {
-		//ajax: "../php/upload.php",
-		table: "#table_groups_teams",
-		fields: [ {
-				label: "Название группы",
-				name: "group_name"
-			}, {
-				label: "Команда",
-				name: "group_team",
-				type: "select"
-			}, {
-				label: "Описание группы",
-				name: "group_desc",
-				type: "textarea"
-			}, {
-				label: "Логотип группы",
-				name: "group_avatar",
-				type: "upload",
-				display: function ( file_id ) {
-					return '<img class="" src="'+table.file( 'files', file_id ).web_path+'"/>';
-				},
-				clearText: "Clear",
-				noImageText: 'Не выбрано'
-			}
-		],
-		i18n: {
-			create: {
-				title:  "Создать новой группы",
-				submit: "Создать"
-			},
-			edit: {
-				title: "Изменить информацию о группе",
-				submit: "Изменить"
-			},
-			remove: {
-				title:  "Удалить группу",
-				submit: "Удалить",
-				confirm: {
-					_: "Вы уверены, что хотите удалить %d групп?",
-					1: "Вы уверены, что хотите удалить 1 группу?"
-				}
-			}
-		}
-	});
+	$('.whom_vote').change(function(){ if ( $('button',this).attr('type') != "submit" ) { $(this).append('<button type="submit" class="md-btn md-btn-md md-btn-success">Сохранить</button>'); } });
 
-	var table_judges = $('#table_judges').DataTable( {
-		dom: 'Bfrtip',
-		paging: false,
-		scrollY: '50vh',
-		scrollCollapse: true,
-		searching: true,
-		fixedHeader: true,
-		oLanguage:{
-			sEmptyTable:"На данный момент жюри не создано",
-			sInfo:"Всего _MAX_ жюри",
-			sInfoEmpty:"Всего _MAX_ жюри",
-			sInfoFiltered:"",
-			sLengthMenu:"",
-			sLoadingRecords:"Загружается...",
-			sProcessing:"Обрабатывается...",
-			sSearch:"Введите для поиска:",
-			sZeroRecords:"К сожалению, жюри не найдено, попробуйте изменить поиск или добавьте нового жюри."
-		},
-		columnDefs: [ 
-			{ 'targets' : 'no-sort', 'orderable': false }
-		],
-		//ajax: "../php/upload.php",
-		columns: [
-			{ data: "judge_name" },
-			{ data: "judge_email" },
-			{ data: "judge_position" },
-			{
-				data: "judge_avatar",
-				render: function ( file_id ) {
-					return file_id ?
-						'<img src="'+table_judges.file( 'files', file_id ).web_path+'"/>' :
-						null;
-				},
-				defaultContent: "Не выбрано",
-				title: "Фотография жюри"
-			}
-		],
-		select: true,
-		buttons: [
-			{ extend: "create", editor: editor_judges, text:"Создать"},
-			{ extend: "edit",   editor: editor_judges, text:"Редактировать"},
-			{ extend: "remove", editor: editor_judges, text:"Удалить" },
-		]
-	});			
-	var table_participants = $('#table_participants').DataTable( {
-		dom: 'Bfrtip',
-		paging: false,
-		scrollY: '50vh',
-		scrollCollapse: true,
-		searching: true,
-		fixedHeader: true,
-		oLanguage:{
-			sEmptyTable:"На данный момент участники не созданы",
-			sInfo:"Всего _MAX_ участников",
-			sInfoEmpty:"Всего _MAX_ участников",
-			sInfoFiltered:"",
-			sLengthMenu:"",
-			sLoadingRecords:"Загружается...",
-			sProcessing:"Обрабатывается...",
-			sSearch:"Введите для поиска:",
-			sZeroRecords:"К сожалению, участники не найдены, попробуйте изменить поиск или добавьте нового участника."
-		},
-		columnDefs: [ 
-			{ 'targets' : 'no-sort', 'orderable': false }
-		],
-		//ajax: "../php/upload.php",
-		columns: [
-			{ data: "participant_name" },
-			{ data: "participant_desc" },
-			{
-				data: "participant_avatar",
-				render: function ( file_id ) {
-					return file_id ?
-						'<img src="'+table_participants.file( 'files', file_id ).web_path+'"/>' :
-						null;
-				},
-				defaultContent: "Не выбрано",
-				title: "Фотография участника"
-			}
-		],
-		select: true,
-		buttons: [
-			{ extend: "create", editor: editor_participants, text:"Создать"},
-			{ extend: "edit",   editor: editor_participants, text:"Редактировать"},
-			{ extend: "remove", editor: editor_participants, text:"Удалить" },
-		]
-	});
-	var table_groups = $('#table_groups').DataTable( {
-		dom: 'Bfrtip',
-		paging: false,
-		scrollY: '50vh',
-		scrollCollapse: true,
-		searching: true,
-		fixedHeader: true,
-		oLanguage:{
-			sEmptyTable:"На данный момент группы не созданы",
-			sInfo:"Всего _MAX_ групп",
-			sInfoEmpty:"Всего _MAX_ групп",
-			sInfoFiltered:"",
-			sLengthMenu:"",
-			sLoadingRecords:"Загружается...",
-			sProcessing:"Обрабатывается...",
-			sSearch:"Введите для поиска:",
-			sZeroRecords:"К сожалению, группы не найдены, попробуйте изменить поиск или добавьте новую группу."
-		},
-		columnDefs: [ 
-			{ 'targets' : 'no-sort', 'orderable': false }
-		],
-		//ajax: "../php/upload.php",
-		columns: [
-			{ data: "group_name" },
-			{ data: "group_desc" },
-			{
-				data: "group_avatar",
-				render: function ( file_id ) {
-					return file_id ?
-						'<img src="'+table_groups.file( 'files', file_id ).web_path+'"/>' :
-						null;
-				},
-				defaultContent: "Не выбрано",
-				title: "Логотип группы"
-			}
-		],
-		select: true,
-		buttons: [
-			{ extend: "create", editor: editor_groups, text:"Создать"},
-			{ extend: "edit",   editor: editor_groups, text:"Редактировать"},
-			{ extend: "remove", editor: editor_groups, text:"Удалить" },
-		]
-	});
-	var table_teams = $('#table_teams').DataTable( {
-		dom: 'Bfrtip',
-		paging: false,
-		scrollY: '50vh',
-		scrollCollapse: true,
-		searching: true,
-		fixedHeader: true,
-		oLanguage:{
-			sEmptyTable:"На данный момент команды не созданы",
-			sInfo:"Всего _MAX_ команд",
-			sInfoEmpty:"Всего _MAX_ команд",
-			sInfoFiltered:"",
-			sLengthMenu:"",
-			sLoadingRecords:"Загружается...",
-			sProcessing:"Обрабатывается...",
-			sSearch:"Введите для поиска:",
-			sZeroRecords:"К сожалению, команды не найдены, попробуйте изменить поиск или добавьте новую команду."
-		},
-		columnDefs: [ 
-			{ 'targets' : 'no-sort', 'orderable': false }
-		],
-		//ajax: "../php/upload.php",
-		columns: [
-			{ data: "team_name" },
-			{ data: "team_desc" },
-			{
-				data: "team_avatar",
-				render: function ( file_id ) {
-					return file_id ?
-						'<img src="'+table_groups.file( 'files', file_id ).web_path+'"/>' :
-						null;
-				},
-				defaultContent: "Не выбрано",
-				title: "Логотип команды"
-			}
-		],
-		select: true,
-		buttons: [
-			{ extend: "create", editor: editor_teams, text:"Создать"},
-			{ extend: "edit",   editor: editor_teams, text:"Редактировать"},
-			{ extend: "remove", editor: editor_teams, text:"Удалить" },
-		]
-	});
-	var table_participants_groups = $('#table_participants_groups').DataTable( {
-		dom: 'Bfrtip',
-		paging: false,
-		scrollY: '50vh',
-		scrollCollapse: true,
-		searching: true,
-		fixedHeader: true,
-		oLanguage:{
-			sEmptyTable:"На данный момент участники не созданы",
-			sInfo:"Всего _MAX_ участников",
-			sInfoEmpty:"Всего _MAX_ участников",
-			sInfoFiltered:"",
-			sLengthMenu:"",
-			sLoadingRecords:"Загружается...",
-			sProcessing:"Обрабатывается...",
-			sSearch:"Введите для поиска:",
-			sZeroRecords:"К сожалению, участники не найдены, попробуйте изменить поиск или добавьте нового участника."
-		},
-		columnDefs: [ 
-			{ 'targets' : 'no-sort', 'orderable': false }
-		],
-		//ajax: "../php/upload.php",
-		columns: [
-			{ data: "participant_name" },
-			{ data: "participant_group" },
-			{ data: "participant_desc" },
-			{
-				data: "participant_avatar",
-				render: function ( file_id ) {
-					return file_id ?
-						'<img src="'+table_participants.file( 'files', file_id ).web_path+'"/>' :
-						null;
-				},
-				defaultContent: "Не выбрано",
-				title: "Фотография участника"
-			}
-		],
-		select: true,
-		buttons: [
-			{ extend: "create", editor: editor_participants_groups, text:"Создать"},
-			{ extend: "edit",   editor: editor_participants_groups, text:"Редактировать"},
-			{ extend: "remove", editor: editor_participants_groups, text:"Удалить" },
-		]
-	});
-	var table_participants_teams = $('#table_participants_teams').DataTable( {
-		dom: 'Bfrtip',
-		paging: false,
-		scrollY: '50vh',
-		scrollCollapse: true,
-		searching: true,
-		fixedHeader: true,
-		oLanguage:{
-			sEmptyTable:"На данный момент участники не созданы",
-			sInfo:"Всего _MAX_ участников",
-			sInfoEmpty:"Всего _MAX_ участников",
-			sInfoFiltered:"",
-			sLengthMenu:"",
-			sLoadingRecords:"Загружается...",
-			sProcessing:"Обрабатывается...",
-			sSearch:"Введите для поиска:",
-			sZeroRecords:"К сожалению, участники не найдены, попробуйте изменить поиск или добавьте нового участника."
-		},
-		columnDefs: [ 
-			{ 'targets' : 'no-sort', 'orderable': false }
-		],
-		//ajax: "../php/upload.php",
-		columns: [
-			{ data: "participant_name" },
-			{ data: "participant_team" },
-			{ data: "participant_desc" },
-			{
-				data: "participant_avatar",
-				render: function ( file_id ) {
-					return file_id ?
-						'<img src="'+table_participants.file( 'files', file_id ).web_path+'"/>' :
-						null;
-				},
-				defaultContent: "Не выбрано",
-				title: "Фотография участника"
-			}
-		],
-		select: true,
-		buttons: [
-			{ extend: "create", editor: editor_participants_teams, text:"Создать"},
-			{ extend: "edit",   editor: editor_participants_teams, text:"Редактировать"},
-			{ extend: "remove", editor: editor_participants_teams, text:"Удалить" },
-		]
-	});
-	var table_groups_teams = $('#table_groups_teams').DataTable( {
-		dom: 'Bfrtip',
-		paging: false,
-		scrollY: '50vh',
-		scrollCollapse: true,
-		searching: true,
-		fixedHeader: true,
-		oLanguage:{
-			sEmptyTable:"На данный момент группы не созданы",
-			sInfo:"Всего _MAX_ групп",
-			sInfoEmpty:"Всего _MAX_ групп",
-			sInfoFiltered:"",
-			sLengthMenu:"",
-			sLoadingRecords:"Загружается...",
-			sProcessing:"Обрабатывается...",
-			sSearch:"Введите для поиска:",
-			sZeroRecords:"К сожалению, группы не найдены, попробуйте изменить поиск или добавьте новую группу."
-		},
-		columnDefs: [ 
-			{ 'targets' : 'no-sort', 'orderable': false }
-		],
-		//ajax: "../php/upload.php",
-		columns: [
-			{ data: "group_name" },
-			{ data: "group_team" },
-			{ data: "group_desc" },
-			{
-				data: "group_avatar",
-				render: function ( file_id ) {
-					return file_id ?
-						'<img src="'+table_participants.file( 'files', file_id ).web_path+'"/>' :
-						null;
-				},
-				defaultContent: "Не выбрано",
-				title: "Логотип группы"
-			}
-		],
-		select: true,
-		buttons: [
-			{ extend: "create", editor: editor_groups_teams, text:"Создать"},
-			{ extend: "edit",   editor: editor_groups_teams, text:"Редактировать"},
-			{ extend: "remove", editor: editor_groups_teams, text:"Удалить" },
-		]
-	});
-
-
-	$('#table_judges_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
-	$('#table_participants_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
-	$('#table_groups_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
-	$('#table_teams_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
-	$('#table_participants_groups_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
-	$('#table_participants_teams_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
-	$('#table_groups_teams_wrapper .row').find('.col-sm-6').removeClass('col-sm-6').addClass('col-xs-6');
 });
