@@ -35,7 +35,7 @@
 							<label for="org_name" class="control-label">Название организации</label>
 							<div class="input-area">
 								<input type="text" id="org_name" name="org_name" class="form-control">
-								<label id="org_name-error" class="error-input" for="org_name"></label>
+								<label id="org_name-error" class="error-input" for="org_name" style="display:none"></label>
 								<span class="help-block">Его увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 							</div>
 						</div>
@@ -43,7 +43,7 @@
 							<label for="org_user" class="control-label">Доверенное лицо</label>
 							<div class="input-area">
 								<input type="text" id="org_user" name="org_user" class="form-control" placeholder="Иванов Иван Иванович">
-								<label id="org_user-error" class="error-input" for="org_user"></label>
+								<label id="org_user-error" class="error-input" for="org_user" style="display:none"></label>
 								<span class="help-block">Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
 							</div>
 						</div>
@@ -51,7 +51,7 @@
 							<label far="email" class="control-label">E-mail</label>
 							<div class="input-area">
 								<input type="email" name="email" class="form-control" placeholder="email@address.ru">
-								<label id="email-error" class="error-input" for="email"></label>
+								<label id="email-error" class="error-input" for="email" style="display:none"></label>
 								<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
 							</div>
 						</div>
@@ -59,7 +59,7 @@
 							<label for="password" class="control-label">Пароль</label>
 							<div class="input-area">
 								<input type="password" id="password" name="password" class="form-control">
-								<label id="password-error" class="error-input" for="password"></label>
+								<label id="password-error" class="error-input" for="password" style="display:none"></label>
 								<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
 							</div>
 						</div>
@@ -70,7 +70,7 @@
 									<input type="text" id="org_site" name="org_site" class="form-control">
 									<span class="input-group-addon">.votepad.ru</span>
 								</div>
-								<label id="org_site-error" class="error-input" for="org_site"></label>
+								<label id="org_site-error" class="error-input" for="org_site" style="display:none"></label>
 								<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
 							</div>
 						</div>
@@ -78,7 +78,7 @@
 							<label for="org_phone" class="control-label">Телефон</label>
 							<div class="input-area">
 								<input type="tel" id="org_phone" name="org_phone" class="form-control">
-								<label id="org_phone-error" class="error-input" for="org_phone"></label>
+								<label id="org_phone-error" class="error-input" for="org_phone" style="display:none"></label>
 								<span class="help-block">Нужен для связи с Вами.</span>
 							</div>
 						</div>
@@ -87,12 +87,12 @@
 								<input type="checkbox" id="confirmrools" name="confirmrools">
 								Я прочитал(а) <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен(а) с ним
 								<br>
-								<label id="confirmrools-error" class="error-input" for="confirmrools"></label>
+								<label id="confirmrools-error" class="error-input" for="confirmrools" style="display:none"></label>
 							</label>
 						</div>
 						<div class="form-group text-center">
-							<button type="submit" class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</button>	
-						</div>	
+							<button type="submit" class="md-btn md-btn-lg md-btn-success">Перейти к публикации мероприятия</button>
+						</div>
 					</form>
 				</div>
 			</div>

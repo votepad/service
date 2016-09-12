@@ -7,12 +7,12 @@
                     <div class="form-group search-block">
                         <div class="col-md-7 col-xs-12">
                             <label class="control-label">Поиск мероприятия</label>
-                            <input type="text" class="form-control input-sm">
+                            <input name="event_name" type="text" class="form-control input-sm">
                         </div>
 
                         <div class="col-md-3 col-xs-6">
                             <label class="control-label">Сортировать по</label>
-                            <select class="form-control input-sm">
+                            <select class="form-control input-sm" name="event_sort">
                                 <option></option>
                                 <option>Название мероприятия</option>
                                 <option>Дата начала мероприятия</option>
@@ -21,7 +21,7 @@
 
                         <div class="col-md-2 col-xs-5 col-xs-offset-1 col-md-offset-0">
                             <label class="control-label">Тип</label>
-                            <select class="form-control input-sm">
+                            <select class="form-control input-sm" name="event_type">
                                 <option></option>
                                 <option>Черновик</option>
                                 <option>Виден всем</option>
@@ -31,7 +31,7 @@
                     </div>
 
                     <!-- LIST OF EVENTS -->
-                    <ul>
+                    <ul id="events_list" class="text-center">
                         <? for($i = 0; $i < count($events); $i++) : ?>
                         <li class="event-group">
                             <div class="event-wrapper">
@@ -39,10 +39,10 @@
                                     <div class="event-image" style="background: url(<?=$assets; ?>img/bg2.jpg) no-repeat;"></div>
                                     <a class="event-link" href="<?=URL::site('events/' . $events[$i]['name']); ?>">
                                         <div class="event-preview">
-                                            <h2><?=$events[$i]['name']; ?></h2>
+                                            <h2 class="event_name_search"><?=$events[$i]['name']; ?></h2>
                                             <p><?=$events[$i]['short_description']; ?></p>
-                                            <span><?=$events[$i]['start_time']; ?></span>
-                                            <small>черновик</small>
+                                            <span class="event_time_search"><?=$events[$i]['start_time']; ?></span>
+                                            <small class="event_type_search">черновик</small>
                                         </div>
                                     </a>
                                     <div class="event-result" style="display: block">
@@ -53,27 +53,6 @@
                                 </div>
                                 <div class="event-footer">
                                     <ul class="event-footer-left">
-                                        <li class="li">
-                                            <div class="">
-                                                <button data-toggle="dropdown" class="md-btn item">
-                                                    <i class="fa fa-cog" aria-hidden="true"></i>
-                                                </button>
-                                                <ul role="menu" class="dropdown-menu">
-                                                    <li>
-                                                        <a href="#/tnl/edit">
-                                                            <i class="fa fa-edit" aria-hidden="true"></i>
-                                                            <span>Редактировать</span>
-                                                        </a>
-                                                    </li>
-                                                    <li>
-                                                        <a href="#">
-                                                            <i class="fa fa-trash" style="color:#f47f7f" aria-hidden="true"></i>
-                                                            <span>Удалить</span>
-                                                        </a>
-                                                    </li>
-                                                </ul>
-                                            </div>
-                                        </li>
                                         <li class="li">
                                             <div class="">
                                                 <button data-toggle="dropdown" class="md-btn item">
@@ -101,8 +80,8 @@
                                                 </ul>
                                             </div>
                                         </li>
-                                        <li>
-                                            <button type="button" class="md-btn item" data-toggle="tooltip" data-placement="bottom" title="Связаться с организатором">
+                                        <li class="li">
+                                            <button type="button" class="md-btn item" data-toggle="tooltip" data-placement="bottom" title="Связаться с организатором" onclick="open_feedback_form(email)">
                                                 <i class="fa fa-envelope" aria-hidden="true"></i>
                                             </button>
                                         </li>
@@ -126,9 +105,7 @@
                         </li>
                         <? endfor; ?>
                     </ul>
-                    <div class="text-center">
-                        Показано <?=count($events); ?>
-                    </div>
+                    <div id="count_events" class="text-center"></div>
                 </div>
             </div>
         </div>
@@ -139,11 +116,11 @@
         <div class="panel panel-default">
             <div class="panel-heading">Быстрый старт</div>
             <div class="panel-body">
-                <a href="<?=URL::site($organization->name . '/event/new'); ?>" class="md-btn md-btn-md quick-start">
+                <a href="<?=URL::site($organization->website . '/event/new'); ?>" class="md-btn md-btn-md quick-start">
                     <i class="fa fa-plus" aria-hidden="true"></i>
                     Создать мероприятие
                 </a>
-                <a href="orgpage-settings-team.html" class="md-btn md-btn-md quick-start">
+                <a href="<?=URL::site($organization->website . '/settings/team'); ?>" class="md-btn md-btn-md quick-start">
                     <i class="fa fa-paper-plane" aria-hidden="true"></i>
                     Пригласить организатора
                 </a>

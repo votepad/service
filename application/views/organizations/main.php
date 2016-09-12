@@ -14,7 +14,7 @@
 	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
 	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
 	<script src="<?=$assets; ?>js/organizations/org.js"></script>
-	
+
 </head>
 <body>
 <div class="wrapper">
@@ -54,7 +54,7 @@
 		<section>
 			<?=$main_section; ?>
 		</section>
-		
+
 	</div>
 
 	<footer></footer>
