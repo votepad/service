@@ -133,7 +133,7 @@ class Controller_Events_Index extends Dispatch
 
         $this->event_name   = $this->request->param('eventname');
 
-        
+
         /**
          * Getting information about event
          */
@@ -169,10 +169,10 @@ class Controller_Events_Index extends Dispatch
     {
 
     }
-    
+
     public function action_characters()
     {
-        
+
     }
 
     public function action_contests()
@@ -187,7 +187,7 @@ class Controller_Events_Index extends Dispatch
 
     public function action_publish()
     {
-        
+
     }
 
     public function action_showAll()
@@ -205,6 +205,6 @@ class Controller_Events_Index extends Dispatch
 
         $events = Model_Events::getOrganizationEvents($id_organization);
         $this->template->events = $events;
-        
+
     }
 }

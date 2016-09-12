@@ -7,15 +7,19 @@
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/select2/dist/css/select2.css">
+	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/cropper/dist/cropper.css">
+	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/upload.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/app1.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/event.css">
 
-	
+
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.full.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/cropper/dist/cropper.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>js/upload.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/events/event-new.js"></script>
 
 </head>
@@ -42,7 +46,7 @@
 							<label for="eventsite" class="control-label">Страница мероприятия</label>
 							<div class="input-area">
 								<div class="input-group">
-									<span class="input-group-addon">название_орг.votepad.ru/events/</span>
+									<span class="input-group-addon">НАЗВАНИЕ_ОРГАНИЗАЦИИ.nwe.ru/events/</span>
 									<input type="text" id="eventsite" name="event_site" class="form-control">
 								</div>
 								<label id="eventsite-error" class="error-input" for="eventsite" style="display:none"></label>
@@ -65,8 +69,8 @@
 								—
 								<input type="datetime-local" id="event_end" name="eventend" class="form-control input-sm">
 							</div>
-							<label id="eventstart-error" class="error-input" for="eventstart" style="display: none;"></label>
-							<label id="eventend-error" class="error-input" for="eventend" style="display: none;"></label>
+							<label id="eventstart-error" class="error-input" for="event_start" style="display: none;"></label>
+							<label id="eventend-error" class="error-input" for="event_end" style="display: none;"></label>
 							<span class="help-block">Выберите дату начала и завершения мероприятия.</span>
 						</div>
 					</div>
@@ -75,6 +79,11 @@
 						<div class="input-area">
 							<select id="eventstatus" name="event_status" class="form-control input-sm" >
 								<option value=""></option>
+								<option value="1">Международное</option>
+								<option value="2">Всероссийское</option>
+								<option value="3">Региональное</option>
+								<option value="4">Городской</option>
+								<option value="5">Локальное (университет, колледж, школа и т.п.)</option>
 							</select>
 							<label id="eventstatus-error" class="error-input" for="eventstatus" style="display: none;"></label>
 							<span class="help-block">Выберите статус мероприятия, он нужен для поиска мероприятия в системе.</span>
@@ -84,14 +93,23 @@
 						<label for="eventcity" class="control-label">Город</label>
 						<div class="input-area">
 							<select id="eventcity" name="event_city" class="form-control input-sm" >
-								<option value=""></option>
+									<option value=""></option>
+									<option value="1">Санкт-Петербург</option>
+									<option value="2">Москва</option>
 							</select>
 							<label id="eventcity-error" class="error-input" for="eventcity" style="display: none;"></label>
 						</div>
 					</div>
+					<div class="form-group">
+						<label for="eventcity" class="control-label">Логотип</label>
+						<div class="input-area">
+							<button type="button" id="eventlogo_upload" class="md-btn md-btn-md md-btn-default upload">Выбрать логотип мероприятия</button>
+							<span class="help-block">Если у Вас не готов логотип, то можно выбрать его позже.</span>
+						</div>
+					</div>
 					<div class="form-group text-center">
 						<button type="button" class="md-btn org-info-btn" data-toggle="collapse" data-target="#orginfo">
-							<i class="fa fa-info" aria-hidden="true"></i> 
+							<i class="fa fa-info" aria-hidden="true"></i>
 							<span>Контактная информация организатора</span>
 						</button>
 					</div>
