@@ -7,7 +7,7 @@ body, html {
 }
 
 body {
-    font-family: pronwe;    
+    font-family: pronwe;
     color: #656565;
     background-color: #f5f7fa;
 }
@@ -50,7 +50,7 @@ button{
 	padding: 0;
 }
 .link{
-	color: red;	
+	color: red;
 }
 ul{
 	padding: 0;
@@ -228,7 +228,7 @@ label.error-input{
 }
 	.md-btn:hover, .md-btn.md-button.md-focused{
 		-webkit-transform: translate3d(0,-1px,0);
-     	transform: translate3d(0,-1px,0); 
+     	transform: translate3d(0,-1px,0);
 		box-shadow: 0 1px 8px 0 rgba(0,0,0,.2),0 3px 4px 0 rgba(0,0,0,.14),0 3px 3px -2px rgba(0,0,0,.12);
 	}
 	.md-btn.disabled, .md-btn[disabled]{
@@ -415,7 +415,7 @@ label.error-input{
 	.panel-default > .panel-heading{
 		color: #656565;
 		background-color: #e9ebee;
-		border-color: #bbb;	
+		border-color: #bbb;
 		font-size: 16px;
 	}
 		.panel-default > .panel-heading > a{
@@ -455,7 +455,7 @@ label.error-input{
 			.panel-tabs .md-btn:hover, .panel-tabs .md-btn:focus{
 				position: relative;
 				-webkit-transform: none;
-				transform: none; 
+				transform: none;
 				box-shadow: none;
 				background-color: rgb(219,220,223);
 				border-bottom: 1px solid #bbb;
@@ -502,17 +502,16 @@ label.error-input{
 	width: 100%;
 }
 .left-column{
-	padding-left: 15px;
-	padding-right: 5px;
+	float: left;
+	padding-right: 10px;
 	vertical-align: top;
 	display: inline-block;
 	width: 70%;
 }
 .right-column{
-	float: right;
+	float: left;
+	padding-left: 10px;
 	vertical-align: top;
-	margin-right: -15px;
-	padding: 0;
 	display: inline-block;
 	width: 30%;
 }
@@ -522,25 +521,17 @@ label.error-input{
 		width: 768px;
 	}
 	.left-column{
-		vertical-align: top;
-		padding: 0 0 0 14px;
-		display: inline-block;
-		width: 440px;
+		width: 528px;
 	}
-	.left-column .panel{
-		width: 440px;
-	}
+		.left-column .block{
+			width: 518px;
+		}
 	.right-column{
-		vertical-align: top;
-		padding: 0;
-		display: inline-block;
-		margin-left: 20px;
-		margin-right: 0;
-		width: 300px;
+		width: 240px;
 	}
-	.right-column .panel{
-		width: 315px;
-	}
+		.right-column .block{
+			width: 230px;
+		}
 }
 .dropdown.open .drop-orgs[aria-expanded="true"]{
 	background-color: white;

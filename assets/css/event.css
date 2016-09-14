@@ -427,3 +427,56 @@ header{
 .team1, .part1{ color: #27c24c; }
 .team2, .part2{ color: #2F95EA; }
 .team3, .part3 { color: #bbb; }
+
+/*   SCORING   */
+.left-column .form-group{
+	padding: 0 15px;
+}
+.stages{
+	margin-top: 40px;
+}
+
+.elements_area .item{
+	border: 1px solid #eaeaea;
+	margin-bottom: 8px;
+	margin-left: -1px;
+	padding: 4px 10px;
+	min-width: 30px;
+	text-align: center;
+	float: left;
+}
+.elements_area ul .item{
+	cursor: move;
+}
+ul.form-control{
+	height: inherit;
+	min-height: 35px;
+	border-radius: 3px !important;
+	border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+	ul.form-control .item{
+		margin-right: 5px;
+		cursor: move;
+	}
+.item{
+	-webkit-user-select: none;  /* Chrome all / Safari all */
+	-moz-user-select: none;     /* Firefox all */
+	-ms-user-select: none;      /* IE 10+ */
+	user-select: none;
+}
+.clear{
+	position: absolute;
+	top: 7px;
+	right: 10px;
+	z-index: 2;
+	width: 20px;
+	height: 20px;
+	text-align: center;
+	display: none;
+	cursor: pointer;
+}
+	.clear .fa{
+		color: red;
+		opacity: .4;
+	}
