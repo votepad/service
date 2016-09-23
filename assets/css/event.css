@@ -481,17 +481,35 @@ ul.form-control{
 		opacity: .4;
 	}
 
-.fixed-right-column{
-	position: fixed;
-  margin-top: -359px;
-  width: 26.2%;
-}
-
-.right-column {
+.left-column, .right-column{
 	-webkit-user-select: none;
 	-moz-user-select: none;
 }
-
-.right-column .block .panel-body{
-	overflow-y: scroll;
+.fixed-right-column{
+	z-index: 2;
+	position: fixed;
+  top: 0;
+}
+	.fixed-right-column .block{
+		margin-right: 10%;
+	}
+		.fixed-right-column .block .panel-body{
+			overflow-y: scroll;
+			overflow-x: hidden;
+			-ms-overflow-style: none;
+			overflow: -moz-scrollbars-none;
+		}
+		.fixed-right-column .block .panel-body::-webkit-scrollbar { width: 0; }
+@media (max-width: 890px) {
+	.fixed-right-column .block{
+		margin-right: 0;
+	}
+}
+@media (max-width: 768px) {
+	.fixed-right-column{
+		right: 0;
+	}
+	.fixed-right-column .block{
+		position: relative;
+	}
 }

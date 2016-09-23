@@ -516,10 +516,7 @@ label.error-input{
 	width: 30%;
 }
 
-@media (max-width: 768px) {
-	.columns-area{
-		width: 768px;
-	}
+@media (max-width: 890px) {
 	.left-column{
 		width: 528px;
 	}

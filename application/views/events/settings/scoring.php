@@ -65,7 +65,9 @@
                   <label>Балл за конкурс, полученный участником</label>
                   <div class="input-group">
                     <span class="input-group-addon">=</span>
-                    <ul id="competition_participant_1" class="form-control"></ul>
+                    <ul id="competition_participant_1" class="form-control" disabled>
+                      <li class="inline item" value="0.3">0.3</li>
+                    </ul>
                     <div class="clear"><i class="fa fa-trash"></i></div>
                   </div>
                 </div>
@@ -73,7 +75,7 @@
                   <label>Балл за конкурс, полученный группой</label>
                   <div class="input-group">
                     <span class="input-group-addon">=</span>
-                    <ul id="competition_group_1" class="form-control"></ul>
+                    <ul id="competition_group_1" class="form-control" disabled></ul>
                     <div class="clear"><i class="fa fa-trash"></i></div>
                   </div>
                 </div>
@@ -96,7 +98,7 @@
                           <label>Балл за этап, полученный участником</label>
                           <div class="input-group">
                             <span class="input-group-addon">=</span>
-                            <ul id="stage_participant_1_1" class="form-control"></ul>
+                            <ul id="stage_participant_1_1" class="form-control" disabled></ul>
                             <div class="clear"><i class="fa fa-trash"></i></div>
                           </div>
                         </div>
@@ -104,7 +106,7 @@
                           <label>Балл за этап, полученный группой</label>
                           <div class="input-group">
                             <span class="input-group-addon">=</span>
-                            <ul id="stage_group_1_1" class="form-control"></ul>
+                            <ul id="stage_group_1_1" class="form-control" disabled></ul>
                             <div class="clear"><i class="fa fa-trash"></i></div>
                           </div>
                         </div>
@@ -129,7 +131,7 @@
                           <label>Балл за этап, полученный участником</label>
                           <div class="input-group">
                             <span class="input-group-addon">=</span>
-                            <ul id="stage_participant_1_2" class="form-control"></ul>
+                            <ul id="stage_participant_1_2" class="form-control" disabled></ul>
                             <div class="clear"><i class="fa fa-trash"></i></div>
                           </div>
                         </div>
@@ -137,7 +139,7 @@
                           <label>Балл за этап, полученный группой</label>
                           <div class="input-group">
                             <span class="input-group-addon">=</span>
-                            <ul id="stage_group_1_2" class="form-control"></ul>
+                            <ul id="stage_group_1_2" class="form-control" disabled></ul>
                             <div class="clear"><i class="fa fa-trash"></i></div>
                           </div>
                         </div>
@@ -153,12 +155,15 @@
           <!-- RIGHT COLUMN -->
           <div class="right-column">
             <div class="panel panel-default block">
-              <div class="panel-heading">
-                Элементы для создания формул
+              <div class="panel-heading" data-toggle="collapse" aria-expanded="true">
+                Создание формулы
               </div>
-              <div class="panel-body">
+              <div class="panel-body" id="creating_formulas">
                 <div class="form-group">
-                  <small>Перетащите элемент в нужную формулу, чтобы получить итоговый балл.</small>
+                  <button id="edit_formulas" type="button" class="md-btn md-btn-sm md-btn-primary">Редактировать</button>
+                </div>
+                <div class="form-group">
+                  <small>Перетащите элемент в нужную формулу, чтобы получилась формула.</small>
                 </div>
                 <div class="form-group">
                   <label>Коэффициенты</label>
@@ -167,7 +172,6 @@
                     <ul class="no-li inline" id="numbers_list">
                       <li class="inline item" value="0.3">0.3</li>
                       <li class="inline item" value="0.5">0.5</li>
-                      <li class="inline item" value="0.8">0.8</li>
                     </ul>
                   </div>
                 </div>
