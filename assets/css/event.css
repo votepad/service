@@ -480,3 +480,18 @@ ul.form-control{
 		color: red;
 		opacity: .4;
 	}
+
+.fixed-right-column{
+	position: fixed;
+  margin-top: -359px;
+  width: 26.2%;
+}
+
+.right-column {
+	-webkit-user-select: none;
+	-moz-user-select: none;
+}
+
+.right-column .block .panel-body{
+	overflow-y: scroll;
+}

@@ -54,6 +54,11 @@ class Controller_Events_Index extends Dispatch
     protected $event_name;
 
     /**
+     * @var $event
+     */
+    protected $event;
+
+    /**
      * Before action
      */
     public function before()
@@ -157,6 +162,10 @@ class Controller_Events_Index extends Dispatch
                                                 ->set('organization', $organization)
                                                 ->set('event', $event);
 
+        /**
+         * Event as global
+         */
+        $this->event = $event;
 
     }
 
@@ -167,7 +176,7 @@ class Controller_Events_Index extends Dispatch
 
     public function action_show()
     {
-
+        $this->template->event = $this->event;
     }
 
     public function action_characters()

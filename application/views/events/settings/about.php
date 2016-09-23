@@ -26,7 +26,7 @@
 	<script type="text/javascript" src="<?=$assets;?>js/upload.js"></script>
 
 	<script type="text/javascript" src="<?=$assets;?>js/events/event-edit-main-info.js"></script>
-	<script type="text/javascript" src="<?=$assets;?>js/events/event-about.js"></script>
+	<script type="text/javascript" src="<?=$assets;?>js/events/event-about.js?v=<?=filemtime("assets/js/events/event-about.js") ?>"></script>
 	
 
 </head>
@@ -35,7 +35,6 @@
 
 <div class="wrapper">
 	
-
 	<div class="content-wrapper">
 		<!-- EVENT INFO -->
 		<?=$event_jumbo; ?>
@@ -51,9 +50,20 @@
 						</button>
 					</div>
 					<div id="event_about"></div>
+
 					<div id="no_event_about">
-						<p>Вы ещё не рассказали о мероприятии, пожалуйста, расскажите о нём.</p>
+						<? if (empty($event['full_description'])) : ?>
+
+							<p>Вы ещё не рассказали о мероприятии, пожалуйста, расскажите о нём.</p>
+
+						<? else : ?>
+
+							<?=$event['full_description']; ?>
+
+						<? endif ; ?>
 					</div>
+
+					<input type="hidden" id="hidden_id_of_current_event" value="<?=$event['id']; ?>">
 				</div>
 			</div>
 			
@@ -65,12 +75,12 @@
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
 							<h4 class="modal-title" id="myModalLabel">Изменение основной информации о мероприяии</h4>
 						</div>
-						<form method="POST" id="event_main_info" class="form-horizontal">
+						<form action="<?=URL::site(); ?>" method="POST" id="event_main_info" class="form-horizontal">
 							<div class="modal-body">
 									<div class="form-group">
 										<label for="eventname" class="control-label">Название мероприятия</label>
 										<div class="input-area">
-											<input type="text" id="eventname" name="eventname" class="form-control input-sm" value="Мисс ИТМО">
+											<input type="text" id="eventname" name="eventname" class="form-control input-sm" value="<?=$event['name']; ?>">
 											<label id="eventname-error" class="error-input" for="eventname" style="display: none;"></label>
 										</div>
 									</div>
@@ -79,7 +89,7 @@
 											<div class="input-area">
 												<div class="input-group">
 													<span class="input-group-addon">ifmo.votepad.ru/events/</span>
-													<input type="text" id="eventsite" name="eventsite" class="form-control" disabled="" value="miss-itmo">
+													<input type="text" id="eventsite" name="eventsite" class="form-control" disabled="" value="<?=$event['name'] . '.pronwe.ru'; ?>">
 												</div>
 												<label id="eventsite-error" class="error-input" for="eventsite" style="display:none"></label>
 												<span class="help-block">По этому адресу будет доступена страница мероприятия.</span>
@@ -88,7 +98,7 @@
 									<div class="form-group">
 										<label for="eventshortdesc" class="control-label">Краткое описание</label>
 										<div class="input-area">
-											<textarea type="text" id="eventshortdesc" name="eventshortdesc" class="form-control input-sm" maxlength="170" rows=2>Мероприятие проходит ежегодно, где 11 девушек соревнуются за титул "Мисс университета ИТМО".</textarea>
+											<textarea type="text" id="eventshortdesc" name="eventshortdesc" class="form-control input-sm" maxlength="170" rows=2><?=$event['short_description']; ?></textarea>
 											<label id="eventshortdesc-error" class="error-input" for="eventshortdesc" style="display:none"></label>
 											<span class="help-block">Краткое описание будет доступно в лентах новостей, а также на страницы организации. <br>Осталось <span id="shortdesc_max_length">170</span> символов.</span>
 										</div>
@@ -97,9 +107,9 @@
 										<label for="eventdata" class="control-label">Дата и время</label>
 										<div class="input-area">
 											<div class="date-input">
-												<input type="datetime-local" id="eventstart" name="eventstart" class="form-control input-sm" value="2016-09-17T12:00">
+												<input type="datetime-local" id="eventstart" name="eventstart" class="form-control input-sm" value="<?=$event['start_time']; ?>">
 												—
-												<input type="datetime-local" id="eventend" name="eventend" class="form-control input-sm" value="2016-09-18T17:00">
+												<input type="datetime-local" id="eventend" name="eventend" class="form-control input-sm" value="<?=$event['end_time']; ?>">
 											</div>
 											<label id="eventstart-error" class="error-input" for="eventstart" style="display: none;"></label>
 											<label id="eventend-error" class="error-input" for="eventend" style="display: none;"></label>

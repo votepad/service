@@ -10,7 +10,7 @@ Route::set('ALL_EVENTS', 'events/all')
         'action'     => 'showAll'
     ));
 
-Route::set('NEW_EVENT', '<organization>/event/new')
+Route::set('NEW_EVENT', '<organization>/event/new', array('organization' => '(.*)'))
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'New'
@@ -26,4 +26,10 @@ Route::set('SHOW_EVENT', 'events/<eventname>(/<action>)')
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'show'
+    ));
+
+Route::set('ADD_FULLDESCRIPTION', 'addfulldescription')
+    ->defaults(array(
+        'controller' => 'Events_Modify',
+        'action'     => 'addFullDescription'
     ));

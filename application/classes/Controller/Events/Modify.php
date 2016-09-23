@@ -8,6 +8,10 @@
 
 class Controller_Events_Modify extends Controller {
 
+
+    /**
+     * Action for creating new event
+     */
     public function action_add()
     {
         if ($this->request->method() == Request::POST)
@@ -33,6 +37,21 @@ class Controller_Events_Modify extends Controller {
         }
     }
 
+    public function action_addFullDescription()
+    {
+        if ($this->request->method() == Request::POST && Ajax::is_ajax())
+        {
+            $full_description = Arr::get($_POST, 'text');
+            $id_event         = Arr::get($_POST, 'id');
+
+            Model_Events::updateField($id_event, 'full_description', $full_description);
+        }
+    }
+
+
+    /**
+     * @deprecated
+     */
     function action_addParticipant()
     {
         $id_event = $this->request->param('id');
@@ -58,6 +77,10 @@ class Controller_Events_Modify extends Controller {
         $this->redirect('/events/'. $id_event . '/edit' );
     }
 
+
+    /**
+     * @deprecated
+     */
     function action_addStage()
     {
         $id_event = $this->request->param('id');

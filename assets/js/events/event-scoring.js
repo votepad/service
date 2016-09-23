@@ -13,6 +13,26 @@ $().ready(function(){
     $('#modal_number').remove();
   });
 
+  $('body').change(function(){
+    var height = parseInt(document.documentElement.clientWidth) - 60 + "px";
+
+  });
+
+  var change_height = function () {
+    var height = $(window).height() - 45 + "px";
+    $('.right-column .block .panel-body').css('height', height);
+  };
+  change_height();
+  $(window).resize(function() {
+    change_height();
+  });
+  $(window).scroll(function() {
+    var top = $(document).scrollTop();
+    var block_pos = $('.right-column').offset();
+    if (top >= block_pos.top) $('.right-column .block').addClass('fixed-right-column');
+    else $('.right-column .block').removeClass('fixed-right-column');
+  });
+
   $('body').on('click','#save_number',function(){
     var num = $('#number').val();
     if (num != '') {
@@ -139,7 +159,7 @@ $().ready(function(){
     group: {
       name: stage_group_1_2,
       pull: true,
-      put: ['numbers_list','math_list','groups','criterions']
+      put: ['numbers_list','math_list','groups','']
     },
     animation: 200,
   });
