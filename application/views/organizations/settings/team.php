@@ -30,7 +30,7 @@
 					<div class="userImageBlock inline">
 						<img src="<?=$assets; ?>img/user/02.jpg">
 					</div>
-					<button class="md-icon-button edit-team-btn" data-toggle="collapse" data-target="#user1">
+					<button class="md-icon-button edit-team-btn" data-toggle="collapse" data-target="#user<?=$i; ?>">
 						<i class="fa fa-edit" aria-hidden="true"></i>
 					</button>
 					<div class="inline user-block-right-column">
@@ -47,7 +47,7 @@
 							</p>
 						</div>
 
-						<div id="user1" class="collapse">
+						<div id="user<?=$i; ?>" class="collapse">
 							<form action="" >
 								<div class="form-group">
 									<label class="control-label">Права доступа</label>
@@ -88,83 +88,13 @@
 									<button type="submit" class="md-btn md-btn-md md-btn-labeled md-btn-success ">
 										<span class="md-btn-icon"><i class="fa fa-check"></i></span> Сохранить
 									</button>
-
-									<button type="button" id="canselEdit" data-toggle="collapse" data-target="#user1" class="md-btn md-btn-md md-btn-default" style="float: right;">Отмена</button>
+									<button type="button" id="canselEdit" data-toggle="collapse" data-target="#user<?=$i; ?>" class="md-btn md-btn-md md-btn-default" style="float: right;">Отмена</button>
 								</div>
 							</form>
 						</div>
 					</div>
 				</li>
 				<? endfor; ?>
-				<!--<li class="no-li user-block">
-					<div class="userImageBlock inline">
-						<img src="img/user/01.jpg">
-					</div>
-					<button class="md-icon-button edit-team-btn" data-toggle="collapse" data-target="#user2">
-						<i class="fa fa-edit" aria-hidden="true"></i>
-					</button>
-					<div class="inline user-block-right-column">
-						<div class="user-header">
-							<h4 class="inline">Екатерина Иванова</h4>
-							<span class="inline">Заместитель администратора</span>
-						</div>
-						<div class="">
-							<p class="user-rools">
-								Доступ к администрированию мероприятий и управлению балансом организации
-							</p>
-							<p class="user-events">
-								Ответственный за мероприятия: Мисс ИТМО
-							</p>
-						</div>
-
-						<div id="user2" class="collapse">
-							<form action="" >
-								<div class="form-group">
-									<label class="control-label">Права доступа</label>
-									<div class="checkbox rools">
-										<label class="">
-											<input type="checkbox" name="manageuser">Управлением пользователем
-										</label>
-										<span>Возможность добавлять или удалять организаторов, редактировать права доступа</span>
-									</div>
-									<div class="checkbox rools">
-										<label class="">
-											<input type="checkbox" name="manageevent" checked>Управлением мероприятиями
-										</label>
-										<span>Возможность добавлять или удалять ответственных организаторов за мероприятия</span>
-									</div>
-									<div class="checkbox rools">
-										<label class="">
-											<input type="checkbox" name="managebalance" checked>Финансовая информация
-										</label>
-										<span>Возможность производить оплату за предоставляемые услуги, получать информацию по расходам</span>
-									</div>
-								</div>
-								<div class="form-group input-width">
-									<label class="control-label">Должность<span style="color: red">*</span></label>
-									<input type="text" name="position" class="form-control input-sm" maxlength="50" required value="Заместитель администратора">
-									<span class="help-block">Будет отображена только для членов команды</span>
-								</div>
-								<div class="form-group input-width">
-									<label class="control-label">Мероприятия</label>
-									<select name="events" class="form-control input-width eventsToUser" multiple="multiple">
-										<option value="1" selected="selected">Мисс ИТМО</option>
-										<option value="2">Мистер ИТМО</option>
-										<option value="3">Федеральный конкурс ты нужен людям</option>
-									</select>
-									<span class="help-block" >Выберите меропиятия, которые сможет редактировать пользователь</span>
-								</div>
-								<div class="input-width">
-									<button type="submit" class="md-btn md-btn-md md-btn-labeled md-btn-success ">
-										<span class="md-btn-icon"><i class="fa fa-check"></i></span> Сохранить
-									</button>
-
-									<button type="button" id="canselEdit" data-toggle="collapse" data-target="#user2" class="md-btn md-btn-md md-btn-default" style="float: right;">Отмена</button>
-								</div>
-							</form>
-						</div>
-					</div>
-				</li>-->
 			</ul>
 
 			<div class="pad-l-r-15">
@@ -225,6 +155,6 @@
 
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.full.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-team.js"></script>
