@@ -185,7 +185,7 @@
                         el.css('opacity', '.3');
                     },
                     success : function(result) {
-                        el.css('background-image', "url(http://pronwe.local/uploads/organizations/o_"+image+")");
+                        el.css('background-image', "url(/uploads/organizations/o_"+image+")");
                         el.css('background-size', '100% 100%');
                         el.css('opacity', '1');
                     },
