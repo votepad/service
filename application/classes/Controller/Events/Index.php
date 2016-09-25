@@ -149,7 +149,7 @@ class Controller_Events_Index extends Dispatch
          * Getting information about organization
          */
 
-        $organization = Model_Organizations::get($event['id_organization']);
+        $organization = Model_Organizations::get($event['id_organization'], 1);
 
         /**
          * Getting information about user
@@ -204,8 +204,8 @@ class Controller_Events_Index extends Dispatch
         $post_data = $this->request->post();
 
         $id_organization = Arr::get($post_data, 'id_organization');
-        $organization = Model_Organizations::get($id_organization);
-
+        $organization = Model_Organizations::get($id_organization, 1);
+        
         $this->template->organization = $organization;
 
         /**

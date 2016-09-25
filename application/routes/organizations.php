@@ -16,6 +16,18 @@ Route::set('ADD_ORGANIZATION', 'organization/add')
         'action'     => 'add'
     ));
 
+Route::set('DELETE_ORGANIZATION', 'organization/<id>/delete')
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
+        'action'     => 'delete'
+    ));
+
+Route::set('REESTABLISH_ORGANIZATION', 'organization/<id>/reestablish')
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
+        'action'     => 'reestablish'
+    ));
+
 Route::set('SHOW_ORGANIZATION', 'organization(/<id>)')
     ->defaults(array(
        'controller'  => 'Organizations_Index',

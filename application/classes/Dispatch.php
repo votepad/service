@@ -11,8 +11,8 @@ class Dispatch extends Controller_Template
     public $template = '';
 
     protected $errors;
-    protected $_cache;
-    protected $_session;
+    protected $cache;
+    protected $session;
     public    $user;
 
     const POST = 'POST';
@@ -134,6 +134,6 @@ class Dispatch extends Controller_Template
         View::set_global('website', $address);
 
         /** Set caching method */
-        $this->_cache = Cache::instance();
+        $this->cache = Cache::instance();
     }
 }

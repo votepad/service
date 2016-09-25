@@ -62,7 +62,7 @@
 					<button type="submit" class="md-btn md-btn-md md-btn-labeled md-btn-success ">
 						<span class="md-btn-icon"><i class="fa fa-check"></i></span> Сохранить
 					</button>
-					<button type="button" class="md-btn md-btn-md md-btn-labeled md-btn-danger" style="float: right;">
+					<button type="button" id="remove_organization" class="md-btn md-btn-md md-btn-labeled md-btn-danger" style="float: right;">
 						<span class="md-btn-icon"><i class="fa fa-times"></i></span> Удалить организацию
 					</button>
 				</div>
@@ -77,3 +77,49 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/cropper/dist/cropper.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/upload.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-main.js"></script>
+<script>
+	$(document).ready(function() {
+
+		'use strict';
+
+        $('#remove_organization').click(function(){
+
+            if (!confirm('Вы уверены что хотите удалить организацию?'))
+                return;
+
+            /**
+             * Prepare data before sending
+             */
+            var data = {
+
+                url     : "<?=URL::site('organization/' . $id . '/delete'); ?>",
+
+                type    : 'POST',
+
+                data    : {
+
+                    id_organization : <?=$id; ?>
+
+                },
+
+                beforeSend  : function(callback) {},
+
+                success     : function(callback) {
+                    console.log(callback);
+                },
+
+                error       : function(callback) {
+                    console.log(callback);
+                }
+            };
+
+            /**
+             * Send ajax request
+             */
+            $.ajax(data);
+
+        });
+
+
+	});
+</script>

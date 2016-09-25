@@ -20,16 +20,19 @@ class Model_Organizations extends Model
         $organization->website      = $website;
         $organization->phone        = $phone;
         $organization->user_created = $user_created;
+        $organization->dt_update    = DB::expr('Now()');
         $organization->dt_created   = DB::expr('Now()');
+        $organization->is_removed   = 0;
 
         return $organization->save();
     }
 
-    public static function get($id)
+    public static function get($id, $is_removed)
     {
         $organization = new ORM_Organizations();
 
         $organization->where('id','=', $id)
+                    ->and_where('is_removed', '!=', $is_removed)
                     ->find();
 
         if ($organization->loaded())
@@ -72,19 +75,44 @@ class Model_Organizations extends Model
 
     public static function update_organization($id, $fields = array())
     {
-        $organization = self::get($id);
+        $organization = self::get($id, 1);
 
         foreach ($fields as $key => $values) {
             $organization->$key = $values;
         }
 
+        $organization->dt_update = DB::expr('Now()');
         $organization->save();
     }
 
     public static function delete_organization($id) {
 
-        $organization = self::get($id);
-        $organization->delete();
+        $organization = self::get($id, 1);
+
+        if ($organization->loaded())
+        {
+            $organization->is_removed = 1;
+            $organization->save();
+
+            return true;
+        }
+
+        return false;
+    }
+
+    public static function reestablish_organization($id) {
+
+        $organization = self::get($id, 0);
+
+        if ($organization->loaded())
+        {
+            $organization->is_removed = 0;
+            $organization->save();
+
+            return true;
+        }
+
+        return false;
     }
 
     public static function get_creator($id)

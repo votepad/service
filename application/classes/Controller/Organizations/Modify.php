@@ -73,14 +73,5 @@ class Controller_Organizations_Modify extends Dispatch
         $this->redirect('organization/' . $id_organization . '/settings/main');
 
     }
-
-    public function action_delete()
-    {
-        $id_organization = $this->request->param('id');
-        
-        if (self::isLogged() && Ajax::is_ajax()) {
-            Model_Organizations::delete_organization($id_organization);
-        }
-    }
     
 }
