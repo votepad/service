@@ -1,5 +1,3 @@
-<!-- необходимо изменить блок org-nav -->
-
 <div class="columns-area">
     <div class="left-column" style="width:100% ; padding-right: 0;">
         <div class="panel panel-default">
@@ -23,7 +21,7 @@
                     </div>
 
                     <!-- LIST OF EVENTS -->
-                    <ul id="events_list">
+                    <ul id="events_list" class="text-center">
                       <? for($i = 0; $i < count($events); $i++) : ?>
                       <li class="event-group">
                           <div class="event-wrapper">

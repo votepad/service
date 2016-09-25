@@ -84,6 +84,9 @@ $(document).ready(function(){
   }
 
   function searching(){
+    var type = $('select[name="event_type"]').val();
+    if (type == undefined) { type = ''; }
+    else {type = $('select[name="event_type"]').val().toLowerCase();}
     if ( $('input[name="event_name"]').val() == '' && $('select[name="event_type"]').val() == '' ) {
       for(var i =0; i < events.length; i++){
         events[i].hidden = false;
@@ -101,7 +104,7 @@ $(document).ready(function(){
     } else if ( $('input[name="event_name"]').val() == '' && $('select[name="event_type"]').val() != '' ) {
       for(var i =0; i < events.length; i++){
         if (events[i].type != true) {
-          if ( $('select[name="event_type"]').val().toLowerCase() == events[i].type ) {
+          if ( type == events[i].type ) {
             events[i].hidden = false;
           } else {
             events[i].hidden = true;
@@ -111,7 +114,7 @@ $(document).ready(function(){
       showEvents();
     } else {
       for(var i =0; i < events.length; i++){
-        if ( $('select[name="event_type"]').val().toLowerCase() == events[i].type && events[i].name.match($('input[name="event_name"]').val().toLowerCase()) ) {
+        if ( type == events[i].type && events[i].name.match($('input[name="event_name"]').val().toLowerCase()) ) {
           events[i].hidden = false;
         } else {
           events[i].hidden = true;

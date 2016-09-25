@@ -127,7 +127,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default block">
+        <!--<div class="panel panel-default block">
             <div class="panel-heading">Календарь мероприятий</div>
             <div class="panel-body">
                 в разработке ...
@@ -135,9 +135,9 @@
             <div class="panel-footer">
 
             </div>
-        </div>
+        </div>-->
 
-        <div class="panel panel-default block">
+        <!--<div class="panel panel-default block">
             <div class="panel-heading">Последние активности</div>
             <div class="panel-body">
                 <ul>
@@ -177,11 +177,12 @@
                 </ul>
             </div>
         </div>
+-->
 
         <div class="panel panel-default block">
             <div class="panel-heading">
                 Организаторы
-                <a href="orgpage-settings-team.html" class="pull-right">
+                <a href="<?=URL::site($organization->website . '/settings/team'); ?>" class="pull-right">
                     <i class="fa fa-edit" aria-hidden="true"></i>
                 </a>
             </div>
@@ -205,7 +206,6 @@
             </div>
         </div>
     </div>
-
 </div>
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>

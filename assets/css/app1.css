@@ -420,6 +420,7 @@ label.error-input{
 	}
 		.panel-default > .panel-heading > a{
 			padding-top: 5px;
+			display: inline-flex;
 		}
 	.panel-default > .panel-footer {
 		color: #656565;
