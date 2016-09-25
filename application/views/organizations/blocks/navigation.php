@@ -1,5 +1,5 @@
 <div class="org-nav">
-    <a href="<?=URL::site('organization/' . $id); ?>" class="md-btn active">
+    <a href="<?=URL::site('organization/' . $id); ?>" class="md-btn">
         Мероприятия
         <div class="active-tab"></div>
     </a>
