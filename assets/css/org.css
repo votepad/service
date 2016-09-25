@@ -8,6 +8,44 @@
 	background-repeat: no-repeat;
 	background-size: cover;
 }
+	.org-background .edit-org-back{
+		height: 35px;
+		position: absolute;
+		top: 20px;
+		left: 20px;
+		transition: .15s;
+	}
+		.org-background .edit-org-back .fa{
+			position: absolute;
+			top: 5px;
+			left: 5px;
+			font-size: 1.5em;
+			color: #fff;
+			opacity: .6;
+			transition: .15s;
+		}
+		.org-background .edit-org-back a{
+			display: none;
+			padding: 10px 10px 10px 33px;
+	    vertical-align: -webkit-baseline-middle;
+	    color: white;
+	    font-weight: bold;
+		}
+
+	.org-background .edit-org-back:hover{
+		background: rgba(0, 0, 0, 0.75);
+		border: 1px solid #fff;
+		border-radius: 3px;
+	}
+	.org-background .edit-org-back:hover .fa{
+		font-size: .8em;
+		top: 10px;
+		left: 10px;
+	}
+	.org-background .edit-org-back:hover a{
+		display: initial;
+	}
+
 .org-nav-block{
 	position: relative;
 	height: 40px;
@@ -79,6 +117,42 @@
 		height: 170px;
 		width: 170px;
 	}
+	.org-avatar .edit-org-avatar{
+		text-align: left;
+		position: relative;
+		margin: -55px 5px 0 5px;
+		transition: .15s;
+	}
+		.org-avatar .edit-org-avatar .fa{
+			position: absolute;
+			font-size: 1.5em;
+			color: white;
+			opacity: .6;
+			top: 20px;
+			left: 8px;
+			transition: .15s;
+		}
+		.org-avatar .edit-org-avatar a{
+			display: none;
+			padding: 4px 10px 4px 40px;
+	    color: #fff;
+	    font-weight: bold;
+		}
+
+	.org-avatar:hover .edit-org-avatar{
+		background: rgba(0, 0, 0, .6);
+	}
+		.org-avatar:hover .edit-org-avatar:hover{
+			background: rgba(0, 0, 0, .75);
+		}
+		.org-avatar:hover .edit-org-avatar .fa{
+			font-size: .8em;
+			left: 14px;
+		}
+		.org-avatar:hover .edit-org-avatar a{
+			display: inline-block;
+		}
+
 .org-name-background{
 	position: absolute;
 	bottom: 0;

@@ -17,33 +17,29 @@
 
 </head>
 <body>
-<div class="wrapper">
+	<div class="wrapper">
 
-    <header></header>
+	  <header></header>
 
-	<div class="content-wrapper">
+		<div class="content-wrapper">
 
-        <!-- ORGANIZATION INFO -->
-
-        <div class="org-block">
+			<!-- ORGANIZATION INFO -->
+	  <div class="org-block">
 			<div class="org-background" style="background-image: url(<?=$assets; ?>img/temp/bg2.jpg);">
 				<?=$jumbotron; ?>
 			</div>
-
-            <div class="org-nav-block">
+	    <div class="org-nav-block">
 				<?=$navigation; ?>
 			</div>
-
 		</div>
 
-		<!-- SECTION -->
-		<section>
-			<?=$main_section; ?>
-		</section>
 
+			<!-- SECTION -->
+			<section>
+				<?=$main_section; ?>
+			</section>
+
+		<footer></footer>
 	</div>
-
-	<footer></footer>
-</div>
 </body>
 </html>
