@@ -1,6 +1,6 @@
-<div class="row columns-area">
+<div class="columns-area clearfix">
     <div class="left-column">
-        <div class="panel panel-default">
+        <div class="panel panel-default block">
             <div class="panel-body">
                 <div class="row">
                     <!-- SEARCHING PARAM -->
@@ -113,7 +113,7 @@
 
     <!-- RIGHT COLUMN -->
     <div class="right-column">
-        <div class="panel panel-default">
+        <div class="panel panel-default block">
             <div class="panel-heading">Быстрый старт</div>
             <div class="panel-body">
                 <a href="<?=URL::site($organization->website . '/event/new'); ?>" class="md-btn md-btn-md quick-start">
@@ -127,7 +127,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default block">
             <div class="panel-heading">Календарь мероприятий</div>
             <div class="panel-body">
                 в разработке ...
@@ -137,7 +137,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default block">
             <div class="panel-heading">Последние активности</div>
             <div class="panel-body">
                 <ul>
@@ -178,7 +178,7 @@
             </div>
         </div>
 
-        <div class="panel panel-default">
+        <div class="panel panel-default block">
             <div class="panel-heading">
                 Организаторы
                 <a href="orgpage-settings-team.html" class="pull-right">

@@ -32,7 +32,7 @@
 		border-right: 1px solid #bbbbbb;
 	}
 	.org-nav .md-btn:nth-child(n+2){
-		margin-left: -4px; 
+		margin-left: -4px;
 	}
 	.active-tab{
 		background-image: url(../img/icons/link-1.svg);
@@ -50,13 +50,13 @@
 			height: 41.5px;
 		}
 		.org-nav .md-btn.active > .active-tab{
-			display: block;	
+			display: block;
 		}
 
 		.org-nav .md-btn:hover, .org-nav .md-btn:focus{
 			background-color: rgb(236,236,236);
 			-webkit-transform: none;
-			transform: none; 
+			transform: none;
 			box-shadow: none;
 		}
 		.org-nav .md-btn.active:hover, .org-nav .md-btn.active:focus{
@@ -77,7 +77,7 @@
 		position: relative;
 		margin: 5px;
 		height: 170px;
-		width: 170px; 
+		width: 170px;
 	}
 .org-name-background{
 	position: absolute;
@@ -162,7 +162,7 @@
 	}
 	.event-preview h2{
 		margin: 3px 3px 3px 0;
-		
+
 		width: 85%;
 		font-size: 14px;
 		color: #000;
@@ -333,7 +333,7 @@
 	}
 	.person-in-team div{
 		position: relative;
-		width: 80%;
+		width: 75%;
 		margin-left: 5px;
 	}
 	.person-in-team div p{
@@ -454,7 +454,7 @@
 	width: 100%;
 	background-color: #f3f3f3;
 	border: 1px solid #bbbbbb;
-}	
+}
 	.user-block:nth-child(n+2), .newUserForm{
 		margin-top: 30px;
 	}
@@ -472,7 +472,7 @@
 			width: 74px;
 			margin: 2px;
 		}
-	
+
 	.user-block > .edit-team-btn{
 		position: absolute;
 		top: 15px;
@@ -483,7 +483,7 @@
 	.user-block > .edit-team-btn i{
 		font-size: 1.5em;
 	}
-	
+
 	.user-block-right-column > .user-header{
 		position: relative;
 		vertical-align: top;
@@ -553,4 +553,3 @@
 	.neworg-wrapper .confirm-rools{
 		width: 515px !important;
 	}
-	
