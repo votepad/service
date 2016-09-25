@@ -36,15 +36,29 @@ class Controller_Organizations_Ajax extends Ajax
     {
         $id_organization = $this->request->param('id');
 
-//        if (Ajax::is_ajax()) {
+        if (Ajax::is_ajax()) {
             $result = Model_Organizations::reestablish_organization($id_organization);
-//        }
+        }
 
         if ($result){
             return true;
         } else {
             return false;
         }
+    }
+
+    public function action_update()
+    {
+        $id_organization = $this->request->param('id');
+
+        if (Ajax::is_ajax()) {
+
+            $field = Arr::get($_POST, 'field');
+            $value = Arr::get($_POST, 'value');
+
+            Model_Organizations::update_organization($id_organization, array($field => $value));
+        }
+        
     }
 
 }

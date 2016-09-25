@@ -25,7 +25,8 @@
 
 			<!-- ORGANIZATION INFO -->
 	  <div class="org-block">
-			<div class="org-background" style="background-image: url(<?=$assets; ?>img/temp/bg2.jpg);">
+			<div id="org-background-uploaded" class="org-background" style="background-image: url('/uploads/organizations/o_<?=$organization->cover; ?>');
+                                                                            background-size: 100% 100%;">
 				<?=$jumbotron; ?>
 			</div>
 	    <div class="org-nav-block">

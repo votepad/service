@@ -71,14 +71,9 @@ class Controller_Organizations_Index extends Dispatch
          */
         $this->template->id = $this->id_organization = $this->request->param('id');
 
-        /** @var $organization_cached
-         * getting information about organization from cache
-         */
-        $organization_cached = $this->cache->get('organization_' . $this->id_organization);
-
         $this->organization = Model_Organizations::get($this->id_organization, 1);
 
-        if (!$this->organization) {
+        if (!$this->organization && $this->request->action() != self::ACTION_NEW) {
             echo 'Организация была удалена!';
             exit;
         }
@@ -125,7 +120,7 @@ class Controller_Organizations_Index extends Dispatch
             ->method(Request::POST)
             ->post($params)
             ->execute();
-        
+
         $this->template->main_section = $response->body();
 
     }
