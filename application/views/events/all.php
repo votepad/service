@@ -1,5 +1,5 @@
 <div class="columns-area clearfix">
-    <div class="left-column" style="width: 70%">
+    <div class="left-column">
         <div class="panel panel-default block">
             <div class="panel-body">
                 <div class="row">

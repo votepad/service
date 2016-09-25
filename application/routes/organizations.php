@@ -52,3 +52,9 @@ Route::set('UPDATE_ORGANIZATION', 'organization/<id>/update')
         'controller' => 'Organizations_Modify',
         'action'     => 'update'
     ));
+
+Route::set('UPDATE_ORGANIZATION_FIELDS', 'organization/<id>/update_with_ajax')
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
+        'action'     => 'update'
+    ));

@@ -1,7 +1,7 @@
 <!-- необходимо изменить блок org-nav -->
 
-<div class="row columns-area">
-    <div class="left-column">
+<div class="columns-area">
+    <div class="left-column" style="width:100% ; padding-right: 0;">
         <div class="panel panel-default">
             <div class="panel-body">
                 <div class="row">
@@ -98,19 +98,6 @@
                     </ul>
                     <div id="count_events" class="text-center"></div>
                 </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- RIGHT COLUMN -->
-    <div class="right-column">
-        <div class="panel panel-default">
-            <div class="panel-heading">Календарь мероприятий</div>
-            <div class="panel-body">
-                в разработке ...
-            </div>
-            <div class="panel-footer">
-
             </div>
         </div>
     </div>

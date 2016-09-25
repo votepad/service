@@ -41,8 +41,6 @@
 						<label for="org_official_site" class="control-label">Ссылка на официальный сайт</label>
 						<input type="text" id="org_site" name="org_site" class="form-control input-sm" value="<?=$organization->website; ?>">
 					</div>
-					<button type="button" id="orglogo_upload" class="md-btn md-btn-md md-btn-default upload">Обновить фото логотипа</button>
-					<button type="button" id="orgback_upload" class="md-btn md-btn-md md-btn-default upload" style="float: right;">Обновить фото обложки</button>
 				</div>
 				<div class="settings-main-c2 inline">
 					<h4>Контактная информация</h4>
