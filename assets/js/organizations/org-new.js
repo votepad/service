@@ -9,18 +9,20 @@ $().ready(function() {
           minlength: 3,
           maxlength: 25
         },
+        official_org_site: "required",
         org_phone: "required",
         confirmrools: "required"
       },
       messages: {
         org_name: "Пожалуйста, введите название организации.",
         org_site: {
-          required: "Пожалуйста, введите название сайта",
+          required: "Пожалуйста, введите название сайтаю",
           minlength: jQuery.validator.format("Пожалуйста, введите не менее {0} символов."),
           maxlength: jQuery.validator.format("Пожалуйста, введите не более {0} символов.")
         },
+        official_org_site: "Пожалуйста, укажите ссылку на официальный сайт.",
         org_phone: {
-          required: "Пожалуйста, введите номер телефона",
+          required: "Пожалуйста, введите номер телефона.",
           minlength: "Пожалуйста, проверьте правильность ввода номера телефона.",
           maxlength: "Пожалуйста, проверьте правильность ввода номера телефона."
         },
@@ -30,7 +32,7 @@ $().ready(function() {
         alert($("#org_phone").val().replace(/[^+0-9]/gim,'').length);
         if($("#org_phone").val().replace(/[^+0-9]/gim,'').length != 12){
           not_logged.showErrors({
-            'org_phone': 'Пожалуйста, введите проверьте правильность ввода номера телефона'
+            'org_phone': 'Пожалуйста, введите проверьте правильность ввода номера телефона.'
           });
         } else{
           form.submit();
@@ -57,6 +59,7 @@ $().ready(function() {
           minlength: 3,
           maxlength: 25
         },
+        official_org_site: "required",
         org_phone: "required",
         confirmrools: "required"
       },
@@ -72,23 +75,24 @@ $().ready(function() {
           minlength: jQuery.validator.format("Минимальная длина пароля - {0} символов."),
         },
         org_site: {
-          required: "Пожалуйста, введите название сайта",
+          required: "Пожалуйста, введите название сайта.",
           minlength: jQuery.validator.format("Пожалуйста, введите не менее {0} символов."),
           maxlength: jQuery.validator.format("Пожалуйста, введите не более {0} символов.")
         },
+        official_org_site: "Пожалуйста, укажите ссылку на официальный сайт.",
         org_phone: {
-          required: "Пожалуйста, введите номер телефона",
+          required: "Пожалуйста, введите номер телефона.",
         },
         confirmrools: "Пожалуйста, прочитайте и согласитесь с правилами."
       },
       submitHandler: function(form) {
         if ($('#org_user').val().split(/[\s\.\?]+/).length != 3) {
           not_logged.showErrors({
-            'org_user': 'Пожалуйста, введите Фамилию Имя Отчeство'
+            'org_user': 'Пожалуйста, введите Фамилию Имя Отчeство.'
           });
         } else if($("#org_phone").val().replace(/[^+0-9]/gim,'').length != 12){
           not_logged.showErrors({
-            'org_phone': 'Пожалуйста, введите проверьте правильность ввода номера телефона'
+            'org_phone': 'Пожалуйста, введите проверьте правильность ввода номера телефона.'
           });
         } else{
           form.submit();

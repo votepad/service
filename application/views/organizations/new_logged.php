@@ -51,6 +51,14 @@
 							</div>
 						</div>
 						<div class="form-group">
+							<label for="org_site" class="control-label">Официальный сайт организации</label>
+							<div class="input-area">
+									<input type="text" id="official_org_site" name="official_org_site" class="form-control">
+								<label id="official_org_site-error" class="error-input" for="official_org_site" style="display:none"></label>
+								<span class="help-block">Ссылка на официальный сайт или официальную группу в социальной сети.</span>
+							</div>
+						</div>
+						<div class="form-group">
 							<label for="org_phone" class="control-label">Телефон</label>
 							<div class="input-area">
 								<input type="tel" id="org_phone" name="org_phone" class="form-control">
