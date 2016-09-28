@@ -15,18 +15,24 @@
 	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
 	<script src="<?=$assets; ?>js/organizations/org.js"></script>
 
+	
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+	<div class="user-menu">
+		<ul class="no-li">
+			<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
+			<li><a href="#"><i class="fa fa-cubes" aria-hidden="true"></i></a></li>
+			<li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+		</ul>
+	</div>
 	<div class="wrapper">
-
-	  <header></header>
-
+	
 		<div class="content-wrapper">
 
 			<!-- ORGANIZATION INFO -->
 	  <div class="org-block">
-			<div id="org-background-uploaded" class="org-background" style="background-image: url('/uploads/organizations/o_<?=$organization->cover; ?>');
-                                                                            background-size: 100% 100%;">
+			<div id="org-background-uploaded" class="org-background" style="background-image: url('/uploads/organizations/o_<?=$organization->cover; ?>');">
 				<?=$jumbotron; ?>
 			</div>
 	    <div class="org-nav-block">

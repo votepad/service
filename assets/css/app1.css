@@ -1,13 +1,19 @@
 @font-face {
-	font-family: pronwe !important;
-	src: url(../fonts/Exo2-Medium.ttf);
+	font-family: "MyriadProRegular";
+    src: url("../fonts/MyriadProRegular.eot");
+    src: url("../fonts/MyriadProRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/MyriadProRegular.woff") format("woff"),
+    url("../fonts/MyriadProRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
 }
 body, html {
     height: 100%;
 }
 
 body {
-    font-family: pronwe;
+    font-family: MyriadProRegular;
+	font-size:16px;
     color: #656565;
     background-color: #f5f7fa;
 }
@@ -21,11 +27,6 @@ header{
 	background-color: #37bde7;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12)
 }
-	@media (max-width: 768px) {
-		.panel, header{
-			width: 768px;
-		}
-	}
 .wrapper{
 	height: 100%;
 	width: 100%;
@@ -34,11 +35,47 @@ header{
 	width: 90%;
 	margin: auto;
 }
-	@media (max-width: 890px) {
-		.content-wrapper{
-			width: 768px;
-		}
-	}
+	
+.user-menu{
+	position:fixed;
+	top:0;
+	left:0;
+	width:5%;
+	background-color:rgba(100,100,100,0.95);
+}
+
+/*.user-menu:after{
+	content:' ';
+	display:block;
+	position:absolute;
+	border: 2.5vw solid transparent; 
+    border-top: 2.5vw solid rgba(100,100,100,0.95);
+}*/
+
+.user-menu li{
+	display:block;
+	text-align:center;
+	font-size:1.5vw;
+}
+
+.user-menu a{
+	display:block;
+	padding:1vmax;
+	color:rgba(175,175,175,1);
+}
+
+.user-menu a:hover{
+	color:#fafafa;
+}
+
+.user-menu li:hover{
+	background-color:#aa2233;
+}
+
+.user-menu i{
+	text-shadow: -1px 0 3px rgba(0,0,0,0.5);
+}
+
 a, a:hover, a:focus, button, button:hover, button:focus{
 	outline: none;
 	text-decoration: none;
@@ -402,7 +439,7 @@ label.error-input{
 }
 .panel {
 	border-radius: 3px !important;
-	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+	box-shadow: 0 0 9px -3px rgba(0,0,0,.3);
 }
 .panel-heading{
 	white-space: nowrap;
@@ -410,11 +447,11 @@ label.error-input{
 	text-overflow: ellipsis;
 }
 .panel-default {
-	border-color: #bbbbbb;
+	border-color: rgba(150,150,150,0.3);
 }
 	.panel-default > .panel-heading{
-		color: #656565;
-		background-color: #e9ebee;
+		color: #fafafa;
+		background-color: #777;
 		border-color: #bbb;
 		font-size: 16px;
 	}
@@ -556,5 +593,29 @@ label.error-input{
 @media (max-width: 768px){
 	.panel-sm{
 		width: auto;
+	}
+}
+
+@media (max-width: 890px) {
+	.content-wrapper{
+		width: 100%;
+	}
+	.user-menu{
+		position:absolute;
+		right:0;
+		width:auto;
+		left:auto;
+		z-index:2;
+	}
+	.user-menu li{
+		display:inline-block;
+		font-size:1em;
+		vertical-align:-webkit-baseline-middle;
+	}		
+	.user-menu a{
+		padding:0;
+		width:3em;
+		height:3em;
+		line-height:3em;
 	}
 }

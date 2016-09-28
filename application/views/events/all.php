@@ -1,6 +1,6 @@
 <div class="columns-area clearfix">
     <div class="left-column">
-        <div class="panel panel-default block">
+        <div class="panel block">
             <div class="panel-body">
                 <div class="row">
                     <!-- SEARCHING PARAM -->

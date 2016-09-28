@@ -1,3 +1,4 @@
+
 .org-block{
 	margin-bottom: 20px;
 	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
@@ -9,42 +10,33 @@
 	background-size: cover;
 }
 	.org-background .edit-org-back{
-		height: 35px;
 		position: absolute;
 		top: 20px;
 		left: 20px;
-		transition: .15s;
-	}
-		.org-background .edit-org-back .fa{
-			position: absolute;
-			top: 5px;
-			left: 5px;
-			font-size: 1.5em;
-			color: #fff;
-			opacity: .6;
-			transition: .15s;
-		}
+		line-height:30px;
+		border-radius: 3px;
+	}	
 		.org-background .edit-org-back a{
-			display: none;
-			padding: 10px 10px 10px 33px;
-	    vertical-align: -webkit-baseline-middle;
-	    color: white;
-	    font-weight: bold;
+			padding:6px;
 		}
+			.org-background .edit-org-back .fa{
+				font-size: 1.15em;
+				color: #fff;
+				opacity: .6;
+			}
+			.org-background .edit-org-back span{
+				font-size:0.9em;
+				display: none;
+				color: #fafafa;
+				padding-left: 5px;
+			}
 
 	.org-background .edit-org-back:hover{
 		background: rgba(0, 0, 0, 0.75);
-		border: 1px solid #fff;
-		border-radius: 3px;
 	}
-	.org-background .edit-org-back:hover .fa{
-		font-size: .8em;
-		top: 10px;
-		left: 10px;
-	}
-	.org-background .edit-org-back:hover a{
-		display: initial;
-	}
+		.org-background .edit-org-back:hover a span{
+			display: initial;
+		}
 
 .org-nav-block{
 	position: relative;
@@ -121,22 +113,23 @@
 		text-align: left;
 		position: relative;
 		margin: -55px 5px 0 5px;
+		height:50px;
 		transition: .15s;
 	}
 		.org-avatar .edit-org-avatar .fa{
 			position: absolute;
-			font-size: 1.5em;
+			font-size: 1.1em;
 			color: white;
 			opacity: .6;
-			top: 20px;
+			line-height:50px;
 			left: 8px;
 			transition: .15s;
 		}
-		.org-avatar .edit-org-avatar a{
+		.org-avatar .edit-org-avatar span{
 			display: none;
 			padding: 4px 10px 4px 40px;
-	    color: #fff;
-	    font-weight: bold;
+			color: #fff;
+			font-size:0.9em;
 		}
 
 	.org-avatar:hover .edit-org-avatar{
@@ -145,11 +138,7 @@
 		.org-avatar:hover .edit-org-avatar:hover{
 			background: rgba(0, 0, 0, .75);
 		}
-		.org-avatar:hover .edit-org-avatar .fa{
-			font-size: .8em;
-			left: 14px;
-		}
-		.org-avatar:hover .edit-org-avatar a{
+		.org-avatar:hover .edit-org-avatar span{
 			display: inline-block;
 		}
 
@@ -159,8 +148,8 @@
 	left: 0;
 	width: 100%;
 	height: 160px;
-	background: linear-gradient(to bottom, transparent, #000);
-	opacity: .5;
+	background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.75));
+	/*opacity: 1;*/
 }
 .org-name{
 	position: absolute;
@@ -247,7 +236,8 @@
 	.event-preview p{
 		position: relative;
 		margin: 0 3px;
-		font-size: 11px;
+		font-size: 0.75em;
+		letter-spacing: 0.03em;
 		height: 80px;
 		overflow: hidden;
 		overflow-wrap: break-word;
@@ -627,3 +617,19 @@
 	.neworg-wrapper .confirm-rools{
 		width: 515px !important;
 	}
+
+@media (max-width: 890px) {
+		.org-background .edit-org-back{
+			background: rgba(0, 0, 0, 0.75);
+		}
+		.org-background .edit-org-back a span{
+			display: initial;
+		}
+		
+		.org-avatar .edit-org-avatar{
+			background: rgba(0, 0, 0, .6);
+		}
+		.org-avatar .edit-org-avatar span{
+			display: inline-block;
+		}
+}

@@ -1,12 +1,16 @@
 <div class="edit-org-back">
-  <i class="fa fa-camera" aria-hidden="true"></i>
-  <a id="edit_org_back" href="#" role="button">Обновить фото обложки</a>
+  <a id="edit_org_back" href="#" role="button">
+	<i class="fa fa-camera" aria-hidden="true"></i>
+	<span>Обновить фото обложки</span>
+  </a>
 </div>
 <div class="org-avatar">
     <img id="org-avatar-uploaded" src="/uploads/organizations/m_<?=$organization->logo; ?>">
     <div class="edit-org-avatar">
+	<a id="edit_org_avatar" href="#" role="button">
       <i class="fa fa-camera" aria-hidden="true"></i>
-      <a id="edit_org_avatar" href="#" role="button">Обновить логотип организации</a>
+	  <span>Обновить логотип организации</span>
+	</a>
     </div>
 </div>
 <div class="org-name-background"></div>
