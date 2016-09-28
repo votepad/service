@@ -6,23 +6,23 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 	<link rel="stylesheet" href="css/m-mainpage.css">
 	<link rel="SHORTCUT ICON" href="img/icon/fav.png" type="image/x-icon">
+	<script src="js/jquery/3.1.0/jquery.min.js"></script>
 </head>
 <body>
 	<div class="topmenu">
 		
 		<ul class="nav">
 			<li><img src="img/ProNWE_logo.svg" style="width:100%;"></li>
-			<li><a href="#" class="button blue_button main_button">Создать мероприятие</a></li>
-			<li><a href="#" class="button blue_button main_button">Преимущества</a></li>
-			<li><a href="#" class="button blue_button main_button">Создать мероприятие</a></li>
-			<li><a href="#" class="button blue_button main_button">Преимущества</a></li>
+			<li><a href="#" class="button blue_button main_button">Войти</a></li>
+			<li><a href="#" class="button blue_button main_button">F.A.Q</a></li>
+			<li><a href="#" class="button blue_button main_button">Ссылочка</a></li>
 		</ul>		
 		
 		<div class="line">
 			<h2 class="org_title" style="margin-left:1vw;">Event<span style="color:rgba(0,196,65,1)">Stream</span></h1>
 		</div>
 	</div>
-	<div class="welcome" style="background:url(img/bg.png);">
+	<div class="welcome" style="background:url(img/bg.png); background-position:50% 50%;">
 		<h1>Информационная поддержка мероприятий</h1>
 		
 		<div class="button-area">
@@ -30,16 +30,77 @@
 			<a href="#" class="button main_button">Создать мероприятие</a>
 		</div>
 		
-		<div class="viewCommunity">
+		<!---<div class="viewCommunity">
 			 <div class="triangle"></div> 
 			 <div class="triangle"></div> 
 			 <div class="triangle"></div> 
 			 <span></span>
 			 
-		</div>
+		</div>-->
 	</div>
 	<div class="content">
-	 asd
+		<form action="m-allnews.html" id="sort" method="GET">
+			<select id="sort_type" name="sort_type">
+				<option disabled>Выберите параметры сортировки</option>
+				<option value="1">По дате (сначала новые)</option>
+				<option value="2">По дате (сначала старые)</option>
+				<option value="3">По рейтингу (сначала популярные)</option>
+				<option value="4">По рейтингу (сначала не популярные)</option>
+			</select>
+			
+			<select id="sort_city"  name="sort_city">
+				<option disabled>Выберите город</option>
+				<option value="0">Все города</option>
+				<option value="1">Москва</option>
+				<option value="2">Санкт-Петербург</option>
+			</select>
+		</form>
+		<ul class="news">
+			<li>
+				<div class="date">
+					<span>28</span>
+					<span class="month">сентября</span>
+				</div>
+				<div class="news-content">
+					<span>
+						Мисс ИТМО
+					</span>
+					<p>
+						<span class="org-name">Университет ИТМО</span> (Санкт-Петербург)
+					</p>
+				</div>
+				
+				<div class="text">
+					<p><a href="#fullnews">Студенческий конкурс красоты, грации, таланта и ума "Мисс ИТМО" - одно из самых грандиозных и запоминающихся мероприятий в университете ИТМО!
+	Весна демонстрирует нам не только пробуждение природы, любви, солнца и цветов, но и замечательных конкурсанток проекта "Мисс ИТМО"
+	Начало истоков этого конкурса лежит в 2007 году. Давняя традиция порождает удивительное и увлекательное шоу, волнующее всех студентов, болеющих за представительниц своего факультета. С неподражаемым упорством, вот уже который год, девушки Университета ИТМО доказывают, что в крупнейшем техническом ВУЗе учатся не только самые умные, но и самые талантливые студентки. Конкурс проходит в несколько этапов</a></p>
+				</div>
+			</li>
+			<li>
+				<div class="date">
+					<span>28</span>
+					<span class="month">сентября</span>
+				</div>
+				<div class="news-content">
+					<span>
+						Мистер ИТМО
+					</span>
+					<p>
+						<span class="org-name">Университет ИТМО</span> (Санкт-Петербург)
+					</p>
+				</div>
+				<div class="text">
+					<p><a href="#fullnews">Студенческий конкурс красоты, грации, таланта и ума "Мисс ИТМО" - одно из самых грандиозных и запоминающихся мероприятий в университете ИТМО!
+	Весна демонстрирует нам не только пробуждение природы, любви, солнца и цветов, но и замечательных конкурсанток проекта "Мисс ИТМО"
+	Начало истоков этого конкурса лежит в 2007 году. Давняя традиция порождает удивительное и увлекательное шоу, волнующее всех студентов, болеющих за представительниц своего факультета. С неподражаемым упорством, вот уже который год, девушки Университета ИТМО доказывают, что в крупнейшем техническом ВУЗе учатся не только самые умные, но и самые талантливые студентки. Конкурс проходит в несколько этапов</a></p>
+				</div>
+			</li>
+		</ul>
 	</div>
 </body>
+<script>
+	$(".news li").click(function(){
+		$(this).find(".text").fadeToggle();
+	});
+</script>
 </html>

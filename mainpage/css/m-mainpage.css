@@ -11,7 +11,7 @@
 body{
 	margin:0;
 	font-size:16px;
-	background-color:#0288D1;
+	background-color:#fff/*#0288D1*/;
 	font-family: MyriadProRegular;
 }
 
@@ -113,8 +113,9 @@ h1,h2{
 }
 
 .content{
-	min-height:100vh;
+	/*min-height:100vh;*/
 	background-color:#f7f7f7;
+	text-align:center;
 }
 
 .button{
@@ -164,6 +165,98 @@ h1,h2{
 	margin:0.5em;
 }
 
+select{
+	display:inline-block;
+	width:90%;
+	font-size:1.25em;
+	padding:0.5em;
+	margin:0.5em 0 0 0;
+	color:#343434;
+	border:1px solid rgba(0,0,0,0.1);
+	outline:none;
+}
+
+.news{
+	list-style:none;
+	width:90%;
+	margin:5% auto;
+	padding:0;
+}
+
+.news li{
+	/*border:1px solid rgba(50,50,50,0.5);*/
+	box-shadow:0 0 25px -12px rgba(0,0,0,1);
+	margin:0.25em 0 0.75em 0;
+	padding: 0.75em 1em;
+	min-height:80px;
+	background-color:#fff;
+}
+
+.news-content>span{
+	font-size:1.5em;
+	color:#505050;
+	text-shadow: 0px 1px 1px rgba(71,71,71,0.75);
+	line-height:1.5em;
+}
+
+.news-content p{
+	font-size:0.9em;
+	margin:0;
+}
+
+.news-content:after{
+	content:'Подробнее';
+	font-size:0.75em;
+}
+
+.org-name{
+	color:#315572;
+}
+
+.date{
+	background:url(../img/calendar.png);
+	background-size:2em;
+	background-position:50% 0;
+	background-repeat:no-repeat;
+	width:11%;
+	min-height:80px;
+	min-width:90px;
+	font-size:2em;
+	color:#505050;
+	display:inline-block;
+	float:left;
+}
+
+.news li:after{
+	content:'';
+	display:table;
+	clear:both;
+}
+
+.news-content{
+	display:block;
+}
+
+.date>.month{
+	display:block;
+	margin-top:0.1em;
+	font-size:0.49em;
+}
+
+.date span{
+	position:relative;
+	top:0.75em;
+}
+
+.text{
+	display:none;
+}
+
+.text a{
+	text-decoration:none;
+	color:#343434;
+}
+
 @media screen and (orientation: landscape) { 
 	.main_button{
 		font-size:3vmax;
@@ -171,6 +264,10 @@ h1,h2{
 	
 	.nav li{
 		float:left;
+	}
+	
+	.nav{
+		margin-top:1%;
 	}
 }
 @media screen and (orientation: portrait) { 
