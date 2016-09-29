@@ -1,3 +1,7 @@
+<div class="parallax-container org-background">
+  <div class="parallax">
+    <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>" alt="organization cover" />
+  </div>
 <div class="edit-org-back">
   <a id="edit_org_back" href="#" role="button">
 	<i class="fa fa-camera" aria-hidden="true"></i>
@@ -22,7 +26,7 @@
         </a>
     </h2>
 </div>
-
+</div>
 <script>
 
     var nwe = (function(nwe) {

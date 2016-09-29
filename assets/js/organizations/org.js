@@ -13,6 +13,9 @@ $(document).ready(function(){
     $('.org-nav a:nth-child(2)').addClass('active');
   } else {
     $('.org-nav a:nth-child(2)').removeClass('active');
-    $('.org-nav a:nth-child(1)').addClass('active'); 
+    $('.org-nav a:nth-child(1)').addClass('active');
   }
+
+  
+
 });

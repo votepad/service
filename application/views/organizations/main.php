@@ -32,9 +32,9 @@
 
 			<!-- ORGANIZATION INFO -->
 	  <div class="org-block">
-			<div id="org-background-uploaded" class="org-background" style="background-image: url('/uploads/organizations/o_<?=$organization->cover; ?>');">
-				<?=$jumbotron; ?>
-			</div>
+
+			<?=$jumbotron; ?>
+
 	    <div class="org-nav-block">
 				<?=$navigation; ?>
 			</div>

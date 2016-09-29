@@ -19,18 +19,6 @@
                 Пригласить организатора
             </a>
           </li>
-          <li class="inline">
-            <a href="<?=URL::site($organization->website . '/settings/team'); ?>" class="">
-                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                Пригласить организатора
-            </a>
-          </li>
-          <li class="inline">
-            <a href="<?=URL::site($organization->website . '/settings/team'); ?>" class="">
-                <i class="fa fa-paper-plane" aria-hidden="true"></i>
-                Пригласить организатора
-            </a>
-          </li>
         </ul>
       </div>
   </div>
