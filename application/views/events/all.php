@@ -25,11 +25,11 @@
 
 
 </div>
-    <!--<div class="left-column">
+    <div class="left-column">
         <div class="panel block">
             <div class="panel-body">
                 <div class="row">
-                     SEARCHING PARAM --
+    
                     <div class="form-group search-block">
                         <div class="col-md-7 col-xs-12">
                             <label class="control-label">Поиск мероприятия</label>
@@ -56,7 +56,7 @@
                         </div>
                     </div>
 
-                    <!-- LIST OF EVENTS --
+                    <!-- LIST OF EVENTS -->
                     <ul id="events_list" class="text-center">
                         <? for($i = 0; $i < count($events); $i++) : ?>
                         <li class="event-group">

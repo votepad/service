@@ -14,6 +14,7 @@
 	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
 	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
 	<script src="<?=$assets; ?>js/organizations/org.js"></script>
+	<script src="<?=$assets; ?>js/app.js"></script>
 
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">

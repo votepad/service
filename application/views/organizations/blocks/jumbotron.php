@@ -1,6 +1,6 @@
 <div class="parallax-container org-background">
   <div class="parallax">
-    <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>" alt="organization cover" />
+    <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>">
   </div>
 <div class="edit-org-back">
   <a id="edit_org_back" href="#" role="button">
@@ -180,7 +180,7 @@
 
                 var file = JSON.parse(callback),
                     image   = file.filename,
-                    el = $('#org-background-uploaded');
+                    el = document.getElementById('org-background-uploaded');
 
                 $.ajax({
                     url  : "/organization/<?=$organization->id; ?>/update_with_ajax",
@@ -190,12 +190,11 @@
                         value : image
                     },
                     beforeSend : function() {
-                        el.css('opacity', '.3');
+                        el.style.opacity = 0.3;
                     },
                     success : function(result) {
-                        el.css('background-image', "url(/uploads/organizations/o_"+image+")");
-                        el.css('background-size', '100% 100%');
-                        el.css('opacity', '1');
+                        el.src = "/uploads/organizations/o_"+image;
+                        el.style.opacity = 1;
                     },
                     error : function(result) {
                         console.log('something gone wrong!');
