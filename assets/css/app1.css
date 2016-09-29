@@ -15,7 +15,7 @@ body {
     font-family: MyriadProRegular;
 	font-size:16px;
     color: #656565;
-    background-color: #f5f7fa;
+    background-color: #fff;
 }
 	body.blocked{
 		overflow: hidden;
@@ -35,7 +35,7 @@ header{
 	width: 90%;
 	margin: auto;
 }
-	
+
 .user-menu{
 	position:fixed;
 	top:0;
@@ -48,7 +48,7 @@ header{
 	content:' ';
 	display:block;
 	position:absolute;
-	border: 2.5vw solid transparent; 
+	border: 2.5vw solid transparent;
     border-top: 2.5vw solid rgba(100,100,100,0.95);
 }*/
 
@@ -611,7 +611,7 @@ label.error-input{
 		display:inline-block;
 		font-size:1em;
 		vertical-align:-webkit-baseline-middle;
-	}		
+	}
 	.user-menu a{
 		padding:0;
 		width:3em;

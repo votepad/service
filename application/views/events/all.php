@@ -1,9 +1,47 @@
-<div class="columns-area clearfix">
-    <div class="left-column">
+<div class="columns-area">
+  <div class="panel panel-default quick-start">
+      <div class="panel-body">
+        <ul class="no-li">
+          <li class="inline">
+            <div class="">
+              Быстрый старт
+            </div>
+          </li>
+          <li class="inline">
+            <a href="<?=URL::site($organization->website . '/event/new'); ?>" class="">
+                <i class="fa fa-plus" aria-hidden="true"></i>
+                Создать мероприятие
+            </a>
+          </li>
+          <li class="inline">
+            <a href="<?=URL::site($organization->website . '/settings/team'); ?>" class="">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                Пригласить организатора
+            </a>
+          </li>
+          <li class="inline">
+            <a href="<?=URL::site($organization->website . '/settings/team'); ?>" class="">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                Пригласить организатора
+            </a>
+          </li>
+          <li class="inline">
+            <a href="<?=URL::site($organization->website . '/settings/team'); ?>" class="">
+                <i class="fa fa-paper-plane" aria-hidden="true"></i>
+                Пригласить организатора
+            </a>
+          </li>
+        </ul>
+      </div>
+  </div>
+
+
+</div>
+    <!--<div class="left-column">
         <div class="panel block">
             <div class="panel-body">
                 <div class="row">
-                    <!-- SEARCHING PARAM -->
+                     SEARCHING PARAM --
                     <div class="form-group search-block">
                         <div class="col-md-7 col-xs-12">
                             <label class="control-label">Поиск мероприятия</label>
@@ -30,7 +68,7 @@
                         </div>
                     </div>
 
-                    <!-- LIST OF EVENTS -->
+                    <!-- LIST OF EVENTS --
                     <ul id="events_list" class="text-center">
                         <? for($i = 0; $i < count($events); $i++) : ?>
                         <li class="event-group">
@@ -111,7 +149,7 @@
         </div>
     </div>
 
-    <!-- RIGHT COLUMN -->
+    <!-- RIGHT COLUMN --
     <div class="right-column">
         <div class="panel panel-default block">
             <div class="panel-heading">Быстрый старт</div>
@@ -177,7 +215,7 @@
                 </ul>
             </div>
         </div>
--->
+--
 
         <div class="panel panel-default block">
             <div class="panel-heading">

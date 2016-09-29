@@ -15,7 +15,7 @@
 	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
 	<script src="<?=$assets; ?>js/organizations/org.js"></script>
 
-	
+
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
@@ -27,7 +27,7 @@
 		</ul>
 	</div>
 	<div class="wrapper">
-	
+
 		<div class="content-wrapper">
 
 			<!-- ORGANIZATION INFO -->
