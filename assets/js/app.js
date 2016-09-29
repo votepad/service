@@ -2,12 +2,10 @@ $(document).ready(function () {
 
   var window_width = $(window).width();
   // Parallax Scripts
-  return $(this).each(function(i) {
+  return $('body').find('.parallax').each(function(i) {
     var $this = $(this);
-    $this.addClass('parallax');
 
     function updateParallax(initial) {
-			console.log($this.offset())
       var container_height;
       if (window_width < 601) {
         container_height = ($this.height() > 0) ? $this.height() : $this.children("img").height();
