@@ -21,6 +21,10 @@ body {
 		overflow: hidden;
 	}
 
+h2{
+	font-size:2em;
+}
+
 header{
 	height: 50px;
 	width: 100%;
@@ -44,14 +48,6 @@ header{
 	background-color:rgba(100,100,100,0.95);
 }
 
-/*.user-menu:after{
-	content:' ';
-	display:block;
-	position:absolute;
-	border: 2.5vw solid transparent;
-    border-top: 2.5vw solid rgba(100,100,100,0.95);
-}*/
-
 .user-menu li{
 	display:block;
 	text-align:center;
@@ -74,6 +70,10 @@ header{
 
 .user-menu i{
 	text-shadow: -1px 0 3px rgba(0,0,0,0.5);
+}
+
+.nodisp{
+	display:none!important;
 }
 
 a, a:hover, a:focus, button, button:hover, button:focus{

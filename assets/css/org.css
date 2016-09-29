@@ -1,6 +1,6 @@
 .org-block{
 	margin-bottom: 20px;
-	box-shadow: 0 1px 3px 0 rgba(0,0,0,.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+	box-shadow: 0 0 9px -3px rgba(0,0,0,.3);
 }
 .org-background{
 	height: 300px;
@@ -39,54 +39,28 @@
 	position: relative;
 	height: 40px;
 	background-color: #fff;
+	border: 1px solid rgba(150,150,150,0.3);
 }
-
 .org-nav{
 	position: relative;
 	margin-left: 220px;
 	height: 100%;
-	border-left: 1px solid #bbbbbb;
-	font-size: 18px;
 }
-	.org-nav .md-btn{
-		font-size: 18px;
+	.org-nav .menu-btn{
+		font-size: 1.1em;
 		border-radius: 0;
 		position: relative;
 		display: inline-block;
 		padding: 6px 30px;
 		height: 40px;
 		vertical-align: top;
-		border-right: 1px solid #bbbbbb;
 	}
-	.org-nav .md-btn:nth-child(n+2){
-		margin-left: -4px;
-	}
-	.active-tab{
-		background-image: url(../img/icons/link-1.svg);
-		background-repeat: no-repeat;
-		background-size: auto;
-		position: absolute;
-		display: none;
-		height: 9px;
-		width: 16px;
-		bottom: -1.5px;
-		left: 45%;
-	}
-		.org-nav .md-btn.active{
-			height: 41.5px;
-		}
-		.org-nav .md-btn.active > .active-tab{
-			display: block;
+		.org-nav .menu-btn.active{
+			box-shadow:inset 0 -2px 0 0 #777;
 		}
 
-		.org-nav .md-btn:hover, .org-nav .md-btn:focus{
-			background-color: rgb(236,236,236);
-			-webkit-transform: none;
-			transform: none;
-			box-shadow: none;
-		}
-		.org-nav .md-btn.active:hover, .org-nav .md-btn.active:focus{
-			background-color: transparent;
+		.org-nav .menu-btn:hover{
+			box-shadow:inset 0 -2px 0 0 #777;
 		}
 
 .org-avatar{
@@ -164,45 +138,63 @@
 		top: -14px;
 	}
 
-.quick-start .panel-body{
+.quick-start .panel-body, .searching .panel-body{
 	padding: 0;
 }
-	.quick-start ul li{
+	.quick-start ul li, .searching .panel-body ul li{
 		text-align: center;
 	}
-	.quick-start ul li:first-child{
+	.quick-start ul li:first-child, .searching .panel-body ul li:first-child{
 		width:220px;
-		padding: 10px 15px;
 		color: #fafafa;
 		background-color: #777;
 		border-top-left-radius: 3px;
 		border-bottom-left-radius: 3px;
 	}
-	.quick-start a{
-		display: inline-block;
+	.quick-start ul li:first-child, .quick-start a, .searching .panel-body ul li:first-child, .search-block input{
 		padding: 10px 15px;
 	}
 		.quick-start a:hover{
 			box-shadow: inset 0px -2px 0 0 #777;
 		}
 
+.searching .clearfix .inline{
+	float: left;
+}
 
-
-
-
-
-
-/* left column */
 .search-block{
 	position: relative;
-    overflow: hidden;
+	width: calc(100% - 220px);
+	height: inherit;
+	float: left;
 }
-
-@media (max-width: 991px) {
-	.search-block div{
-		margin-bottom: 5px;
+	.search-block input{
+		width: calc(100% - 60px);
+		border: 0;
 	}
-}
+	.search-block .select_wrapper{
+		width: 30px;
+		padding: 10px 0;
+		cursor: pointer;
+	}
+		.search-block .select_wrapper:hover{
+			box-shadow:inset 0 -2px 0 0 #777;
+		}
+	.search-block .select_wrapper:last-child{
+		border-top-right-radius: 3px;
+		border-bottom-right-radius: 3px;
+	}
+	.select_options{
+		width: 0;
+		border: 0;
+	}
+
+
+
+
+
+
+
 
 .event-group{
 	position: relative;
@@ -691,19 +683,68 @@
 }
 
 @media (max-width: 600px){
-	.quick-start ul li{
+	.quick-start{
+		display: none;
+	}
+	.org-nav .dropdown-menu{
+		right: 0;
+		left: inherit;
+	}
+	.org-nav{
+		margin-left:0;
+	}
+	.org-nav .nodisp{
+		display:inline-block!important;
+	}
+	.org-nav .menu-btn{
+		font-size:1em;
+		width:33%;
+		margin:0 -1px;
+		text-align:center;
+		padding:6px 15px;
+	}
+	.org-avatar{
+		left:calc(50% - 90px);
+		top:60px;
+	}
+	.org-name{
+		left:auto;
+		bottom:0;
+		width:100%;
+		text-align:center;
+	}
+		.org-name h2{
+			font-size:1.5em;
+			white-space: nowrap;
+			text-overflow: ellipsis;
+		}
+
+	.searching .panel-body ul li{
+		width: calc(100% - 170px);
+	}
+		.searching .panel-body ul li:first-child{
+			width: 170px;
+			padding: 10px 5px;
+		}
+
+
+}
+@media (max-width: 480px) {
+	.org-nav-block{
+		height: auto;
+	}
+	.org-nav .menu-btn{
+		width: 100%;
 		display: block;
 	}
-	.quick-start ul li:first-child{
-		border-top-right-radius: 3px;
-		width:100%;
-	}
-	.quick-start li:hover a{
+	.org-nav .menu-btn.active{
+		box-shadow: none;
 		background-color: #777;
-		color:#f7f7f7;
+		color: #f7f7f7;
 	}
-	.quick-start li a{
-		width:100%;
-		box-shadow: inset 0 -2px 0 0 #777;
+	.org-nav .dropdown-menu{
+		right: 0;
+		left: 0;
+		text-align: center;
 	}
 }

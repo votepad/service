@@ -1,4 +1,32 @@
 $(document).ready(function(){
+
+$('.select_show').click(function(){
+  $('.select')[0].click()
+});
+$(function() {
+    $(".select_show").on('click', function() {
+        var $target = $(".select");
+        var $clone = $target.clone().removeAttr('id');
+        $clone.val($target.val()).css({
+            overflow: "auto",
+            position: 'absolute',
+            'z-index': 999,
+            left: $target.offset().left,
+            top: $target.offset().top + $target.outerHeight(),
+            'width': '200px'
+        }).attr('size', $clone.find('option').length > 10 ? 10 : $clone.find('option').length).change(function() {
+            $target.val($clone.val());
+        }).on('click blur',function() {
+            $(this).remove();
+        });
+        $('body').append($clone);
+        $clone.focus();
+    });
+});
+
+
+
+
   $('.vk').hover(function(){$('.vk i').css("color","#4c75a3");}, function(){$('.vk i').css("color","#656565");});
   $('.facebook').hover(function(){$('.facebook i').css("color","#3b5998");}, function(){$('.facebook i').css("color","#656565");});
   $('.twitter').hover(function(){$('.twitter i').css("color","#35b0ed");}, function(){$('.twitter i').css("color","#656565");});
