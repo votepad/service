@@ -64,8 +64,7 @@
   <? for($i = 0; $i < count($events); $i++) : ?>
   <li class="event_wrapper ">
     <div class="event_card">
-      <div class="event_card-image">
-        <img src="<?=$assets; ?>img/bg2.jpg">
+      <div class="event_card-image" style="background-image: url('<?=$assets; ?>img/bg2.jpg');">
       </div>
       <div class="event_card-content">
         <span class="event_card-title">
