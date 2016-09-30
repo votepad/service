@@ -205,6 +205,113 @@
 
 
 
+
+.event_wrapper{
+	width: 25%;
+	float: left;
+	margin-bottom: 30px;
+}
+
+.event_card {
+    position: relative;
+    background-color: #fff;
+    border-radius: 3px;
+		border: 1px solid rgba(150,150,150,0.3);
+		box-shadow: 0 0 9px -3px rgba(0,0,0,.3);
+		width: 90%;
+		margin: auto;
+}
+	.event_wrapper:nth-child(4n+1) .event_card { margin-left: 0; }
+	.event_wrapper:nth-child(4n+2) .event_card { margin-left: 2.5%; }
+	.event_wrapper:nth-child(4n+3) .event_card { margin-right: 2.5%; }
+	.event_wrapper:nth-child(4n+4) .event_card { margin-right: 0; }
+
+	.event_card .event_card-image {
+	    position: relative;
+	}
+
+	.event_card .event_card-image img {
+	    display: block;
+	    border-radius: 3px 3px 0 0;
+	    position: relative;
+	    left: 0;
+	    right: 0;
+	    top: 0;
+	    bottom: 0;
+	    width: 100%;
+			height: 200px;
+			cursor: pointer;
+	}
+
+	.event_card .event_card-content {
+	    padding: 5px 15px;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+			position: relative;
+	}
+	.event_card .event_card-title {
+	    line-height: 2em;
+			font-size: 1.2em;
+	}
+	.event_card .event_card-title .fa{
+		position: absolute;
+		top: 2px;
+		right: 5px;
+		padding: 5px;
+	}
+	.event_card .event_card-title .pointer {
+	    cursor: pointer;
+	}
+
+	.event_card .event_card-reveal {
+	    padding: 20px;
+	    position: absolute;
+	    background-color: #fff;
+	    width: 100%;
+	    overflow-y: auto;
+	    top: 0;
+	    height: 100%;
+	    z-index: 3;
+			display: none;
+	}
+	.event_card .event_card-reveal p{
+		font-size: .85em;
+	}
+
+	.event_card .event_card-action {
+	    position: relative;
+	    background-color: inherit;
+	    border-top: 1px solid rgba(150,150,150,0.3);
+	    padding: 5px 15px;
+			text-align: center;
+			z-index: 2;
+	}
+	.event_card .event_card-action a{
+			font-size: .95em;
+	    color: #ffab40;
+			margin: 0 5px;
+	    text-transform: uppercase;
+	}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 .event-group{
 	position: relative;
 	border-radius: 3px;

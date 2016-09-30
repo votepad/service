@@ -59,6 +59,48 @@
 
 
 
+<ul class="no-li">
+  <!-- LIST OF EVENTS -->
+  <? for($i = 0; $i < count($events); $i++) : ?>
+  <li class="event_wrapper ">
+    <div class="event_card">
+      <div class="event_card-image">
+        <img src="<?=$assets; ?>img/bg2.jpg">
+      </div>
+      <div class="event_card-content">
+        <span class="event_card-title">
+          <span class="event_name_search pointer"><?=$events[$i]['name']; ?></span>
+          <i class="fa fa-ellipsis-v pull-right pointer" aria-hidden="true"></i>
+        </span>
+      </div>
+      <div class="event_card-reveal animated">
+        <span class="event_card-title">
+          <span class="pointer"><?=$events[$i]['name']; ?></span>
+          <i class="fa fa-close pull-right pointer" aria-hidden="true"></i>
+        </span>
+        <p><?=$events[$i]['short_description']; ?></p></p>
+        <p>
+          <i class="fa fa-calendar" aria-hidden="true"></i>
+          <span class="event_time_search"><?=$events[$i]['start_time']; ?></span>
+        </p>
+        <p>
+          <i class="fa fa-eye" aria-hidden="true"></i>
+          <span class="event_type_search">черновик</span>
+        </p>
+      </div>
+      <div class="event_card-action">
+        <a href="<?=URL::site('events/' . $events[$i]['name']); ?>">Страница</a>
+        <a href="<?=URL::site('events/' . $events[$i]['name']); ?>/results">Результаты</a>
+      </div>
+    </div>
+  </li>
+  <? endfor; ?>
+</ul>
+
+
+
+
+
 <div id="count_events" class="text-center"></div>
 	<!-- LIST OF EVENTS -->
 	<ul id="events_list" class="text-center">
