@@ -1,7 +1,11 @@
 $(document).ready(function () {
 
+/*
+**  Parallax Scripts
+*/
+$(function(){
   var window_width = $(window).width();
-  // Parallax Scripts
+
   return $('body').find('.parallax').each(function(i) {
     var $this = $(this);
 
@@ -51,5 +55,96 @@ $(document).ready(function () {
     });
 
   });
+});
+
+
+/*
+**  Select Btn Scripts
+*/
+$('select.select_btn').each(function(){
+var $select = $(this);
+
+var selectBoxContainer = $('<div>',{
+	width		: $select.parent('.select_wrapper', $select).outerWidth(),
+	class	: 'select_btn_area',
+	html		: '<div class="select_btn_text"></div>',
+});
+
+var dropDown = $('<ul>',{
+  class:'select_btn_list',
+  name: $select.attr('name'),
+  style: 'margin-left: -' + $select.outerWidth() + 'px'
+});
+
+var selectBox = selectBoxContainer.find('.select_btn_text');
+
+$select.find('option').each(function(i){
+	var option = $(this);
+
+  // creating btn
+	if(option.data('btn')){
+		selectBox.append(option.data('btn'));
+	}
+
+	// creating dropdown list
+  if ( option.data('icon') != undefined ) {
+    var li = $('<li class="' + option.data('class') + '"><i class="fa ' + option.data('icon') + '" aria-hidden="true"></i>' + '<span>' + option.data('text') + '</span></li>');
+  } else {
+    var li = $('<li class="' + option.data('class') + '">' + option.data('text') + '</li>');
+  }
+
+
+  // change select
+	li.click(function(){
+		dropDown.trigger('hide');
+		$select.val(option.val());
+		return false;
+	});
+
+	dropDown.append(li);
+});
+
+selectBoxContainer.append(dropDown.hide());
+$select.hide().after(selectBoxContainer);
+
+dropDown.bind('show',function(){
+  $('.select_btn_text + .select_btn_list').each(function(){ $('.select_btn_list').css('display','none'); })
+
+	if(dropDown.is(':animated')){
+		return false;
+	}
+
+	selectBox.addClass('expanded');
+	dropDown.slideDown();
+
+}).bind('hide',function(){
+
+	if(dropDown.is(':animated')){
+		return false;
+	}
+
+	selectBox.removeClass('expanded');
+	dropDown.slideUp();
+
+}).bind('toggle',function(){
+	if(selectBox.hasClass('expanded')){
+		dropDown.trigger('hide');
+	}
+	else dropDown.trigger('show');
+});
+
+selectBox.click(function(){
+	dropDown.trigger('toggle');
+	return false;
+});
+
+
+$(document).click(function(){
+	dropDown.trigger('hide');
+});
+
+});
+
+
 
 });

@@ -1,32 +1,5 @@
 $(document).ready(function(){
 
-$('.select_show').click(function(){
-  $('.select')[0].click()
-});
-$(function() {
-    $(".select_show").on('click', function() {
-        var $target = $(".select");
-        var $clone = $target.clone().removeAttr('id');
-        $clone.val($target.val()).css({
-            overflow: "auto",
-            position: 'absolute',
-            'z-index': 999,
-            left: $target.offset().left,
-            top: $target.offset().top + $target.outerHeight(),
-            'width': '200px'
-        }).attr('size', $clone.find('option').length > 10 ? 10 : $clone.find('option').length).change(function() {
-            $target.val($clone.val());
-        }).on('click blur',function() {
-            $(this).remove();
-        });
-        $('body').append($clone);
-        $clone.focus();
-    });
-});
-
-
-
-
   $('.vk').hover(function(){$('.vk i').css("color","#4c75a3");}, function(){$('.vk i').css("color","#656565");});
   $('.facebook').hover(function(){$('.facebook i').css("color","#3b5998");}, function(){$('.facebook i').css("color","#656565");});
   $('.twitter').hover(function(){$('.twitter i').css("color","#35b0ed");}, function(){$('.twitter i').css("color","#656565");});
@@ -55,7 +28,7 @@ $(function() {
   });
   countEvents(k);
 
-
+  var type = '';
   /*  SEARCHING BY NAMES  */
   $('.search-block').on('keyup', 'input[name="event_name"]', function(){
     searching();
@@ -63,16 +36,21 @@ $(function() {
 
 
   /*  SEARCHING BY TYPES */
-  $('.search-block').on('change', 'select[name="event_type"]', function(){
+  $('.select_btn_list[name="event_type"] li').click( function(){
+    type = $(this).text();
+    $('.select_btn_list[name="event_type"] li').each(function(){$(this).removeClass('active');})
+    $(this).addClass('active');
     searching();
   });
 
 
   /*  SORTING  */
-  $('.search-block').on('change', 'select[name="event_sort"]', function(){
-    if ( $(this).val() == "Название мероприятия" ) {
+  $('.select_btn_list[name="event_sort"] li').click( function(){
+    $('.select_btn_list[name="event_sort"] li').each(function(){$(this).removeClass('active');})
+    $(this).addClass('active');
+    if ( $(this).text() == "Название мероприятия" ) {
       events.sort(eventSortName);
-    } else if ( $(this).val() == "Дата начала мероприятия" ) {
+    } else if ( $(this).text() == "Дата начала мероприятия" ) {
       events.sort(eventSortDate);
     }
     showEvents();
@@ -112,15 +90,13 @@ $(function() {
   }
 
   function searching(){
-    var type = $('select[name="event_type"]').val();
-    if (type == undefined) { type = ''; }
-    else {type = $('select[name="event_type"]').val().toLowerCase();}
-    if ( $('input[name="event_name"]').val() == '' && $('select[name="event_type"]').val() == '' ) {
+    console.log(type);
+    if ( $('input[name="event_name"]').val() == '' && type == '' ) {
       for(var i =0; i < events.length; i++){
         events[i].hidden = false;
       }
       showEvents();
-    } else if ( $('input[name="event_name"]').val() != '' && $('select[name="event_type"]').val() == '' ) {
+    } else if ( $('input[name="event_name"]').val() != '' && type == '' ) {
       for(var i =0; i < events.length; i++){
         if ( events[i].name.match($('input[name="event_name"]').val().toLowerCase()) ) {
           events[i].hidden = false;
@@ -129,7 +105,7 @@ $(function() {
         }
       }
       showEvents();
-    } else if ( $('input[name="event_name"]').val() == '' && $('select[name="event_type"]').val() != '' ) {
+    } else if ( $('input[name="event_name"]').val() == '' && type != '' ) {
       for(var i =0; i < events.length; i++){
         if (events[i].type != true) {
           if ( type == events[i].type ) {

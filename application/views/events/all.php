@@ -34,27 +34,28 @@
 					<input name="event_name" type="text" class="inline" placeholder="Введите название мероприятия">
 
           <div class="inline select_wrapper">
-            <i class="fa fa-sort" aria-hidden="true"></i>
-            <select class="select_options" name="event_sort">
-              <option></option>
-              <option>Название мероприятия</option>
-  						<option>Дата начала мероприятия</option>
+            <select name="event_sort" class="select_btn">
+              <option value="0" data-btn='<i class="fa fa-sort" aria-hidden="true"></i>' data-text="" data-class="active"></option>
+              <option value="1" data-text="Название мероприятия" data-class="">Название мероприятия</option>
+              <option value="2" data-text="Дата начала мероприятия" data-class="">Дата начала мероприятия</option>
             </select>
           </div>
 
           <div class="inline select_wrapper">
-            <i class="fa fa-filter" aria-hidden="true"></i>
-            <select class="select_options" name="event_type">
-              <option></option>
-              <option>Черновик</option>
-              <option>Виден всем</option>
-              <option>Виден команде</option>
+            <select name="event_type" class="select_btn">
+              <option value="0" data-btn='<i class="fa fa-filter" aria-hidden="true"></i>' data-text="" data-class="active"></option>
+              <option value="1" data-text="черновик" data-class="">черновик</option>
+              <option value="2" data-text="виден всем" data-class="">виден всем</option>
+              <option value="3" data-text="виден команде" data-class="">виден команде</option>
             </select>
           </div>
 				</li>
 			</ul>
 		</div>
 	</div>
+
+
+
 
 
 
