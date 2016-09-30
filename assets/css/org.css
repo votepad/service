@@ -272,7 +272,6 @@
 	    overflow-y: auto;
 	    top: 0;
 	    height: 100%;
-	    z-index: 3;
 			display: none;
 	}
 	.event_card .event_card-reveal p{
