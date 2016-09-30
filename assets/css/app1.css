@@ -641,8 +641,8 @@ label.error-input{
   min-width: 160px;
 	width: auto;
   padding: 5px 0;
-  margin: 2px 0 0;
-  font-size: 1em;
+	right: 0;
+  font-size: .8em;
   text-align: left;
 	overflow: auto;
 	outline: 0;

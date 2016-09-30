@@ -73,7 +73,6 @@ var selectBoxContainer = $('<div>',{
 var dropDown = $('<ul>',{
   class:'select_btn_list',
   name: $select.attr('name'),
-  style: 'margin-left: -' + $select.outerWidth() + 'px'
 });
 
 var selectBox = selectBoxContainer.find('.select_btn_text');
