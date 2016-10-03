@@ -1,6 +1,7 @@
 $(document).ready(function(){
+  'use strict';
   $('#org_phone').inputmask('+7 (999) 999-9999');
-  
+
   var update_info = $('#update_main_info').validate({
       errorClass: "error-input",
       rules: {
@@ -31,8 +32,9 @@ $(document).ready(function(){
             'org_phone': 'Пожалуйста, введите проверьте правильность ввода номера телефона'
           });
         } else{
-          form.submit();  
+          form.submit();
         }
       }
     });
+
 });

@@ -5,21 +5,11 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="panel-tabs">
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/main'); ?>">
+				<a class="" href="<?=URL::site('organization/' . $id . '/settings/main'); ?>">
 					Организация
-					<div class="active-link"></div>
 				</a>
-				<a class="md-btn active" href="<?=URL::site('organization/' . $id . '/settings/team'); ?>">
+				<a class="active" href="<?=URL::site('organization/' . $id . '/settings/team'); ?>">
 					Команда
-					<div class="active-link"></div>
-				</a>
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/logs'); ?>">
-					Активности
-					<div class="active-link"></div>
-				</a>
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/balance'); ?>">
-					Оплата услуг
-					<div class="active-link"></div>
 				</a>
 			</div>
 		</div>
