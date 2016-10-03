@@ -59,7 +59,7 @@
 
 
 
-<ul class="no-li">
+<ul class="no-li" id="events_list">
   <!-- LIST OF EVENTS -->
   <? for($i = 0; $i < count($events); $i++) : ?>
   <li class="event_wrapper ">

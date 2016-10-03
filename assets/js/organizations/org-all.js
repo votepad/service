@@ -1,18 +1,5 @@
 $(document).ready(function(){
 
-  $('.vk').hover(function(){$('.vk i').css("color","#4c75a3");}, function(){$('.vk i').css("color","#656565");});
-  $('.facebook').hover(function(){$('.facebook i').css("color","#3b5998");}, function(){$('.facebook i').css("color","#656565");});
-  $('.twitter').hover(function(){$('.twitter i').css("color","#35b0ed");}, function(){$('.twitter i').css("color","#656565");});
-  /* add likes */
-  $('.fav').on('click', function(){
-    if ( $("i", this).hasClass('active') ) {
-      $("i", this).removeClass('active');
-    }
-    else {
-      $("i", this).addClass('active');
-    }
-  });
-
   /*
   ** show description of event
   */
@@ -30,12 +17,11 @@ $(document).ready(function(){
     }
   });
 
-
   /*
   **     CREATE EVENTS ARRAY
   */
 
-  var k = $('.event-group').length; // number of events
+  var k = $('.event_wrapper').length; // number of events
   var events = new Array();
   var type = '';
   function Event(el,name,time,type,hidden){
@@ -45,7 +31,7 @@ $(document).ready(function(){
     this.type = type;
     this.hidden = hidden;
   }
-  $('.event-group').each(function(){
+  $('.event_wrapper').each(function(){
     events[$(this).index()] = new Event($(this), $(this).find('.event_name_search').text().toLowerCase(),$(this).find('.event_time_search').text(),$(this).find('.event_type_search').text(), false);
   });
   countEvents(k);
@@ -127,7 +113,6 @@ $(document).ready(function(){
   }
 
   function searching(){
-    console.log(type);
     if ( $('input[name="event_name"]').val() == '' && type == '' ) {
       for(var i =0; i < events.length; i++){
         events[i].hidden = false;

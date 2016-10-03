@@ -79,11 +79,11 @@ h2{
 		.user-menu li:hover{
 			background-color:#aa2233;
 		}
-		
+
 		.user-menu li:nth-child(2n+2):hover{
 			background-color:#22aa33;
 		}
-		
+
 		.user-menu li:nth-child(3n+3):hover{
 			background-color:#2233aa;
 		}
@@ -107,7 +107,9 @@ h2{
 	.form-control:focus{
 		border-color: #64b5f6;
 	}
-
+.input-group-addon{
+	border: 1px solid #bbb;
+}
 	.has-error .select2-selection {
 		border: 1px solid red;
 		border-radius: 4px;
