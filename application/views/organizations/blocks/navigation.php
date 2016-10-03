@@ -5,7 +5,7 @@
   <a href="<?=URL::site('organization/' . $id . '/settings/main'); ?>" class="menu-btn">
       Настройки
   </a>
-	<a href="#" class="dropdown menu-btn nodisp" id="open_quick_start" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+	<a href="#" class="dropdown menu-btn displaynone" id="open_quick_start" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		Быстрый старт
 		<span class="caret"></span>
 	</a>

@@ -1,3 +1,7 @@
+/*
+**	organization jumbotron
+*/
+
 .org-block{
 	margin-bottom: 20px;
 	box-shadow: 0 0 9px -3px rgba(0,0,0,.3);
@@ -133,6 +137,10 @@
 		top: -14px;
 	}
 
+/*
+**	quick start on organization-events page
+*/
+
 .quick-start .panel-body, .searching .panel-body{
 	padding: 0;
 }
@@ -153,10 +161,13 @@
 			box-shadow: inset 0px -2px 0 0 #777;
 		}
 
+/*
+**	searching area on organization-events page
+*/
+
 .searching .clearfix .inline{
 	float: left;
 }
-
 .search-block{
 	position: relative;
 	width: calc(100% - 220px);
@@ -192,21 +203,15 @@
 		padding: 10px 0;
 	}
 
-
-
-
-
-
-
-
-
+	/*
+	**	events list
+	*/
 
 .event_wrapper{
 	width: 25%;
 	float: left;
 	margin-bottom: 30px;
 }
-
 .event_card {
     position: relative;
     background-color: #fff;
@@ -228,11 +233,10 @@
 		min-width: 100%;
 		height: 200px;
 		cursor: pointer;
-		background-size:cover;
+		background-size: cover;
 		background-position: center;
 		background-repeat: no-repeat;
 	}
-
 	.event_card-content {
 	    padding: 5px 15px;
 			white-space: nowrap;
@@ -244,15 +248,19 @@
 	    line-height: 2em;
 			font-size: 1.2em;
 	}
-		.event_card-title .fa{
+		.event_card-title .pointer {
+		    cursor: pointer;
+		}
+		.event_card-content .event_card-title .fa{
+			margin-top: 5px;
+			padding: 5px;
+		}
+		.event_card-reveal .event_card-title .fa{
 			position: absolute;
 			top: 2px;
 			right: 5px;
 			padding: 5px;
 		}
-	.event_card-title .pointer {
-	    cursor: pointer;
-	}
 
 	.event_card-reveal {
 	    padding: 20px;
@@ -264,9 +272,9 @@
 	    height: 100%;
 			display: none;
 	}
-	.event_card-reveal p{
-		font-size: .85em;
-	}
+		.event_card-reveal p{
+			font-size: .85em;
+		}
 
 	.event_card-action {
 	    position: relative;
@@ -276,301 +284,16 @@
 			text-align: center;
 			z-index: 2;
 	}
-	.event_card-action a{
-			font-size: .95em;
-	    color: #ffab40;
-			margin: 0 5px;
-	    text-transform: uppercase;
-	}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-.event-group{
-	position: relative;
-	border-radius: 3px;
-	margin: 0 15px 30px 15px;
-	background-color: #fff;
-	display: inline-block;
-	list-style: none;
-	padding: 0;
-	width: 220px;
-	height: 190px;
-	box-shadow: 0 1px 5px 0 rgba(0,0,0,.2), 0 2px 2px 0 rgba(0,0,0,.14), 0 3px 1px -2px rgba(0,0,0,.12);
-}
-.event-wrapper{
-	position: relative;
-	height: 170px;
-	padding: 10px;
-}
-.event-image{
-	position: relative;
-	border-radius: 3px;
-	width: 200px;
-	height: 150px;
-	background-size: cover !important;
-}
-.event-link{
-	position: absolute;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 160px;
-}
-.event-preview{
-	text-align: left;
-	padding:5px;
-	opacity: 0;
-	position: relative;
-	margin: 10px;
-	height: 150px;
-	border: 1px;
-}
-	.event-link:hover > .event-preview, .event-link:focus > .event-preview{
-		transition: 0.4s;
-		opacity: 0.95;
-		background-color: #fff;
-	}
-	.event-preview h2{
-		margin: 3px 3px 3px 0;
-
-		width: 85%;
-		font-size: 14px;
-		color: #000;
-		font-weight: bold;
-		height: 30px;
-		overflow: hidden;
-	}
-	.event-preview p{
-		position: relative;
-		margin: 0 3px;
-		font-size: 0.75em;
-		letter-spacing: 0.03em;
-		height: 80px;
-		overflow: hidden;
-		overflow-wrap: break-word;
-		word-wrap: break-word;
-		word-break: break-all;
-	}
-	.event-preview span{
-		margin: 0;
-		position: absolute;
-		bottom: 0;
-		right: 0;
-		width: 100px;
-		height: 20px;
-		text-align: center;
-		font-size: 10px;
-	}
-	.event-preview small{
-		position: absolute;
-		bottom: 5px;
-		left: 5px;
-		padding: 0 3px 2px 3px;
-		font-size: 10px;
-		background-color: #f5f7fa;
-		border-radius: 3px;
-		border: 1px solid #bbb;
-		transition: 0.4s;
-	}
-.event-result{
-	position: absolute;
-	top: 13px;
-	right: 13px;
-	width: 20px;
-	height: 20px;
-	text-align: center;
-	background-color: #fff;
-	opacity: 0.75;
-	border-radius: 20%;
-	-webkit-box-sizing: content-box;
-}
-	.event-result a{
-		border-radius: 20%;
-		position: absolute;
-		top: 0;
-		left: 0;
-		width: 20px;
-		height: 20px;
-	}
-		.event-result a i{
-			padding-top: 2.5px;
+		.event_card-action a{
+				font-size: .95em;
+		    color: #ffab40;
+				margin: 0 5px;
+		    text-transform: uppercase;
 		}
-	.event-result a:hover, .event-result a:focus{
-		background-color: #fff;
-		box-shadow: 0 1px 1px 1px rgba(0,0,0,.08), 0 0 2px 2px rgba(0,0,0,0.1);
-	}
-	.event-result:hover, .event-result:focus{
-		opacity: 1;
-	}
 
-.event-footer{
-	position: relative;
-	padding: 0;
-}
-.event-footer-left{
-	position: relative;
-	list-style: none;
-	margin-top: 6px;
-	width: 40%;
-	height: 18px;
-	float: left;
-}
-	.event-footer-left .li{
-		display: inline-block;
-		padding-right: 10px;
-		float: left;
-		height: 18px;
-	}
-	.event-footer-left .item{
-		position: relative;
-		vertical-align: super;
-		padding: 0;
-		margin: 0;
-		line-height: 0;
-		width: 18px;
-		height: 18px;
-	}
-		.event-footer-left .item i{
-			height: 14px;
-			width: 14px;
-			vertical-align: sub;
-		}
-.vk i, .facebook i, .twitter i{
-	width: 20px
-}
-
-.event-footer-right{
-	position: relative;
-	list-style: none;
-	margin-top: 6px;
-	width: 60%;
-	height: 18px;
-	float: right;
-	padding: 0;
-}
-	.event-footer-right li{
-		display: inline-block;
-		float: right;
-		height: 18px;
-		border-radius: 20%;
-		padding-left: 10px;
-	}
-	.event-footer-right .md-btn{
-		padding: 0 2px;
-		vertical-align: super;
-		height: 18px;
-	}
-		.event-footer-right .md-btn i{
-			vertical-align: text-top;
-		}
-		.event-footer-right .md-btn span{
-			vertical-align: top;
-			font-size: 13px;
-		}
-	.event-footer-right .md-btn:hover{
-		font-weight: 600;
-	}
-
-.event-footer-left .md-btn:focus, .event-footer-right .md-btn:focus{
-	box-shadow: 0 1px 1px 1px rgba(0,0,0,.08), 0 0 2px 2px rgba(0,0,0,0.1);
-	transition: .4s;
-	background-color: #fff;
-}
-.fav .active{
-	color: #ec2121;
-}
-
-
-/* right column */
-
-.right-column .quick-start{
-	padding-left: 10px;
-}
-	.right-column .quick-start i{
-		width: 14px;
-		margin-right: 5px;
-	}
-
-.person-in-team{
-	margin-bottom: 5px;
-	height: 40px;
-}
-	.person-in-team img{
-		position: relative;
-		top: -20px;
-		border: 1px solid #bbbbbb;
-		width: 33px;
-		height: 33px;
-	}
-	.person-in-team div{
-		position: relative;
-		width: 75%;
-		margin-left: 5px;
-	}
-	.person-in-team div p{
-		display: block;
-		position: relative;
-		font-weight: bold;
-		margin-top: 5px;
-		font-size: 1.2em;
-		margin: 0;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-	.person-in-team div small{
-		display: block;
-		position: relative;
-		top: -5px;
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-.log-activites small{
-	color: #bbb;
-	padding-left: 5px;
-}
-.log-activites p{
-	padding-left: 5px;
-}
-.log-activites p .md-btn{
-	font-size: 1em;
-	padding: 0 1px;
-	max-width: 100%;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-.logs-description{
-	padding-right: 10px;
-	margin-bottom: 3px;
-}
-	.logs-description span{
-		width: 10px;
-		height: 10px;
-	}
-	.logs-description p{
-		padding-left: 2px;
-		padding-bottom: 2px;
-		margin: 0;
-	}
+/*
+**	setting of organization - main
+*/
 
 .settings-main-c1{
 	position: relative;
@@ -802,16 +525,16 @@
 	.org-nav{
 		margin-left:0;
 	}
-	.org-nav .nodisp{
-		display:inline-block!important;
-	}
-	.org-nav .menu-btn{
-		font-size:1em;
-		width:33%;
-		margin:0 -1px;
-		text-align:center;
-		padding:6px 15px;
-	}
+		.org-nav .displaynone{
+			display:inline-block !important;
+		}
+		.org-nav .menu-btn{
+			font-size:1em;
+			width:33%;
+			margin:0 -1px;
+			text-align:center;
+			padding:6px 15px;
+		}
 	.org-avatar{
 		left:calc(50% - 90px);
 		top:60px;

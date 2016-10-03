@@ -13,6 +13,9 @@ $(document).ready(function(){
     }
   });
 
+  /*
+  ** show description of event
+  */
 
   $('body').on('click.event_card', '.event_card', function (e) {
     if ($(this).find('> .event_card-reveal').length) {
@@ -28,9 +31,13 @@ $(document).ready(function(){
   });
 
 
-  /*   CREATE EVENTS ARRAY  */
+  /*
+  **     CREATE EVENTS ARRAY
+  */
+
   var k = $('.event-group').length; // number of events
   var events = new Array();
+  var type = '';
   function Event(el,name,time,type,hidden){
     this.el = el;
     this.name = name;
@@ -43,14 +50,20 @@ $(document).ready(function(){
   });
   countEvents(k);
 
-  var type = '';
-  /*  SEARCHING BY NAMES  */
+
+  /*
+  **  SEARCHING EVENT BY NAME
+  */
+
   $('.search-block').on('keyup', 'input[name="event_name"]', function(){
     searching();
   });
 
 
-  /*  SEARCHING BY TYPES */
+  /*
+  ** SEARCHING EVENT BY TYPE
+  */
+
   $('.select_btn_list[name="event_type"] li').click( function(){
     type = $(this).text();
     $('.select_btn_list[name="event_type"] li').each(function(){$(this).removeClass('active');})
@@ -59,7 +72,10 @@ $(document).ready(function(){
   });
 
 
-  /*  SORTING  */
+  /*
+  **  SORTING EVENTS ARRAY
+  */
+
   $('.select_btn_list[name="event_sort"] li').click( function(){
     $('.select_btn_list[name="event_sort"] li').each(function(){$(this).removeClass('active');})
     $(this).addClass('active');
@@ -72,7 +88,10 @@ $(document).ready(function(){
   });
 
 
-  /*  DISPLAY EVENTS  */
+  /*
+  ** DISPLAY EVENTS
+  */
+
   function showEvents(){
     $('#events_list').empty();
     k = 0;
@@ -86,7 +105,10 @@ $(document).ready(function(){
   };
 
 
-  /*  FUNCTIONS  */
+  /*
+  ** FUNCTIONS FOR EVENT
+  */
+
   function eventSortName(eventA, eventB) {
     if (eventA.name < eventB.name) return -1;
     if (eventA.name > eventB.name) return 1;
