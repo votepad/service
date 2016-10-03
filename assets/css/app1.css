@@ -79,6 +79,14 @@ h2{
 		.user-menu li:hover{
 			background-color:#aa2233;
 		}
+		
+		.user-menu li:nth-child(2n+2):hover{
+			background-color:#22aa33;
+		}
+		
+		.user-menu li:nth-child(3n+3):hover{
+			background-color:#2233aa;
+		}
 	.user-menu a{
 		display:block;
 		padding:1vmax;
@@ -151,6 +159,11 @@ h2{
 	border-color: #f47f7f !important;
 	text-align: left !important;
 }
+
+.underlinehover:hover, .underlinehover:focus{
+	border-bottom:1px dashed #1565C0;
+}
+
 label.error-input{
 	width: 100% !important;
 	margin: 0;
@@ -324,7 +337,7 @@ label.error-input{
 	width: auto;
   padding: 5px 0;
 	right: 0;
-  font-size: .8em;
+  font-size: 1em;
   text-align: left;
 	overflow: auto;
 	outline: 0;
@@ -337,7 +350,7 @@ label.error-input{
   background-clip: padding-box;
 }
 	.select_btn_list li{
-		padding: 3px 20px;
+		padding: 6px 30px;
 		clear: both;
 		white-space: nowrap;
 	}
@@ -422,6 +435,21 @@ label.error-input{
 }
 
 
+.fa-close{
+	color:#cc2233;
+}
+
+.bgcolor_red{
+	background-color:#ff8a80;
+}
+
+.bgcolor_blue{
+	background-color:#8ab1ff;
+}
+
+.bgcolor_green{
+	background-color:#b2ff59;
+}
 
 
 @media (max-width: 680px){
