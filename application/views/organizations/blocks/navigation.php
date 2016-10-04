@@ -7,7 +7,7 @@
   </a>
 	<a href="#" class="dropdown menu-btn displaynone" id="open_quick_start" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		Быстрый старт
-		<span class="caret"></span>
+		<i class="fa fa-caret-down" aria-hidden="true"></i>
 	</a>
 	<ul class="dropdown-menu" aria-labelledby="open_quick_start">
 		<li>

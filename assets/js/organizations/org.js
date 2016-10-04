@@ -1,8 +1,5 @@
 $(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip({
-    template: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>'
-  });
-
+  
   var urlPage = location.href;
 
   var settings = /setting/;
@@ -16,6 +13,6 @@ $(document).ready(function(){
     $('.org-nav a:nth-child(1)').addClass('active');
   }
 
-  
+
 
 });

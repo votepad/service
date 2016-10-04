@@ -1,6 +1,14 @@
 $(document).ready(function () {
 
 /*
+**  Tooltip Template
+*/
+$('[data-toggle="tooltip"]').tooltip({
+  template: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>'
+});
+
+
+/*
 **  Parallax Scripts
 */
 $(function(){

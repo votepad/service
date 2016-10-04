@@ -3,9 +3,9 @@
 <link rel="stylesheet" href="<?=$assets; ?>css/upload.css">
 
 <div class="columns-area">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<div class="panel-tabs clearfix">
+	<div class="block block-default">
+		<div class="block-heading">
+			<div class="tabs clearfix">
 				<a class="active" href="<?=URL::site('organization/' . $id . '/settings/main'); ?>">
 					Организация
 				</a>
@@ -14,7 +14,7 @@
 				</a>
 			</div>
 		</div>
-		<div class="panel-body">
+		<div class="block-body">
 			<form action="<?=URL::site('organization/' . $id . '/update'); ?>" method="POST" id="update_main_info">
 				<div class="settings-main-c1 inline">
 					<h4>Основная информация</h4>

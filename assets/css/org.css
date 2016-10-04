@@ -54,6 +54,7 @@
 		font-size: 1.1em;
 		display: inline-block;
 		padding: 6px 30px;
+    height: inherit
 	}
 		.org-nav .menu-btn.active{
 			box-shadow:inset 0 -2px 0 0 #777;
@@ -136,30 +137,33 @@
 		left: 11px;
 		top: -14px;
 	}
+	.org-name .tooltip-inner{
+		width: 130%;
+	}
 
 /*
 **	quick start on organization-events page
 */
 
-.quick-start .panel-body, .searching .panel-body{
+.quick-start .block-body, .searching .block-body{
 	padding: 0;
 }
-	.quick-start ul li, .searching .panel-body > ul > li{
+	.quick-start ul li, .searching .block-body > ul > li{
 		text-align: center;
 		float:left;
 	}
-	
+
 	.quick-start ul li:not(:first-child){
 		margin-left:4px;
 	}
-	.quick-start ul li:first-child, .searching .panel-body > ul > li:first-child{
+	.quick-start ul li:first-child, .searching .block-body > ul > li:first-child{
 		width:220px;
 		color: #fafafa;
 		background-color: #777;
 		border-top-left-radius: 3px;
 		border-bottom-left-radius: 3px;
 	}
-	.quick-start ul li:first-child, .quick-start a, .searching .panel-body > ul > li:first-child, .search-block input{
+	.quick-start ul li:first-child, .quick-start a, .searching .block-body > ul > li:first-child, .search-block input{
 		padding: 10px 15px;
 	}
 		.quick-start a:hover{
@@ -170,9 +174,6 @@
 **	searching area on organization-events page
 */
 
-.searching .clearfix .inline{
-	float: left;
-}
 .search-block{
 	position: relative;
 	width: calc(100% - 220px);
@@ -287,18 +288,19 @@
 	    position: relative;
 	    background-color: inherit;
 	    border-top: 1px solid rgba(150,150,150,0.3);
-		border-bottom-left-radius:3px;
-		border-bottom-right-radius:3px;
+			border-bottom-left-radius:3px;
+			border-bottom-right-radius:3px;
+			height: 33px;
 	    padding: 5px 15px;
 			text-align: center;
 			z-index: 2;
 	}
 		.event_card-action a{
 			font-size: .9em;
-		    color: #1976d2;
+		  color: #1976d2;
 			margin: 0 5px;
-			letter-spacing:0.035em;
-		    text-transform: uppercase;
+			letter-spacing:0.01em;
+		  text-transform: uppercase;
 		}
 
 /*
@@ -569,10 +571,10 @@
 			text-overflow: ellipsis;
 		}
 
-	.searching .panel-body > ul > li{
+	.searching .block-body > ul > li{
 		width: calc(100% - 170px);
 	}
-		.searching .panel-body > ul > li:first-child{
+		.searching .block-body > ul > li:first-child{
 			width: 170px;
 			padding: 10px 5px;
 		}

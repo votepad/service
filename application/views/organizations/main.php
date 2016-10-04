@@ -20,34 +20,42 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+	<!--  ORGANIZATION MENU   -->
 	<div class="user-menu">
-		<ul class="no-li">
+		<ul class="ls_none">
 			<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
 			<li><a href="#"><i class="fa fa-cubes" aria-hidden="true"></i></a></li>
 			<li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
 		</ul>
 	</div>
-	<div class="wrapper">
 
-		<div class="content-wrapper">
+	<div class="content-wrapper clearfix">
 
-			<!-- ORGANIZATION INFO -->
+		<!-- ORGANIZATION INFO START -->
 	  <div class="org-block">
-
 			<?=$jumbotron; ?>
-
 	    <div class="org-nav-block">
 				<?=$navigation; ?>
 			</div>
 		</div>
+		<!-- ORGANIZATION INFO END -->
 
-
-			<!-- SECTION -->
-			<section>
-				<?=$main_section; ?>
-			</section>
-
-		<footer></footer>
+		<!-- SECTION START -->
+		<?=$main_section; ?>
+		<!-- SECTION END -->
 	</div>
+
+	<footer>
+		<ul class="fl_l nwe_links ls_none">
+			<li><a href="#">EventStream</a></li>
+			<li><a href="#">Правила</a></li>
+			<li><a href="#">Помощь</a></li>
+			<li><a href="#">Связаться со службой поддержки</a></li>
+		</ul>
+		<div class="fl_r nwe_copyright">
+			<a href="//pronwe.ru">VotePad | NWE</a>
+		</div>
+	</footer>
 </body>
 </html>

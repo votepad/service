@@ -4,10 +4,10 @@ $(document).ready(function(){
   ** show description of event
   */
 
-  $('body').on('click.event_card', '.event_card', function (e) {
+  $('body').on('click', '.event_card', function (e) {
     if ($(this).find('> .event_card-reveal').length) {
       if ( $(e.target).is($('.event_card .event_card-reveal .pointer')) ) {
-        $(this).find('.event_card-reveal').removeClass('up').addClass('down');
+        $(this).find('.event_card-reveal').removeClass('up').addClass('down').css('display','none');
       }
       else if ( $(e.target).is($('.event_card .event_card-title .pointer')) || $(e.target).is($('.event_card .event_card-image')) ) {
         $this = $(e.target).closest('.event_card');
