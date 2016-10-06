@@ -64,7 +64,7 @@
           <i class="fa fa-ellipsis-v fl_r pointer" aria-hidden="true"></i>
         </span>
       </div>
-      <div class="event_card-reveal animated">
+      <div class="event_card-reveal">
         <span class="event_card-title">
           <span class="pointer"><?=$events[$i]['name']; ?></span>
           <i class="fa fa-close fl_r pointer" aria-hidden="true"></i>

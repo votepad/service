@@ -2,19 +2,20 @@
 <html>
 <head>
 	<meta charset="utf-8">
-	<title>Страница организации - <?=$organization->name; ?></title>
+	<title><?=$organization->name; ?> | NWE</title>
 
 	<!-- =============== VENDOR STYLES ===============-->
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
+	<link rel="stylesheet" href="<?=$assets; ?>vendor/animate.css/animate.min.css">
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="<?=$assets; ?>css/app1.css?v=<?= filemtime("assets/css/app1.css") ?>">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
-	<script src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-	<script src="<?=$assets; ?>js/organizations/org.js"></script>
-	<script src="<?=$assets; ?>js/app.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>js/app.js"></script>
 
 
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -46,7 +47,7 @@
 		<!-- SECTION END -->
 	</div>
 
-	<footer>
+	<footer class="bg_grey_800">
 		<ul class="fl_l nwe_links ls_none">
 			<li><a href="#">EventStream</a></li>
 			<li><a href="#">Правила</a></li>

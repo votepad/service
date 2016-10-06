@@ -1,11 +1,72 @@
 $(document).ready(function () {
 
 /*
-**  Tooltip Template
+** Animate CSS
 */
-$('[data-toggle="tooltip"]').tooltip({
-  template: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>'
+$.fn.extend({
+  animateCss: function (animationName) {
+    var animationEnd = 'webkitAnimationEnd mozAnimationEnd MSAnimationEnd oanimationend animationend';
+    this.addClass('animated ' + animationName).one(animationEnd, function() {
+        $(this).removeClass('animated ' + animationName);
+    });
+  }
 });
+
+
+/**
+ * Jquery Waiting Element
+ */
+(function ($) {
+  $.fn.wait = function(delay) {
+      return new jQueryWaiting(this, delay);
+  };
+
+  function jQueryWaiting ($el, delay) {
+      var item = this;
+      this._$el = $el;
+      this._Queue = [];
+      this._delayCompleted = false;
+
+      if (typeof delay === 'number' && delay < Infinity && delay >= 0 )
+          this.timeout = window.setTimeout(function () {
+              item._QueueActions();
+          }, delay);
+      else
+          return $el;
+  }
+
+  jQueryWaiting.prototype._QueueActions = function(){
+      this._delayCompleted = true;
+      var next;
+      while (this._Queue.length > 0) {
+          next = this._Queue.pop();
+          this._$el = this._$el[next.fnc].apply(this._$el, next.arg);
+      }
+      return this;
+  };
+
+  jQueryWaiting.prototype._addToQueue = function(fnc, arg){
+      this._Queue.unshift({ fnc: fnc, arg: arg });
+      if (this._delayCompleted)
+          return this._QueueActions();
+      else
+          return this;
+  };
+
+  for (var fnc in $.fn) {
+      // Skip Object.prototype and Non-function properties
+      if (typeof $.fn[fnc] !== 'function' || !$.fn.hasOwnProperty(fnc))
+          continue;
+
+      jQueryWaiting.prototype[fnc] = (function (fnc) {
+          return function(){
+              // Add methods for elements after Waiting Element
+              var arg = Array.prototype.slice.call(arguments);
+              return this._addToQueue(fnc, arg);
+          };
+      })(fnc);
+  }
+})(jQuery);
 
 
 /*
@@ -150,6 +211,36 @@ $('select.select_btn').each(function(){
   	dropDown.trigger('hide');
   });
 
+});
+
+
+/*
+** Inputes Fields
+*/
+$('.input-area').each(function(){
+  if ($(this).attr('length')) {
+    $(this).closest('.input-field').append('<span class="counter"></span>')
+  }
+});
+$('.input-area').focus(function() {
+  if ( $(this).val() == "") {
+    $(this).closest('.input-field').find('.input-label').addClass('active');
+    $(this).closest('.input-field').find(".counter").append("0/" + $(this).attr('length'));
+  }
+});
+$('.input-area').blur(function() {
+  if ( $(this).val() == "" && ! $(this).attr('placeholder')) {
+      $(this).closest('.input-field').find('.input-label').removeClass('active');
+      $(this).closest('.input-field').find(".counter").empty();
+  }
+});
+$('.input-area').keyup(function() {
+  $(this).closest('.input-field').find(".counter").empty().append($(this).val().length + "/" + $(this).attr('length'));
+  if ( ($(this).val().length > $(this).attr('length')) && ! $(this).hasClass('invalid') ) {
+    $(this).addClass('invalid');
+  } else if ($(this).val().length <= $(this).attr('length')) {
+    $(this).removeClass('invalid');
+  }
 });
 
 

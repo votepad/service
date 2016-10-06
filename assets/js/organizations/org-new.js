@@ -1,5 +1,153 @@
 $().ready(function() {
 
+var form_el = [
+  {label: "Название организации", proc: "15", name:"org_name", flag:false},
+  {label: "Сайт организации", proc: "15", name:"org_site", flag:false},
+  {label: "Доверенное лицо", proc: "10", name:"org_user", flag:false},
+  {label: "Телефон", proc: "10", name:"org_phone", flag:false},
+  {label: "E-mail", proc: "15", name:"email", flag:false},
+  {label: "Пароль", proc: "15", name:"password", flag:false},
+  {label: "Официальный сайт организации", proc: "10", name:"official_org_site", flag:false},
+  {label: "confirmrools", proc: "10", name:"confirmrools", flag:false},
+];
+
+/*
+**  Find Element in Massive
+*/
+function find_el(name) {
+  for (var i = 0; i < form_el.length; i++) {
+    if (form_el[i].name == name) {
+      return i;
+    }
+  }
+}
+
+
+/*
+**  Progress Bar
+*/
+var width = 0;
+function add_progress_bar(num) {
+  width = width + parseInt(num);
+  $('.pb_neworg span').empty().append(width + "%");
+  $('.pb_wrapper').css('width', width + '%');
+}
+function remove_progress_bar(num) {
+  width = width - parseInt(num);
+  $('.pb_neworg span').empty().append(width + "%");
+  $('.pb_wrapper').css('width', width + '%');
+}
+
+
+/*
+**  Validate Elements
+*/
+function show_error(name) {
+
+}
+
+/*
+**  Blur Input Element
+*/
+$('.input-area').blur(function(){
+  var el_num = find_el($(this).attr('name'));
+  if ( $(this).val() == "" ) {
+    if ( form_el[el_num].flag == true  ) {
+      remove_progress_bar(form_el[el_num].proc);
+    }
+    form_el[el_num].flag = false;
+    //show_error(el_num);
+  } else{
+    if ( form_el[el_num].flag == false ) {
+      add_progress_bar(form_el[el_num].proc);
+      form_el[el_num].flag = true;
+    }
+  }
+});
+
+/*
+**  Keyup Input Element
+*/
+$('#org_name').keyup(function(){
+  if ($(this).val() != "") {
+    $("#org_site").val(checkingsim($("#org_name").val()));
+    if ( ! $('#org_site + label').hasClass('active') ) {
+      $('#org_site + label').addClass('active');
+    }
+    $('#org_site').closest('.input-field').find(".counter").empty().append($('#org_site').val().length + "/" + $('#org_site').attr('length'));
+    if ( ($('#org_site').val().length > $('#org_site').attr('length')) && ! $('#org_site').hasClass('invalid') ) {
+      $('#org_site').addClass('invalid');
+    } else if ($('#org_site').val().length <= $('#org_site').attr('length')) {
+      $('#org_site').removeClass('invalid');
+    }
+  } else {
+    if ( $(this).val() != "") {
+      $('#org_site + label').removeClass('active');
+      $('#org_site').removeClass('invalid');
+      $('#org_site').closest('.input-field').find(".counter").empty();
+    }
+  }
+});
+
+
+/*
+**  Next Step
+*/
+$('#next').click(function () {
+  $('.step').each(function () {
+    if ( $(this).hasClass('displayblock') ) {
+      // hide current
+      $(this).animateCss('fadeOutLeft');
+      $(this).removeClass('displayblock').wait(800).addClass('displaynone').removeClass('fadeOutLeft animated');
+
+      // show next
+      $(this).next().removeClass('displaynone').addClass('displayblock').animateCss('fadeInRight');
+
+      // checking last element
+      if ( $(this).next().index() == 3) {
+        $('#next').removeClass('displayblock').addClass('displaynone');
+        $('#submit').removeClass('displaynone').addClass('displayblock');
+      } else {
+        $('#previous').removeClass('displaynone').addClass('displayblock');
+      }
+      return false;
+    }
+  });
+});
+
+/*
+**  Previous Step
+*/
+$('#previous').click(function () {
+  $('.step').each(function () {
+    if ( $(this).hasClass('displayblock') ) {
+      // hide current
+      $(this).animateCss('fadeOutRight');
+      $(this).removeClass('displayblock').wait(800).addClass('displaynone').removeClass('fadeOutRight animated');
+
+      // show previous
+      $(this).prev().removeClass('displaynone').addClass('displayblock').animateCss('fadeInLeft');
+
+      // checking first element
+      if ( $(this).prev().index() == 0 ) {
+        $('#previous').removeClass('displayblock').addClass('displaynone');
+      } else {
+        $('#submit').removeClass('displayblock').addClass('displaynone');
+        $('#next').removeClass('displaynone').addClass('displayblock');
+      }
+      return false;
+    }
+  });
+});
+
+/*
+**  Submit Form
+*/
+$('#submit').click(function () {
+  alert('sumbited');
+});
+
+
     $('#new_org_logged').validate({
       errorClass: "error-input",
       rules: {
@@ -40,7 +188,7 @@ $().ready(function() {
       }
     });
 
-    var not_logged = $('#new_org_not_logged').validate({
+  /*  var not_logged = $('#new_org_not_logged').validate({
       errorClass: "error-input",
       focusInvalid: false,
       rules: {
@@ -99,14 +247,11 @@ $().ready(function() {
         }
       }
     });
-
+*/
   $("#org_phone").inputmask("+7 (999) 999-9999");
 
   $("#org_site").keyup(function(){
     $("#org_site").val(checkingsim($("#org_site").val()));
-  });
-  $("#org_name").keyup(function(){
-    $("#org_site").val(checkingsim($("#org_name").val()));
   });
 
 
