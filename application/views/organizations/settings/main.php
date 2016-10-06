@@ -20,7 +20,7 @@
 					<div class="form-group">
 						<label for="org_site" class="control-label">Ссылка на страницу</label>
 						<input type="text" id="org_site1" name="org_site1" class="form-control input-sm" value="http://<?=$organization->website; ?>.votepad.ru" disabled>
-						<span class="help-block">Хотите изменить ссылку на Вашу организацию? Напишите нам <a href="">support@votepad.ru</a></span>
+						<span class="help-block">Хотите изменить ссылку на Вашу организацию?  <a id="open_feedback">Напишите нам</a></span>
 					</div>
 					<div class="form-group">
 						<label for="org_official_site" class="control-label">Ссылка на официальный сайт</label>
@@ -57,8 +57,6 @@
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>vendor/cropper/dist/cropper.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/upload.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-main.js"></script>
 <script>
 	$(document).ready(function() {

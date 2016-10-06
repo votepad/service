@@ -1,12 +1,20 @@
+<div class="parallax-container org-background">
+  <div class="parallax">
+    <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>">
+  </div>
 <div class="edit-org-back">
-  <i class="fa fa-camera" aria-hidden="true"></i>
-  <a id="edit_org_back" href="#" role="button">Обновить фото обложки</a>
+  <a id="edit_org_back" href="#" role="button">
+	<i class="fa fa-camera" aria-hidden="true"></i>
+	<span>Обновить фото обложки</span>
+  </a>
 </div>
 <div class="org-avatar">
     <img id="org-avatar-uploaded" src="/uploads/organizations/m_<?=$organization->logo; ?>">
     <div class="edit-org-avatar">
+	<a id="edit_org_avatar" href="#" role="button">
       <i class="fa fa-camera" aria-hidden="true"></i>
-      <a id="edit_org_avatar" href="#" role="button">Обновить логотип организации</a>
+	  <span>Обновить логотип организации</span>
+	</a>
     </div>
 </div>
 <div class="org-name-background"></div>
@@ -18,7 +26,7 @@
         </a>
     </h2>
 </div>
-
+</div>
 <script>
 
     var nwe = (function(nwe) {
@@ -172,7 +180,7 @@
 
                 var file = JSON.parse(callback),
                     image   = file.filename,
-                    el = $('#org-background-uploaded');
+                    el = document.getElementById('org-background-uploaded');
 
                 $.ajax({
                     url  : "/organization/<?=$organization->id; ?>/update_with_ajax",
@@ -182,12 +190,11 @@
                         value : image
                     },
                     beforeSend : function() {
-                        el.css('opacity', '.3');
+                        el.style.opacity = 0.3;
                     },
                     success : function(result) {
-                        el.css('background-image', "url(/uploads/organizations/o_"+image+")");
-                        el.css('background-size', '100% 100%');
-                        el.css('opacity', '1');
+                        el.src = "/uploads/organizations/o_"+image;
+                        el.style.opacity = 1;
                     },
                     error : function(result) {
                         console.log('something gone wrong!');

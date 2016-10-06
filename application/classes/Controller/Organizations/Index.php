@@ -77,22 +77,27 @@ class Controller_Organizations_Index extends Dispatch
          */
         $this->template->organization = $this->organization;
 
-        /**
-         * Jumbotron
-         */
-        $this->template->jumbotron = View::factory('organizations/blocks/jumbotron')
-            ->set('organization', $this->organization);
 
-        /**
-         * Navigation
-         */
-        $this->template->navigation = View::factory('organizations/blocks/navigation')
-            ->set('id', $this->organization->id);
+        if ($this->organization != false) {
 
-        /**
-         * get all menus of top navigation bar
-         */
-        $this->template->menus = $menus = Kohana::$config->load('topnav')->as_array();
+          /**
+           * Jumbotron
+           */
+          $this->template->jumbotron = View::factory('organizations/blocks/jumbotron')
+              ->set('organization', $this->organization);
+
+          /**
+           * Navigation
+           */
+          $this->template->navigation = View::factory('organizations/blocks/navigation')
+              ->set('id', $this->organization->id);
+
+          /**
+           * get all menus of top navigation bar
+           */
+          $this->template->menus = $menus = Kohana::$config->load('topnav')->as_array();
+
+        }
 
     }
 

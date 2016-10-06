@@ -1,20 +1,29 @@
 $(document).ready(function(){
-  $('.vk').hover(function(){$('.vk i').css("color","#4c75a3");}, function(){$('.vk i').css("color","#656565");});
-  $('.facebook').hover(function(){$('.facebook i').css("color","#3b5998");}, function(){$('.facebook i').css("color","#656565");});
-  $('.twitter').hover(function(){$('.twitter i').css("color","#35b0ed");}, function(){$('.twitter i').css("color","#656565");});
-  /* add likes */
-  $('.fav').on('click', function(){
-    if ( $("i", this).hasClass('active') ) {
-      $("i", this).removeClass('active');
-    }
-    else {
-      $("i", this).addClass('active');
+
+  /*
+  ** Show description of event
+  */
+  $('body').on('click', '.event_card', function (e) {
+    if ($(this).find('> .event_card-reveal').length) {
+      if ( $(e.target).is($('.event_card .event_card-reveal .pointer')) ) {
+        $this = $(e.target).closest('.event_card');
+        $this.find('.event_card-reveal').animateCss('fadeOutDown');
+        $this.find('.event_card-reveal').wait(500).removeClass('fadeOutDown animated').css('display', 'none');
+      }
+      else if ( $(e.target).is($('.event_card .event_card-title .pointer')) || $(e.target).is($('.event_card .event_card-image')) ) {
+        $this = $(e.target).closest('.event_card');
+        $this.find('.event_card-reveal').css('display','block').animateCss('fadeInUp');
+      }
     }
   });
 
-  /*   CREATE EVENTS ARRAY  */
-  var k = $('.event-group').length; // number of events
+  /*
+  **     CREATE EVENTS ARRAY
+  */
+
+  var k = $('.event_wrapper').length; // number of events
   var events = new Array();
+  var type = '';
   function Event(el,name,time,type,hidden){
     this.el = el;
     this.name = name;
@@ -22,36 +31,53 @@ $(document).ready(function(){
     this.type = type;
     this.hidden = hidden;
   }
-  $('.event-group').each(function(){
+  $('.event_wrapper').each(function(){
     events[$(this).index()] = new Event($(this), $(this).find('.event_name_search').text().toLowerCase(),$(this).find('.event_time_search').text(),$(this).find('.event_type_search').text(), false);
   });
   countEvents(k);
 
 
-  /*  SEARCHING BY NAMES  */
+  /*
+  **  SEARCHING EVENT BY NAME
+  */
+
   $('.search-block').on('keyup', 'input[name="event_name"]', function(){
     searching();
   });
 
 
-  /*  SEARCHING BY TYPES */
-  $('.search-block').on('change', 'select[name="event_type"]', function(){
+  /*
+  ** SEARCHING EVENT BY TYPE
+  */
+
+  $('.select_btn_list[name="event_type"] li').click( function(){
+    type = $(this).text();
+    $('.select_btn_list[name="event_type"] li').each(function(){$(this).removeClass('active');})
+    $(this).addClass('active');
     searching();
   });
 
 
-  /*  SORTING  */
-  $('.search-block').on('change', 'select[name="event_sort"]', function(){
-    if ( $(this).val() == "Название мероприятия" ) {
+  /*
+  **  SORTING EVENTS ARRAY
+  */
+
+  $('.select_btn_list[name="event_sort"] li').click( function(){
+    $('.select_btn_list[name="event_sort"] li').each(function(){$(this).removeClass('active');})
+    $(this).addClass('active');
+    if ( $(this).text() == "Название мероприятия" ) {
       events.sort(eventSortName);
-    } else if ( $(this).val() == "Дата начала мероприятия" ) {
+    } else if ( $(this).text() == "Дата начала мероприятия" ) {
       events.sort(eventSortDate);
     }
     showEvents();
   });
 
 
-  /*  DISPLAY EVENTS  */
+  /*
+  ** DISPLAY EVENTS
+  */
+
   function showEvents(){
     $('#events_list').empty();
     k = 0;
@@ -65,7 +91,10 @@ $(document).ready(function(){
   };
 
 
-  /*  FUNCTIONS  */
+  /*
+  ** FUNCTIONS FOR EVENT
+  */
+
   function eventSortName(eventA, eventB) {
     if (eventA.name < eventB.name) return -1;
     if (eventA.name > eventB.name) return 1;
@@ -84,15 +113,12 @@ $(document).ready(function(){
   }
 
   function searching(){
-    var type = $('select[name="event_type"]').val();
-    if (type == undefined) { type = ''; }
-    else {type = $('select[name="event_type"]').val().toLowerCase();}
-    if ( $('input[name="event_name"]').val() == '' && $('select[name="event_type"]').val() == '' ) {
+    if ( $('input[name="event_name"]').val() == '' && type == '' ) {
       for(var i =0; i < events.length; i++){
         events[i].hidden = false;
       }
       showEvents();
-    } else if ( $('input[name="event_name"]').val() != '' && $('select[name="event_type"]').val() == '' ) {
+    } else if ( $('input[name="event_name"]').val() != '' && type == '' ) {
       for(var i =0; i < events.length; i++){
         if ( events[i].name.match($('input[name="event_name"]').val().toLowerCase()) ) {
           events[i].hidden = false;
@@ -101,7 +127,7 @@ $(document).ready(function(){
         }
       }
       showEvents();
-    } else if ( $('input[name="event_name"]').val() == '' && $('select[name="event_type"]').val() != '' ) {
+    } else if ( $('input[name="event_name"]').val() == '' && type != '' ) {
       for(var i =0; i < events.length; i++){
         if (events[i].type != true) {
           if ( type == events[i].type ) {
@@ -123,4 +149,6 @@ $(document).ready(function(){
       showEvents();
     }
   }
+
+
 });
