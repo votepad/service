@@ -5,70 +5,80 @@
  * @author ProNWE team
  * @copyright Khaydarov Murod
  * Methods
- *  - isAdmin
- *  - isJudge
- *  - isGuest
+ *  - getCurrentUser
+ *  - newUser
  */
 
 Class Model_User {
 
-    const ADMIN = 1;
-    const JUDGE = 2;
-    const GUEST = 3;
+    /**
+     * @var $id_user
+     */
+    public $id_user;
 
-    public static function isAdmin() {
+    /**
+     * @var $lastname
+     */
+    public $lastname;
 
-        if (Session::Instance()->get('role') == self::ADMIN)
-            return true;
-        return false;
+    /**
+     * @var $name
+     */
+    public $name;
 
+    /**
+     * @var $surname
+     */
+    public $surname;
+
+    /**
+     * @var $email
+     */
+    public $email;
+
+    /**
+     * @var $phone
+     */
+    public $phone;
+    
+    /**
+     * @param $id
+     * Saves or Updates User to Database
+     */
+     public function save($id = null)
+     {
+         $user = new ORM_User();
+
+         if (isset($id)) {
+             $user->where('id', '=', $id)
+                 ->find();
+         }
+
+         $user->lastname = $this->lastname;
+         $user->name     = $this->name;
+         $user->surname  = $this->surname;
+         $user->email    = $this->email;
+         $user->password = $this->password;
+         $user->number   = $this->phone;
+
+         $user->save();
+
+         return $this;
+     }
+
+    /**
+     * @param $id
+     * @return Id organization
+     */
+    public function getUserOrganization($id)
+    {
+        $select = DB::select('id_organization')->from('User_Organizations')
+                        ->where('id_user', '=', $id)
+                        ->limit(1)
+                        ->execute()
+                        ->as_array();
+
+        return Arr::get($select, '0')['id_organization'];
     }
 
-    public static function isJudge() {
-
-        if (Session::Instance()->get('role') == self::JUDGE)
-            return true;
-        return false;
-
-    }
-
-    public static function isGuest() {
-
-        if (Session::Instance()->get('role') == self::GUEST)
-            return true;
-        return false;
-
-    }
-
-    public static function new_user($lastname, $name, $surname, $email, $password, $phone) {
-
-        $user = new ORM_User();
-
-        $user->lastname = $lastname;
-        $user->name     = $name;
-        $user->surname  = $surname;
-        $user->email    = $email;
-        $user->password = $password;
-        $user->number   = $phone;
-
-        $user->save();
-
-        return $user->id;
-    }
-
-    public static function getCurrentUser() {
-
-        $session = Session::Instance();
-
-        $user = new ORM_User();
-        $user->where('id', '=', $session->get('id_user'))
-            ->find();
-
-        if ($user->loaded())
-        {
-            return $user;
-        }
-
-        return false;
-    }
 }

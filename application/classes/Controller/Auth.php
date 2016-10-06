@@ -12,6 +12,10 @@ class Controller_Auth extends Dispatch {
 
     function action_index()
     {
+        /**
+         * Destroy session
+         */
+        $this->session->destroy();
     }
 
     function action_signin()
@@ -36,9 +40,9 @@ class Controller_Auth extends Dispatch {
         }
         else
         {
-            $id_user = $this->_session->get('id_user');
+            $id_user = $this->session->get('id_user');
 
-            $id = Model_Organizations::getByFields('user_created', $id_user);
+            $id = Model_User::getUserOrganization($id_user);
             $this->redirect('organization/' . $id);
         }
 

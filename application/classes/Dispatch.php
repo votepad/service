@@ -37,7 +37,7 @@ class Dispatch extends Controller_Template
             $this->request->secure(true);
         }
 
-        $this->_session = Session::instance();
+        $this->session = Session::instance();
         $this->setGlobals();
 
         parent::before();
@@ -117,13 +117,11 @@ class Dispatch extends Controller_Template
 
     private function setGlobals()
     {
-        if (!empty($this->_session->get('id_user'))) {
+        if (!empty($this->session->get('id_user'))) {
 
-            $id = $this->_session->get('id_user');
+            $id = $this->session->get('id_user');
 
-            $user = new ORM_User();
-            $user->where('id', '=', $id)
-                ->find();
+            $user = new Model_PrivillegedUser();
 
             /** Authentificated User is visible in all pages */
             View::set_global('user', $user);

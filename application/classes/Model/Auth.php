@@ -53,7 +53,6 @@ class Model_Auth extends Model {
         $this->_session->set('lastname', $select['lastname']);
         $this->_session->set('name', $select['name']);
         $this->_session->set('email', $select['email']);
-        $this->_session->set('role', $select['role']);
 
     }
 }

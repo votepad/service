@@ -25,14 +25,9 @@ class Controller_Organizations_Index extends Dispatch
     const ACTION_SHOW_ALL = 'showAll';
 
     /**
-     * @var $id_organization [Int]
-     */
-    protected $id_organization = null;
-
-    /**
      * @var $organization [String] - default value is null. Keeps cached render
      */
-    protected $organization    = null;
+    protected $organization = null;
 
     /**
      * Function that calls before main action
@@ -69,13 +64,12 @@ class Controller_Organizations_Index extends Dispatch
         /**
          * @var $id - organization identificator
          */
-        $this->template->id = $this->id_organization = $this->request->param('id');
+        $id = $this->request->param('id');
 
-        $this->organization = Model_Organizations::get($this->id_organization, 1);
+        $this->organization = Model_Organizations::get($id, 1);
 
         if (!$this->organization && $this->request->action() != self::ACTION_NEW) {
-            echo 'Организация была удалена!';
-            exit;
+            throw new HTTP_Exception_404();
         }
 
         /**
@@ -93,14 +87,22 @@ class Controller_Organizations_Index extends Dispatch
          * Navigation
          */
         $this->template->navigation = View::factory('organizations/blocks/navigation')
-            ->set('id', $this->id_organization);
+            ->set('id', $this->organization->id);
+
+        /**
+         * get all menus of top navigation bar
+         */
+        $this->template->menus = $menus = Kohana::$config->load('topnav')->as_array();
+
     }
 
     /**
      * New organization form
      * Doesn't need any variables
      */
-    public function action_new() { }
+    public function action_new()
+    {
+    }
 
     /**
      * Shows organization
@@ -113,7 +115,7 @@ class Controller_Organizations_Index extends Dispatch
          */
 
         $params = array(
-            'id_organization' => $this->id_organization,
+            'id_organization' => $this->organization->id,
         );
 
         $response = Request::factory('events/all')
@@ -126,45 +128,23 @@ class Controller_Organizations_Index extends Dispatch
     }
 
     /**
-     * Shows list of organizations
-     * Will be used as internal request for another modules
-     */
-    public function action_showAll()
-    {
-
-    }
-
-    /**
-     * Organization balance interface
-     */
-    public function action_balance()
-    {
-        $this->template->main_section = View::factory('organizations/settings/balance')
-            ->set('id', $this->id_organization);
-    }
-
-    /**
-     * Organization activities
-     */
-    public function action_logs()
-    {
-        $this->template->main_section = View::factory('organizations/settings/logs')
-            ->set('id', $this->id_organization);
-    }
-
-    /**
      * Organizations team
      */
     public function action_team()
     {
-        /**
-         * Getting team
+        /** @var $topmenu
+         * Top menu with roles
          */
-        $team = Model_Organizations::get_team($this->id_organization);
-        
+        $topmenu = View::factory('organizations/blocks/topmenu')
+            ->set('menus', $this->template->menus)
+            ->set('id', $this->organization->id);
+
+        /**
+         * Content of target menu
+         */
         $this->template->main_section = View::factory('organizations/settings/team')
-            ->set('id', $this->id_organization)
-            ->set('team', $team);
+            ->set('organization', $this->organization)
+            ->set('topmenu', $topmenu);
     }
 
     /**
@@ -172,15 +152,20 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_main()
     {
-        if ($this->organization !== null)
-        {
-            $creator = Model_Organizations::get_creator($this->organization->user_created);
-        }
+        /** @var $topmenu
+         * Top menu with roles
+         */
+        $topmenu = View::factory('organizations/blocks/topmenu')
+            ->set('menus', $this->template->menus)
+            ->set('id', $this->organization->id);
 
+
+        /**
+         * Content of target menu
+         */
         $this->template->main_section = View::factory('organizations/settings/main')
-                ->set('id', $this->id_organization)
                 ->set('organization', $this->organization)
-                ->set('creator', $creator);
+                ->set('topmenu', $topmenu);
     }
 
 }

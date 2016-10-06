@@ -8,25 +8,102 @@
 
 class Model_Organizations extends Model
 {
+    /**
+     * @var $id
+     */
+    public $id;
+
+    /**
+     * @var $name
+     */
+    public $name;
+
+    /**
+     * @var $website
+     */
+    public $website;
+
+    /**
+     * @var $phone
+     */
+    public $phone;
+
+    /**
+     * @var $dt_created
+     */
+    public $dt_created;
+
+    /**
+     * @var $dt_update
+     */
+    public $dt_update;
+
+    /**
+     * @var $is_removed
+     */
+    public $is_removed;
+
+    /**
+     * @var $user_created
+     */
+    public $creator;
+
+    /**
+     * @var $team
+     */
+    public $team;
+
+    /**
+     * @var $cover
+     */
+    public $cover;
+
+    /**
+     * @var $logo
+     */
+    public $logo;
+
+    /**
+     * Model_Organizations constructor.
+     */
     public function __construct()
     {
     }
 
-    public static function new_organization($name, $website, $user_created, $phone)
+    /**
+     * @param null $id
+     * @return $this
+     * @throws Kohana_Exception
+     */
+    public function save($id = null)
     {
         $organization = new ORM_Organizations();
 
-        $organization->name         = $name;
-        $organization->website      = $website;
-        $organization->phone        = $phone;
-        $organization->user_created = $user_created;
-        $organization->dt_update    = DB::expr('Now()');
-        $organization->dt_created   = DB::expr('Now()');
-        $organization->is_removed   = 0;
+        if (isset($id)) {
+            $organization->where('id', '=', $id)
+                        ->find();
 
-        return $organization->save();
+            $organization->dt_created   = DB::expr('Now()');
+        }
+
+        $organization->name         = $this->name;
+        $organization->website      = $this->website;
+        $organization->phone        = $this->phone;
+        $organization->dt_update    = DB::expr('Now()');
+        $organization->is_removed   = $this->is_removed;
+        $organization->save();
+
+        $this->id = $organization->id;
+
+        return $this;
     }
 
+    /**
+     * @param $id
+     * @param $is_removed
+     * @return bool
+     * @throws Kohana_Exception
+     */
     public static function get($id, $is_removed)
     {
         $organization = new ORM_Organizations();
@@ -37,54 +114,64 @@ class Model_Organizations extends Model
 
         if ($organization->loaded())
         {
-            return $organization;
+            $target = new Model_Organizations();
+
+            $target->id         = $organization->id;  
+            $target->name       = $organization->name;
+            $target->website    = $organization->website;
+            $target->phone      = $organization->phone;
+            $target->dt_update  = $organization->dt_update;
+            $target->is_removed = $organization->is_removed;
+            $target->creator    = $target->getCreator($organization->id);
+            $target->team       = $target->getTeam($organization->id);
+            $target->cover      = $organization->cover;
+            $target->logo       = $organization->logo;
+
+            return $target;
+
         }
 
         return false;
     }
 
-    public static function getByName($name)
+    /**
+     * @param $id
+     * @returns $id_user
+     */
+    private function getCreator($id)
     {
-        $organization = new ORM_Organizations();
+        $select = DB::select('id_user')->from('User_Organizations')
+            ->where('id_organization', '=', $id)
+            ->limit(1)
+            ->execute()
+            ->as_array();
 
-        $organization->where('name', '=', $name)
-            ->find();
+        $id_user = Arr::get($select, '0')['id_user'];
 
-        if ($organization->loaded())
-        {
-            return $organization->id;
-        }
-
-        return false;
+        return new Model_PrivillegedUser($id_user);
     }
 
-    public static function getByFields($field, $value)
+    private function getTeam($id)
     {
-        $organization = new ORM_Organizations();
+        $users = array();
 
-        $organization->where($field, '=', $value)
-                ->find();
+        $select = DB::select('id')
+            ->from('Users')
+            ->where('id_organization', '=', $id)
+            ->execute()
+            ->as_array();
 
-        if ($organization->loaded())
-        {
-            return $organization->id;
+        foreach ($select as $key => $value) {
+            $users[] = new Model_PrivillegedUser($value['id']);
         }
 
-        return false;
+        return $users;
     }
 
-    public static function update_organization($id, $fields = array())
-    {
-        $organization = self::get($id, 1);
-
-        foreach ($fields as $key => $values) {
-            $organization->$key = $values;
-        }
-
-        $organization->dt_update = DB::expr('Now()');
-        $organization->save();
-    }
-
+    /**
+     * @param $id
+     * @return bool
+     */
     public static function delete_organization($id) {
 
         $organization = self::get($id, 1);
@@ -100,6 +187,10 @@ class Model_Organizations extends Model
         return false;
     }
 
+    /**
+     * @param $id
+     * @return bool
+     */
     public static function reestablish_organization($id) {
 
         $organization = self::get($id, 0);
@@ -114,30 +205,4 @@ class Model_Organizations extends Model
 
         return false;
     }
-
-    public static function get_creator($id)
-    {
-        $user = new ORM_User();
-
-        $user->where('id', '=', $id)
-            ->find();
-
-        if ($user->loaded())
-        {
-            return $user;
-        }
-
-        return false;
-    }
-
-    public static function get_team($id)
-    {
-        $team = DB::select('*')->from('Users')
-            ->where('id_organization', '=', $id)
-            ->execute()
-            ->as_array();
-
-        return $team;
-    }
-
 }

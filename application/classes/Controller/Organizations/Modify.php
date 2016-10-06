@@ -55,20 +55,27 @@ class Controller_Organizations_Modify extends Dispatch
 
         if (self::isLogged()) {
 
-            $user       = Model_User::getCurrentUser();
-            $user_id    = $user->id;
+            $user       = new Model_PrivillegedUser();
+            $user_id    = $user->id_user;
 
         } else {
             return;
         }
 
         $fields = array(
-            'name'      => $name,
-            'website'   => $website,
-            'phone'     => $phone
+            'name'       => $name,
+            'website'    => $website,
+            'phone'      => $phone,
+            'is_removed' => 0
         );
 
-        $result = Model_Organizations::update_organization($id_organization, $fields);
+        $organization = new Model_Organizations();
+
+        foreach ($fields as $key => $value) {
+            $organization->$key = $value;
+        }
+
+        $organization->save($id_organization);
 
         $this->redirect('organization/' . $id_organization . '/settings/main');
 

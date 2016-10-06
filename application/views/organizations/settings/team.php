@@ -5,27 +5,13 @@
 	<div class="panel panel-default">
 		<div class="panel-heading">
 			<div class="panel-tabs">
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/main'); ?>">
-					Организация
-					<div class="active-link"></div>
-				</a>
-				<a class="md-btn active" href="<?=URL::site('organization/' . $id . '/settings/team'); ?>">
-					Команда
-					<div class="active-link"></div>
-				</a>
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/logs'); ?>">
-					Активности
-					<div class="active-link"></div>
-				</a>
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/balance'); ?>">
-					Оплата услуг
-					<div class="active-link"></div>
-				</a>
+				<?=$topmenu; ?>
 			</div>
 		</div>
 		<div class="panel-body">
 			<ul class="pad-l-r-15">
-				<? for($i = 0; $i < count($team); $i++) : ?>
+				<?=Debug::Vars($organization->team);?>
+				<? for($i = 0; $i < count($organization->team); $i++) : ?>
 				<li class="no-li user-block">
 					<div class="userImageBlock inline">
 						<img src="<?=$assets; ?>img/user/02.jpg">
@@ -35,8 +21,8 @@
 					</button>
 					<div class="inline user-block-right-column">
 						<div class="user-header">
-							<h4 class="inline"><?=$team[$i]['lastname'] . ' ' . $team[$i]['name'] . ' ' . $team[$i]['surname']; ?></h4>
-							<span class="inline">Создатель организации</span>
+							<h4 class="inline"><?=$organization->team[$i]->lastname . ' ' . $organization->team[$i]->name . ' ' . $organization->team[$i]->surname; ?></h4>
+							<span class="inline"><?=$organization->team[$i]->role_name; ?></span>
 						</div>
 						<div class="">
 							<p class="user-rools">
@@ -72,7 +58,7 @@
 								</div>
 								<div class="form-group input-width">
 									<label class="control-label">Должность<span style="color: red">*</span></label>
-									<input type="text" name="position" class="form-control input-sm" maxlength="50" required value="Создатель организации">
+									<input type="text" name="position" class="form-control input-sm" maxlength="50" required value="<?=$organization->team[$i]->role_name; ?>">
 									<span class="help-block">Будет отображена только для членов команды</span>
 								</div>
 								<div class="form-group input-width">
