@@ -103,6 +103,7 @@ if (isset($_SERVER['KOHANA_ENV']))
  * - boolean  caching     enable or disable internal caching                 FALSE
  * - boolean  expose      set the X-Powered-By header                        FALSE
  */
+
 Kohana::init(array(
 	'base_url'   => '/',
 	'index_file' => false,
@@ -142,7 +143,7 @@ Kohana::modules(array(
  * If you have not defined a cookie salt in your Cookie class then
  * uncomment the line below and define a preferrably long salt.
  */
- Cookie::$salt = "saltPronwesalt";
+Cookie::$salt = "saltPronwesalt";
 
 /**
  * Include Composer libraries
