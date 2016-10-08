@@ -225,7 +225,9 @@ $('.input-area').each(function(){
 $('.input-area').focus(function() {
   if ( $(this).val() == "") {
     $(this).closest('.input-field').find('.input-label').addClass('active');
-    $(this).closest('.input-field').find(".counter").append("0/" + $(this).attr('length'));
+    var max_len = parseInt($(this).attr('length'));
+    if( $(this).hasClass('nwe_site') ) max_len = max_len -  14;
+    $(this).closest('.input-field').find(".counter").append("0/" + max_len);
   }
 });
 $('.input-area').blur(function() {
@@ -235,13 +237,22 @@ $('.input-area').blur(function() {
   }
 });
 $('.input-area').keyup(function() {
-  $(this).closest('.input-field').find(".counter").empty().append($(this).val().length + "/" + $(this).attr('length'));
-  if ( ($(this).val().length > $(this).attr('length')) && ! $(this).hasClass('invalid') ) {
+  var cur_len = $(this).val().length;
+  var max_len = parseInt($(this).attr('length'));
+  if( $(this).hasClass('nwe_site') ) {
+    if( cur_len >= 14 ) cur_len = cur_len - 14;
+    max_len = max_len -  14;
+  }
+  $(this).closest('.input-field').find(".counter").empty().append(cur_len + "/" + max_len);
+  if ( (cur_len > max_len) && ! $(this).hasClass('invalid') ) {
     $(this).addClass('invalid');
-  } else if ($(this).val().length <= $(this).attr('length')) {
+  } else if (cur_len <= max_len) {
     $(this).removeClass('invalid');
   }
 });
+$('[type="checkbox"]').focus(function(){ $(this).addClass('focus'); });
+$('[type="checkbox"]').blur(function(){ $(this).removeClass('focus'); });
+$('[type="checkbox"]').click(function(){ $(this).removeClass('focus'); });
 
 
 

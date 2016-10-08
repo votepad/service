@@ -44,11 +44,11 @@ class Controller_Organizations_Index extends Dispatch
              */
             case self::ACTION_NEW :
 
-                if (parent::isLogged()) {
-                    $this->template = 'organizations/new_logged';
-                } else {
+                //if (parent::isLogged()) {
+                //    $this->template = 'organizations/new_logged';
+                //} else {
                     $this->template = 'organizations/new_not_logged';
-                }
+                //}
                 break;
 
             /**

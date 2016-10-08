@@ -13,7 +13,6 @@
 
     <!-- =============== VENDOR SCRIPTS ===============-->
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-new.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/app.js"></script>
@@ -32,62 +31,62 @@
 			<div class="block-body">
 				<div class="step displayblock">
 					<div class="input-field">
-						<input type="text" id="org_name" name="org_name" class="input-area" length="60">
+						<input type="text" id="org_name" name="org_name" class="input-area" length="60" autocomplete="off">
 						<label for="org_name" class="input-label">Название организации</label>
 						<span class="help-block">Название увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
 					</div>
 					<div class="input-field">
-						<input type="text" id="org_site" name="org_site" class="input-area" length="20">
+						<input type="text" id="org_site" name="org_site" class="input-area nwe_site" length="34" autocomplete="off">
 						<label for="org_site" class="input-label">Сайт организации</label>
 						<span class="help-block">По этому адресу будет доступен личный кабинет организации.</span>
 					</div>
 				</div>
 				<div class="step displaynone">
 					<div class="input-field">
-						<input type="text" id="org_user" name="org_user" class="input-area" placeholder="Иванов Иван Иванович">
+						<input type="text" id="org_user" name="org_user" class="input-area" autocomplete="off" placeholder="Иванов Иван Иванович">
 						<label for="org_user" class="input-label active">Доверенное лицо</label>
 						<span class="help-block">Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
 					</div>
 					<div class="input-field">
-						<input type="tel" id="org_phone" name="org_phone" class="input-area">
-						<label for="org_phone" class="input-label active">Телефон</label>
+						<input type="tel" id="org_phone" name="org_phone" class="input-area" autocomplete="off">
+						<label for="org_phone" class="input-label">Телефон</label>
 						<span class="help-block">Нужен для связи с Вами.</span>
 					</div>
 				</div>
 				<div class="step displaynone">
 					<div class="input-field">
-						<input id="email" type="email" name="email" class="input-area">
+						<input type="text" id="email" name="email" class="input-area" autocomplete="off">
 						<label for="email" class="input-label">E-mail</label>
 						<span class="help-block">Используется для доступа в личный кабинет организации вместе с паролем.</span>
 					</div>
 					<div class="input-field">
-						<input type="password" id="password" name="password" class="input-area">
+						<input type="text" id="password" name="password" class="input-area" autocomplete="off">
 						<label for="password" class="input-label">Пароль</label>
 						<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
 					</div>
 				</div>
 				<div class="step displaynone">
 					<div class="input-field">
-						<input type="text" id="official_org_site" name="official_org_site" class="input-area">
-						<label for="org_site" class="input-label">Официальный сайт организации</label>
+						<input type="text" id="official_org_site" name="official_org_site" class="input-area" autocomplete="off">
+						<label for="official_org_site" class="input-label">Официальный сайт организации</label>
 						<span class="help-block">Ссылка на официальный сайт или официальную группу в социальной сети.</span>
 					</div>
 					<div class="input-field">
 						<input type="checkbox" id="confirmrools" name="confirmrools" class="input-area">
-						<label for="confirmrools" class="">Официальный сайт организации
-						Я прочитал(а) <a href="#/rools" class="md-btn md-btn-xs" style="font-size: 1em; font-weight: bold; color: #64b5f6;">соглашение</a> об оказании услуг VotePad и согласен(а) с ним
+						<label for="confirmrools">
+							Мною прочитаны<a href="#/modal_rools" class="link_uppercase underlinehover">правила и соглашение</a>об оказании услуг NWE
 						</label>
 					</div>
 				</div>
 			</div>
 			<div class="block-footer clearfix">
-				<button id="previous" type="button" name="button" class="fl_l displaynone">
+				<button id="btnprevious" type="button" class="fl_l displaynone">
 					<i class="fa fa-arrow-left" aria-hidden="true"></i>
 					Назад</button>
-				<button id="next" type="button" name="button" class="fl_r">Продолжить
+				<button id="btnnext" type="button" class="fl_r">Продолжить
 					<i class="fa fa-arrow-right" aria-hidden="true"></i>
 				</button>
-				<button id="submit" type="button" name="button" class="fl_r displaynone">Опубликовать
+				<button id="btnsubmit" type="button" class="fl_r displaynone">Опубликовать
 					<i class="fa fa-check" aria-hidden="true" style="font-size: 1.05em;"></i>
 				</button>
 			</div>
