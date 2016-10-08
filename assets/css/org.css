@@ -471,7 +471,7 @@
 }
 	.neworg-wrapper .block{
 		position: relative;
-		width: 60%;
+		width: 900px;
 		margin: 7% auto;
 		min-height: 360px;
 		overflow: hidden;
@@ -505,7 +505,9 @@
 			.pb_wrapper{
 				position: absolute;
 				height: inherit;
-				background-color: #bbb;
+				background: linear-gradient(to right,#a33,#3a3);
+				background-size: 900px;
+
 				top: 0;
 				left: 0;
 				width: 0;
