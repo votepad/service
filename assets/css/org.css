@@ -298,10 +298,6 @@
 	}
 		.event_card-action a{
 			font-size: .9em;
-		  color: #1976d2;
-			margin: 0 5px;
-			letter-spacing:0.01em;
-		  text-transform: uppercase;
 		}
 	.event-status{
 		display:inline-block;

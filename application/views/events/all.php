@@ -80,8 +80,8 @@
         </p>
       </div>
       <div class="event_card-action clearfix">
-        <a href="<?=URL::site('events/' . $events[$i]['name']); ?>" class="underlinehover fl_l">Страница</a>
-        <a href="<?=URL::site('events/' . $events[$i]['name']); ?>/results" class="underlinehover fl_r">Результаты</a>
+        <a href="<?=URL::site('events/' . $events[$i]['name']); ?>" class="link_uppercase underlinehover fl_l">Страница</a>
+        <a href="<?=URL::site('events/' . $events[$i]['name']); ?>/results" class="link_uppercase underlinehover fl_r">Результаты</a>
       </div>
     </div>
   </li>
