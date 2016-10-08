@@ -731,6 +731,14 @@ footer{
 [type="checkbox"].invalid+label:before, [type="checkbox"].invalid+label:after{
 	border: 2px solid #F44336;
 }
+[type="checkbox"].focus:focus+label:after{
+	-webkit-transform:scale(1);
+	transform:scale(1);
+	border:0;
+	border-radius:50%;
+	box-shadow:0 0 0 10px rgba(0,0,0,0.05);
+	background-color:rgba(0,0,0,0.05);
+}
 
 /*
 **	Tooltip Stile

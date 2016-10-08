@@ -250,6 +250,9 @@ $('.input-area').keyup(function() {
     $(this).removeClass('invalid');
   }
 });
+$('[type="checkbox"]').focus(function(){ $(this).addClass('focus'); });
+$('[type="checkbox"]').blur(function(){ $(this).removeClass('focus'); });
+$('[type="checkbox"]').click(function(){ $(this).removeClass('focus'); });
 
 
 
