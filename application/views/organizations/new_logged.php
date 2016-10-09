@@ -25,7 +25,6 @@
 			<div class="block-heading bg_grey_600">
 				<div class="info">Заполните информацию об организации</div>
 				<div class="pb_neworg">
-					Готовность: <span>0%</span>
 					<div class="pb_wrapper"></div>
 				</div>
 			</div>
@@ -69,13 +68,13 @@
 				</div>
 			</div>
 			<div class="block-footer clearfix">
-				<button id="previous" type="button" name="button" class="fl_l displaynone">
+				<button id="previous" type="button" name="button" class="nav_button fl_l displaynone">
 					<i class="fa fa-arrow-left" aria-hidden="true"></i>
 					Назад</button>
-				<button id="next" type="button" name="button" class="fl_r">Продолжить
+				<button id="next" type="button" name="button" class="nav_button fl_r">Продолжить
 					<i class="fa fa-arrow-right" aria-hidden="true"></i>
 				</button>
-				<button id="submit" type="button" name="button" class="fl_r displaynone">Опубликовать
+				<button id="submit" type="button" name="button" class="nav_button fl_r displaynone">Опубликовать
 					<i class="fa fa-check" aria-hidden="true" style="font-size: 1.05em;"></i>
 				</button>
 			</div>
