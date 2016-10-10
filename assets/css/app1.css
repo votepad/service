@@ -493,6 +493,12 @@ footer{
 	margin-right: 30px;
 	letter-spacing: .03em;
 }
+
+.nwe_copyright>a{
+	transition: 0.5s;
+	display: block;
+}
+
 .nwe_links{
 	display: block;
 	text-align: center;
@@ -515,7 +521,11 @@ footer{
 		border-bottom: 2px solid #FAFAFA;
 	}
 	.nwe_copyright a:hover{
-		color: #1976d2;
+		transform: scale(1.1, 1.1);
+		-webkit-transform: scale(1.1, 1.1);
+		-moz-transform: scale(1.1, 1.1);
+		-o-transform: scale(1.1, 1.1);
+		-ms-transform: scale(1.1, 1.1);
 	}
 
 
@@ -624,11 +634,11 @@ footer{
     transition: all 0.3s;
 }
 	.input-area:focus{
-		border-bottom: 1px solid blue;
-		box-shadow: 0 1px 0 0 blue;
+		border-bottom: 1px solid #1976D2;
+		box-shadow: 0 1px 0 0 #1976D2;
 	}
 	.input-area:focus + .input-label{
-		color: blue;
+		color: #1976D2;
 	}
 	.input-area.invalid, .input-area.invalid:focus{
 		border-bottom: 1px solid #F44336;
@@ -730,6 +740,14 @@ footer{
 }
 [type="checkbox"].invalid+label:before, [type="checkbox"].invalid+label:after{
 	border: 2px solid #F44336;
+}
+[type="checkbox"].focus:focus+label:after{
+	-webkit-transform:scale(1);
+	transform:scale(1);
+	border:0;
+	border-radius:50%;
+	box-shadow:0 0 0 10px rgba(0,0,0,0.05);
+	background-color:rgba(0,0,0,0.05);
 }
 
 /*

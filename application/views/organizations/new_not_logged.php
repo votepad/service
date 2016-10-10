@@ -24,7 +24,6 @@
 			<div class="block-heading bg_grey_600">
 				<div class="info">Заполните информацию об организации</div>
 				<div class="pb_neworg">
-					Готовность: <span>0%</span>
 					<div class="pb_wrapper"></div>
 				</div>
 			</div>
@@ -60,9 +59,9 @@
 						<span class="help-block">Используется для доступа в личный кабинет организации вместе с паролем.</span>
 					</div>
 					<div class="input-field">
-						<input type="text" id="password" name="password" class="input-area" autocomplete="off">
+						<input type="password" id="password" name="password" class="input-area" autocomplete="off">
 						<label for="password" class="input-label">Пароль</label>
-						<span class="help-block">Используется для доступа в личный кабинет организации вместе с email.</span>
+						<span class="help-block">Используется для доступа в личный кабинет организации вместе с email. Минимум 6 символов</span>
 					</div>
 				</div>
 				<div class="step displaynone">
@@ -80,13 +79,13 @@
 				</div>
 			</div>
 			<div class="block-footer clearfix">
-				<button id="btnprevious" type="button" class="fl_l displaynone">
+				<button id="btnprevious" type="button" class="nav_button fl_l displaynone">
 					<i class="fa fa-arrow-left" aria-hidden="true"></i>
 					Назад</button>
-				<button id="btnnext" type="button" class="fl_r">Продолжить
+				<button id="btnnext" type="button" class="nav_button fl_r">Продолжить
 					<i class="fa fa-arrow-right" aria-hidden="true"></i>
 				</button>
-				<button id="btnsubmit" type="button" class="fl_r displaynone">Опубликовать
+				<button id="btnsubmit" type="button" class="nav_button fl_r displaynone">Опубликовать
 					<i class="fa fa-check" aria-hidden="true" style="font-size: 1.05em;"></i>
 				</button>
 			</div>
