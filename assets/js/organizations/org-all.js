@@ -33,10 +33,26 @@ $(document).ready(function(){
   }
   $('.event_wrapper').each(function(){
     events[$(this).index()] = new Event($(this), $(this).find('.event_name_search').text().toLowerCase(),$(this).find('.event_time_search').text(),$(this).find('.event_type_search').text(), false);
+    var date = toDate($(this).find('.event_time_search').text());
+    $(this).find('.event_time_search').empty().append(date);
   });
   countEvents(k);
 
+  function toDate(temp) {
+    var date = new Date(temp);
 
+var options = {
+  day: 'numeric',
+  month: 'long',
+
+  weekday: 'long',
+  timezone: 'UTC',
+  hour: 'numeric',
+  minute: 'numeric',
+};
+
+    return date.toLocaleString("ru", {weekday: 'long', day: 'numeric', month: 'long'}) + ' ' + date.getFullYear() + ' в ' + date.toLocaleString("ru", {hour: 'numeric', minute: 'numeric'});  
+  }
   /*
   **  SEARCHING EVENT BY NAME
   */
