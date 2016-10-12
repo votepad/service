@@ -7,7 +7,6 @@
 	<!-- =============== VENDOR STYLES ===============-->
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/animate.css/animate.min.css">
-	<link rel="stylesheet" href="<?=$assets; ?>vendor/bootstrap/dist/css/bootstrap.css">
 	<link rel="stylesheet" href="<?=$assets; ?>css/app1.css?v=<?= filemtime("assets/css/app1.css") ?>">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
 
