@@ -306,28 +306,73 @@
 	}
 
 /*
-**	Setting of Organization - Main
+**	Setting of Organization - Team
 */
 
+.user-block > .col-xs-12{
+	padding: 15px;
+	text-align: center;
+}
+
+.user-block .edit-team-btn{
+	position: absolute;
+	float: right;
+	top: 0;
+	right: 15px;
+	padding: 20px;
+	cursor: pointer;
+	z-index: 2;
+}
+	.user-block .edit-team-btn i{
+		font-size: 1.5em;
+	}
 
 
+.user-block .userImageBlock{
+	display: inline-block;
+	position: relative;
+	height: 80px;
+	width: 80px;
+	border-radius: 3px;
+	background-color: #fff;
+	border: 1px solid #EAEAEA;
+}
+	.user-block .userImageBlock img{
+		position: relative;
+		height: 74px;
+		width: 74px;
+		margin: 2px;
+	}
+.user-block > .col-xs-12.userDesc{
+	text-align: left;
+	font-size: .9em;
+}
+.userDesc > .user-name{
+	font-weight: bold;
+}
+.userDesc > .user-name, .userDesc > .user-role{
+	display: inline-block;
+	letter-spacing: .03em;
+}
+.userDesc > .user-role{
+	color: #FFF;
+	letter-spacing: .05em;
+	font-size: .7em;
+	border-radius: 3px;
+	padding: 1px 5px;
+	margin-left: 5px;
+	cursor: default;
+}
+.userDesc > p, .userDesc > .user-role{
+	margin-bottom: 10px;
+	white-space: normal;
+}
+.userDesc > p:last-child{
+	margin-bottom: 0;
+}
 
 
-.rools span{
-	width: 100%;
-	display: block;
-	padding-left: 20px;
-	font-size: .8em;
-}
-.newUser{
-	margin-top: 30px;
-}
-.newUserForm .control-label,.newUserBlock .control-label{
-	font-weight: normal;
-}
-.newUserForm{
-	display: none;
-}
+/*
 .user-block{
 	position: relative;
 	margin-top: 15px;
@@ -338,14 +383,7 @@
 	.user-block:nth-child(n+2), .newUserForm{
 		margin-top: 30px;
 	}
-	.user-block > .userImageBlock{
-		margin: 15px;
-		height: 80px;
-		width: 80px;
-		background-color: #fff;
-		border: 1px solid #bbbbbb;
-		vertical-align: top;
-	}
+
 		.user-block > .userImageBlock img{
 			position: relative;
 			height: 74px;
@@ -373,7 +411,7 @@
 			margin-top: 0;
 		}
 		.user-block-right-column > .user-header span{
-		    font-size: 10px;
+		  font-size: 10px;
 			vertical-align: text-top;
 			background-color: #fff;
 			border: 1px solid #bbb;
@@ -405,12 +443,7 @@
 	font-size: 18px;
 }
 
-
-/* datatables */
-.dataTables_wrapper{
-	margin-top: 30px;
-}
-
+*/
 /*
 **	New Organization's Page Style
 */
@@ -601,6 +634,10 @@
 			font-size:1.5em;
 			white-space: nowrap;
 			text-overflow: ellipsis;
+			overflow: hidden;
+		}
+		.org-name h2 a{
+			display: none;
 		}
 
 	.searching .block-body > ul > li{
@@ -623,6 +660,16 @@
 
 	.block .pb_wrapper{
 		background-size: 630px;
+	}
+	.user-block .edit-team-btn{
+		padding: 10px;
+	}
+
+	.userDesc > .user-role{
+		margin-left: 0;
+	}
+	.userDesc > .user-name, .userDesc > .user-role{
+		display: table;
 	}
 }
 
@@ -663,4 +710,13 @@
 	.block .pb_wrapper{
 		background-size: 440px;
 	}
+
+	.org_team > .block-body, .org_team > .block-body > ul{
+		padding: 10px 0;
+	}
+	.user-block .edit-team-btn{
+		top: 10px;
+		right: 0;
+	}
+
 }

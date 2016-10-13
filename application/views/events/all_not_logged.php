@@ -36,7 +36,7 @@
       <div class="event_card-reveal">
         <span class="event_card-title">
           <span class="pointer"><?=$events[$i]['name']; ?></span>
-          <i class="fa fa-close fl_r pointer" aria-hidden="true"></i>
+          <i class="fa fa-close c_red_500 fl_r pointer" aria-hidden="true"></i>
         </span>
         <p><?=$events[$i]['short_description']; ?></p></p>
         <p>

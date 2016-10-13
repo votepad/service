@@ -1,7 +1,3 @@
-<!-- =============== PAGE STYLES ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>vendor/cropper/dist/cropper.css">
-<link rel="stylesheet" href="<?=$assets; ?>css/upload.css">
-
 <div class="columns-area">
 	<div class="block block-default">
 		<div id="topmenu" class="block-heading tabs">
@@ -11,11 +7,11 @@
 			<form action="<?=URL::site('organization/' . $organization->id . '/update'); ?>" method="POST" id="update_main_info">
 				<div class="col-xs-12 col-md-6">
 					<div class="input-field">
-						<input type="text" id="org_name" name="org_name" class="input-area" length="60" autocomplete="off" value="<?=$organization->name; ?>">
+						<input type="text" id="org_name" name="org_name" class="input-area" autocomplete="off" length="60" value="<?=$organization->name; ?>">
 						<label for="org_name" class="input-label active">Название организации</label>
 					</div>
 					<div class="input-field">
-						<input type="text" id="org_site" name="org_site" class="input-area" autocomplete="off" value="<?=$organization->website; ?>" disabled>
+						<div type="text" id="org_site" class="input-area" disabled style="line-height: 2em"><?=$organization->website; ?></div>
 						<label for="org_site" class="input-label active">Ссылка на страницу организации</label>
 						<span class="help-block">Хотите изменить ссылку на Вашу организацию?<a id="open_feedback" class="link underlinehover">Напишите нам</a></span>
 					</div>
@@ -25,7 +21,7 @@
 						<input type="text" id="official_org_site" name="official_org_site" class="input-area" autocomplete="off" value="<?=$organization->website; ?>">
 						<label for="official_org_site" class="input-label active">Ссылка на официальный сайт</label>
 					</div>
-					<button type="submit" class="btn btn-md btn-labeled btn-success pull-left col-xs-12 col-lg-5">
+					<button type="button" id="submit_btn" class="btn btn-md btn-labeled btn-success pull-left col-xs-12 col-lg-5">
 						<span class="btn-text">Обновить</span>
 						<span class="btn-icon"><i class="fa fa-check"></i></span>
 					</button>
@@ -40,7 +36,6 @@
 </div>
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-main.js"></script>
 <script>
