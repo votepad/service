@@ -89,5 +89,4 @@
 </ul>
 </div>
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-all.js"></script>

@@ -28,7 +28,6 @@ $(document).ready(function(){
     });
 
     if ( $invalid == false ) {
-      alert(1);
       form[0].submit();
     }
   });

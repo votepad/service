@@ -23,11 +23,11 @@
 					</div>
 					<button type="button" id="submit_btn" class="btn btn-md btn-labeled btn-success pull-left col-xs-12 col-lg-5">
 						<span class="btn-text">Обновить</span>
-						<span class="btn-icon"><i class="fa fa-check"></i></span>
+						<span class="btn-icon"><i class="fa fa-check" aria-hidden="true"></i></span>
 					</button>
 					<button type="button" id="remove_organization" class="btn btn-md btn-labeled btn-danger pull-right col-xs-12 col-lg-5 col-lg-offset-2">
 						<span class="btn-text">Удалить организацию</span>
-						<span class="btn-icon"><i class="fa fa-times"></i></span>
+						<span class="btn-icon"><i class="fa fa-times" aria-hidden="true"></i></span>
 					</button>
 				</div>
 			</form>

@@ -6,12 +6,13 @@
 
 	<!-- =============== VENDOR STYLES ===============-->
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="<?=$assets; ?>css/app1.css?v=<?= filemtime("assets/css/app1.css") ?>">
+	<link rel="stylesheet" href="<?=$assets; ?>css/app.css?v=<?= filemtime("assets/css/app.css") ?>">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
+	<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/app.js"></script>
 

@@ -81,12 +81,13 @@
 		z-index: 2;
 	}
 	.edit-org-avatar{
-		text-align: left;
-		position: relative;
-		margin: -55px 5px 0 5px;
-		height:50px;
+		position: absolute;
+		height: 50px;
 		transition: .15s;
 		z-index: 3;
+		bottom: 5px;
+		left: 5px;
+		width: calc(100% - 10px);
 	}
 		.edit-org-avatar .fa{
 			position: absolute;
@@ -141,6 +142,7 @@
 		width: 130%;
 	}
 
+
 /*
 **	quick start on organization-events page
 */
@@ -169,6 +171,7 @@
 		.quick-start a:hover{
 			box-shadow: inset 0px -2px 0 0 #777;
 		}
+
 
 /*
 **	searching area on organization-events page
@@ -208,6 +211,7 @@
 	.select_btn_text{
 		padding: 10px 0;
 	}
+
 
 /*
 **	Events on Organisation Page
@@ -305,6 +309,7 @@
 		border-radius:3px;
 	}
 
+
 /*
 **	Setting of Organization - Team
 */
@@ -316,7 +321,6 @@
 
 .user-block .edit-team-btn{
 	position: absolute;
-	float: right;
 	top: 0;
 	right: 15px;
 	padding: 20px;
@@ -327,20 +331,32 @@
 		font-size: 1.5em;
 	}
 
+ .user-block .userImage{
+	float: left;
+	margin-right: 15px;
+	min-height: 100px;
+	display: inline-block;
+}
+.user-block .userDesc{
+	display: inline-block;
+	width: calc(100% - 145px);
+}
+
 
 .user-block .userImageBlock{
 	display: inline-block;
 	position: relative;
-	height: 80px;
-	width: 80px;
+	height: 100px;
+	width: 100px;
 	border-radius: 3px;
 	background-color: #fff;
 	border: 1px solid #EAEAEA;
+	vertical-align: middle;
 }
 	.user-block .userImageBlock img{
 		position: relative;
-		height: 74px;
-		width: 74px;
+		height: 94px;
+		width: 94px;
 		margin: 2px;
 	}
 .user-block > .col-xs-12.userDesc{
@@ -349,6 +365,7 @@
 }
 .userDesc > .user-name{
 	font-weight: bold;
+	font-size: 1.25em
 }
 .userDesc > .user-name, .userDesc > .user-role{
 	display: inline-block;
@@ -357,7 +374,7 @@
 .userDesc > .user-role{
 	color: #FFF;
 	letter-spacing: .05em;
-	font-size: .7em;
+	font-size: .65em;
 	border-radius: 3px;
 	padding: 1px 5px;
 	margin-left: 5px;
@@ -370,80 +387,30 @@
 .userDesc > p:last-child{
 	margin-bottom: 0;
 }
-
-
-/*
-.user-block{
-	position: relative;
-	margin-top: 15px;
-	width: 100%;
-	background-color: #f3f3f3;
-	border: 1px solid #bbbbbb;
+.user-rools{
+	font-size: .8em;
+	letter-spacing: .03em;
 }
-	.user-block:nth-child(n+2), .newUserForm{
-		margin-top: 30px;
+	.user-rools span{
+		margin-left: 7px;
+		text-transform: lowercase;
 	}
-
-		.user-block > .userImageBlock img{
-			position: relative;
-			height: 74px;
-			width: 74px;
-			margin: 2px;
-		}
-
-	.user-block > .edit-team-btn{
-		position: absolute;
-		top: 15px;
-		right: 15px;
-		margin: 0 !important;
-		padding: 0 !important;
-	}
-	.user-block > .edit-team-btn i{
-		font-size: 1.5em;
-	}
-
-	.user-block-right-column > .user-header{
-		position: relative;
-		vertical-align: top;
-		margin-top: 15px;
-	}
-		.user-block-right-column > .user-header h4{
-			margin-top: 0;
-		}
-		.user-block-right-column > .user-header span{
-		  font-size: 10px;
-			vertical-align: text-top;
-			background-color: #fff;
-			border: 1px solid #bbb;
-			border-radius: 3px;
-			padding: 1px 3px;
-			margin-left: 5px;
-			cursor: default;
-		}
-	.user-block-right-column > .collapse.in{
-		margin-bottom: 15px;
-	}
-
-.sale{
-	font-size: 18px;
-	font-weight: 500;
-    line-height: 1.1;
-	margin-bottom: 15px;
+.user-block	.access > h4{
+	margin: 0;
+	font-weight: normal;
 }
-	.sale a{
-		font-size: 11px;
-		color:#2f95ea;
-		margin-left: 15px;
-	}
-		.sale a:hover, .sale a:focus{
-			border-bottom:1px dashed #1565C0;
-		}
-.linktopaymentpage{
-	float: right;
-	font-size: 18px;
+.user-block	.access > .input-field{
+	margin: 10px 0 0 0;
+}
+.user-block .input-field{
+	margin: 1.5em 0 2em 0;
+}
+.user-block .input-label.active{
+	font-size: 1em;
+	color: #616161;
 }
 
-*/
+
 /*
 **	New Organization's Page Style
 */
@@ -594,7 +561,6 @@
 }
 
 
-
 /*
 **  Media - Mobile
 */
@@ -671,7 +637,11 @@
 	.userDesc > .user-name, .userDesc > .user-role{
 		display: table;
 	}
+	.martop-15{
+		margin-top: -15px;
+	}
 }
+
 
 /*
 **  Media - XS Mobile
