@@ -58,7 +58,7 @@ class Controller_Organizations_Ajax extends Ajax
             
             $organization = Model_Organizations::get($id_organization, 0);
             $organization->$field = $value;
-            $organization->save($id_organization)
+            $organization->save($id_organization);
         }
         
     }
