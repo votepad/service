@@ -27,7 +27,7 @@
 		<ul class="ls_none">
 			<li><a href="#"><i class="fa fa-user" aria-hidden="true"></i></a></li>
 			<li><a href="#"><i class="fa fa-cubes" aria-hidden="true"></i></a></li>
-			<li><a href="#"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+			<li><a href="<?=URL::site('auth'); ?>"><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
 		</ul>
 	</div>
 

@@ -19,7 +19,7 @@
 					</div>
 					<div class="form-group">
 						<label for="org_site" class="control-label">Ссылка на страницу</label>
-						<input type="text" id="org_site1" name="org_site1" class="form-control input-sm" value="http://<?=$organization->website; ?>.votepad.ru" disabled>
+						<input type="text" id="org_site1" name="org_site1" class="form-control input-sm" value="http://<?=$organization->website; ?>" disabled>
 						<span class="help-block">Хотите изменить ссылку на Вашу организацию?  <a id="open_feedback">Напишите нам</a></span>
 					</div>
 					<div class="form-group">
@@ -40,7 +40,7 @@
 					</div>
 					<div class="form-group">
 						<label for="org_phone" class="control-label">Контактный телефон</label>
-						<input type="tel" id="org_phone" name="org_phone" class="form-control input-sm" value="<?=$organization->phone ?: $organization->creator->number; ?>">
+						<input type="tel" id="org_phone" name="org_phone" class="form-control input-sm" value="<?=$organization->phone ?: $organization->creator->phone; ?>">
 					</div>
 					<button type="submit" class="md-btn md-btn-md md-btn-labeled md-btn-success ">
 						<span class="md-btn-icon"><i class="fa fa-check"></i></span> Сохранить

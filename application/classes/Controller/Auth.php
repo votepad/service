@@ -15,7 +15,7 @@ class Controller_Auth extends Dispatch {
         /**
          * Destroy session
          */
-        $this->session->destroy();
+        Session::instance()->destroy();
     }
 
     function action_signin()
@@ -42,7 +42,8 @@ class Controller_Auth extends Dispatch {
         {
             $id_user = $this->session->get('id_user');
 
-            $id = Model_User::getUserOrganization($id_user);
+            $id = Model_PrivillegedUser::getUserOrganization($id_user);
+
             $this->redirect('organization/' . $id);
         }
 
@@ -55,7 +56,7 @@ class Controller_Auth extends Dispatch {
         return $this->model->login($email, $password);
     }
 
-    private function action_logout($email)
+    private function logout($email)
     {
         return $this->model->logout($email, FALSE);
     }

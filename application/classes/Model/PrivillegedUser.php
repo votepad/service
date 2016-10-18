@@ -17,6 +17,11 @@ class Model_PrivillegedUser extends Model_User {
     public $role_name;
 
     /**
+     * @var $id_role
+     */
+    public $id_role;
+
+    /**
      * Model_PrivillegedUser constructor.
      * @param $id Users id
      */
@@ -24,13 +29,40 @@ class Model_PrivillegedUser extends Model_User {
 
         if (!isset($id))
         {
-            return $this->getCurrentUser();
+            return $this->getCurrentUser() ?: $this;
         }
         else
         {
             return $this->getUser($id);
         }
 
+    }
+
+    /**
+     * Method saves user and adds permissions
+     *
+     * @param null $id
+     */
+    public function save($id = null) {
+        
+        parent::save();
+        $this->addRole();
+
+    }
+
+    /**
+     * Checks privillegies
+     */
+    public function hasPrivillege($permission) {
+
+        if ($this->role->hasPermission($permission)) {
+
+            return true;
+
+        } else {
+
+            return false;
+        }
     }
 
     /**
@@ -71,6 +103,10 @@ class Model_PrivillegedUser extends Model_User {
 
         $session = Session::Instance();
 
+        if (!$session->get('id_user')) {
+            return false;
+        }
+        
         $user = new ORM_User();
         $user->where('id', '=', $session->get('id_user'))
             ->find();
@@ -80,7 +116,7 @@ class Model_PrivillegedUser extends Model_User {
         $this->name      = $user->name;
         $this->surname   = $user->surname;
         $this->email     = $user->email;
-        $this->phone     = $user->number;
+        $this->phone     = $user->phone;
         $this->role      = Model_Role::getRolePermissions($this->getRole($user->id));
 
         return $this;
@@ -102,24 +138,26 @@ class Model_PrivillegedUser extends Model_User {
         $this->name      = $user->name;
         $this->surname   = $user->surname;
         $this->email     = $user->email;
-        $this->phone     = $user->number;
+        $this->phone     = $user->phone;
         $this->role      = Model_Role::getRolePermissions($this->getRole($user->id));
 
         return $this;
     }
 
     /**
-     * Checks privillegies
+     * Adds role to User
+     *
      */
-    public function hasPrivillege($permission) {
+    private function addRole() {
 
-        if ($this->role->hasPermission($permission)) {
+        $insert = DB::insert('User_Role', array('id_user', 'id_role'))
+            ->values(array(
+                $this->id_user, $this->id_role
+            ))
+            ->execute();
 
-            return true;
-
-        } else {
-
-            return false;
+        if ($insert) {
+            return $insert;
         }
     }
 

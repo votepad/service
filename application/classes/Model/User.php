@@ -59,9 +59,12 @@ Class Model_User {
          $user->surname  = $this->surname;
          $user->email    = $this->email;
          $user->password = $this->password;
-         $user->number   = $this->phone;
+         $user->phone    = $this->phone;
+         $user->done     = $this->done;
 
          $user->save();
+
+         $this->id_user = $user->id;
 
          return $this;
      }
@@ -70,7 +73,7 @@ Class Model_User {
      * @param $id
      * @return Id organization
      */
-    public function getUserOrganization($id)
+    public static function getUserOrganization($id)
     {
         $select = DB::select('id_organization')->from('User_Organizations')
                         ->where('id_user', '=', $id)

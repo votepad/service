@@ -43,12 +43,7 @@ class Controller_Organizations_Index extends Dispatch
              * Two types of creating orgs: Logged and Not logged
              */
             case self::ACTION_NEW :
-
-                //if (parent::isLogged()) {
-                //    $this->template = 'organizations/new_logged';
-                //} else {
-                    $this->template = 'organizations/new_not_logged';
-                //}
+                $this->template = 'organizations/new_not_logged';
                 break;
 
             /**
@@ -66,7 +61,7 @@ class Controller_Organizations_Index extends Dispatch
          */
         $id = $this->request->param('id');
 
-        $this->organization = Model_Organizations::get($id, 1);
+        $this->organization = Model_Organizations::get($id, 0);
 
         if (!$this->organization && $this->request->action() != self::ACTION_NEW) {
             throw new HTTP_Exception_404();
@@ -76,7 +71,6 @@ class Controller_Organizations_Index extends Dispatch
          * Organization info
          */
         $this->template->organization = $this->organization;
-
 
         if ($this->organization != false) {
 
@@ -110,26 +104,12 @@ class Controller_Organizations_Index extends Dispatch
     }
 
     /**
-     * Shows organization
+     * Shows events of target organization
      */
     public function action_show()
     {
-        /**
-         * Show all events
-         * @uses Controller_Events method ShowAll
-         */
 
-        $params = array(
-            'id_organization' => $this->organization->id,
-        );
-
-        $response = Request::factory('events/all')
-            ->method(Request::POST)
-            ->post($params)
-            ->execute();
-
-        $this->template->main_section = $response->body();
-
+        $this->template->main_section = '';
     }
 
     /**
