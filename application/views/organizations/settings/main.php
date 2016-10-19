@@ -21,14 +21,18 @@
 						<input type="text" id="official_org_site" name="official_org_site" class="input-area" autocomplete="off" value="<?=$organization->website; ?>">
 						<label for="official_org_site" class="input-label active">Ссылка на официальный сайт</label>
 					</div>
-					<button type="button" id="submit_btn" class="btn btn-md btn-labeled btn-success pull-left col-xs-12 col-lg-5">
-						<span class="btn-text">Обновить</span>
-						<span class="btn-icon"><i class="fa fa-check" aria-hidden="true"></i></span>
-					</button>
-					<button type="button" id="remove_organization" class="btn btn-md btn-labeled btn-danger pull-right col-xs-12 col-lg-5 col-lg-offset-2">
-						<span class="btn-text">Удалить организацию</span>
-						<span class="btn-icon"><i class="fa fa-times" aria-hidden="true"></i></span>
-					</button>
+					<div class="col-xs-12 col-md-5 col-lg-5 pad0">
+						<button type="button" id="submit_btn" class="btn btn-md btn-labeled btn-success col-xs-12 col-md-auto">
+							<span class="btn-text">Обновить</span>
+							<span class="btn-icon"><i class="fa fa-check" aria-hidden="true"></i></span>
+						</button>
+					</div>
+					<div class="col-xs-12 col-md-7 col-lg-5 col-lg-offset-2 pad0">
+						<button type="button" id="remove_organization" class="btn btn-md btn-labeled btn-danger col-xs-12 col-md-auto" style="float:right">
+							<span class="btn-text">Удалить организацию</span>
+							<span class="btn-icon"><i class="fa fa-trash" aria-hidden="true"></i></span>
+						</button>
+					</div>
 				</div>
 			</form>
 		</div>

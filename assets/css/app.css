@@ -263,30 +263,31 @@ p {
 
 	/* Btn with icon  */
 
+
 	.btn-labeled > .btn-icon{
 		position: absolute;
-		font-size: .75em;
+		font-size: .9em;
 		opacity: 0;
 	}
 		.btn-labeled:hover > .btn-icon{
 			opacity: 1;
-			transition: .5s;
+			transition: 0.3s;
 		}
 
 	.btn-labeled > .btn-text{
-		position: relative;
+		display: inline-block;
+		transition: 0.3s;
 	}
 
 		.btn-sm.btn-labeled:hover > .btn-text{
 			left: -6px;
 		}
 		.btn-sm.btn-labeled:hover > .btn-icon i{
-			position: relative;
-			right: 2px;
+
 		}
 
 		.btn-md.btn-labeled:hover > .btn-text{
-			left: -8px;
+			transform: translateX(-8px);
 		}
 		.btn-md.btn-labeled:hover > .btn-icon i{
 			position: relative;
@@ -587,23 +588,26 @@ footer{
 		    transform: translateY(-140%);
 		}
 	.input-field .help-block{
-		display: initial;
-		line-height: 1em;
+		display: block;
 		position: relative;
 		font-size: .65em;
 		letter-spacing: .035em;
 		color: #bbb;
 	}
 	.input-field .error-input{
-		display: initial;
-		line-height: 1em;
+		display: block;;
 		position: relative;
 		font-size: .65em;
 		letter-spacing: .035em;
 		color: #F44336;
 	}
+		.input-field label .help-block, .input-field label .error-input{
+			line-height: 1em;
+		}
 	.input-field .counter{
-		float: right;
+		position: absolute;
+    right: 0;
+		bottom: 12px;
 		font-size: 12px;
 		height: 1px;
 	}
@@ -724,6 +728,7 @@ footer{
 .col-xs-3  { width: 25%; }
 .col-xs-2  { width: 16.66666667%; }
 .col-xs-1  { width: 8.33333333%; }
+.col-xs-auto  { width: auto; }
 
 .col-xs-offset-12 { margin-left: 100%; }
 .col-xs-offset-11 { margin-left: 91.66666667%; }
@@ -752,6 +757,7 @@ footer{
 	.col-sm-3  { width: 25%; }
 	.col-sm-2  { width: 16.66666667%; }
 	.col-sm-1  { width: 8.33333333%; }
+	.col-sm-auto  { width: auto; }
 
 	.col-sm-offset-12 { margin-left: 100%; }
   .col-sm-offset-11 { margin-left: 91.66666667%; }
@@ -781,6 +787,7 @@ footer{
 	.col-md-3  { width: 25%; }
 	.col-md-2  { width: 16.66666667%; }
 	.col-md-1  { width: 8.33333333%; }
+	.col-md-auto  { width: auto; }
 
 	.col-md-offset-12 { margin-left: 100%; }
   .col-md-offset-11 { margin-left: 91.66666667%; }
@@ -810,6 +817,7 @@ footer{
 	.col-lg-3  { width: 25%; }
 	.col-lg-2  { width: 16.66666667%; }
 	.col-lg-1  { width: 8.33333333%; }
+	.col-lg-auto  { width: auto; }
 
 	.col-lg-offset-12 { margin-left: 100%; }
   .col-lg-offset-11 { margin-left: 91.66666667%; }

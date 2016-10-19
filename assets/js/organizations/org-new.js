@@ -189,7 +189,7 @@ $().ready(function() {
     clearIncomplete: true,
     oncomplete: function(){
       if ( check_org_site_in_DB($(this).val()) == true) {
-          $(this).parent().children('.help-block').css('display', 'initial');
+          $(this).parent().children('.help-block').css('display', 'block');
           $(this).parent().children('.error-input').remove();
           checking_el_valid($(this), "valid");
       }
@@ -253,7 +253,7 @@ $().ready(function() {
       showMaskOnFocus: true,
       oncomplete: function(){
         if ( check_user_in_DB($(this).val()) == true) {
-            $(this).parent().children('.help-block').css('display', 'initial');
+            $(this).parent().children('.help-block').css('display', 'block');
             $(this).parent().children('.error-input').remove();
             checking_el_valid($(this), "valid");
         }

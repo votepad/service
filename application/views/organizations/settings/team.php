@@ -65,17 +65,17 @@
 							</div>
 							<div class="col-xs-12">
 								<div class="col-xs-12 col-md-6 pad0">
-									<button type="button" id="remove_user" class="btn btn-md btn-labeled btn-danger pull-left col-xs-12 col-md-9 col-lg-6">
+									<button type="button" id="remove_user" class="btn btn-md btn-labeled btn-danger pull-left col-xs-12 col-md-auto">
 										<span class="btn-text">Удалить пользователя</span>
 										<span class="btn-icon"><i class="fa fa-trash" aria-hidden="true"></i></span>
 									</button>
 								</div>
 								<div class="col-xs-12 col-md-6 pad0">
-									<button type="button" class="submit_btn btn btn-md btn-labeled btn-success col-xs-12 col-md-5 col-lg-4">
+									<button type="button" class="submit_btn btn btn-md btn-labeled btn-success col-xs-12 col-md-auto">
 										<span class="btn-text">Обновить</span>
 										<span class="btn-icon"><i class="fa fa-check" aria-hidden="true"></i></span>
 									</button>
-									<button type="button" class="btn btn-md btn-labeled btn-default col-xs-12 col-md-5 col-md-offset-2 col-lg-4 col-lg-offset-4" data-toggle="collapse" data-target="#user<?=$i; ?>">
+									<button type="button" class="btn btn-md btn-labeled btn-default col-xs-12 col-md-auto" style="float:right" data-toggle="collapse" data-target="#user<?=$i; ?>">
 										<span class="btn-text">Закрыть</span>
 										<span class="btn-icon"><i class="fa fa-times" aria-hidden="true"></i></span>
 									</button>
@@ -144,11 +144,11 @@
 							</div>
 						</div>
 						<div class="col-xs-12">
-							<button type="button" class="submit_btn btn btn-md btn-labeled btn-success col-xs-12 col-md-6 col-lg-4">
+							<button type="button" class="submit_btn btn btn-md btn-labeled btn-success col-xs-12 col-md-auto">
 								<span class="btn-text">Отправить приглашение</span>
 								<span class="btn-icon"><i class="fa fa-paper-plane" aria-hidden="true"></i></span>
 							</button>
-							<button type="button" id="canselnewUser" class="btn btn-md btn-labeled btn-default col-xs-12 col-md-4 col-md-offset-2 col-lg-2 col-lg-offset-6" data-toggle="collapse" data-target="#newuser">
+							<button type="button" id="canselnewUser" class="btn btn-md btn-labeled btn-default col-xs-12 col-md-auto" style="float:right" data-toggle="collapse" data-target="#newuser">
 								<span class="btn-text">Отмена</span>
 								<span class="btn-icon"><i class="fa fa-times" aria-hidden="true"></i></span>
 							</button>
