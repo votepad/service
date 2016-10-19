@@ -9,9 +9,9 @@
 	<link rel="stylesheet" type="text/css" href="<?=$assets;?>vendor/summernote/dist/summernote.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets;?>vendor/cropper/dist/cropper.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets;?>css/upload.css">
-	<link rel="stylesheet" type="text/css" href="<?=$assets;?>css/app1.css">
+	<link rel="stylesheet" type="text/css" href="<?=$assets;?>css/app.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets;?>css/event.css">
-	
+
 	<script type="text/javascript" src="<?=$assets;?>vendor/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="<?=$assets;?>vendor/jquery-validation/dist/jquery.validate.js"></script>
 
@@ -19,7 +19,7 @@
 	<script type="text/javascript" src="<?=$assets;?>vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
 	<script type="text/javascript" src="<?=$assets;?>vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
 	<script type="text/javascript" src="<?=$assets;?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-	
+
 	<script type="text/javascript" src="<?=$assets;?>vendor/summernote/dist/summernote.js"></script>
 	<script type="text/javascript" src="<?=$assets;?>vendor/summernote/dist/lang/summernote-ru-RU.js"></script>
 	<script type="text/javascript" src="<?=$assets;?>vendor/cropper/dist/cropper.js"></script>
@@ -27,21 +27,21 @@
 
 	<script type="text/javascript" src="<?=$assets;?>js/events/event-edit-main-info.js"></script>
 	<script type="text/javascript" src="<?=$assets;?>js/events/event-about.js?v=<?=filemtime("assets/js/events/event-about.js") ?>"></script>
-	
+
 
 </head>
 <body>
 
 
 <div class="wrapper">
-	
+
 	<div class="content-wrapper">
 		<!-- EVENT INFO -->
 		<?=$event_jumbo; ?>
 
 		<!-- SECTION START -->
 		<div class="columns-area">
-			
+
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="pull-right">
@@ -66,7 +66,7 @@
 					<input type="hidden" id="hidden_id_of_current_event" value="<?=$event['id']; ?>">
 				</div>
 			</div>
-			
+
 			<!-- Modal EDIT MAIN EVENT INFO -->
 			<div class="modal fade" id="edit_main_event_info" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
 				<div class="modal-dialog" role="document">

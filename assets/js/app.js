@@ -243,12 +243,9 @@ $('.input-area').keyup(function() {
     if( cur_len >= 14 ) cur_len = cur_len - 14;
     max_len = max_len -  14;
   }
+
   $(this).closest('.input-field').find(".counter").empty().append(cur_len + "/" + max_len);
-  if ( (cur_len > max_len) && ! $(this).hasClass('invalid') ) {
-    $(this).addClass('invalid');
-  } else if (cur_len <= max_len) {
-    $(this).removeClass('invalid');
-  }
+
 });
 $('[type="checkbox"]').focus(function(){ $(this).addClass('focus'); });
 $('[type="checkbox"]').blur(function(){ $(this).removeClass('focus'); });

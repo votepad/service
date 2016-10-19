@@ -14,7 +14,7 @@
 
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/cropper/dist/cropper.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/upload.css">
-	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/app1.css">
+	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/app.css">
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/event.css">
 
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>

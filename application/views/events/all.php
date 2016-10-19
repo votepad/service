@@ -54,7 +54,7 @@
   <ul class="ls_none clearfix" id="events_list">
   <!-- LIST OF EVENTS -->
   <? for($i = 0; $i < count($events); $i++) : ?>
-  <li class="event_wrapper ">
+  <li class="event_wrapper col-xs-12 col-sm-6 col-md-4 col-lg-3">
     <div class="event_card">
       <div class="event_card-image" style="background-image: url('<?=$assets; ?>img/bg2.jpg');">
       </div>
@@ -67,14 +67,14 @@
       <div class="event_card-reveal">
         <span class="event_card-title">
           <span class="pointer"><?=$events[$i]['name']; ?></span>
-          <i class="fa fa-close fl_r pointer" aria-hidden="true"></i>
+          <i class="fa fa-close c_red_500 fl_r pointer" aria-hidden="true"></i>
         </span>
         <p><?=$events[$i]['short_description']; ?></p></p>
         <p>
           <i class="fa fa-calendar" aria-hidden="true"></i>
           <span class="event_time_search"><?=$events[$i]['start_time']; ?></span>
         </p>
-        <p class="event-status bgcolor_red">
+        <p class="event-status bg_red_a100">
           <i class="fa fa-eye" aria-hidden="true"></i>
           <span class="event_type_search">черновик</span>
         </p>
@@ -89,5 +89,4 @@
 </ul>
 </div>
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="../../../assets/vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-all.js"></script>

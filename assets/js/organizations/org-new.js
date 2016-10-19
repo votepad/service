@@ -178,7 +178,7 @@ $().ready(function() {
 
 
   $("#org_site").inputmask({
-    mask: '\\http://a{4,20}.nwe.ru',
+    mask: '\\http://nwe.ru/a{4,20}',
     definitions: {
       'a': {
         validator: "[a-z0-9-]",
@@ -188,7 +188,18 @@ $().ready(function() {
     showMaskOnFocus: true,
     clearIncomplete: true,
     oncomplete: function(){
-      checking_el_valid($(this), "valid");
+      if ( check_org_site_in_DB($(this).val()) == true) {
+          $(this).parent().children('.help-block').css('display', 'initial');
+          $(this).parent().children('.error-input').remove();
+          checking_el_valid($(this), "valid");
+      }
+      else {
+        $(this).parent().children('.help-block').css('display', 'none');
+        if ( ! $(this).parent().children('span').hasClass('error-input')) {
+            $(this).parent().append('<span class="error-input">К сожалению, такой адрес занят. Пожалуйста, придумайте другой адрес.</span>');
+        }
+        checking_el_valid($(this), "invalid");
+      }
     },
     onincomplete: function(){
       checking_el_valid($(this), "invalid");
@@ -196,14 +207,19 @@ $().ready(function() {
   });
   $("#org_site").blur(function(){
     var str = $(this).inputmask('unmaskedvalue').replace(/-{2,}/gim, '-').replace('-','');
-    if ( str.length >= 4) {
-      if ( str.substr(str.length-1, str.length) == '-')
-        str = str.substr(0, str.length-1);
 
+    if ( str.substr(str.length-1, str.length) == '-')
+      str = str.substr(0, str.length-1);
+
+    if (str.length >= 4){
       $(this).val(str);
-      var $counter = $(this).closest('.input-field').find('.counter').text();
-      $(this).closest('.input-field').find('.counter').text(str.length + '/' + $counter.substr($counter.length - 2, $counter.length));
+    } else {
+      $(this).val('');
+      $(this).addClass('invalid');
     }
+
+    var $counter = $(this).closest('.input-field').find('.counter').text();
+    $(this).closest('.input-field').find('.counter').text(str.length + '/' + $counter.substr($counter.length - 2, $counter.length));
   });
 
 
@@ -236,7 +252,18 @@ $().ready(function() {
       showMaskOnHover: false,
       showMaskOnFocus: true,
       oncomplete: function(){
-        checking_el_valid($(this), "valid");
+        if ( check_user_in_DB($(this).val()) == true) {
+            $(this).parent().children('.help-block').css('display', 'initial');
+            $(this).parent().children('.error-input').remove();
+            checking_el_valid($(this), "valid");
+        }
+        else {
+          $(this).parent().children('.help-block').css('display', 'none');
+          if ( ! $(this).parent().children('span').hasClass('error-input')) {
+              $(this).parent().append('<span class="error-input">Пользователь с таким E-mail существует. Пожалуйста, пройдете авторизацию.</span>');
+          }
+          checking_el_valid($(this), "invalid");
+        }
       },
       onincomplete: function(){
         checking_el_valid($(this), "invalid");
@@ -287,5 +314,29 @@ $().ready(function() {
       checking_el_valid($(this), "invalid");
     }
   });
+
+
+  /*
+  **  Checking organization site in DB
+  */
+  function check_org_site_in_DB(site){
+    if (site == "http://nwe.ru/qqqqq") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
+  /*
+  **  Checking user email in DB
+  */
+  function check_user_in_DB(user_email){
+    if (user_email == "test@ya.ru") {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
 
 });
