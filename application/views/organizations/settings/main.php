@@ -18,7 +18,7 @@
 				</div>
 				<div class="col-xs-12 col-md-6">
 					<div class="input-field">
-						<input type="text" id="official_org_site" name="official_org_site" class="input-area" autocomplete="off" value="<?=$organization->website; ?>">
+						<input type="text" id="official_org_site" name="official_org_site" class="input-area" autocomplete="off" value="<?=$organization->officialSite; ?>">
 						<label for="official_org_site" class="input-label active">Ссылка на официальный сайт</label>
 					</div>
 					<div class="col-xs-12 col-md-5 col-lg-5 pad0">

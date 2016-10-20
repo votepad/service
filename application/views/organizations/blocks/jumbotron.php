@@ -1,32 +1,43 @@
+<?
+    $isLogged = Dispatch::isLogged();
+    $owner    = Model_PrivillegedUser::getUserOrganization(Session::instance()->get('id_user')) == $organization->id;
+    $allowed = $isLogged && $owner;
+?>
+
 <div class="parallax-container org-background">
   <div class="parallax">
     <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>">
   </div>
-<div class="edit-org-back">
-  <a id="edit_org_back" href="#" role="button">
-	<i class="fa fa-camera" aria-hidden="true"></i>
-	<span>Обновить фото обложки</span>
-  </a>
-</div>
+    <? if ($allowed) : ?>
+    <div class="edit-org-back">
+      <a id="edit_org_back" href="#" role="button">
+        <i class="fa fa-camera" aria-hidden="true"></i>
+        <span>Обновить фото обложки</span>
+      </a>
+    </div>
+    <? endif; ?>
 <div class="org-avatar">
     <img id="org-avatar-uploaded" src="/uploads/organizations/m_<?=$organization->logo; ?>">
+    <? if ($allowed) : ?>
     <div class="edit-org-avatar">
 	<a id="edit_org_avatar" href="#" role="button">
       <i class="fa fa-camera" aria-hidden="true"></i>
 	  <span>Обновить логотип организации</span>
 	</a>
     </div>
+    <? endif; ?>
 </div>
 <div class="org-name-background"></div>
 <div class="org-name">
     <h2>
         <?=$organization->name; ?>
-        <a href="http://<?=$organization->website; ?>" class="inline" data-toggle="tooltip" data-placement="top" title="Официальный сайт">
+        <a href="http://<?=$organization->officialSite; ?>" class="inline" data-toggle="tooltip" data-placement="top" title="Официальный сайт">
             <i class="fa fa-external-link" aria-hidden="true"></i>
         </a>
     </h2>
 </div>
 </div>
+<? if ($allowed): ?>
 <script>
 
     var nwe = (function(nwe) {
@@ -213,3 +224,4 @@
     });
 
 </script>
+<? endif; ?>

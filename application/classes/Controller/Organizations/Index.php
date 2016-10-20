@@ -130,6 +130,13 @@ class Controller_Organizations_Index extends Dispatch
         $this->template->main_section = View::factory('organizations/settings/team')
             ->set('organization', $this->organization)
             ->set('topmenu', $topmenu);
+
+        $isLogged = Dispatch::isLogged();
+        $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
+
+        if (!$isLogged || !$owner) {
+            $this->redirect('/organization/' . $this->organization->id);
+        }
     }
 
     /**
@@ -151,6 +158,13 @@ class Controller_Organizations_Index extends Dispatch
         $this->template->main_section = View::factory('organizations/settings/main')
                 ->set('organization', $this->organization)
                 ->set('topmenu', $topmenu);
+
+        $isLogged = Dispatch::isLogged();
+        $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
+
+        if (!$isLogged || !$owner) {
+            $this->redirect('/organization/' . $this->organization->id);
+        }
     }
 
 }

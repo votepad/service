@@ -54,8 +54,12 @@ class Controller_Organizations_Modify extends Dispatch
 
         $organization = new Model_Organizations();
         $organization->name         = $name;
-        $organization->website     = $website;
+        $organization->website      = $website;
         $organization->officialSite = $official;
+
+        $organization->logo  = "no-logo.jpg";
+        $organization->cover = "no-cover.jpg";
+
         $organization->save();
 
         if (isset($user_id)) {
