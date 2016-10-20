@@ -1,80 +1,106 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Created by PhpStorm.
  * User: Murod's Macbook Pro
- * Date: 16.03.2016
- * Time: 22:29
+ * @author Pronwe Team
+ * @copyright Khaydarov Murod
  */
 
 class Model_Events extends Model {
 
-    public $event;
 
-    function NewEvent($data)
+    /**
+     * Creates new Event
+     * @uses Kohana ORM
+     * @param $id_organization
+     * @param $name
+     * @param $page
+     * @param $description
+     * @param $start_time
+     * @param $end_time
+     * @param $status
+     * @param $city
+     * @return Events identificator
+     */
+    public static function new_event($id_organization, $name, $page, $description,
+                        $start_time, $end_time, $status, $city)
     {
-        $this->event = $data;
+        $event = new ORM_Events();
+
+        $event->id_organization     = $id_organization;
+        $event->name                = $name;
+        $event->event_page          = $page;
+        $event->short_description   = $description;
+        $event->start_time          = $start_time;
+        $event->end_time            = $end_time;
+        $event->event_status        = $status;
+        $event->event_city          = $city;
+        $event->dt_create           = Date::formatted_time('now');
+
+        $event->save();
+
+        return $event->id;
     }
 
-    function save()
+    /**
+     * Gets event information
+     * @param $id
+     * @return ORM_Events object
+     * @throws Kohana_Exception
+     */
+    public static function get($id)
     {
-        $insert = DB::insert('Events', array(
-            'title', 'description', 'event_status', 'start_datetime', 'finish_datetime', 'city', 'type', 'photo'
-        ))->values($this->event)->execute();
 
-        return $insert;
+        $event = new ORM_Events();
+
+        $event
+            ->where('id', '=', $id)
+            ->find();
+
+        if ($event->loaded()) {
+            return $event;
+        }
     }
 
-    public static function EventExist($id)
+    /**
+     * Updates field
+     * @param $id
+     * @param $field
+     * @param $value
+     */
+    public static function updateField($id, $field, $value)
     {
-        $select = DB::select('id')->from('Events')->where('id', '=', $id)->execute()->as_array();
-        return count($select) ?: 0;
+        $target = self::get($id);
+
+        $target->$field = $value;
+        $target->save();
     }
 
-    public static function delete($id)
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public static function getOrganizationEvents($id)
     {
-        $delete = DB::delete('Events')->where('id', '=', $id)->execute();
-        return $delete;
-    }
+        $select = DB::select()->from('Events')
+                        ->where('id_organization', '=', $id)
+                        ->execute()
+                        ->as_array();
 
-    private static function get($id = null)
-    {
-        $select = DB::select()->from('Events')->where('id', '=', $id)->execute();
-        return Arr::get($select, '0');
-    }
-
-    private static function getAll()
-    {
-        $select = DB::select()->from('Events')->execute()->as_array();
         return $select;
     }
 
-    public function getEvent($id)
+    /**
+     * @param $name
+     * @return mixed
+     */
+    public static function getEventByName($name)
     {
-        return self::get($id);
-    }
+        $event = DB::select()->from('Events')
+                            ->where('name', '=', $name)
+                            ->limit(1)
+                            ->execute()
+                            ->as_array();
 
-    public function getEvents()
-    {
-        return self::getAll();
-    }
-
-    public static function updateEventByFieldName($field, $value, $id)
-    {
-        $update = DB::update('Events')->set(array(
-            $field  => $value
-        ))->where('id', '=', $id)->execute();
-
-        return $update;
-    }
-
-    public static function EventsType($id_event) {
-        $select = DB::select('type')->from('Events')->where('id', '=', $id_event)->limit(1)->execute()->as_array();
-        return Arr::get($select, '0')['type'];
-    }
-
-    public function getCities()
-    {
-        $select = DB::select()->from('Cities')->execute()->as_array();
-        return $select;
+        return Arr::get($event, '0');
     }
 }

@@ -4,78 +4,32 @@
  * @copyright Khaydarov Murod
  */
 
-Route::set('MYEVENTS', 'events/my')
+Route::set('ALL_EVENTS', 'events/all')
     ->defaults(array(
         'controller' => 'Events_Index',
-        'action'     => 'myevents'
+        'action'     => 'showAll'
     ));
 
-Route::set('ALLEVENTS', 'events/all')
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'all'
-    ));
-
-Route::set('NEWEVENT', 'events/new')
+Route::set('NEW_EVENT', '<organization>/event/new', array('organization' => '(.*)'))
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'New'
     ));
 
-
-
-/**
- * Add substances
- */
-Route::set('ADDPARTICIPANTS', 'events/addparticipants/<id>')
+Route::set('ADD_EVENT', 'event/add')
     ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addParticipant'
+        'controller' => 'Events_Modify',
+        'action'     => 'add'
     ));
 
-Route::set('ADDJUDGE', 'events/addjudge/<id>')
-    ->defaults(array(
-        'controller'  => 'Judges_Modify',
-        'action'      => 'addjudge'
-    ));
-
-Route::set('ADDSTAGE', 'events/addStage/<id>')
-    ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addStage'
-    ));
-
-
-/**
- * EventMakers Page
- */
-
-ROUTE::set('EVENTMAKER', 'events/<id>/eventmaker')
+Route::set('SHOW_EVENT', 'events/<eventname>(/<action>)')
     ->defaults(array(
         'controller' => 'Events_Index',
-        'action'     => 'eventmaker',
+        'action'     => 'show'
     ));
 
-
-/**
- * Judges
- */
-
-Route::set('Judge-Settings', 'event/<id>/<action>')
+Route::set('ADD_FULLDESCRIPTION', 'addfulldescription')
     ->defaults(array(
-        'controller' => 'Judges_Settings_Index',
-        'action'     => ''
-    ));
-
-Route::set('EVENTS', 'events(/<id>(/<action>))')
-    ->filter(function($route, $params, $request){
-
-        $id = Arr::get($params, 'id');
-        if ( !Model_Events::EventExist($id) || !isset($id))
-            return false;
-
-    })
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'index',
+        'controller' => 'Events_Modify',
+        'action'     => 'addFullDescription'
     ));

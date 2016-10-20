@@ -151,11 +151,9 @@ $(document).ready(function() {
       formData.append("id", photoID);
       formData.append("file", blob);
       formData.append("crop", cropImgData);
-      //console.log(cropImgData);
-      //console.log(formData.get("id"));
-      //console.log(formData.get("file"));
-      //console.log(formData.get("crop"));
-      
+
+      console.log(formData);
+
       $.ajax('/path/to/upload', {
         method: "POST",
         data: formData,

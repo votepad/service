@@ -37,48 +37,5 @@ class Controller_SignUp extends Dispatch
         $this->redirect('signup/continue');
 
     }
-
-    /** @todo FIle transport */
-    function action_continue()
-    {
-        parent::isLogged();
-
-        if ($this->request->method() == self::POST){
-
-            $user = new ORM_User();
-            $user->where('id', '=', $this->_session->get('id_user'))
-                ->find();
-
-            if ($user->loaded())
-            {
-                $user->lastname   = Arr::get($_POST, 'lastname', '');
-                $user->name       = Arr::get($_POST, 'name', '');
-                $user->surname    = Arr::get($_POST, 'surname', '');
-                $user->phone      = Arr::get($_POST, 'number', '');
-                $user->sex        = Arr::get($_POST, 'sex', '');
-                $user->city       = Arr::get($_POST, 'city', '');
-                $user->avatar     = $_FILES['avatar']['name'] ?: 'no-user.png';
-
-                $user->save();
-            }
-
-        } else {
-
-            $this->template->title          = 'Продолжение регистрации';
-            $this->template->description    = 'Продолжение регистрации на сайте Pronwe.ru';
-            $this->template->keywords       = 'Продолжение регистрации на сайте Pronwe.ru';
-
-            array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
-            array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
-            array_push( $this->js,  'js/app.js');
-
-            $this->template->css = $this->css;
-            $this->template->js  = $this->js;
-
-            $this->template->aside      = View::factory('aside');
-            $this->template->section    = View::factory('auth/continregistr');
-
-        }
-
-    }
+    
 }

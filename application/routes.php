@@ -30,33 +30,16 @@ Route::set('SINGUP', 'signup(/<action>)')
         'action'      => 'index',
     ));
 
-
-/**
- * Profile
- */
-Route::set('PROFILE', 'profile(/<subaction>)')
+Route::set('IMAGE_TRANSPORT', 'transport')
     ->defaults(array(
-        'controller' => 'Profile_Index',
-        'action'     => 'index',
-    ));
-
-
-
-Route::set('Judge-Modify', '<action>')
-    ->defaults(array(
-        'controller' => 'Judges_Settings_Modify',
-        'action'     => '',
-    ));
-
-Route::set('Judge-panels', 'event/<id>/judge/<action>')
-    ->defaults(array(
-        'controller' => 'Judges_Panels_Index',
-        'action'     => 'panel1',
+        'controller' => 'Transport',
+        'action'     => 'file_uploader'
     ));
 
 
 require_once ('routes/organizations.php');
-require_once ('routes/ajax.php');
 require_once ('routes/events.php');
+require_once ('routes/ajax.php');
+
 
 ?>

@@ -1,42 +1,57 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 13.03.2016
- * Time: 13:01
+ * Class Controller_Events_Modify
+ * @author
+ * @copyright
  */
 
 class Controller_Events_Modify extends Controller {
 
-    function action_add()
+
+    /**
+     * Action for creating new event
+     */
+    public function action_add()
     {
-        $data['title']                = Arr::get($_POST, 'input-event-name');
-        $data['description']          = Arr::get($_POST, 'input-event-description');
-        $data['event_status']         = Arr::get($_POST, 'input-event-status');
-        $data['event_start-date']     = Arr::get($_POST, 'input-event-start');
-        $data['event_finish-date']    = Arr::get($_POST, 'input-event-end');
-        $data['event_city']           = Arr::get($_POST, 'input-event-city');
-        $data['event_type']           = Arr::get($_POST, 'input-event-type');
-        $data['photo']                = $_FILES['input-event-photo']['name'];
+        if ($this->request->method() == Request::POST)
+        {
+            $event_name         = Arr::get($_POST, 'event_name', '');
+            $event_site         = Arr::get($_POST, 'event_site', '');
+            $event_description  = Arr::get($_POST, 'event_shortdesc', '');
+            $event_start        = Arr::get($_POST, 'eventstart', '');
+            $event_end          = Arr::get($_POST, 'eventend', '');
+            $event_status       = Arr::get($_POST, 'event_status', '');
+            $event_city         = Arr::get($_POST, 'event_city', '');
+            $event_email        = Arr::get($_POST, 'event_email', '');
+            $event_organization = Arr::get($_POST, 'organization', '');
 
-        Model_Uploader::fileTransport($_FILES, 'input-event-photo');
+            $id_organization    = Model_Organizations::getByName($event_organization);
 
-        $model_events = new Model_Events();
-        $model_events->NewEvent($data);
-        $result = $model_events->save();
+            $result = Model_Events::new_event($id_organization, $event_name, $event_site, $event_description, $event_start, $event_end, $event_status, $event_city);
 
-
-        /**
-         * Creating WorkBook
-         */
-        Model_Excel::createNewEventsSheet($data['title']);
-
-
-        if ($result)
-            $this->redirect('/events/my');
-
+            if ($result)
+            {
+                $this->redirect('organization/5');
+            }
+        }
     }
 
+    public function action_addFullDescription()
+    {
+        if ($this->request->method() == Request::POST && Ajax::is_ajax())
+        {
+            $full_description = Arr::get($_POST, 'text');
+            $id_event         = Arr::get($_POST, 'id');
+
+            Model_Events::updateField($id_event, 'full_description', $full_description);
+        }
+    }
+
+
+    /**
+     * @deprecated
+     */
     function action_addParticipant()
     {
         $id_event = $this->request->param('id');
@@ -62,6 +77,10 @@ class Controller_Events_Modify extends Controller {
         $this->redirect('/events/'. $id_event . '/edit' );
     }
 
+
+    /**
+     * @deprecated
+     */
     function action_addStage()
     {
         $id_event = $this->request->param('id');

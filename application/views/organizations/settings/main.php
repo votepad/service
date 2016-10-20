@@ -1,70 +1,38 @@
-<!-- =============== PAGE STYLES ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>vendor/cropper/dist/cropper.css">
-<link rel="stylesheet" href="<?=$assets; ?>css/upload.css">
-
 <div class="columns-area">
-	<div class="panel panel-default">
-		<div class="panel-heading">
-			<div class="panel-tabs">
-				<a class="md-btn active" href="<?=URL::site('organization/' . $id . '/settings/main'); ?>">
-					Организация
-					<div class="active-link"></div>
-				</a>
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/team'); ?>">
-					Команда
-					<div class="active-link"></div>
-				</a>
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/logs'); ?>">
-					Активности
-					<div class="active-link"></div>
-				</a>
-				<a class="md-btn" href="<?=URL::site('organization/' . $id . '/settings/balance'); ?>">
-					Оплата услуг
-					<div class="active-link"></div>
-				</a>
-			</div>
+	<div class="block block-default">
+		<div id="topmenu" class="block-heading tabs">
+				<?=$topmenu; ?>
 		</div>
-		<div class="panel-body">
-			<form id="update_main_info">
-				<div class="settings-main-c1 inline">
-					<h4>Основная информация</h4>
-					<div class="form-group">
-						<label for="org_name" class="control-label">Название организации</label>
-						<input type="text" id="org_name" name="org_name" class="form-control input-sm" value="<?=$organization->name; ?>">
+		<div class="block-body">
+			<form action="<?=URL::site('organization/' . $organization->id . '/update'); ?>" method="POST" id="update_main_info">
+				<div class="col-xs-12 col-md-6">
+					<div class="input-field">
+						<input type="text" id="org_name" name="org_name" class="input-area" autocomplete="off" length="60" value="<?=$organization->name; ?>">
+						<label for="org_name" class="input-label active">Название организации</label>
 					</div>
-					<div class="form-group">
-						<label for="org_site" class="control-label">Ссылка на страницу</label>
-						<input type="text" id="org_site" name="org_site" class="form-control input-sm" value="http://<?=$organization->website; ?>.votepad.ru" disabled>
-						<span class="help-block">Хотите изменить ссылку на Вашу организацию? Напишите нам <a href="">support@votepad.ru</a></span>
+					<div class="input-field">
+						<div type="text" id="org_site" class="input-area" disabled style="line-height: 2em"><?=$organization->website; ?></div>
+						<label for="org_site" class="input-label active">Ссылка на страницу организации</label>
+						<span class="help-block">Хотите изменить ссылку на Вашу организацию?<a id="open_feedback" class="link underlinehover">Напишите нам</a></span>
 					</div>
-					<div class="form-group">
-						<label for="org_official_site" class="control-label">Ссылка на официальный сайт</label>
-						<input type="text" id="org_official_site" name="org_official_site" class="form-control input-sm" value="">
-					</div>
-					<button type="button" id="orglogo_upload" class="md-btn md-btn-md md-btn-default upload">Обновить фото логотипа</button>
-					<button type="button" id="orgback_upload" class="md-btn md-btn-md md-btn-default upload" style="float: right;">Обновить фото обложки</button>
 				</div>
-				<div class="settings-main-c2 inline">
-					<h4>Контактная информация</h4>
-					<div class="form-group">
-						<label for="org_user" class="control-label">Доверенное лицо</label>
-						<input type="text" id="org_user" name="org_user" class="form-control input-sm" value="<?=$creator->lastname . ' ' . $creator->name . ' ' . $creator->surname; ?>">
-						<span class="help-block">Доверенное лицо - создатель организации, имеет полный доступ к ней.</span>
+				<div class="col-xs-12 col-md-6">
+					<div class="input-field">
+						<input type="text" id="official_org_site" name="official_org_site" class="input-area" autocomplete="off" value="<?=$organization->officialSite; ?>">
+						<label for="official_org_site" class="input-label active">Ссылка на официальный сайт</label>
 					</div>
-					<div class="form-group">
-						<label class="control-label">Электронная почта</label>
-						<input type="email" name="email" class="form-control input-sm" value="<?=$creator->email; ?>">
+					<div class="col-xs-12 col-md-5 col-lg-5 pad0">
+						<button type="button" id="submit_btn" class="btn btn-md btn-labeled btn-success col-xs-12 col-md-auto">
+							<span class="btn-text">Обновить</span>
+							<span class="btn-icon"><i class="fa fa-check" aria-hidden="true"></i></span>
+						</button>
 					</div>
-					<div class="form-group">
-						<label for="org_phone" class="control-label">Контактный телефон</label>
-						<input type="tel" id="org_phone" name="org_phone" class="form-control input-sm" value="<?=$creator->number; ?>">
+					<div class="col-xs-12 col-md-7 col-lg-5 col-lg-offset-2 pad0">
+						<button type="button" id="remove_organization" class="btn btn-md btn-labeled btn-danger col-xs-12 col-md-auto" style="float:right">
+							<span class="btn-text">Удалить организацию</span>
+							<span class="btn-icon"><i class="fa fa-trash" aria-hidden="true"></i></span>
+						</button>
 					</div>
-					<button type="submit" class="md-btn md-btn-md md-btn-labeled md-btn-success ">
-						<span class="md-btn-icon"><i class="fa fa-check"></i></span> Сохранить
-					</button>
-					<button type="button" class="md-btn md-btn-md md-btn-labeled md-btn-danger" style="float: right;">
-						<span class="md-btn-icon"><i class="fa fa-times"></i></span> Удалить организацию
-					</button>
 				</div>
 			</form>
 		</div>
@@ -72,8 +40,51 @@
 </div>
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>vendor/jquery-validation/dist/jquery.validate.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>vendor/cropper/dist/cropper.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/upload.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-main.js"></script>
+<script>
+	$(document).ready(function() {
+
+		'use strict';
+
+        $('#remove_organization').click(function(){
+
+            if (!confirm('Вы уверены что хотите удалить организацию?'))
+                return;
+
+            /**
+             * Prepare data before sending
+             */
+            var data = {
+
+                url     : "<?=URL::site('organization/' . $organization->id . '/delete'); ?>",
+
+                type    : 'POST',
+
+                data    : {
+
+                    id_organization : <?=$organization->id; ?>
+
+                },
+
+                beforeSend  : function(callback) {},
+
+                success     : function(callback) {
+                    console.log(callback);
+                },
+
+                error       : function(callback) {
+                    console.log(callback);
+                }
+            };
+
+            /**
+             * Send ajax request
+             */
+            $.ajax(data);
+
+        });
+
+
+	});
+</script>

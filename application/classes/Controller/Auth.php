@@ -12,6 +12,10 @@ class Controller_Auth extends Dispatch {
 
     function action_index()
     {
+        /**
+         * Destroy session
+         */
+        Session::instance()->destroy();
     }
 
     function action_signin()
@@ -36,10 +40,11 @@ class Controller_Auth extends Dispatch {
         }
         else
         {
-            if (!$auth['done'])
-                $this->redirect('signup/continue');
-            else
-                $this->redirect('events/my');
+            $id_user = $this->session->get('id_user');
+
+            $id = Model_PrivillegedUser::getUserOrganization($id_user);
+
+            $this->redirect('organization/' . $id);
         }
 
 
@@ -51,7 +56,7 @@ class Controller_Auth extends Dispatch {
         return $this->model->login($email, $password);
     }
 
-    private function action_logout($email)
+    private function logout($email)
     {
         return $this->model->logout($email, FALSE);
     }

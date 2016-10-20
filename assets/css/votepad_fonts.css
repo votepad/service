@@ -1,0 +1,27 @@
+@font-face {
+  font-family: 'votepad_fonts';
+  src:  url('../fonts/crowd_of_users.eot');
+  src:  url('../fonts/crowd_of_users.eot') format('embedded-opentype'),
+    url('../fonts/crowd_of_users.ttf') format('truetype'),
+    url('../fonts/crowd_of_users.woff') format('woff'),
+    url('../fonts/crowd_of_users.svg') format('svg');
+  font-weight: normal;
+  font-style: normal;
+}
+
+[class^="icon-"], [class*=" icon-"] {
+  /* use !important to prevent issues with browser extensions that change fonts */
+  display: inline-block;
+  font-family: 'votepad_fonts' !important;
+  speak: none;
+  font-size: inherit;
+  text-rendering: auto;
+
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-crowd-of-users:before {
+  content: "\e900";
+}
