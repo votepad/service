@@ -12,7 +12,6 @@
   <a href="<?=URL::site('organization/' . $id . '/settings/main'); ?>" class="menu-btn">
       Настройки
   </a>
-  <? endif; ?>
 	<a href="#" class="dropdown menu-btn displaynone" id="open_quick_start" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 		Быстрый старт
 		<i class="fa fa-caret-down" aria-hidden="true"></i>
@@ -31,5 +30,6 @@
 			</a>
 		</li>
 	</ul>
+  <? endif; ?>
 
 </div>

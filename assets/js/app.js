@@ -252,5 +252,100 @@ $('[type="checkbox"]').blur(function(){ $(this).removeClass('focus'); });
 $('[type="checkbox"]').click(function(){ $(this).removeClass('focus'); });
 
 
+/*
+** Authorization Form
+** Forget Password Form
+*/
+$(function(){
+
+  function validateEmail(email) {
+    var re = /^([a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?)$/;
+    return re.test(email);
+  }
+  function validatePassword(password) {
+    if (password < 6) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+  $('body').on('blur','.sign_in_form #email',function(){
+    if (validateEmail($(this).val()) == false) {
+      $(this).addClass('invalid');
+    } else {
+      $(this).removeClass('invalid');
+    }
+  });
+  $('body').on('blur','.sign_in_form #password',function(){
+    if (validatePassword($(this).val().length) == false) {
+      $(this).addClass('invalid');
+    } else {
+      $(this).removeClass('invalid');
+    }
+  });
+
+
+  $('body').on('click','#sign_in',function(){
+    var $form = $('.sign_in_form');
+    var vaild = true;
+    if (validateEmail($('#email', $form).val()) == false) {
+      $('#email', $form).addClass('invalid');
+      vaild = false;
+    } else {
+      $('#email', $form).removeClass('invalid');
+    }
+
+    if (validatePassword($('#password', $form).val().length) == false) {
+      $('#password', $form).addClass('invalid');
+      vaild = false;
+    } else {
+      $('#password', $form).removeClass('invalid');
+    }
+
+    if (vaild == true) {
+      $form[0].submit();
+    }
+  });
+
+  $('body').on('blur','.forget_password_form #email',function(){
+    if (validateEmail($(this).val()) == false) {
+      $(this).addClass('invalid');
+    } else {
+      $(this).removeClass('invalid');
+    }
+  });
+
+  $('body').on('click','#forget_password',function(){
+    var $form = $('.forget_password_form');
+    var vaild = true;
+    if (validateEmail($('#email', $form).val()) == false) {
+      $('#email', $form).addClass('invalid');
+      vaild = false;
+    } else {
+      $('#email', $form).removeClass('invalid');
+    }
+
+    var response = grecaptcha.getResponse();
+    console.log(response.length);
+    if (response.length == 0) {
+      valid = false;
+    }
+
+    if (vaild == true) {
+      $form[0].submit();
+    }
+  });
+
+  $('body').on('click','#to_forget_password_form',function(){
+    $('.sign_in_form').removeClass('displayblock').addClass('displaynone');
+    $('.forget_password_form').removeClass('displaynone').addClass('displayblock');
+  });
+
+  $('body').on('click', '#to_sign_in_form',function(){
+    $('.forget_password_form').removeClass('displayblock').addClass('displaynone');
+    $('.sign_in_form').removeClass('displaynone').addClass('displayblock');
+  });
+});
+
 
 });
