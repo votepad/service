@@ -205,7 +205,7 @@ class Controller_Events_Index extends Dispatch
 
         $id_organization = Arr::get($post_data, 'id_organization');
         $organization = Model_Organizations::get($id_organization, 1);
-        
+
         $this->template->organization = $organization;
 
         /**

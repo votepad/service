@@ -102,7 +102,7 @@ class Model_Organizations extends Model
         $organization->is_removed   = $this->is_removed;
         $organization->logo         = $this->logo ?: NULL;
         $organization->cover        = $this->cover ?: NULL;
-        
+
         $organization->save();
 
         $this->id = $organization->id;

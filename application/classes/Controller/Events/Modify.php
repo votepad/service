@@ -18,21 +18,21 @@ class Controller_Events_Modify extends Controller {
         {
             $event_name         = Arr::get($_POST, 'event_name', '');
             $event_site         = Arr::get($_POST, 'event_site', '');
-            $event_description  = Arr::get($_POST, 'event_shortdesc', '');
-            $event_start        = Arr::get($_POST, 'eventstart', '');
-            $event_end          = Arr::get($_POST, 'eventend', '');
-            $event_status       = Arr::get($_POST, 'event_status', '');
-            $event_city         = Arr::get($_POST, 'event_city', '');
-            $event_email        = Arr::get($_POST, 'event_email', '');
+            $event_description  = Arr::get($_POST, 'event_desc', '');
+            $event_keywords     = Arr::get($_POST, 'event_keywords', '');
+            $event_start        = Arr::get($_POST, 'datestart', '');
+            $event_end          = Arr::get($_POST, 'dateend', '');
+            $event_address      = Arr::get($_POST, 'address', '');
+            $event_users        = Arr::get($_POST, 'users', '');
             $event_organization = Arr::get($_POST, 'organization', '');
 
             $id_organization    = Model_Organizations::getByName($event_organization);
 
-            $result = Model_Events::new_event($id_organization, $event_name, $event_site, $event_description, $event_start, $event_end, $event_status, $event_city);
+            $result = Model_Events::new_event($id_organization, $event_name, $event_site, $event_description, $event_keywords, $event_start, $event_end, $event_address);
 
             if ($result)
             {
-                $this->redirect('organization/5');
+                $this->redirect($event_organization + '/' + $event_name);
             }
         }
     }
@@ -110,7 +110,7 @@ class Controller_Events_Modify extends Controller {
             $model_stages = new Model_Stages();
             $id_stage = $model_stages->insertStages($stageName[$i - 1], $stageDescription[$i - 1], $id_event);
             $model_stages->block($id_stage);
-            
+
             foreach($_POST as $item => $value)
             {
                 $str1 = 'criterion-name_'. $i . '_' . $criteriaNameIndex ;

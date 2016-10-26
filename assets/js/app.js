@@ -1,4 +1,31 @@
-$(document).ready(function () {
+$(window).load(function(){
+  $('.input-area').each(function(){
+    /* checking textarea  */
+    if ( $(this).hasClass('input-textarea') && $(this).val() != "") { resize($(this)); $(this).parent().children('.input-label').addClass('active'); }
+    /* checking text value  */
+    if ( $(this).attr('type') == "text" && $(this).val() != "") { $(this).parent().children('.input-label').addClass('active'); }
+  });
+});
+
+function resize(el) {
+  var ta;
+  Array.prototype.forEach.call(el.length ? el : [el], function (x) {
+    ta = x;
+  });
+  var originalHeight = parseInt(el.height());
+  ta.style.height = 'auto';
+  var endHeight = ta.scrollHeight;
+
+  if (originalHeight == endHeight) {
+    ta.style.height = endHeight + 'px';
+  } else {
+    el.height(originalHeight);
+    el.animate({
+      height: endHeight
+    }, 50);
+  }
+}
+
 
 /*
 ** Animate CSS
@@ -72,6 +99,7 @@ $.fn.extend({
 /*
 **  Parallax Scripts
 */
+
 $(function(){
   var window_width = $(window).width();
 
@@ -217,12 +245,13 @@ $('select.select_btn').each(function(){
 /*
 ** Inputes Fields
 */
+$(function(){
 $('.input-area').each(function(){
   if ($(this).attr('length')) {
     $(this).closest('.input-field').append('<span class="counter"></span>')
   }
 });
-$('.input-area').focus(function() {
+$('.input-area').on('focus', function() {
   if ( $(this).val() == "") {
     $(this).closest('.input-field').find('.input-label').addClass('active');
     var max_len = parseInt($(this).attr('length'));
@@ -250,6 +279,10 @@ $('.input-area').keyup(function() {
 $('[type="checkbox"]').focus(function(){ $(this).addClass('focus'); });
 $('[type="checkbox"]').blur(function(){ $(this).removeClass('focus'); });
 $('[type="checkbox"]').click(function(){ $(this).removeClass('focus'); });
+$('.input-textarea').on('init keyup focus', function(){resize($(this));});
+
+
+});
 
 
 /*
@@ -345,7 +378,4 @@ $(function(){
     $('.forget_password_form').removeClass('displayblock').addClass('displaynone');
     $('.sign_in_form').removeClass('displaynone').addClass('displayblock');
   });
-});
-
-
 });

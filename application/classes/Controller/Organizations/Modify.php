@@ -110,5 +110,5 @@ class Controller_Organizations_Modify extends Dispatch
         $this->redirect('organization/' . $id_organization . '/settings/main');
 
     }
-    
+
 }

@@ -22,7 +22,7 @@ class Model_Events extends Model {
      * @return Events identificator
      */
     public static function new_event($id_organization, $name, $page, $description,
-                        $start_time, $end_time, $status, $city)
+                         $keywords, $start_time, $end_time, $address)
     {
         $event = new ORM_Events();
 
@@ -30,10 +30,10 @@ class Model_Events extends Model {
         $event->name                = $name;
         $event->event_page          = $page;
         $event->short_description   = $description;
+        $event->event_keywords      = $keywords;
         $event->start_time          = $start_time;
         $event->end_time            = $end_time;
-        $event->event_status        = $status;
-        $event->event_city          = $city;
+        $event->event_address       = $address;
         $event->dt_create           = Date::formatted_time('now');
 
         $event->save();
