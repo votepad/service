@@ -40,7 +40,9 @@ Class Model_User {
      * @var $phone
      */
     public $phone;
-    
+
+    public function __construct() {}
+
     /**
      * @param $id
      * Saves or Updates User to Database

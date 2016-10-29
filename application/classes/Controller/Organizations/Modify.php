@@ -16,60 +16,78 @@ class Controller_Organizations_Modify extends Dispatch
         parent::before();
     }
 
+    /**
+     * @private
+     *
+     * Works only with POST requests
+     *
+     * @throws HTTP_Exception_404
+     */
     public function action_add()
     {
-        $name       = Arr::get($_POST, 'org_name', '');
-        $website    = Arr::get($_POST, 'org_site');
-        $official   = Arr::get($_POST, 'official_org_site', '');
-        $phone      = Arr::get($_POST, 'org_phone', '');
 
-        if (self::isLogged()) {
+        if ($this->request->method() == Request::POST) {
 
-            $user       = new Model_PrivillegedUser();
-            $user_id    = $user->id_user;
+            $name = Arr::get($_POST, 'org_name', '');
+            $website = Arr::get($_POST, 'org_site');
+            $official = Arr::get($_POST, 'official_org_site', '');
+            $phone = Arr::get($_POST, 'org_phone', '');
+
+            if (self::isLogged()) {
+
+                $user = new Model_PrivillegedUser();
+                $user_id = $user->id_user;
 
 
+            } else {
+
+                $user = Arr::get($_POST, 'org_user', '');
+                $email = Arr::get($_POST, 'email', '');
+                $password = Arr::get($_POST, 'password', '');
+
+                $user_info = explode(' ', $user);
+
+                $newUser = new Model_PrivillegedUser();
+
+                $newUser->lastname = $user_info[0];
+                $newUser->name = $user_info[1];
+                $newUser->surname = $user_info[2];
+                $newUser->email = $email;
+                $newUser->password = $password;
+                $newUser->phone = $phone;
+                $newUser->done = 1;
+                $newUser->id_role = 1;
+
+                $newUser->save();
+
+            }
+
+            $organization = new Model_Organizations();
+            $organization->name = $name;
+            $organization->website = $website;
+            $organization->officialSite = $official;
+
+            $organization->logo = "no-logo.jpg";
+            $organization->cover = "no-cover.jpg";
+
+            $organization->save();
+
+            if (isset($user_id)) {
+                Model_Organizations::addUsersOrganization($user_id, $organization->id);
+            } else {
+                Model_Organizations::addUsersOrganization($newUser->id_user, $organization->id);
+            }
+
+
+            $this->redirect('organization/' . $organization->id);
+            
         } else {
 
-            $user       = Arr::get($_POST, 'org_user', '');
-            $email      = Arr::get($_POST, 'email', '');
-            $password   = Arr::get($_POST, 'password', '');
-
-            $user_info = explode(' ', $user);
-
-            $newUser = new Model_PrivillegedUser();
-
-            $newUser->lastname = $user_info[0];
-            $newUser->name     = $user_info[1];
-            $newUser->surname  = $user_info[2];
-            $newUser->email    = $email;
-            $newUser->password = $password;
-            $newUser->phone    = $phone;
-            $newUser->done     = 1;
-            $newUser->id_role  = 1;
-
-            $newUser->save();
-
+            /**
+             * All other Requests we ignore and send 404.
+             */
+            throw new HTTP_Exception_404();
         }
-
-        $organization = new Model_Organizations();
-        $organization->name         = $name;
-        $organization->website      = $website;
-        $organization->officialSite = $official;
-
-        $organization->logo  = "no-logo.jpg";
-        $organization->cover = "no-cover.jpg";
-
-        $organization->save();
-
-        if (isset($user_id)) {
-            Model_Organizations::addUsersOrganization($user_id, $organization->id);
-        } else {
-            Model_Organizations::addUsersOrganization($newUser->id_user, $organization->id);
-        }
-
-        
-        $this->redirect('organization/' . $organization->id);
     }
 
     public function action_update()

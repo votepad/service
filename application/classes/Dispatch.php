@@ -75,8 +75,7 @@ class Dispatch extends Controller_Template
     */
     public function XSSfilter()
     {
-        $exceptions = array( 'long_desc' , 'blog_text', 'long_description' , 'content',
-                             'article_text', 'contest_text', 'results_contest' ); // Исключения для полей с визуальным редактором
+        $exceptions = array(); // Исключения для полей с визуальным редактором
 
         foreach ($_POST as $key => $value){
 
@@ -95,6 +94,14 @@ class Dispatch extends Controller_Template
         }
     }
 
+
+    /**
+     * @public
+     *
+     * Return "True" if user is logged
+     *
+     * @return bool
+     */
     public static function isLogged()
     {
         $session = Session::Instance();

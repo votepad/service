@@ -5,47 +5,95 @@
  * @copyright Khaydarov Murod
  */
 
-class Model_Events extends Model {
+class Model_Events extends Model
+{
 
 
     /**
-     * Creates new Event
-     * @uses Kohana ORM
-     * @param $id_organization
-     * @param $name
-     * @param $page
-     * @param $description
-     * @param $start_time
-     * @param $end_time
-     * @param $status
-     * @param $city
-     * @return Events identificator
+     * @var $id [INT] - Events identifier
      */
-    public static function new_event($id_organization, $name, $page, $description,
-                         $keywords, $start_time, $end_time, $address)
+    public $id;
+
+    /**
+     * @var $name [String] - Events Name
+     */
+    public $name;
+
+    /**
+     * @var $page [String] - Events Landing page
+     */
+    public $page;
+
+    /**
+     * @var $short_description [Text] - About event
+     */
+    public $short_description;
+
+    /**
+     * @var $full_description [Text] - For landing page
+     */
+    public $full_description;
+
+    /**
+     * @var $start_time [Date] - Beggining time
+     */
+    public $start_time;
+
+    /**
+     * @var $end_time [Date] - The time of finish
+     */
+    public $end_time;
+
+    /**
+     * @var $status [Bool] - Status - Published or not
+     */
+    public $status;
+
+    /**
+     * @var $city [String]
+     */
+    public $address;
+
+
+    /**
+     * Saves or Updates event
+     *
+     * @param null $id
+     * @return mixed
+     */
+    public function save($id = null)
     {
         $event = new ORM_Events();
 
-        $event->id_organization     = $id_organization;
-        $event->name                = $name;
-        $event->event_page          = $page;
-        $event->short_description   = $description;
-        $event->event_keywords      = $keywords;
-        $event->start_time          = $start_time;
-        $event->end_time            = $end_time;
-        $event->event_address       = $address;
-        $event->dt_create           = Date::formatted_time('now');
+        if (isset($id)) {
+            $event->where('id', '=', $id)
+                ->find();
 
+        } else {
+
+            $event->dt_created = Date::formatted_time('now');
+
+        }
+
+        $event->name              = $event->name ?: $this->name;
+        $event->page              = $event->page ?: $this->page;
+        $event->short_description = $event->short_description ?: $this->short_description;
+        $event->full_description  = $event->full_description ?: $this->full_description;
+        $event->keywords          = $event->keywords ?: $this->keywords;
+        $event->start_time        = $event->start_time ?: $this->start_time;
+        $event->end_time          = $event->end_time ?: $this->end_time;
+        $event->address           = $event->address ?: $this->address;
         $event->save();
 
-        return $event->id;
+        $this->id = $event->id;
+
+        return $this;
     }
 
     /**
      * Gets event information
      * @param $id
-     * @return ORM_Events object
-     * @throws Kohana_Exception
+     * @return Model_Events object
      */
     public static function get($id)
     {
@@ -57,50 +105,44 @@ class Model_Events extends Model {
             ->find();
 
         if ($event->loaded()) {
-            return $event;
+
+            $result = new Model_Events();
+
+            $result->id                 = $event->id;
+            $result->name               = $event->name;
+            $result->short_description  = $event->short_description;
+            $result->full_description   = $event->full_description;
+            $result->keywords           = $event->keywords;
+            $result->address            = $event->address;
+            $result->start_time         = $event->start_time;
+            $result->end_time           = $event->end_time;
+
+            return $result;
+        } else {
+            return false;
         }
     }
 
     /**
-     * Updates field
-     * @param $id
-     * @param $field
-     * @param $value
+     * @public
+     *
+     * connect event and organization
+     *
+     * @param $id_organization
+     * @param $id_event
+     * @return bool|object
+     * @throws Kohana_Exception
      */
-    public static function updateField($id, $field, $value)
-    {
-        $target = self::get($id);
+    public function addToOrganization($id_organization, $id_event) {
 
-        $target->$field = $value;
-        $target->save();
-    }
+        $insert = DB::insert('Organization_Events', array('id_organization', 'id_event'))
+                        ->values(array($id_organization, $id_event))
+                        ->execute();
 
-    /**
-     * @param $id
-     * @return mixed
-     */
-    public static function getOrganizationEvents($id)
-    {
-        $select = DB::select()->from('Events')
-                        ->where('id_organization', '=', $id)
-                        ->execute()
-                        ->as_array();
-
-        return $select;
-    }
-
-    /**
-     * @param $name
-     * @return mixed
-     */
-    public static function getEventByName($name)
-    {
-        $event = DB::select()->from('Events')
-                            ->where('name', '=', $name)
-                            ->limit(1)
-                            ->execute()
-                            ->as_array();
-
-        return Arr::get($event, '0');
+        if ($insert) {
+            return $insert;
+        } else {
+            return false;
+        }
     }
 }
