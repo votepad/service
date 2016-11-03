@@ -319,6 +319,14 @@ $(function(){
 
 
   $('body').on('click','#sign_in',function(){
+      check_sign_in();
+  });
+  $('body').on('keyup','.sign_in_form', function(event){
+    if (event.keyCode == 13)
+      check_sign_in();
+  });
+
+  function check_sign_in() {
     var $form = $('.sign_in_form');
     var vaild = true;
     if (validateEmail($('#email', $form).val()) == false) {
@@ -334,11 +342,11 @@ $(function(){
     } else {
       $('#password', $form).removeClass('invalid');
     }
-
     if (vaild == true) {
       $form[0].submit();
     }
-  });
+  }
+
 
   $('body').on('blur','.forget_password_form #email',function(){
     if (validateEmail($(this).val()) == false) {

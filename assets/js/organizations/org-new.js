@@ -150,6 +150,7 @@ $().ready(function() {
     });
 
     if ( $invalid == false ) {
+      $("#org_site").inputmask('remove');
       document.forms[0].submit();
     }
   });
