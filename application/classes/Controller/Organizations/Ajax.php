@@ -2,6 +2,7 @@
 /**
  * @author Pronwe team
  * @copyright Khaydarov Murod
+ * @version 0.1.0
  */
 
 /**
