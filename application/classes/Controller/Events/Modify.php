@@ -22,7 +22,7 @@ class Controller_Events_Modify extends Controller
             $event_keywords     = Arr::get($_POST, 'event_keywords', '');
             $event_start        = Arr::get($_POST, 'datestart', '');
             $event_end          = Arr::get($_POST, 'dateend', '');
-            $event_address      = Arr::get($_POST, 'address', '');
+            $event_address      = Arr::get($_POST, 'address_coords', '');
             $id_organization = Arr::get($_POST, 'id_organization', '');
 
             $event = new Model_Events();

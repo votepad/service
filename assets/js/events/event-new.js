@@ -232,10 +232,10 @@ $(function() {
   */
 
   $('#btnsubmit').click(function () {
-    var $step = $(this).closest('.block').find('.step.displayblock');
+    var $form = $(this).closest('form');
     var $invalid = false;
 
-    $('.input-area', $step).each(function() {
+    $('.input-area', $form).each(function() {
       if ( $(this).val() == "" ) {
         $(this).addClass('invalid');
         $invalid = true;
@@ -249,7 +249,8 @@ $(function() {
     });
 
     if ( $invalid == false ) {
-      document.forms[0].submit();
+			$("#event_site").inputmask('remove');
+      $form[0].submit();
     }
   });
 
@@ -320,7 +321,7 @@ $(function() {
 		mask: '*{1,200}',
 		definitions: {
 			'*': {
-				validator: "[a-zA-Z0-9а-яА-Я-!@#%*()[]|/:;''.,№?_ ]",
+				validator: "[a-zA-Z0-9а-яА-Я- !@#%*()[]|/:;''.,№?_",
 			}
 		},
 		showMaskOnHover: false,
@@ -411,7 +412,7 @@ $(function() {
   });
 
 
-	
+
 
 
 
@@ -433,120 +434,121 @@ $(function() {
 	/*
 	** Creating Map
 	*/
+	// хранится адрес, который показываетя пользователю в зоне input
+	var address_msg, coords;
 
 	function createMap() {
 		$('#map_loader').remove();
 		$('#map').css('display','block');
 
 		// Создание карты
-		var map = new ymaps.Map('map', {
-			center: [55.751574, 37.573856],
-			zoom: 10,
-			controls: ['zoomControl']
-	 });
+		var geolocation = ymaps.geolocation,
+				placemark,
+				map = new ymaps.Map('map', {
+					center: [55.751574, 37.573856],
+					zoom: 10,
+					controls: ['zoomControl']
+				});
 
-	 // Экземпляр элемента управления «поиск по карте» с установленной опцией поиска по организациям.
-	var searchControl = new ymaps.control.SearchControl({
-			options: {
-					provider: 'yandex#search'
+			// автоопределение положение по браузеру
+			geolocation.get({
+				provider: 'browser',
+				mapStateAutoApply: true
+			}).then(function (result) {
+				// Синим цветом пометим положение, полученное через браузер.
+				// Если браузер не поддерживает эту функциональность, метка не будет добавлена на карту.
+				//result.geoObjects.options.set('preset', 'islands#blueCircleIcon');
+				map.geoObjects.add(result.geoObjects);
+			});
+
+			// обработка события нажатия на карте
+			map.events.add('click', function (e) {
+				coords = e.get('coords');
+
+		 		if (placemark) {
+					placemark.geometry.setCoordinates(coords);
+				}
+			 else {
+				 placemark = createPlacemark(coords);
+				 map.geoObjects.add(placemark);
+
+				 placemark.events.add('dragend', function () {
+						 getAddress(placemark.geometry.getCoordinates());
+				 });
+			 }
+			 getAddress(coords);
+			});
+
+			// Создание метки.
+	    function createPlacemark(coords) {
+				return new ymaps.Placemark(coords, {
+					iconCaption: 'поиск...'
+				}, {
+					preset: 'islands#blueDotIconWithCaption',
+					draggable: true
+				});
+	    }
+
+			// Определяем адрес по координатам
+			function getAddress(coords) {
+				placemark.properties.set('iconCaption', 'поиск...');
+				ymaps.geocode(coords).then(function (res) {
+					var firstGeoObject = res.geoObjects.get(0);
+					address_msg = firstGeoObject.properties.get('text');
+					placemark.properties.set({
+						iconCaption: firstGeoObject.properties.get('name'),
+						balloonContent: firstGeoObject.properties.get('text')
+					});
+				});
 			}
-	});
-	map.controls.add(searchControl);
+
+			// «поиск по карте» с установленной опцией поиска по организациям
+		 	var searchControl = new ymaps.control.SearchControl({
+				options: {
+					provider: 'yandex#search'
+				}
+			});
+			map.controls.add(searchControl);
 
 
+			// Создание кнопок "сохранить", "закрыть"
+			var ButtonLayout = ymaps.templateLayoutFactory.createClass([
+				'<a id="{{ data.id }}" class="{{ data.class }}">{{ data.title }}</a>'
+			].join(''));
 
+			var btnSave = new ymaps.control.Button({
+				data: {
+					id: "saveMapBtn",
+					class: "btn btn-map btn-default",
+					title: "Сохранить"
+				},
+				options: { layout: ButtonLayout }
+			});
 
+			var btnCancel = new ymaps.control.Button({
+				data: {
+					id: "closeMapBtn",
+					class: "btn btn-map btn-default",
+					title: "Закрыть"
+				},
+				options: { layout: ButtonLayout }
+			});
 
+			map.controls.add(btnSave, {float: 'right'});
+			map.controls.add(btnCancel,{float: 'right'});
+		}
 
-	// Создаем собственный класс.
-  var addressControlClass = function (options) {
-      addressControlClass.superclass.constructor.call(this, options);
-      this._$content = null;
-      this._geocoderDeferred = null;
-  };
-  // И наследуем его от collection.Item.
-  ymaps.util.augment(addressControlClass, ymaps.collection.Item, {
-      onAddToMap: function (map) {
-          addressControlClass.superclass.onAddToMap.call(this, map);
-          this._lastCenter = null;
-					this.getParent().getChildElement(this).then(this._onAddBtn, this);
-					this.getParent().getChildElement(this).then(this._onGetChildElement, this);
-      },
+			// Сохранить адрес
+			$('body').on('click', '#saveMapBtn', function () {
+				$('#address').val(address_msg);
+				$('#address_coords').val(coords.reverse().join(', '));
+				$('#map_modal').modal('hide').remove();
+				checking_el_valid($('#address'), "valid");
+			});
 
-      onRemoveFromMap: function (oldMap) {
-          this._lastCenter = null;
-          if (this._$content) {
-              this._$content.remove();
-              this._mapEventGroup.removeAll();
-          }
-          addressControlClass.superclass.onRemoveFromMap.call(this, oldMap);
-      },
-
-      _onGetChildElement: function (parentDomContainer) {
-          // Создаем HTML-элемент с текстом.
-          this._$content = $('<div class="addressControl"></div>').appendTo(parentDomContainer);
-          this._mapEventGroup = this.getMap().events.group();
-          // Запрашиваем данные после изменения положения карты.
-          this._mapEventGroup.add('boundschange', this._createRequest, this);
-          // Сразу же запрашиваем название места.
-          this._createRequest();
-      },
-
-			_onAddBtn: function (parentDomContainer) {
-          this._$content = $('<a id="saveMapBtn" class="btn btn-map btn-default" style="margin-right:10px">Сохранить</a>').appendTo(parentDomContainer);
-					this._$content = $('<a id="closeMapBtn" class="btn btn-map btn-default" style="margin-left:10px">Закрыть</a>').appendTo(parentDomContainer);
-      },
-
-      _createRequest: function() {
-          var lastCenter = this._lastCenter = this.getMap().getCenter().join(',');
-					// Запрашиваем информацию о месте по координатам центра карты.
-          ymaps.geocode(this._lastCenter, {
-              // Указываем, что ответ должен быть в формате JSON.
-              json: true,
-              // Устанавливаем лимит на кол-во записей в ответе.
-              results: 1
-          }).then(function (result) {
-                  // Будем обрабатывать только ответ от последнего запроса.
-                  if (lastCenter == this._lastCenter) {
-                      this._onServerResponse(result);
-                  }
-              }, this);
-      },
-
-      _onServerResponse: function (result) {
-          // Данные от сервера были получены и теперь их необходимо отобразить.
-          // Описание ответа в формате JSON.
-          var members = result.GeoObjectCollection.featureMember,
-              geoObjectData = (members && members.length) ? members[0].GeoObject : null;
-          if (geoObjectData) {
-              this._$content.text(geoObjectData.metaDataProperty.GeocoderMetaData.text);
-          }
-      }
-    });
-
-
-    var addressControl = new addressControlClass();
-
-    map.controls.add(addressControl, {
-        float: 'none',
-        position: {
-            top: 10,
-            right: 10
-        }
-    });
- }
-
- // Сохранить адрес
- $('body').on('click', '#saveMapBtn', function () {
-	 $('#address').val($('.addressControl').text());
-	 $('#map_modal').modal('hide').remove();
-	 checking_el_valid($('#address'), "valid");
- });
-
- // Закрыть карту
- $('body').on('click', '#closeMapBtn', function () {
-	 $('#map_modal').modal('hide').remove();
- });
-
+			// Закрыть карту
+			$('body').on('click', '#closeMapBtn', function () {
+				$('#map_modal').modal('hide').remove();
+			});
 
 });

@@ -71,6 +71,7 @@
 						<label for="dateend" class="input-label">Дата завершения</label>
 					</div>
 					<div class="input-field col-xs-12 pad0">
+						<input type="hidden" id="address_coords" name="address_coords">
 						<input type="text" id="address" name="address" class="input-area" autocomplete="off">
 						<label for="password" class="input-label">Адрес</label>
 					</div>
