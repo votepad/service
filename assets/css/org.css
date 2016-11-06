@@ -416,12 +416,14 @@
 	width: 100%;
 	min-height: calc(100% - 100px);
 	overflow-y: auto;
+	vertical-align: middle;
+  display: flex;
 }
 	.neworg-wrapper .block{
 		position: relative;
 		width: 900px;
-		margin: 7% auto;
-		min-height: 360px;
+		margin:auto;
+		min-height: 200px;
 		overflow: hidden;
 	}
 	.neworg-wrapper + footer{
@@ -435,6 +437,9 @@
 		padding: 0;
 	}
 		.neworg-wrapper .block-heading .info{
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
 			padding: 8px 0;
 			z-index: 2
 		}
@@ -468,7 +473,7 @@
 			}
 	.neworg-wrapper .block-body{
 		padding: 15px 30px;
-		min-height: 280px;
+		min-height: 200px;
 	}
 	.neworg-wrapper .block-body .step{
 		position: absolute;
@@ -478,9 +483,7 @@
 
 	.neworg-wrapper .block-footer{
 		border-top-style: none;
-    position: absolute;
     width: 100%;
-    bottom: 0;
 	}
 	.neworg-wrapper .block-footer button{
     font-size: 1.5em;
@@ -491,8 +494,7 @@
 		vertical-align: baseline;
 		padding: 0 6px;
 	}
-
-.nav_button:hover i{
+.neworg-wrapper .nav_button:hover i, .neworg-wrapper .nav_button:focus i{
 	color:#1976D2;
 }
 
@@ -669,10 +671,13 @@
 	.event_wrapper:nth-child(n) .event_card { margin: auto; }
 
 	.neworg-wrapper .block-body .step {
-		top:
+		top:20px;
 	}
 	.neworg-wrapper .block-body .step .help-block{
 		display: none;
+	}
+	.neworg-wrapper .input-field .help-block + .counter {
+    bottom: 0;
 	}
 	.block .pb_wrapper{
 		background-size: 440px;

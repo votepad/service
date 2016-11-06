@@ -4,13 +4,13 @@
 	<meta charset="utf-8">
 	<title>Новая организация | NWE</title>
 
-    <!-- =============== VENDOR STYLES ===============-->
+  <!-- =============== VENDOR STYLES ===============-->
 	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
 	<link rel="stylesheet" href="<?=$assets; ?>css/app.css">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css">
 
 
-    <!-- =============== VENDOR SCRIPTS ===============-->
+  <!-- =============== VENDOR SCRIPTS ===============-->
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-new.js"></script>

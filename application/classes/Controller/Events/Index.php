@@ -44,26 +44,12 @@ class Controller_Events_Index extends Dispatch
     const ACTION_PUBLISH    = 'publish';
 
     /**
-     * @var $organization
-     */
-    protected $organization;
-
-    /**
-     * @var $event_name
-     */
-    protected $event_name;
-
-    /**
-     * @var $event
-     */
-    protected $event;
-
-    /**
      * Before action
      */
     public function before()
     {
         switch ($this->request->action()) {
+
             /**
              * Creating a new event
              */
@@ -72,24 +58,16 @@ class Controller_Events_Index extends Dispatch
                 break;
 
             /**
-             * This method allows to work with this controller as a module
-             * another module can get an information about event by making a internal request
-             * @return rendered HTML
+             *
              */
             case self::ACTION_SHOW_ALL :
-
-                if (parent::isLogged())
-                    $this->template = 'events/all';
-                else
-                    $this->template = 'events/all_not_logged';
-
+                $this->template = 'events/all';
                 break;
 
             /**
              * Event information and summernote redactor
              */
             case self::ACTION_SHOW :
-
                 $this->template = 'events/settings/about';
                 break;
 
@@ -97,7 +75,6 @@ class Controller_Events_Index extends Dispatch
              * Creating contests and stages
              */
             case self::ACTION_CONTESTS :
-
                 $this->template = 'events/settings/contests';
                 break;
 
@@ -105,7 +82,6 @@ class Controller_Events_Index extends Dispatch
              * Creating characters of events
              */
             case self::ACTION_CHARACTERS :
-
                 $this->template = 'events/settings/characters';
                 break;
 
@@ -113,7 +89,6 @@ class Controller_Events_Index extends Dispatch
              * Event publishment
              */
             case self::ACTION_PUBLISH :
-
                 $this->template = 'events/settings/publish';
                 break;
 
@@ -121,7 +96,6 @@ class Controller_Events_Index extends Dispatch
              * Scoring system
              */
             case self::ACTION_SCORTING :
-
                 $this->template = 'events/settings/scoring';
                 break;
             /**
@@ -133,50 +107,21 @@ class Controller_Events_Index extends Dispatch
         }
 
         parent::before();
-
-        $this->organization = $this->request->param('organization');
-
-        $this->event_name   = $this->request->param('eventname');
-
-
-        /**
-         * Getting information about event
-         */
-
-        $event = Model_Events::getEventByName($this->event_name);
-
-        /**
-         * Getting information about organization
-         */
-
-        $organization = Model_Organizations::get($event['id_organization'], 1);
-
-        /**
-         * Getting information about user
-         */
-
-        /**
-         * Connecting jumbotron
-         */
-        $this->template->event_jumbo = View::factory('events/jumbotron')
-                                                ->set('organization', $organization)
-                                                ->set('event', $event);
-
-        /**
-         * Event as global
-         */
-        $this->event = $event;
-
     }
 
     public function action_new()
     {
-        $this->template->organization = $this->organization;
+        $param = $this->request->param('organization');
+
+        $organization = Model_Organizations::getByFieldName('name', $param);
+        $team         = Model_Organizations::team($organization->id);
+
+        $this->template->organization = $organization;
+        $this->template->team         = $team;
     }
 
     public function action_show()
     {
-        $this->template->event = $this->event;
     }
 
     public function action_characters()
@@ -201,19 +146,5 @@ class Controller_Events_Index extends Dispatch
 
     public function action_showAll()
     {
-        $post_data = $this->request->post();
-
-        $id_organization = Arr::get($post_data, 'id_organization');
-        $organization = Model_Organizations::get($id_organization, 1);
-        
-        $this->template->organization = $organization;
-
-        /**
-         * Getting all events of organization with id - $id_organization
-         */
-
-        $events = Model_Events::getOrganizationEvents($id_organization);
-        $this->template->events = $events;
-
     }
 }

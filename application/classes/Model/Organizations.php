@@ -94,15 +94,15 @@ class Model_Organizations extends Model
 
         }
 
-        $organization->name         = $this->name;
-        $organization->website      = $this->website;
-        $organization->officialSite = $this->officialSite;
-        $organization->phone        = $this->phone;
+        $organization->name         = $organization->name ?: $this->name;
+        $organization->website      = $organization->website ?: $this->website;
+        $organization->officialSite = $organization->officialSite ?: $this->officialSite;
+        $organization->phone        = $organization->phone ?: $this->phone;
         $organization->dt_update    = DB::expr('Now()');
-        $organization->is_removed   = $this->is_removed;
+        $organization->is_removed   = $organization->is_removed ?: $this->is_removed;
         $organization->logo         = $this->logo ?: NULL;
         $organization->cover        = $this->cover ?: NULL;
-        
+
         $organization->save();
 
         $this->id = $organization->id;
@@ -145,6 +145,35 @@ class Model_Organizations extends Model
         }
 
         return false;
+    }
+
+    /**
+     * @public
+     *
+     * For simple requests, like to get basic information.
+     *
+     * @param $field
+     * @param $value
+     */
+    public static function getByFieldName($field, $value)
+    {
+        $organization = new ORM_Organizations();
+
+        $organization->where($field, '=', $value)
+                ->find();
+
+        if ($organization->loaded())
+        {
+            $result = new Model_Organizations();
+
+            $result->id           = $organization->id;
+            $result->name         = $organization->name;
+            $result->website      = $organization->website;
+            $result->officialSite = $organization->officialSite;
+            $result->phone        = $organization->phone;
+
+            return $result;
+        }
     }
 
     /**
@@ -200,6 +229,27 @@ class Model_Organizations extends Model
         }
 
         return false;
+    }
+
+    public static function team($id) {
+
+        $organization = new Model_Organizations();
+
+        $request = $organization->getTeam($id);
+
+        foreach ($request as $key => $value) {
+
+            $user = new Model_User();
+            $user->id_user  = $value->id_user;
+            $user->lastname = $value->lastname;
+            $user->name     = $value->name;
+            $user->surname  = $value->surname;
+            $user->email    = $value->email;
+            $result[] = $user;
+
+        };
+
+        return $result;
     }
 
     /**
