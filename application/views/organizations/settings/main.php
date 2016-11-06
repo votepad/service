@@ -42,8 +42,6 @@
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-main.js"></script>
-
-<? if ($user->hasPrivillege('main') && $user->role_name == 'admin'): ?>
 <script>
 	$(document).ready(function() {
 
@@ -88,4 +86,3 @@
         });
 	});
 </script>
-<? endif; ?>

@@ -1,158 +1,260 @@
 $().ready(function() {
 
   var form_el = [
-    {label: "Название организации", proc: "20", name:"org_name", flag: false},
-    {label: "Сайт организации", proc: "15", name:"org_site", flag: false},
-    {label: "Доверенное лицо", proc: "15", name:"org_user", flag: false},
-    {label: "Телефон", proc: "10", name:"org_phone", flag: false},
-    {label: "E-mail", proc: "15", name:"email", flag: false},
-    {label: "Пароль", proc: "15", name:"password", flag: false},
-    {label: "Официальный сайт организации", proc: "5", name:"official_org_site", flag: false},
-    {label: "confirmrools", proc: "5", name:"confirmrools", flag: false},
+      {
+          label: "Название организации",
+          proc: "20",
+          name: "org_name",
+          flag: false
+      },
+      {
+          label: "Сайт организации",
+          proc: "15",
+          name: "org_site",
+          flag: false
+      },
+      {
+          label: "Доверенное лицо",
+          proc: "15",
+          name: "org_user",
+          flag: false
+      },
+      {
+          label: "Телефон",
+          proc: "10",
+          name: "org_phone",
+          flag: false
+      },
+      {
+          label: "E-mail",
+          proc: "15",
+          name:"email",
+          flag: false
+      },
+      {
+          label: "Пароль",
+          proc: "15",
+          name:"password",
+          flag: false
+      },
+      {
+          label: "Официальный сайт организации",
+          proc: "5",
+          name: "official_org_site",
+          flag: false
+      },
+      {
+          label: "confirmrools",
+          proc: "5",
+          name:"confirmrools",
+          flag: false
+      },
   ];
 
 
-  /*
-  **  Find Element in Array
-  */
+    /**
+     *
+     * @param {String} name
+     * @returns {number}
+     */
+    function find_el(name) {
 
-  function find_el(name) {
-    for (var i = 0; i < form_el.length; i++) {
-      if (form_el[i].name == name) {
-        return i;
-      }
+        for (var i = 0; i < form_el.length; i++) {
+
+            if (form_el[i].name == name) {
+                return i;
+            }
+        }
     }
-  }
 
 
-  /*
-  **  Checking Vilid for Progress Bar
-  */
+    /**
+     *
+     * @param $el
+     * @param status
+     */
+    function checking_el_valid($el, status) {
 
-  function checking_el_valid($el, status) {
-    var el_num = find_el($el.attr('name'));
-    if (status == "valid" ) {
-      $el.removeClass('invalid');
-      if ( form_el[el_num].flag == false ) {
-        form_el[el_num].flag = true;
-        add_progress_bar(form_el[el_num].proc);
-      }
-    } else if ( status == "invalid" ) {
-      $el.addClass('invalid');
-      if ( form_el[el_num].flag == true ) {
-        form_el[el_num].flag = false;
-        remove_progress_bar(form_el[el_num].proc);
-      }
+        var el_num = find_el($el.attr('name'));
+
+        if (status == "valid" ) {
+
+            $el.removeClass('invalid');
+
+            if ( form_el[el_num].flag == false ) {
+
+                form_el[el_num].flag = true;
+
+                add_progress_bar(form_el[el_num].proc);
+
+            }
+
+        } else if ( status == "invalid" ) {
+
+            $el.addClass('invalid');
+
+            if ( form_el[el_num].flag == true ) {
+
+                form_el[el_num].flag = false;
+
+                remove_progress_bar(form_el[el_num].proc);
+
+            }
+        }
     }
-  }
+
+    /**
+     *
+     * @type {number}
+     */
+    var width = 0;
+
+    function add_progress_bar(num) {
+
+        width = width + parseInt(num);
+
+        $('.pb_neworg span').empty().append(width + "%");
+
+        $('.pb_wrapper').css('width', width + '%');
+    }
+
+    function remove_progress_bar(num) {
+
+        width = width - parseInt(num);
+
+        $('.pb_neworg span').empty().append(width + "%");
+
+        $('.pb_wrapper').css('width', width + '%');
+    }
 
 
-  /*
-  **  Progress Bar
-  */
+    /**
+     *
+     */
+    $('#btnnext').click(function () {
 
-  var width = 0;
-  function add_progress_bar(num) {
-    width = width + parseInt(num);
-    $('.pb_neworg span').empty().append(width + "%");
-    $('.pb_wrapper').css('width', width + '%');
-  }
-  function remove_progress_bar(num) {
-    width = width - parseInt(num);
-    $('.pb_neworg span').empty().append(width + "%");
-    $('.pb_wrapper').css('width', width + '%');
-  }
+        var $step = $(this).closest('.block').find('.step.displayblock');
+
+        var $invalid = false;
+
+        $('.input-area', $step).each(function() {
+
+            if ( $(this).val() == "" ) {
+
+                $(this).addClass('invalid');
+
+                $invalid = true;
+
+            }
+
+            if ( $(this).hasClass('invalid') )
+
+                $invalid = true;
+
+        });
 
 
-  /*
-  **  Next Step
-  */
+        if ( $invalid == false ) {
 
-  $('#btnnext').click(function () {
-    var $step = $(this).closest('.block').find('.step.displayblock');
-    var $invalid = false;
+            // hide current
 
-    $('.input-area', $step).each(function() {
-      if ( $(this).val() == "" ) {
-        $(this).addClass('invalid');
-        $invalid = true;
-      }
-      if ( $(this).hasClass('invalid') )
-        $invalid = true;
+            $step.animateCss('fadeOutLeft');
+
+            $step.removeClass('displayblock').wait(800).addClass('displaynone').removeClass('fadeOutLeft animated');
+
+            // show next
+
+            $step.next().removeClass('displaynone').addClass('displayblock').animateCss('fadeInRight');
+            $step.next().wait(800).removeClass('fadeInRight animated')
+
+
+            // checking last element
+
+            if ( $step.next().index() == $('.step').length - 1 ) {
+
+                $('#btnnext').removeClass('displayblock').addClass('displaynone');
+
+                $('#btnsubmit').removeClass('displaynone').addClass('displayblock');
+
+            } else {
+
+                $('#btnprevious').removeClass('displaynone').addClass('displayblock');
+
+            }
+        }
     });
 
-    if ( $invalid == false ) {
-      // hide current
-      $step.animateCss('fadeOutLeft');
-      $step.removeClass('displayblock').wait(800).addClass('displaynone').removeClass('fadeOutLeft animated');
 
-      // show next
-      $step.next().removeClass('displaynone').addClass('displayblock').animateCss('fadeInRight');
-      $step.next().wait(800).removeClass('fadeInRight animated')
+    /**
+     * Previous
+     */
 
-      // checking last element
-      if ( $step.next().index() == $('.step').length - 1 ) {
-        $('#btnnext').removeClass('displayblock').addClass('displaynone');
-        $('#btnsubmit').removeClass('displaynone').addClass('displayblock');
-      } else {
-        $('#btnprevious').removeClass('displaynone').addClass('displayblock');
-      }
-    }
+    $('#btnprevious').click(function () {
+        var $step = $(this).closest('.block').find('.step.displayblock');
 
+        // hide current
+
+        $step.animateCss('fadeOutRight');
+        $step.removeClass('displayblock').wait(800).addClass('displaynone').removeClass('fadeOutRight animated');
+
+        // show previous
+        $step.prev().removeClass('displaynone').addClass('displayblock').animateCss('fadeInLeft');
+        $step.prev().wait(800).removeClass('fadeInLeft animated');
+
+        // checking first element
+
+        if ( $step.prev().index() == 0 ) {
+
+            $('#btnprevious').removeClass('displayblock').addClass('displaynone');
+
+        } else {
+
+            $('#btnsubmit').removeClass('displayblock').addClass('displaynone');
+
+            $('#btnnext').removeClass('displaynone').addClass('displayblock');
+
+        }
   });
 
-
-  /*
-  **  Previous Step
-  */
-
-  $('#btnprevious').click(function () {
-    var $step = $(this).closest('.block').find('.step.displayblock');
-
-    // hide current
-    $step.animateCss('fadeOutRight');
-    $step.removeClass('displayblock').wait(800).addClass('displaynone').removeClass('fadeOutRight animated');
-
-    // show previous
-    $step.prev().removeClass('displaynone').addClass('displayblock').animateCss('fadeInLeft');
-    $step.prev().wait(800).removeClass('fadeInLeft animated');
-
-    // checking first element
-    if ( $step.prev().index() == 0 ) {
-      $('#btnprevious').removeClass('displayblock').addClass('displaynone');
-    } else {
-      $('#btnsubmit').removeClass('displayblock').addClass('displaynone');
-      $('#btnnext').removeClass('displaynone').addClass('displayblock');
-    }
-
-  });
-
-
-  /*
-  **  Submit Form
-  */
-
-  $('#btnsubmit').click(function () {
-    var $step = $(this).closest('.block').find('.step.displayblock');
-    var $invalid = false;
-
-    $('.input-area', $step).each(function() {
-      if ( $(this).val() == "" ) {
-        $(this).addClass('invalid');
-        $invalid = true;
-      }
-      if ( $(this).attr('type') == 'checkbox' && $(this).prop('checked') == false ) {
-        $(this).addClass('invalid');
-        $invalid = true;
-      }
-      if ( $(this).hasClass('invalid') )
-        $invalid = true;
-    });
-
-    if ( $invalid == false ) {
-      $("#org_site").inputmask('remove');
-      document.forms[0].submit();
-    }
+    /**
+     * Submit form
+     */
+    $('#btnsubmit').click(function () {
+        var $step = $(this).closest('.block').find('.step.displayblock');
+        var $invalid = false;
+        
+        $('.input-area', $step).each(function() {
+      
+            if ( $(this).val() == "" ) {
+        
+                $(this).addClass('invalid');
+        
+                $invalid = true;
+      
+            }
+      
+            if ( $(this).attr('type') == 'checkbox' && $(this).prop('checked') == false ) {
+        
+                $(this).addClass('invalid');
+        
+                $invalid = true;
+      
+            }
+      
+            if ( $(this).hasClass('invalid') )
+        
+                $invalid = true;
+    
+        });
+        
+    
+        if ( $invalid == false ) {
+      
+            $("#org_site").inputmask('remove');
+      
+            document.forms[0].submit();
+    
+        }
   });
 
 

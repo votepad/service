@@ -4,6 +4,7 @@
  * Class Model_Organizations
  * @author ProNWE team
  * @copyright Khaydarov Murod
+ * @version 0.1.0
  */
 
 class Model_Organizations extends Model
@@ -191,17 +192,12 @@ class Model_Organizations extends Model
      */
     public static function delete_organization($id) {
 
-        $organization = self::get($id, 1);
+        $organization = self::get($id, 0);
 
-        if ($organization->loaded())
-        {
-            $organization->is_removed = 1;
-            $organization->save();
+        $organization->is_removed = 1;
+        $organization->save($id);
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     /**
@@ -212,15 +208,10 @@ class Model_Organizations extends Model
 
         $organization = self::get($id, 0);
 
-        if ($organization->loaded())
-        {
-            $organization->is_removed = 0;
-            $organization->save();
+        $organization->is_removed = 0;
+        $organization->save($id);
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     public static function team($id) {
