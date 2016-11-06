@@ -107,9 +107,8 @@ class Controller_Organizations_Modify extends Dispatch
         $id_organization = $this->request->param('id');
 
         /** POST params */
-        $name       = Arr::get($_POST, 'org_name', '');
-        $website    = Arr::get($_POST, 'org_site', '');
-        $phone      = Arr::get($_POST, 'org_phone', '');
+        $name           = Arr::get($_POST, 'org_name', '');
+        $officialSite   = Arr::get($_POST, 'official_org_site', '');
 
         if (self::isLogged()) {
 
@@ -121,10 +120,9 @@ class Controller_Organizations_Modify extends Dispatch
         }
 
         $fields = array(
-            'name'       => $name,
-            'website'    => $website,
-            'phone'      => $phone,
-            'is_removed' => 0
+            'name'         => $name,
+            'officialSite' => $officialSite,
+            'is_removed'   => 0
         );
 
         $organization = Model_Organizations::get($id_organization, 0);
