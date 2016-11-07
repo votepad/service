@@ -61,12 +61,12 @@ Route::set('UPDATE_ORGANIZATION_FIELDS', 'organization/<id>/update_with_ajax')
 
 Route::set('CHECK_ORGANIZATION_EMAIL', 'organization/checkemail/<email>')
     ->defaults(array(
-        'controller' => 'Organization_Ajax',
+        'controller' => 'Organizations_Ajax',
         'action'     => 'checkEmail'
     ));
 
 Route::set('CHECK_ORGANIZATION_WEBSITE', 'organization/checkwebsite/<website>')
     ->defaults(array(
-        'controller' => 'Organization_Ajax',
+        'controller' => 'Organizations_Ajax',
         'action'     => 'checkWebsite'
     ));

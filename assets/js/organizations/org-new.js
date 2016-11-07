@@ -1,5 +1,7 @@
 $().ready(function() {
 
+  var url = "http://pronwe";
+
   var form_el = [
       {
           label: "Название организации",
@@ -129,7 +131,7 @@ $().ready(function() {
 
 
     /**
-     *
+     *  Next Step
      */
     $('#btnnext').click(function () {
 
@@ -186,7 +188,7 @@ $().ready(function() {
 
 
     /**
-     * Previous
+     * Previous step
      */
 
     $('#btnprevious').click(function () {
@@ -220,40 +222,44 @@ $().ready(function() {
      * Submit form
      */
     $('#btnsubmit').click(function () {
-        var $step = $(this).closest('.block').find('.step.displayblock');
+        var $form = $(this).closest('form');
         var $invalid = false;
-        
-        $('.input-area', $step).each(function() {
-      
+
+        $('.input-area', $form).each(function() {
+
             if ( $(this).val() == "" ) {
-        
+
                 $(this).addClass('invalid');
-        
+
                 $invalid = true;
-      
+
             }
-      
+
             if ( $(this).attr('type') == 'checkbox' && $(this).prop('checked') == false ) {
-        
+
                 $(this).addClass('invalid');
-        
+
                 $invalid = true;
-      
+
             }
-      
+
             if ( $(this).hasClass('invalid') )
-        
+
                 $invalid = true;
-    
+
         });
-        
-    
-        if ( $invalid == false ) {
-      
+
+
+        if ( $invalid == true ) {
+
+            alert("При заполнение формы возникли ошибки, вернитесь на предыдущий шаг и устраните их.");
+
+        } else {
+
             $("#org_site").inputmask('remove');
-      
+
             document.forms[0].submit();
-    
+
         }
   });
 
@@ -291,18 +297,35 @@ $().ready(function() {
     showMaskOnFocus: true,
     clearIncomplete: true,
     oncomplete: function(){
-      if ( check_org_site_in_DB($(this).val()) == true) {
-          $(this).parent().children('.help-block').css('display', 'block');
-          $(this).parent().children('.error-input').remove();
-          checking_el_valid($(this), "valid");
-      }
-      else {
-        $(this).parent().children('.help-block').css('display', 'none');
-        if ( ! $(this).parent().children('span').hasClass('error-input')) {
-            $(this).parent().append('<span class="error-input">К сожалению, такой адрес занят. Пожалуйста, придумайте другой адрес.</span>');
+      var $this = $(this);
+      var website = $("#org_site").inputmask('unmaskedvalue');
+
+      $.when(
+        /*
+        **  Checking organization website in DB
+        */
+        $.ajax({
+            url: url + '/organization/checkwebsite/' + website,
+            type: "POST",
+            data: {
+                website: website
+            }
+        })
+      ).then(function( data) {
+        if ( data == "false") {
+            $this.parent().children('.help-block').css('display', 'block');
+            $this.parent().children('.error-input').remove();
+            checking_el_valid($this, "valid");
         }
-        checking_el_valid($(this), "invalid");
-      }
+        else {
+          $this.parent().children('.help-block').css('display', 'none');
+          if ( ! $this.parent().children('span').hasClass('error-input')) {
+              $this.parent().append('<span class="error-input">К сожалению, такой адрес занят. Пожалуйста, придумайте другой адрес.</span>');
+          }
+          checking_el_valid($this, "invalid");
+        }
+      });
+
     },
     onincomplete: function(){
       checking_el_valid($(this), "invalid");
@@ -355,18 +378,34 @@ $().ready(function() {
       showMaskOnHover: false,
       showMaskOnFocus: true,
       oncomplete: function(){
-        if ( check_user_in_DB($(this).val()) == true) {
-            $(this).parent().children('.help-block').css('display', 'block');
-            $(this).parent().children('.error-input').remove();
-            checking_el_valid($(this), "valid");
-        }
-        else {
-          $(this).parent().children('.help-block').css('display', 'none');
-          if ( ! $(this).parent().children('span').hasClass('error-input')) {
-              $(this).parent().append('<span class="error-input">Пользователь с таким E-mail существует. Пожалуйста, пройдете авторизацию.</span>');
+        var $this = $(this);
+        var email = $("#email").val();
+
+        $.when(
+          /*
+          **  Checking user email in DB
+          */
+          $.ajax({
+              url: url + '/organization/checkemail/' + email,
+              type: "POST",
+              data: {
+                  email: email
+              }
+          })
+        ).then(function( data) {
+          if ( data == "false") {
+              $this.parent().children('.help-block').css('display', 'block');
+              $this.parent().children('.error-input').remove();
+              checking_el_valid($this, "valid");
           }
-          checking_el_valid($(this), "invalid");
-        }
+          else {
+            $this.parent().children('.help-block').css('display', 'none');
+            if ( ! $this.parent().children('span').hasClass('error-input')) {
+                $this.parent().append('<span class="error-input">Пользователь с таким E-mail существует. Пожалуйста, пройдете авторизацию.</span>');
+            }
+            checking_el_valid($this, "invalid");
+          }
+        });
       },
       onincomplete: function(){
         checking_el_valid($(this), "invalid");
@@ -418,28 +457,6 @@ $().ready(function() {
     }
   });
 
-
-  /*
-  **  Checking organization site in DB
-  */
-  function check_org_site_in_DB(site){
-    if (site == "http://nwe.ru/qqqqq") {
-      return false;
-    } else {
-      return true;
-    }
-  }
-
-  /*
-  **  Checking user email in DB
-  */
-  function check_user_in_DB(user_email){
-    if (user_email == "test@ya.ru") {
-      return false;
-    } else {
-      return true;
-    }
-  }
 
 
 });

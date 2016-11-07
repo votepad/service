@@ -20,13 +20,15 @@ class Controller_Organizations_Ajax extends Ajax
 
         if (Ajax::is_ajax()) {
             $result = Model_User::isUserExist('email', $email);
+
+            if ($result) {
+                echo "true";
+            } else {
+                echo "false";
+            }
+
         }
 
-        if ($result) {
-            return true;
-        } else {
-            return false;
-        }
     }
 
     /**
@@ -39,12 +41,13 @@ class Controller_Organizations_Ajax extends Ajax
 
         if (Ajax::is_ajax()) {
             $result = Model_Organizations::getByFieldName('website', $website);
-        }
 
-        if (count($result) > 0) {
-            return true;
-        } else {
-            return false;
+            if (count($result) > 0) {
+                echo "true";
+            } else {
+                echo "false";
+            }
+
         }
     }
 
@@ -97,12 +100,12 @@ class Controller_Organizations_Ajax extends Ajax
 
             $field = Arr::get($_POST, 'field');
             $value = Arr::get($_POST, 'value');
-            
+
             $organization = Model_Organizations::get($id_organization, 0);
             $organization->$field = $value;
             $organization->save($id_organization);
         }
-        
+
     }
 
 }
