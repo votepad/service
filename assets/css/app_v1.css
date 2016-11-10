@@ -422,7 +422,7 @@ small{
 	border-bottom: 1px solid #E0E0E0;
 }
 blockquote {
-	display: inline-block;
+	float: left;
 	padding: 10px 0 10px 20px;
 	margin: 0 0 20px;
 	font-size: 1.1em;
@@ -673,7 +673,7 @@ Buttons
 	margin-bottom: 1.5em;
 }
 
-input, textarea.textarea {
+.input-field input, textarea {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid #9e9e9e;
@@ -686,7 +686,15 @@ input, textarea.textarea {
     transition: all 0.3s;
 }
 
-input+label, textarea.textarea+label{
+textarea{
+	overflow-y: hidden;
+	padding: .5em 0 .5em 0;
+	resize: none;
+	height: 54px;
+}
+
+
+.input-field input + label, textarea + label{
     color: #9e9e9e;
     position: absolute;
     top: .6em;
@@ -699,7 +707,7 @@ input+label, textarea.textarea+label{
     user-select: none;
 }
 
-input+label.active, textarea.textarea+label.active{
+.input-field input + label.active, textarea + label.active{
     font-size: .8em;
     letter-spacing: .01em;
     -webkit-transform: translateY(-140%);
@@ -707,21 +715,21 @@ input+label.active, textarea.textarea+label.active{
 }
 
 /*  focus  */
-input:focus, textarea.textarea:focus{
+.input-field input:focus, textarea:focus{
 	border-bottom: 1px solid #0097A7;
 	box-shadow: 0 1px 0 0 #0097A7;
 }
 
-input:focus + label, textarea.textarea:focus + label{
+.input-field input:focus + label, textarea:focus + label{
     color: #0097A7;
 }
 
 /*  disabled  */
-input[disabled], textarea[disabled]{
+.input-field input[disabled], textarea[disabled]{
 	border-bottom: 1px dotted rgba(0,0,0,0.26);
 	cursor: default;
 }
-input[disabled], textarea[disabled], input[disabled] + label, textarea[disabled] + label{
+.input-field input[disabled], textarea[disabled], .input-field input[disabled] + label, textarea[disabled] + label{
 	color: rgba(0,0,0,0.26);
 }
 
@@ -736,18 +744,12 @@ input[disabled], textarea[disabled], input[disabled] + label, textarea[disabled]
     color: #bbb;
 }
 
-.input-field input[lenght~=""] + label + .help-block{
-	width: 90%;
-}
-
 /*   with counter  */
 .input-field .counter{
     display: block;
     position: absolute;
     font-size: .8em;
     letter-spacing: .035em;
-    right: 15px;
-    bottom: 8px;
 }
 
 /*  with icon  */
@@ -792,45 +794,39 @@ input[disabled], textarea[disabled], input[disabled] + label, textarea[disabled]
     color: #F44336;
 }
 
-	input.invalid, input.invalid:focus{
+	.input-field input.invalid, .input-field input.invalid:focus,
+	.input-field.label-with-icon input.invalid,  .input-field.label-with-icon input.invalid:focus,
+	textarea.invalid, textarea.invalid:focus{
 		border-bottom: 1px solid #F44336;
 		box-shadow: 0 1px 0 0 #F44336;
 	}
 
-	input.invalid + label{
+	.input-field input.invalid + label, textarea.invalid + label{
 		color: #F44336;
 	}
-
-.input-field.label-with-icon input.invalid{
-	border-bottom: 1px solid #F44336;
-	box-shadow: 0 1px 0 0 #F44336;
-}
 
 .input-field.label-with-icon input.invalid  + .icon-label{
 	color: #F44336;
 	text-shadow: 0px 0px 10px rgba(0,0,0,0.1);
 }
 
-.input-textarea{
-	overflow-y: hidden;
-	padding: .5em 0 .5em 0;
-	resize: none;
-	height: 64px;
-}
-
 
 
 
 /*
-** Checkbox Style
+ * Checkbox  &&  Radio  Style
 */
 
-[type="checkbox"]:not(:checked), [type="checkbox"]:checked {
+input[type="checkbox"]:not(:checked), input[type="checkbox"]:checked,
+input[type="radio"]:not(:checked), input[type="radio"]:checked {
     position: absolute;
     opacity: 0;
+    width: 0;
+    height: 0;
 }
 
-[type="checkbox"]+label {
+input[type="checkbox"]:not(:checked) + label, input[type="checkbox"]:checked + label,
+input[type="radio"]:not(:checked) + label, input[type="radio"]:checked + label {
     position: relative;
     padding-left: 30px;
     cursor: pointer;
@@ -844,7 +840,8 @@ input[disabled], textarea[disabled], input[disabled] + label, textarea[disabled]
     -ms-user-select: none;
 }
 
-	[type="checkbox"]+label:before, [type="checkbox"]+label:after {
+	input[type="checkbox"] + label:before, input[type="checkbox"] + label:after,
+	input[type="radio"] + label:before, input[type="radio"] + label:after {
 	    content: '';
 	    position: absolute;
 	    top: 0;
@@ -852,45 +849,55 @@ input[disabled], textarea[disabled], input[disabled] + label, textarea[disabled]
 	    width: 17px;
 	    height: 17px;
 	    z-index: 0;
-	    border: 2px solid #757575;
-	    border-radius: 3px;
-	    margin-top: 2px;
-	    transition: .2s;
+		transition: .2s;
 	}
 
-	[type="checkbox"]+label:after {
+		input[type="checkbox"] + label:before, input[type="checkbox"] + label:after{
+			border: 2px solid #757575;
+			border-radius: 3px;
+			margin-top: 2px;
+		}
+		input[type="radio"] + label:before, input[type="radio"] + label:after {
+			border: 2px solid #0097A7;
+			border-radius: 50%;
+	    	margin-top: 4px;
+		}
+
+
+	input[type="checkbox"] + label:after {
 	    -webkit-transform: scale(0);
 	    transform: scale(0);
 	}
+	input[type="checkbox"]:checked + label:before {
+	    top: -4px;
+	    left: -5px;
+	    width: 11px;
+	    height: 22px;
+		border-radius: 1px;
+	    border-top: 0;
+	    border-left: 0;
+	    border-right: 2px solid #0097A7;
+	    border-bottom: 2px solid #0097A7;
+	    -webkit-transform: rotate(40deg);
+	    transform: rotate(40deg);
+	    -webkit-backface-visibility: hidden;
+	    backface-visibility: hidden;
+	    -webkit-transform-origin: 100% 100%;
+	    transform-origin: 100% 100%;
+	}
 
-[type="checkbox"]:checked+label:before {
-    top: -4px;
-    left: -5px;
-    width: 11px;
-    height: 22px;
-	border-radius: 1px;
-    border-top: 0;
-    border-left: 0;
-    border-right: 2px solid #0097A7;
-    border-bottom: 2px solid #0097A7;
-    -webkit-transform: rotate(40deg);
-    transform: rotate(40deg);
-    -webkit-backface-visibility: hidden;
-    backface-visibility: hidden;
-    -webkit-transform-origin: 100% 100%;
-    transform-origin: 100% 100%;
-}
 
-[type="checkbox"].invalid+label{
-	color: #F44336;
-}
+	input[type="radio"]:not(:checked) + label:after{
+		border: 2px solid #757575;
+	}
+	input[type="radio"]:checked+label:after {
+	    -webkit-transform: scale(0.5);
+	    transform: scale(0.5);
+	    background-color: #0097A7;
+	}
 
-[type="checkbox"].invalid+label:before,
-[type="checkbox"].invalid+label:after{
-	border: 2px solid #F44336;
-}
-
-[type="checkbox"].focus:focus+label:after{
+/* focus */
+input[type="checkbox"].focus:focus + label:after{
 	-webkit-transform:scale(1);
 	transform:scale(1);
 	border:0;
@@ -899,13 +906,94 @@ input[disabled], textarea[disabled], input[disabled] + label, textarea[disabled]
 	background-color:rgba(0,0,0,0.05);
 }
 
+input[type="radio"].focus:focus + label:before{
+	box-shadow:0 0 0 10px rgba(0,0,0,0.05);
+}
+
+
+/* invalid */
+input[type="checkbox"].invalid + label{
+	color: #F44336;
+}
+
+input[type="checkbox"].invalid + label:before,
+input[type="checkbox"].invalid + label:after{
+	border: 2px solid #F44336;
+}
+
+
+/* disabled */
+input[type="checkbox"][disabled] + label,
+input[type="radio"][disabled] + label{
+	color: rgba(0,0,0,0.26) !important;
+	cursor: default;
+}
+input[type="checkbox"][disabled] + label:before,
+input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + label:after{
+	opacity: .26;
+}
 
 
 
 
+/*
+ *   Switches Style
+*/
+.switch{
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -ms-user-select: none;
+}
+	.switch label {
+	    cursor: pointer;
+	}
 
+	.switch label span {
+	    content: "";
+	    display: inline-block;
+	    position: relative;
+	    width: 40px;
+	    height: 15px;
+	    background-color: #E0E0E0;
+	    border-radius: 15px;
+	    margin-right: 10px;
+	    transition: background 0.3s ease;
+	    vertical-align: middle;
+	    margin: 0 16px;
+	}
+		.switch label span:after {
+			content: "";
+			position: absolute;
+			display: inline-block;
+			width: 20px;
+			height: 20px;
+			background-color: #FAFAFA;
+			border-radius: 20px;
+			box-shadow: 0 0 1px 1px rgba(0,0,0,0.1);
+			left: -5px;
+			top: -3px;
+			transition: left 0.3s ease, background .3s ease, box-shadow 0.1s ease;
+		}
 
+	.switch label input[type=checkbox]:checked + span {
+	    background-color: #35C6D3;
+	}
 
+		.switch label input[type=checkbox]:checked + span:after {
+		    background-color: #0097A7;
+		    left: 24px;
+		}
+
+/*  disabled  */
+.switch label input[type=checkbox][disabled] + span{
+	opacity: .5;
+}
+
+/*  focus   */
+.switch label input[type=checkbox].focus:focus + span:after{
+	box-shadow:0 0 0 10px rgba(53, 198, 211, .2);
+}
 
 
 
