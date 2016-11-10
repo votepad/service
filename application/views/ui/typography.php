@@ -1,42 +1,82 @@
 
   <div class="row">
-    <div class="col-lg-5 col-md-6 col-xs-12">
+    <div class="col-lg-4 col-md-6 col-xs-12">
       <div class="block block-default">
         <div class="block-heading">
-          <h4>Headings</h4>
+          <h4>Headers</h4>
         </div>
         <div class="block-body">
-          <h1>Heading 1
-             <small>Sub-heading</small>
+          <h1>Header 1
+             <small>Sub-header</small>
           </h1>
-          <h2>Heading 2
-             <small>Sub-heading</small>
+		  <blockquote>
+             <?php
+				echo htmlspecialchars("<h1>Header 1 <small>Sub-header</small></h1>");
+			 ?>
+          </blockquote>
+          <h2>Header 2
+             <small>Sub-header</small>
           </h2>
-          <h3>Heading 3
-             <small>Sub-heading</small>
+		  <blockquote>
+             <?php
+				echo htmlspecialchars("<h2>Header 2<small>Sub-heading</small></h2>");
+			 ?>
+          </blockquote>
+          <h3>Header 3
+             <small>Sub-header</small>
           </h3>
-          <h4>Heading 4
-             <small>Sub-heading</small>
+		  <blockquote>
+             <?php
+				echo htmlspecialchars("<h3>Header 3<small>Sub-heading</small></h3>");
+			 ?>
+          </blockquote>
+          <h4>Header 4
+             <small>Sub-header</small>
           </h4>
+		  <blockquote>
+             <?php
+				echo htmlspecialchars("<h4>Header 4<small>Sub-heading</small></h4>");
+			 ?>
+          </blockquote>
         </div>
       </div>
     </div>
-    <div class="col-lg-3 col-md-6 col-xs-12">
+    <div class="col-lg-4 col-md-6 col-xs-12">
       <div class="block block-default">
         <div class="block-heading">
           <h4>Paragraphs</h4>
         </div>
         <div class="block-body">
           <p>This is an example of standard paragraph text. This is an example of <a href="#" class="underlinehover">link anchor text</a> within body copy.</p>
+		  <blockquote>
+             <?php
+				echo htmlspecialchars("<a href=\"#\" class=\"underlinehover\">link anchor text</a> ");
+			 ?>
+          </blockquote>
           <p>
              <small>This is an example of small, fine print text.</small>
           </p>
+		  <blockquote>
+             <?php
+				echo htmlspecialchars("<small>This is an example of small, fine print text.</small>");
+			 ?>
+          </blockquote>
           <p>
              <strong>This is an example of strong, bold text.</strong>
           </p>
+		  <blockquote>
+             <?php
+				echo htmlspecialchars("<strong>This is an example of strong, bold text.</strong>");
+			 ?>
+          </blockquote>
           <p>
              <em>This is an example of emphasized, italic text.</em>
           </p>
+		  <blockquote>
+             <?php
+				echo htmlspecialchars("<em>This is an example of emphasized, italic text.</em>");
+			 ?>
+          </blockquote>
           <br>
           <h4>Alignment Helpers</h4>
           <p class="text-left">Left aligned text.</p>
