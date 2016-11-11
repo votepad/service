@@ -335,38 +335,141 @@ How to Create:<xmp><p><div class="switch">
     </form>
 
 
+
+<!--  PAGE SCRIPTS  -->
+<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("select").each(function(){
+            $(this).select2({
+                language: "ru"
+            });
+        });
+        $('#select4').select2({
+            placeholder: 'Enter somthing'
+        });
+        $('#select5').select2({
+            tags: true
+        });
+        $('#select6').select2({
+            tags: true,
+            tokenSeparators: [',', ' ']
+        });
+    });
+</script>
+
     <h3 class="page-header">Selects</h3>
 
     <form class="row">
 
         <div class="row row-col">
             <div class="col-xs-12 col-md-6">
-
+                <div class="input-field">
+                    <select name="" id="select1">
+                        <option selected="">option 1</option>
+                        <option disabled="">option 2</option>
+                    </select>
+                    <label for="select1">Select</label>
+                </div>
+                <br>
+                <div class="input-field">
+                    <select name="" multiple=""id="select2">
+                        <option>Very long option. Very long option. Very long option. Very long option.</option>
+                        <option>option 2</option>
+                        <option disabled="">option 3</option>
+                        <option>option 4</option>
+                        <option>option 5</option>
+                    </select>
+                    <label for="select2">Select Multiple</label>
+                </div>
+                <br>
+                <div class="input-field">
+                    <select name="" multiple=""id="select3" disabled="">
+                        <option selected="">option 2</option>
+                        <option>option 4</option>
+                        <option>option 5</option>
+                    </select>
+                    <label for="select3">Select Multiple Disabled</label>
+                </div>
+                <br>
+                <div class="input-field">
+                    <select name="" id="select4" multiple="">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                    </select>
+                    <label for="select4">Select with Placeholder</label>
+                </div>
+                <br>
+                <div class="input-field">
+                    <select name="" id="select5" multiple="">
+                        <option>option 1</option>
+                        <option>option 2</option>
+                    </select>
+                    <label for="select5">Select with tags</label>
+                </div>
+                <br>
+                <div class="input-field">
+                    <select name="" id="select6" multiple="">
+                        <optgroup label="Alaskan/Hawaiian Time Zone">
+                            <option value="AK">Alaska</option>
+                            <option value="HI">Hawaii</option>
+                        </optgroup>
+                        <optgroup label="Pacific Time Zone">
+                            <option value="CA">California</option>
+                            <option value="NV">Nevada</option>
+                            <option value="OR">Oregon</option>
+                            <option value="WA">Washington</option>
+                        </optgroup>
+                    </select>
+                    <label for="select6">Select with Optgroup</label>
+                </div>
+                <br>
+                <div class="input-field">
+                    <select name="" id="select6" class="invalid">
+                        <option></option>
+                        <option value="AK">Alaska</option>
+                        <option value="HI">Hawaii</option>
+                    </select>
+                    <label for="select6">Select with Error</label>
+                </div>
             </div>
             <div class="col-xs-12 col-md-6">
-                <blockquote>
-                    <xmp></xmp>
-                </blockquote>
+<blockquote>
+Include Scripts:<xmp><script type="text/javascript" src="../vendor/select2/dist/js/select2.min.js"></script>
+<script type="text/javascript" src="../vendor/select2/dist/js/i18n/ru.js"></script></xmp>
+<br>
+How to Create:<xmp><div class="input-field">
+    <select name="" id="select1">
+        <option>option 1</option>
+        <option>option 2</option>
+    </select>
+    <label for="select1">Select</label>
+</div></xmp>
+<br>
+Attributes for Select<xmp>multiple=""   disabled=""</xmp>
+<br>
+Attributes for option<xmp>selected=""   disabled=""</xmp>
+<br>
+Allowed<xmp><optgroup>
+    <option></option>
+    <option></option>
+</optgroup></xmp>
+<br>
+<br>
+Script<xmp>
+$('#id').select2({
+    language: 'ru', // Multiple languages 'es' - default
+    placeholder: '',
+    maximumSelectionLength: 2, // Limiting the number of selections
+    tags: true, // Tagging support
+    tokenSeparators: [',', ' ']  // Automatic tokenization
+});
+</xmp>
+</blockquote>
             </div>
         </div>
 
-    </form>
-
-
-    <h3 class="page-header">Selects 2</h3>
-
-    <form class="row">
-
-        <div class="row row-col">
-            <div class="col-xs-12 col-md-6">
-
-            </div>
-            <div class="col-xs-12 col-md-6">
-                <blockquote>
-                    <xmp></xmp>
-                </blockquote>
-            </div>
-        </div>
 
     </form>
 
@@ -378,7 +481,7 @@ How to Create:<xmp><p><div class="switch">
 
         <div class="row row-col">
             <div class="col-xs-12 col-md-6">
-
+                bootstrap datetimepicker
             </div>
             <div class="col-xs-12 col-md-6">
                 <blockquote>

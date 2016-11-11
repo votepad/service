@@ -87,7 +87,6 @@ $(window).on('load', function(){
         $(this).parent().css('cursor','default');
     });
 
-
 });
 
 
@@ -179,19 +178,6 @@ $(function(){
   $('input[type="radio"]').on('blur click', function(){
       $(this).removeClass('focus');
   });
-
-
-
-  /*
-   * Select
-  */
-
-
-  /*
-   * Select 2
-  */
-
-
 
 });
 
