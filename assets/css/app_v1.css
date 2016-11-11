@@ -503,6 +503,7 @@ a, a:hover, a:focus{
 	position: relative;
 }
 	.block-heading{
+		height: 50px;
 		padding: 15px;
 		position: relative;
 		border-bottom: 1px solid transparent;
@@ -526,7 +527,7 @@ a, a:hover, a:focus{
 	.block-heading a{
 		display: inline-block;
 		float: right;
-		font-size: 1em;
+		font-size: .9em;
 		margin-left: 10px;
 		color: transparent;
 		opacity: .3;
