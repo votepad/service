@@ -22,7 +22,7 @@ Route::set('ADD_EVENT', 'event/add')
         'action'     => 'add'
     ));
 
-Route::set('SHOW_EVENT', 'events/<eventname>(/<action>)')
+Route::set('SHOW_EVENT', 'events/<eventname>(/<action>)', array('eventname' => '!check'))
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'show'
@@ -33,3 +33,12 @@ Route::set('ADD_FULLDESCRIPTION', 'addfulldescription')
         'controller' => 'Events_Modify',
         'action'     => 'addFullDescription'
     ));
+
+Route::set('CHECK_EVENT', 'events/check/<website>', array('website' => '[^/,;?]++'))
+     ->filter(function(Route $route, $params, Request $request){
+
+     })
+     ->defaults(array(
+         'controller' => 'Events_Ajax',
+         'action'     => 'checkevent'
+     ));

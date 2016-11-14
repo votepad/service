@@ -124,6 +124,31 @@ class Model_Events extends Model
     }
 
     /**
+     * getting event infomation by any field name
+     *
+     * @param $field
+     * @param $value
+     */
+    public static function getByFieldName($field, $value) {
+
+        $event = new ORM_Events();
+
+        $event->where($field, '=', $value)
+            ->find();
+
+        if ($event->loaded()) {
+            $result = new Model_Events();
+
+            $result->id     = $event->id;
+            $result->name   = $event->name;
+            $result->page   = $event->page;
+
+            return $result;
+        }
+
+    }
+
+    /**
      * @public
      *
      * connect event and organization
