@@ -24,21 +24,24 @@
   	</div>
   	<div class="topbar">
   		<ul class="menu">
-        <li class="">
-          <a href="<?=URL::site('ui'); ?>">Main</a>
-        </li>
-        <li class="">
-          <a href="<?=URL::site('ui/typography'); ?>">Typography</a>
-        </li>
-        <li class="">
-          <a href="<?=URL::site('ui/blocks'); ?>">Blocks</a>
-        </li>
-        <li class="">
-          <a href="<?=URL::site('ui/forms'); ?>">Forms</a>
-        </li>
-        <li class="">
-          <a href="<?=URL::site('ui/buttons'); ?>">Buttons</a>
-        </li>
+            <li class="">
+                <a href="<?=URL::site('ui'); ?>">Main</a>
+            </li>
+            <li class="">
+                <a href="<?=URL::site('ui/typography'); ?>">Typography</a>
+            </li>
+            <li class="">
+                <a href="<?=URL::site('ui/blocks'); ?>">Blocks</a>
+            </li>
+            <li class="">
+                <a href="<?=URL::site('ui/forms'); ?>">Forms</a>
+            </li>
+            <li class="">
+                <a href="<?=URL::site('ui/buttons'); ?>">Buttons</a>
+            </li>
+            <li class="">
+                <a href="<?=URL::site('ui/tables'); ?>">Tables</a>
+            </li>
   		</ul>
   	</div>
   	<div class="settings-menu">

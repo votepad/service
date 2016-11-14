@@ -693,7 +693,7 @@ Buttons
 	margin-bottom: 1.5em;
 }
 
-.input-field input, textarea {
+.input-field input, .input-field textarea {
     background-color: transparent;
     border: none;
     border-bottom: 1px solid #9e9e9e;
@@ -706,7 +706,7 @@ Buttons
     transition: all 0.3s;
 }
 
-textarea{
+.input-field textarea{
 	overflow-y: hidden;
 	padding: .5em 0 .5em 0;
 	resize: none;
@@ -714,7 +714,7 @@ textarea{
 }
 
 
-.input-field input + label, textarea + label{
+.input-field input + label, .input-field textarea + label{
     color: #9e9e9e;
     position: absolute;
     top: .6em;
@@ -727,7 +727,7 @@ textarea{
     user-select: none;
 }
 
-.input-field input + label.active, textarea + label.active{
+.input-field input + label.active, .input-field textarea + label.active{
     font-size: .8em;
     letter-spacing: .01em;
     -webkit-transform: translateY(-140%);
@@ -735,21 +735,21 @@ textarea{
 }
 
 /*  focus  */
-.input-field input:focus, textarea:focus{
+.input-field input:focus, .input-field textarea:focus{
 	border-bottom: 1px solid #0097A7;
 	box-shadow: 0 1px 0 0 #0097A7;
 }
 
-.input-field input:focus + label, textarea:focus + label{
+.input-field input:focus + label, .input-field textarea:focus + label{
     color: #0097A7;
 }
 
 /*  disabled  */
-.input-field input[disabled], textarea[disabled]{
+.input-field input[disabled], .input-field textarea[disabled]{
 	border-bottom: 1px dotted rgba(0,0,0,0.26);
 	cursor: default;
 }
-.input-field input[disabled], textarea[disabled], .input-field input[disabled] + label, textarea[disabled] + label{
+.input-field input[disabled], .input-field textarea[disabled], .input-field input[disabled] + label, .input-field textarea[disabled] + label{
 	color: rgba(0,0,0,0.26);
 }
 
@@ -1023,6 +1023,7 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
  *  Select Multiple Style
  *  Tags Style
 */
+
 .select2-hidden-accessible {
     border: 0 !important;
     clip: rect(0 0 0 0) !important;
@@ -1033,7 +1034,7 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
     position: absolute !important;
     width: 1px !important
 }
-.select2 + label{
+.select2-container + label{
     color: #9e9e9e;
     position: absolute;
     top: .6em;
@@ -1066,13 +1067,18 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
     -webkit-user-select: none;
     border-bottom: 1px solid #9e9e9e;
 }
+
+/*  focus && open   */
+
+.select2-container.select2-container--focus + label, .select2-container.select2-container--open + label{
+    color: #1976D2;
+}
 .select2-container.select2-container--focus .select2-selection, .select2-container.select2-container--open .select2-selection {
     border-bottom: 1px solid #1976D2;
     box-shadow: 0 1px 0 0 #1976D2;
 }
 
 .select2-container .select2-selection .select2-selection__rendered {
-
     outline: none;
     height: inherit;
     overflow: hidden;
@@ -1091,6 +1097,7 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
 }
 
 /*   Arrow for select single   */
+
 .select2-container .select2-selection--single .select2-selection__arrow {
     height: 2em;
     position: absolute;
@@ -1116,6 +1123,7 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
 }
 
 /*  Input for select multiple  */
+
 .select2-container .select2-search--inline {
     float: left
 }
@@ -1134,6 +1142,7 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
     }
 
 /*  Elements in select multiple   */
+
 .select2-container .select2-selection--multiple .select2-selection__choice {
     color: #616161;
     background-color: #FFF;
@@ -1166,6 +1175,7 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
     }
 
 /*   Dropdown   */
+
 .select2-container--open .select2-dropdown {
     left: 0
 }
@@ -1244,6 +1254,7 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
     }
 
 /*    DISABLED    */
+
 .select2-container.select2-container--disabled .select2-selection{
     box-shadow: none;
     border-bottom: 1px dotted rgba(0,0,0,0.26);
@@ -1267,14 +1278,13 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
 }
 
 /* optgroup  */
+
 .select2-dropdown .select2-results__option[role=group] {
     padding: 0
 }
     .select2-container--default .select2-results__option{
         padding-left: 1em
     }
-
-
 .select2-dropdown .select2-results__group {
     cursor: default;
     display: block;
@@ -1282,7 +1292,9 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
     font-size: .9em;
 }
 
+
 /*  invalid  */
+
 select.invalid + .select2-container + label{
     color: #F44336;
 }
@@ -1293,6 +1305,69 @@ select.invalid + .select2-container .select2-selection{
 
 
 
+
+
+/*
+ *
+ *	Handsontable
+ *
+*/
+
+/*Table Background */
+.ht_master tr td {
+  background-color: #FFF;
+}
+
+/* Headers Background  -  All headers */
+.handsontable th {
+  background-color: #F5F5F5 !important;
+}
+
+
+/* Borders */
+
+/*  left-top corner */
+.ht_clone_top_left_corner th {
+  border-bottom: 1px solid #BBB !important;
+  border-top: 1px solid #BBB !important;
+  border-left: 1px solid #BBB !important;
+}
+
+/* Column headers */
+
+/* Top, bottom and right */
+.ht_clone_top th {
+  border-top: 1px solid #BBB !important;
+  border-right: 1px solid #BBB !important;
+  border-bottom: 1px solid #BBB !important;
+}
+/* left */
+.handsontable.htRowHeaders thead tr th:nth-child(2) {
+    border-left: 1px solid #BBB !important;
+}
+
+/*  left first column */
+.ht_clone_left tbody th {
+  border-left: 1px solid #BBB !important;
+  border-bottom: 1px solid #BBB !important;
+}
+
+/* main table *
+/* Bottom, Right */
+.ht_master tr > td {
+  border-bottom: 1px solid #BBB;
+  border-right: 1px solid #BBB;
+}
+
+.handsontable td:first-of-type {
+    border-left: 1px solid #BBB !important;
+}
+
+/* Cell */
+/* Selected cell */
+.ht_master tr > td.current {
+  background-color: #FFF !important;
+}
 
 
 

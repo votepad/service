@@ -34,3 +34,9 @@ Route::set('Buttons', 'ui/buttons')
        'controller' => 'ui',
        'action'     => 'buttons'
    ));
+
+Route::set('Tables', 'ui/tables')
+  ->defaults(array(
+      'controller' => 'ui',
+      'action'     => 'tables'
+  ));

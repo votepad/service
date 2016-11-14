@@ -38,9 +38,14 @@ class Controller_ui extends Dispatch
 
     public function action_buttons()
     {
-      $this->template->title = "UI - Forms";
+      $this->template->title = "UI - Buttons";
       $this->template->main_section = View::factory('ui/buttons');
     }
 
+    public function action_tables()
+    {
+      $this->template->title = "UI - Tables";
+      $this->template->main_section = View::factory('ui/tables');
+    }
 
 }
