@@ -4,6 +4,7 @@
  * Class Model_User
  * @author ProNWE team
  * @copyright Khaydarov Murod
+ * @version 0.2.0
  * Methods
  *  - getCurrentUser
  *  - newUser
@@ -84,6 +85,28 @@ Class Model_User {
                         ->as_array();
 
         return Arr::get($select, '0')['id_organization'];
+    }
+
+    /**
+     * @public
+     *
+     * Checks for existance by searching field
+     *
+     * @param $field
+     * @param $value
+     * @returns [Bool] True or False
+     */
+    public static function isUserExist($field, $value) {
+        $select = DB::select('id')->from('Users')
+            ->where($field, '=', $value)
+            ->execute()
+            ->as_array();
+
+        if (count($select) > 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }
