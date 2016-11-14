@@ -113,7 +113,7 @@ class Controller_Events_Index extends Dispatch
     {
         $param = $this->request->param('organization');
 
-        $organization = Model_Organizations::getByFieldName('name', $param);
+        $organization = Model_Organizations::getByFieldName('website', $param);
         $team         = Model_Organizations::team($organization->id);
 
         $this->template->organization = $organization;

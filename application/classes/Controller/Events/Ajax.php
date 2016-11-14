@@ -14,7 +14,7 @@ class Controller_Events_Ajax extends Ajax {
 
             $event = $this->request->param('website');
 
-            $info = Model_Events::getByFieldName('page','=', $event);
+            $info = Model_Events::getByFieldName('page', $event);
 
             if (!empty($info)) {
                 echo "true";

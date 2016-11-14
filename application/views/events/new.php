@@ -44,7 +44,7 @@
 						<span class="help-block">Название увидят на гости, просматривающие Вашу страницу.</span>
 					</div>
 					<div class="input-field">
-						<input type="text" id="event_site" name="event_site" class="input-area nwe_site" autocomplete="off" data-orgname="<?=$organization->name; ?>">
+						<input type="text" id="event_site" name="event_site" class="input-area nwe_site" autocomplete="off" data-orgwebsite="<?=$organization->website; ?>">
 						<label for="event_site" class="input-label">Страница мероприятия</label>
 						<span class="help-block">По этому адресу будет доступна страница мероприятия.</span>
 					</div>
