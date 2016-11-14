@@ -26,7 +26,8 @@ class Controller_Organizations_Ajax extends Ajax
             } else {
                 echo "false";
             }
-
+        } else {
+            die('direct access not allowed');
         }
 
     }
@@ -48,6 +49,8 @@ class Controller_Organizations_Ajax extends Ajax
                 echo "false";
             }
 
+        } else {
+            die ('no direct access, sorry');
         }
     }
 
