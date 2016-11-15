@@ -127,7 +127,7 @@ class Model_Events extends Model
     /**
      * @public
      *
-     * For simple requests, like to get basic information.
+     * getting event infomation by any field name
      *
      * @param $field
      * @param $value

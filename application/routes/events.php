@@ -6,6 +6,11 @@
 * @version 0.2.0
  */
 
+ Route::set('CHECK_EVENT_WEBSITE', 'events/check/<website>')
+      ->defaults(array(
+          'controller' => 'Events_Ajax',
+          'action'     => 'checkwebsite'
+      ));
 
 Route::set('ALL_EVENTS', 'events/all')
     ->defaults(array(
@@ -58,5 +63,5 @@ Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)')
 Route::set('ADD_FULLDEplanION', 'addfulldeplanion')
     ->defaults(array(
         'controller' => 'Events_Modify',
-        'action'     => 'addFullDeplanion'
+        'action'     => 'addFullDescription'
     ));
