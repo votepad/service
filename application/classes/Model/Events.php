@@ -123,6 +123,42 @@ class Model_Events extends Model
         }
     }
 
+
+    /**
+     * @public
+     *
+     * For simple requests, like to get basic information.
+     *
+     * @param $field
+     * @param $value
+     */
+    public static function getByFieldName($field, $value)
+    {
+        $event = new ORM_Events();
+
+        $event->where($field, '=', $value)
+                ->find();
+
+        if ($event->loaded())
+        {
+            $result = new Model_Events();
+
+            $result->id                 = $event->id;
+            $result->name               = $event->name;
+            $result->page               = $event->page;
+            $result->short_description  = $event->short_description;
+            $result->keywords           = $event->keywords;
+            $result->address            = $event->address;
+            $result->start_time         = $event->start_time;
+            $result->end_time           = $event->end_time;
+
+            return $result;
+        } else {
+            return false;
+        }
+    }
+
+
     /**
      * @public
      *
