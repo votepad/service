@@ -326,7 +326,7 @@
 <blockquote>
 How to Create:<xmp><p><div class="switch">
     <label>Off <input type="checkbox"> <span></span> On </label>
-</div></xmp>
+</div></p></xmp>
 <br>Attributes<xmp>checked=""   disabled=""</xmp>
 </blockquote>
             </div>

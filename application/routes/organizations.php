@@ -58,3 +58,22 @@ Route::set('UPDATE_ORGANIZATION_FIELDS', 'organization/<id>/update_with_ajax')
         'controller' => 'Organizations_Ajax',
         'action'     => 'update'
     ));
+
+Route::set('CHECK_ORGANIZATION_EMAIL', 'organization/checkemail/<email>', array('email' => '[^/,;?]++'))
+    ->filter(function(Route $route, $params, Request $request) {
+//        echo Debug::vars($route);
+//        echo Debug::Vars($params);
+//        echo Debug::vars($request);
+
+        // perhaps System route regexp should be changed.
+    })
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
+        'action'     => 'checkEmail'
+    ));
+
+Route::set('CHECK_ORGANIZATION_WEBSITE', 'organization/checkwebsite/<website>')
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
+        'action'     => 'checkWebsite'
+    ));

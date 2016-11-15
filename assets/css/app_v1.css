@@ -24,20 +24,18 @@ body {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
-.fixed_top{
+.header-top-fixed{
 	position:fixed;
 	background-color:#fff;
-	z-index:1;
+	z-index:1000;
 	top:0;
 	left:0;
 	width:100%;
 	height:40px;
 	line-height:40px;
-	box-shadow:0 -1px 15px -5px #000;
 }
 
-	.company_logo{
+	.header-top-fixed-logo{
 		background-color:#0097A7;
 		min-width:5em;
 		max-width:10em;
@@ -50,7 +48,7 @@ body {
 		font-size:2em;
 	}
 
-	.menu{
+	.header-top-fixed-menu{
 		height:inherit;
 		position:absolute;
 		right:15%;
@@ -59,7 +57,7 @@ body {
 		list-style:none;
 	}
 
-	.menu li{
+	.header-top-fixed-menu li{
 		display:inline-block;
 		width:8em;
 		text-align:center;
@@ -69,11 +67,11 @@ body {
 		color:#0097A7; /* main red*/
 	}
 
-	.fixed_top a{
+	.header-top-fixed a{
 		color:#0097A7;
 	}
 
-.topbar{
+.nav-top{
 	width:100%;
 	margin-top:40px;
 	background:#0097A7;
@@ -81,31 +79,30 @@ body {
 	display:block;
 }
 
-	.topbar .menu{
-		position: static;
+	.nav-top-links{
+		height:inherit;
 		text-align:center;
 		margin:0 auto;
 	}
 
-	.topbar li{
-		width:auto;
-		height:inherit;
+	.nav-top-links li{
+		display:inline-block;
 		line-height:50px;
 		font-size:0.9em;
 	}
 
-	.topbar a{
+	.nav-top-links a{
 		color:#fff;
 		padding: 0 1em;
 		display:inline-block;
 		height:inherit;
 	}
 
-	.topbar a:hover,.topbar a:focus{
+	.nav-top-links a:hover, .nav-top-links a:focus{
 		background-color:rgba(0,0,0,0.25);
 	}
 
-.settings-menu{
+.nav-left{
 	position:fixed;
 	left:2%;
 	top:100px;
@@ -113,13 +110,13 @@ body {
 	animation: fadeInLeft 1s ease-out 0s 1;
 }
 
-	.settings-menu ul{
+	.nav-left-links {
 		list-style:none;
 		padding:0;
 		margin:0;
 	}
 
-	.settings-menu a{
+	.nav-left-links a{
 		color: #413a41;
 		display:block;
 		margin: 3px;
@@ -127,24 +124,21 @@ body {
 		letter-spacing: -0.05em;
 	}
 
-	.settings-menu a:hover{
+	.nav-left-links a:hover, .nav-left-links a:focus{
 		transform: scale(1.1);
 		color: #0097A7;
 	}
 
-.content{
+section{
 	width:70%;
 	margin:0 auto;
-	min-height:900px;
 }
 
 footer{
 	height:250px;
 	width:100%;
 	background-color: rgba(0,0,0,0.75);
-
 }
-
 
 
 
@@ -360,6 +354,9 @@ button, input, textarea {
 }
 button{
 
+}
+a{
+	cursor: pointer;
 }
 
 ul{
@@ -1313,14 +1310,25 @@ select.invalid + .select2-container .select2-selection{
  *
 */
 
+/*  checkbox */
+.handsontable input[type="checkbox"]{
+	position: relative;
+	width: auto;
+	height: auto;
+	opacity: 1;
+}
+.handsontable tr th, .handsontable tr td {
+	vertical-align: middle;
+}
+
 /*Table Background */
 .ht_master tr td {
-  background-color: #FFF;
+	background-color: #FFF;
 }
 
 /* Headers Background  -  All headers */
 .handsontable th {
-  background-color: #F5F5F5 !important;
+	background-color: #F5F5F5 !important;
 }
 
 

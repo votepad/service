@@ -91,6 +91,7 @@ class Model_PrivillegedUser extends Model_User {
                                     ->as_array();
 
         $this->role_name = Arr::get($select, '0')['role_name'];
+        $this->id_role   = $id_role;
         
         return $id_role;
     }

@@ -4,6 +4,7 @@
  * Class Model_Organizations
  * @author ProNWE team
  * @copyright Khaydarov Murod
+ * @version 0.1.0
  */
 
 class Model_Organizations extends Model
@@ -27,11 +28,6 @@ class Model_Organizations extends Model
      * @var $officialSite
      */
     public $officialSite;
-
-    /**
-     * @var $phone
-     */
-    public $phone;
 
     /**
      * @var $dt_created
@@ -94,14 +90,13 @@ class Model_Organizations extends Model
 
         }
 
-        $organization->name         = $organization->name ?: $this->name;
-        $organization->website      = $organization->website ?: $this->website;
-        $organization->officialSite = $organization->officialSite ?: $this->officialSite;
-        $organization->phone        = $organization->phone ?: $this->phone;
+        $organization->name         = $this->name ?: $organization->name;
+        $organization->website      = $this->website ?: $organization->website;
+        $organization->officialSite = $this->officialSite ?: $organization->officialSite;
         $organization->dt_update    = DB::expr('Now()');
-        $organization->is_removed   = $organization->is_removed ?: $this->is_removed;
-        $organization->logo         = $this->logo ?: NULL;
-        $organization->cover        = $this->cover ?: NULL;
+        $organization->is_removed   = $this->is_removed ?: $organization->is_removed;
+        $organization->logo         = $this->logo ?: '';
+        $organization->cover        = $this->cover ?: '';
 
         $organization->save();
 
@@ -132,7 +127,6 @@ class Model_Organizations extends Model
             $target->name         = $organization->name;
             $target->website      = $organization->website;
             $target->officialSite = $organization->officialSite;
-            $target->phone        = $organization->phone;
             $target->dt_update    = $organization->dt_update;
             $target->is_removed   = $organization->is_removed;
             $target->creator      = $target->getCreator($organization->id);
@@ -170,7 +164,6 @@ class Model_Organizations extends Model
             $result->name         = $organization->name;
             $result->website      = $organization->website;
             $result->officialSite = $organization->officialSite;
-            $result->phone        = $organization->phone;
 
             return $result;
         }
@@ -199,17 +192,12 @@ class Model_Organizations extends Model
      */
     public static function delete_organization($id) {
 
-        $organization = self::get($id, 1);
+        $organization = self::get($id, 0);
 
-        if ($organization->loaded())
-        {
-            $organization->is_removed = 1;
-            $organization->save();
+        $organization->is_removed = 1;
+        $organization->save($id);
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     /**
@@ -220,15 +208,10 @@ class Model_Organizations extends Model
 
         $organization = self::get($id, 0);
 
-        if ($organization->loaded())
-        {
-            $organization->is_removed = 0;
-            $organization->save();
+        $organization->is_removed = 0;
+        $organization->save($id);
 
-            return true;
-        }
-
-        return false;
+        return true;
     }
 
     public static function team($id) {

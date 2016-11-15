@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title><?=$title; ?></title>
+    <title></title>
 
     <!-- =============== VENDOR STYLES ===============-->
   	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
@@ -22,36 +22,14 @@
   			<li><a href="#">Events</a></li>
   		</ul>
   	</header>
+
   	<nav class="nav-top">
-  		<ul class="nav-top-links">
-            <li class="">
-                <a href="<?=URL::site('ui'); ?>">Main</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/typography'); ?>">Typography</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/blocks'); ?>">Blocks</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/forms'); ?>">Forms</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/buttons'); ?>">Buttons</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/tables'); ?>">Tables</a>
-            </li>
-  		</ul>
-  	</nav>
-  	<nav class="nav-left">
-  		<ul class="nav-left-links">
-  			<li><a href="">Avatar</a></li>
-  			<li><a href="">Description</a></li>
-  			<li><a href="">Security</a></li>
-  		</ul>
+        <?=$topnav; ?>
   	</nav>
 
+  	<nav class="nav-left">
+  		<?=$leftnav; ?>
+  	</nav>
 
     <section>
         <?=$main_section; ?>

@@ -4,6 +4,7 @@
  * All pages which has relationship with Organizations will be here
  * @author Pronwe team
  * @copyright Khaydarov Murod
+ * @version 0.1.1
  */
 
 class Controller_Organizations_Index extends Dispatch
@@ -101,6 +102,10 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_new()
     {
+        $isUserAuthenitfied = !empty($this->session->get('id_user'));
+        if ($isUserAuthenitfied) {
+            throw new HTTP_Exception_404;
+        }
     }
 
     /**
