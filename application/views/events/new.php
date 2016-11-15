@@ -21,7 +21,7 @@
 
 	<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
-	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.full.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/events/event-new.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/app.js"></script>
@@ -44,7 +44,7 @@
 						<span class="help-block">Название увидят на гости, просматривающие Вашу страницу.</span>
 					</div>
 					<div class="input-field">
-						<input type="text" id="event_site" name="event_site" class="input-area nwe_site" autocomplete="off" data-orgname="<?=$organization->name; ?>">
+						<input type="text" id="event_site" name="event_site" class="input-area nwe_site" autocomplete="off" data-orgwebsite="<?=$organization->website; ?>">
 						<label for="event_site" class="input-label">Страница мероприятия</label>
 						<span class="help-block">По этому адресу будет доступна страница мероприятия.</span>
 					</div>
@@ -71,6 +71,7 @@
 						<label for="dateend" class="input-label">Дата завершения</label>
 					</div>
 					<div class="input-field col-xs-12 pad0">
+						<input type="hidden" id="address_coords" name="address_coords">
 						<input type="text" id="address" name="address" class="input-area" autocomplete="off">
 						<label for="password" class="input-label">Адрес</label>
 					</div>

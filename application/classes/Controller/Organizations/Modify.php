@@ -4,6 +4,7 @@
  * Class Controller_Organizations_Modify
  * @author Pronwe team
  * @copyright Khaydarov Murod
+ * @version 0.1.1
  */
 
 class Controller_Organizations_Modify extends Dispatch
@@ -49,14 +50,14 @@ class Controller_Organizations_Modify extends Dispatch
 
                 $newUser = new Model_PrivillegedUser();
 
-                $newUser->lastname = $user_info[0];
-                $newUser->name = $user_info[1];
-                $newUser->surname = $user_info[2];
-                $newUser->email = $email;
-                $newUser->password = $password;
-                $newUser->phone = $phone;
-                $newUser->done = 1;
-                $newUser->id_role = 1;
+                $newUser->lastname  = $user_info[0];
+                $newUser->name      = $user_info[1];
+                $newUser->surname   = $user_info[2];
+                $newUser->email     = $email;
+                $newUser->password  = $password;
+                $newUser->phone     = $phone;
+                $newUser->done      = 1;
+                $newUser->id_role   = 1;
 
                 $newUser->save();
 
@@ -67,9 +68,6 @@ class Controller_Organizations_Modify extends Dispatch
             $organization->website = $website;
             $organization->officialSite = $official;
 
-            $organization->logo = "no-logo.jpg";
-            $organization->cover = "no-cover.jpg";
-
             $organization->save();
 
             if (isset($user_id)) {
@@ -78,6 +76,18 @@ class Controller_Organizations_Modify extends Dispatch
                 Model_Organizations::addUsersOrganization($newUser->id_user, $organization->id);
             }
 
+            /**
+             * Authentificating user
+             * Internal request for authentification
+             * Sending request
+             */
+            Request::factory('auth/signin')
+                ->method(Request::POST)
+                ->post(array(
+                    'email'    => $newUser->email,
+                    'password' => $newUser->password
+                ))
+                ->execute();
 
             $this->redirect('organization/' . $organization->id);
             
@@ -97,9 +107,8 @@ class Controller_Organizations_Modify extends Dispatch
         $id_organization = $this->request->param('id');
 
         /** POST params */
-        $name       = Arr::get($_POST, 'org_name', '');
-        $website    = Arr::get($_POST, 'org_site', '');
-        $phone      = Arr::get($_POST, 'org_phone', '');
+        $name           = Arr::get($_POST, 'org_name', '');
+        $officialSite   = Arr::get($_POST, 'official_org_site', '');
 
         if (self::isLogged()) {
 
@@ -111,13 +120,12 @@ class Controller_Organizations_Modify extends Dispatch
         }
 
         $fields = array(
-            'name'       => $name,
-            'website'    => $website,
-            'phone'      => $phone,
-            'is_removed' => 0
+            'name'         => $name,
+            'officialSite' => $officialSite,
+            'is_removed'   => 0
         );
 
-        $organization = new Model_Organizations();
+        $organization = Model_Organizations::get($id_organization, 0);
 
         foreach ($fields as $key => $value) {
             $organization->$key = $value;
