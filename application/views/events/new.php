@@ -21,7 +21,7 @@
 
 	<script src="//api-maps.yandex.ru/2.1/?lang=ru_RU" type="text/javascript"></script>
 
-	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.full.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/events/event-new.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/app.js"></script>

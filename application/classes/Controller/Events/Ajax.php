@@ -8,7 +8,7 @@
 
 class Controller_Events_Ajax extends Ajax {
 
-    public function action_checkevent()
+    public function action_checkwebsite()
     {
         if (Ajax::is_ajax()) {
 

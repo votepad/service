@@ -65,7 +65,7 @@ Route::set('CHECK_ORGANIZATION_EMAIL', 'organization/checkemail/<email>', array(
 //        echo Debug::Vars($params);
 //        echo Debug::vars($request);
 
-        // perhaps System route regexp should be changed. 
+        // perhaps System route regexp should be changed.
     })
     ->defaults(array(
         'controller' => 'Organizations_Ajax',
