@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No direct plan access.');
 /**
  * @author NWE Team
  * @copyright Turov Nikolay

@@ -1,41 +1,38 @@
-<?php
+<?php defined('SYSPATH') or die('No direct plan access.');
 
 /**
-* Class Events_Index
-* All pages which has relationship with Events will be here
-* @author NWE team
-* @copyright Turov Nikolay
-* @version 0.2.0
+ * Class Controller_Events_Index
+ * All pages which has relationship with Events will be here
+ *
+ * @author Khaydarov Murod
+ * @author Khaydarov Murod <murod.haydarov@gmail.com>
+ * @copyright Khaydarov Murod
+ *
+ * @author Turov Nikolay
+ *
+ * @version 0.2.1
  */
-
 class Controller_Events_Index extends Dispatch
 {
-
     /**
      * @const ACTION_NEW [String] - for creating a new event
      */
     const ACTION_NEW        = 'New';
-
 
     /**
      * @const ACTION_SHOW_ALL [String] - Show all action
      */
     const ACTION_SHOW_ALL   = 'showAll';
 
-
-
     /**
      * @var $organization [String] - default value is null. Keeps cached render
      */
     protected $organization = null;
 
-
     /**
      * @var $event [String] - default value is null. Keeps cached render
      */
     protected $event = null;
-
-
 
     /**
      * Function that calls before main action
@@ -61,7 +58,6 @@ class Controller_Events_Index extends Dispatch
             case self::ACTION_SHOW_ALL :
                 $this->template = 'events/all';
                 break;
-
 
             /**
              * Default template for others pages
@@ -100,11 +96,11 @@ class Controller_Events_Index extends Dispatch
           if ($this->organization != false && $this->event != false) {
 
               /**
-                * Top Navigation
+               * Top Navigation
                */
-               $this->template->topnav = View::factory('events/menu')
-                    ->set('orgpage', $this->organization->website)
-                    ->set('eventpage', $this->event->page);
+              $this->template->topnav = View::factory('events/menu')
+                  ->set('orgpage', $this->organization->website)
+                  ->set('eventpage', $this->event->page);
 
           }
 
@@ -115,10 +111,9 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_new()
     {
-        $team         = Model_Organizations::team($this->organization->id);
-        $this->template->team         = $team;
+        $team = Model_Organizations::team($this->organization->id);
+        $this->template->team = $team;
     }
-
 
     /**
      * action_managemain - action that open page where is a main panel for manage event
