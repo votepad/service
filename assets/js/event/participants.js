@@ -12,7 +12,7 @@ $(document).ready(function() {
         column_disabled,
         column_edited,
         hot,
-        data_valid = false;
+        data_valid = true;
 
 
     /*
@@ -50,7 +50,7 @@ $(document).ready(function() {
             data:'part_name',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) ) {
+                if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "") {
                     data_valid = false;
                     callback(false);
                 } else {
@@ -80,7 +80,12 @@ $(document).ready(function() {
      var array_participants = [
          {
              "part_avatar": "",
-             "part_name":"",
+             "part_name":"выв",
+             "part_description": ""
+         },
+         {
+             "part_avatar": "",
+             "part_name":"выв",
              "part_description": ""
          },
      ];
@@ -94,7 +99,7 @@ $(document).ready(function() {
 		 rowHeaders: true,
 		 fillHandle: false,
 		 stretchH: 'all',
-		 colHeaders: ['Фото', 'Фимилия Имя', 'Об участнике'],
+		 colHeaders: ['Фото', 'Фамилия Имя', 'Об участнике'],
          columns: column_disabled,
          colWidths: function(index){
              var width = parseInt(document.body.clientWidth);
