@@ -92,33 +92,67 @@ $(window).on('load', function(){
 /*
  *  Document Ready
  */
-$().ready(function(){
+$(document).ready(function(){
 
     /*
      *  Header-top-fixed - box-shadow
+     *  Left Navigation - position
      */
+     $navleft = $('.nav-left');
+
      if($('.header-top-fixed').next('.nav-top').hasClass('nav-top')){
+
+         $navleft.css('top','100px');
+
          $(window).scroll(function() {
+
              var scroll = $(window).scrollTop();
-             if (scroll > 5) {
-                    $('.header-top-fixed').css('box-shadow','0 -1px 15px -5px #000');
-                }
-            else {
-                $('.header-top-fixed').css('box-shadow','none');
-            }
+
+             if (scroll > 5)
+                 $('.header-top-fixed').css('box-shadow','0 -1px 15px -5px #000');
+
+             else
+                 $('.header-top-fixed').css('box-shadow','none');
+
+             $navleft.css('top',parseInt(100-scroll));
+
+             if (scroll > 50)
+                $navleft.css('top','50px');
+
         });
 
      } else {
+
+         $navleft.css('top','50px');
+
          $('.header-top-fixed').css('box-shadow','0 -1px 15px -5px #000');
+
      }
 
 
-     $('body').on('hover', '.colHeader', function(){
-         console.log($(this));
+     /*
+      *  Left navigation
+     */
+     $(window).resize(function(){
+         if ( $(window).width() > 992 ) {
+             $('.nav-left').css('display','block');
+         } else {
+             $('.nav-left').css('display','none');
+         }
      });
 
+     $('#open_leftnav').click(function(){
+        $('body').addClass('hidden').append('<div class="nav-left-open"></div>');
+        $('.nav-left').css('display','block');
+     });
 
-
+     $('body').on('click', '.nav-left-open', function(){
+         $('body').removeClass('hidden')
+         $('.nav-left').animateCss('fadeOutLeft');
+         $('.nav-left').wait(500).css('display','none').removeClass('animated fadeOutLeft');
+         $(this).remove();
+     });
+     
 });
 
 
@@ -256,3 +290,59 @@ $.notifyDefaults({
     },
 	delay: 2000,
 });
+
+
+/*
+ *  Jquery Waiting Element
+*/
+(function ($) {
+  $.fn.wait = function(delay) {
+      return new jQueryWaiting(this, delay);
+  };
+
+  function jQueryWaiting ($el, delay) {
+      var item = this;
+      this._$el = $el;
+      this._Queue = [];
+      this._delayCompleted = false;
+
+      if (typeof delay === 'number' && delay < Infinity && delay >= 0 )
+          this.timeout = window.setTimeout(function () {
+              item._QueueActions();
+          }, delay);
+      else
+          return $el;
+  }
+
+  jQueryWaiting.prototype._QueueActions = function(){
+      this._delayCompleted = true;
+      var next;
+      while (this._Queue.length > 0) {
+          next = this._Queue.pop();
+          this._$el = this._$el[next.fnc].apply(this._$el, next.arg);
+      }
+      return this;
+  };
+
+  jQueryWaiting.prototype._addToQueue = function(fnc, arg){
+      this._Queue.unshift({ fnc: fnc, arg: arg });
+      if (this._delayCompleted)
+          return this._QueueActions();
+      else
+          return this;
+  };
+
+  for (var fnc in $.fn) {
+      // Skip Object.prototype and Non-function properties
+      if (typeof $.fn[fnc] !== 'function' || !$.fn.hasOwnProperty(fnc))
+          continue;
+
+      jQueryWaiting.prototype[fnc] = (function (fnc) {
+          return function(){
+              // Add methods for elements after Waiting Element
+              var arg = Array.prototype.slice.call(arguments);
+              return this._addToQueue(fnc, arg);
+          };
+      })(fnc);
+  }
+})(jQuery);
