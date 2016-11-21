@@ -79,7 +79,31 @@ Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)',
  * @property String $eventpage - event website (without nwe.ru)
  * @property String $section - backoffice section (settings | plan | characters)
  * @property String $action - controller action
+ *
+ * @property [Function] $callback - this callback defines is route allowed to the section or not
  */
+$callback = function(Route $route, $params, Request $request){
+
+    $allowedRoutes = array(
+
+        'settings' => array(
+            'manageMain', 'deleteMain'
+        ),
+
+        'plan' => array(
+            'managePlan', 'deletePlan'
+        ),
+
+        'charachters' => array(
+            'maangeJudge', 'gfgdfg'
+        )
+    );
+
+    if (!in_array($params['action'], $allowedRoutes[$params['section']])) {
+        return false;
+    }
+};
+
 Route::set('EVENT_MANAGEMENT', '<organizationpage>/<eventpage>/<section>(/<action>)',
     array(
         'organizationpage' => $STRING,
@@ -87,6 +111,7 @@ Route::set('EVENT_MANAGEMENT', '<organizationpage>/<eventpage>/<section>(/<actio
         'section' => 'settings|plan|characters',
         'acrion' => $STRING
     ))
+    ->filter($callback)
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'ControlMain'
