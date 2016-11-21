@@ -16,61 +16,80 @@
   	<script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
   </head>
   <body>
-    <header class="header-top-fixed">
-        <div class="header-top-fixed-collapsemenu">
-            <button id="open_leftnav">
-                <i class="fa fa-bars" aria-hidden="true"></i>
-            </button>
+    <header class="header">
+        <div class="header_wrapper">
+            <div class="header_menu-collapse-btn">
+                <button id="open_leftnav" class="header_button">
+                    <i class="fa fa-bars header_icon" aria-hidden="true"></i>
+                </button>
+            </div>
+            <div class="header_logo">NWE</div>
+            <div class="header_menu">
+                <ul class="nav">
+                    <li class="nav_item">
+                        <a href="<?=URL::site('ui'); ?>" class="nav_link">
+                            Управлени
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="<?=URL::site('ui/typography'); ?>" class="nav_link">
+                            Администрирование
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="<?=URL::site('ui/blocks'); ?>" class="nav_link">
+                            Сценарий
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="<?=URL::site('ui/forms'); ?>" class="nav_link">
+                            Действующие лица
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="<?=URL::site('ui/buttons'); ?>" class="nav_link">
+                            Страница
+                        </a>
+                    </li>
+                    <li class="nav_item">
+                        <a href="<?=URL::site('ui/tables'); ?>" class="nav_link">
+                            Tables
+                        </a>
+                    </li>
+                </ul>
+            </div>
+      		<div class="header_dropdown dropdown">
+                <a id="open_usermenu" class="header_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <span class="header_text">Николай</span>
+                    <i class="fa fa-caret-down header_icon" aria-hidden="true"></i>
+                </a>
+                <ul class="dropdown-menu pull-right" aria-labelledby="open_usermenu">
+                    <li class="nav_item">
+                        <a href="#" class="nav_link">
+                            <i class="fa fa-cubes nav_icon header_icon" aria-hidden="true"></i>
+                            Мои мероприятия
+                        </a>
+                    </li>
+                    
+                    <li class="nav_item">
+                        <a href="#" class="nav_link">
+                            <i class="fa fa-user nav_icon header_icon" aria-hidden="true"></i>
+                            Профиль
+                        </a>
+                    </li>
+                    <li role="separator" class="divider"></li>
+                    <li class="nav_item">
+                        <a href="#" class="nav_link">
+                            <i class="fa fa-sign-out nav_icon header_icon" aria-hidden="true"></i>
+                            Выйти
+                        </a>
+                    </li>
+               </ul>
+      		</div>
         </div>
-        <div class="header-top-fixed-logo">NWE</div>
-        <ul class="header-top-fixed-menu-left">
-            <li class="">
-                <a href="<?=URL::site('ui'); ?>">Main</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/typography'); ?>" class="active">Typography</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/blocks'); ?>">Blocks</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/forms'); ?>">Forms</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/buttons'); ?>">Buttons</a>
-            </li>
-            <li class="">
-                <a href="<?=URL::site('ui/tables'); ?>">Tables</a>
-            </li>
-  		</ul>
-  		<div class="header-top-fixed-menu-right dropdown">
-            <a id="open_usermenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Николай
-                <i class="fa fa-caret-down" aria-hidden="true"></i>
-			   </a>
-           <ul class="dropdown-menu pull-right" aria-labelledby="open_usermenu">
-               <li>
-                   <a href="#">
-                       <i class="fa fa-cubes" aria-hidden="true"></i>
-                       Мои мероприятия
-                   </a>
-               </li>
-               <li class="divider"></li>
-               <li>
-                   <a href="#">
-                       <i class="fa fa-user" aria-hidden="true"></i>
-                       Профиль
-                   </a>
-               </li>
-               <li class="divider"></li>
-               <li>
-                   <a href="#">
-                       <i class="fa fa-sign-out" aria-hidden="true"></i>
-                       Выйти
-                   </a>
-               </li>
-           </ul>
-  		</div>
   	</header>
+
+
   	<nav class="nav-left">
   		<ul class="nav-left-links">
             <li class="lg-displaynone">
@@ -90,7 +109,6 @@
             </li>
   		</ul>
   	</nav>
-
 
     <section>
         <?=$main_section; ?>
