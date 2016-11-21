@@ -69,41 +69,34 @@ class Controller_Events_Index extends Dispatch
 
         parent::before();
 
-        /**
-         * @var 'organizationpage' - organization website
-         */
-         $param = $this->request->param('organizationpage');
-         $this->organization = Model_Organizations::getByFieldName('website', $param);
+
+        $organizationPage = $this->request->param('organizationpage');
+        $this->organization = Model_Organizations::getByFieldName('website', $organizationPage);
 
         /**
          * Organization info
          */
-         $this->template->organization = $this->organization;
+        $this->template->organization = $this->organization;
 
 
-         /**
-          * @var 'eventpage' - event website
-          */
-          $param = $this->request->param('eventpage');
-          $this->event = Model_Events::getByFieldName('page', $param);
+        /**
+         * @var 'eventpage' - event website
+         */
+        $eventPage = $this->request->param('eventpage');
+        $this->event = Model_Events::getByFieldName('page', $eventPage);
 
-         /**
-          * Event info
-          */
-          $this->template->event = $this->event;
+        /**
+         * Event info
+         */
+        $this->template->event = $this->event;
 
+        if (!$this->organization && !$this->event) {
+            throw new HTTP_Exception_404();
+        }
 
-          if ($this->organization != false && $this->event != false) {
-
-              /**
-               * Top Navigation
-               */
-              $this->template->topnav = View::factory('events/menu')
-                  ->set('orgpage', $this->organization->website)
-                  ->set('eventpage', $this->event->page);
-
-          }
-
+        $this->template->top = View::factory('/events/top_navigation')
+            ->set('organizationPage', $organizationPage)
+            ->set('eventPage', $eventPage);
     }
 
     /**
