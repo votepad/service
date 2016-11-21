@@ -33,6 +33,10 @@ body.hidden{
     box-sizing: border-box;
 }
 
+a{
+	color:#0097A7;
+}
+
 .header-top-fixed{
 	position:fixed;
 	background-color:#fff;
@@ -653,31 +657,138 @@ a, a:hover, a:focus{
 
 .button{
 	background-color: #0097A7;
-	border: 2px solid #E0E0E0;
+	border: 3px solid #E0E0E0;
 	font-size: 1em;
 	color:#fff;
 	display:inline-block;
-	width:50px;
-	height:50px;
+	width:auto;
+	height:40px;
 	border-radius:50px;
 }
 
-.button i,.button span{
+.button-text{
+	padding:7px 15px;
+	border-radius:10px;
+}
+
+.button-icon{
+	width:40px;
+}
+
+.button i{
 	display:inline;
 	margin: 0 5px;
 }
 
-.button span{
-	display:none;
+.button:hover,.button:focus{
+	border-color:#006a75;
 }
 
-.button:hover{
-	width:auto;
+.button:active{
+	border-bottom:0;
 }
 
-.button:hover span{
-	display:inline;
+.button-mid-arrow,.button-top-arrow-r,.button-bot-arrow-r,
+.button-mid-arrow,.button-top-arrow-l,.button-bot-arrow-l{
+	margin:0 auto;
+	position:relative;
+	height:2px;
+	background-color:#fff;
 }
+
+.button-mid-arrow{
+	width: 40%;
+}
+
+.button-bot-arrow-r,.button-top-arrow-r{
+	width:25%;
+	left:3px;
+	transition:0.25s;
+}
+
+.button-bot-arrow-l,.button-top-arrow-l{
+	width:25%;
+	left:-3px;
+	transition:0.25s;
+}
+
+.button-bot-arrow-r{
+	top:1px;
+	transform:rotate(-45deg);
+}
+
+.button-top-arrow-r{
+	top:-1px;
+	transform:rotate(45deg);
+}
+
+.button-top-arrow-l{
+	top:-1px;
+	transform:rotate(135deg);
+}
+
+.button-bot-arrow-l{
+	top:1px;
+	transform:rotate(-135deg);
+}
+
+.arrow-r,.arrow-l{
+	position:relative;
+}
+
+.button-arrow:hover>.arrow-r,
+.button-arrow:focus>.arrow-r{
+	animation: move_arrow-right 1.5s 1 ease;
+}
+
+.button-arrow:hover>.arrow-l,
+.button-arrow:focus>.arrow-l{
+	animation: move_arrow-left 1.5s 1 ease;
+}
+
+@keyframes move_arrow-right{
+	from {
+		left:0px;
+	}
+	10%{
+		left:-5px;
+	}
+	50%{
+		left:35px;
+	}
+	50.1%{
+		left:-35px;
+	}
+	to{
+		left:0px;
+	}
+}
+
+@keyframes move_arrow-left{
+	from {
+		left:0px;
+	}
+	10%{
+		left:5px;
+	}
+	50%{
+		left:-35px;
+	}
+	50.1%{
+		left:35px;
+	}
+	to{
+		left:0px;
+	}
+}
+
+/*.button-arrow:hover>.button-bot-arrow{
+	top:8px;
+}
+
+.button-arrow:hover>.button-top-arrow{
+	top:-8px;
+}*/
 
 
 /*
