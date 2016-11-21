@@ -28,27 +28,27 @@
                 <ul class="nav">
                     <li class="nav_item">
                         <a href="<?=URL::site('ui'); ?>" class="nav_link">
-                            Управлени
+                            Main
                         </a>
                     </li>
                     <li class="nav_item">
                         <a href="<?=URL::site('ui/typography'); ?>" class="nav_link">
-                            Администрирование
+                            Typography
                         </a>
                     </li>
                     <li class="nav_item">
                         <a href="<?=URL::site('ui/blocks'); ?>" class="nav_link">
-                            Сценарий
+                            Blocks
                         </a>
                     </li>
                     <li class="nav_item">
                         <a href="<?=URL::site('ui/forms'); ?>" class="nav_link">
-                            Действующие лица
+                            Forms
                         </a>
                     </li>
                     <li class="nav_item">
                         <a href="<?=URL::site('ui/buttons'); ?>" class="nav_link">
-                            Страница
+                            Buttons
                         </a>
                     </li>
                     <li class="nav_item">
@@ -70,7 +70,7 @@
                             Мои мероприятия
                         </a>
                     </li>
-                    
+
                     <li class="nav_item">
                         <a href="#" class="nav_link">
                             <i class="fa fa-user nav_icon header_icon" aria-hidden="true"></i>

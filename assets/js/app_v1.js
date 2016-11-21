@@ -156,34 +156,50 @@ $(document).ready(function(){
 
      function header_menu_fun() {
 
-         var header_menu_width = $('.header_menu .nav').width();
+         /*
+          *  Vars
+         */
+         var
+            header_menu_width = $('.header_menu .nav').width(),
+            header_menu_nav_width = 65,
+            header_menu_elements = '',
+            header_menu_dropdown = '',
+            header_menu_dropdown_elements = '',
+            header_menu_dropdown_pull_right,
+            boolean = true;
+
 
          $('.header_menu .nav').empty();
 
-         var header_menu_nav_width = 65;
-
-         var header_menu_dropdown_elements = '';
-
-         var header_menu_elements = '';
-
-         var boolean = true;
 
          for (var i = 0; i < header_menu_nav_items.length; i++) {
 
              if ( header_menu_nav_width + header_menu_nav_items[i].width < header_menu_width && boolean) {
+
                  header_menu_nav_width = header_menu_nav_width + header_menu_nav_items[i].width;
                  header_menu_elements = header_menu_elements + "<li class='nav_item'>" + header_menu_nav_items[i].html + "</li>";
+
              }
 
              else{
+
                  boolean = false;
                  header_menu_dropdown_elements = header_menu_dropdown_elements + "<li class='nav_item'>" + header_menu_nav_items[i].html + "</li>";
+
              }
 
          }
-         var header_menu_dropdown_pull_right = header_menu_width - header_menu_nav_width;
 
-         var header_menu_dropdown = '<div class="nav_item dropdown"><a id="header_menu_dropdown" class="nav_link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="header_text">Ещё</span><i class="fa fa-caret-down header_icon" aria-hidden="true"></i></a><ul class="dropdown-menu pull-right" style="right:' + header_menu_dropdown_pull_right + 'px" aria-labelledby="header_menu_dropdown">' + header_menu_dropdown_elements + '</ul></div>';
+
+         header_menu_dropdown_pull_right = header_menu_width - header_menu_nav_width;
+
+
+         if (header_menu_dropdown_elements != '') {
+
+             header_menu_dropdown = '<div class="nav_item dropdown"><a id="header_menu_dropdown" class="nav_link" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="header_text">Ещё</span><i class="fa fa-caret-down header_icon" aria-hidden="true"></i></a><ul class="dropdown-menu pull-right" style="right:' + header_menu_dropdown_pull_right + 'px" aria-labelledby="header_menu_dropdown">' + header_menu_dropdown_elements + '</ul></div>';
+
+         }
+
 
          $('.header_menu .nav').append(header_menu_elements + header_menu_dropdown);
 
