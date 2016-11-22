@@ -6,6 +6,8 @@ $(document).ready(function() {
     */
     var
         //url = "http://pronwe/assets/",
+        orgpage = window.location.pathname.split("/")[1],
+        eventpage = window.location.pathname.split("/")[2],
         edit = document.getElementById('edit'),
         save = document.getElementById('save'),
         table = document.getElementById('judges'),
@@ -50,18 +52,18 @@ $(document).ready(function() {
 					data_valid = true;
 					callback(true);
                 }
-            }
+            },
         },
         {
 			data:'judge_login',
-			readOnly: true
+			editor: false,
         },
 		{
 			data:'judge_password',
-			readOnly: true,
+            type: 'password',
+			editor: false,
 		}
     ];
-
 
 
     /*
@@ -71,7 +73,7 @@ $(document).ready(function() {
 		 {
 			 'judge_name': 'Иванов Иван Иванович',
 			 'judge_login':'ifmo-mister-1',
-			 'judge_password':'password1',
+			 'judge_password':'password10',
 		 },
 	 ];
 
@@ -204,5 +206,21 @@ $(document).ready(function() {
 
      });
 
+
+     /*
+      *  After Validate Add Login And Password
+     */
+     hot.addHook('afterValidate', function(isValid, value, row, prop, source) {
+
+         if (isValid) {
+
+             hot.setDataAtCell(row, 1, orgpage + '-' + eventpage + '-' + parseInt(row + 1));
+             hot.setDataAtCell(row, 2, '**********');
+         } else {
+             hot.setDataAtCell(row, 1, '');
+             hot.setDataAtCell(row, 2, '');
+
+         }
+     });
 
 });

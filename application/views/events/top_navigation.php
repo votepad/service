@@ -1,17 +1,17 @@
-<ul class="nav-top-links">
-    <li class="">
-        <a href="<?=URL::site($organizationpage . '/' . $eventPage . '/settings'); ?>">Панель управления</a>
+<ul class="nav">
+    <li class="nav_item">
+        <a class="nav_link" href="<?=URL::site($organizationPage . '/' . $eventPage . '/settings'); ?>">Управление</a>
     </li>
-    <li class="">
-        <a href="<?=URL::site($organizationpage . '/' . $eventPage . '/control'); ?>">Панель администрирования</a>
+    <li class="nav_item">
+        <a class="nav_link" href="<?=URL::site($organizationPage . '/' . $eventPage . '/control'); ?>">Администрирование</a>
     </li>
-    <li class="">
-        <a href="<?=URL::site($organizationpage . '/' . $eventPage . '/plan'); ?>">Сценарий</a>
+    <li class="nav_item">
+        <a class="nav_link" href="<?=URL::site($organizationPage . '/' . $eventPage . '/plan'); ?>">Сценарий</a>
     </li>
-    <li class="">
-        <a href="<?=URL::site($organizationpage . '/' . $eventPage . '/characters'); ?>">Действующие лица</a>
+    <li class="nav_item">
+        <a class="nav_link" href="<?=URL::site($organizationPage . '/' . $eventPage . '/characters'); ?>">Действующие лица</a>
     </li>
-    <li class="">
-        <a href="<?=URL::site($organizationpage . '/' . $eventPage ); ?>">Страница мероприяия</a>
+    <li class="nav_item">
+        <a class="nav_link" href="<?=URL::site($organizationPage . '/' . $eventPage ); ?>">Страница мероприяия</a>
     </li>
 </ul>

@@ -1,3 +1,7 @@
-<ul class="nav-left-links">
-    <li><a href="<?=URL::site($orgpage . '/' . $eventpage . '/settings/maininfo'); ?>">Основная информация</a></li>
+<ul class="nav navleft_wrapper">
+    <li class="nav_item">
+        <a class="nav_link" href="<?=URL::site($orgpage . '/' . $eventpage . '/maininfo'); ?>">
+            Основная информация
+        </a>
+    </li>
 </ul>
