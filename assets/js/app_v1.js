@@ -99,7 +99,10 @@ $(document).ready(function(){
      *  Left Navigation - displaynone / displayinline
      */
 
-     var header_menu_nav_items = [], temp;
+     var
+        header_menu_nav_items = [],
+        leftnav_elements_curent = $('.navleft_wrapper').html(),
+        temp;
 
      $('.header_menu .nav .nav_item').each(function(i){
          temp = {
@@ -121,30 +124,20 @@ $(document).ready(function(){
 
          header_menu_fun();
 
-         if ( $(window).width() > 992 ) {
-
-             $('.nav-left').css('display','block');
-
-         } else {
-
-             $('.nav-left').css('display','none');
-
-         }
-
      });
 
      $('#open_leftnav').click(function(){
 
-        $('body').addClass('hidden').append('<div class="nav-left-open"></div>');
-        $('.nav-left').css('display','block');
+        $('body').addClass('hidden').append('<div class="navleft-open_back"></div>');
+        $('.navleft').addClass('open');
 
      });
 
-     $('body').on('click', '.nav-left-open', function(){
+     $('body').on('click', '.navleft-open_back', function(){
 
          $('body').removeClass('hidden')
-         $('.nav-left').animateCss('fadeOutLeft');
-         $('.nav-left').wait(500).css('display','none').removeClass('animated fadeOutLeft');
+         //$('.navleft').animateCss('fadeOutLeft');
+         $('.navleft').removeClass('open');//.css('display','none').removeClass('animated fadeOutLeft');
          $(this).remove();
 
      });
@@ -202,6 +195,27 @@ $(document).ready(function(){
 
 
          $('.header_menu .nav').append(header_menu_elements + header_menu_dropdown);
+
+
+
+
+         /*
+          *  Apeend Header Menu Elements in LeftNav
+         */
+
+         $('.navleft_wrapper').empty();
+
+         if ($('body').width() + 17 < 992){
+
+             $('.navleft_wrapper').append('<li class="nav_item"><p class="nav_text">Основные ссылки</p></li>' + header_menu_elements + header_menu_dropdown_elements + '<li role="separator" class="divider"></li>' + leftnav_elements_curent);
+
+         } else{
+
+             $('.navleft_wrapper').append(leftnav_elements_curent);
+
+         }
+
+
 
      }
 

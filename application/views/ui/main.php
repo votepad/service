@@ -27,7 +27,7 @@
             <div class="header_menu">
                 <ul class="nav">
                     <li class="nav_item">
-                        <a href="<?=URL::site('ui'); ?>" class="nav_link">
+                        <a href="<?=URL::site('ui'); ?>" class="nav_link active">
                             Main
                         </a>
                     </li>
@@ -90,20 +90,15 @@
   	</header>
 
 
-  	<nav class="nav-left">
-  		<ul class="nav-left-links">
-            <li class="lg-displaynone">
-                <a href="#">Мои мероприятия</a>
-            </li>
-            <li class="divider lg-displaynone"></li>
-  			<li>
-                <a href="">
+  	<nav class="navleft">
+  		<ul class="nav navleft_wrapper">
+            <li class="nav_item">
+                <a href="#" class="nav_link">
                     Avatar
                 </a>
             </li>
-  			<li>
-                <a href="">
-
+  			<li class="nav_item">
+                <a href="#" class="nav_link">
                     Description
                 </a>
             </li>
