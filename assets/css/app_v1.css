@@ -156,15 +156,10 @@ body.hidden{
 		width: 100%;
 	}
 	.header_menu{
-		width: 53%;
-	}
-
-}
-
-@media (max-width: 680px) {
-
-	.header_menu{
 		width: 0;
+	}
+	.header_dropdown .header_button{
+		padding: 0 30px;
 	}
 
 }
