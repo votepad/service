@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') or die('No direct plan access.');
+<?php defined('SYSPATH') or die('No direct pattern access.');
 
 /**
  * Class Controller_Events_Index
@@ -10,7 +10,7 @@
  *
  * @author Turov Nikolay
  *
- * @version 0.2.1
+ * @version 0.2.2
  */
 class Controller_Events_Index extends Dispatch
 {
@@ -94,7 +94,7 @@ class Controller_Events_Index extends Dispatch
             throw new HTTP_Exception_404();
         }
 
-        $this->template->top = View::factory('/events/top_navigation')
+        $this->template->top = View::factory('/events/blocks/top_navigation')
             ->set('organizationPage', $organizationPage)
             ->set('eventPage', $eventPage);
     }
@@ -111,22 +111,21 @@ class Controller_Events_Index extends Dispatch
     /**
      * action_managemain - action that open page where is a main panel for manage event
      */
-    public function action_managemain()
+    public function action_event()
     {
-        $this->template->main_section = View::factory('events/managepanel/main');
-        $this->template->leftnav = View::factory('events/managepanel/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/manage/main');
+        $this->template->left = View::factory('events/manage/left_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
     }
-
 
     /**
      * action_maininfo - action that open page where users can edit main information about event
      */
-    public function action_maininfo()
+    public function action_landing()
     {
-        $this->template->main_section = View::factory('events/managepanel/maininfo');
-        $this->template->leftnav = View::factory('events/managepanel/leftnav')
+        $this->template->main_section = View::factory('events/manage/maininfo');
+        $this->template->leftnav = View::factory('events/manage/leftnav')
                 ->set('orgpage', $this->organization->website)
                 ->set('eventpage', $this->event->page);
     }
@@ -138,138 +137,148 @@ class Controller_Events_Index extends Dispatch
     public function action_controlmain()
     {
         $this->template->main_section = View::factory('events/control/main');
-        $this->template->leftnav = '';
+//        $this->template->leftnav = '';
     }
 
 
     /**
-     * action_planmain - action that open page where users can get some instructions about results,contests,stages,criterias
+     *
+     * PATTERN submodule.
+     * Main information about this submodule, instruction.
      */
-    public function action_planmain()
+    public function action_main()
     {
-        $this->template->main_section = View::factory('events/plan/main');
-        $this->template->leftnav = View::factory('events/plan/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/pattern/main');
+        $this->template->left = View::factory('/events/pattern/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
     }
 
-
     /**
-     * action_results - action that open page where users can edit formulas for final results
-     */
-    public function action_results()
-    {
-        $this->template->main_section = View::factory('events/plan/results');
-        $this->template->leftnav = View::factory('events/plan/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
-    }
-
-
-    /**
-     * action_contests - action that open page where users can edit contsts information
-     */
-    public function action_contests()
-    {
-        $this->template->main_section = View::factory('events/plan/contests');
-        $this->template->leftnav = View::factory('events/plan/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
-    }
-
-
-    /**
-     * action_stages - action that open page where users can edit stages information
-     */
-    public function action_stages()
-    {
-        $this->template->main_section = View::factory('events/plan/stages');
-        $this->template->leftnav = View::factory('events/plan/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
-    }
-
-
-    /**
-     * action_criterias - action that open page where users can edit criterias information
+     * PATTERN submodule
+     * criteria CRUD
      */
     public function action_criterias()
     {
-        $this->template->main_section = View::factory('events/plan/criterias');
-        $this->template->leftnav = View::factory('events/plan/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/pattern/criterias');
+        $this->template->left = View::factory('/events/pattern/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
     }
 
-
     /**
-     * action_charactersmain - action that open page where users can get some instructions about judges,participants,teams,groups
+     * PATTERN submodule
+     * stage CRUD
      */
-    public function action_charactersmain()
+    public function action_stages()
     {
-        $this->template->main_section = View::factory('events/characters/main');
-        $this->template->leftnav = View::factory('events/characters/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/pattern/stages');
+        $this->template->left = View::factory('/events/pattern/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
     }
 
     /**
+     * PATTERN submodule
+     * contest CRUD
+     */
+    public function action_contests()
+    {
+        $this->template->main_section = View::factory('events/pattern/contests');
+        $this->template->left = View::factory('/events/pattern/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+    /**
+     * PATTERN submodule
+     *
+     * Creating pattern of event.
+     */
+    public function action_results()
+    {
+        $this->template->main_section = View::factory('events/pattern/results');
+        $this->template->left = View::factory('/events/pattern/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+    /**
+     * MEMBERS submodule
+     * Information about appended members, instruction how to work with this submodule
+     */
+    public function action_info()
+    {
+        $this->template->main_section = View::factory('events/members/main');
+
+        $this->template->left = View::factory('events/members/left_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
+    }
+
+    /**
+     * MEMBERS submodule
      * action_judges - action that open page where users can edit information about judges
      */
     public function action_judges()
     {
-        $this->template->main_section = View::factory('events/characters/judges');
-        $this->template->leftnav = View::factory('events/characters/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/members/judges');
+        $this->template->left = View::factory('events/members/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
     }
 
 
     /**
+     * MEMBERS submodule
      * action_participants - action that open page where users can edit information about participants
      */
     public function action_participants()
     {
-        $this->template->main_section = View::factory('events/characters/participants');
-        $this->template->leftnav = View::factory('events/characters/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/members/participants');
+        $this->template->left = View::factory('events/members/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
     }
 
 
     /**
+     * MEMBERS submodule
      * action_teams - action that open page where users can edit information about teams
      */
     public function action_teams()
     {
-        $this->template->main_section = View::factory('events/characters/teams');
-        $this->template->leftnav = View::factory('events/characters/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/members/teams');
+        $this->template->left = View::factory('events/members/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
     }
 
 
     /**
+     * MEMBERS submodule
      * action_groups - action that open page where users can edit information about groups
      */
     public function action_groups()
     {
-        $this->template->main_section = View::factory('events/characters/groups');
-        $this->template->leftnav = View::factory('events/characters/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/members/groups');
+        $this->template->left = View::factory('events/members/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
     }
 
 
     /**
-     * action_eventpage - action that open event page which can see authorizated user and not authorizated users
+     * Action is available for all users.
+     * Shows main information about event
+     *
      */
     public function action_eventpage()
     {
         $this->template->main_section = View::factory('events/page/main');
-        $this->template->leftnav = View::factory('events/page/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->left = View::factory('/events/blocks/left_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
     }
 
     /**
