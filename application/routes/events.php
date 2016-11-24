@@ -1,4 +1,4 @@
-<?php defined('SYSPATH') or die('No direct plan access.');
+<?php defined('SYSPATH') or die('No direct pattern access.');
 
 /**
  *
@@ -9,7 +9,7 @@
  *
  * @copyright Turov Nikolay
  * 
- * @version 0.2.1
+ * @version 0.2.2
  */
 
 
@@ -77,29 +77,31 @@ Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)',
  *
  * @property String $organizationpage - organization website (without nwe.ru)
  * @property String $eventpage - event website (without nwe.ru)
- * @property String $section - backoffice section (settings | plan | characters)
+ * @property String $section - backoffice section (settings | pattern | members)
  * @property String $action - controller action
  *
  * @property [Function] $callback - this callback defines is route allowed to the section or not
+ *
+ * @example http://pronwe.ru/ifmo/miss/manage|members|pattern|control/<action>
  */
 $callback = function(Route $route, $params, Request $request){
 
     $allowedRoutes = array(
 
-        'settings' => array(
-            'manageMain', 'deleteMain'
+        'manage' => array(
+            'event'
         ),
 
-        'plan' => array(
-            'managePlan', 'deletePlan'
+        'members' => array(
+            'info', 'judges', 'participants', 'teams', 'groups'
         ),
 
-        'charachters' => array(
-            'maangeJudge', 'gfgdfg'
+        'pattern' => array(
+            'main', 'criterias', 'stages', 'contests', 'results'
         )
     );
 
-    if (!in_array($params['action'], $allowedRoutes[$params['section']])) {
+    if (!isset($params['section']) || !in_array($params['action'], $allowedRoutes[$params['section']])) {
         return false;
     }
 };
@@ -108,7 +110,7 @@ Route::set('EVENT_MANAGEMENT', '<organizationpage>/<eventpage>/<section>(/<actio
     array(
         'organizationpage' => $STRING,
         'eventpage' => $STRING,
-        'section' => 'settings|plan|characters',
+        'section' => 'manage|pattern|members',
         'acrion' => $STRING
     ))
     ->filter($callback)
