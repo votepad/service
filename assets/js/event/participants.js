@@ -11,8 +11,7 @@ $(document).ready(function() {
         partisipants_settings,
         column_disabled,
         column_edited,
-        hot,
-        data_valid = true;
+        hot;
 
 
     /*
@@ -37,6 +36,16 @@ $(document).ready(function() {
             data:'part_description',
             readOnly: true,
         },
+        {
+            data:'part_email',
+            readOnly: true,
+        },
+        {
+            data:'part_sendresult',
+            type: 'checkbox',
+            className: 'htCenter',
+            readOnly: true,
+        },
     ];
 
 
@@ -50,11 +59,9 @@ $(document).ready(function() {
             data:'part_name',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "") {
-                    data_valid = false;
+                if ( (/[^A-Za-z0-9А-Яа-я ]/.test(value) == (value === null)) && ((value === null) == (value != "")) ) {
                     callback(false);
                 } else {
-                    data_valid = true;
                     callback(true);
                 }
             }
@@ -70,6 +77,22 @@ $(document).ready(function() {
                 }
             }
         },
+        {
+            data: 'part_email',
+            validator: function (value, callback) {
+                if (/.+@.+/.test(value) || value == null || value == '') {
+                    callback(true);
+                }
+                else {
+                    callback(false);
+                }
+            }
+        },
+        {
+            data: 'part_sendresult',
+            type: 'checkbox',
+            className: 'htCenter',
+        }
     ];
 
 
@@ -81,12 +104,9 @@ $(document).ready(function() {
          {
              "part_avatar": "",
              "part_name":"выв",
-             "part_description": ""
-         },
-         {
-             "part_avatar": "",
-             "part_name":"выв",
-             "part_description": ""
+             "part_description": "",
+             "part_email": "example@ya.ru",
+             "part_sendresult": true
          },
      ];
 
@@ -98,29 +118,8 @@ $(document).ready(function() {
          data: array_participants,
 		 rowHeaders: true,
 		 fillHandle: false,
-		 stretchH: 'all',
-		 colHeaders: ['Фото', 'Фамилия Имя', 'Об участнике'],
+		 colHeaders: ['Фото', 'Фамилия Имя', 'Об участнике', 'E-mail', '<i class="icon-rating"></i> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <i class="fa fa-envelope-o" aria-hidden="true"></i>'],
          columns: column_disabled,
-         colWidths: function(index){
-             var width = parseInt(document.body.clientWidth);
-
-             if (width > 992)
-                 width = width * 0.7 - 50;
-
-             else if (width < 992)
-                width = width * 0.9 - 60;
-
-
-             if (index == 0)
-                 return width * 0.2;
-
-             if (index == 1)
-                 return width * 0.3;
-
-             if (index == 2)
-                 return width * 0.5;
-
-         }
      };
 
 
@@ -137,6 +136,9 @@ $(document).ready(function() {
 
     $('body').on('mouseenter', '.relative', function(){
         $(this).attr('title', $(this).children('.colHeader').text());
+        if ($(this).attr('title') == "  ") {
+            $(this).attr('title', 'Отправить резултаты на e-mail');
+        }
 	});
 
 
@@ -154,54 +156,64 @@ $(document).ready(function() {
             minSpareRows: 1,
             columns: column_edited
         });
+
     });
 
 
+    /*
+     *  Checking on empty FIO cell
+    */
+    hot.addHook('afterRenderer', function(td, row, col, prop, value, cellProperties){
+        if(prop == 'part_name' && value == null && row != hot.countRows() - 1) {
+            hot.setDataAtCell(row, 1, "");
+        }
+    });
 
     /*
      *  Save participants
-     */
-
+    */
     Handsontable.Dom.addEvent(save, 'click', function(el) {
 
-        if ( data_valid == true ) {
+        hot.validateCells(function(valid){
+            if ( valid == true ) {
 
-            edit.className = "pull-right displayblock";
-            save.className = "displaynone";
-
-
-            hot.updateSettings({
-                minSpareRows: 0,
-                columns: column_disabled
-            });
+                edit.className = "pull-right displayblock";
+                save.className = "displaynone";
 
 
-            /* delete last row if it's empty  */
-            /* if it's empty => show no user */
-            if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
-                hot.alter('remove_row', hot.countRows() - 1);
+                hot.updateSettings({
+                    minSpareRows: 0,
+                    columns: column_disabled
+                });
+
+
+                /* delete last row if it's empty  */
+                /* if it's empty => show no user */
+                if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
+                    hot.alter('remove_row', hot.countRows() - 1);
+                }
+
+                /*
+                 *  Data for Ajax updating
+                */
+                array_participants = [];
+
+                $.each(hot.getData(), function(rowKey, object) {
+                    if (!hot.isEmptyRow(rowKey)) array_participants[rowKey] = object;
+                });
+
+                console.log(JSON.stringify(array_participants));
+
+            } else {
+
+                $.notify({
+                	message: 'Пожалуйста, проверьте правильность введенных данных.'
+                },{
+                	type: 'danger'
+                });
+
             }
-
-            /*
-             *  Data for Ajax updating
-            */
-            array_participants = [];
-
-            $.each(hot.getData(), function(rowKey, object) {
-                if (!hot.isEmptyRow(rowKey)) array_participants[rowKey] = object;
-            });
-
-            console.log(JSON.stringify(array_participants));
-
-        } else {
-
-            $.notify({
-            	message: 'Пожалуйста, проверьте правильность введенных данных.'
-            },{
-            	type: 'danger'
-            });
-
-        }
+        });
 
     });
 
@@ -219,6 +231,72 @@ $(document).ready(function() {
 
      });
 
+
+
+     /*
+      *  Calculate columns size on resize window
+     */
+     Handsontable.Dom.addEvent(window, 'resize', calculateSize);
+
+
+     /*
+      *  Calculate columns size on page loading
+     */
+     calculateSize();
+
+
+     /*
+      *  Calculate columns size for table
+      *  versions: mobile (<680px),  table(<992px) and  desctop (>992px)
+     */
+     function calculateSize() {
+
+         // mobile settings
+         if (window.innerWidth <= 680) {
+             hot.updateSettings({
+                 stretchH: 'none',
+                 colWidths: [80,200,200,200,80]
+             });
+
+             document.getElementById('participants').style.overflowX = "auto";
+             document.getElementById('participants').style.height = "inherit";
+
+         } else {
+
+             hot.updateSettings({
+                 stretchH: 'all',
+                 colWidths: function(index){
+                     var width = parseInt(document.body.clientWidth);
+
+                     // desctop width for columns
+                     // 0.7  (section.width = 70%)
+                     // 220  (60 - width of first column, 80 - width of second and last columns)
+                     if (width > 992)
+                         width = width * 0.7 - 210;
+
+                     // tablet width for columns
+                     else if (width <= 992 && width > 680)
+                        width = width - 210;
+
+                     if (index == 0)
+                         return 80;
+
+                     if (index == 1)
+                         return width * 0.3;
+
+                     if (index == 2)
+                         return width * 0.4;
+
+                     if (index == 3)
+                         return width * 0.3;
+
+                     if (index == 4)
+                         return 80;
+
+                 }
+             });
+         }
+     }
 
 
     /*
