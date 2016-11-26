@@ -59,7 +59,7 @@ $(document).ready(function() {
             data:'part_name',
             readOnly: false,
             validator: function (value, callback) {
-                if ( (/[^A-Za-z0-9А-Яа-я ]/.test(value) == (value === null)) && ((value === null) == (value != "")) ) {
+                if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "" ) {
                     callback(false);
                 } else {
                     callback(true);
@@ -163,11 +163,12 @@ $(document).ready(function() {
     /*
      *  Checking on empty FIO cell
     */
-    hot.addHook('afterRenderer', function(td, row, col, prop, value, cellProperties){
-        if(prop == 'part_name' && value == null && row != hot.countRows() - 1) {
+    hot.addHook('afterValidate', function(isValid, value, row, prop, source){
+        if ( prop != 'part_name' && hot.getDataAtCell(row, 1) === null ) {
             hot.setDataAtCell(row, 1, "");
         }
     });
+
 
     /*
      *  Save participants
@@ -175,6 +176,7 @@ $(document).ready(function() {
     Handsontable.Dom.addEvent(save, 'click', function(el) {
 
         hot.validateCells(function(valid){
+
             if ( valid == true ) {
 
                 edit.className = "pull-right displayblock";
@@ -220,16 +222,16 @@ $(document).ready(function() {
 
     /*
      *   Remove empty rows while editing
-     */
-     hot.addHook('afterChange', function() {
+    */
+    hot.addHook('afterChange', function() {
 
-         for (var i = 0; i < hot.countRows(); i++) {
-             if (hot.isEmptyRow(i)) {
-                 hot.alter('remove_row', i);
-             }
-         }
+        for (var i = 0; i < hot.countRows(); i++) {
+            if (hot.isEmptyRow(i)) {
+                hot.alter('remove_row', i);
+            }
+        }
 
-     });
+    });
 
 
 

@@ -14,8 +14,7 @@ $(document).ready(function() {
         judges_settings,
         column_disabled,
         column_edited,
-        hot,
-        data_valid = true;
+        hot;
 
     /*
      *  Columns Settings
@@ -46,10 +45,8 @@ $(document).ready(function() {
             readOnly: false,
             validator: function (value, callback) {
                 if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "") {
-					data_valid = false;
 					callback(false);
                 } else {
-					data_valid = true;
 					callback(true);
                 }
             },
@@ -73,7 +70,7 @@ $(document).ready(function() {
 		 {
 			 'judge_name': 'Иванов Иван Иванович',
 			 'judge_login':'ifmo-mister-1',
-			 'judge_password':'password10',
+			 'judge_password':'dff6asdl7',
 		 },
 	 ];
 
@@ -85,29 +82,8 @@ $(document).ready(function() {
          data: array_judges,
 		 rowHeaders: true,
 		 fillHandle: false,
-		 stretchH: 'all',
 		 colHeaders: ['Фамилия Имя Отчество', 'Логин', 'Пароль'],
          columns: column_disabled,
-         colWidths: function(index){
-             var width = parseInt(document.body.clientWidth);
-
-             if (width > 992)
-                 width = width * 0.7 - 50;
-
-             else if (width < 992)
-                width = width * 0.9 - 60;
-
-
-             if (index == 0)
-                 return width * 0.5;
-
-             if (index == 1)
-                 return width * 0.25;
-
-             if (index == 2)
-                 return width * 0.25;
-
-         }
      };
 
 
@@ -144,58 +120,61 @@ $(document).ready(function() {
     });
 
 
-
     /*
      *  Save judges
-     */
+    */
 
     Handsontable.Dom.addEvent(save, 'click', function(el) {
 
-        if ( data_valid == true ) {
+        hot.validateCells(function(valid){
 
-            edit.className = "pull-right displayblock";
-            save.className = "displaynone";
+            if ( valid == true) {
 
-
-            hot.updateSettings({
-                minSpareRows: 0,
-                columns: column_disabled
-            });
+                edit.className = "pull-right displayblock";
+                save.className = "displaynone";
 
 
-            /* delete last row if it's empty  */
-            /* if it's empty => show no user */
-            if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
-                hot.alter('remove_row', hot.countRows() - 1);
+                hot.updateSettings({
+                    minSpareRows: 0,
+                    columns: column_disabled
+                });
+
+
+                /* delete last row if it's empty  */
+                /* if it's empty => show no user */
+                if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
+                    hot.alter('remove_row', hot.countRows() - 1);
+                }
+
+                /*
+                 *  Data for Ajax updating
+                */
+                array_judges = [];
+
+                $.each(hot.getData(), function(rowKey, object) {
+                    if (!hot.isEmptyRow(rowKey)) array_judges[rowKey] = object;
+                });
+
+                console.log(JSON.stringify(array_judges));
+
+            } else {
+
+                $.notify({
+                	message: 'Пожалуйста, проверьте правильность введенных данных.'
+                },{
+                	type: 'danger'
+                });
+
             }
 
-            /*
-             *  Data for Ajax updating
-            */
-            array_judges = [];
-
-            $.each(hot.getData(), function(rowKey, object) {
-                if (!hot.isEmptyRow(rowKey)) array_judges[rowKey] = object;
-            });
-
-            console.log(JSON.stringify(array_judges));
-
-        } else {
-
-            $.notify({
-            	message: 'Пожалуйста, проверьте правильность введенных данных.'
-            },{
-            	type: 'danger'
-            });
-
-        }
+        });
 
     });
 
 
     /*
      *   Remove empty rows while editing
-     */
+    */
      hot.addHook('afterChange', function() {
 
          for (var i = 0; i < hot.countRows(); i++) {
@@ -212,15 +191,79 @@ $(document).ready(function() {
      */
      hot.addHook('afterValidate', function(isValid, value, row, prop, source) {
 
-         if (isValid) {
+         if (isValid && value != null) {
 
              hot.setDataAtCell(row, 1, orgpage + '-' + eventpage + '-' + parseInt(row + 1));
-             hot.setDataAtCell(row, 2, '**********');
+             hot.setDataAtCell(row, 2, 'generated');
+
          } else {
+
              hot.setDataAtCell(row, 1, '');
              hot.setDataAtCell(row, 2, '');
 
          }
+
      });
+
+
+     /*
+      *  Calculate columns size on resize window
+     */
+     Handsontable.Dom.addEvent(window, 'resize', calculateSize);
+
+
+     /*
+      *  Calculate columns size on page loading
+     */
+     calculateSize();
+
+
+     /*
+      *  Calculate columns size for table
+      *  versions: mobile (<680px),  table(<992px) and  desctop (>992px)
+     */
+     function calculateSize() {
+
+         // mobile settings
+         if (window.innerWidth <= 680) {
+             hot.updateSettings({
+                 stretchH: 'none',
+                 colWidths: [250,180,130]
+             });
+
+             document.getElementById('judges').style.overflowX = "auto";
+             document.getElementById('judges').style.height = "inherit";
+
+         } else {
+
+             hot.updateSettings({
+                 stretchH: 'all',
+                 colWidths: function(index){
+                     var width = parseInt(document.body.clientWidth);
+
+                     // desctop width for columns
+                     // 0.7  (section.width = 70%)
+                     // 60 - width of first column
+                     if (width > 992)
+                         width = width * 0.7 - 60;
+
+                     // tablet width for columns
+                     else if (width <= 992 && width > 680)
+                        width = width * 0.9 - 60;
+
+
+                     if (index == 0)
+                         return width * 0.5;
+
+                     if (index == 1)
+                         return width * 0.25;
+
+                     if (index == 2)
+                         return width * 0.25;
+
+                 }
+             });
+         }
+     }
 
 });
