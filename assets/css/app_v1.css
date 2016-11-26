@@ -1237,11 +1237,11 @@ input[type="radio"][disabled] + label:before, input[type="radio"][disabled] + la
 /*  focus && open   */
 
 .select2-container.select2-container--focus + label, .select2-container.select2-container--open + label{
-    color: #1976D2;
+    color: #0097A7;
 }
 .select2-container.select2-container--focus .select2-selection, .select2-container.select2-container--open .select2-selection {
-    border-bottom: 1px solid #1976D2;
-    box-shadow: 0 1px 0 0 #1976D2;
+    border-bottom: 1px solid #0097A7;
+    box-shadow: 0 1px 0 0 #0097A7;
 }
 
 .select2-container .select2-selection .select2-selection__rendered {

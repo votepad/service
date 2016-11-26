@@ -92,9 +92,8 @@ $(document).ready(function(){
 
      /*
       *  Functions
-      *
       *  - header_menu_leftnav_fun()     -  creating and updating header_menu and navleft elements
-      *  - textarea_resize()     -  resize textarea height
+      *
      */
 
 
@@ -204,55 +203,53 @@ $(document).ready(function(){
      }
 
 
-
-
-     /*
-      *   Resize Textarea Size
-      *
-      *   @var element
-     */
-
-     function textarea_resize(element) {
-         /*
-          *  Vars
-         */
-         var
-             textarea,
-             originalHeight,
-             endHeight;
-
-
-         Array.prototype.forEach.call(element.length ? element : [element], function (x) {
-             textarea = x;
-         });
-
-         originalHeight = parseInt(element.height());
-
-         textarea.style.height = 'auto';
-
-         endHeight = textarea.scrollHeight;
-
-         if (originalHeight == endHeight) {
-
-             textarea.style.height = endHeight + 'px';
-
-         } else {
-
-             element.height(originalHeight);
-
-             element.animate({
-
-                 height: endHeight
-
-             }, 50);
-
-         }
-
-     }
-
-
 });
 
+
+
+/*
+ *   Resize Textarea Size
+ *
+ *   @var element
+*/
+
+function textarea_resize(element) {
+    /*
+     *  Vars
+    */
+    var
+        textarea,
+        originalHeight,
+        endHeight;
+
+
+    Array.prototype.forEach.call(element.length ? element : [element], function (x) {
+        textarea = x;
+    });
+
+    originalHeight = parseInt(element.height());
+
+    textarea.style.height = 'auto';
+
+    endHeight = textarea.scrollHeight;
+
+    if (originalHeight == endHeight) {
+
+        textarea.style.height = endHeight + 'px';
+
+    } else {
+
+        element.height(originalHeight);
+
+        element.animate({
+
+            height: endHeight
+
+        }, 50);
+
+    }
+
+}
 
 
 
@@ -439,7 +436,7 @@ $(window).on('load', function(){
 
     $('textarea').each( function() {
 
-        //textarea_resize($(this));
+        textarea_resize($(this));
 
     });
 

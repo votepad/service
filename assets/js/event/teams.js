@@ -1,8 +1,38 @@
 $(document).ready(function() {
 
+    var url = "http://pronwe/assets/img/user";
+
+    $('#team_name-0').focus(function() {
+        $(this).closest('.block').addClass('open');
+    });
+
+    $('#team_name-0').blur(function() {
+        if ($(this).val() == "") {
+            $(this).closest('.block').removeClass('open');
+        }
+    });
+
+    $('.participants_in_team').select2({
+        language: 'ru',
+        templateResult: formatState
+    });
+
+    function formatState (state) {
+        console.log(state);
+        if (!state.id) {
+            return state.text;
+        }
+        var $state = $(
+            '<span class="select2-results__withlogo"><img src="' + url + '/' + state.element.value.toLowerCase() + '" class="select2-results__logo" /> <span class="select2-results__text">' + state.text + '</span></span>'
+        );
+        return $state;
+    };
+
+});
+
     /*
      *  Vars
-    */
+    *
     var
         url = "http://pronwe/assets/img/user",
         edit = document.getElementById('edit'),
@@ -20,7 +50,7 @@ $(document).ready(function() {
      *
      *  column_disabled - when users are not allowed to edit cells in table
      *  column_edited - when users can edit cells in table
-    */
+    *
 
     column_disabled = [
         {
@@ -76,7 +106,7 @@ $(document).ready(function() {
 
     /*
      * Get array of teams from DB
-    */
+    *
      var array_teams = [
          {
              "team_avatar": "",
@@ -93,7 +123,7 @@ $(document).ready(function() {
 
      /*
       *  Handsontable settings
-     */
+     *
      teams_settings = {
          data: array_teams,
 		 rowHeaders: true,
@@ -127,14 +157,14 @@ $(document).ready(function() {
 
     /*
      *  Create Handsontable
-    */
+    *
     hot = new Handsontable(table, teams_settings);
 
 
 
     /*
 	 *  Create title for column's headers
-	*/
+	*
 
     $('body').on('mouseenter', '.relative', function(){
         $(this).attr('title', $(this).children('.colHeader').text());
@@ -144,7 +174,7 @@ $(document).ready(function() {
 
     /*
      *  Edit teams
-    */
+    *
 
     Handsontable.Dom.addEvent(edit, 'click', function() {
 
@@ -162,7 +192,7 @@ $(document).ready(function() {
 
     /*
      *  Save teams
-     */
+     *
 
     Handsontable.Dom.addEvent(save, 'click', function(el) {
 
@@ -179,15 +209,15 @@ $(document).ready(function() {
             });
 
 
-            /* delete last row if it's empty  */
-            /* if it's empty => show no user */
+            // delete last row if it's empty
+            // if it's empty => show no user
             if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
                 hot.alter('remove_row', hot.countRows() - 1);
             }
 
             /*
              *  Data for Ajax updating
-            */
+            *
             array_teams = [];
 
             $.each(hot.getData(), function(rowKey, object) {
@@ -211,7 +241,7 @@ $(document).ready(function() {
 
     /*
      *   Remove empty rows while editing
-     */
+     *
      hot.addHook('afterChange', function() {
 
          for (var i = 0; i < hot.countRows(); i++) {
@@ -226,7 +256,7 @@ $(document).ready(function() {
 
     /*
      *  Settings for image renderer
-    */
+    *
 
     function imageRenderer (instance, td, row, col, prop, value, cellProperties) {
 
@@ -246,7 +276,7 @@ $(document).ready(function() {
 
        /*
         *   Change Image  -  update with ajax
-        */
+        *
         Handsontable.Dom.addEvent(img, 'click', function (e){
             console.log(col+ " " +row +" change team image" );
         });
@@ -254,4 +284,4 @@ $(document).ready(function() {
         return td;
     }
 
-});
+});*/
