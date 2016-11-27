@@ -112,6 +112,67 @@
         vertical-align: middle;
     }
 
+    /*  input[file]  */
+
+    input[type=file] {
+        position: absolute;
+        width: 0;
+        height: 0;
+    }
+
+
+
+    /* buutons */
+
+    .btn {
+        display: inline-block;
+        margin-bottom: 0;
+        font-weight: 400;
+        text-align: center;
+        vertical-align: middle;
+        touch-action: manipulation;
+        cursor: pointer;
+        background-image: none;
+        border: 1px solid transparent;
+        white-space: nowrap;
+        padding: 6px 16px;
+        font-size: 14px;
+        outline: 0;
+        border-radius: 3px;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        -webkit-appearance: none;
+        -webkit-transition: all .2s;
+        -o-transition: all .2s;
+        transition: all .2s;
+    }
+
+    .btn-default {
+        color: #413a41;
+        background-color: #FFF;
+        border-color: #E0E0E0;
+    }
+
+    .btn-primary{
+        color: #FFF;
+        background-color: #0097A7;
+        border-color: #E0E0E0;
+    }
+
+    .btn-default:hover, .btn-default:active{
+        background-color: rgba(0,0,0,0.05);
+    }
+    .btn-primary:hover, .btn-primary:focus{
+    	background-color: #1F757D;
+    }
+
+    @media (max-width: 481px) {
+        .btn.col-xs-12:not(:last-child){
+            margin-bottom: 10px;
+        }
+    }
 
 </style>
 
@@ -119,39 +180,40 @@
 <h3 class="page-header">Список команд</h3>
 
 
-<div class="block">
+<div class="block" id="new_team">
     <div class="block_body clear_fix">
         <div class="col-xs-12 col-md-6">
             <div class="row row-col">
-                <div class="input-field ">
+                <div class="input-field">
                     <input id="team_name-0" type="text" name="" value="">
                     <label for="team_name-0">Введите название команды</label>
                 </div>
             </div>
             <div class="row row-col hidden">
                 <div class="input-field">
-                    <textarea id="description-0"></textarea>
-                    <label for="description-0">Расскажите о команде</label>
+                    <textarea id="team_description-0"></textarea>
+                    <label for="team_description-0">Расскажите о команде</label>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-md-6">
             <div class="row row-col hidden">
                 <div class="input-field">
-                    <select name="" id="participants_in_team-0" multiple="" class="participants_in_team">
+                    <select name="" id="team_participants-0" multiple="" class="participants_in_team">
                         <option value="01.jpg">участник 1</option>
                         <option value="02.jpg">участник 2</option>
                     </select>
-                    <label for="participants_in_team-0">Состав команды</label>
+                    <label for="team_participants-0">Состав команды</label>
                 </div>
             </div>
         </div>
     </div>
-    <div class="block_submit hidden">
-        <button class="button button-text">
-        	выбрать логотип
-        </button>
-        <button class="button button-text pull-right">
+    <div class="block_submit hidden clear_fix">
+        <label class="btn btn-default col-xs-12 col-sm-5 col-md-3" for="team_logo">
+            <input id="team_logo" type="file" name="" value="">
+        	Выбрать логотип
+        </label>
+        <button type="" class="btn btn-primary col-xs-12 col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-6">
         	Создать команду
         </button>
     </div>

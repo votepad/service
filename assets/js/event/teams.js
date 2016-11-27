@@ -2,30 +2,29 @@ $(document).ready(function() {
 
     var url = "http://pronwe/assets/img/user";
 
-    $('#team_name-0').focus(function() {
-        $(this).closest('.block').addClass('open');
+    $('#new_team').click(function() {
+        $(this).addClass('open');
     });
 
-    $('#team_name-0').blur(function() {
-        if ($(this).val() == "") {
-            $(this).closest('.block').removeClass('open');
+    $('body').click(function(event) {
+        if ( ! $(event.target).closest("#new_team").is('#new_team') && $('#team_name-0').val() == "" && $('#description-0').val() == "" && $("#participants_in_team-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0) {
+            $('#new_team').removeClass('open');
         }
     });
 
     $('.participants_in_team').select2({
         language: 'ru',
-        templateResult: formatState
+        templateResult: formatTeam
     });
 
-    function formatState (state) {
-        console.log(state);
-        if (!state.id) {
-            return state.text;
+    function formatTeam (team) {
+        if (!team.id) {
+            return team.text;
         }
-        var $state = $(
-            '<span class="select2-results__withlogo"><img src="' + url + '/' + state.element.value.toLowerCase() + '" class="select2-results__logo" /> <span class="select2-results__text">' + state.text + '</span></span>'
+        var $team = $(
+            '<span class="select2-results__withlogo"><img src="' + url + '/' + team.element.value.toLowerCase() + '" class="select2-results__logo" /> <span class="select2-results__text">' + team.text + '</span></span>'
         );
-        return $state;
+        return $team;
     };
 
 });
