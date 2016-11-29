@@ -7,7 +7,7 @@ $(document).ready(function() {
     });
 
     $('body').click(function(event) {
-        if ( ! $(event.target).closest("#new_team").is('#new_team') && $('#team_name-0').val() == "" && $('#description-0').val() == "" && $("#participants_in_team-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0) {
+        if ( ! $(event.target).closest("#new_team").is('#new_team') && $('#team_name-0').val() == "" && $('#team_description-0').val() == "" && $("#team_participants-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0) {
             $('#new_team').removeClass('open');
         }
     });
@@ -26,6 +26,25 @@ $(document).ready(function() {
         );
         return $team;
     };
+
+
+    /*
+     * On load Add hidden class on long text
+    */
+    $('.card').each(function () {
+        var first = $('.card_content-text:nth-child(1)', this),
+            second = $('.card_content-text:nth-child(2)', this);
+
+        if (first.height() > 64) {
+            first.addClass('card_height-4em').append('<div class="card_content-text-hidden"  title="Показать полностью"></div>');
+        }
+        if (second.height() > 48) {
+            second.addClass('card_height-3em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
+        }
+    });
+
+
+
 
 });
 

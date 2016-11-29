@@ -118,6 +118,7 @@ $(document).ready(function() {
          data: array_participants,
 		 rowHeaders: true,
 		 fillHandle: false,
+         rowHeights: 72,
 		 colHeaders: ['Фото', 'Фамилия Имя', 'Об участнике', 'E-mail', '<i class="icon-rating"></i> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <i class="fa fa-envelope-o" aria-hidden="true"></i>'],
          columns: column_disabled,
      };

@@ -5,6 +5,23 @@
 $(document).ready(function(){
 
     /*
+     *  Get Page Link and Add Class to Link
+    */
+    var address = window.location.pathname.split('/');
+    address =   '/' + address[1] + '/' + address[2] + '/' + address[3];
+    $('.header_menu .nav_link').each(function(){
+        var temp = $(this).attr('href').split('/');// ;
+        temp = new RegExp('/' + temp[1] + '/' + temp[2] + '/' + temp[3]);
+        if ( temp.test(address) ) {
+            $(this).addClass('active');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
+
+
+
+    /*
      *  Header Menu And Left Navigation
      *
      *  @var header_menu_nav_items  -  array of header_menu elements
@@ -82,6 +99,36 @@ $(document).ready(function(){
          $(this).remove();
 
      });
+
+
+
+     /*
+      *   Show/Hide Cards Dropdown Menu
+     */
+     $('.card_title-dropdown').mouseover(function () {
+         $(this).addClass('open');
+     });
+     $('.card_title-dropdown').mouseout(function () {
+         $(this).removeClass('open');
+     });
+     $('.card_title-dropdown-icon').click(function () {
+         if ( ! $(this).parent().hasClass('open')) {
+             $(this).parent().addClass('open');
+         } else{
+             $(this).parent().removeClass('open');
+         }
+     });
+
+     /*
+      * Remove Hidden class from long text in Cards
+     */
+
+     $('body').on('click', '.card_content-text-hidden', function(){
+         $(this).parent().removeClass().addClass('card_content-text');
+         $(this).remove();
+     });
+
+
 
 
 
