@@ -45,6 +45,56 @@ $(document).ready(function() {
 
 
 
+    /*
+     *   Generate Modal Form for changing information about team
+    */
+    $('.team_edit').click(function(){
+        var card = $(this).closest('.card'),
+            id = card.attr('id'),
+            modal_id = "modal_" + id,
+            action = card.attr('action'),
+            logo = $("#logo_" + id + " img").attr('src'),
+            name = $.trim($("#name_" + id).text()),
+            description = $.trim($("#description_" + id).text()),
+            participants = $("#participants_" + id).html(),
+            modal = template_modal[0] + modal_id + template_modal[1] + modal_id + "-Label" + template_modal[2] + action  // modal and form parametrs
+                    + template_modal[3] + modal_id + "-Label"  + template_modal[4] // Label for modal
+                    + id + "_name" + template_modal[5] + id + "_name" + template_modal[6] + name + template_modal[7] + id + "_name" + template_modal[8] // input name
+                    + id + "_description" + template_modal[9] + id + "_description" + template_modal[10] + description + template_modal[11] + id + "_description" + template_modal[12] // textarea
+                    + template_modal[13];
+
+        $('body').append(modal);
+
+        $($("#" + id + "_description")).on('init keyup focus', function(){
+            textarea_resize($(this));
+        });
+
+        console.log($("#" + id + "_description"));
+        $("#" + modal_id).modal({
+            backdrop: 'static',
+             keyboard: false
+        });
+
+    });
+
+    template_modal = ['<form class="modal fade" id="',
+    '" tabindex="-1" role="dialog" aria-labelledby="',
+    '" method="post" action="',
+    '"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close" aria-hidden="true"></i></button><h4 class="modal-title" id="',
+    '">Редактирование информации о команде</h4></div><div class="modal-body"><div class="input-field"><input type="text" id="',
+    '" name="','" value="','"><label for="','" class="active">Название команды</label></div><div class="input-field"><textarea id="',
+    '" name="','">','</textarea><label for="','" class="active">Описание команды</label></div>',
+
+    '</div><div class="modal-footer"><button type="button" class="btn btn_default" data-dismiss="modal">Отмена</button><button id="team_update-info" type="button" class="btn btn_primary">Сохранить изменения</button></div></div></div></form>']
+
+    $('body').on('click', 'button[data-dismiss="modal"]', function(){
+        $(this).wait(400).closest('.modal').remove();
+    });
+//#team_update-cancel
+//#team_update-info
+
+
+
 
 });
 
