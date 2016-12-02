@@ -98,17 +98,33 @@ $(document).ready(function() {
 
 
     /*
-     * Get array of participants from DB
+     * get_array_participants - array of participants from DB
+     * array_participants - equal to get_array_participants on load data from DB
+     * handsontable worhing only with array_participants
+     *
+     * part_status = none | insert | update
     */
+     var get_array_participants = [
+         {
+             "part_avatar": "",
+             "part_name":"выв",
+             "part_description": "",
+             "part_email": "example@ya.ru",
+             "part_sendresult": true,
+             "part_status": "none"
+         },
+     ];
      var array_participants = [
          {
              "part_avatar": "",
              "part_name":"выв",
              "part_description": "",
              "part_email": "example@ya.ru",
-             "part_sendresult": true
+             "part_sendresult": true,
+             "part_status": "none"
          },
-     ];
+     ];;
+
 
 
      /*
@@ -153,6 +169,8 @@ $(document).ready(function() {
         save.className = "pull-right displayblock";
         edit.className = "displaynone";
 
+        checking_on_empty_table('edit');
+
         hot.updateSettings({
             minSpareRows: 1,
             columns: column_edited
@@ -161,12 +179,14 @@ $(document).ready(function() {
     });
 
 
+
     /*
      *  Checking on empty FIO cell
     */
     hot.addHook('afterValidate', function(isValid, value, row, prop, source){
         if ( prop != 'part_name' && hot.getDataAtCell(row, 1) === null ) {
             hot.setDataAtCell(row, 1, "");
+            return;
         }
     });
 
@@ -183,6 +203,7 @@ $(document).ready(function() {
                 edit.className = "pull-right displayblock";
                 save.className = "displaynone";
 
+                var is_empty_table = checking_on_empty_table('save');
 
                 hot.updateSettings({
                     minSpareRows: 0,
@@ -190,22 +211,35 @@ $(document).ready(function() {
                 });
 
 
-                /* delete last row if it's empty  */
-                /* if it's empty => show no user */
+                /* delete last row if it's empty */
                 if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
                     hot.alter('remove_row', hot.countRows() - 1);
                 }
 
                 /*
-                 *  Data for Ajax updating
+                 *  Update Data via Ajax
                 */
-                array_participants = [];
+                if ( ! is_empty_table ) {
 
-                $.each(hot.getData(), function(rowKey, object) {
-                    if (!hot.isEmptyRow(rowKey)) array_participants[rowKey] = object;
-                });
+                    for (var i = 0; i < array_participants.length; i++) {
 
-                console.log(JSON.stringify(array_participants));
+                        if ( i >= get_array_participants.length ) {
+                            array_participants[i].part_status = "insert";
+                        } else if ( get_array_participants[i].part_avatar != array_participants[i].part_avatar ||
+                                    get_array_participants[i].part_name != array_participants[i].part_name ||
+                                    get_array_participants[i].part_description != array_participants[i].part_description ||
+                                    get_array_participants[i].part_email != array_participants[i].part_email ||
+                                    get_array_participants[i].part_sendresult != array_participants[i].part_sendresult )
+                        {
+                            array_participants[i].part_status = "update";
+                        } else {
+                            array_participants[i].part_status = "none";
+                        }
+
+                    }
+
+                    console.log(JSON.stringify(array_participants));
+                }
 
             } else {
 
@@ -216,6 +250,7 @@ $(document).ready(function() {
                 });
 
             }
+
         });
 
     });
@@ -224,15 +259,42 @@ $(document).ready(function() {
     /*
      *   Remove empty rows while editing
     */
-    hot.addHook('afterChange', function() {
+    hot.addHook('afterChange', function(changes, source) {
 
         for (var i = 0; i < hot.countRows(); i++) {
-            if (hot.isEmptyRow(i)) {
+            if ( hot.isEmptyRow(i)   ||
+                     (hot.getDataAtCell(i, 1) == "" && hot.getDataAtCell(i, 2) == "" &&  hot.getDataAtCell(i, 3) == "" && hot.getDataAtCell(i, 4) != null) ||
+                     (hot.getDataAtCell(i, 0) == null && hot.getDataAtCell(i, 1) == null && hot.getDataAtCell(i, 2) == null && hot.getDataAtCell(i, 3) == null && hot.getDataAtCell(i, 4) != null ) )
+            {
                 hot.alter('remove_row', i);
             }
-        }
 
+        }
     });
+
+
+    /*
+     * Checking Table on existing one empty row
+     * if empty row - hide table -> open info
+     * if exist row - open table -> hide info
+    */
+    function checking_on_empty_table(action) {
+        if (hot.isEmptyRow(0) && action == "save" ) {
+            $('#participants').css('display', 'none');
+            $('#table_wrapper').append('<div id="no_participants" class="text-center"><h4>Участники ещё не созданы, для создания списка участников нажмите на иконку <i class="fa fa-edit" aria-hidden="true"></i></h4></div>');
+            return true;
+        } else {
+            $('#participants').css('display', 'block');
+            $('#no_participants').remove();
+            return false;
+        }
+    }
+
+
+    /*
+     *   Call function on running page
+    */
+    checking_on_empty_table('save');
 
 
 
