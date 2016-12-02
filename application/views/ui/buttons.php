@@ -5,12 +5,12 @@
 	</p>
 	<div class="row">
 		<div class="col-xs-2 col-md-2">
-			<button class="button  button-icon"><i class="fa fa-user"></i></button> 
+			<button class="button  button-icon"><i class="fa fa-user"></i></button>
 		</div>
 		<div class="col-xs-10 col-md-10">
 			<blockquote>
 				<xmp>
-<button class="button  button-icon"><i class="fa fa-user"></i></button> 
+<button class="button  button-icon"><i class="fa fa-user"></i></button>
 				</xmp>
 			</blockquote>
 		</div>
@@ -26,7 +26,7 @@
 					<div class="button-mid-arrow"></div>
 					<div class="button-bot-arrow-r"></div>
 				</div>
-			</button> 
+			</button>
 		</div>
 		<div class="col-xs-10 col-md-10">
 			<blockquote>
@@ -37,7 +37,7 @@
 		<div class="button-mid-arrow"></div>
 		<div class="button-bot-arrow-r"></div>
 	</div>
-</button> 
+</button>
 				</xmp>
 			</blockquote>
 		</div>
@@ -53,7 +53,7 @@
 					<div class="button-mid-arrow"></div>
 					<div class="button-bot-arrow-l"></div>
 				</div>
-			</button> 
+			</button>
 		</div>
 		<div class="col-xs-10 col-md-10">
 			<blockquote>
@@ -64,7 +64,7 @@
 		<div class="button-mid-arrow"></div>
 		<div class="button-bot-arrow-l"></div>
 	</div>
-</button> 
+</button>
 				</xmp>
 			</blockquote>
 		</div>
@@ -76,16 +76,34 @@
 		<div class="col-xs-2 col-md-2">
 			<button class="button button-text">
 				Submit
-			</button> 
+			</button>
 				</div>
 		<div class="col-xs-10 col-md-10">
 			<blockquote>
 				<xmp>
 <button class="button button-text">
 	Submit
-</button> 
+</button>
 				</xmp>
 			</blockquote>
+		</div>
+	</div>
+
+	<div class="row row-col">
+		<div class="col-xs-2">
+			<button class="btn btn_default col-xs-12">
+				Button Default
+			</button>
+			<br><br>
+			<label class="btn btn_primary col-xs-12">
+				Button Primary
+			</label>
+		</div>
+		<div class="col-xs-10 col-md-10">
+<blockquote><xmp><button class="btn btn_default col-xs-12"></button>
+
+<label class="btn btn_primary col-xs-12"></label>
+</xmp></blockquote>
 		</div>
 	</div>
 

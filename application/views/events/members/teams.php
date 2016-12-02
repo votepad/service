@@ -13,13 +13,13 @@
         <div class="col-xs-12 col-md-6">
             <div class="row">
                 <div class="input-field">
-                    <input id="team_name-0" type="text" name="" value="">
+                    <input id="team_name-0" type="text" name="team_name" autocomplete="off">
                     <label for="team_name-0">Введите название команды</label>
                 </div>
             </div>
             <div class="row hidden">
                 <div class="input-field">
-                    <textarea id="team_description-0"></textarea>
+                    <textarea id="team_description-0" name="team_description"></textarea>
                     <label for="team_description-0">Расскажите о команде</label>
                 </div>
             </div>
@@ -27,7 +27,7 @@
         <div class="col-xs-12 col-md-6">
             <div class="row hidden">
                 <div class="input-field">
-                    <select name="" id="team_participants-0" multiple="" class="participants_in_team">
+                    <select name="team_participants" id="team_participants-0" multiple="" class="participants_in_team">
                         <option value="01.jpg">участник 1</option>
                         <option value="02.jpg">участник 2</option>
                     </select>
@@ -37,11 +37,14 @@
         </div>
     </div>
     <div class="form_submit hidden clear_fix">
-        <label class="btn btn_default col-xs-12 col-sm-5 col-md-3" for="team_logo">
-            <input id="team_logo-0" type="file" name="" value="">
-        	Выбрать логотип
+        <label class="btn btn_default btn_labeled col-xs-12 col-sm-auto" for="team_logo-0">
+            <span class="btn_label">
+                <i class="fa fa-paperclip" aria-hidden="true"></i>
+            </span>
+        	<span class="btn_text">Выбрать логотип</span>
+            <input id="team_logo-0" type="file" name="team_logo" accept="image/*">
         </label>
-        <button type="" class="btn btn_primary col-xs-12 col-sm-5 col-sm-offset-2 col-md-3 col-md-offset-6">
+        <button id="create_team" type="button" class="btn btn_primary col-xs-12 col-sm-auto pull-right">
         	Создать команду
         </button>
     </div>
@@ -60,7 +63,7 @@
                     Команда под номером 1
                 </div>
                 <div class="card_title-dropdown">
-                    <div role="button" class="card_title-dropdown-icon">
+                    <div id="create_team" role="button" class="card_title-dropdown-icon">
                         <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                     </div>
                     <div class="card_title-dropdown-menu">
@@ -83,14 +86,14 @@
                 </div>
                 <p class="card_content-text">
                     <i><u>Состав команды:</u></i>
-                    <span  id="participants_team-1">
-                        <option value="01.jpg">Фамилия Имя Отчество участника 1</option>
+                    <span id="participants_team-1">
+                        <option value="01.jpg" selected="">Фамилия Имя Отчество участника 1</option>
                         <option value="02.jpg">Фамилия Имя Отчество участника 2</option>
-                        <option value="03.jpg">Фамилия Имя Отчество участника 3</option>
+                        <option value="03.jpg" selected="">Фамилия Имя Отчество участника 3</option>
                         <option value="04.jpg">Фамилия Имя Отчество участника 4</option>
                         <option value="05.jpg">Фамилия Имя Отчество участника 5</option>
                         <option value="06.jpg">Фамилия Имя Отчество участника 6</option>
-                        <option value="07.jpg">Фамилия Имя Отчество участника 7</option>
+                        <option value="07.jpg" selected="">Фамилия Имя Отчество участника 7</option>
                     </span>
                 </p>
             </div>

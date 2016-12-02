@@ -947,7 +947,25 @@ a, a:hover, a:focus{
         width: 100%
     }
 }
-
+@media (max-width: 481px) {
+	.card_image{
+		float: none;
+		text-align: center;
+		display: block;
+		margin: 0 auto 20px auto;
+	}
+	.card_title{
+		position: relative;
+		height: auto;
+		width: 100%;
+        display: block;
+    }
+	.card_title-dropdown{
+		position: absolute;
+		top: -180px;
+		right: 0;
+	}
+}
 
 
 
@@ -965,7 +983,7 @@ a, a:hover, a:focus{
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 1050;
+	z-index: 1020;
 	display: none;
 	overflow: hidden;
 	-webkit-overflow-scrolling: touch;
@@ -1004,7 +1022,7 @@ a, a:hover, a:focus{
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 1040;
+	z-index: 1010;
 	background-color: #000;
 }
 .modal-backdrop.fade {
@@ -1241,7 +1259,24 @@ a, a:hover, a:focus{
 	-o-transition: all .2s;
 	transition: all .2s;
 }
+label.btn{
+	cursor: pointer;
+}
+.btn_labeled{
+    padding-top: 0;
+    padding-bottom: 0;
+}
+.btn_label {
+    position: relative;
+    background: 0 0;
+    background: rgba(0,0,0,.05);
+    display: inline-block;
+    padding: 6px 16px;
+    left: -16px;
+    border-radius: 3px 0 0 3px;
+}
 
+/*  Colors  */
 .btn_default {
 	color: #413a41;
 	background-color: #FFF;
@@ -1263,7 +1298,7 @@ a, a:hover, a:focus{
 
 
 @media (max-width: 481px) {
-	.btn.col-xs-12:not(:last-child){
+	.btn.col-xs-12:not(:last-child), .modal-footer .btn:not(:last-child){
 		margin-bottom: 10px;
 	}
 }
@@ -1307,6 +1342,7 @@ a, a:hover, a:focus{
 .input-field input + label, .input-field textarea + label{
     color: #9e9e9e;
     position: absolute;
+	width: 70%;
     top: .5em;
     font-size: 1em;
     cursor: text;
@@ -1314,6 +1350,9 @@ a, a:hover, a:focus{
     -moz-user-select: none;
     -khtml-user-select: none;
     user-select: none;
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .input-field input + label.active, .input-field textarea + label.active{
@@ -1410,7 +1449,7 @@ a, a:hover, a:focus{
 		box-shadow: 0 1px 0 0 #F44336;
 	}
 
-	.input-field input.invalid + label, textarea.invalid + label{
+	.input-field input.invalid + label, .input-field textarea.invalid + label{
 		color: #F44336;
 	}
 
@@ -1638,6 +1677,8 @@ input[type=file] {
 .select2-container + label{
     color: #9e9e9e;
     position: absolute;
+	width: 70%;
+	left: 0;
     top: .6em;
     cursor: text;
     transition: .2s ease-out;
@@ -1648,6 +1689,9 @@ input[type=file] {
     letter-spacing: .01em;
     -webkit-transform: translateY(-140%);
     transform: translateY(-140%);
+	white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .select2{
