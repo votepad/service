@@ -8,4 +8,6 @@
     <br><small>Логины и пароли сгенерируются автоматически после сохранения таблицы.</small>
 </h3>
 
-<div class="row" id="judges"></div>
+<div class="row" id="table_wrapper">
+    <div id="judges"></div>
+</div>

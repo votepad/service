@@ -262,14 +262,14 @@ $(document).ready(function() {
     hot.addHook('afterChange', function(changes, source) {
 
         for (var i = 0; i < hot.countRows(); i++) {
-            if ( hot.isEmptyRow(i)   ||
-                     (hot.getDataAtCell(i, 1) == "" && hot.getDataAtCell(i, 2) == "" &&  hot.getDataAtCell(i, 3) == "" && hot.getDataAtCell(i, 4) != null) ||
-                     (hot.getDataAtCell(i, 0) == null && hot.getDataAtCell(i, 1) == null && hot.getDataAtCell(i, 2) == null && hot.getDataAtCell(i, 3) == null && hot.getDataAtCell(i, 4) != null ) )
+            if ( hot.isEmptyRow(i) ||
+                (hot.getDataAtCell(i, 1) == "" && hot.getDataAtCell(i, 2) == "" &&  hot.getDataAtCell(i, 3) == "" && hot.getDataAtCell(i, 4) != null) ||
+                (hot.getDataAtCell(i, 0) == null && hot.getDataAtCell(i, 1) == null && hot.getDataAtCell(i, 2) == null && hot.getDataAtCell(i, 3) == null && hot.getDataAtCell(i, 4) != null ) )
             {
                 hot.alter('remove_row', i);
             }
-
         }
+
     });
 
 

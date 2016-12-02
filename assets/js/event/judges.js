@@ -64,13 +64,27 @@ $(document).ready(function() {
 
 
     /*
-     * Get array of judges from DB
+     * get_array_judges - array of judges from DB
+     * array_judges - equal to get_array_judges on load data from DB
+     * handsontable worhing only with array_judges
+     *
+     * judge_status = none | insert | update
     */
-     var array_judges = [
+     var get_array_judges = [
 		 {
-			 'judge_name': 'Иванов Иван Иванович',
-			 'judge_login':'ifmo-mister-1',
-			 'judge_password':'dff6asdl7',
+			 "judge_name": "Иванов Иван Иванович",
+			 "judge_login": "ifmo-mister-1",
+			 "judge_password": "dff6asdl7",
+             "judge_status": "none"
+		 },
+	 ];
+
+     var array_judges = [
+         {
+			 "judge_name": "Иванов Иван Иванович",
+			 "judge_login": "ifmo-mister-1",
+			 "judge_password": "dff6asdl7",
+             "judge_status": "none"
 		 },
 	 ];
 
@@ -113,26 +127,29 @@ $(document).ready(function() {
         save.className = "pull-right displayblock";
         edit.className = "displaynone";
 
+        checking_on_empty_table('edit');
+
         hot.updateSettings({
             minSpareRows: 1,
             columns: column_edited
         });
+
     });
 
 
     /*
      *  Save judges
     */
-
     Handsontable.Dom.addEvent(save, 'click', function(el) {
 
-        hot.validateCells(function(valid){
+        hot.validateCells(function(valid) {
 
             if ( valid == true) {
 
                 edit.className = "pull-right displayblock";
                 save.className = "displaynone";
 
+                var is_empty_table = checking_on_empty_table('save');
 
                 hot.updateSettings({
                     minSpareRows: 0,
@@ -141,21 +158,29 @@ $(document).ready(function() {
 
 
                 /* delete last row if it's empty  */
-                /* if it's empty => show no user */
                 if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
                     hot.alter('remove_row', hot.countRows() - 1);
                 }
 
                 /*
-                 *  Data for Ajax updating
+                 *  Update Data via Ajax
                 */
-                array_judges = [];
+                if ( ! is_empty_table ) {
 
-                $.each(hot.getData(), function(rowKey, object) {
-                    if (!hot.isEmptyRow(rowKey)) array_judges[rowKey] = object;
-                });
+                    for (var i = 0; i < array_judges.length; i++) {
 
-                console.log(JSON.stringify(array_judges));
+                        if ( i >= get_array_judges.length ) {
+                            array_judges[i].judge_status = "insert";
+                        } else if ( get_array_judges[i].judge_name != array_judges[i].judge_name ) {
+                            array_judges[i].judge_status = "update";
+                        } else {
+                            array_judges[i].judge_status = "none";
+                        }
+
+                    }
+
+                    console.log(JSON.stringify(array_judges));
+                }
 
             } else {
 
@@ -178,12 +203,31 @@ $(document).ready(function() {
      hot.addHook('afterChange', function() {
 
          for (var i = 0; i < hot.countRows(); i++) {
-             if (hot.isEmptyRow(i)) {
+             if ( hot.isEmptyRow(i) ) {
                  hot.alter('remove_row', i);
              }
          }
 
      });
+
+
+     /*
+      * Checking Table on existing one empty row
+      * if empty row - hide table -> open info
+      * if exist row - open table -> hide info
+     */
+     function checking_on_empty_table(action) {
+         if (hot.isEmptyRow(0) && action == "save" ) {
+             $('#judges').css('display', 'none');
+             $('#table_wrapper').append('<div id="no_judges" class="text-center"><h4>Представитили жюри ещё не созданы, для создания списка жюри нажмите на иконку <i class="fa fa-edit" aria-hidden="true"></i></h4></div>');
+             return true;
+         } else {
+             $('#judges').css('display', 'block');
+             $('#no_judges').remove();
+             return false;
+         }
+     }
+
 
 
      /*
@@ -238,19 +282,18 @@ $(document).ready(function() {
 
              hot.updateSettings({
                  stretchH: 'all',
-                 colWidths: function(index){
+                 colWidths: function(index) {
                      var width = parseInt(document.body.clientWidth);
 
                      // desctop width for columns
                      // 0.7  (section.width = 70%)
                      // 60 - width of first column
                      if (width > 992)
-                         width = width * 0.7 - 60;
+                         width = width * 0.7 - 50;
 
                      // tablet width for columns
                      else if (width <= 992 && width > 680)
-                        width = width * 0.9 - 60;
-
+                        width = width - 50;
 
                      if (index == 0)
                          return width * 0.5;
