@@ -160,7 +160,7 @@ $(document).ready(function() {
      *   Close Modal Form without Saving
     */
     $('body').on('click', 'button[data-dismiss="modal"]', function(){
-        $(this).wait(400).closest('.modal').remove();
+        $(this).wait(320).closest('.modal').remove();
     });
 
 
