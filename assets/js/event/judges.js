@@ -25,15 +25,15 @@ $(document).ready(function() {
 
     column_disabled = [
         {
-			data:'judge_name',
+			data:'name',
             readOnly: true,
         },
         {
-            data:'judge_login',
+            data:'login',
             readOnly: true,
         },
         {
-            data:'judge_password',
+            data:'password',
             readOnly: true,
         },
     ];
@@ -41,7 +41,7 @@ $(document).ready(function() {
 
     column_edited = [
         {
-			data:'judge_name',
+			data:'name',
             readOnly: false,
             validator: function (value, callback) {
                 if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "") {
@@ -52,11 +52,11 @@ $(document).ready(function() {
             },
         },
         {
-			data:'judge_login',
+			data:'login',
 			editor: false,
         },
 		{
-			data:'judge_password',
+			data:'password',
             type: 'password',
 			editor: false,
 		}
@@ -68,23 +68,23 @@ $(document).ready(function() {
      * array_judges - equal to get_array_judges on load data from DB
      * handsontable worhing only with array_judges
      *
-     * judge_status = none | insert | update
+     * status = none | insert | update
     */
      var get_array_judges = [
 		 {
-			 "judge_name": "Иванов Иван Иванович",
-			 "judge_login": "ifmo-mister-1",
-			 "judge_password": "dff6asdl7",
-             "judge_status": "none"
+			 "name": "Иванов Иван Иванович",
+			 "login": "ifmo-mister-1",
+			 "password": "dff6asdl7",
+             "status": "none"
 		 },
 	 ];
 
      var array_judges = [
          {
-			 "judge_name": "Иванов Иван Иванович",
-			 "judge_login": "ifmo-mister-1",
-			 "judge_password": "dff6asdl7",
-             "judge_status": "none"
+			 "name": "Иванов Иван Иванович",
+			 "login": "ifmo-mister-1",
+			 "password": "dff6asdl7",
+             "status": "none"
 		 },
 	 ];
 
@@ -170,11 +170,11 @@ $(document).ready(function() {
                     for (var i = 0; i < array_judges.length; i++) {
 
                         if ( i >= get_array_judges.length ) {
-                            array_judges[i].judge_status = "insert";
-                        } else if ( get_array_judges[i].judge_name != array_judges[i].judge_name ) {
-                            array_judges[i].judge_status = "update";
+                            array_judges[i].status = "insert";
+                        } else if ( get_array_judges[i].name != array_judges[i].name ) {
+                            array_judges[i].status = "update";
                         } else {
-                            array_judges[i].judge_status = "none";
+                            array_judges[i].status = "none";
                         }
 
                     }

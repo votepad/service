@@ -23,25 +23,25 @@ $(document).ready(function() {
 
     column_disabled = [
         {
-            data:'part_avatar',
+            data:'avatar',
             readOnly: true,
             className: 'htCenter',
             renderer: imageRenderer
         },
         {
-            data:'part_name',
+            data:'name',
             readOnly: true,
         },
         {
-            data:'part_description',
+            data:'description',
             readOnly: true,
         },
         {
-            data:'part_email',
+            data:'email',
             readOnly: true,
         },
         {
-            data:'part_sendresult',
+            data:'sendresult',
             type: 'checkbox',
             className: 'htCenter',
             readOnly: true,
@@ -51,12 +51,12 @@ $(document).ready(function() {
 
     column_edited = [
         {
-            data:'part_avatar',
+            data:'avatar',
             editor: false,
             renderer:imageRenderer
         },
         {
-            data:'part_name',
+            data:'name',
             readOnly: false,
             validator: function (value, callback) {
                 if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "" ) {
@@ -67,7 +67,7 @@ $(document).ready(function() {
             }
         },
         {
-            data:'part_description',
+            data:'description',
             readOnly: false,
             validator: function (value, callback) {
                 if ( /[^A-Za-z0-9А-Яа-я#№!.,:;-_ ]/.test(value) ) {
@@ -78,7 +78,7 @@ $(document).ready(function() {
             }
         },
         {
-            data: 'part_email',
+            data: 'email',
             validator: function (value, callback) {
                 if (/.+@.+/.test(value) || value == null || value == '') {
                     callback(true);
@@ -89,7 +89,7 @@ $(document).ready(function() {
             }
         },
         {
-            data: 'part_sendresult',
+            data: 'sendresult',
             type: 'checkbox',
             className: 'htCenter',
         }
@@ -102,26 +102,26 @@ $(document).ready(function() {
      * array_participants - equal to get_array_participants on load data from DB
      * handsontable worhing only with array_participants
      *
-     * part_status = none | insert | update
+     * status = none | insert | update
     */
      var get_array_participants = [
          {
-             "part_avatar": "",
-             "part_name":"выв",
-             "part_description": "",
-             "part_email": "example@ya.ru",
-             "part_sendresult": true,
-             "part_status": "none"
+             "avatar": "",
+             "name":"выв",
+             "description": "",
+             "email": "example@ya.ru",
+             "sendresult": true,
+             "status": "none"
          },
      ];
      var array_participants = [
          {
-             "part_avatar": "",
-             "part_name":"выв",
-             "part_description": "",
-             "part_email": "example@ya.ru",
-             "part_sendresult": true,
-             "part_status": "none"
+             "avatar": "",
+             "name":"выв",
+             "description": "",
+             "email": "example@ya.ru",
+             "sendresult": true,
+             "status": "none"
          },
      ];;
 
@@ -184,7 +184,7 @@ $(document).ready(function() {
      *  Checking on empty FIO cell
     */
     hot.addHook('afterValidate', function(isValid, value, row, prop, source){
-        if ( prop != 'part_name' && hot.getDataAtCell(row, 1) === null ) {
+        if ( prop != 'name' && hot.getDataAtCell(row, 1) === null ) {
             hot.setDataAtCell(row, 1, "");
             return;
         }
@@ -224,16 +224,16 @@ $(document).ready(function() {
                     for (var i = 0; i < array_participants.length; i++) {
 
                         if ( i >= get_array_participants.length ) {
-                            array_participants[i].part_status = "insert";
-                        } else if ( get_array_participants[i].part_avatar != array_participants[i].part_avatar ||
-                                    get_array_participants[i].part_name != array_participants[i].part_name ||
-                                    get_array_participants[i].part_description != array_participants[i].part_description ||
-                                    get_array_participants[i].part_email != array_participants[i].part_email ||
-                                    get_array_participants[i].part_sendresult != array_participants[i].part_sendresult )
+                            array_participants[i].status = "insert";
+                        } else if ( get_array_participants[i].avatar != array_participants[i].avatar ||
+                                    get_array_participants[i].name != array_participants[i].name ||
+                                    get_array_participants[i].description != array_participants[i].description ||
+                                    get_array_participants[i].email != array_participants[i].email ||
+                                    get_array_participants[i].sendresult != array_participants[i].sendresult )
                         {
-                            array_participants[i].part_status = "update";
+                            array_participants[i].status = "update";
                         } else {
-                            array_participants[i].part_status = "none";
+                            array_participants[i].status = "none";
                         }
 
                     }

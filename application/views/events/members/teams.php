@@ -13,36 +13,36 @@
         <div class="col-xs-12 col-md-6">
             <div class="row">
                 <div class="input-field">
-                    <input id="team_name-0" type="text" name="team_name" autocomplete="off">
-                    <label for="team_name-0">Введите название команды</label>
+                    <input id="name-0" type="text" name="name" autocomplete="off">
+                    <label for="name-0">Введите название команды</label>
                 </div>
             </div>
             <div class="row hidden">
                 <div class="input-field">
-                    <textarea id="team_description-0" name="team_description"></textarea>
-                    <label for="team_description-0">Расскажите о команде</label>
+                    <textarea id="description-0" name="description"></textarea>
+                    <label for="description-0">Расскажите о команде</label>
                 </div>
             </div>
         </div>
         <div class="col-xs-12 col-md-6">
             <div class="row hidden">
                 <div class="input-field">
-                    <select name="team_participants" id="team_participants-0" multiple="" class="participants_in_team">
+                    <select name="participants" id="participants-0" multiple="" class="participants_in_team">
                         <option value="01.jpg">участник 1</option>
                         <option value="02.jpg">участник 2</option>
                     </select>
-                    <label for="team_participants-0">Состав команды</label>
+                    <label for="participants-0">Состав команды</label>
                 </div>
             </div>
         </div>
     </div>
     <div class="form_submit hidden clear_fix">
-        <label class="btn btn_default btn_labeled col-xs-12 col-sm-auto" for="team_logo-0">
+        <label class="btn btn_default btn_labeled col-xs-12 col-sm-auto" for="logo-0">
             <span class="btn_label">
                 <i class="fa fa-paperclip" aria-hidden="true"></i>
             </span>
         	<span class="btn_text">Выбрать логотип</span>
-            <input id="team_logo-0" type="file" name="team_logo" accept="image/*">
+            <input id="logo-0" type="file" name="logo" accept="image/*">
         </label>
         <button id="create_team" type="button" class="btn btn_primary col-xs-12 col-sm-auto pull-right">
         	Создать команду
@@ -67,10 +67,10 @@
                         <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                     </div>
                     <div class="card_title-dropdown-menu">
-                        <a class="card_title-dropdown-item team_edit">
+                        <a class="card_title-dropdown-item edit">
                             Изменить информацию
                         </a>
-                        <a class="card_title-dropdown-item team_delete">
+                        <a class="card_title-dropdown-item delete">
                             Удалить команду
                         </a>
                     </div>

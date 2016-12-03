@@ -10,10 +10,10 @@ $(document).ready(function() {
                             '" method="post" action="',
                             '"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close" aria-hidden="true"></i></button><h4 class="modal-title" id="',
                             '">Редактирование информации о команде</h4></div><div class="modal-body"><div class="row"><div class="input-field"><input type="text" id="',
-                            '" name="team_name" value="','"><label for="','" class="active">Название команды</label></div></div><div class="row"><div class="input-field"><textarea id="',
-                            '" name="team_description">','</textarea><label for="','" class="active">Описание команды</label></div></div><div class="row"><div class="input-field"><select multiple id="',
-                            '" name="team_participants">','</select><label for="','">Состав команды</label></div></div><label class="btn btn_default btn_labeled" for="','"><span class="btn_label"><i class="fa fa-paperclip" aria-hidden="true"></i></span><span class="btn_text">Выбрать логотип</span><input type="file" id="',
-                            '" name="team_logo" accept="image/*"></label></div><div class="modal-footer"><button type="button" class="btn btn_default" data-dismiss="modal">Отмена</button><button id="team_update-info" type="button" class="btn btn_primary">Сохранить изменения</button></div></div></div></form>'
+                            '" name="name" value="','"><label for="','" class="active">Название команды</label></div></div><div class="row"><div class="input-field"><textarea id="',
+                            '" name="description">','</textarea><label for="','" class="active">Описание команды</label></div></div><div class="row"><div class="input-field"><select multiple id="',
+                            '" name="participants">','</select><label for="','">Состав команды</label></div></div><label class="btn btn_default btn_labeled" for="','"><span class="btn_label"><i class="fa fa-paperclip" aria-hidden="true"></i></span><span class="btn_text">Выбрать логотип</span><input type="file" id="',
+                            '" name="logo" accept="image/*"></label></div><div class="modal-footer"><button type="button" class="btn btn_default" data-dismiss="modal">Отмена</button><button id="update-info" type="button" class="btn btn_primary">Сохранить изменения</button></div></div></div></form>'
                         ];
 
 
@@ -31,11 +31,11 @@ $(document).ready(function() {
      *  Close new_team form if inputs are empty
     */
     $('body').click(function(event) {
-        if ( ! $(event.target).closest("#new_team").is('#new_team') && $('#team_name-0').val() == "" && $('#team_description-0').val() == "" && $("#team_participants-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0 ) {
+        if ( ! $(event.target).closest("#new_team").is('#new_team') && $('#name-0').val() == "" && $('#description-0').val() == "" && $("#participants-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0 ) {
             $('#new_team').removeClass('open');
-            checking_el_valid($('#team_name-0'), 'valid');
-            checking_el_valid($('#team_description-0'), 'valid');
-            checking_el_valid($("#team_participants-0"), 'valid');
+            checking_el_valid($('#name-0'), 'valid');
+            checking_el_valid($('#description-0'), 'valid');
+            checking_el_valid($("#participants-0"), 'valid');
         }
     });
 
@@ -59,9 +59,9 @@ $(document).ready(function() {
         var form = $(this).closest('form'),
             stat_1, stat_2, stat_3;
 
-        stat_1 = checking_el_valid($('#team_name-0'), '');
-        stat_2 = checking_el_valid($('#team_description-0'), '');
-        stat_3 = checking_el_valid($("#team_participants-0"), '');
+        stat_1 = checking_el_valid($('#name-0'), '');
+        stat_2 = checking_el_valid($('#description-0'), '');
+        stat_3 = checking_el_valid($("#participants-0"), '');
 
         if ( stat_1 == true && stat_2 == true && stat_3 == true) {
             form[0].submit();
@@ -118,7 +118,7 @@ $(document).ready(function() {
     /*
      *   Generate Modal Form for changing information about team
     */
-    $('.team_edit').click(function(){
+    $('.edit').click(function(){
         var card = $(this).closest('.card'),
             id = card.attr('id'),
             modal_id = "modal_" + id,
@@ -167,7 +167,7 @@ $(document).ready(function() {
     /*
      *   Save Modification in Modal Form
     */
-    $('body').on('click', '#team_update-info', function(){
+    $('body').on('click', '#update-info', function(){
         var form = $(this).closest('.modal'),
             id = form.attr('id').replace('modal_', ''),
             stat_1 = checking_el_valid($("#" + id + "_name")),
@@ -189,7 +189,7 @@ $(document).ready(function() {
     /*
      *  Delete Team
     */
-    $('body').on('click', '.team_delete', function(){
+    $('body').on('click', '.delete', function(){
         alert('Here action for delete');
     });
 
