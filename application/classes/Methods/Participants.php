@@ -2,6 +2,12 @@
 
 class Methods_Participants extends Model_Participants
 {
+
+    const UPDATE = "update";
+    const DELETE = "delete";
+    const INSERT = "insert";
+    const SELECT = "select";
+
     /**
      * @param $id
      * @returns Model_Participants object

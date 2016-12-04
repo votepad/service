@@ -10,7 +10,6 @@ class Controller_Participants_Index extends Dispatch
 
     public function action_show()
     {
-
     }
 
 }

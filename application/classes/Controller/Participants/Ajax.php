@@ -4,13 +4,19 @@ class Controller_Participants_Ajax extends Ajax
 {
     public function before()
     {
+
+        /** For XMLHHTP */
+        if (!parent::is_ajax()) {
+            throw new HTTP_Exception_404();
+        }
+
         $this->auto_render = false;
         parent::before();
     }
 
     public function action_add()
     {
-        $response = "false";
+        $response = "true";
 
         try {
 
@@ -29,13 +35,13 @@ class Controller_Participants_Ajax extends Ajax
                 /**
                  * Different action depending on status
                  */
-                if ($participant['status'] == 'insert') {
+                if ($participant['status'] == Methods_Participants::INSERT) {
 
                     $id = $model_participants->save();
 
                     Methods_Participants::setParticipantEventEntry($id_event, $id);
 
-                } else if ($participant['status'] == 'update') {
+                } else if ($participant['status'] == Methods_Participants::UPDATE) {
 
                     $participant = Methods_Participants::getParticipantByFieldName('email', $participant['email']);
                     $id = $participant['id'];
@@ -48,11 +54,22 @@ class Controller_Participants_Ajax extends Ajax
         } catch (Exception $exception) {
 
             // do some stuff
-            $response = "true";
+            $response = "false";
 
         }
 
         echo $response;
     }
+
+    public function action_get()
+    {
+        $response = "true";
+
+        $id_event = $this->request->param('id_event');
+
+        $participants = Methods_Participants::getParticipantsFromEvent($id_event);
+        $this->response->body(@json_encode($participants));
+    }
+
 
 }
