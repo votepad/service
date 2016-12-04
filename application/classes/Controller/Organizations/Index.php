@@ -155,8 +155,7 @@ class Controller_Organizations_Index extends Dispatch
         $topmenu = View::factory('organizations/blocks/topmenu')
             ->set('menus', $this->template->menus)
             ->set('id', $this->organization->id);
-
-
+        
         /**
          * Content of target menu
          */

@@ -238,7 +238,30 @@ $(document).ready(function() {
 
                     }
 
-                    console.log(JSON.stringify(array_participants));
+                    var dataToSave = JSON.stringify(array_participants),
+                        idEvent = 15;
+
+                    /**
+                     * Reloads page after success callback
+                     */
+                    $.ajax({
+                        url : '/participants/add/' + idEvent,
+                        type: "POST",
+                        data: {
+                            list: dataToSave
+                        },
+                        success: function(response) {
+                            if (response == 'false') {
+                                window.location.reload();
+                            }
+                        },
+                        error: function(response) {
+                            console.log("Something wrong");
+                        },
+                        sendBefore: function() {
+                            /** Do some action */
+                        }
+                    })
                 }
 
             } else {
