@@ -1,5 +1,5 @@
 $(document).ready(function() {
-    
+
     /*
      *  Vars
     */
@@ -8,10 +8,14 @@ $(document).ready(function() {
         edit = document.getElementById('edit'),
         save = document.getElementById('save'),
         table = document.getElementById('participants'),
+        idEvent = 15,
+        get_array_participants = [],
+        dataToSave,
         partisipants_settings,
         column_disabled,
         column_edited,
         hot;
+
 
 
     /*
@@ -23,7 +27,7 @@ $(document).ready(function() {
 
     column_disabled = [
         {
-            data:'avatar',
+            data:'photo',
             readOnly: true,
             className: 'htCenter',
             renderer: imageRenderer
@@ -33,7 +37,7 @@ $(document).ready(function() {
             readOnly: true,
         },
         {
-            data:'description',
+            data:'about',
             readOnly: true,
         },
         {
@@ -51,7 +55,7 @@ $(document).ready(function() {
 
     column_edited = [
         {
-            data:'avatar',
+            data:'photo',
             editor: false,
             renderer:imageRenderer
         },
@@ -67,7 +71,7 @@ $(document).ready(function() {
             }
         },
         {
-            data:'description',
+            data:'about',
             readOnly: false,
             validator: function (value, callback) {
                 if ( /[^A-Za-z0-9А-Яа-я#№!.,:;-_ ]/.test(value) ) {
@@ -96,36 +100,42 @@ $(document).ready(function() {
     ];
 
 
+    var array_participants = [];/*
+        {
+            "photo": "",
+            "name":"выв",
+            "about": "",
+            "email": "example@ya.ru",
+            "sendresult": true,
+            "status": "none"
+        },
+    ];*/
+    $.when(
+        /*
+         * get_array_participants - array of participants from DB
+         * array_participants - equal to get_array_participants on load data from DB
+         * handsontable worhing only with array_participants
+         *
+         * status = none | insert | update
+        */
+        $.ajax({
+            url : '/participants/get/' + idEvent,
+            type: "POST",
+            success: function(data, response) {
+                array_participants = JSON.parse(data);
+                get_array_participants = JSON.parse(data);
+                hot.loadData(array_participants);
+            },
+            error: function(response) {
+                console.log("Something wrong");
+            },
+        })
 
-    /*
-     * get_array_participants - array of participants from DB
-     * array_participants - equal to get_array_participants on load data from DB
-     * handsontable worhing only with array_participants
-     *
-     * status = none | insert | update
-    */
-     var get_array_participants = [
-         {
-             "avatar": "",
-             "name":"выв",
-             "description": "",
-             "email": "example@ya.ru",
-             "sendresult": true,
-             "status": "none"
-         },
-     ];
-     var array_participants = [
-         {
-             "avatar": "",
-             "name":"выв",
-             "description": "",
-             "email": "example@ya.ru",
-             "sendresult": true,
-             "status": "none"
-         },
-     ];;
-
-
+    ).then(function(){
+        document.getElementById('preloader').remove();
+        checking_on_empty_table('save');
+        calculateSize();
+    });
 
      /*
       *  Handsontable settings
@@ -222,14 +232,14 @@ $(document).ready(function() {
                 if ( ! is_empty_table ) {
 
                     for (var i = 0; i < array_participants.length; i++) {
-
                         if ( i >= get_array_participants.length ) {
                             array_participants[i].status = "insert";
-                        } else if ( get_array_participants[i].avatar != array_participants[i].avatar ||
+
+                        } else if ( get_array_participants[i].photo != array_participants[i].photo ||
                                     get_array_participants[i].name != array_participants[i].name ||
-                                    get_array_participants[i].description != array_participants[i].description ||
-                                    get_array_participants[i].email != array_participants[i].email ||
-                                    get_array_participants[i].sendresult != array_participants[i].sendresult )
+                                    get_array_participants[i].about != array_participants[i].about ||
+                                    get_array_participants[i].email != array_participants[i].email /*||
+                                get_array_participants[i].sendresult != array_participants[i].sendresult*/ )
                         {
                             array_participants[i].status = "update";
                         } else {
@@ -238,8 +248,7 @@ $(document).ready(function() {
 
                     }
 
-                    var dataToSave = JSON.stringify(array_participants),
-                        idEvent = 15;
+                    dataToSave = JSON.stringify(array_participants);
 
                     /**
                      * Reloads page after success callback
@@ -303,21 +312,15 @@ $(document).ready(function() {
     */
     function checking_on_empty_table(action) {
         if (hot.isEmptyRow(0) && action == "save" ) {
-            $('#participants').css('display', 'none');
+            $('#participants').removeClass('displayblock').addClass('displaynone');
             $('#table_wrapper').append('<div id="no_participants" class="text-center"><h4>Участники ещё не созданы, для создания списка участников нажмите на иконку <i class="fa fa-edit" aria-hidden="true"></i></h4></div>');
             return true;
         } else {
-            $('#participants').css('display', 'block');
+            $('#participants').removeClass('displaynone').addClass('displayblock');
             $('#no_participants').remove();
             return false;
         }
     }
-
-
-    /*
-     *   Call function on running page
-    */
-    checking_on_empty_table('save');
 
 
 
@@ -326,11 +329,6 @@ $(document).ready(function() {
      */
      Handsontable.Dom.addEvent(window, 'resize', calculateSize);
 
-
-     /*
-      *  Calculate columns size on page loading
-     */
-     calculateSize();
 
 
      /*

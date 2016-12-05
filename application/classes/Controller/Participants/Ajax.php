@@ -28,8 +28,8 @@ class Controller_Participants_Ajax extends Ajax
                 $model_participants = new Model_Participants();
 
                 $model_participants->name  = $participant['name'];
-                $model_participants->about = $participant['description'];
-                $model_participants->photo = $participant['avatar'];
+                $model_participants->about = $participant['about'];
+                $model_participants->photo = $participant['photo'];
                 $model_participants->email = $participant['email'];
 
                 /**
@@ -68,7 +68,18 @@ class Controller_Participants_Ajax extends Ajax
         $id_event = $this->request->param('id_event');
 
         $participants = Methods_Participants::getParticipantsFromEvent($id_event);
-        $this->response->body(@json_encode($participants));
+
+        foreach($participants as $part) {
+            $arr[] = array(
+                'photo' => $part->photo,
+                'name' => $part->name,
+                'about' => $part->about,
+                'email' => $part->email,
+                'status' => 'none'
+            );
+        }
+        $this->response->body(@json_encode($arr));
+        //$this->response->body(@json_encode($participants));
     }
 
 

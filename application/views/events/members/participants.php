@@ -10,5 +10,9 @@
 </h3>
 
 <div class="row" id="table_wrapper">
-    <div id="participants"></div>
+    <div id="preloader" class="text-center">
+		<i class="fa fa-spinner fa-pulse fa-fw"></i>
+		Загрузка данных
+    </div>
+    <div id="participants" class="displaynone"></div>
 </div>
