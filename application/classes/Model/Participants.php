@@ -64,4 +64,22 @@ class Model_Participants extends Model {
         }
     }
 
+    /**
+     * @param $id
+     */
+    protected static function delete($id) {
+
+        $participant = new ORM_Participants();
+
+        $participant->where('id', '=', $id)
+            ->find();
+
+        try {
+            $participant->delete();
+
+        } catch (Exception $e) {
+            echo Debug::vars($e);
+        }
+    }
+
 }

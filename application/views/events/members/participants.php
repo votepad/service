@@ -17,13 +17,6 @@
     <div id="participants" class="displaynone"></div>
 </div>
 
-<div id="testing">
-    ldskflskdflksmdf
-</div>
-
-<div id="testing1">
-    ldskflskdflksmdf
-</div>
 
 <input type="hidden" value="<?=$event->id; ?>" id="id_event">
 <script src="<?=$assets; ?>frontend/production/nwe.js?v=<?=filemtime('assets/frontend/production/nwe.js'); ?>"></script>

@@ -107,4 +107,11 @@ class Methods_Participants extends Model_Participants
         }
 
     }
+
+    /**
+     * @param $id
+     */
+    public static function removeParticipant($id) {
+        self::delete($id);
+    }
 }

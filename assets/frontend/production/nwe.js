@@ -131,12 +131,9 @@ var nwe =
 
 	var ui = (function(ui) {
 
-	    ui.input = null;
-
 	    ui.make = function() {
-	        ui.input = nwe.uploader.draw.node("INPUT", "", { type: "file"} );
-
-	        return ui.input;
+	        
+	        return nwe.uploader.draw.node("INPUT", "", { type: "file", tt: nwe.uploader.core.settings.handler.id } );
 	    };
 
 	    return ui;
@@ -210,7 +207,7 @@ var nwe =
 	     * Makes UI elements
 	     */
 	    transport.prepare = function(input) {
-
+	        
 	        /**
 	         * For handler clicked
 	         */
@@ -245,7 +242,7 @@ var nwe =
 	            data: formdData,
 	            success: nwe.uploader.core.settings.success,
 	            error: nwe.uploader.core.settings.error
-	            
+
 	        });
 
 	    };
@@ -277,7 +274,7 @@ var nwe =
 
 
 	    core.handle = function(settings) {
-	        
+
 	        this.settings.handler = settings.handler;
 	        this.settings.server  = settings.server;
 	        this.settings.success = settings.success;
