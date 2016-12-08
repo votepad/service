@@ -237,7 +237,9 @@ class Controller_Events_Index extends Dispatch
     {
         $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
 
-        $this->template->main_section = View::factory('events/members/participants');
+        $this->template->main_section = View::factory('events/members/participants')
+            ->set('event', $this->event);
+        
         $this->template->left = View::factory('events/members/left_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);

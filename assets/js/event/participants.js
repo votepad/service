@@ -8,7 +8,7 @@ $(document).ready(function() {
         edit = document.getElementById('edit'),
         save = document.getElementById('save'),
         table = document.getElementById('participants'),
-        idEvent = 22,
+        idEvent = $('#id_event').val(),
         get_array = [],
         hot_array = [],
         output_array = [],
@@ -476,8 +476,6 @@ $(document).ready(function() {
 
         if (value != null && value != "")
             img.src = url + value;
-        else
-            img.src = url + "/no-user.png";
 
         td.appendChild(img);
 
