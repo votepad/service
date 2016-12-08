@@ -43,7 +43,7 @@ class Controller_Participants_Ajax extends Ajax
 
                 } else if ($participant['status'] == Methods_Participants::UPDATE) {
 
-                    $participant = Methods_Participants::getParticipantByFieldName('email', $participant['email']);
+                    $participant = Methods_Participants::getParticipantByFieldName('id', $participant['id']);
                     $id = $participant['id'];
 
                     $model_participants->save($id);
@@ -71,15 +71,17 @@ class Controller_Participants_Ajax extends Ajax
 
         foreach($participants as $part) {
             $arr[] = array(
-                'photo' => $part->photo,
+                'id' => $part->id,
+                'photo' => $part->photo ?: "",
                 'name' => $part->name,
-                'about' => $part->about,
-                'email' => $part->email,
-                'status' => 'none'
+                'about' => $part->about ?: "",
+                'email' => $part->email ?: "",
+                'sendresult' => false,
+                'status' => ''
             );
         }
         $this->response->body(@json_encode($arr));
-        //$this->response->body(@json_encode($participants));
+
     }
 
 

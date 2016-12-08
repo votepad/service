@@ -9,12 +9,16 @@ $(document).ready(function() {
         save = document.getElementById('save'),
         table = document.getElementById('participants'),
         idEvent = 15,
-        get_array_participants = [],
+        get_array = [],
+        hot_array = [],
+        output_array = [],
+        deleted_elements = [],
         dataToSave,
-        partisipants_settings,
+        hot_settings,
         column_disabled,
         column_edited,
         hot;
+
 
 
 
@@ -100,31 +104,19 @@ $(document).ready(function() {
     ];
 
 
-    var array_participants = [];/*
-        {
-            "photo": "",
-            "name":"выв",
-            "about": "",
-            "email": "example@ya.ru",
-            "sendresult": true,
-            "status": "none"
-        },
-    ];*/
+
+    /*
+     * Get data from DB
+    */
     $.when(
-        /*
-         * get_array_participants - array of participants from DB
-         * array_participants - equal to get_array_participants on load data from DB
-         * handsontable worhing only with array_participants
-         *
-         * status = none | insert | update
-        */
+
         $.ajax({
             url : '/participants/get/' + idEvent,
             type: "POST",
             success: function(data, response) {
-                array_participants = JSON.parse(data);
-                get_array_participants = JSON.parse(data);
-                hot.loadData(array_participants);
+                hot_array = JSON.parse(data);
+                get_array = JSON.parse(data);
+                hot.loadData(hot_array);
             },
             error: function(response) {
                 console.log("Something wrong");
@@ -132,16 +124,21 @@ $(document).ready(function() {
         })
 
     ).then(function(){
+
         document.getElementById('preloader').remove();
         checking_on_empty_table('save');
         calculateSize();
+
     });
+
+
+
 
      /*
       *  Handsontable settings
      */
-     partisipants_settings = {
-         data: array_participants,
+     hot_settings = {
+         data: hot_array,
 		 rowHeaders: true,
 		 fillHandle: false,
          rowHeights: 72,
@@ -153,7 +150,7 @@ $(document).ready(function() {
     /*
      *  Create Handsontable
     */
-    hot = new Handsontable(table, partisipants_settings);
+    hot = new Handsontable(table, hot_settings);
 
 
 
@@ -196,8 +193,8 @@ $(document).ready(function() {
     hot.addHook('afterValidate', function(isValid, value, row, prop, source){
         if ( prop != 'name' && hot.getDataAtCell(row, 1) === null ) {
             hot.setDataAtCell(row, 1, "");
-            return;
         }
+        return;
     });
 
 
@@ -213,7 +210,6 @@ $(document).ready(function() {
                 edit.className = "pull-right displayblock";
                 save.className = "displaynone";
 
-                var is_empty_table = checking_on_empty_table('save');
 
                 hot.updateSettings({
                     minSpareRows: 0,
@@ -221,7 +217,7 @@ $(document).ready(function() {
                 });
 
 
-                /* delete last row if it's empty */
+                // delete last row if it's empty
                 if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
                     hot.alter('remove_row', hot.countRows() - 1);
                 }
@@ -229,26 +225,44 @@ $(document).ready(function() {
                 /*
                  *  Update Data via Ajax
                 */
-                if ( ! is_empty_table ) {
+                if ( ! checking_on_empty_table('save') ) {
 
-                    for (var i = 0; i < array_participants.length; i++) {
-                        if ( i >= get_array_participants.length ) {
-                            array_participants[i].status = "insert";
+                    for (var i = 0; i < get_array.length; i++) {
 
-                        } else if ( get_array_participants[i].photo != array_participants[i].photo ||
-                                    get_array_participants[i].name != array_participants[i].name ||
-                                    get_array_participants[i].about != array_participants[i].about ||
-                                    get_array_participants[i].email != array_participants[i].email /*||
-                                get_array_participants[i].sendresult != array_participants[i].sendresult*/ )
-                        {
-                            array_participants[i].status = "update";
-                        } else {
-                            array_participants[i].status = "none";
+                        // add to output_array only deleted element from get_array
+                        if ( $.inArray(get_array[i]['id'], deleted_elements) != -1 ) {
+                            get_array[i]['status'] = "delete";
+                            output_array.push(get_array[i]);
+                        }
+
+                        else {
+
+                            for (var j = 0; j < hot_array.length; j++) {
+
+                                // add to output_array only inserted only new element
+                                if ( hot_array[j]['id'] == null ) {
+                                    if ( ! find_output_el (hot_array[j]) ) {
+                                        hot_array[j]['status'] = "insert";
+                                        output_array.push(hot_array[j]);
+                                    }
+                                }
+
+                                // add to output_array only edited element from get_array
+                                else if ( get_array[i]['id'] == hot_array[j]['id']  ) {
+                                    if ( ! is_similar (get_array[i], hot_array[j]) ) {
+                                        hot_array[j]['status'] = "update";
+                                        output_array.push(hot_array[j]);
+                                    }
+                                }
+
+                            }
+
                         }
 
                     }
 
-                    dataToSave = JSON.stringify(array_participants);
+                    dataToSave = JSON.stringify(output_array);
+
 
                     /**
                      * Reloads page after success callback
@@ -268,7 +282,7 @@ $(document).ready(function() {
                             console.log("Something wrong");
                         },
                         sendBefore: function() {
-                            /** Do some action */
+                            // Do some action
                         }
                     })
                 }
@@ -288,21 +302,71 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *   Remove empty rows while editing
-    */
+
     hot.addHook('afterChange', function(changes, source) {
 
         for (var i = 0; i < hot.countRows(); i++) {
+
             if ( hot.isEmptyRow(i) ||
                 (hot.getDataAtCell(i, 1) == "" && hot.getDataAtCell(i, 2) == "" &&  hot.getDataAtCell(i, 3) == "" && hot.getDataAtCell(i, 4) != null) ||
                 (hot.getDataAtCell(i, 0) == null && hot.getDataAtCell(i, 1) == null && hot.getDataAtCell(i, 2) == null && hot.getDataAtCell(i, 3) == null && hot.getDataAtCell(i, 4) != null ) )
             {
+                // add id of deleted element
+                if ( hot_array[i]['id'] != null ) {
+                    deleted_elements.push(hot_array[i]['id']);
+                }
                 hot.alter('remove_row', i);
             }
         }
-
+        return;
     });
+
+
+
+
+
+    /*
+     *  Find element in output_array
+     *  in   @element
+     *  return true || false
+    */
+    function find_output_el(element) {
+
+        for (var i = 0; i < output_array.length; i++) {
+            if (output_array[i]['status'] == "insert") {
+                if (element['name'] == output_array[i]['name'] && element['photo'] == output_array[i]['photo'] &&
+                    element['about'] == output_array[i]['about'] && element['email'] == output_array[i]['email'] &&
+                    element['sendresult'] == output_array[i]['sendresult'])
+                {
+                    return true;
+                }
+            }
+        }
+
+        return false;
+
+    }
+
+
+
+    /*
+     *  Compare two arrays
+     *  in   @array1, @array2
+     *  return true || false
+    */
+    function is_similar (array1, array2) {
+
+        if (array1['name'] == array2['name'] && array1['photo'] == array2['photo'] &&
+            array1['about'] == array2['about'] && array1['email'] == array2['email'] &&
+            array1['sendresult'] == array2['sendresult'])
+        {
+            return true;
+        }
+
+        return false;
+
+    }
+
 
 
     /*
