@@ -2,7 +2,7 @@ $(document).ready(function() {
 
     /*
      *  Vars
-    */
+     */
     var
         url = "http://pronwe/assets/img/user",
         edit = document.getElementById('edit'),

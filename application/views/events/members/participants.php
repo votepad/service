@@ -16,3 +16,5 @@
     </div>
     <div id="participants" class="displaynone"></div>
 </div>
+
+<script src="<?=$assets; ?>frontend/production/main.js">

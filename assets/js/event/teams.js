@@ -190,7 +190,28 @@ $(document).ready(function() {
      *  Delete Team
     */
     $('body').on('click', '.delete', function(){
-        alert('Here action for delete');
+
+        if (!confirm("Вы уверены что хотите продолжить это действие?"))
+            return;
+
+        /** Information about action */
+        var activeAction = $(this).get(0),
+            dataPk = activeAction.dataset.pk;
+
+        var teamPk = $('#team-' + dataPk).get(0),
+            eventPk = $('#event_id').val();
+
+        $.ajax({
+            url : '/teams/delete/' + eventPk + '/' + dataPk,
+            data : {},
+            success : function(callback) {
+                teamPk.remove();
+            },
+            error : function(callback) {
+                console.log("Something gone wrong");
+            }
+        })
+
     });
 
 

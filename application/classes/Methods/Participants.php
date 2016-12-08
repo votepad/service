@@ -81,4 +81,30 @@ class Methods_Participants extends Model_Participants
         }
 
     }
+
+    public static function getParticipantsFromTeams($id_team) {
+
+        try {
+
+            $participants = DB::select()->from('Teams_Participants')
+                ->where('id_team', '=', $id_team)
+                ->execute()
+                ->as_array();
+
+            $counter = 0;
+            $result = array();
+            
+            foreach($participants as $participant) {
+
+                $result[$counter] = self::getParticipant($participant["id_participant"]);
+                $counter ++;
+            }
+
+            return $result;
+
+        } catch (Exception $e) {
+            return false;
+        }
+
+    }
 }
