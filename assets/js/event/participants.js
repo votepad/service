@@ -8,7 +8,7 @@ $(document).ready(function() {
         edit = document.getElementById('edit'),
         save = document.getElementById('save'),
         table = document.getElementById('participants'),
-        idEvent = 15,
+        idEvent = 22,
         get_array = [],
         hot_array = [],
         output_array = [],
@@ -209,6 +209,7 @@ $(document).ready(function() {
 
                 edit.className = "pull-right displayblock";
                 save.className = "displaynone";
+                $('#participants').addClass('whirl');
 
 
                 hot.updateSettings({
@@ -274,8 +275,20 @@ $(document).ready(function() {
                             list: dataToSave
                         },
                         success: function(response) {
+                            $('#participants').wait(200).removeClass('whirl');
+
                             if (response == 'false') {
-                                window.location.reload();
+                                $.notify({
+                                	message: 'Инфомация об участниках успешно обновлена.'
+                                },{
+                                	type: 'success'
+                                });
+                            } else {
+                                $.notify({
+                                	message: 'Что-то пошло не так... Данные не сохранены.'
+                                },{
+                                	type: 'warning'
+                                });
                             }
                         },
                         error: function(response) {

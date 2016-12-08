@@ -642,9 +642,9 @@ a, a:hover, a:focus{
  * Block Refresh
 */
 
-.block.whirl:before {
+.whirl:before {
 	content: "";
-	z-index: 1;
+	z-index: 110;
 	position: absolute;
 	top: 0;
 	right: 0;
@@ -654,8 +654,8 @@ a, a:hover, a:focus{
 	opacity: .6;
 }
 
-.block.whirl:after {
-	z-index: 2;
+.whirl:after {
+	z-index: 111;
 	content: "";
 	height: 40px;
 	width: 40px;
