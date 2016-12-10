@@ -17,4 +17,21 @@
     <div id="participants" class="displaynone"></div>
 </div>
 
-<script src="<?=$assets; ?>frontend/production/main.js">
+
+<input type="hidden" value="<?=$event->id; ?>" id="id_event">
+<script src="<?=$assets; ?>frontend/production/nwe.js?v=<?=filemtime('assets/frontend/production/nwe.js'); ?>"></script>
+
+<script>
+
+    nwe.uploader.init({
+        handler : document.getElementById('testing'),
+        server  : 'URL',
+        success : function() {
+
+        },
+        error : function() {
+
+        }
+    });
+
+</script>

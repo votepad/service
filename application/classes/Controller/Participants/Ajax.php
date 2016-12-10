@@ -21,6 +21,7 @@ class Controller_Participants_Ajax extends Ajax
         try {
 
             $decodedData = json_decode(Arr::get($_POST, 'list'), true);
+
             $id_event    = $this->request->param('id_event');
 
             foreach($decodedData as $participant) {
@@ -47,6 +48,11 @@ class Controller_Participants_Ajax extends Ajax
                     $id = $participant['id'];
 
                     $model_participants->save($id);
+
+                } else if ($participant['status'] == Methods_Participants::DELETE) {
+
+                    $id = $participant['id'];
+                    Methods_Participants::removeParticipant($id);
 
                 }
             }
