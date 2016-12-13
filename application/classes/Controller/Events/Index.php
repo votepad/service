@@ -235,7 +235,11 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_participants()
     {
-        $this->template->main_section = View::factory('events/members/participants');
+        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+
+        $this->template->main_section = View::factory('events/members/participants')
+            ->set('event', $this->event);
+        
         $this->template->left = View::factory('events/members/left_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
@@ -248,7 +252,14 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_teams()
     {
-        $this->template->main_section = View::factory('events/members/teams');
+        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+        $teams = Methods_Teams::getAllTeams($this->event->id);
+
+        $this->template->main_section = View::factory('events/members/teams')
+            ->set('event', $this->event)
+            ->set('participants', $participants)
+            ->set('teams', $teams);
+
         $this->template->left = View::factory('events/members/left_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);

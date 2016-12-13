@@ -27,4 +27,9 @@ class Controller_Events_Ajax extends Ajax {
         }
     }
 
+    public function action_addParticipants()
+    {
+
+    }
+    
 }

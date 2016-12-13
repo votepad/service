@@ -61,16 +61,16 @@ Route::set('ADD_EVENT', 'event/add')
  *
  * @example http://pronwe.ru/ifmo/miss
  */
-Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)',
-    array(
-        'organizationpage' => $STRING,
-        'eventpage' => $STRING,
-        'action' => $STRING
-    ))
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'EventPage'
-    ));
+//Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)',
+//    array(
+//        'organizationpage' => $STRING,
+//        'eventpage' => $STRING,
+//        'action' => $STRING
+//    ))
+//    ->defaults(array(
+//        'controller' => 'Events_Index',
+//        'action'     => 'EventPage'
+//    ));
 
 /**
  * Route for backoffice

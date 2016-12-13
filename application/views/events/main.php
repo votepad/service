@@ -6,6 +6,7 @@
 
         <!-- =============== VENDOR STYLES ===============-->
         <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
+        <link rel="stylesheet" href="<?=$assets; ?>css/event.css">
         <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css">
 
 

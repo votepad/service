@@ -14,7 +14,7 @@ $(function() {
 
 	$("#keywords").select2({
 		placeholder: "Введите слово",
-	  tags: true,
+	  	tags: true,
 		language: "ru"
 	});
 	$('#datestart').datetimepicker({
@@ -360,7 +360,7 @@ $(function() {
 		oncomplete: function(){
 			var $this = $(this);
 			var website = $("#event_site").inputmask('unmaskedvalue');
-			
+
 			$.when(
 				/*
 				**  Checking event website in DB

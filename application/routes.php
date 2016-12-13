@@ -46,6 +46,8 @@ Route::set('IMAGE_TRANSPORT', 'transport')
 require_once ('routes/ui.php');
 require_once ('routes/organizations.php');
 require_once ('routes/events.php');
+require_once ('routes/participants.php');
+require_once ('routes/teams.php');
 require_once ('routes/ajax.php');
 
 ?>

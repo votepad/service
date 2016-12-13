@@ -27,7 +27,7 @@
             <div class="header_menu">
                 <ul class="nav">
                     <li class="nav_item">
-                        <a href="<?=URL::site('ui'); ?>" class="nav_link active">
+                        <a href="<?=URL::site('ui'); ?>" class="nav_link">
                             Main
                         </a>
                     </li>
@@ -43,7 +43,7 @@
                     </li>
                     <li class="nav_item">
                         <a href="<?=URL::site('ui/forms'); ?>" class="nav_link">
-                            Forms
+                            Form's Elements
                         </a>
                     </li>
                     <li class="nav_item">

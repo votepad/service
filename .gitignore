@@ -9,3 +9,8 @@ uploads/
 application/vendor/phing/phing/
 
 application/vendor/phpoffice/phpexcel/
+
+# Bundler
+assets/frontend/modules/
+assets/frontend/index.js
+assets/frontend/webpack.config.js
