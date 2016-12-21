@@ -4,17 +4,7 @@ $(document).ready(function() {
      *  Vars
     */
 
-    var url = "http://pronwe/assets/img/user",
-        template_modal = ['<form class="modal fade" id="',
-                            '" tabindex="-1" role="dialog" aria-labelledby="',
-                            '" method="post" action="',
-                            '"><div class="modal-dialog" role="document"><div class="modal-content"><div class="modal-header"><button type="button" class="close" data-dismiss="modal" aria-label="Close"><i class="fa fa-close" aria-hidden="true"></i></button><h4 class="modal-title" id="',
-                            '">Редактирование информации о команде</h4></div><div class="modal-body"><div class="row"><div class="input-field"><input type="text" id="',
-                            '" name="name" value="','"><label for="','" class="active">Название команды</label></div></div><div class="row"><div class="input-field"><textarea id="',
-                            '" name="description">','</textarea><label for="','" class="active">Описание команды</label></div></div><div class="row"><div class="input-field"><select multiple id="',
-                            '" name="participants">','</select><label for="','">Состав команды</label></div></div><label class="btn btn_default btn_labeled" for="','"><span class="btn_label"><i class="fa fa-paperclip" aria-hidden="true"></i></span><span class="btn_text">Выбрать логотип</span><input type="file" id="',
-                            '" name="logo" accept="image/*"></label></div><div class="modal-footer"><button type="button" class="btn btn_default" data-dismiss="modal">Отмена</button><button id="update-info" type="button" class="btn btn_primary">Сохранить изменения</button></div></div></div></form>'
-                        ];
+    var url = "http://pronwe/assets/img/user";
 
 
 
@@ -119,49 +109,41 @@ $(document).ready(function() {
      *   Generate Modal Form for changing information about team
     */
     $('.edit').click(function(){
-        var card = $(this).closest('.card'),
-            id = card.attr('id'),
-            modal_id = "modal_" + id,
-            action = card.attr('action'),
-            name = $.trim($("#name_" + id).text()),
-            description = $.trim($("#description_" + id).text()),
-            participants = $("#participants_" + id).html(),
-            modal = template_modal[0] + modal_id + template_modal[1] + modal_id + "-Label" + template_modal[2] + action  // modal and form parametrs
-                    + template_modal[3] + modal_id + "-Label"  + template_modal[4] // Label for modal
-                    + id + "_name" + template_modal[5] + name + template_modal[6] + id + "_name" + template_modal[7] // input name
-                    + id + "_description" + template_modal[8] + description + template_modal[9] + id + "_description" + template_modal[10] // textarea
-                    + id + "_participants" + template_modal[11] + participants + template_modal[12] + id + "_participants" + template_modal[13] // select
-                    + id + "_logo" + template_modal[14]+ id + "_logo" + template_modal[15]; // for changing logo
+        var card = this.closest('card'),
+            id = card.getAttribute('id'),
+            name = $.trim(document.getElementById('name_' + id).innerHTML),
+            about = $.trim(document.getElementById('description_' + id).innerHTML),
+            part = $.trim(document.getElementById('participants_' + id).innerHTML),
 
-        // append editing modal form
-        $('body').append(modal);
+            modal_name = document.getElementById('editteam_name'),
+            modal_about = document.getElementById('editteam_about'),
+            modal_part = document.getElementById('editteam_part');
+
+
+        //  Fill modal information
+        modal_name.value = name;
+        modal_about.innerHTML = about;
+        modal_part.innerHTML = part;
 
         // initialize select2
-        $("#" + id + "_participants").select2({
+        $("#editteam_part").select2({
             language: 'ru',
             templateResult: render_image_for_select2
         });
 
         // initialize textarea_resize
-        $($("#" + id + "_description")).on('init keyup focus', function(){
+        $($("editteam_about")).on('init keyup focus', function(){
             textarea_resize($(this));
         });
 
         // initialize modal
-        $("#" + modal_id).modal({
+        $("#editteam_modal").modal({
             backdrop: 'static',
             keyboard: false
         });
 
     });
 
-
-    /*
-     *   Close Modal Form without Saving
-    */
-    $('body').on('click', 'button[data-dismiss="modal"]', function(){
-        $(this).wait(320).closest('.modal').remove();
-    });
 
 
     /*

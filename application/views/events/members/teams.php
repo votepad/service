@@ -55,7 +55,7 @@
     <div class="col-xs-12">
 
         <? foreach ($teams as $team) : ?>
-            <div class="card clear_fix" action="" id="team-<?=$team->id;?>">
+            <card class="card clear_fix" id="team-<?=$team->id;?>">
                 <div class="card_image" id="logo_team-1">
                     <img src="/uploads/teams/<?=$team->logo; ?>" alt="">
                 </div>
@@ -84,15 +84,62 @@
                     </div>
                     <p class="card_content-text">
                         <i><u>Состав команды:</u></i>
-                    <span id="participants_team-1">
+                    <span id="participants_team-<?=$team->id; ?>">
                         <? foreach ($team->participants as $members) : ?>
                             <option value=""><?=$members->name; ?></option>
                         <? endforeach; ?>
                     </span>
                     </p>
                 </div>
-            </div>
+            </card>
         <? endforeach; ?>
         <input type="hidden" id="event_id" value="<?=$event->id; ?>">
     </div>
 </div>
+
+<!-- Modal - Update Team Info -->
+<form class="modal fade" id="editteam_modal" tabindex="-1" role="dialog" aria-labelledby="" method="post" action="">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <i class="fa fa-close" aria-hidden="true"></i>
+                </button>
+                <h4 class="modal-title" id="">Редактирование информации о команде</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="input-field">
+                        <input type="text" id="editteam_name" name="name" value="">
+                        <label for="editteam_name" class="active">Название команды</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <textarea id="editteam_about" name="description"></textarea>
+                        <label for="editteam_about" class="active">Описание команды</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="input-field">
+                        <select multiple id="editteam_part" name="participants">
+                            <!-- options -->
+                        </select>
+                        <label for="editteam_part">Состав команды</label>
+                    </div>
+                </div>
+                <label class="btn btn_default btn_labeled" for="editteam_logo">
+                    <span class="btn_label">
+                        <i class="fa fa-paperclip" aria-hidden="true"></i>
+                    </span>
+                    <span class="btn_text">Выбрать логотип</span>
+                    <input type="file" id="editteam_logo" name="logo" accept="image/*">
+                </label>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn_default" data-dismiss="modal">Отмена</button>
+                <button id="update-info" type="button" class="btn btn_primary">Сохранить изменения</button>
+            </div>
+        </div>
+    </div>
+</form>
