@@ -239,7 +239,7 @@ class Controller_Events_Index extends Dispatch
 
         $this->template->main_section = View::factory('events/members/participants')
             ->set('event', $this->event);
-        
+
         $this->template->left = View::factory('events/members/left_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
@@ -272,7 +272,9 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_groups()
     {
-        $this->template->main_section = View::factory('events/members/groups');
+        $this->template->main_section = View::factory('events/members/groups')
+            ->set('event', $this->event);
+            
         $this->template->left = View::factory('events/members/left_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
