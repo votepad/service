@@ -26,14 +26,36 @@
         </div>
         <div class="col-xs-12 col-md-6">
             <div class="row hidden">
-                <div class="input-field">
-                    <select name="participants[]" id="participants-0" multiple="" class="participants_in_group">
+                <div class="radio-field clear_fix">
+                    <label class="radio-label" >Группа состоит из</label>
+                    <div class="radio-block">
+                        <input type="radio" id="part" name="partORteam" checked="">
+                        <label for="part">участников</label>
+                    </div>
+                    <div class="radio-block">
+                        <input type="radio" id="team" name="partORteam">
+                        <label for="team">команд</label>
+                    </div>
+                </div>
+            </div>
+            <div class="row hidden">
+                <div id="show_participants" class="input-field">
+                    <select name="participants[]" id="participants-0" multiple="" class="elements_in_group">
 
-                            <option value="0">Участник 1</option>
-                            <option value="1">Участник 2</option>
+                            <option value="0" data-logo="">Участник 1</option>
+                            <option value="1" data-logo="">Участник 2</option>
 
                     </select>
                     <label for="participants-0">Состав группы</label>
+                </div>
+                <div id="show_teams" class="input-field displaynone">
+                    <select name="teams[]" id="team-0" multiple="" class="elements_in_group">
+
+                            <option value="0">Команда 1</option>
+                            <option value="1">Команда 2</option>
+
+                    </select>
+                    <label for="team-0">Состав группы</label>
                 </div>
             </div>
         </div>
@@ -60,7 +82,7 @@
             </div>
             <div class="card_title">
                 <div class="card_title-text" id="name_group-1">
-                    Группа 1
+                    Название Группы 1
                 </div>
                 <div class="card_title-dropdown">
                     <div id="create_group" role="button" class="card_title-dropdown-icon">
@@ -79,14 +101,56 @@
             <div class="card_content">
                 <div class="card_content-text">
                     <i><u>О группе:</u></i>
-                <span id="description_group-1">вавыаывавыаы</span>
+                <span id="description_group-1">описание группы №1</span>
                 </div>
                 <p class="card_content-text">
                     <i><u>Состав группы:</u></i>
                     <span id="participants_group-1">
+                        <option value="0" data-logo="">Участник 1</option>
+                        <option value="1" data-logo="">Участник 2</option>
+                    </span>
+                    <span id="teams_group-1">
 
-                        <option value="" data-logo="">участник 1</option>
+                    </span>
+                </p>
+            </div>
+        </div>
 
+        <div class="card clear_fix" action="" id="group-2">
+            <div class="card_image" id="logo_group-2">
+                <img src="/uploads/groups/" alt="">
+            </div>
+            <div class="card_title">
+                <div class="card_title-text" id="name_group-2">
+                    Название Группы 2
+                </div>
+                <div class="card_title-dropdown">
+                    <div id="create_group" role="button" class="card_title-dropdown-icon">
+                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                    </div>
+                    <div class="card_title-dropdown-menu">
+                        <a class="card_title-dropdown-item edit">
+                            Изменить информацию
+                        </a>
+                        <a class="card_title-dropdown-item delete" data-pk="">
+                            Удалить группу
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="card_content">
+                <div class="card_content-text">
+                    <i><u>О группе:</u></i>
+                <span id="description_group-2">описание группы №2</span>
+                </div>
+                <p class="card_content-text">
+                    <i><u>Состав группы:</u></i>
+                    <span id="participants_group-2">
+
+                    </span>
+                    <span id="teams_group-2">
+                        <option value="0" data-logo="">Команда 1</option>
+                        <option value="1" data-logo="">Команда 2</option>
                     </span>
                 </p>
             </div>
@@ -121,10 +185,10 @@
                 </div>
                 <div class="row">
                     <div class="input-field">
-                        <select multiple id="editgroup_part" name="participants">
+                        <select multiple id="editgroup_members" name="members">
                             <!-- options -->
                         </select>
-                        <label for="editgroup_part">Состав группы</label>
+                        <label for="editgroup_members">Состав группы</label>
                     </div>
                 </div>
                 <label class="btn btn_default btn_labeled" for="editgroup_logo">

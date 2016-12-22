@@ -20,11 +20,15 @@ $(document).ready(function() {
      *  Close new_group form if inputs are empty
     */
     $('body').click(function(event) {
-        if ( ! $(event.target).closest("#new_group").is('#new_group') && $('#name-0').val() == "" && $('#description-0').val() == "" && $("#participants-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0 ) {
+        if ( ! $(event.target).closest("#new_group").is('#new_group') && $('#name-0').val() == "" && $('#description-0').val() == ""
+                && $("#participants-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#team-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0)
+        {
             $('#new_group').removeClass('open');
             checking_el_valid($('#name-0'), 'valid');
             checking_el_valid($('#description-0'), 'valid');
             checking_el_valid($("#participants-0"), 'valid');
+            checking_el_valid($("#team-0"), 'valid');
         }
     });
 
@@ -33,11 +37,26 @@ $(document).ready(function() {
     /*
      *  Create select2 for new_group form
     */
-    $('.participants_in_group').select2({
+    $('.elements_in_group').select2({
         language: 'ru',
         templateResult: render_image_for_select2
     });
 
+
+    /*
+     * change group memvers
+    */
+    $("#team").click(function(){
+        $("#show_teams").removeClass("displaynone");
+        $("#show_participants").addClass("displaynone");
+        $("#participants-0").val(null).trigger("change");
+    });
+
+    $("#part").click(function(){
+        $("#show_participants").removeClass("displaynone");
+        $("#show_teams").addClass("displaynone");
+        $("#team-0").val(null).trigger("change");
+    });
 
 
     /*
@@ -50,7 +69,11 @@ $(document).ready(function() {
 
         stat_1 = checking_el_valid($('#name-0'), '');
         stat_2 = checking_el_valid($('#description-0'), '');
-        stat_3 = checking_el_valid($("#participants-0"), '');
+        if ( ! $("#show_participants").hasClass("displaynone") ) {
+            stat_3 = checking_el_valid($("#participants-0"), '');
+        } else {
+            stat_3 = checking_el_valid($("#team-0"), '');
+        }
 
         if ( stat_1 == true && stat_2 == true && stat_3 == true) {
             form[0].submit();
@@ -113,19 +136,25 @@ $(document).ready(function() {
             name = $.trim(document.getElementById('name_' + id).innerHTML),
             about = $.trim(document.getElementById('description_' + id).innerHTML),
             part = $.trim(document.getElementById('participants_' + id).innerHTML),
+            team = $.trim(document.getElementById('teams_' + id).innerHTML),
 
             modal_name = document.getElementById('editgroup_name'),
             modal_about = document.getElementById('editgroup_about'),
-            modal_part = document.getElementById('editgroup_part');
+            modal_members = document.getElementById('editgroup_members');
 
 
         //  Fill modal information
         modal_name.value = name;
         modal_about.innerHTML = about;
-        modal_part.innerHTML = part;
+        if ( part == "") {
+            modal_members.innerHTML = team;
+        } else {
+            modal_members.innerHTML = part;
+        }
+
 
         // initialize select2
-        $("#editgroup_part").select2({
+        $("#editgroup_members").select2({
             language: 'ru',
             templateResult: render_image_for_select2
         });
@@ -153,8 +182,13 @@ $(document).ready(function() {
             id = form.attr('id').replace('modal_', ''),
             stat_1 = checking_el_valid($("#" + id + "_name")),
             stat_2 = checking_el_valid($("#" + id + "_description")),
-            stat_3 = checking_el_valid($("#" + id + "_participants"));
+            stat_3;
 
+            if ( ! $("#modal_show_participants").hasClass("displaynone") ) {
+                stat_3 = checking_el_valid($("#" + id + "_participants"));
+            } else {
+                stat_3 = checking_el_valid($("#" + id + "_teams"));
+            }
 
             if ( stat_1 == true && stat_2 == true && stat_3 == true) {
                 form[0].submit();
@@ -170,7 +204,7 @@ $(document).ready(function() {
     /*
      *  Delete group
     */
-    $('body').on('click', '.delete', function(){
+    $('.delete').click(function(){
 
         if (!confirm("Вы уверены что хотите продолжить это действие?"))
             return;
@@ -182,7 +216,7 @@ $(document).ready(function() {
         var groupPk = $('#group-' + dataPk).get(0),
             eventPk = $('#event_id').val();
 
-        $.ajax({
+        /*$.ajax({
             url : '/groups/delete/' + eventPk + '/' + dataPk,
             data : {},
             success : function(callback) {
@@ -191,7 +225,7 @@ $(document).ready(function() {
             error : function(callback) {
                 console.log("Something gone wrong");
             }
-        })
+        })*/
 
     });
 
@@ -201,14 +235,14 @@ $(document).ready(function() {
     /*
      *    Function for Rendering Image for select2 elements
     */
-    function render_image_for_select2 (group) {
-        if (!group.id) {
-            return group.text;
+    function render_image_for_select2 (el) {
+        if (!el.id) {
+            return el.text;
         }
-        var $group = $(
-            '<span class="select2-results__withlogo"><img src="' + url + '/' + group.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + group.text + '</span></span>'
+        var $el = $(
+            '<span class="select2-results__withlogo"><img src="' + url + '/' + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
         );
-        return $group;
+        return $el;
     };
 
 
