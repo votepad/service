@@ -108,7 +108,7 @@ $(document).ready(function() {
      *   Generate Modal Form for changing information about team
     */
     $('.edit').click(function(){
-        var card = this.closest('card'),
+        var card = this.closest('.card'),
             id = card.getAttribute('id'),
             name = $.trim(document.getElementById('name_' + id).innerHTML),
             about = $.trim(document.getElementById('description_' + id).innerHTML),
