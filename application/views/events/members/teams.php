@@ -29,7 +29,7 @@
                 <div class="input-field">
                     <select name="participants[]" id="participants-0" multiple="" class="participants_in_team">
                         <? foreach ($participants as $participant): ?>
-                            <option value="<?=$participant->id; ?>"><?=$participant->name; ?></option>
+                            <option value="<?=$participant->id; ?>" data-logo="<?=$participant->photo; ?>"><?=$participant->name; ?></option>
                         <? endforeach; ?>
                     </select>
                     <label for="participants-0">Состав команды</label>
@@ -86,7 +86,7 @@
                         <i><u>Состав команды:</u></i>
                     <span id="participants_team-<?=$team->id; ?>">
                         <? foreach ($team->participants as $members) : ?>
-                            <option value=""><?=$members->name; ?></option>
+                            <option value="<?=$members->id; ?>"  data-logo="<?=$members->photo; ?>" selected=""><?=$members->name; ?></option>
                         <? endforeach; ?>
                     </span>
                     </p>

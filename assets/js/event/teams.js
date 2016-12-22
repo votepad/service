@@ -7,7 +7,6 @@ $(document).ready(function() {
     var url = "http://pronwe/assets/img/user";
 
 
-
     /*
      *  Open new_team form
     */
@@ -207,7 +206,7 @@ $(document).ready(function() {
             return team.text;
         }
         var $team = $(
-            '<span class="select2-results__withlogo"><img src="' + url + '/' + team.element.value.toLowerCase() + '" class="select2-results__logo" /> <span class="select2-results__text">' + team.text + '</span></span>'
+            '<span class="select2-results__withlogo"><img src="' + url + '/' + team.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + team.text + '</span></span>'
         );
         return $team;
     };
