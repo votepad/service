@@ -201,14 +201,14 @@ $(document).ready(function() {
     /*
      *    Function for Rendering Image for select2 elements
     */
-    function render_image_for_select2 (team) {
-        if (!team.id) {
-            return team.text;
+    function render_image_for_select2 (el) {
+        if (!el.id) {
+            return el.text;
         }
-        var $team = $(
-            '<span class="select2-results__withlogo"><img src="' + url + '/' + team.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + team.text + '</span></span>'
+        var $el = $(
+            '<span class="select2-results__withlogo"><img src="' + url + '/' + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
         );
-        return $team;
+        return $el;
     };
 
 
