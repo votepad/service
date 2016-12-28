@@ -15,11 +15,21 @@ $(document).ready(function(){
      *  Get Page Link and Add Class to Link
     */
     var address = window.location.pathname.split('/');
-    address =   '/' + address[1] + '/' + address[2] + '/' + address[3];
+    address1 =   '/' + address[1] + '/' + address[2] + '/' + address[3];
+    address2 =   '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4];
     $('.header_menu .header_button').each(function(){
         var temp = $(this).attr('href').split('/');
         temp = new RegExp(temp[1] + '/' + temp[2] + '/' + temp[3]);
-        if ( temp.test(address) ) {
+        if ( temp.test(address1) ) {
+            $(this).addClass('active');
+        } else {
+            $(this).removeClass('active');
+        }
+    });
+    $('.jumbotron_nav .jumbotron_nav-btn').each(function(){
+        var temp = $(this).attr('href').split('/');
+        temp = new RegExp(temp[1] + '/' + temp[2] + '/' + temp[3] + '/' + temp[4]);
+        if ( temp.test(address2) ) {
             $(this).addClass('active');
         } else {
             $(this).removeClass('active');
@@ -62,16 +72,40 @@ $(document).ready(function(){
       *  Open header_menu on tablet and mobile versions
      */
 
-     $('#open_menu').click(function(){
-         $('body').addClass('hidden').append('<div class="backdrop"></div>');
+     $('#open_header_menu').click(function(){
+         if ( ! $('.jumbotron_nav').hasClass('open') && ! $('.header_menu').hasClass('open') ) {
+             $('body').addClass('hidden').append('<div class="backdrop"></div>');
+         }
+         $('.jumbotron_nav').removeClass('open');
          $('.header_menu').addClass('open');
      });
+
+
+
+     /*
+      *  Open jumbotron_nav on mobile versions
+     */
+
+     $('#open_jumbotron_nav').click(function(){
+         if ( ! $('.jumbotron_nav').hasClass('open') && ! $('.header_menu').hasClass('open') ) {
+             $('body').addClass('hidden').append('<div class="backdrop"></div>');
+         }
+         $('.header_menu').removeClass('open');
+         $('.jumbotron_nav').addClass('open');
+     });
+
+
+     /*
+      *  Close header_menu && jumbotron_nav
+     */
 
      $('body').on('click', '.backdrop', function(){
          $('body').removeClass('hidden')
          $('.header_menu').removeClass('open');
+         $('.jumbotron_nav').removeClass('open');
          $(this).remove();
      });
+
 
 
 
@@ -437,6 +471,63 @@ $.notifyDefaults({
 
 
 
+/*
+**  Parallax Scripts
+*/
+
+$(function(){
+  var window_width = $(window).width();
+
+  return $('body').find('.parallax').each(function(i) {
+    var $this = $(this);
+
+    function updateParallax(initial) {
+      var container_height;
+      if (window_width < 601) {
+        container_height = ($this.height() > 0) ? $this.height() : $this.children("img").height();
+      }
+      else {
+        container_height = ($this.height() > 0) ? $this.height() : 500;
+      }
+      var $img = $this.children("img").first();
+      var img_height = $img.height();
+      var parallax_dist = img_height - container_height;
+      var bottom = $this.offset().top + container_height;
+      var top = $this.offset().top;
+      var scrollTop = $(window).scrollTop();
+      var windowHeight = window.innerHeight;
+      var windowBottom = scrollTop + windowHeight;
+      var percentScrolled = (windowBottom - top) / (container_height + windowHeight);
+      var parallax = Math.round((parallax_dist * percentScrolled));
+
+      if (initial) {
+        $img.css('display', 'block');
+      }
+      if ((bottom > scrollTop) && (top < (scrollTop + windowHeight))) {
+        $img.css('transform', "translate3D(-50%," + parallax + "px, 0)");
+      }
+
+    }
+
+    // Wait for image load
+    $this.children("img").one("load", function() {
+      updateParallax(true);
+    }).each(function() {
+      if(this.complete) $(this).load();
+    });
+
+    $(window).scroll(function() {
+      window_width = $(window).width();
+      updateParallax(false);
+    });
+
+    $(window).resize(function() {
+      window_width = $(window).width();
+      updateParallax(false);
+    });
+
+  });
+});
 
 
 

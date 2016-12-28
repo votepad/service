@@ -21,7 +21,7 @@
     <div class="header_wrapper">
 
         <div class="header_menu-btn-icon left">
-            <button id="open_menu" class="header_button">
+            <button id="open_header_menu" class="header_button">
                 <i class="fa fa-bars header_icon" aria-hidden="true"></i>
             </button>
         </div>
@@ -55,7 +55,7 @@
         </div>
 
         <div class="header_menu-btn-icon right">
-            <button id="open_menu-page" class="header_button">
+            <button id="open_jumbotron_nav" class="header_button">
                 <i class="fa fa-ellipsis-v header_icon" aria-hidden="true"></i>
             </button>
         </div>
@@ -63,10 +63,38 @@
     </div>
 </header>
 
+<div class="jumbotron block">
+    <div class="jumbotron_wrapper parallax-container">
+        <div class="parallax">
+            <img id="" src="/uploads/organizations/o_7bbd328ec4d3858a4024e66e6714da8d.jpg">
+        </div>
+        <div class="jumbotron_wrapper-background"></div>
+        <div class="jumbotron_wrapper_edit">
+            <a id="" href="#" role="button" class="jumbotron_wrapper_edit-btn">
+                <i class="fa fa-camera jumbotron_wrapper_edit-icon" aria-hidden="true"></i>
+                <span class="jumbotron_wrapper_edit-text">Обновить фото обложки</span>
+            </a>
+        </div>
+        <div class="jumbotron_wrapper_text valign">
+            <div class="center">
+                <span class="jumbotron_wrapper_text-eventname">
+                    Лига КВН POINT
+                </span>
+                <a href class="jumbotron_wrapper_text-orgname">
+                    Университет ИТМО
+                </a>
+            </div>
+        </div>
+    </div>
+    <div class="jumbotron_nav">
+        <?=$jumbotron_navigation; ?>
+    </div>
+</div>
 
-    <section>
-        <?=$main_section; ?>
-    </section>
+<section>
+    <?=$main_section; ?>
+</section>
+
 
 
   </body>
