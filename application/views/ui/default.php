@@ -1,7 +1,16 @@
 <div class="row row-col">
 	<div class="col-xs-12 col-md-6 card-md valign">
 		<div class="center card-sm valign" style="">
-			<div class="center logo">
+			<div class="center " style="background-color:#008DA7;
+		  	color:#fff;
+		  	float:left;
+		  	width:300px !important;
+		  	height:100px;
+		  	display:inline-block;
+		  	line-height:100px;
+		  	font-size:4em;
+		  	text-align:center;
+			margin: auto;">
 				NWE
 			</div>
 		</div>
