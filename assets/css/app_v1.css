@@ -492,11 +492,6 @@ footer{
 		width: 90%;
 	}
 }
-@media (max-width: 681px) {
-	section{
-		width: 98%;
-	}
-}
 
 
 
@@ -985,10 +980,8 @@ a, a:hover, a:focus{
 
 .card_content-text{
     width: 100%;
-    word-wrap: break-word;
+	word-break: break-word;
     position: relative;
-    font-size: .9em;
-    margin: 0 0 10px;
 }
 
 .card_content-text-hidden{
@@ -1025,62 +1018,80 @@ a, a:hover, a:focus{
     text-overflow: ellipsis;
 }
 
-
-
-@media (max-width: 680px) {
-    .card_title{
-        height: 160px;
-        display: -webkit-flex;
-        display: -ms-flexbox;
-        display: flex;
-        -webkit-align-items: center;
-        -ms-flex-align: center;
-        align-items: center;
-    }
-    .card_title-text{
-        overflow: hidden;
-        white-space: normal;
-        margin-bottom: 0;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
-    }
-
-    .card_title-dropdown-icon{
-        position: absolute;
-        top: 0;
-        right: 0;
-    }
-
-    .card_image, .card_title{
-        margin-bottom: 20px;
-    }
-
-    .card_content{
-        width: 100%
-    }
+/* tablet */
+.card-md .card_image{
+	width: 110px;
+	height: 110px;
 }
-@media (max-width: 481px) {
-	.card_image{
-		float: none;
-		text-align: center;
+.card-md .card_image img{
+	width: 100px;
+	height: 100px;
+}
+.card-md .card_title, .card-md .card_content {
+	width: calc(100% - 140px);
+}
+
+/* mobile */
+.card-sm .card_image{
+	width: 110px;
+	height: 110px;
+}
+.card-sm .card_image img{
+	width: 100px;
+	height: 100px;
+}
+
+.card-sm .card_title{
+	width: calc(100% - 140px);
+    height: 110px;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-align-items: center;
+    -ms-flex-align: center;
+    align-items: center;
+}
+	.card-sm.open .card_title{
+	    height: auto;
+	    display: block !important;
+	}
+.card-sm .card_title-text{
+	white-space: normal;
+	-webkit-line-clamp: 3;
+	overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+	.card-sm.open .card_title-text{
 		display: block;
-		margin: 0 auto 20px auto;
+		-webkit-line-clamp: inherit;
 	}
-	.card_title{
-		position: relative;
-		height: auto;
-		width: 100%;
-        display: block;
-    }
-	.card_title-dropdown{
-		position: absolute;
-		top: -180px;
-		right: 0;
-	}
+.card-sm .card_title-text:after{
+	display: block;
+	font-size: .8em;
+	content: 'Подробнее...';
+	font-weight: normal;
+	position: absolute;
+	bottom: 0px;
+	cursor: pointer;
 }
-
+	.card-sm.open .card_title-text:after{
+		display: none;
+	}
+.card-sm .card_content{
+	display: none;
+	width: 100%;
+	margin-top: 10px;
+}
+	.card-sm.open .card_content{
+		display: block;
+	}
+.card-sm .card_title-dropdown-icon{
+    position: absolute;
+    top: 0;
+    right: 0;
+}
 
 
 

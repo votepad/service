@@ -127,6 +127,35 @@ $(document).ready(function(){
      });
 
      /*
+      *  Changing cards Style
+     */
+     change_card_style();
+     function change_card_style() {
+         if ( $('body').width() + 17 < 992 && $('body').width() + 17 > 680 ) {
+             $('.card').each(function () {
+                $(this).removeClass().addClass('card card-md clear_fix')
+             });
+         } else if ( $('body').width() + 17 < 680 ) {
+             $('.card').each(function () {
+                $(this).removeClass().addClass('card card-sm clear_fix')
+             });
+         } else {
+             $('.card').each(function () {
+                $(this).removeClass().addClass('card clear_fix')
+             });
+         }
+     }
+
+     $(window).resize(function() {
+         change_card_style();
+     });
+
+     $('.card_title-text').click(function(){
+         $(this).closest('.card').addClass('open');
+     });
+
+
+     /*
       * Remove Hidden class from long text in Cards
      */
 
