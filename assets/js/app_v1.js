@@ -107,6 +107,15 @@ $(document).ready(function(){
      });
 
 
+     /*
+      *  Header On hover open/close
+     */
+     $('.header_menu-dropdown').mouseover(function () {
+         $(this).addClass('open');
+     });
+     $('.header_menu-dropdown').mouseout(function () {
+         $(this).removeClass('open');
+     });
 
 
      /*

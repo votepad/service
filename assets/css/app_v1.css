@@ -111,6 +111,7 @@ ul{
 	display: inline-block;
 	float: left;
 	padding: 0 18px;
+	transition: background-color .1s;
 }
 	.header_button:hover{
 		background-color: rgba(0,0,0,0.1);
@@ -218,6 +219,7 @@ ul{
 		line-height: normal;
 		padding: 8px 15px;
 		float: none;
+		transition: border-right .1s;
 	}
 
 	.header_menu .header_button:hover, .header_menu .header_button.active{
@@ -312,6 +314,7 @@ ul{
 	padding: 11.5px 15px;
 	font-size: 1em;
 	font-weight: bold;
+	transition: box-shadow .1s;
 
 }
 .jumbotron_nav-btn.active, .jumbotron_nav-btn:hover, .jumbotron_nav-btn:focus{
@@ -447,6 +450,7 @@ ul{
 		font-size: 1em;
     	font-weight: normal;
     	color: inherit;
+		transition: border-left .1s;
 	}
 	.jumbotron_nav-btn.active, .jumbotron_nav-btn:hover, .jumbotron_nav-btn:focus{
 		box-shadow: none;
@@ -466,7 +470,168 @@ ul{
 
 
 
+/*
+ *  Footer Style
+*/
+.footer{
+	display: block;
+	width: 100%;
+	margin-top: 50px;
+	background-color: #008DA7;
+}
+.footer_wrapper{
+	width: 80%;
+	margin: 30px auto;
+}
+.footer_block{
+	display: block;
+	padding: 0 15px;
+}
+.footer .logo, .footer .nav-main{
+	display: inline-block;
+	float: left;
+}
+.footer .nav-addition, .footer .nav-main{
+	padding-top: 28px
+}
+.footer .nav-main{
+	padding-left: 30px;
+}
+.footer .divider{
+	margin: 15px 0;
+    background-color: rgba(224, 224, 224, 0.4);
+}
+.footer .logo-icon, .footer .logo-name{
+	font-size: 2em;
+	margin-bottom: 10px;
+}
+.footer .logo-icon .path1, .footer .logo-icon .path5, .footer .logo-name, .footer .logo-text, .footer_btn, .footer_icons > span, .footer .copyright{
+	color: #FCFCFC;
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+.footer .logo-name{
+	margin-left: 15px;
+    vertical-align: top;
+}
+.footer .logo-text{
+	display: block;
+	font-size: .9em;
+}
+.footer_btn{
+	margin: 0 10px;
+	padding: 0 1px 3px 1px;
+	border-bottom: 1px solid #fcfcfc;
+	font-size: .9em;
+	float: left;
+}
+	.footer_btn:first-child{
+		margin-left: 0;
+	}
+	.footer_btn:last-child{
+		margin-right: 0;
+	}
+.footer_btn:hover, .footer_btn:focus{
+	color: #FCFCFC;
+	border-bottom: 1px solid #fcfcfc;
+}
+.footer_btn-light, .copyright{
+	opacity: .7;
+	transition: opacity .1s;
+}
+.footer_btn-light:hover, .footer_btn-light:focus{
+	opacity: 1;
+}
+.footer .email{
+	margin-top: 9px;
+}
+.footer .copyright{
+	margin: 9px 0 0 10px;
+	font-size: .9em;
+}
+.footer_icons{
+	display: inline-block;
+}
+.footer_icons > span{
+	font-size: .9em;
+}
+.footer_icons > a {
+	display: inline-block;
+	border-radius: 25px;
+	padding: 7px;
+	margin-right: 10px;
+	font-size: .9em;
+	text-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+	.footer_icons > a:hover, .footer_icons > a:focus{
+		opacity: .85;
+	}
+.footer_icons > a > i{
+	width: 20px;
+    height: 20px;
+    line-height: 20px;
+    font-size: 1.1em;
+	color: #fcfcfc;
+    text-align: center;
+}
+	.footer_icons > a:hover > i, .footer_icons > a:focus > i{
+		color: #fcfcfc;
+	}
+.footer_icons .vk{
+	background: #5378A3;
+}
+.footer_icons .fb{
+	background: #3A5998;
+}
+.footer_icons .tw{
+	background: #55ACEE;
+}
 
+@media (max-width: 992px) {
+	.footer_wrapper{
+		width: 95%;
+	}
+	.footer .nav-addition{
+		padding: 0 0 20px 0;
+		float: left;
+		width: 100%;
+	}
+	.footer .nav-main{
+		padding-left: 50px;
+	}
+
+}
+@media (max-width: 680px) {
+	.footer .nav-addition, .footer .nav-main {
+		padding-left: 0;
+		width: 100%;
+	    text-align: center;
+	}
+	.footer_btn{
+		font-size: .8em;
+		float: none;
+	}
+	.footer .logo{
+		position: relative;
+	    float: none;
+	    width: 100%;
+	    text-align: center;
+	}
+	.footer .copyright, .footer_icons{
+		display: block;
+		width: 100%;
+		text-align: center;
+		margin: 10px 0;
+		border-bottom: 0 !important;
+	}
+	.footer .copyright{
+		font-size: .8em;
+		position: relative;
+		border: 0;
+	}
+	.footer .email, .footer_icons span{
+		display: none;
+	}
+}
 
 
 /*
@@ -478,18 +643,14 @@ section{
 	margin: auto;
 }
 
-footer{
-	position: relative;
-	float: left;
-	height: 100px;
-	width: 100%;
-	background-color: #413a41;
-}
-
-
 @media (max-width: 992px) {
 	section{
 		width: 90%;
+	}
+}
+@media (max-width: 680px) {
+	section{
+		width: 95%;
 	}
 }
 
@@ -2296,6 +2457,7 @@ select.invalid + .select2-container .select2-selection{
 
 
 .header_wrapper:after, .header_wrapper:before,
+.footer:after, .footer:before,
 section:after, section:before,
 .row:after, .row:before,
 .clearfix:after, .clearfix:before,

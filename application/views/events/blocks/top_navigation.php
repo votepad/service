@@ -15,5 +15,5 @@
 </a>
 
 <a class="header_button" href="<?=URL::site($organizationPage . '/' . $eventPage ); ?>">
-    <span class="header_text">Страница мероприяия</span>
+    <span class="header_text">Страница мероприятия</span>
 </a>
