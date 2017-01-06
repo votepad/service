@@ -19,6 +19,7 @@ body {
 	font-size: 16px;
     color: #413a41;
     background-color: #fcfcfc;
+	overflow-x: hidden;
     padding:0;
 	margin: 0;
 }
@@ -607,8 +608,10 @@ ul{
 	    text-align: center;
 	}
 	.footer_btn{
+		display: inline-block;
 		font-size: .8em;
 		float: none;
+		margin: 0 10px 10px 10px !important;
 	}
 	.footer .logo{
 		position: relative;

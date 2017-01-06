@@ -27,7 +27,7 @@
             </button>
         </div>
 
-        <div class="header_text header_text-logo">VotePad</div>
+        <div class="header_text header_text-logo">Votepad</div>
 
         <div class="header_menu">
             <?=$top; ?>
@@ -106,7 +106,7 @@
             </div>
             <div class="logo">
                 <span class="logo-icon icon-leadership"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
-                <span class="logo-name">VotePad</span>
+                <span class="logo-name">Votepad</span>
                 <span class="logo-text">Автоматизированный подсчёт</span>
                 <span class="logo-text">результатов голосования</span>
             </div>
@@ -123,7 +123,7 @@
                 <a href="#" class="tw"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                 <span>— подписывайтесь!</span>
             </div>
-            <span class="copyright pull-right">© 2016-2017  VotePad.RU</span>
+            <span class="copyright pull-right">© 2016-2017  "Votepad.RU"</span>
             <a href="mailto:team@votepad.ru" class="email footer_btn footer_btn-light pull-right">team@votepad.ru</a>
         </div>
     </div>
