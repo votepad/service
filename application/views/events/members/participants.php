@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css">
 <link rel="stylesheet" href="<?=$assets; ?>vendor/handsontable/handsontable.full.min.css">
 <script type="text/javascript" src="<?=$assets; ?>vendor/handsontable/handsontable.full.min.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/event/participants.js"></script>
