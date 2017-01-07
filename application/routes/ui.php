@@ -1,4 +1,4 @@
-<?php
+<?php defined('SYSPATH') or die('No direct pattern access.');
 /**
  * @author NWE Team
  * @copyright Turov Nikolay
