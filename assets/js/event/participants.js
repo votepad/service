@@ -44,16 +44,6 @@ $(document).ready(function() {
             data:'about',
             readOnly: true,
         },
-        {
-            data:'email',
-            readOnly: true,
-        },
-        {
-            data:'sendresult',
-            type: 'checkbox',
-            className: 'htCenter',
-            readOnly: true,
-        },
     ];
 
 
@@ -84,22 +74,6 @@ $(document).ready(function() {
                     callback(true);
                 }
             }
-        },
-        {
-            data: 'email',
-            validator: function (value, callback) {
-                if (/.+@.+/.test(value) || value == null || value == '') {
-                    callback(true);
-                }
-                else {
-                    callback(false);
-                }
-            }
-        },
-        {
-            data: 'sendresult',
-            type: 'checkbox',
-            className: 'htCenter',
         }
     ];
 
@@ -142,7 +116,7 @@ $(document).ready(function() {
 		 rowHeaders: true,
 		 fillHandle: false,
          rowHeights: 72,
-		 colHeaders: ['Фото', 'Фамилия Имя', 'Об участнике', 'E-mail', '<i class="icon-rating"></i> <i class="fa fa-long-arrow-right" aria-hidden="true"></i> <i class="fa fa-envelope-o" aria-hidden="true"></i>'],
+		 colHeaders: ['Фото', 'Фамилия Имя', 'Об участнике'],
          columns: column_disabled,
      };
 
@@ -151,19 +125,6 @@ $(document).ready(function() {
      *  Create Handsontable
     */
     hot = new Handsontable(table, hot_settings);
-
-
-
-    /*
-	 *  Create title for column's headers
-	*/
-
-    $('body').on('mouseenter', '.relative', function(){
-        $(this).attr('title', $(this).children('.colHeader').text());
-        if ($(this).attr('title') == "  ") {
-            $(this).attr('title', 'Отправить резултаты на e-mail');
-        }
-	});
 
 
 

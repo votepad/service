@@ -5,12 +5,11 @@
  * All pages which has relationship with Events will be here
  *
  * @author Khaydarov Murod
- * @author Khaydarov Murod <murod.haydarov@gmail.com>
  * @copyright Khaydarov Murod
  *
  * @author Turov Nikolay
  *
- * @version 0.2.2
+ * @version 0.2.3
  */
 class Controller_Events_Index extends Dispatch
 {
@@ -97,9 +96,11 @@ class Controller_Events_Index extends Dispatch
         $this->template->top = View::factory('/events/blocks/top_navigation')
             ->set('organizationPage', $organizationPage)
             ->set('eventPage', $eventPage);
+
     }
 
     /**
+     * NEW EVENT
      * action_new - action that open page where users create new event
      */
     public function action_new()
@@ -108,51 +109,71 @@ class Controller_Events_Index extends Dispatch
         $this->template->team = $team;
     }
 
+
     /**
+     * MANAGE submodule
      * action_managemain - action that open page where is a main panel for manage event
      */
     public function action_event()
     {
         $this->template->main_section = View::factory('events/manage/main');
-        $this->template->left = View::factory('events/manage/left_navigation')
+        $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')
                 ->set('organizationPage', $this->organization->website)
                 ->set('eventPage', $this->event->page);
     }
 
+
     /**
-     * action_maininfo - action that open page where users can edit main information about event
+     * MANAGE submodule
+     * action_settings - action that open page where users can edit main information about event
      */
-    public function action_landing()
+    public function action_settings()
     {
-        $this->template->main_section = View::factory('events/manage/maininfo');
-        $this->template->leftnav = View::factory('events/manage/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/manage/settings');
+        $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
     }
 
 
     /**
-     * action_controlmain - action that open page where users can admonostrate event
+     * CONTROL submodule
+     * action_before - administrate event before the start
      */
-    public function action_controlmain()
+    public function action_before()
     {
-        $this->template->main_section = View::factory('events/control/main');
-//        $this->template->leftnav = '';
+        $this->template->main_section = View::factory('events/control/before');
+        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
     }
 
 
     /**
-     *
-     * PATTERN submodule.
-     * Main information about this submodule, instruction.
+     * CONTROL submodule
+     * action_during - administrate event in real time
      */
-    public function action_main()
+    public function action_during()
     {
-        $this->template->main_section = View::factory('events/pattern/main');
-        $this->template->left = View::factory('/events/pattern/left_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
+        $this->template->main_section = View::factory('events/control/during');
+        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
     }
+
+
+    /**
+     * CONTROL submodule
+     * action_after - administrate event after the end
+     */
+    public function action_after()
+    {
+        $this->template->main_section = View::factory('events/control/after');
+        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
+    }
+
 
     /**
      * PATTERN submodule
@@ -161,7 +182,7 @@ class Controller_Events_Index extends Dispatch
     public function action_criterias()
     {
         $this->template->main_section = View::factory('events/pattern/criterias');
-        $this->template->left = View::factory('/events/pattern/left_navigation')
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
     }
@@ -173,7 +194,7 @@ class Controller_Events_Index extends Dispatch
     public function action_stages()
     {
         $this->template->main_section = View::factory('events/pattern/stages');
-        $this->template->left = View::factory('/events/pattern/left_navigation')
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
     }
@@ -185,7 +206,7 @@ class Controller_Events_Index extends Dispatch
     public function action_contests()
     {
         $this->template->main_section = View::factory('events/pattern/contests');
-        $this->template->left = View::factory('/events/pattern/left_navigation')
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
     }
@@ -198,23 +219,11 @@ class Controller_Events_Index extends Dispatch
     public function action_results()
     {
         $this->template->main_section = View::factory('events/pattern/results');
-        $this->template->left = View::factory('/events/pattern/left_navigation')
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
     }
 
-    /**
-     * MEMBERS submodule
-     * Information about appended members, instruction how to work with this submodule
-     */
-    public function action_info()
-    {
-        $this->template->main_section = View::factory('events/members/main');
-
-        $this->template->left = View::factory('events/members/left_navigation')
-                ->set('organizationPage', $this->organization->website)
-                ->set('eventPage', $this->event->page);
-    }
 
     /**
      * MEMBERS submodule
@@ -223,7 +232,7 @@ class Controller_Events_Index extends Dispatch
     public function action_judges()
     {
         $this->template->main_section = View::factory('events/members/judges');
-        $this->template->left = View::factory('events/members/left_navigation')
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
     }
@@ -239,8 +248,8 @@ class Controller_Events_Index extends Dispatch
 
         $this->template->main_section = View::factory('events/members/participants')
             ->set('event', $this->event);
-        
-        $this->template->left = View::factory('events/members/left_navigation')
+
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
     }
@@ -260,7 +269,7 @@ class Controller_Events_Index extends Dispatch
             ->set('participants', $participants)
             ->set('teams', $teams);
 
-        $this->template->left = View::factory('events/members/left_navigation')
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
     }
@@ -273,34 +282,21 @@ class Controller_Events_Index extends Dispatch
     public function action_groups()
     {
         $this->template->main_section = View::factory('events/members/groups');
-        $this->template->left = View::factory('events/members/left_navigation')
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
     }
 
 
     /**
+     * LANDING submodule
      * Action is available for all users.
      * Shows main information about event
-     *
      */
-    public function action_eventpage()
+    public function action_landing()
     {
-        $this->template->main_section = View::factory('events/page/main');
-        $this->template->left = View::factory('/events/blocks/left_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
-    }
-
-    /**
-     * action_edit - action that open page where users can edit landing page
-     */
-    public function action_edit()
-    {
-        $this->template->main_section = View::factory('events/page/edit');
-        $this->template->leftnav = View::factory('events/page/leftnav')
-                ->set('orgpage', $this->organization->website)
-                ->set('eventpage', $this->event->page);
+        $this->template->main_section = View::factory('events/landing/main');
+        $this->template->jumbotron_navigation = '';
     }
 
 

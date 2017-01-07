@@ -1,1 +1,1 @@
-settings/main
+menage/event - statistics

@@ -78,10 +78,10 @@
                     </div>
                 </div>
                 <div class="card_content">
-                    <div class="card_content-text">
+                    <p class="card_content-text">
                         <i><u>О команде:</u></i>
                     <span id="description_team-<?=$team->id; ?>"><?=$team->description; ?></span>
-                    </div>
+                    </p>
                     <p class="card_content-text">
                         <i><u>Состав команды:</u></i>
                     <span id="participants_team-<?=$team->id; ?>">

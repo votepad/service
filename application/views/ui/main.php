@@ -15,95 +15,63 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
   	<script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
   </head>
-  <body>
+<body>
     <header class="header">
         <div class="header_wrapper">
-            <div class="header_menu-collapse-btn">
-                <button id="open_leftnav" class="header_button">
+            <div class="header_menu-btn-icon left">
+                <button id="open_menu" class="header_button">
                     <i class="fa fa-bars header_icon" aria-hidden="true"></i>
                 </button>
             </div>
-            <div class="header_logo">NWE</div>
+            <div class="header_text header_text-logo">VotePad</div>
             <div class="header_menu">
-                <ul class="nav">
-                    <li class="nav_item">
-                        <a href="<?=URL::site('ui'); ?>" class="nav_link">
-                            Main
-                        </a>
-                    </li>
-                    <li class="nav_item">
-                        <a href="<?=URL::site('ui/typography'); ?>" class="nav_link">
-                            Typography
-                        </a>
-                    </li>
-                    <li class="nav_item">
-                        <a href="<?=URL::site('ui/blocks'); ?>" class="nav_link">
-                            Blocks
-                        </a>
-                    </li>
-                    <li class="nav_item">
-                        <a href="<?=URL::site('ui/forms'); ?>" class="nav_link">
-                            Form's Elements
-                        </a>
-                    </li>
-                    <li class="nav_item">
-                        <a href="<?=URL::site('ui/buttons'); ?>" class="nav_link">
-                            Buttons
-                        </a>
-                    </li>
-                    <li class="nav_item">
-                        <a href="<?=URL::site('ui/tables'); ?>" class="nav_link">
-                            Tables
-                        </a>
-                    </li>
-                </ul>
+                <a href="<?=URL::site('ui'); ?>" class="header_button">
+                    <span class="header_text">Main</span>
+                </a>
+                <a href="<?=URL::site('ui/typography'); ?>" class="header_button">
+                    <span class="header_text">Typography</span>
+                </a>
+                <a href="<?=URL::site('ui/blocks'); ?>" class="header_button">
+                    <span class="header_text">Blocks</span>
+                </a>
+                <a href="<?=URL::site('ui/forms'); ?>" class="header_button">
+                    <span class="header_text">Form's Elements</span>
+                </a>
+                <a href="<?=URL::site('ui/buttons'); ?>" class="header_button">
+                    <span class="header_text">Buttons</span>
+                </a>
+                <a href="<?=URL::site('ui/tables'); ?>" class="header_button">
+                    <span class="header_text">Tables</span>
+                </a>
             </div>
-      		<div class="header_dropdown dropdown">
+            <div class="header_menu-dropdown dropdown">
                 <a id="open_usermenu" class="header_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                    <span class="header_text">Николай</span>
+                    <span class="header_text">Nikolay</span>
                     <i class="fa fa-caret-down header_icon" aria-hidden="true"></i>
                 </a>
-                <ul class="dropdown-menu pull-right" aria-labelledby="open_usermenu">
-                    <li class="nav_item">
-                        <a href="#" class="nav_link">
-                            <i class="fa fa-cubes nav_icon header_icon" aria-hidden="true"></i>
-                            Мои мероприятия
-                        </a>
-                    </li>
-
-                    <li class="nav_item">
-                        <a href="#" class="nav_link">
-                            <i class="fa fa-user nav_icon header_icon" aria-hidden="true"></i>
-                            Профиль
-                        </a>
-                    </li>
-                    <li role="separator" class="divider"></li>
-                    <li class="nav_item">
-                        <a href="#" class="nav_link">
-                            <i class="fa fa-sign-out nav_icon header_icon" aria-hidden="true"></i>
-                            Выйти
-                        </a>
-                    </li>
-               </ul>
-      		</div>
+                <div class="dropdown-menu pull-right" aria-labelledby="open_usermenu">
+                    <a href="#" class="header_button dropdown-button">
+                        <i class="fa fa-cubes nav_icon dropdown-icon header_icon" aria-hidden="true"></i>
+                        <span class="dropdown-text">Мои мероприятия</span>
+                    </a>
+                    <a href="#" class="header_button dropdown-button">
+                        <i class="fa fa-user dropdown-icon header_icon" aria-hidden="true"></i>
+                        <span class="dropdown-text">Профиль</span>
+                    </a>
+                    <div role="separator" class="divider"></div>
+                    <a href="#" class="header_button dropdown-button">
+                        <i class="fa fa-sign-out dropdown-icon header_icon" aria-hidden="true"></i>
+                        <span class="dropdown-text">Выйти</span>
+                    </a>
+                </div>
+            </div>
+            <div class="header_menu-btn-icon right">
+                <button id="open_menu-page" class="header_button">
+                    <i class="fa fa-ellipsis-v header_icon" aria-hidden="true"></i>
+                </button>
+            </div>
         </div>
-  	</header>
-
-
-  	<nav class="navleft">
-  		<ul class="nav navleft_wrapper">
-            <li class="nav_item">
-                <a href="#" class="nav_link">
-                    Avatar
-                </a>
-            </li>
-  			<li class="nav_item">
-                <a href="#" class="nav_link">
-                    Description
-                </a>
-            </li>
-  		</ul>
-  	</nav>
+    </header>
 
     <section>
         <?=$main_section; ?>
