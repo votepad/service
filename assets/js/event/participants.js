@@ -168,16 +168,12 @@ $(document).ready(function() {
 
             if ( valid == true ) {
 
-                edit.className = "pull-right displayblock";
-                save.className = "displaynone";
                 $('#participants').addClass('whirl');
-
 
                 hot.updateSettings({
                     minSpareRows: 0,
                     columns: column_disabled
                 });
-
 
                 // delete last row if it's empty
                 if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
@@ -227,38 +223,44 @@ $(document).ready(function() {
 
 
                     /**
-                     * Reloads page after success callback
+                     *  Send information to DB
                      */
-                    $.ajax({
+                    $.when( $.ajax({
                         url : '/participants/add/' + idEvent,
                         type: "POST",
                         data: {
                             list: dataToSave
                         },
                         success: function(response) {
-                            $('#participants').wait(200).removeClass('whirl');
-
-                            if (response == 'false') {
+                            // if true - success updating
+                            // else    - some problems
+                            if (response == 'true') {
                                 $.notify({
                                 	message: 'Инфомация об участниках успешно обновлена.'
                                 },{
                                 	type: 'success'
                                 });
+                                edit.className = "pull-right displayblock";
+                                save.className = "displaynone";
+
                             } else {
                                 $.notify({
                                 	message: 'Что-то пошло не так... Данные не сохранены.'
                                 },{
                                 	type: 'warning'
                                 });
+                                hot.updateSettings({
+                                    minSpareRows: 1,
+                                    columns: column_edited
+                                });
                             }
                         },
                         error: function(response) {
                             console.log("Something wrong");
                         },
-                        sendBefore: function() {
-                            // Do some action
-                        }
-                    })
+                    })).then( function () {
+                        $('#participants').wait(200).removeClass('whirl');
+                    });
                 }
 
             } else {
@@ -282,8 +284,8 @@ $(document).ready(function() {
         for (var i = 0; i < hot.countRows(); i++) {
 
             if ( hot.isEmptyRow(i) ||
-                (hot.getDataAtCell(i, 1) == "" && hot.getDataAtCell(i, 2) == "" &&  hot.getDataAtCell(i, 3) == "" && hot.getDataAtCell(i, 4) != null) ||
-                (hot.getDataAtCell(i, 0) == null && hot.getDataAtCell(i, 1) == null && hot.getDataAtCell(i, 2) == null && hot.getDataAtCell(i, 3) == null && hot.getDataAtCell(i, 4) != null ) )
+                (hot.getDataAtCell(i, 1) == "" && hot.getDataAtCell(i, 2) == "") ||
+                (hot.getDataAtCell(i, 0) == null && hot.getDataAtCell(i, 1) == null && hot.getDataAtCell(i, 2) == null) )
             {
                 // add id of deleted element
                 if ( hot_array[i]['id'] != null ) {
@@ -379,7 +381,7 @@ $(document).ready(function() {
          if (window.innerWidth <= 680) {
              hot.updateSettings({
                  stretchH: 'none',
-                 colWidths: [80,200,200,200,80]
+                 colWidths: [80,250,250]
              });
 
              document.getElementById('participants').style.overflowX = "auto";
@@ -390,32 +392,32 @@ $(document).ready(function() {
              hot.updateSettings({
                  stretchH: 'all',
                  colWidths: function(index){
-                     var width = parseInt(document.body.clientWidth);
+                     var width = parseInt(window.innerWidth);
 
                      // desctop width for columns
-                     // 0.7  (section.width = 70%)
-                     // 220  (60 - width of first column, 80 - width of second and last columns)
+                     // 0.8  (section.width = 80%)
+                     // 140  (60 - width of first column, 80 - width of second and last columns)
                      if (width > 992)
-                         width = width * 0.7 - 210;
+                         width = width * 0.8 - 150;
 
                      // tablet width for columns
                      else if (width <= 992 && width > 680)
-                        width = width - 210;
+                        width = width * 0.9 - 150;
+
+                    else if (width < 680) {
+
+                    }
+
 
                      if (index == 0)
                          return 80;
 
                      if (index == 1)
-                         return width * 0.3;
+                         return width * 0.5;
 
                      if (index == 2)
-                         return width * 0.4;
+                         return width * 0.5;
 
-                     if (index == 3)
-                         return width * 0.3;
-
-                     if (index == 4)
-                         return 80;
 
                  }
              });

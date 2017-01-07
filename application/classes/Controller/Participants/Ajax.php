@@ -31,7 +31,6 @@ class Controller_Participants_Ajax extends Ajax
                 $model_participants->name  = $participant['name'];
                 $model_participants->about = $participant['about'];
                 $model_participants->photo = $participant['photo'];
-                $model_participants->email = $participant['email'];
 
                 /**
                  * Different action depending on status
@@ -81,8 +80,6 @@ class Controller_Participants_Ajax extends Ajax
                 'photo' => $part->photo ?: "",
                 'name' => $part->name,
                 'about' => $part->about ?: "",
-                'email' => $part->email ?: "",
-                'sendresult' => false,
                 'status' => ''
             );
         }
