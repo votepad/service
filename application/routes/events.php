@@ -5,11 +5,10 @@
  * Routes for module Events
  * @author NWE team
  * @author Khaydarov Murod
- * @author Khaydarov Murod <murod.haydarov@gmail.com>
  *
  * @copyright Turov Nikolay
- * 
- * @version 0.2.2
+ *
+ * @version 0.2.3
  */
 
 
@@ -89,16 +88,21 @@ $callback = function(Route $route, $params, Request $request){
     $allowedRoutes = array(
 
         'manage' => array(
-            'event'
+            'event', 'settings'
         ),
 
-        'members' => array(
-            'info', 'judges', 'participants', 'teams', 'groups'
+        'control' => array(
+            'before', 'during', 'after'
         ),
 
         'pattern' => array(
-            'main', 'criterias', 'stages', 'contests', 'results'
+            'criterias', 'stages', 'contests', 'results'
+        ),
+
+        'members' => array(
+            'judges', 'participants', 'teams', 'groups'
         )
+
     );
 
     if (!isset($params['section']) || !in_array($params['action'], $allowedRoutes[$params['section']])) {
@@ -110,12 +114,11 @@ Route::set('EVENT_MANAGEMENT', '<organizationpage>/<eventpage>/<section>(/<actio
     array(
         'organizationpage' => $STRING,
         'eventpage' => $STRING,
-        'section' => 'manage|pattern|members',
-        'acrion' => $STRING
+        'section' => 'manage|control|pattern|members',
+        'action' => $STRING
     ))
     ->filter($callback)
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'ControlMain'
     ));
-
