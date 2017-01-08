@@ -1266,6 +1266,9 @@ a, a:hover, a:focus{
 .modal-open {
 	overflow: hidden;
 }
+.modal-open header{
+	padding-right: 17px;
+}
 .modal {
 	position: fixed;
 	top: 0;
