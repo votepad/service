@@ -155,10 +155,10 @@
                 </p>
             </div>
         </div>
-
-        <input type="hidden" id="event_id" value="<?=$event->id; ?>">
     </div>
 </div>
+
+<input type="hidden" id="event_id" value="">
 
 <!-- Modal - Update Group Info -->
 <form class="modal fade" id="editgroup_modal" tabindex="-1" role="dialog" aria-labelledby="" method="post" action="">
