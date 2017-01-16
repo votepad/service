@@ -117,7 +117,7 @@ class Purifier_Security extends Kohana_Security {
 
         // Load HTML Purifier
         $purifier = Security::htmlpurifier();
-
+        
         // Clean the HTML and return it
         return $purifier->purify($str);
     }
