@@ -59,7 +59,7 @@
                 <div class="card_image" id="logo_team-1">
                     <img src="/uploads/teams/<?=$team->logo; ?>" alt="">
                 </div>
-                <div class="card_title">
+                <div class="card_withimage card_title">
                     <div class="card_title-text" id="name_team-<?=$team->id; ?>">
                         <?=$team->name; ?>
                     </div>
@@ -77,7 +77,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="card_content">
+                <div class="card_withimage card_content">
                     <p class="card_content-text">
                         <i><u>О команде:</u></i>
                     <span id="description_team-<?=$team->id; ?>"><?=$team->description; ?></span>
