@@ -1,6 +1,11 @@
 $(document).ready(function() {
 
     /*
+     *  Create Tooltips
+    */
+     $('[data-toggle="tooltip"]').tooltip()
+
+    /*
      *  Vars
     */
 
@@ -22,7 +27,8 @@ $(document).ready(function() {
     $('body').click(function(event) {
         if ( ! $(event.target).closest("#new_stage").is('#new_stage') && $('#name-0').val() == "" && $('#description-0').val() == ""
                 && $("#participants-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#team-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0)
+                && $("#team-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#formula-0").val() == "")
         {
             $('#new_stage').removeClass('open');
             checking_el_valid($('#name-0'), 'valid');
@@ -41,20 +47,35 @@ $(document).ready(function() {
         language: 'ru',
         templateResult: render_image_for_select2
     });
+    $("#group-0").select2({
+        language: 'ru',
+    });
 
 
     /*
-     * change stage memvers
+     * change stage members
     */
-    $("#team").click(function(){
-        $("#show_teams").removeClass("displaynone");
-        $("#show_participants").addClass("displaynone");
-        $("#participants-0").val(null).trigger("change");
-    });
-
     $("#part").click(function(){
         $("#show_participants").removeClass("displaynone");
         $("#show_teams").addClass("displaynone");
+        $("#show_groups").addClass("displaynone");
+        $("#team-0").val(null).trigger("change");
+        $("#group-0").val(null).trigger("change");
+    });
+
+    $("#team").click(function(){
+        $("#show_teams").removeClass("displaynone");
+        $("#show_participants").addClass("displaynone");
+        $("#show_groups").addClass("displaynone");
+        $("#participants-0").val(null).trigger("change");
+        $("#group-0").val(null).trigger("change");
+    });
+
+    $("#group").click(function(){
+        $("#show_groups").removeClass("displaynone");
+        $("#show_participants").addClass("displaynone");
+        $("#show_teams").addClass("displaynone");
+        $("#participants-0").val(null).trigger("change");
         $("#team-0").val(null).trigger("change");
     });
 
@@ -68,14 +89,16 @@ $(document).ready(function() {
             stat_1, stat_2, stat_3;
 
         stat_1 = checking_el_valid($('#name-0'), '');
-        stat_2 = checking_el_valid($('#description-0'), '');
+        stat_2 = $('#formula-0').val() != "";
         if ( ! $("#show_participants").hasClass("displaynone") ) {
             stat_3 = checking_el_valid($("#participants-0"), '');
-        } else {
+        } else if ( ! $("#show_teams").hasClass("displaynone") ) {
             stat_3 = checking_el_valid($("#team-0"), '');
+        } else {
+            stat_3 = checking_el_valid($("#group-0"), '');
         }
 
-        if ( stat_1 == true && stat_2 == true && stat_3 == true) {
+        if ( stat_1 == true && stat_2 == true &&stat_3 == true) {
             form[0].submit();
         } else {
             $.notify({
@@ -88,26 +111,11 @@ $(document).ready(function() {
 
 
     /*
-     * On change Input Field and Textarea Field
+     * On change Input Field
     */
-    $('body').on('blur', 'input[type="text"], textarea', function(){
+    $('body').on('blur', 'input[type="text"]', function(){
         checking_el_valid($(this));
     });
-
-
-    /*
-     *
-    */
-    $('body').on('change', 'input[type="file"]', function(){
-        var btn = $(this).parent();
-
-        if ($(this).val() == "") {
-            btn.children('.btn_text').text("Выбрать логотип");
-        } else {
-            btn.children('.btn_text').text("Логотип выбран");
-        }
-    });
-
 
 
     /*
@@ -115,13 +123,17 @@ $(document).ready(function() {
     */
     $('.card').each(function () {
         var first = $('.card_content-text:nth-child(1)', this),
-            second = $('.card_content-text:nth-child(2)', this);
+            second = $('.card_content-text:nth-child(2)', this),
+            third = $('.card_content-text:nth-child(3)', this);
 
         if (first.height() > 64) {
             first.addClass('card_height-4em').append('<div class="card_content-text-hidden"  title="Показать полностью"></div>');
         }
         if (second.height() > 48) {
             second.addClass('card_height-3em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
+        }
+        if (third.height() > 64) {
+            third.addClass('card_height-4em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
         }
     });
 

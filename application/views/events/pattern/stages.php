@@ -1,3 +1,4 @@
+<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-transition.js"></script>
 
@@ -10,12 +11,12 @@
 <h3 class="page-header">
     Список этапов
     <br>
-    <small>Придумайте этапы. В каждом этапе необходимо составить формулу из критериев, по которой будет формироваться балл за этап.</small>
+    <small>Придумайте этапы. В каждом этапе необходимо составить формулу из критериев, по которой будет формироваться балл.</small>
 </h3>
 
 <form method="POST" action="" class="form form_collapse" id="new_stage" enctype="multipart/form-data">
     <div class="form_body">
-        <div class="col-xs-12 col-md-6">
+        <div class="col-sm-12 col-md-6">
             <div class="row">
                 <div class="input-field">
                     <input id="name-0" type="text" name="name" autocomplete="off">
@@ -25,11 +26,11 @@
             <div class="row hidden">
                 <div class="input-field">
                     <textarea id="description-0" name="description"></textarea>
-                    <label for="description-0">Расскажите </label>
+                    <label for="description-0">Расскажите об этапе</label>
                 </div>
             </div>
         </div>
-        <div class="col-xs-12 col-md-6">
+        <div class="col-sm-12 col-md-6">
             <div class="row hidden">
                 <div class="radio-field clear_fix">
                     <label class="radio-label" >Жюри будут оценивать</label>
@@ -43,7 +44,7 @@
                     </div>
                     <div class="radio-block">
                         <input type="radio" id="group" name="partORteamORgroup">
-                        <label for="team">группы</label>
+                        <label for="group">группы</label>
                     </div>
                 </div>
             </div>
@@ -69,11 +70,37 @@
                 <div id="show_groups" class="input-field displaynone">
                     <select name="groups[]" id="group-0" multiple="" class="elements_in_stage">
 
-                            <option value="0">Команда 1</option>
-                            <option value="1">Команда 2</option>
+                            <option value="0">группа 1</option>
+                            <option value="1">группа 2</option>
 
                     </select>
-                    <label for="team-0">Выберите команды</label>
+                    <label for="group-0">Выберите группы</label>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-12">
+            <div role="separator" class="divider"></div>
+            <div class="row hidden">
+                <div class="input-field">
+                    <input id="formula-0" data-type="formula" type="hidden" name="formula" value="">
+                    <ul class="input-block">
+                        <li class="item" data-id="1">Балл за "Креативность выступления"</li>
+                        <li class="item math" data-id="math0"><span class="icon-bracket-left"></span></li>
+                        <li class="item math" data-id="math1"><span class="icon-bracket-right"></span></li>
+                        <li class="item math" data-id="math2"><span class="icon-plus"></span></li>
+                        <li class="item math" data-id="math3"><span class="icon-minus"></span></li>
+                        <li class="item math" data-id="math4"><span class="icon-multiply"></span></li>
+                        <li class="item math" data-id="math5"><span class="icon-divide"></span></li>
+                        <li class="item" data-id="2">Балл за ""</li>
+                    </ul>
+                    <label for="formula-0">Задайте формулу</label>
+
+                    <ul id="criterias" class="displaynone">
+
+                        <li data-id="1" data-name="Критерий 1" data-toggle="tooltip" data-placement="bottom" title="Креативность выступления"></li>
+                        <li data-id="2" data-name="Критерий 2" data-toggle="tooltip" data-placement="bottom" title="название критерия"></li>
+
+                    </ul>
                 </div>
             </div>
         </div>
@@ -86,14 +113,11 @@
 </form>
 
 <div class="row row-col">
-    <div class="col-xs-12">
+    <div class="col-sm-12">
         <div class="card clear_fix" action="" id="stage-1">
-            <div class="card_image" id="logo_stage-1">
-                <img src="/uploads/stages/" alt="">
-            </div>
             <div class="card_title">
                 <div class="card_title-text" id="name_stage-1">
-                    Название Группы 1
+                    Название этапа №1
                 </div>
                 <div class="card_title-dropdown">
                     <div id="create_stage" role="button" class="card_title-dropdown-icon">
@@ -104,18 +128,18 @@
                             Изменить информацию
                         </a>
                         <a class="card_title-dropdown-item delete" data-pk="">
-                            Удалить группу
+                            Удалить этап
                         </a>
                     </div>
                 </div>
             </div>
             <div class="card_content">
-                <div class="card_content-text">
-                    <i><u>О группе:</u></i>
-                <span id="description_stage-1">описание группы №1</span>
-                </div>
                 <p class="card_content-text">
-                    <i><u>Состав группы:</u></i>
+                    <i><u>Об этапе:</u></i>
+                    <span id="description_stage-1">описание этапа №1</span>
+                </p>
+                <p class="card_content-text">
+                    <i><u>Жюри оценивает:</u></i>
                     <span id="participants_stage-1">
                         <option value="0" data-logo="">Участник 1</option>
                         <option value="1" data-logo="">Участник 2</option>
@@ -124,48 +148,30 @@
 
                     </span>
                 </p>
-            </div>
-        </div>
-
-        <div class="card clear_fix" action="" id="stage-2">
-            <div class="card_image" id="logo_stage-2">
-                <img src="/uploads/stages/" alt="">
-            </div>
-            <div class="card_title">
-                <div class="card_title-text" id="name_stage-2">
-                    Название Группы 2
-                </div>
-                <div class="card_title-dropdown">
-                    <div id="create_stage" role="button" class="card_title-dropdown-icon">
-                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                    </div>
-                    <div class="card_title-dropdown-menu">
-                        <a class="card_title-dropdown-item edit">
-                            Изменить информацию
-                        </a>
-                        <a class="card_title-dropdown-item delete" data-pk="">
-                            Удалить группу
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="card_content">
-                <div class="card_content-text">
-                    <i><u>О группе:</u></i>
-                <span id="description_stage-2">описание группы №2</span>
-                </div>
                 <p class="card_content-text">
-                    <i><u>Состав группы:</u></i>
-                    <span id="participants_stage-2">
-
-                    </span>
-                    <span id="teams_stage-2">
-                        <option value="0" data-logo="">Команда 1</option>
-                        <option value="1" data-logo="">Команда 2</option>
+                    <i><u>Формула подсчета баллов:</u></i>
+                    <span class="formula">
+                        <input type="hidden" value="[math0, 0.5, math4, id1, math2, 0.9, math4, id2, math2, 1.5, math4, id3, math1, math5, count_judges]">
+                        <span class="item math" data-id="math0"><span class="icon-bracket-left"></span></span>
+                        <span class="item math" data-id="">0.5</span>
+                        <span class="item math" data-id="math4"><span class="icon-multiply"></span></span>
+                        <span class="item" data-id="1">Балл за "Креативность выступления"</span>
+                        <span class="item math" data-id="math2"><span class="icon-plus"></span></span>
+                        <span class="item math" data-id="">0.9</span>
+                        <span class="item math" data-id="math4"><span class="icon-multiply"></span></span>
+                        <span class="item" data-id="2">Балл за "Артистичность"</span>
+                        <span class="item math" data-id="math2"><span class="icon-plus"></span></span>
+                        <span class="item math" data-id="">1.5</span>
+                        <span class="item math" data-id="math4"><span class="icon-multiply"></span></span>
+                        <span class="item" data-id="3">Балл за "Профессионализм"</span>
+                        <span class="item math" data-id="math1"><span class="icon-bracket-right"></span></span>
+                        <span class="item math" data-id="math5"><span class="icon-divide"></span></span>
+                        <span class="item" data-id="count_judges">Количество жюри</span>
                     </span>
                 </p>
             </div>
         </div>
+
     </div>
 </div>
 
