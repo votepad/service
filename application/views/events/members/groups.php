@@ -80,7 +80,7 @@
             <div class="card_image" id="logo_group-1">
                 <img src="/uploads/groups/" alt="">
             </div>
-            <div class="card_title">
+            <div class="card_withimage card_title">
                 <div class="card_title-text" id="name_group-1">
                     Название Группы 1
                 </div>
@@ -98,7 +98,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card_content">
+            <div class="card_withimage card_content">
                 <div class="card_content-text">
                     <i><u>О группе:</u></i>
                 <span id="description_group-1">описание группы №1</span>
@@ -120,7 +120,7 @@
             <div class="card_image" id="logo_group-2">
                 <img src="/uploads/groups/" alt="">
             </div>
-            <div class="card_title">
+            <div class="card_withimage card_title">
                 <div class="card_title-text" id="name_group-2">
                     Название Группы 2
                 </div>
@@ -138,7 +138,7 @@
                     </div>
                 </div>
             </div>
-            <div class="card_content">
+            <div class="card_withimage card_content">
                 <div class="card_content-text">
                     <i><u>О группе:</u></i>
                 <span id="description_group-2">описание группы №2</span>
