@@ -53,7 +53,7 @@ $(document).ready(function() {
 
 
     /*
-     * change stage members
+     * change stage members for new_stage
     */
     $("#part").click(function(){
         $("#show_participants").removeClass("displaynone");
@@ -81,15 +81,101 @@ $(document).ready(function() {
 
 
     /*
+     *  Working with formula for new_stage
+    */
+    var new_sortable_id = ['new_stage_formula','new_stage_coeff','new_stage_math','new_stage_criterias','new_stage_droparea'],
+        drop_block = document.getElementById('new_stage_drop'),
+        coeff_array = document.getElementById('new_stage_coeff');
+	[{
+        sort: true,
+        pull: true,
+        put: true
+    },{
+        sort: false,
+		pull: 'clone',
+		put: false
+	}, {
+        sort: false,
+        pull: 'clone',
+		put: false
+	}, {
+        sort: false,
+        pull: 'clone',
+		put: false
+	}, {
+        sort: false,
+        pull: false,
+		put: true
+	}].forEach(function (groupOpts, i) {
+       Sortable.create(document.getElementById(new_sortable_id[i]), {
+           name: 'new_stage_formula',
+           animation: 150,
+           group: groupOpts,
+           onStart: function (evt) {
+               drop_block.className = "drop open";
+           },
+           onEnd: function (evt) {
+               drop_block.className = "drop";
+           },
+       });
+	});
+    document.getElementById('coeff_add').onclick = function () {
+        swal({
+            customClass: "coeff-area",
+            animation: false,
+            width: 300,
+            title: 'Введите коэффицент',
+            inputPlaceholder: "0.5",
+            input: 'text',
+            showCancelButton: true,
+            confirmButtonText: 'Добавить',
+            cancelButtonText: 'Отмена',
+            inputValidator: function (val) {
+                var number_arr = new RegExp("[^0-9.]");
+                return new Promise(function (resolve, reject) {
+                    if ( ! number_arr.test(val) && val ) {
+                        resolve()
+                    } else {
+                        reject('Вы ввели не число!')
+                    }
+                })
+            }
+        }).then(function (number) {
+            var el = document.createElement('li');
+            el.className = "item dark";
+            el.value = "coeff_" + number;
+			el.innerHTML = number;
+			coeff_array.appendChild(el);
+        });
+	};
+
+
+
+    /*
      *   Btn Submit new_stage form
      *   including validation via inputmask
     */
     $('#create_stage').click(function() {
         var form = $(this).closest('form'),
-            stat_1, stat_2, stat_3;
+            stat_1, stat_2, stat_3,
+            formula_val = [];
+
+        /* add value to input for formula */
+
+        $('#new_stage_formula .item').each(function(i){
+            var data = $(this)[0].dataset;
+            formula_val.push(data.val);
+        });
 
         stat_1 = checking_el_valid($('#name-0'), '');
-        stat_2 = $('#formula-0').val() != "";
+
+        if (formula_val.length == 0) {
+            stat_2 = false;
+        } else {
+            document.getElementById('formula-0').value = JSON.stringify(formula_val);
+            stat_2 = true;
+        }
+
         if ( ! $("#show_participants").hasClass("displaynone") ) {
             stat_3 = checking_el_valid($("#participants-0"), '');
         } else if ( ! $("#show_teams").hasClass("displaynone") ) {

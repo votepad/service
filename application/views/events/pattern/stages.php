@@ -5,6 +5,13 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
 
+
+<link href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/sortable/Sortable.js"></script>
+
+
+
 <script type="text/javascript" src="<?=$assets; ?>js/event/stages.js"></script>
 
 
@@ -79,34 +86,59 @@
             </div>
         </div>
         <div class="col-sm-12">
-            <div role="separator" class="divider"></div>
             <div class="row hidden">
                 <div class="input-field">
                     <input id="formula-0" data-type="formula" type="hidden" name="formula" value="">
-                    <ul class="input-block">
-                        <li class="item" data-id="1">Балл за "Креативность выступления"</li>
-                        <li class="item math" data-id="math0"><span class="icon-bracket-left"></span></li>
-                        <li class="item math" data-id="math1"><span class="icon-bracket-right"></span></li>
-                        <li class="item math" data-id="math2"><span class="icon-plus"></span></li>
-                        <li class="item math" data-id="math3"><span class="icon-minus"></span></li>
-                        <li class="item math" data-id="math4"><span class="icon-multiply"></span></li>
-                        <li class="item math" data-id="math5"><span class="icon-divide"></span></li>
-                        <li class="item" data-id="2">Балл за ""</li>
+                    <ul id="new_stage_formula" class="dragable-inputarea">
+
                     </ul>
                     <label for="formula-0">Задайте формулу</label>
+                </div>
+            </div>
 
-                    <ul id="criterias" class="displaynone">
+            <div role="separator" class="divider"></div>
 
-                        <li data-id="1" data-name="Критерий 1" data-toggle="tooltip" data-placement="bottom" title="Креативность выступления"></li>
-                        <li data-id="2" data-name="Критерий 2" data-toggle="tooltip" data-placement="bottom" title="название критерия"></li>
+            <div id="new_stage_drop" class="drop">
+                <div id="new_stage_droparea" class="drop-area">
+                    <i class="fa fa-4x fa-trash-o valign" aria-hidden="true"></i>
+                </div>
 
+                <!-- Coefficients -->
+                <div class="row hidden">
+                    <span class="dragable-label">Весовые коэффициенты:</span>
+                    <ul id="new_stage_coeff" class="dragable-area">
+                        <li class="item" data-val="count_judges">Колисество жюри</li>
+                        <li class="item dark" data-val="coeff_0.5">0.5</li>
+                        <li class="item dark" data-val="coeff_0.7">0.7</li>
+                        <li class="item dark" data-val="coeff_0.9">0.9</li>
+                    </ul>
+                    <button type="button" id="coeff_add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                </div>
+
+                <!-- Math Symbols -->
+                <div class="row hidden">
+                    <span class="dragable-label">Алгебраические операции:</span>
+                    <ul id="new_stage_math" class="dragable-area">
+                        <li class="item dark" data-val="math0"><span class="icon-bracket-left"></span></li>
+                        <li class="item dark" data-val="math1"><span class="icon-bracket-right"></span></li>
+                        <li class="item dark" data-val="math2"><span class="icon-plus"></span></li>
+                        <li class="item dark" data-val="math3"><span class="icon-minus"></span></li>
+                        <li class="item dark" data-val="math4"><span class="icon-multiply"></span></li>
+                        <li class="item dark" data-val="math5"><span class="icon-divide"></span></li>
+                    </ul>
+                </div>
+
+                <!-- Criterias -->
+                <div class="row hidden">
+                    <span class="dragable-label">Спосик критериев:</span>
+                    <ul id="new_stage_criterias" class="dragable-area">
+                        <li class="item" data-val="id_1">Балл за "Креативность выступления"</li>
+                        <li class="item" data-val="id_2">Балл за "Артистичность"</li>
+                        <li class="item" data-val="id_3">Балл за "Выступление"</li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-sm-12 col-md-6 col-lg-4">1</div>
-        <div class="col-sm-12 col-md-6 col-lg-4">2</div>
-        <div class="col-sm-12 col-lg-4">3</div>
     </div>
     <div class="form_submit hidden clear_fix">
         <button id="create_stage" type="button" class="btn btn_primary col-sm-12 col-md-auto pull-right">
@@ -154,22 +186,22 @@
                 <p class="card_content-text">
                     <i><u>Формула подсчета баллов:</u></i>
                     <span class="formula">
-                        <input type="hidden" value="[math0, 0.5, math4, id1, math2, 0.9, math4, id2, math2, 1.5, math4, id3, math1, math5, count_judges]">
-                        <span class="item math" data-id="math0"><span class="icon-bracket-left"></span></span>
-                        <span class="item math" data-id="">0.5</span>
-                        <span class="item math" data-id="math4"><span class="icon-multiply"></span></span>
-                        <span class="item" data-id="1">Балл за "Креативность выступления"</span>
-                        <span class="item math" data-id="math2"><span class="icon-plus"></span></span>
-                        <span class="item math" data-id="">0.9</span>
-                        <span class="item math" data-id="math4"><span class="icon-multiply"></span></span>
-                        <span class="item" data-id="2">Балл за "Артистичность"</span>
-                        <span class="item math" data-id="math2"><span class="icon-plus"></span></span>
-                        <span class="item math" data-id="">1.5</span>
-                        <span class="item math" data-id="math4"><span class="icon-multiply"></span></span>
-                        <span class="item" data-id="3">Балл за "Профессионализм"</span>
-                        <span class="item math" data-id="math1"><span class="icon-bracket-right"></span></span>
-                        <span class="item math" data-id="math5"><span class="icon-divide"></span></span>
-                        <span class="item" data-id="count_judges">Количество жюри</span>
+                        <input type="hidden" data-val="[math0, 0.5, math4, id1, math2, 0.9, math4, id2, math2, 1.5, math4, id3, math1, math5, count_judges]">
+                        <span class="item dark" data-val="math0"><span class="icon-bracket-left"></span></span>
+                        <span class="item dark" data-val="coeff_0.5">0.5</span>
+                        <span class="item dark" data-val="math4"><span class="icon-multiply"></span></span>
+                        <span class="item" data-val="id_1">Балл за "Креативность выступления"</span>
+                        <span class="item dark" data-val="math2"><span class="icon-plus"></span></span>
+                        <span class="item dark" data-val="coeff_0.9">0.9</span>
+                        <span class="item dark" data-val="math4"><span class="icon-multiply"></span></span>
+                        <span class="item" data-val="id_2">Балл за "Артистичность"</span>
+                        <span class="item dark" data-val="math2"><span class="icon-plus"></span></span>
+                        <span class="item dark" data-val="coeff_1.5">1.5</span>
+                        <span class="item dark" data-val="math4"><span class="icon-multiply"></span></span>
+                        <span class="item" data-val="id3">Балл за "Профессионализм"</span>
+                        <span class="item dark" data-val="math1"><span class="icon-bracket-right"></span></span>
+                        <span class="item dark" data-val="math5"><span class="icon-divide"></span></span>
+                        <span class="item" data-val="count_judges">Количество жюри</span>
                     </span>
                 </p>
             </div>
