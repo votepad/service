@@ -5,3 +5,6 @@ application/logs
 .idea/*
 uploads/
 .idea/sqldialects.xml
+
+#bundle
+node_modules/

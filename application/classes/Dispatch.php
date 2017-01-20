@@ -43,7 +43,7 @@ class Dispatch extends Controller_Template
         parent::before();
 
         // XSS clean in POST and GET requests
-//        self::XSSfilter();
+        self::XSSfilter();
 
         if ($this->auto_render) {
             // Initialize with empty values
@@ -133,7 +133,7 @@ class Dispatch extends Controller_Template
             /** Authentificated User is visible in all pages */
             View::set_global('user', $user);
         }
-        
+
         $address = 'http://' . $_SERVER['SERVER_NAME'] ;
         View::set_global('assets', $address . '/assets/');
         View::set_global('website', $address);
