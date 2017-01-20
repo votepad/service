@@ -229,6 +229,34 @@
 	.card_content-text option:not(:last-child):after{
 	    content: ',';
 	}
+	.card_content .formula{
+		-moz-user-select: none;
+		-khtml-user-select: none;
+	    user-select: none;
+		cursor: default;
+	}
+	.card_content .formula .item{
+		display: inline-block;
+		color: #616161;
+		background-color: #FFF;
+		border: 1px solid #E0E0E0;
+		font-size: .75em;
+		padding: 3px 5px;
+		border-radius: 3px;
+		margin-bottom: 5px;
+	}
+	.card_content .formula .item.math{
+		background-color: #f5f5f5;
+	}
+		.card_content .formula .item.math span{
+			font-size: 1em;
+		}
+	.card_content .formula .text{
+		padding: 3px 5px;
+		color: #616161;
+		background-color: #FFF;
+		border: 1px solid #E0E0E0;
+	}
 
 .radio-field{
 	position: relative;

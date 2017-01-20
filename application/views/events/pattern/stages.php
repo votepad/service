@@ -104,6 +104,9 @@
                 </div>
             </div>
         </div>
+        <div class="col-sm-12 col-md-6 col-lg-4">1</div>
+        <div class="col-sm-12 col-md-6 col-lg-4">2</div>
+        <div class="col-sm-12 col-lg-4">3</div>
     </div>
     <div class="form_submit hidden clear_fix">
         <button id="create_stage" type="button" class="btn btn_primary col-sm-12 col-md-auto pull-right">
