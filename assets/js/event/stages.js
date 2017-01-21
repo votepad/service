@@ -113,9 +113,14 @@ $(document).ready(function() {
            group: groupOpts,
            onStart: function (evt) {
                drop_block.className = "drop open";
+               $('#new_stage_formula').addClass('focus');
            },
            onEnd: function (evt) {
                drop_block.className = "drop";
+               $('#new_stage_formula').removeClass('invalid').removeClass('focus');
+               if ( $('#new_stage_formula li').length == 0) {
+                   $('#new_stage_formula').addClass('invalid');
+               }
            },
        });
 	});
@@ -143,12 +148,11 @@ $(document).ready(function() {
         }).then(function (number) {
             var el = document.createElement('li');
             el.className = "item dark";
-            el.value = "coeff_" + number;
+            el.dataset.val = "coeff_" + number;
 			el.innerHTML = number;
 			coeff_array.appendChild(el);
         });
 	};
-
 
 
     /*
@@ -184,7 +188,7 @@ $(document).ready(function() {
             stat_3 = checking_el_valid($("#group-0"), '');
         }
 
-        if ( stat_1 == true && stat_2 == true &&stat_3 == true) {
+        if ( stat_1 == true && stat_2 == true && stat_3 == true) {
             form[0].submit();
         } else {
             $.notify({

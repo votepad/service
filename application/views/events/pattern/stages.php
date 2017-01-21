@@ -88,11 +88,11 @@
         <div class="col-sm-12">
             <div class="row hidden">
                 <div class="input-field">
-                    <input id="formula-0" data-type="formula" type="hidden" name="formula" value="">
+                    <input id="formula-0" type="hidden" name="formula" value="">
                     <ul id="new_stage_formula" class="dragable-inputarea">
 
                     </ul>
-                    <label for="formula-0">Задайте формулу</label>
+                    <label for="formula-0" data-toggle="tooltip" data-placement="right" title="Перетащите требуемые элементы, расположеные ниже">Задайте формулу</label>
                 </div>
             </div>
 
@@ -112,7 +112,7 @@
                         <li class="item dark" data-val="coeff_0.7">0.7</li>
                         <li class="item dark" data-val="coeff_0.9">0.9</li>
                     </ul>
-                    <button type="button" id="coeff_add"><i class="fa fa-plus" aria-hidden="true"></i></button>
+                    <button type="button" id="coeff_add" data-toggle="tooltip" data-placement="right" title="Добавить"><i class="fa fa-plus" aria-hidden="true"></i></button>
                 </div>
 
                 <!-- Math Symbols -->

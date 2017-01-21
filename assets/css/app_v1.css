@@ -1186,29 +1186,29 @@ a, a:hover, a:focus{
 }
 
 /* tablet */
-.card-md .card_image{
+.card_withimage.card-md .card_image{
 	width: 110px;
 	height: 110px;
 }
-.card-md .card_image img{
+.card_withimage.card-md .card_image img{
 	width: 100px;
 	height: 100px;
 }
-.card-md .card_title, .card-md .card_content {
+.card_withimage.card-md .card_title, .card_withimage.card-md .card_content {
 	width: calc(100% - 140px);
 }
 
 /* mobile */
-.card-sm .card_image{
+.card_withimage.card-sm .card_image{
 	width: 110px;
 	height: 110px;
 }
-.card-sm .card_image img{
+.card_withimage.card-sm .card_image img{
 	width: 100px;
 	height: 100px;
 }
 
-.card-sm .card_title{
+.card_withimage.card-sm .card_title{
 	width: calc(100% - 140px);
     height: 110px;
     display: -webkit-flex;
@@ -1218,11 +1218,11 @@ a, a:hover, a:focus{
     -ms-flex-align: center;
     align-items: center;
 }
-	.card-sm.open .card_title{
+	.card_withimage.card-sm.open .card_title{
 	    height: auto;
 	    display: block !important;
 	}
-.card-sm .card_title-text{
+.card_withimage.card-sm .card_title-text{
 	white-space: normal;
 	-webkit-line-clamp: 3;
 	overflow: hidden;
@@ -1230,11 +1230,11 @@ a, a:hover, a:focus{
     display: -webkit-box;
     -webkit-box-orient: vertical;
 }
-	.card-sm.open .card_title-text{
+	.card_withimage.card-sm.open .card_title-text{
 		display: block;
 		-webkit-line-clamp: inherit;
 	}
-.card-sm .card_title-text:after{
+.card_withimage.card-sm .card_title-text:after{
 	display: block;
 	font-size: .8em;
 	content: 'Подробнее...';
@@ -1243,18 +1243,18 @@ a, a:hover, a:focus{
 	bottom: 0px;
 	cursor: pointer;
 }
-	.card-sm.open .card_title-text:after{
+	.card_withimage.card-sm.open .card_title-text:after{
 		display: none;
 	}
-.card-sm .card_content{
+.card_withimage.card-sm .card_content{
 	display: none;
 	width: 100%;
 	margin-top: 10px;
 }
-	.card-sm.open .card_content{
+	.card_withimage.card-sm.open .card_content{
 		display: block;
 	}
-.card-sm .card_title-dropdown-icon{
+.card_withimage.card-sm .card_title-dropdown-icon{
     position: absolute;
     top: 0;
     right: 0;

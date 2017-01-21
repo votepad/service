@@ -232,28 +232,38 @@
 
 
 .dragable-inputarea{
-	display: inline-flex;
+	display: inline-block;
     border-bottom: 1px solid #9e9e9e;
     border-radius: 0;
     font-size: 1em;
 	padding-right: 8px;
-	min-height: 33px;
+	min-height: 34px;
 	width: 100%;
 	margin-bottom: -5px;
 	-moz-user-select: none;
 	-khtml-user-select: none;
     user-select: none;
 }
+.dragable-inputarea.focus{
+	border-bottom: 1px solid #008DA7;
+	box-shadow: 0 1px 0 0 #008DA7;
+}
+	.dragable-inputarea.focus + label{
+		color: #008DA7;
+	}
+.dragable-inputarea.invalid{
+	border-bottom: 1px solid #F44336;
+	box-shadow: 0 1px 0 0 #F44336;
+}
+	.dragable-inputarea.invalid + label{
+		color: #F44336;
+	}
 
 .dragable-inputarea + label {
     color: #9e9e9e;
     position: absolute;
-	width: 70%;
     top: .5em;
-    cursor: text;
-	white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
+    cursor: default;
     font-size: .8em;
     letter-spacing: .01em;
     -webkit-transform: translateY(-140%);
@@ -264,7 +274,6 @@
 }
 
 .dragable-inputarea .item, .dragable-area .item{
-	display: inline-flex;
 	color: #616161;
 	background-color: #FFF;
 	border: 1px solid #E0E0E0;
@@ -274,10 +283,7 @@
 	margin-bottom: 5px;
 	cursor: pointer;
 	float: left;
-	overflow: hidden;
-	text-overflow: ellipsis;
 	white-space: nowrap;
-	max-width: 100%;
 }
 .dragable-inputarea .item{
 	font-size: .8em;
@@ -307,6 +313,7 @@
 }
 
 .formula{
+	cursor: default;
     font-size: 1em;
 	padding-bottom: 5px;
 	padding-right: 8px;
@@ -385,7 +392,7 @@
 }
 
 .coeff-area .swal2-title{
-	font-size: 1.5em !important;
+	font-size: 1.4em !important;
 }
 .coeff-area .swal2-input{
 	height: 34px !important;
