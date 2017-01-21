@@ -9,83 +9,91 @@ $(document).ready(function() {
      *  Vars
     */
 
-    var url = "";
+    var url = "",
+        card, id, name, description, part, team, group, formula_input, formula_area,
+        droparea_new = document.getElementById('newstage_droparea').innerHTML,
+        droparea_edit = document.getElementById('editstage_droparea').innerHTML,
+        modal_name = document.getElementById('editstage_name'),
+        modal_description = document.getElementById('editstage_description'),
+        modal_members = document.getElementById('editstage_members'),
+        modal_formula_input = document.getElementById('editstage_formula'),
+        modal_formula_area = document.getElementById('editstage_formula_area'),
+        parts_not_distributed = document.getElementById('newstage_participants').innerHTML,
+        teams_not_distributed = document.getElementById('newstage_teams').innerHTML,
+        groups_not_distributed = document.getElementById('newstage_groups').innerHTML;
 
 
     /*
-     *  Open new_stage form
+     *  Open newstage form
     */
-    $('#new_stage').click(function() {
+    $('#newstage').click(function() {
         $(this).addClass('open');
     });
 
 
-
     /*
-     *  Close new_stage form if inputs are empty
+     *  Close newstage form if inputs are empty
     */
     $('body').click(function(event) {
-        if ( ! $(event.target).closest("#new_stage").is('#new_stage') && $('#name-0').val() == "" && $('#description-0').val() == ""
-                && $("#participants-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#team-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#formula-0").val() == "")
+        if ( ! $(event.target).closest("#newstage").is('#newstage') && $('#newstage_name').val() == "" && $('#newstage_description').val() == ""
+                && $("#newstage_participants").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#newstage_team").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#newstage_formula_area li").length == 0)
         {
-            $('#new_stage').removeClass('open');
-            checking_el_valid($('#name-0'), 'valid');
-            checking_el_valid($('#description-0'), 'valid');
-            checking_el_valid($("#participants-0"), 'valid');
-            checking_el_valid($("#team-0"), 'valid');
+            $('#newstage').removeClass('open');
+            checking_el_valid($('#newstage_name'), 'valid');
+            checking_el_valid($('#newstage_description'), 'valid');
+            checking_el_valid($("#newstage_participants"), 'valid');
+            checking_el_valid($("#newstage_team"), 'valid');
         }
     });
 
 
-
     /*
-     *  Create select2 for new_stage form
+     *  Create select2 for newstage form
     */
     $('.elements_in_stage').select2({
         language: 'ru',
         templateResult: render_image_for_select2
     });
-    $("#group-0").select2({
+    $("#newstage_groups").select2({
         language: 'ru',
     });
 
 
     /*
-     * change stage members for new_stage
+     * change stage members in newstage form
     */
     $("#part").click(function(){
         $("#show_participants").removeClass("displaynone");
         $("#show_teams").addClass("displaynone");
         $("#show_groups").addClass("displaynone");
-        $("#team-0").val(null).trigger("change");
-        $("#group-0").val(null).trigger("change");
+        $("#newstage_teams").val(null).trigger("change");
+        $("#newstage_groups").val(null).trigger("change");
     });
 
     $("#team").click(function(){
         $("#show_teams").removeClass("displaynone");
         $("#show_participants").addClass("displaynone");
         $("#show_groups").addClass("displaynone");
-        $("#participants-0").val(null).trigger("change");
-        $("#group-0").val(null).trigger("change");
+        $("#newstage_participants").val(null).trigger("change");
+        $("#newstage_groups").val(null).trigger("change");
     });
 
     $("#group").click(function(){
         $("#show_groups").removeClass("displaynone");
         $("#show_participants").addClass("displaynone");
         $("#show_teams").addClass("displaynone");
-        $("#participants-0").val(null).trigger("change");
-        $("#team-0").val(null).trigger("change");
+        $("#newstage_participants").val(null).trigger("change");
+        $("#newstage_teams").val(null).trigger("change");
     });
 
 
     /*
-     *  Working with formula for new_stage
+     *  Working with formula in newstage form
     */
-    var new_sortable_id = ['new_stage_formula','new_stage_coeff','new_stage_math','new_stage_criterias','new_stage_droparea'],
-        drop_block = document.getElementById('new_stage_drop'),
-        coeff_array = document.getElementById('new_stage_coeff');
+    var new_sortable_id = ['newstage_formula_area','newstage_coeff','newstage_math','newstage_criterias','newstage_droparea'],
+        drop_block = document.getElementById('newstage_drop');
 	[{
         sort: true,
         pull: true,
@@ -108,55 +116,27 @@ $(document).ready(function() {
 		put: true
 	}].forEach(function (groupOpts, i) {
        Sortable.create(document.getElementById(new_sortable_id[i]), {
-           name: 'new_stage_formula',
+           name: 'newstage_formula_area',
            animation: 150,
            group: groupOpts,
            onStart: function (evt) {
                drop_block.className = "drop open";
-               $('#new_stage_formula').addClass('focus');
+               document.getElementById('newstage_formula_area').className = "dragable-inputarea focus";
            },
            onEnd: function (evt) {
                drop_block.className = "drop";
-               $('#new_stage_formula').removeClass('invalid').removeClass('focus');
-               if ( $('#new_stage_formula li').length == 0) {
-                   $('#new_stage_formula').addClass('invalid');
+               document.getElementById('newstage_droparea').innerHTML = droparea_new;
+               document.getElementById('newstage_formula_area').className = "dragable-inputarea";
+               if ( document.getElementById('newstage_formula_area').childNodes.length == 0) {
+                   document.getElementById('newstage_formula_area').className = "dragable-inputarea invalid";
                }
            },
        });
 	});
-    document.getElementById('coeff_add').onclick = function () {
-        swal({
-            customClass: "coeff-area",
-            animation: false,
-            width: 300,
-            title: 'Введите коэффицент',
-            inputPlaceholder: "0.5",
-            input: 'text',
-            showCancelButton: true,
-            confirmButtonText: 'Добавить',
-            cancelButtonText: 'Отмена',
-            inputValidator: function (val) {
-                var number_arr = new RegExp("[^0-9.]");
-                return new Promise(function (resolve, reject) {
-                    if ( ! number_arr.test(val) && val ) {
-                        resolve()
-                    } else {
-                        reject('Вы ввели не число!')
-                    }
-                })
-            }
-        }).then(function (number) {
-            var el = document.createElement('li');
-            el.className = "item dark";
-            el.dataset.val = "coeff_" + number;
-			el.innerHTML = number;
-			coeff_array.appendChild(el);
-        });
-	};
 
 
     /*
-     *   Btn Submit new_stage form
+     *   Btn Submit newstage form
      *   including validation via inputmask
     */
     $('#create_stage').click(function() {
@@ -165,27 +145,27 @@ $(document).ready(function() {
             formula_val = [];
 
         /* add value to input for formula */
-
-        $('#new_stage_formula .item').each(function(i){
+        $('#newstage_formula_area .item').each(function(i){
             var data = $(this)[0].dataset;
             formula_val.push(data.val);
         });
 
-        stat_1 = checking_el_valid($('#name-0'), '');
+        stat_1 = checking_el_valid($('#newstage_name'), '');
 
         if (formula_val.length == 0) {
+            document.getElementById('newstage_formula_area').className = "dragable-inputarea invalid"
             stat_2 = false;
         } else {
-            document.getElementById('formula-0').value = JSON.stringify(formula_val);
+            document.getElementById('newstage_formula').value = JSON.stringify(formula_val);
             stat_2 = true;
         }
 
         if ( ! $("#show_participants").hasClass("displaynone") ) {
-            stat_3 = checking_el_valid($("#participants-0"), '');
+            stat_3 = checking_el_valid($("#newstage_participants"), '');
         } else if ( ! $("#show_teams").hasClass("displaynone") ) {
-            stat_3 = checking_el_valid($("#team-0"), '');
+            stat_3 = checking_el_valid($("#newstage_teams"), '');
         } else {
-            stat_3 = checking_el_valid($("#group-0"), '');
+            stat_3 = checking_el_valid($("#newstage_groups"), '');
         }
 
         if ( stat_1 == true && stat_2 == true && stat_3 == true) {
@@ -198,6 +178,7 @@ $(document).ready(function() {
             });
         }
     });
+
 
 
     /*
@@ -228,43 +209,50 @@ $(document).ready(function() {
     });
 
 
-
     /*
-     *   Generate Modal Form for changing information about stage
+     *  Generate Modal Form for changing information about stage
     */
     $('.edit').click(function(){
-        var card = this.closest('.card'),
-            id = card.getAttribute('id'),
-            name = $.trim(document.getElementById('name_' + id).innerHTML),
-            about = $.trim(document.getElementById('description_' + id).innerHTML),
-            part = $.trim(document.getElementById('participants_' + id).innerHTML),
-            team = $.trim(document.getElementById('teams_' + id).innerHTML),
-
-            modal_name = document.getElementById('editstage_name'),
-            modal_about = document.getElementById('editstage_about'),
-            modal_members = document.getElementById('editstage_members');
-
+        card = this.closest('.card');
+        id = card.getAttribute('id');
+        name = $.trim(document.getElementById('name_' + id).innerHTML);
+        description = $.trim(document.getElementById('description_' + id).innerHTML);
+        part = $.trim(document.getElementById('participants_' + id).innerHTML);
+        team = $.trim(document.getElementById('teams_' + id).innerHTML);
+        group = $.trim(document.getElementById('groups_' + id).innerHTML);
+        formula_input = document.getElementById('formula_input_' + id).value;
+        formula_area = $.trim(document.getElementById('formula_area_' + id).innerHTML);
 
         //  Fill modal information
         modal_name.value = name;
-        modal_about.innerHTML = about;
-        if ( part == "") {
-            modal_members.innerHTML = team;
+        modal_description.innerHTML = description;
+        if ( part == "" && team == "" ) {
+            modal_members.innerHTML = group + groups_not_distributed;
+        } else if ( part == "" && group == "" ) {
+            modal_members.innerHTML = team + teams_not_distributed;
         } else {
-            modal_members.innerHTML = part;
+            modal_members.innerHTML = part + parts_not_distributed;
         }
-
+        modal_formula_input.value = formula_input;
+        modal_formula_area.innerHTML = formula_area;
 
         // initialize select2
-        $("#editstage_members").select2({
-            language: 'ru',
-            templateResult: render_image_for_select2
-        });
+        if ( part == "" && team == "" ) {
+            $("#editstage_members").select2({
+                language: 'ru'
+            });
+        } else {
+            $("#editstage_members").select2({
+                language: 'ru',
+                templateResult: render_image_for_select2
+            });
+        }
 
         // initialize textarea_resize
-        $($("editstage_about")).on('init keyup focus', function(){
+        $(modal_description).on('init keyup focus', function(){
             textarea_resize($(this));
         });
+
 
         // initialize modal
         $("#editstage_modal").modal({
@@ -275,59 +263,162 @@ $(document).ready(function() {
     });
 
 
+    /*
+     *  Working with formula in modal form
+    */
+    var editstage_sortable_id = ['editstage_formula_area','editstage_coeff','editstage_math','editstage_criterias','editstage_droparea'],
+            editstage_drop_block = document.getElementById('editstage_drop');
+	[{
+        sort: true,
+        pull: true,
+        put: true
+    },{
+        sort: false,
+		pull: 'clone',
+		put: false
+	}, {
+        sort: false,
+        pull: 'clone',
+		put: false
+	}, {
+        sort: false,
+        pull: 'clone',
+		put: false
+	}, {
+        sort: false,
+        pull: false,
+		put: true
+	}].forEach(function (groupOpts, i) {
+       Sortable.create(document.getElementById(editstage_sortable_id[i]), {
+           name: 'editstage_formula',
+           animation: 150,
+           group: groupOpts,
+           onStart: function (evt) {
+               editstage_drop_block.className = "drop open";
+               document.getElementById('editstage_formula_area').className = "dragable-inputarea focus";
+           },
+           onEnd: function (evt) {
+               editstage_drop_block.className = "drop";
+               document.getElementById('editstage_droparea').innerHTML = droparea_edit;
+               document.getElementById('editstage_formula_area').className = "dragable-inputarea";
+               if ( document.getElementById('editstage_formula_area').childNodes.length == 0) {
+                   document.getElementById('editstage_formula_area').className = "dragable-inputarea invalid";
+               }
+           },
+       });
+	});
+
+
+    /*
+     *  Cansel Edit in Modal Form
+    */
+    $('button[data-dismiss]').click(function(){
+        modal_name.value = "";
+        modal_description.innerHTML = "";
+        modal_members.innerHTML = "";
+        modal_formula_input.value = "";
+        modal_formula_area.innerHTML = "";
+        $("#editstage_members").select2("destroy");
+    });
+
 
     /*
      *   Save Modification in Modal Form
     */
-    $('body').on('click', '#update-info', function(){
-        var form = $(this).closest('.modal'),
-            id = form.attr('id').replace('modal_', ''),
-            stat_1 = checking_el_valid($("#" + id + "_name")),
-            stat_2 = checking_el_valid($("#" + id + "_description")),
-            stat_3;
+    $('#update_info').click(function(){
+        var form = $('#editstage_modal'),
+            stat_1 = checking_el_valid($('#editstage_name'),''),
+            stat_2 = checking_el_valid($('#editstage_description'),''),
+            stat_3 = checking_el_valid($('#editstage_members'),''),
+            stat_4, formula_val = [];
 
-            if ( ! $("#modal_show_participants").hasClass("displaynone") ) {
-                stat_3 = checking_el_valid($("#" + id + "_participants"));
-            } else {
-                stat_3 = checking_el_valid($("#" + id + "_teams"));
-            }
+        /* add value to input for formula */
+        $('#editstage_formula_area .item').each(function(i){
+            var data = $(this)[0].dataset;
+            formula_val.push(data.val);
+        });
 
-            if ( stat_1 == true && stat_2 == true && stat_3 == true) {
-                form[0].submit();
-            } else {
-                $.notify({
-                    message: 'Пожалуйста, проверьте правильность введенных данных.'
-                },{
-                    type: 'danger'
-                });
-            }
+        if (formula_val.length == 0) {
+            document.getElementById('editstage_formula_area').className = "dragable-inputarea invalid"
+            stat_4 = false;
+        } else {
+            modal_formula_input.value = JSON.stringify(formula_val);
+            stat_4 = true;
+        }
+
+        if ( stat_1 == true && stat_2 == true && stat_3 == true && stat_4 == true) {
+            form[0].submit();
+        } else {
+            $.notify({
+                message: 'Пожалуйста, проверьте правильность введенных данных.'
+            },{
+                type: 'danger'
+            });
+        }
     });
+
 
     /*
      *  Delete stage
     */
     $('.delete').click(function(){
-
-        if (!confirm("Вы уверены что хотите продолжить это действие?"))
-            return;
-
         /** Information about action */
         var activeAction = $(this).get(0),
             dataPk = activeAction.dataset.pk;
 
-        var stagePk = $('#stage-' + dataPk).get(0),
+        var stagePk = $('#stage_' + dataPk).get(0),
             eventPk = $('#event_id').val();
 
-        /*$.ajax({
-            url : '/stages/delete/' + eventPk + '/' + dataPk,
-            data : {},
-            success : function(callback) {
-                stagePk.remove();
-            },
-            error : function(callback) {
-                console.log("Something gone wrong");
-            }
-        })*/
+        swal({
+            customClass: "delete-block",
+            animation: false,
+            title: 'Вы уверены что хотите удалить этап?',
+            text: "Удалив этап, Вы не сможете его восстановить!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да, удалить этап',
+            cancelButtonText: 'Нет, отмена',
+            confirmButtonClass: 'btn btn_primary',
+            cancelButtonClass: 'btn btn_default',
+            buttonsStyling: false
+        }).then(function () {
+
+            $.ajax({
+                url : '/stages/delete/' + eventPk + '/' + dataPk,
+                data : {},
+                success : function(callback) {
+
+                    stagePk.remove();
+
+                    swal({
+                        width: 300,
+                        customClass: "delete-block",
+                        animation: false,
+                        title: 'Удалено!',
+                        text: 'Этап был удален.',
+                        type: 'success',
+                        confirmButtonText: 'Готово',
+                        confirmButtonClass: 'btn btn_primary',
+                        buttonsStyling: false
+                    })
+                },
+                error : function(callback) {
+                    console.log("Error has occured in deleting stage");
+                    swal({
+                        width: 300,
+                        customClass: "delete-block",
+                        animation: false,
+                        title: 'Ошибка!',
+                        text: 'Во время удаления произошла ошибка, попробуйте удалить этап снова.',
+                        type: 'error',
+                        confirmButtonText: 'Закрыть',
+                        confirmButtonClass: 'btn btn_primary',
+                        buttonsStyling: false
+                    })
+                }
+            })
+
+        });
 
     });
 
@@ -349,7 +440,7 @@ $(document).ready(function() {
 
 
     /*
-     *   Function for Checking on Valid new_stage Form
+     *   Function for Checking on Valid newstage Form
     */
     function checking_el_valid($el, status) {
 
@@ -382,3 +473,37 @@ $(document).ready(function() {
     }
 
 });
+
+
+/*
+ * Add coeff to coeff_arrays while editing formula
+*/
+function addcoeff(id_array) {
+    swal({
+        customClass: "coeff-area",
+        animation: false,
+        width: 300,
+        title: 'Введите коэффицент',
+        inputPlaceholder: "0.5",
+        input: 'text',
+        showCancelButton: true,
+        confirmButtonText: 'Добавить',
+        cancelButtonText: 'Отмена',
+        inputValidator: function (val) {
+            var number_arr = new RegExp("[^0-9.]");
+            return new Promise(function (resolve, reject) {
+                if ( ! number_arr.test(val) && val ) {
+                    resolve()
+                } else {
+                    reject('Вы ввели не число!')
+                }
+            })
+        }
+    }).then(function (number) {
+        var el = document.createElement('li');
+        el.className = "item dark";
+        el.dataset.val = "coeff_" + number;
+        el.innerHTML = number;
+        id_array.appendChild(el);
+    });
+}

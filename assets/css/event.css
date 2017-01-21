@@ -313,6 +313,7 @@
 }
 
 .formula{
+	display: inline;
 	cursor: default;
     font-size: 1em;
 	padding-bottom: 5px;
@@ -379,7 +380,7 @@
 .drop-area .item{
 	display: none;
 }
-#coeff_add{
+.drop .coeff-add{
 	color: #616161;
 	background-color: #f5f5f5;
 	border: 1px solid #E0E0E0;
