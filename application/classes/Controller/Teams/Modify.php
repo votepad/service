@@ -63,7 +63,7 @@ class Controller_Teams_Modify extends Dispatch {
         $participants = Arr::get($_POST, 'participants');
         $logo = Arr::get($_POST, 'logo');
         $id_team = Arr::get($_POST, 'id_team');
-
+            
         $proccess = Methods_Teams::editTeamInformation($id_team, $name, $description, $logo, $participants);
 
         if ($proccess) {

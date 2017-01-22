@@ -4,6 +4,9 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
 
+<link href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
+
 <script type="text/javascript" src="<?=$assets; ?>js/event/teams.js"></script>
 
 <h3 class="page-header">Список команд</h3>
@@ -84,11 +87,11 @@
                     </p>
                     <p class="card_content-text">
                         <i><u>Состав команды:</u></i>
-                    <span id="participants_team_<?=$team->id; ?>">
-                        <? foreach ($team->participants as $members) : ?>
-                            <option value="<?=$members->id; ?>"  data-logo="<?=$members->photo; ?>" selected=""><?=$members->name; ?></option>
-                        <? endforeach; ?>
-                    </span>
+                        <span id="participants_team_<?=$team->id; ?>">
+                            <? foreach ($team->participants as $members) : ?>
+                                <option value="<?=$members->id; ?>"  data-logo="<?=$members->photo; ?>" selected=""><?=$members->name; ?></option>
+                            <? endforeach; ?>
+                        </span>
                     </p>
                 </div>
             </card>
@@ -124,7 +127,7 @@
                 </div>
                 <div class="row">
                     <div class="input-field">
-                        <select multiple id="editteam_part" name="participants">
+                        <select name="participants[]" id="editteam_part" multiple="">
                             <!-- participants_in_team + participants_NOT_in_team -->
                         </select>
                         <label for="editteam_part">Состав команды</label>
