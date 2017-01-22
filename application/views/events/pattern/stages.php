@@ -28,7 +28,7 @@
             <div class="row">
                 <div class="input-field">
                     <input id="newstage_name" type="text" name="name" autocomplete="off">
-                    <label for="newstage_name">Введите название этапа</label>
+                    <label for="newstage_name">Введите название нового этапа</label>
                 </div>
             </div>
             <div class="row hidden">
