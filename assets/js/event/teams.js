@@ -3,54 +3,59 @@ $(document).ready(function() {
     /*
      *  Vars
     */
-
-    var url = "http://pronwe/assets/img/user";
+    var url = "http://pronwe/assets/img/user",
+        card, id, name, about, part, list,
+        parts_not_distributed = document.getElementById('newteam_participants').innerHTML,
+        modal_name = document.getElementById('editteam_name'),
+        modal_description = document.getElementById('editteam_description'),
+        modal_part = document.getElementById('editteam_part'),
+        modal_id = document.getElementById('editteam_identity');
 
 
     /*
-     *  Open new_team form
+     *  Open newteam form
     */
-    $('#new_team').click(function() {
+    $('#newteam').click(function() {
         $(this).addClass('open');
+    });
+    $('#newteam_name').focus(function() {
+        $('#newteam').addClass('open');
     });
 
 
-
     /*
-     *  Close new_team form if inputs are empty
+     *  Close newteam form if inputs are empty
     */
     $('body').click(function(event) {
-        if ( ! $(event.target).closest("#new_team").is('#new_team') && $('#name-0').val() == "" && $('#description-0').val() == "" && $("#participants-0").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0 ) {
-            $('#new_team').removeClass('open');
-            checking_el_valid($('#name-0'), 'valid');
-            checking_el_valid($('#description-0'), 'valid');
-            checking_el_valid($("#participants-0"), 'valid');
+        if ( ! $(event.target).closest("#newteam").is('#newteam') && $('#newteam_name').val() == "" && $('#newteam_description').val() == "" && $("#newteam_participants").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0 ) {
+            $('#newteam').removeClass('open');
+            checking_el_valid($('#newteam_name'), 'valid');
+            checking_el_valid($('#newteam_description'), 'valid');
+            checking_el_valid($("#newteam_participants"), 'valid');
         }
     });
 
 
-
     /*
-     *  Create select2 for new_team form
+     *  Create select2 for newteam form
     */
-    $('.participants_in_team').select2({
+    $('#newteam_participants').select2({
         language: 'ru',
         templateResult: render_image_for_select2
     });
 
 
-
     /*
-     *   Btn Submit new_team form
+     *   Btn Submit newteam form
      *   including validation via inputmask
     */
     $('#create_team').click(function() {
         var form = $(this).closest('form'),
             stat_1, stat_2, stat_3;
 
-        stat_1 = checking_el_valid($('#name-0'), '');
-        stat_2 = checking_el_valid($('#description-0'), '');
-        stat_3 = checking_el_valid($("#participants-0"), '');
+        stat_1 = checking_el_valid($('#newteam_name'), '');
+        stat_2 = checking_el_valid($('#newteam_description'), '');
+        stat_3 = checking_el_valid($("#newteam_participants"), '');
 
         if ( stat_1 == true && stat_2 == true && stat_3 == true) {
             form[0].submit();
@@ -73,7 +78,7 @@ $(document).ready(function() {
 
 
     /*
-     *
+     * Change Input[file] BtnText when file is selected
     */
     $('body').on('change', 'input[type="file"]', function(){
         var btn = $(this).parent();
@@ -108,27 +113,19 @@ $(document).ready(function() {
      *   Generate Modal Form for changing information about team
     */
     $('.edit').click(function(){
-        var card = this.closest('.card'),
-            id = card.getAttribute('id'),
-            name = $.trim(document.getElementById('name_' + id).innerHTML),
-            about = $.trim(document.getElementById('description_' + id).innerHTML),
-            part = $.trim(document.getElementById('participants_' + id).innerHTML),
-
-            modal_name = document.getElementById('editteam_name'),
-            modal_about = document.getElementById('editteam_about'),
-            modal_part = document.getElementById('editteam_part'),
-            modal_id = document.getElementById('editteam_identity');
-
+        card = this.closest('.card');
+        id = card.getAttribute('id');
+        name = $.trim(document.getElementById('name_' + id).innerHTML);
+        about = $.trim(document.getElementById('description_' + id).innerHTML);
+        part = $.trim(document.getElementById('participants_' + id).innerHTML);
 
         //  Fill modal information
         modal_name.value = name;
-        modal_about.innerHTML = about;
-        modal_part.innerHTML = part;
+        modal_description.innerHTML = about;
+        modal_part.innerHTML = part + parts_not_distributed;
 
-        /**
-         * get identity
-         */
-        var list = id.split('-');
+        // get identity
+        list = id.split('_');
         modal_id.value = +list[1];
 
         // initialize select2
@@ -138,7 +135,7 @@ $(document).ready(function() {
         });
 
         // initialize textarea_resize
-        $($("editteam_about")).on('init keyup focus', function(){
+        $($("editteam_description")).on('init keyup focus', function(){
             textarea_resize($(this));
         });
 
@@ -151,58 +148,105 @@ $(document).ready(function() {
     });
 
 
+    /*
+     *  Cansel Edit in Modal Form
+    */
+    $('button[data-dismiss]').click(function(){
+        modal_name.value = "";
+        modal_description.innerHTML = "";
+        modal_part.innerHTML = "";
+        modal_id.value = "";
+        $("#editteam_part").select2("destroy");
+    });
+
 
     /*
      *   Save Modification in Modal Form
     */
-    $('body').on('click', '#update-info', function(){
+    $('#update_info').click(function(){
         var form = $(this).closest('.modal'),
-            id = form.attr('id').replace('modal_', ''),
-            stat_1 = checking_el_valid($("#" + id + "_name")),
-            stat_2 = checking_el_valid($("#" + id + "_description")),
-            stat_3 = checking_el_valid($("#" + id + "_participants"));
+            stat_1 = checking_el_valid($("#editteam_name"), ''),
+            stat_2 = checking_el_valid($("#editteam_description"), ''),
+            stat_3 = checking_el_valid($("#editteam_part"), '');
 
-
-            if ( stat_1 == true && stat_2 == true && stat_3 == true) {
-                form[0].submit();
-            } else {
-                $.notify({
-                    message: 'Пожалуйста, проверьте правильность введенных данных.'
-                },{
-                    type: 'danger'
-                });
-            }
+        if ( stat_1 == true && stat_2 == true && stat_3 == true) {
+            form[0].submit();
+        } else {
+            $.notify({
+                message: 'Пожалуйста, проверьте правильность введенных данных.'
+            },{
+                type: 'danger'
+            });
+        }
     });
+
 
     /*
      *  Delete Team
     */
     $('body').on('click', '.delete', function(){
 
-        if (!confirm("Вы уверены что хотите продолжить это действие?"))
-            return;
-
         /** Information about action */
         var activeAction = $(this).get(0),
             dataPk = activeAction.dataset.pk;
 
-        var teamPk = $('#team-' + dataPk).get(0),
+        var teamPk = $('#team_' + dataPk).get(0),
             eventPk = $('#event_id').val();
 
-        $.ajax({
-            url : '/teams/delete/' + eventPk + '/' + dataPk,
-            data : {},
-            success : function(callback) {
-                teamPk.remove();
-            },
-            error : function(callback) {
-                console.log("Something gone wrong");
-            }
-        })
+
+        swal({
+            customClass: "delete-block",
+            animation: false,
+            title: 'Вы уверены, что хотите удалить команду?',
+            text: "Удалив команду, Вы не сможете её восстановить!",
+            type: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Да, удалить команду',
+            cancelButtonText: 'Нет, отмена',
+            confirmButtonClass: 'btn btn_primary',
+            cancelButtonClass: 'btn btn_default',
+            buttonsStyling: false
+        }).then(function () {
+
+            $.ajax({
+                url : '/teams/delete/' + eventPk + '/' + dataPk,
+                data : {},
+                success : function(callback) {
+
+                    teamPk.remove();
+
+                    swal({
+                        width: 300,
+                        customClass: "delete-block",
+                        animation: false,
+                        title: 'Удалено!',
+                        text: 'Команда была удалена.',
+                        type: 'success',
+                        confirmButtonText: 'Готово',
+                        confirmButtonClass: 'btn btn_primary',
+                        buttonsStyling: false
+                    })
+
+                },
+                error : function(callback) {
+                    console.log("Error has occured in deleting team");
+                    swal({
+                        width: 300,
+                        customClass: "delete-block",
+                        animation: false,
+                        title: 'Ошибка!',
+                        text: 'Во время удаления произошла ошибка, попробуйте удалить команду снова.',
+                        type: 'error',
+                        confirmButtonText: 'Закрыть',
+                        confirmButtonClass: 'btn btn_primary',
+                        buttonsStyling: false
+                    })
+                }
+            })
+
+        });
 
     });
-
-
 
 
     /*
@@ -220,7 +264,7 @@ $(document).ready(function() {
 
 
     /*
-     *   Function for Checking on Valid new_team Form
+     *   Function for Checking on Valid newteam Form
     */
     function checking_el_valid($el, status) {
 
