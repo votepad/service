@@ -17,7 +17,7 @@
             <div class="row">
                 <div class="input-field">
                     <input id="newteam_name" type="text" name="name" autocomplete="off">
-                    <label for="newteam_name">Введите название команды</label>
+                    <label for="newteam_name">Введите название новой команды</label>
                 </div>
             </div>
             <div class="row hidden">
