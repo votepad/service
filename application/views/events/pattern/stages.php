@@ -58,24 +58,24 @@
             </div>
             <div class="row hidden">
                 <div id="show_participants" class="input-field">
+                    <!-- Participants which are not distributed -->
                     <select name="participants[]" id="newstage_participants" multiple="" class="elements_in_stage">
-                        <!-- Participants which are not distributed -->
                         <option value="5" data-logo="">Участник 5</option>
                         <option value="6" data-logo="">Участник 6</option>
                     </select>
                     <label for="newstage_participants">Выберите участников</label>
                 </div>
                 <div id="show_teams" class="input-field displaynone">
+                    <!-- Teams which are not distributed -->
                     <select name="teams[]" id="newstage_teams" multiple="" class="elements_in_stage">
-                        <!-- Teams which are not distributed -->
                         <option value="1" data-logo="">Команда 1</option>
                         <option value="2" data-logo="">Команда 2</option>
                     </select>
                     <label for="newstage_teams">Выберите команды</label>
                 </div>
                 <div id="show_groups" class="input-field displaynone">
+                    <!-- Groups which are not distributed -->
                     <select name="groups[]" id="newstage_groups" multiple="" class="elements_in_stage">
-                        <!-- Groups which are not distributed -->
                         <option value="1">этапа 1</option>
                         <option value="2">этапа 2</option>
                     </select>
@@ -178,16 +178,21 @@
                 </p>
                 <p class="card_content-text">
                     <i><u>Жюри оценивает:</u></i>
+
+                    <!-- Participants in stage, if they existed -->
                     <span id="participants_stage_1">
-                        <!-- Participants in stage, if they existed -->
                         <option value="0" data-logo="01.jpeg" selected="">Участник 1</option>
                         <option value="1" data-logo="02.jpeg" selected="">Участник 2</option>
                     </span>
+
+                    <!-- Teams in stage, if they existed -->
                     <span id="teams_stage_1">
-                        <!-- Teams in stage, if they existed -->
+
                     </span>
+
+                    <!-- Groups in stage, if they existed -->
                     <span id="groups_stage_1">
-                        <!-- Groups in stage, if they existed -->
+
                     </span>
                 </p>
                 <div class="card_content-text" style="font-size: .9em;margin: 0 0 10px;">
@@ -244,8 +249,8 @@
                 </div>
                 <div class="row">
                     <div class="input-field">
+                        <!-- Members = [parts || teams || groups] + not_distributed [parts || teams || groups] -->
                         <select multiple id="editstage_members" name="members">
-                            <!-- Members = [parts || teams || groups] + not_distributed [parts || teams || groups] -->
 
                         </select>
                         <label for="editstage_members">Жюри будут оценивать</label>

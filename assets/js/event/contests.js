@@ -10,97 +10,60 @@ $(document).ready(function() {
     */
 
     var url = "",
-        card, id, name, description, part, team, group, formula_input, formula_area,
-        droparea_new = document.getElementById('newstage_droparea').innerHTML,
-        droparea_edit = document.getElementById('editstage_droparea').innerHTML,
-        modal_name = document.getElementById('editstage_name'),
-        modal_description = document.getElementById('editstage_description'),
-        modal_members = document.getElementById('editstage_members'),
-        modal_formula_input = document.getElementById('editstage_formula'),
-        modal_formula_area = document.getElementById('editstage_formula_area'),
-        parts_not_distributed = document.getElementById('newstage_participants').innerHTML,
-        teams_not_distributed = document.getElementById('newstage_teams').innerHTML,
-        groups_not_distributed = document.getElementById('newstage_groups').innerHTML;
+        card, id, name, description, judges, formula_input, formula_area,
+        drop_block_new = document.getElementById('newcontest_drop'),
+        drop_block_edit = document.getElementById('editcontest_drop')
+        droparea_new = document.getElementById('newcontest_droparea').innerHTML,
+        droparea_edit = document.getElementById('editcontest_droparea').innerHTML,
+        modal_name = document.getElementById('editcontest_name'),
+        modal_description = document.getElementById('editcontest_description'),
+        modal_judges = document.getElementById('editcontest_judges');
+        modal_formula_input = document.getElementById('editcontest_formula'),
+        modal_formula_area = document.getElementById('editcontest_formula_area'),
+        all_judges = document.getElementById('newcontest_judges').getElementsByTagName('option');
 
 
     /*
-     *  Open newstage form
+     *  Open newcontest form
     */
-    $('#newstage').click(function() {
+    $('#newcontest').click(function() {
         $(this).addClass('open');
     });
-    $('#newstage_name').focus(function() {
-        $('#newstage').addClass('open');
+    $('#newcontest_name').focus(function() {
+        $('#newcontest').addClass('open');
     });
 
 
 
     /*
-     *  Close newstage form if inputs are empty
+     *  Close newcontest form if inputs are empty
     */
     $('body').click(function(event) {
-        if ( ! $(event.target).closest("#newstage").is('#newstage') && $('#newstage_name').val() == "" && $('#newstage_description').val() == ""
-                && $("#newstage_participants").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#newstage_team").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#newstage_groups").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#newstage_formula_area li").length == 0)
+        if ( ! $(event.target).closest("#newcontest").is('#newcontest') && $('#newcontest_name').val() == "" && $('#newcontest_description').val() == ""
+                && $("#newcontest_judges").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#newcontest_formula_area li").length == 0)
         {
-            $('#newstage').removeClass('open');
-            checking_el_valid($('#newstage_name'), 'valid');
-            checking_el_valid($('#newstage_description'), 'valid');
-            checking_el_valid($("#newstage_participants"), 'valid');
-            checking_el_valid($("#newstage_team"), 'valid');
-            checking_el_valid($("#newstage_groups"), 'valid');
-            document.getElementById('newstage_formula_area').className = "dragable-inputarea";
+            $('#newcontest').removeClass('open');
+            checking_el_valid($('#newcontest_name'), 'valid');
+            checking_el_valid($("#newcontest_description"), 'valid');
+            checking_el_valid($("#newcontest_judges"), 'valid');
+            document.getElementById('newcontest_formula_area').className = "dragable-inputarea";
         }
     });
 
 
     /*
-     *  Create select2 for newstage form
+     *  Create select2 for newcontest form
     */
-    $('.elements_in_stage').select2({
-        language: 'ru',
-        templateResult: render_image_for_select2
-    });
-    $("#newstage_groups").select2({
+    $('#newcontest_judges').select2({
         language: 'ru',
     });
 
 
     /*
-     * change stage members in newstage form
+     *  Working with formula in newcontest form
     */
-    $("#part").click(function(){
-        $("#show_participants").removeClass("displaynone");
-        $("#show_teams").addClass("displaynone");
-        $("#show_groups").addClass("displaynone");
-        $("#newstage_teams").val(null).trigger("change");
-        $("#newstage_groups").val(null).trigger("change");
-    });
-
-    $("#team").click(function(){
-        $("#show_teams").removeClass("displaynone");
-        $("#show_participants").addClass("displaynone");
-        $("#show_groups").addClass("displaynone");
-        $("#newstage_participants").val(null).trigger("change");
-        $("#newstage_groups").val(null).trigger("change");
-    });
-
-    $("#group").click(function(){
-        $("#show_groups").removeClass("displaynone");
-        $("#show_participants").addClass("displaynone");
-        $("#show_teams").addClass("displaynone");
-        $("#newstage_participants").val(null).trigger("change");
-        $("#newstage_teams").val(null).trigger("change");
-    });
-
-
-    /*
-     *  Working with formula in newstage form
-    */
-    var new_sortable_id = ['newstage_formula_area','newstage_coeff','newstage_math','newstage_criterias','newstage_droparea'],
-        drop_block = document.getElementById('newstage_drop');
+    var new_sortable_id = ['newcontest_formula_area','newcontest_coeff','newcontest_math','newcontest_criterias','newcontest_droparea'];
 	[{
         sort: true,
         pull: true,
@@ -123,19 +86,19 @@ $(document).ready(function() {
 		put: true
 	}].forEach(function (groupOpts, i) {
        Sortable.create(document.getElementById(new_sortable_id[i]), {
-           name: 'newstage_formula_area',
+           name: 'newcontest_formula_area',
            animation: 150,
            group: groupOpts,
            onStart: function (evt) {
-               drop_block.className = "drop open";
-               document.getElementById('newstage_formula_area').className = "dragable-inputarea focus";
+               drop_block_new.className = "drop open";
+               document.getElementById('newcontest_formula_area').className = "dragable-inputarea focus";
            },
            onEnd: function (evt) {
-               drop_block.className = "drop";
-               document.getElementById('newstage_droparea').innerHTML = droparea_new;
-               document.getElementById('newstage_formula_area').className = "dragable-inputarea";
-               if ( document.getElementById('newstage_formula_area').childNodes.length == 0) {
-                   document.getElementById('newstage_formula_area').className = "dragable-inputarea invalid";
+               drop_block_new.className = "drop";
+               document.getElementById('newcontest_droparea').innerHTML = droparea_new;
+               document.getElementById('newcontest_formula_area').className = "dragable-inputarea";
+               if ( document.getElementById('newcontest_formula_area').childNodes.length == 0) {
+                   document.getElementById('newcontest_formula_area').className = "dragable-inputarea invalid";
                }
            },
        });
@@ -143,37 +106,30 @@ $(document).ready(function() {
 
 
     /*
-     *   Btn Submit newstage form
+     *   Btn Submit newcontest form
      *   including validation via inputmask
     */
-    $('#create_stage').click(function() {
+    $('#create_contest').click(function() {
         var form = $(this).closest('form'),
             stat_1, stat_2, stat_3, stat_4
             formula_val = [];
 
-        /* add value to input for formula */
-        $('#newstage_formula_area .item').each(function(i){
+        // add value to input for formula
+        $('#newcontest_formula_area .item').each(function(i){
             var data = $(this)[0].dataset;
             formula_val.push(data.val);
         });
 
-        stat_1 = checking_el_valid($('#newstage_name'), '');
-        stat_2 = checking_el_valid($('#newstage_description'), '');
+        stat_1 = checking_el_valid($('#newcontest_name'), '');
+        stat_2 = checking_el_valid($("#newcontest_description"), '');
+        stat_3 = checking_el_valid($("#newcontest_judges"), '');
 
         if (formula_val.length == 0) {
-            document.getElementById('newstage_formula_area').className = "dragable-inputarea invalid"
-            stat_3 = false;
+            document.getElementById('newcontest_formula_area').className = "dragable-inputarea invalid"
+            stat_4 = false;
         } else {
-            document.getElementById('newstage_formula').value = JSON.stringify(formula_val);
-            stat_3 = true;
-        }
-
-        if ( ! $("#show_participants").hasClass("displaynone") ) {
-            stat_4 = checking_el_valid($("#newstage_participants"), '');
-        } else if ( ! $("#show_teams").hasClass("displaynone") ) {
-            stat_4 = checking_el_valid($("#newstage_teams"), '');
-        } else {
-            stat_4 = checking_el_valid($("#newstage_groups"), '');
+            document.getElementById('newcontest_formula').value = JSON.stringify(formula_val);
+            stat_4 = true;
         }
 
         if ( stat_1 == true && stat_2 == true && stat_3 == true && stat_4 == true ) {
@@ -186,7 +142,6 @@ $(document).ready(function() {
             });
         }
     });
-
 
 
     /*
@@ -218,52 +173,38 @@ $(document).ready(function() {
 
 
     /*
-     *  Generate Modal Form for changing information about stage
+     *  Generate Modal Form for changing information about contest
     */
     $('.edit').click(function(){
         card = this.closest('.card');
         id = card.getAttribute('id');
         name = $.trim(document.getElementById('name_' + id).innerHTML);
         description = $.trim(document.getElementById('description_' + id).innerHTML);
-        part = $.trim(document.getElementById('participants_' + id).innerHTML);
-        team = $.trim(document.getElementById('teams_' + id).innerHTML);
-        group = $.trim(document.getElementById('groups_' + id).innerHTML);
+        judges = document.getElementById('judges_' + id).getElementsByTagName('option');
         formula_input = document.getElementById('formula_input_' + id).value;
         formula_area = $.trim(document.getElementById('formula_area_' + id).innerHTML);
+
+        html_judges = check_free_judges(all_judges, judges);
 
         //  Fill modal information
         modal_name.value = name;
         modal_description.innerHTML = description;
-        if ( part == "" && team == "" ) {
-            modal_members.innerHTML = group + groups_not_distributed;
-        } else if ( part == "" && group == "" ) {
-            modal_members.innerHTML = team + teams_not_distributed;
-        } else {
-            modal_members.innerHTML = part + parts_not_distributed;
-        }
+        modal_judges.innerHTML = html_judges;
         modal_formula_input.value = formula_input;
         modal_formula_area.innerHTML = formula_area;
 
         // initialize select2
-        if ( part == "" && team == "" ) {
-            $("#editstage_members").select2({
-                language: 'ru'
-            });
-        } else {
-            $("#editstage_members").select2({
-                language: 'ru',
-                templateResult: render_image_for_select2
-            });
-        }
+        $("#editcontest_judges").select2({
+            language: 'ru',
+        });
 
         // initialize textarea_resize
         $(modal_description).on('init keyup focus', function(){
             textarea_resize($(this));
         });
 
-
         // initialize modal
-        $("#editstage_modal").modal({
+        $("#editcontest_modal").modal({
             backdrop: 'static',
             keyboard: false
         });
@@ -274,8 +215,7 @@ $(document).ready(function() {
     /*
      *  Working with formula in modal form
     */
-    var editstage_sortable_id = ['editstage_formula_area','editstage_coeff','editstage_math','editstage_criterias','editstage_droparea'],
-            editstage_drop_block = document.getElementById('editstage_drop');
+    var editcontest_sortable_id = ['editcontest_formula_area','editcontest_coeff','editcontest_math','editcontest_criterias','editcontest_droparea'];
 	[{
         sort: true,
         pull: true,
@@ -297,20 +237,20 @@ $(document).ready(function() {
         pull: false,
 		put: true
 	}].forEach(function (groupOpts, i) {
-       Sortable.create(document.getElementById(editstage_sortable_id[i]), {
-           name: 'editstage_formula',
+       Sortable.create(document.getElementById(editcontest_sortable_id[i]), {
+           name: 'editcontest_formula',
            animation: 150,
            group: groupOpts,
            onStart: function (evt) {
-               editstage_drop_block.className = "drop open";
-               document.getElementById('editstage_formula_area').className = "dragable-inputarea focus";
+               drop_block_edit.className = "drop open";
+               document.getElementById('editcontest_formula_area').className = "dragable-inputarea focus";
            },
            onEnd: function (evt) {
-               editstage_drop_block.className = "drop";
-               document.getElementById('editstage_droparea').innerHTML = droparea_edit;
-               document.getElementById('editstage_formula_area').className = "dragable-inputarea";
-               if ( document.getElementById('editstage_formula_area').childNodes.length == 0) {
-                   document.getElementById('editstage_formula_area').className = "dragable-inputarea invalid";
+               drop_block_edit.className = "drop";
+               document.getElementById('editcontest_droparea').innerHTML = droparea_edit;
+               document.getElementById('editcontest_formula_area').className = "dragable-inputarea";
+               if ( document.getElementById('editcontest_formula_area').childNodes.length == 0) {
+                   document.getElementById('editcontest_formula_area').className = "dragable-inputarea invalid";
                }
            },
        });
@@ -323,10 +263,10 @@ $(document).ready(function() {
     $('button[data-dismiss]').click(function(){
         modal_name.value = "";
         modal_description.innerHTML = "";
-        modal_members.innerHTML = "";
+        modal_judges.innerHTML = "";
         modal_formula_input.value = "";
         modal_formula_area.innerHTML = "";
-        $("#editstage_members").select2("destroy");
+        $("#editcontest_judges").select2("destroy");
     });
 
 
@@ -334,20 +274,20 @@ $(document).ready(function() {
      *   Save Modification in Modal Form
     */
     $('#update_info').click(function(){
-        var form = $('#editstage_modal'),
-            stat_1 = checking_el_valid($('#editstage_name'),''),
-            stat_2 = checking_el_valid($('#editstage_description'),''),
-            stat_3 = checking_el_valid($('#editstage_members'),''),
+        var form = $('#editcontest_modal'),
+            stat_1 = checking_el_valid($('#editcontest_name'),''),
+            stat_2 = checking_el_valid($('#editcontest_description'),''),
+            stat_3 = checking_el_valid($('#editcontest_judges'),''),
             stat_4, formula_val = [];
 
         /* add value to input for formula */
-        $('#editstage_formula_area .item').each(function(i){
+        $('#editcontest_formula_area .item').each(function(i){
             var data = $(this)[0].dataset;
             formula_val.push(data.val);
         });
 
         if (formula_val.length == 0) {
-            document.getElementById('editstage_formula_area').className = "dragable-inputarea invalid"
+            document.getElementById('editcontest_formula_area').className = "dragable-inputarea invalid"
             stat_4 = false;
         } else {
             modal_formula_input.value = JSON.stringify(formula_val);
@@ -367,24 +307,24 @@ $(document).ready(function() {
 
 
     /*
-     *  Delete stage
+     *  Delete contest
     */
     $('.delete').click(function(){
         /** Information about action */
         var activeAction = $(this).get(0),
             dataPk = activeAction.dataset.pk;
 
-        var stagePk = $('#stage_' + dataPk).get(0),
+        var contestPk = $('#contest_' + dataPk).get(0),
             eventPk = $('#event_id').val();
 
         swal({
             customClass: "delete-block",
             animation: false,
-            title: 'Вы уверены, что хотите удалить этап?',
-            text: "Удалив этап, Вы не сможете его восстановить!",
+            title: 'Вы уверены, что хотите удалить конкурс?',
+            text: "Удалив клнкурс, Вы не сможете его восстановить!",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Да, удалить этап',
+            confirmButtonText: 'Да, удалить клнкурс',
             cancelButtonText: 'Нет, отмена',
             confirmButtonClass: 'btn btn_primary',
             cancelButtonClass: 'btn btn_default',
@@ -392,18 +332,18 @@ $(document).ready(function() {
         }).then(function () {
 
             $.ajax({
-                url : '/stages/delete/' + eventPk + '/' + dataPk,
+                url : '/contests/delete/' + eventPk + '/' + dataPk,
                 data : {},
                 success : function(callback) {
 
-                    stagePk.remove();
+                    contestPk.remove();
 
                     swal({
                         width: 300,
                         customClass: "delete-block",
                         animation: false,
                         title: 'Удалено!',
-                        text: 'Этап был удален.',
+                        text: 'Конкурс был удален.',
                         type: 'success',
                         confirmButtonText: 'Готово',
                         confirmButtonClass: 'btn btn_primary',
@@ -411,13 +351,13 @@ $(document).ready(function() {
                     })
                 },
                 error : function(callback) {
-                    console.log("Error has occured in deleting stage");
+                    console.log("Error has occured in deleting contest");
                     swal({
                         width: 300,
                         customClass: "delete-block",
                         animation: false,
                         title: 'Ошибка!',
-                        text: 'Во время удаления произошла ошибка, попробуйте удалить этап снова.',
+                        text: 'Во время удаления произошла ошибка, попробуйте удалить конкурс снова.',
                         type: 'error',
                         confirmButtonText: 'Закрыть',
                         confirmButtonClass: 'btn btn_primary',
@@ -436,19 +376,22 @@ $(document).ready(function() {
     /*
      *    Function for Rendering Image for select2 elements
     */
-    function render_image_for_select2 (el) {
-        if (!el.id) {
-            return el.text;
+    function check_free_judges (arr1, arr2) {
+        var string = "";
+        for (var i = 0; i < arr1.length; i++) {
+            for (var j = 0; j < arr2.length; j++) {
+                if (arr1[i].value == arr2[j].value) {
+                    arr1[i].setAttribute('selected', true);
+                }
+            }
+            string += arr1[i].outerHTML;
         }
-        var $el = $(
-            '<span class="select2-results__withlogo"><img src="' + url + '/' + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
-        );
-        return $el;
+        return string;
     };
 
 
     /*
-     *   Function for Checking on Valid newstage Form
+     *   Function for Checking on Valid newcontest Form
     */
     function checking_el_valid($el, status) {
 
