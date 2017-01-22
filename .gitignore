@@ -16,3 +16,7 @@ assets/frontend/modules/
 assets/frontend/index.js
 assets/frontend/webpack.config.js
 assets/frontend/node_modules/
+
+
+# Media files
+assets/img/
