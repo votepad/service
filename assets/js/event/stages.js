@@ -29,6 +29,10 @@ $(document).ready(function() {
     $('#newstage').click(function() {
         $(this).addClass('open');
     });
+    $('#newstage_name').focus(function() {
+        $('#newstage').addClass('open');
+    });
+
 
 
     /*
