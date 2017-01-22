@@ -372,7 +372,7 @@ $(document).ready(function() {
         swal({
             customClass: "delete-block",
             animation: false,
-            title: 'Вы уверены что хотите удалить этап?',
+            title: 'Вы уверены, что хотите удалить этап?',
             text: "Удалив этап, Вы не сможете его восстановить!",
             type: 'warning',
             showCancelButton: true,
