@@ -20,16 +20,20 @@
 <input type="hidden" value="<?=$event->id; ?>" id="id_event">
 <script src="<?=$assets; ?>frontend/production/nwe.js?v=<?=filemtime('assets/frontend/production/nwe.js'); ?>"></script>
 
+<div id="testing" style="width: 100px; height: 100px; border: 1px solid #96a0a0; ">
+lskdmflskmdf
+</div>
+
 <script>
 
     nwe.uploader.init({
-        handler : document.getElementById('testing'),
-        server  : 'URL',
-        success : function() {
-
+        node : document.getElementById('testing'),
+        server  : '/transport',
+        success : function(result) {
+            alert(result);
         },
         error : function() {
-
+            alert(result);
         }
     });
 

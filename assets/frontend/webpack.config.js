@@ -4,8 +4,8 @@ module.exports = {
 
     output : {
         path: __dirname + '/production',
-        filename: 'main.js',
-        library : '[name]'
+        filename: 'nwe.js',
+        library : 'nwe'
     },
 
     watch : true,

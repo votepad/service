@@ -42,7 +42,7 @@ class Methods_Teams extends Model_Teams
 
             $counter = 0;
             $result = array();
-            
+
             foreach ($teams as $team) {
 
                 $result[$counter] = new Model_Teams();
@@ -86,8 +86,16 @@ class Methods_Teams extends Model_Teams
             $delete = DB::delete('Teams_Participants')
                 ->where('id_team', '=', $id_team)
                 ->execute();
+        } elseif (!isset($id_team)) {
+            $delete = DB::delete('Teams_Participants')
+                ->where('id_participant', '=', $id_participant)
+                ->execute();
+        } else {
+            $delete = DB::delete('Teams_Participants')
+                ->where('id_team', '=', $id_team)
+                ->where('id_participant', '=', $id_participant)
+                ->execute();
         }
-
     }
 
 }

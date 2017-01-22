@@ -4,19 +4,31 @@
 
 var nwe = (function(nwe) {
 
-    nwe.init = function() {
+    /**
+     * Clones object
+     *
+     *
+     * @param targetObject
+     * @returns {{}}
+     */
+    nwe.cloner = function(targetObject) {
 
-        Promise.resolve()
+        var newObject = {};
 
-            .then(nwe.ui.make.input)
-
-            .catch(function() {
-                console.log('something gone');
-            });
-
+        for(var key in targetObject) {
+            if (targetObject.hasOwnProperty(key))
+                newObject[key] = null;
+        }
+        return newObject;
     };
 
     return nwe;
 
 })({});
+
+nwe.ui        = require('./modules/nwe.ui');
+nwe.transport = require('./modules/nwe.transport');
+nwe.uploader  = require('./modules/nwe.uploader');
+
+module.exports = nwe;
 

@@ -52,6 +52,7 @@ class Controller_Participants_Ajax extends Ajax
 
                     $id = $participant['id'];
                     Methods_Participants::removeParticipant($id);
+                    Methods_Teams::removeParticipantFromTeam(null, $id);
 
                 }
             }

@@ -2,16 +2,18 @@
  * @copyright Khaydarov Murod
  */
 
-var ui = require('./ui');
-
-var transport = (function() {
+var transport = (function(transport) {
 
     /**
      * @protected
      *
      * @type {DOMElement}
      */
-    var input = null;
+    transport.input = null;
+
+    transport.init = function() {
+        make();
+    };
 
     /**
      * @protected
@@ -19,7 +21,7 @@ var transport = (function() {
      * Native ajax method.
      * @param {Object} data - Callbacks and data
      */
-    var ajax = function (data) {
+    transport.ajax = function (data) {
 
         if (!data || !data.url){
             return;
@@ -71,10 +73,15 @@ var transport = (function() {
             var input = document.createElement('input');
             input.type = 'file';
 
-            input.addEventListener('change', nwe.file.uploaded, false);
+            return input;
+        };
 
-            nwe.ui.input = input;
-        }
+        transport.input = input();
     };
 
-})();
+    return transport;
+
+})({});
+
+
+module.exports = transport;
