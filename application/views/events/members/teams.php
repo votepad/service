@@ -67,7 +67,7 @@
                         <?=$team->name; ?>
                     </div>
                     <div class="card_title-dropdown">
-                        <div id="create_team" role="button" class="card_title-dropdown-icon">
+                        <div role="button" class="card_title-dropdown-icon">
                             <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
                         </div>
                         <div class="card_title-dropdown-menu">
