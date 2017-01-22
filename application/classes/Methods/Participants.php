@@ -93,7 +93,7 @@ class Methods_Participants extends Model_Participants
 
             $counter = 0;
             $result = array();
-            
+
             foreach($participants as $participant) {
 
                 $result[$counter] = self::getParticipant($participant["id_participant"]);

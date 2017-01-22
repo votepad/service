@@ -116,13 +116,20 @@ $(document).ready(function() {
 
             modal_name = document.getElementById('editteam_name'),
             modal_about = document.getElementById('editteam_about'),
-            modal_part = document.getElementById('editteam_part');
+            modal_part = document.getElementById('editteam_part'),
+            modal_id = document.getElementById('editteam_identity');
 
 
         //  Fill modal information
         modal_name.value = name;
         modal_about.innerHTML = about;
         modal_part.innerHTML = part;
+
+        /**
+         * get identity
+         */
+        var list = id.split('-');
+        modal_id.value = +list[1];
 
         // initialize select2
         $("#editteam_part").select2({

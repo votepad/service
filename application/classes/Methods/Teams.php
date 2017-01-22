@@ -98,4 +98,40 @@ class Methods_Teams extends Model_Teams
         }
     }
 
+    /**
+     * Updates team information
+     * @todo Participants list
+     *
+     * @param $id_team
+     * @param $name
+     * @param $desciption
+     * @param $logo
+     * @param $participants
+     */
+    public static function editTeamInformation($id_team, $name, $desciption, $logo, $participants) {
+
+       try {
+           $model = Model_Teams::get($id_team);
+
+           $model->name = $name;
+           $model->description = $desciption;
+           $model->logo = $logo ?: $model->logo;
+
+           $model->save($id_team);
+
+           /**
+            * Now, save participants
+            */
+//        foreach ($participants as $participant) {
+//            echo Debug::vars($participant);
+//        }
+
+           return true;
+
+       } catch (Exception $e) {
+           echo Debug::vars($e);
+       }
+
+    }
+
 }

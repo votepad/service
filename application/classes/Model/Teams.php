@@ -58,7 +58,7 @@ class Model_Teams extends Model {
         $team->logo         = $this->logo ?: null;
         $team->id_event     = $this->id_event;
         $team->save();
-        
+
         return $team->id;
     }
 
@@ -79,12 +79,14 @@ class Model_Teams extends Model {
 
         if ($team->loaded())
         {
-            $result = new Model_Participants();
+            $result = new Model_Teams();
 
-            $result->id     = $team->id;
-            $result->name   = $team->name;
+            $result->id         = $team->id;
+            $result->name       = $team->name;
             $result->description  = $team->description;
-            $result->logo  = $team->logo;
+            $result->logo       = $team->logo;
+            $result->id_event   = $team->id_event;
+            $result->participants = Methods_Participants::getParticipantsFromTeams($team->id);
 
             return $result;
         }

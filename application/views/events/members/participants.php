@@ -20,9 +20,9 @@
 <input type="hidden" value="<?=$event->id; ?>" id="id_event">
 <script src="<?=$assets; ?>frontend/production/nwe.js?v=<?=filemtime('assets/frontend/production/nwe.js'); ?>"></script>
 
-<div id="testing" style="width: 100px; height: 100px; border: 1px solid #96a0a0; ">
-lskdmflskmdf
-</div>
+<!--<div id="testing" style="width: 100px; height: 100px; border: 1px solid #96a0a0; ">-->
+<!--lskdmflskmdf-->
+<!--</div>-->
 
 <script>
 

@@ -98,7 +98,7 @@
 </div>
 
 <!-- Modal - Update Team Info -->
-<form class="modal fade" id="editteam_modal" tabindex="-1" role="dialog" aria-labelledby="" method="post" action="">
+<form action="<?=URL::site('teams/edit/' . $event->id); ?>" method="POST" class="modal fade" id="editteam_modal" tabindex="-1" role="dialog" aria-labelledby="" method="post" action="">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
@@ -140,6 +140,9 @@
                 <button type="button" class="btn btn_default" data-dismiss="modal">Отмена</button>
                 <button id="update-info" type="button" class="btn btn_primary">Сохранить изменения</button>
             </div>
+            <input type="hidden" id="editteam_identity" name="id_team" value="">
+            <input type="hidden" name="csrf" value="<?= Security::token(TRUE); ?>">
+
         </div>
     </div>
 </form>
