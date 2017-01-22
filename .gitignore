@@ -15,4 +15,4 @@ assets/frontend/.idea/
 assets/frontend/modules/
 assets/frontend/index.js
 assets/frontend/webpack.config.js
-node_modules/
+assets/frontend/node_modules/
