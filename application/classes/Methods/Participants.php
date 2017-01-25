@@ -114,4 +114,8 @@ class Methods_Participants extends Model_Participants
     public static function removeParticipant($id) {
         self::delete($id);
     }
+
+    public static function getParticipantsWhichAreNotIncludedInTeams() {
+        
+    }
 }
