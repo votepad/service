@@ -133,12 +133,14 @@ class Dispatch extends Controller_Template
             /** Authentificated User is visible in all pages */
             View::set_global('user', $user);
         }
-        
+
         $address = 'http://' . $_SERVER['SERVER_NAME'] ;
         View::set_global('assets', $address . '/assets/');
         View::set_global('website', $address);
 
         /** Set caching method */
-        $this->cache = Cache::instance();
+        $this->memcache = $memcache = Cache::instance('memcache');
+
+        View::set_global('memcache', $memcache);
     }
 }
