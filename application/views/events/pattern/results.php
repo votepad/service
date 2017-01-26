@@ -6,22 +6,27 @@
 
 <script type="text/javascript" src="<?=$assets; ?>js/event/results.js"></script>
 
-<div id="showVideo" class="block displaynone " style="height:200px">
+<h3 class="page-header"> Итоговая оценка
+    <a id="update" class="pull-right" data-toggle="tooltip" data-placement="left" title="Изменить информацию"><i class="fa fa-save" aria-hidden="true"></i></a>
+    <br>
+    <small>Задайте фрмулу, по которой будет подсчитываться итоговая оценка для действующих лиц.</small>
+</h3>
+
+<div id="showVideo" class="block displaynone" style="height:200px">
     <h2 class="center">
         Как создать сценарий?
         <small>видео</small>
     </h2>
 </div>
 
-
 <!-- Result Blocks -->
 <form method="POST" action="" id="result" enctype="multipart/form-data">
 
     <!--  Participants Formula Block  -->
     <div id="result_part">
-        <h3 class="page-header">
+        <h4 class="page-header">
             Результирующий балл, полученный участником
-        </h3>
+        </h4>
         <div class="form">
             <div class="form_body">
                 <div class="row">
