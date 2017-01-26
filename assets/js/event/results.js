@@ -201,7 +201,7 @@ $(document).ready(function() {
      *   Btn Submit result form
     */
     $('#update').click(function() {
-        var form = $(this).closest('form'),
+        var form = $('#result'),
             stat_1, stat_2, stat_3,
             formula_part_val = [],
             formula_team_val = [],
