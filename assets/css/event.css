@@ -281,13 +281,14 @@
 	border-radius: 3px;
 	margin-right: 10px;
 	margin-bottom: 5px;
-	cursor: pointer;
+	cursor: all-scroll;
 	float: left;
 	white-space: nowrap;
 }
 .dragable-inputarea .item{
 	font-size: .8em;
 	margin-top: 5px;
+    height: 23px;
 }
 	.dragable-inputarea .item.dark{
 		background-color: #f5f5f5;
@@ -384,7 +385,7 @@
 	color: #616161;
 	background-color: #f5f5f5;
 	border: 1px solid #E0E0E0;
-	padding: 2.5px 5px;
+	padding: 2px 5px;
 	border-radius: 3px;
 	margin-right: 10px;
 	margin-bottom: 5px;
@@ -452,4 +453,13 @@
 	float: left;
 	height: 35px;
 	line-height: 35px;
+}
+
+.form .hidden{
+	display: none;
+}
+@media (max-width: 680px){
+	.form .hidden{
+		display: block;
+	}
 }
