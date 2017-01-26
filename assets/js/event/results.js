@@ -10,7 +10,7 @@ $(document).ready(function() {
     */
 
     var url = "",
-        droparea_text = document.getElementById('result_droparea_part').innerHTML,  
+        droparea_text = document.getElementById('result_droparea_part').innerHTML,
         contest_part = $.trim(document.getElementById('result_contest_part').innerHTML),
         contest_team = $.trim(document.getElementById('result_contest_team').innerHTML),
         contest_group = $.trim(document.getElementById('result_contest_group').innerHTML);
@@ -33,7 +33,9 @@ $(document).ready(function() {
     if (contest_group == "") {
         document.getElementById('result_group').remove();
     }
-
+    if (contest_part == "" && contest_team == "" && contest_group == "") {
+        document.getElementById('showVideo').className = "block";
+    }
 
 
     /*
