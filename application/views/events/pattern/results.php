@@ -89,9 +89,9 @@
 
     <!--  Teams Formula Block  -->
     <div id="result_team">
-        <h3 class="page-header">
+        <h4 class="page-header">
             Результирующий балл, полученный командой
-        </h3>
+        </h4>
         <div class="form">
             <div class="form_body">
                 <div class="row">
@@ -154,9 +154,9 @@
 
     <!--  Groups Formula Block  -->
     <div id="result_group">
-        <h3 class="page-header">
+        <h4 class="page-header">
             Результирующий балл, полученный группой
-        </h3>
+        </h4>
         <div class="form">
             <div class="form_body">
                 <div class="row">
