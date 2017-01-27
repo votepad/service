@@ -52,6 +52,10 @@
                     </select>
                     <label for="newcontest_judges">Выберите жюри, которые будут оценивать этот конкурс</label>
                 </div>
+                <p>
+                    <input type="checkbox" id="allJudges">
+                    <label for="allJudges">Все жюри</label>
+                </p>
             </div>
 
             <div class="row hidden">

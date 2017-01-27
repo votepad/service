@@ -55,8 +55,27 @@ $(document).ready(function() {
     /*
      *  Create select2 for newcontest form
     */
-    $('#newcontest_judges').select2({
+    var $judges = $('#newcontest_judges').select2({
         language: 'ru',
+    });
+    var judges_val = [];
+
+    $('#newcontest_judges option').each(function(){
+        judges_val.push($(this).val())
+    });
+
+
+    /*
+     *  Select all judges
+    */
+    $("#allJudges").on("click", function () {
+        if ( document.getElementById("allJudges").checked == true) {
+            $judges.val(judges_val).trigger("change");
+            document.getElementById("newcontest_judges").disabled = true;
+        } else{
+            $judges.val("").trigger("change");
+            document.getElementById("newcontest_judges").disabled = false;
+        }
     });
 
 
