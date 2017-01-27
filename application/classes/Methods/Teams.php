@@ -100,7 +100,6 @@ class Methods_Teams extends Model_Teams
 
     /**
      * Updates team information
-     * @todo Participants list
      *
      * @param $id_team
      * @param $name
@@ -121,10 +120,36 @@ class Methods_Teams extends Model_Teams
             $model->save($id_team);
 
             /**
-             * Now, save participants
+             * Getting array of current existed identities
              */
-            foreach ($participants as $participant) {
+            $currentParticipants = Methods_Participants::getParticipantsFromTeams($id_team);
+            $currentParticipantIds = array_map("Methods_Common::getObjectIdentities", $currentParticipants);
+
+            /**
+             * get differencies
+             * that are in new list.
+             * We should add them
+             */
+            $participantsThatAreInNewList = array_diff($participants, $currentParticipantIds);
+
+            /**
+             * Now, save participants that are in new list
+             */
+            foreach ($participantsThatAreInNewList as $participant) {
                 self::addParticipantsToTeam($participant, $id_team);
+            }
+
+            /**
+             * get differencies between current list and old one.
+             * That ids we should remove
+             */
+            $participantsThatAreNotInNewList = array_diff($currentParticipantIds, $participants);
+
+            /**
+             * remove old ids from database
+             */
+            foreach ($participantsThatAreNotInNewList as $participant) {
+                self::removeParticipantFromTeam($id_team, $participant);
             }
 
             return true;
@@ -132,6 +157,29 @@ class Methods_Teams extends Model_Teams
         } catch (Exception $e) {
             echo Debug::vars($e);
         }
+
+    }
+
+    /**
+     *
+     * getting amount of participant ids
+     *
+     * @param $teams
+     * @return [Array] $participantId;
+     */
+    public static function getAllParticipantsFromTeams($teams) {
+
+        $allparticipants = array();
+
+        foreach($teams as $team) {
+            $fromOneTeam = $participants[] = array_map("Methods_Common::getObjectIdentities", Methods_Participants::getParticipantsFromTeams($team));
+
+            foreach ($fromOneTeam as $ids) {
+                array_push($allparticipants, $ids);
+            }
+        }
+        
+        return $allparticipants;
     }
 
 }

@@ -115,7 +115,15 @@ class Methods_Participants extends Model_Participants
         self::delete($id);
     }
 
-    public static function getParticipantsWhichAreNotIncludedInTeams() {
-        
+    public static function getSetOfParticipants($participantsId) {
+
+        $result = array();
+
+        foreach ($participantsId as $participant) {
+            array_push($result, self::getParticipant($participant));
+        }
+
+        return $result;
+
     }
 }
