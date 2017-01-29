@@ -26,7 +26,7 @@ class Controller_Transport extends Dispatch {
     public function action_file_uploader()
     {
         $this->files = Arr::get($_FILES, 'files');
-
+        
         if ( !$this->files || !Upload::not_empty($this->files) || !Upload::valid($this->files) ){
             $this->transportResponse['message'] = 'File is missing or damaged';
             goto finish;

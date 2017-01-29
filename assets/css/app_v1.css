@@ -177,7 +177,9 @@ ul{
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
-
+.header_menu-dropdown > .dropdown-menu {
+	margin: 0;
+}
 .header .dropdown > .header_button > .header_icon{
     margin-left: 5px;
 }

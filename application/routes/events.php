@@ -60,16 +60,24 @@ Route::set('ADD_EVENT', 'event/add')
  *
  * @example http://pronwe.ru/ifmo/miss
  */
-//Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)',
-//    array(
-//        'organizationpage' => $STRING,
-//        'eventpage' => $STRING,
-//        'action' => $STRING
-//    ))
-//    ->defaults(array(
-//        'controller' => 'Events_Index',
-//        'action'     => 'EventPage'
-//    ));
+Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)',
+    array(
+        'organizationpage' => $STRING,
+        'eventpage' => $STRING,
+        'action' => $STRING
+    ))
+    ->filter(function(Route $route, $params, Request $request) {
+
+        $website = Arr::get($params, 'organizationpage');
+
+        if (!Methods_Organizations::isOrganizationWebsiteExists($website))
+            return false;
+
+    })
+    ->defaults(array(
+        'controller' => 'Events_Index',
+        'action'     => 'landing'
+    ));
 
 /**
  * Route for backoffice
