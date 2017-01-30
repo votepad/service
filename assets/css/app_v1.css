@@ -1582,6 +1582,7 @@ label.btn{
 	background-color: rgba(0,0,0,0.05);
 }
 .btn_primary:hover, .btn_primary:focus{
+	color: #FFF;
 	background-color: #1F757D;
 }
 
