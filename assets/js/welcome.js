@@ -37,4 +37,21 @@ $(document).ready(function () {
             $('.header-btn').css('display','block');
         }
     });
+
+    $(window).scroll(function () {
+        if ( $(window).scrollTop() > 620 ) {
+            $('#toTop').css('display','block');
+        } else {
+            $('#toTop').css('display','none');
+        }
+    });
+
+    $('#ToSection2').click(function(){
+        $('body').animate({ scrollTop: 620 }, 600);
+    });
+
+    $('#toTop').click(function(){
+        $('body').animate({ scrollTop: 0 }, 600);
+    });
+
 });

@@ -9,12 +9,12 @@
         <ul class="header-menu">
             <li class="header-list">
                 <a href="/features" class="btn btn_hollow">
-                    Возможности
+                    О продукте
                 </a>
             </li>
             <li class="header-list">
                 <a href="/" class="btn btn_hollow">
-                    Задать вопрос
+                    Связь с командой
                 </a>
             </li>
             <li class="header-list">
