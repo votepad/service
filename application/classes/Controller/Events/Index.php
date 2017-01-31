@@ -261,12 +261,29 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_teams()
     {
+        /**
+         * getting all teams from event
+         * and make an array of their IDs
+         */
+        $teams = Methods_Teams::getAllTeams($this->event->id);
+        $teamsId = array_map("Methods_Common::getObjectIdentities", $teams);
+
+        /** $allparticipants - array of participant from all teams */
+        $allparticipants = Methods_Teams::getAllParticipantsFromTeams($teamsId);
+
+        /** @var $participants - array of participants from whole event */
         $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+        $participantIds = array_map("Methods_Common::getObjectIdentities", $participants);
+
+        /** @var $freeParticipants - array of participants that not included in teams */
+        $freeParticipants = array_diff($participantIds, $allparticipants);
+        $participantsWithoutTeam = Methods_Participants::getSetOfParticipants($freeParticipants);
+
         $teams = Methods_Teams::getAllTeams($this->event->id);
 
         $this->template->main_section = View::factory('events/members/teams')
             ->set('event', $this->event)
-            ->set('participants', $participants)
+            ->set('participants', $participantsWithoutTeam)
             ->set('teams', $teams);
 
         $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')

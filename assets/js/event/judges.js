@@ -289,11 +289,11 @@ $(document).ready(function() {
                      // 0.7  (section.width = 70%)
                      // 60 - width of first column
                      if (width > 992)
-                         width = width * 0.7 - 50;
+                         width = width * 0.8 - 50;
 
                      // tablet width for columns
                      else if (width <= 992 && width > 680)
-                        width = width - 50;
+                        width = width * 0.9 - 50;
 
                      if (index == 0)
                          return width * 0.5;

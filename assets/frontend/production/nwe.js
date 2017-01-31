@@ -56,33 +56,35 @@ var nwe =
 	 * @copyright Khaydarov Murod
 	 */
 
-	var uploader = (function(uploader) {
+	var nwe = (function(nwe) {
 
-	    uploader.init = function(settings) {
+	    /**
+	     * Clones object
+	     *
+	     *
+	     * @param targetObject
+	     * @returns {{}}
+	     */
+	    nwe.cloner = function(targetObject) {
 
-	        Promise.resolve()
+	        var newObject = {};
 
-	            .then(uploader.core.handle(settings))
-	            .then(uploader.ui.make)
-	            .then(uploader.transport.prepare)
-	            .catch(function(error) {
-	                console.log(error);
-	            });
-
+	        for(var key in targetObject) {
+	            if (targetObject.hasOwnProperty(key))
+	                newObject[key] = null;
+	        }
+	        return newObject;
 	    };
 
-	    return uploader;
+	    return nwe;
 
 	})({});
 
-	uploader.core        = __webpack_require__(5);
-	uploader.draw        = __webpack_require__(2);
-	uploader.ui          = __webpack_require__(3);
-	uploader.transport   = __webpack_require__(4);
+	nwe.ui        = __webpack_require__(2);
+	nwe.transport = __webpack_require__(3);
+	nwe.uploader  = __webpack_require__(4);
 
-	module.exports = {
-	    uploader : uploader
-	};
+	module.exports = nwe;
 
 
 
@@ -91,60 +93,20 @@ var nwe =
 /***/ function(module, exports) {
 
 	/**
-	 * @author Khaydarov Murod
-	 */
-
-	var draw = (function(draw){
-
-	    /**
-	     * Draws node
-	     * @param tagName
-	     * @param className
-	     * @param properties
-	     * @returns {Element}
-	     */
-	    draw.node = function(tagName, className, properties) {
-
-	        var tag = document.createElement(tagName);
-	        tag.className += className;
-
-	        for(var property in properties) {
-	            tag.setAttribute(property, properties[property]);
-	        }
-
-	        return tag;
-	    };
-
-	    return draw;
-
-	})({});
-
-	module.exports = draw;
-
-/***/ },
-/* 3 */
-/***/ function(module, exports) {
-
-	/**
 	 * @copyright Khaydarov Murod
 	 */
 
-	var ui = (function(ui) {
+	var ui = (function() {
 
-	    ui.make = function() {
-	        
-	        return nwe.uploader.draw.node("INPUT", "", { type: "file", tt: nwe.uploader.core.settings.handler.id } );
-	    };
+	    
 
-	    return ui;
-
-	})({});
+	})();
 
 	module.exports = ui;
 
 
 /***/ },
-/* 4 */
+/* 3 */
 /***/ function(module, exports) {
 
 	/**
@@ -156,12 +118,21 @@ var nwe =
 	    /**
 	     * @protected
 	     *
+	     * @type {DOMElement}
+	     */
+	    transport.input = null;
+
+	    transport.init = function() {
+	        make();
+	    };
+
+	    /**
+	     * @protected
+	     *
 	     * Native ajax method.
 	     * @param {Object} data - Callbacks and data
 	     */
 	    transport.ajax = function (data) {
-
-	        console.log(data);
 
 	        if (!data || !data.url){
 	            return;
@@ -206,87 +177,101 @@ var nwe =
 	     *
 	     * Makes UI elements
 	     */
-	    transport.prepare = function(input) {
-	        
-	        /**
-	         * For handler clicked
-	         */
-	        nwe.uploader.core.settings.handler.addEventListener('click', function() {
+	    var make = function() {
 
-	            input.click();
+	        var input = function() {
 
-	        }, false);
+	            var input = document.createElement('input');
+	            input.type = 'file';
 
-	        /**
-	         * When file is selected
-	         */
-	        input.addEventListener('change', transport.fileSelected, false);
+	            return input;
+	        };
 
+	        transport.input = input();
 	    };
-
-	    transport.fileSelected = function() {
-
-	        var input = this,
-	            files = input.files,
-	            filesLength = files.length,
-	            formdData = new FormData(),
-	            file,
-	            i;
-
-	        formdData.append('files', files[0], files[0].name);
-
-	        nwe.uploader.transport.ajax({
-
-	            url: nwe.uploader.core.settings.server,
-	            type: "POST",
-	            data: formdData,
-	            success: nwe.uploader.core.settings.success,
-	            error: nwe.uploader.core.settings.error
-
-	        });
-
-	    };
-
 
 	    return transport;
 
 	})({});
 
+
 	module.exports = transport;
 
 /***/ },
-/* 5 */
+/* 4 */
 /***/ function(module, exports) {
 
 	/**
-	 * @author Khaydarov Murod
+	 * Created by behzodqurbonov on 20.01.17.
 	 */
 
-	var core = (function(core) {
+	var uploader = (function(uploader) {
 
-	    core.settings = {
 
-	        handler : null,
-	        server  : null,
-	        success : function() {},
-	        error   : function() {}
+	    uploader.node = null;
+
+	    uploader.callbacks = {};
+
+	    uploader.init = function(settings) {
+
+	        /**
+	         * Draw input
+	         */
+	        nwe.transport.init();
+
+	        uploader.node   = settings.node;
+	        uploader.server = settings.server;
+	        uploader.callbacks.success = settings.success;
+	        uploader.callbacks.error   = settings.error;
+	        uploader.callbacks.before  = settings.before;
+
+
+	        listenNode();
 	    };
 
+	    var listenNode = function() {
 
-	    core.handle = function(settings) {
+	        uploader.node.addEventListener('click', clickInput, false);
 
-	        this.settings.handler = settings.handler;
-	        this.settings.server  = settings.server;
-	        this.settings.success = settings.success;
-	        this.settings.error   = settings.error;
 	    };
 
-	    return core;
+	    var clickInput = function() {
 
+	        nwe.transport.input.click();
+
+	        nwe.transport.input.addEventListener('change', selectAndUpload, false);
+	    };
+
+	    var selectAndUpload = function() {
+
+	        var input = nwe.transport.input,
+	            files = input['files'],
+	            file  = files[0];
+
+	        var formData = new FormData();
+
+	        formData['files'] = file;
+	        // formData.append('files', file, file.name);
+	        console.log(formData);
+
+	        nwe.transport.ajax({
+	            url : uploader.server,
+	            type : "POST",
+	            data : formData,
+	            contentType : false,
+	            beforeSend : uploader.callbacks.beforeSend,
+	            success : uploader.callbacks.success,
+	            error : uploader.callbacks.error
+	        });
+
+	    };
+
+	    return uploader;
 
 	})({});
 
-	module.exports = core;
+	module.exports = uploader;
+
 
 /***/ }
 /******/ ]);
