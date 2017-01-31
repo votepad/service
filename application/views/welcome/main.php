@@ -31,7 +31,7 @@
          <div class="footer_wrapper">
              <div class="footer_block clearfix">
                  <div class="nav-addition pull-right">
-                     <a href="#" class="footer_btn footer_btn-light">О проекте</a>
+                     <a href="#" class="footer_btn footer_btn-light">О продукте</a>
                      <a href="#" class="footer_btn footer_btn-light">Связь с командой</a>
                      <!--<a href="#" class="footer_btn footer_btn-light">Вопросы</a>-->
                  </div>
@@ -42,16 +42,16 @@
                     <span class="logo-text">результатов голосования</span>
                 </div>
                 <div class="nav-main">
-                    <a href="#" class="footer_btn">Мероприятия</a>
+                    <a href="/#events" class="footer_btn toEvents">Мероприятия</a>
                     <!--<a href="#" class="footer_btn">Организации</a>-->
                 </div>
             </div>
             <div role="separator" class="divider"></div>
             <div class="footer_block">
                 <div class="footer_icons">
-                    <a href="#" class="vk"><i class="fa fa-vk" aria-hidden="true"></i></a>
-                    <a href="#" class="fb"><i class="fa fa-facebook" aria-hidden="true"></i></a>
-                    <a href="#" class="tw"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                    <a href="//vk.com/votepad" class="vk"><i class="fa fa-vk" aria-hidden="true"></i></a>
+                    <!--<a href="#" class="fb"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
+                    <a href="//twitter.com/votepadevent" class="tw"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                     <span>— подписывайтесь!</span>
                 </div>
                 <span class="copyright pull-right">© 2016-2017  "Votepad.ru"</span>

@@ -47,8 +47,15 @@ $(document).ready(function () {
     });
 
     $('#ToSection2').click(function(){
-        $('body').animate({ scrollTop: 620 }, 600);
+        $('body').animate({ scrollTop: $('.section-2').offset().top }, 600);
     });
+
+    $('.toEvents').click(function(){
+        $('body').animate({ scrollTop: $('.section-4').offset().top }, 600);
+    });
+    if (window.location.href.split('/')[3] == "#events") {
+        $('body').animate({ scrollTop: $('.section-4').offset().top }, 600);
+    }
 
     $('#toTop').click(function(){
         $('body').animate({ scrollTop: 0 }, 600);

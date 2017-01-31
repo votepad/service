@@ -18,7 +18,7 @@
                 </a>
             </li>
             <li class="header-list">
-                <a href="/" class="btn btn_hollow">
+                <a href="/#events" class="btn btn_hollow toEvents">
                     Мероприятия
                 </a>
             </li>

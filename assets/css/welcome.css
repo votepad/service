@@ -80,13 +80,6 @@ body.mobile-open{
             opacity: 1;
         }
 
-
-
-.header-home .header_text-logo{
-    line-height: normal;
-    height: 32px;
-    margin: 26.5px 30px 26.5px 0;
-}
 .header-default .header_text-logo{
     line-height: normal;
     height: 32px;
