@@ -12,7 +12,7 @@
 <h3 class="page-header">Список групп</h3>
 
 <!-- NewGroup Form-->
-<form method="POST" action="" class="form form_collapse" id="newgroup" enctype="multipart/form-data">
+<form method="POST" action="<?=URL::site('group/add/'. $event->id); ?>" class="form form_collapse" id="newgroup" enctype="multipart/form-data">
     <div class="form_body">
         <div class="col-xs-12 col-md-6">
             <div class="row">
@@ -46,8 +46,9 @@
                 <div id="show_participants" class="input-field">
                     <select name="participants[]" id="newgroup_participants" multiple="" class="elements_in_group">
 
-                            <option value="0" data-logo="">Участник 5</option>
-                            <option value="1" data-logo="">Участник 6</option>
+                            <? foreach ($participants as $participant) : ?>
+                                <option value="<?=$participant->id; ?>"><?=$participant->name; ?></option>
+                            <? endforeach; ?>
 
                     </select>
                     <label for="newgroup_participants">Состав группы</label>
@@ -55,8 +56,9 @@
                 <div id="show_teams" class="input-field displaynone">
                     <select name="teams[]" id="newgroup_teams" multiple="" class="elements_in_group">
 
-                            <option value="0">Команда 5</option>
-                            <option value="1">Команда 6</option>
+                            <? foreach ($teams as $team) : ?>
+                                <option value="<?=$team->id; ?>"><?=$team->name; ?></option>
+                            <? endforeach; ?>
 
                     </select>
                     <label for="newgroup_teams">Состав группы</label>

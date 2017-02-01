@@ -139,7 +139,7 @@ Kohana::modules(array(
 /**
  * Cookie Salt
  * @see  http://kohanaframework.org/3.3/guide/kohana/cookies
- * 
+ *
  * If you have not defined a cookie salt in your Cookie class then
  * uncomment the line below and define a preferrably long salt.
  */
@@ -148,5 +148,5 @@ Cookie::$salt = "saltPronwesalt";
 /**
  * Include Composer libraries
 */
-//require APPPATH.'vendor/autoload.php';
+require 'vendor/autoload.php';
 require APPPATH.'routes'.EXT;
