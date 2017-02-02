@@ -37,7 +37,7 @@
                  </div>
                 <div class="logo">
                     <span class="logo-icon icon-leadership"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
-                    <span class="logo-name">Votepad</span>
+                    <a href="/" class="logo-name">Votepad</a>
                     <span class="logo-text">Автоматизированный подсчёт</span>
                     <span class="logo-text">результатов голосования</span>
                 </div>

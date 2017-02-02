@@ -165,6 +165,9 @@ body.mobile-open{
         color: #FCFCFC;
         background: #008DA7;
     }
+.btn_publish{
+    border: 0;
+}
 
 
 .header-btn-mobile{
