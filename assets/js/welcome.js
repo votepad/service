@@ -56,9 +56,71 @@ $(document).ready(function () {
     if (window.location.href.split('/')[3] == "#events") {
         $('body').animate({ scrollTop: $('.section-4').offset().top }, 600);
     }
+    if (window.location.href.split('/')[3] == "features#scoringsystem") {
+        $('body').animate({ scrollTop: $('.section-scoringsystem').offset().top - 65 }, 600);
+    }
+    if (window.location.href.split('/')[3] == "features#immediatelyresults") {
+        $('body').animate({ scrollTop: $('.section-immediatelyresults').offset().top - 65 }, 600);
+    }
+    if (window.location.href.split('/')[3] == "features#correctlyresults") {
+        $('body').animate({ scrollTop: $('.section-correctlyresults').offset().top - 65 }, 600);
+    }
 
     $('#toTop').click(function(){
         $('body').animate({ scrollTop: 0 }, 600);
     });
+
+
+    /**
+    * Open Feedback Form
+    */
+    $('.publish').click(function(){
+        swal({
+            title: 'Стань первым!',
+            showCancelButton: true,
+            buttonsStyling: false,
+            confirmButtonText: 'Быть в курсе!',
+            cancelButtonText: 'Отмена',
+            confirmButtonClass: 'btn btn_primary',
+            cancelButtonClass: 'btn btn_default',
+            html:
+                'Совсем скоро наш сервис начнёт работу! Узнайте о старте первым, просто оставив нам вашу эл. почту!' +
+                '<div class="input-field label-with-icon">' +
+                    '<input type="email" id="email" placeholder="Введите email" autofocus>' +
+                    '<label for="email" class="icon-label" style="left: 0;">' +
+                        '<i aria-hidden="true" class="fa fa-envelope"></i>' +
+                    '</label>' +
+                '</div>' +
+                'Хотите принять участие в beta-тестирование сервиса? <br><br>' +
+                '<input type="checkbox" id="betatest" class="">' +
+                '<label for="betatest"> Принять участие </label>',
+
+            preConfirm: function (email) {
+                return new Promise(function (resolve, reject) {
+                    if ($('#email').val() == '') {
+                        $.notify({
+                            message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
+                        },{
+                            type: 'danger'
+                        });
+                        $('#email').addClass('invalid');
+                    } else {
+                        resolve([
+                            $('#email').val(),
+                            $('#betatest').is(':checked')
+                        ])
+                    }
+                })
+            },
+        }).then(function (result) {
+            $.notify({
+                message: 'Успешно! Совсем скоро Вам прийдет уведомление о запуске сервиса!'
+            },{
+                type: 'success'
+            });
+            // send data
+            swal(JSON.stringify(result))
+        })
+    })
 
 });

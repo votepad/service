@@ -10,6 +10,7 @@
 
     <!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
     <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css">
     <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css">
     <link rel="stylesheet" href="<?=$assets; ?>css/welcome.css">
@@ -17,6 +18,7 @@
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/welcome.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
 
@@ -31,8 +33,8 @@
          <div class="footer_wrapper">
              <div class="footer_block clearfix">
                  <div class="nav-addition pull-right">
-                     <a href="#" class="footer_btn footer_btn-light">О продукте</a>
-                     <a href="#" class="footer_btn footer_btn-light">Связь с командой</a>
+                     <a href="/features" class="footer_btn footer_btn-light">О продукте</a>
+                     <a class="footer_btn footer_btn-light publish">Связь с командой</a>
                      <!--<a href="#" class="footer_btn footer_btn-light">Вопросы</a>-->
                  </div>
                 <div class="logo">

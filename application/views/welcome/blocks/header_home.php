@@ -13,11 +13,6 @@
                 </a>
             </li>
             <li class="header-list">
-                <a href="/" class="btn btn_hollow">
-                    Связь с командой
-                </a>
-            </li>
-            <li class="header-list">
                 <a href="/#events" class="btn btn_hollow toEvents">
                     Мероприятия
                 </a>
