@@ -33,11 +33,11 @@
                 <div class="radio-field clear_fix">
                     <label class="radio-label" >Группа состоит из</label>
                     <div class="radio-block">
-                        <input type="radio" id="part" name="partORteam" checked="">
+                        <input type="radio" id="part" name="mode" checked>
                         <label for="part">участников</label>
                     </div>
                     <div class="radio-block">
-                        <input type="radio" id="team" name="partORteam">
+                        <input type="radio" id="team" name="mode">
                         <label for="team">команд</label>
                     </div>
                 </div>
@@ -63,6 +63,8 @@
                     </select>
                     <label for="newgroup_teams">Состав группы</label>
                 </div>
+                <input type="hidden" name="id_event" value="<?=$event->id; ?>">
+                <input type="hidden" name="csrf" value="<?= Security::token(TRUE); ?>">
             </div>
         </div>
     </div>
@@ -77,44 +79,46 @@
 <div class="row row-col">
     <div class="col-xs-12">
 
-        <div class="card clear_fix" action="" id="group_1">
-            <div class="card_title">
-                <div class="card_title-text" id="name_group_1">
-                    Название Группы 1
-                </div>
-                <div class="card_title-dropdown">
-                    <div role="button" class="card_title-dropdown-icon">
-                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+        <? foreach ($groups as $group) : ?>
+            <div class="card clear_fix" action="" id="group_1">
+                <div class="card_title">
+                    <div class="card_title-text" id="name_group_1">
+                        <?=$group['name']; ?>
                     </div>
-                    <div class="card_title-dropdown-menu">
-                        <a class="card_title-dropdown-item edit">
-                            Изменить информацию
-                        </a>
-                        <a class="card_title-dropdown-item delete" data-pk="">
-                            Удалить группу
-                        </a>
+                    <div class="card_title-dropdown">
+                        <div role="button" class="card_title-dropdown-icon">
+                            <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                        </div>
+                        <div class="card_title-dropdown-menu">
+                            <a class="card_title-dropdown-item edit">
+                                Изменить информацию
+                            </a>
+                            <a class="card_title-dropdown-item delete" data-pk="">
+                                Удалить группу
+                            </a>
+                        </div>
                     </div>
                 </div>
-            </div>
-            <div class="card_content">
-                <p class="card_content-text">
-                    <i><u>О группе:</u></i>
-                    <span id="description_group_1">описание группы №1</span>
-                </p>
-                <p class="card_content-text">
-                    <i><u>Состав группы:</u></i>
-                    <!-- Participants in Groups, if they existed -->
-                    <span id="participants_group_1">
-                        <option value="0" data-logo="" selected="">Участник 1</option>
-                        <option value="1" data-logo="" selected="">Участник 2</option>
-                    </span>
+                <div class="card_content">
+                    <p class="card_content-text">
+                        <i><u>О группе:</u></i>
+                        <span id="description_group_1"><?=$group['description']; ?></span>
+                    </p>
+                    <p class="card_content-text">
+                        <i><u>Состав группы:</u></i>
+                        <!-- Participants in Groups, if they existed -->
+                        <span id="participants_group_1">
+                            <option value="0" data-logo="" selected="">Участник 1</option>
+                            <option value="1" data-logo="" selected="">Участник 2</option>
+                        </span>
 
-                    <!-- Teams in Groups, if they existed -->
-                    <span id="teams_group_1">
-                    </span>
-                </p>
+                        <!-- Teams in Groups, if they existed -->
+                        <span id="teams_group_1">
+                        </span>
+                    </p>
+                </div>
             </div>
-        </div>
+        <? endforeach; ?>
 
         <div class="card clear_fix" action="" id="group_2">
             <div class="card_title">

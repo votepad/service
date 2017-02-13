@@ -14,7 +14,8 @@ class Methods_Teams extends Model_Teams
      * @param $id_event
      * @return bool
      */
-    public static function addParticipantsToTeam($participant, $id_team) {
+    public static function addParticipantsToTeam($participant, $id_team)
+    {
 
         try {
 
@@ -28,6 +29,8 @@ class Methods_Teams extends Model_Teams
         } catch (Exception $e) {
             return false;
         }
+
+        return $query;
     }
 
     public static function getAllTeams($id_event) {
@@ -178,7 +181,7 @@ class Methods_Teams extends Model_Teams
                 array_push($allparticipants, $ids);
             }
         }
-        
+
         return $allparticipants;
     }
 

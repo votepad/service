@@ -21,4 +21,21 @@ class Methods_Groups extends Model_Groups {
             ->as_array();
     }
 
+    public static function addGroupMembers($id_group, $member) {
+
+        try {
+            $insert = DB::insert('Group_Members', array('id_group', 'id_member'))
+                ->values(array($id_group, $member))
+                ->execute();
+
+            return $insert;
+
+        } catch ( Exception $e ) {
+
+            echo Debug::vars($e);
+            return null;
+        }
+
+    }
+
 }

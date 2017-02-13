@@ -89,6 +89,9 @@ class Model_Teams extends Model {
             $result->participants = Methods_Participants::getParticipantsFromTeams($team->id);
 
             return $result;
+
+        } else {
+            return null;
         }
     }
 

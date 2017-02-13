@@ -114,12 +114,18 @@ class Dispatch extends Controller_Template
     }
 
     /**
-     * @todo
-     * Попробовать в бою Redis
+     * Redis connection
      */
     public static function _redis()
     {
+        $config = Kohana::$config->load('redis.default');
 
+        $redis = new Redis();
+        $redis->connect($config['hostname'], $config['port']);
+        $redis->auth($config['password']);
+        $redis->select(0);
+        
+        return $redis;
     }
 
     private function setGlobals()
@@ -142,5 +148,16 @@ class Dispatch extends Controller_Template
         $this->memcache = $memcache = Cache::instance('memcache');
 
         View::set_global('memcache', $memcache);
+    }
+
+    protected function checkCsrf()
+    {
+        /**
+         * Проверка подлинности данных
+         */
+
+        if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf'))) {
+            throw new Kohana_HTTP_Exception_403();
+        }
     }
 }

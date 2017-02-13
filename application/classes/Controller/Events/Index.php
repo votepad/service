@@ -298,7 +298,7 @@ class Controller_Events_Index extends Dispatch
     {
         $teams = Methods_Teams::getAllTeams($this->event->id);
         $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
-        $groups = array();
+        $groups = Methods_Groups::getAllGroups($this->event->id);
 
         $this->template->main_section = View::factory('events/members/groups')
             ->set('event', $this->event)

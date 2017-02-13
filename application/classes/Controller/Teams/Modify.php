@@ -5,13 +5,8 @@ class Controller_Teams_Modify extends Dispatch {
     public function before() {
 
         $this->auto_render = false;
-
-        /**
-         * Проверка подлинности данных
-         */
-        if (!empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf')))
-            throw HTTP_Exception_403::factory();
-
+        $this->checkCsrf();
+        
         parent::before();
     }
 
@@ -63,7 +58,7 @@ class Controller_Teams_Modify extends Dispatch {
         $participants = Arr::get($_POST, 'participants');
         $logo = Arr::get($_POST, 'logo');
         $id_team = Arr::get($_POST, 'id_team');
-            
+
         $proccess = Methods_Teams::editTeamInformation($id_team, $name, $description, $logo, $participants);
 
         if ($proccess) {
