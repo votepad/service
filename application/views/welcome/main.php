@@ -4,6 +4,9 @@
     <title> <?=$title; ?> </title>
     <meta charset="UTF-8">
     <meta name="author" content="Votepad" />
+
+    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/favicon.png" />
+
     <meta name="description" content="<?=$description; ?>" />
     <meta name="keywords" content="<?=$keywords; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -25,16 +28,16 @@
 </head>
 
  <body>
-     <?=$header; ?>
+    <?=$header; ?>
 
-     <?=$section; ?>
+    <?=$section; ?>
 
-     <footer class="footer">
+    <footer class="footer">
          <div class="footer_wrapper">
              <div class="footer_block clearfix">
                  <div class="nav-addition pull-right">
-                     <a href="/features" class="footer_btn footer_btn-light">О продукте</a>
-                     <a class="footer_btn footer_btn-light publish">Связь с командой</a>
+                     <!--<a href="/features" class="footer_btn footer_btn-light">О продукте</a>-->
+                     <a class="footer_btn footer_btn-light askquestion">Связь с командой</a>
                      <!--<a href="#" class="footer_btn footer_btn-light">Вопросы</a>-->
                  </div>
                 <div class="logo">

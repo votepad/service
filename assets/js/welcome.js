@@ -72,7 +72,7 @@ $(document).ready(function () {
 
 
     /**
-    * Open Feedback Form
+    * Open Subscribe Form
     */
     $('.publish').click(function(){
         swal({
@@ -115,6 +115,67 @@ $(document).ready(function () {
         }).then(function (result) {
             $.notify({
                 message: 'Успешно! Совсем скоро Вам прийдет уведомление о запуске сервиса!'
+            },{
+                type: 'success'
+            });
+            // send data
+            swal(JSON.stringify(result))
+        })
+    })
+
+
+    /**
+    * Open Feedback Form
+    */
+    var allowSimbols = new RegExp("[^a-zA-Zа-яА-Я0-9-_=№#%&*()«»!?,.;:@'\"\n ]");
+    $('.askquestion').click(function(){
+        swal({
+            title: 'Связь с командой',
+            showCancelButton: true,
+            buttonsStyling: false,
+            confirmButtonText: 'Узнать!',
+            cancelButtonText: 'Отмена',
+            confirmButtonClass: 'btn btn_primary',
+            cancelButtonClass: 'btn btn_default',
+            html:
+                'Если у вас возник вопрос, то не стесняйтесь спросить его у нас!' +
+                '<div class="input-field label-with-icon">' +
+                    '<input type="email" id="email" placeholder="Email для обратной связи" autofocus>' +
+                    '<label for="email" class="icon-label" style="left: 0;">' +
+                        '<i aria-hidden="true" class="fa fa-envelope"></i>' +
+                    '</label>' +
+                '</div>' +
+                '<div class="input-field">'+
+                    '<textarea id="question" name="question" placeholder="Напишете, что Вас интересует"></textarea>'+
+                '</div>',
+
+            preConfirm: function (email) {
+                return new Promise(function (resolve, reject) {
+                    if ($('#email').val() == '' || ! /\S+@\S+\.\S+/.test($('#email').val()) ) {
+                        $.notify({
+                            message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
+                        },{
+                            type: 'danger'
+                        });
+                        $('#email').addClass('invalid');
+                    } else if ( allowSimbols.test($('#question').val()) || $('#question').val() == ''  ) {
+                        $.notify({
+                            message: 'Вы используете запрещенные символы, пожалуйста исключите их!'
+                        },{
+                            type: 'danger'
+                        });
+                        $('#question').addClass('invalid');
+                    } else {
+                        resolve([
+                            $('#email').val(),
+                            $('#question').val()
+                        ])
+                    }
+                })
+            },
+        }).then(function (result) {
+            $.notify({
+                message: 'Успешно! Мы ответим вам в ближайшее время!'
             },{
                 type: 'success'
             });

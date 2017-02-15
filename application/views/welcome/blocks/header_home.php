@@ -7,11 +7,11 @@
         </div>
         <a href="/" class="header_text header_text-logo">VotePad</a>
         <ul class="header-menu">
-            <li class="header-list">
+            <!--<li class="header-list">
                 <a href="/features" class="btn btn_hollow">
                     О продукте
                 </a>
-            </li>
+            </li>-->
             <li class="header-list">
                 <a href="/#events" class="btn btn_hollow toEvents">
                     Мероприятия
@@ -28,18 +28,18 @@
 </header>
 <div id="HeaderMobile" class="header-mobile">
     <ul class="header-menu-mobile header-menu-mobile-home clear_fix">
-        <li class="header-list">
+        <!--<li class="header-list">
             <a href="/features" class="btn btn_hollow">
                 Возможности
             </a>
-        </li>
+        </li>-->
         <li class="header-list">
-            <a href="/" class="btn btn_hollow">
-                Задать вопрос
+            <a class="btn btn_hollow askquestion">
+                Связь с командой
             </a>
         </li>
         <li class="header-list">
-            <a href="/" class="btn btn_hollow">
+            <a href="/#events" class="btn btn_hollow" onclick="$('.mobile-close').click();$('.toEvents').click();">
                 Мероприятия
             </a>
         </li>

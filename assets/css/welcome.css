@@ -240,15 +240,6 @@ body.mobile-open{
     width: 90%;
     margin: 50px auto;
 }
-@media (max-width: 1000px) {
-    .container-image, .container-feature{
-        width: 100%;
-    }
-    .container-image img{
-        width: 100%;
-        margin: 0 auto;
-    }
-}
 .container-small {
     position: relative;
     width: 70%;
@@ -259,10 +250,55 @@ body.mobile-open{
     font-size: 2.5em;
     margin: 50px 0;
 }
-.container-image {
-    min-height:150px;
-    overflow: hidden;
-    margin-top: 10px;
+.container-image,.container-image-area {
+    position: relative;
+    width: 300px;
+}
+    .container-image img{
+        height: 600px;
+        width: 290px;
+    }
+    .container-image video{
+        position: absolute;
+        left: 20px;
+        height: 450px;
+        top: 72px;
+    }
+.container-feature{
+    height: 600px;
+    width: calc(100% - 300px);
+}
+.container-feature-area{
+    padding: 100px;
+}
+@media (max-width: 992px) {
+    .container-feature-area{
+        padding: 50px;
+    }
+}
+@media (max-width: 768px) {
+    .container-feature-area{
+        padding: 50px 20px;
+    }
+    .container-image, .container-feature{
+        display: block;
+        width: 100%;
+        height: inherit;
+    }
+    .container-image-area{
+        width: 195px;
+        display: block;
+        margin: auto;
+    }
+    .container-image img{
+        height: 400px;
+        width: 195px;
+    }
+    .container-image video{
+        left: 14px;
+        height: 300px;
+        top: 48px;
+    }
 }
 .container-feature-header{
     font-size: 2em;
@@ -335,7 +371,7 @@ body.mobile-open{
 
 .section-4 .event_wrapper{
 	padding: 0;
-	margin-bottom: 40px;
+	margin-bottom: 30px;
 }
 
 .section-4 .event_card {
@@ -352,7 +388,7 @@ body.mobile-open{
 .section-4 .event_card-image {
 	position: relative;
 	min-width: 100%;
-	height: 300px;
+	height: 200px;
     border-radius: 10px;
 	background-size: cover;
 	background-position: center;
@@ -365,7 +401,7 @@ body.mobile-open{
     top: 0;
     left: 0;
     width: 100%;
-    height: 300px;
+    height: 200px;
     line-height: 1.3em;
     word-wrap: break-word;
     padding: 10px;
@@ -523,14 +559,18 @@ body.mobile-open{
         font-size: 1em;
         padding: 20px;
     }
-    .section-3 > .container > .container-text, .container-feature-text{
-        font-size: 1.2em;
-    }
     .section-3 > .container > .container-text{
+        font-size: 1.2em;
         width: 100%;
     }
-    .container-header, .container-feature-header{
+    .container-header{
         font-size: 1.8em;
+    }
+    .container-feature-text{
+        font-size: 1em;
+    }
+    .container-feature-header{
+        font-size: 1.5em;
     }
 }
 @media (max-width: 450px) {
