@@ -59,7 +59,7 @@
                     <a href="//twitter.com/votepadevent" class="tw"><i class="fa fa-twitter" aria-hidden="true"></i></a>
                     <span>— подписывайтесь!</span>
                 </div>
-                <span class="copyright pull-right">© 2016-2017  "Votepad.ru"</span>
+                <span class="copyright pull-right">© 2016-2017 votepad.ru</span>
                 <!--<a href="mailto:team@votepad.ru" class="email footer_btn footer_btn-light pull-right">team@votepad.ru</a>-->
             </div>
         </div>
