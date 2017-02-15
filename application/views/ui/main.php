@@ -73,7 +73,7 @@
         </div>
     </header>
 
-    <section>
+    <section style="margin-top:65px">
         <?=$main_section; ?>
     </section>
 

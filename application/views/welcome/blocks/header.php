@@ -24,7 +24,7 @@
             </li>
         </ul>
         <div class="pull-right header-list header-btn">
-            <a href="/auth" class="btn btn_hollow">
+            <a class="btn btn_hollow" data-toggle="modal" data-target="#auth_modal">
                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                 Вход
             </a>
@@ -34,23 +34,23 @@
 <div id="HeaderMobile" class="header-mobile">
     <ul class="header-menu-mobile header-menu-mobile clear_fix">
         <li class="header-list">
-            <a href="/features" class="btn btn_hollow">
+            <a href="/" class="btn btn_hollow">
                 Главная
             </a>
         </li>
         <li class="header-list">
-            <a href="/" class="btn btn_hollow">
+            <a href="/#events" class="btn btn_hollow">
                 Мероприятия
             </a>
         </li>
     </ul>
     <div class="header-btn-mobile">
-        <a href="/auth" class="btn btn_hollow">
+        <a class="btn btn_hollow" data-toggle="modal" data-target="#auth_modal">
             <i class="fa fa-sign-in" aria-hidden="true"></i>
             Вход
         </a>
     </div>
     <div class="header-btn-mobile">
-        <a href="#" class="btn btn_primary">Опубликовать мероприятие</a>
+        <a href="#" class="btn btn_primary publish">Опубликовать мероприятие</a>
     </div>
 </div>

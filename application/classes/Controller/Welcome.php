@@ -25,6 +25,7 @@ class Controller_Welcome extends Dispatch
         $this->template->keywords = "Электронное голосование, Экспертное жюри, Деловые игры, Мероприятия, Конкурсы, Выставление баллов, Выбор победителя, Победитель, Результат, Рейтинг, Страница с результатами, votepad, event, competition, business game, judges, rating, vote, results";
         $this->template->header = View::factory('welcome/blocks/header_home');
         $this->template->section = View::factory('welcome/landing');
+        $this->template->auth_modal = View::factory('welcome/blocks/auth_modal');
     }
 
     /*
@@ -37,6 +38,7 @@ class Controller_Welcome extends Dispatch
         $this->template->keywords = "";
         $this->template->header = View::factory('welcome/blocks/header');
         $this->template->section = View::factory('welcome/features');
+        //$this->template->auth_modal = View::factory('welcome/blocks/auth_modal');
     }
 
 

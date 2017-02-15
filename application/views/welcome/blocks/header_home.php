@@ -19,7 +19,7 @@
             </li>
         </ul>
         <div class="pull-right header-list header-btn">
-            <a href="/auth" class="btn btn_hollow">
+            <a class="btn btn_hollow" data-toggle="modal" data-target="#auth_modal">
                 <i class="fa fa-sign-in" aria-hidden="true"></i>
                 Вход
             </a>
@@ -45,12 +45,12 @@
         </li>
     </ul>
     <div class="header-btn-mobile">
-        <a href="/auth" class="btn btn_hollow">
+        <a class="btn btn_hollow" data-toggle="modal" data-target="#auth_modal">
             <i class="fa fa-sign-in" aria-hidden="true"></i>
             Вход
         </a>
     </div>
     <div class="header-btn-mobile">
-        <a href="#" class="btn btn_primary">Опубликовать мероприятие</a>
+        <a class="btn btn_primary publish">Опубликовать мероприятие</a>
     </div>
 </div>

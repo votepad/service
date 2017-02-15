@@ -68,6 +68,9 @@
     <div id="toTop" class="toTop">
         <i class="fa fa-4x fa-angle-double-up" aria-hidden="true"></i>
     </div>
+
+    <?=$auth_modal; ?>
+
 </body>
 
 </html>

@@ -1,5 +1,75 @@
 $(document).ready(function () {
 
+    /**
+    * Authorization Validation
+    * user modal
+    * judge modal
+    */
+
+    $('body').on('keyup','#user_modal', function(event){
+        if (event.keyCode == 13)
+            $('#userSignIn').click();
+    });
+    $('body').on('keyup','#judge_modal', function(event){
+        if (event.keyCode == 13)
+            $('#judgeSignIn').click();
+    });
+
+    /**
+    * EventNumver inputmask
+    */
+    $("#auth_eventnumber").inputmask({
+        "mask": "9 9 9   9 9 9",
+        onincomplete: function(){
+            $("#auth_eventnumber").addClass('invalid');
+        },
+        oncomplete: function() {
+            $("#auth_eventnumber").removeClass('invalid');
+        }
+    });
+
+    /**
+    * Change User & Jusge SignIn forms
+    */
+    $('#toJudgeModal').click(function(){
+        $('.auth-modal .modal-wrapper').addClass('up');
+    });
+    $('#toUserModal').click(function(){
+        $('.auth-modal .modal-wrapper').removeClass('up');
+    });
+
+    /**
+    * Confirm Auth forms
+    */
+    $('#userSignIn').click(function(){
+        if ($('#auth_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#auth_email').val()) ) {
+            $.notify({
+                message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
+            },{
+                type: 'danger'
+            });
+            $('#auth_email').addClass('invalid');
+        } else if ( $("#auth_password").val() == '' ) {
+            $('#auth_password').addClass('invalid');
+        } else {
+            $('#user_modal')[0].submit();
+        }
+    });
+    $('#judgeSignIn').click(function(){
+        if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
+            $.notify({
+                message: 'Вы ввели неправильный номер мероприятия. Попробуйте ввести снова!'
+            },{
+                type: 'danger'
+            });
+        } else if ( $("#auth_judgesecret").val() == '' ) {
+            $("#auth_judgesecret").addClass('invalid');
+        } else {
+            $('#judge_modal')[0].submit();
+        }
+    });
+
+
 
     $('#OpenMobileHeader').click(function () {
         if ( $(window).width() < 390 ) {
@@ -86,8 +156,8 @@ $(document).ready(function () {
             html:
                 'Совсем скоро наш сервис начнёт работу! Узнайте о старте первым, просто оставив нам вашу эл. почту!' +
                 '<div class="input-field label-with-icon">' +
-                    '<input type="email" id="email" placeholder="Введите email" autofocus>' +
-                    '<label for="email" class="icon-label" style="left: 0;">' +
+                    '<input type="email" id="publish_email" placeholder="Введите email" autofocus>' +
+                    '<label for="publish_email" class="icon-label" style="left: 0;">' +
                         '<i aria-hidden="true" class="fa fa-envelope"></i>' +
                     '</label>' +
                 '</div>' +
@@ -97,16 +167,16 @@ $(document).ready(function () {
 
             preConfirm: function (email) {
                 return new Promise(function (resolve, reject) {
-                    if ($('#email').val() == '') {
+                    if ($('#publish_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#publish_email').val()) ) {
                         $.notify({
                             message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
                         },{
                             type: 'danger'
                         });
-                        $('#email').addClass('invalid');
+                        $('#publish_email').addClass('invalid');
                     } else {
                         resolve([
-                            $('#email').val(),
+                            $('#publish_email').val(),
                             $('#betatest').is(':checked')
                         ])
                     }
@@ -128,6 +198,7 @@ $(document).ready(function () {
     * Open Feedback Form
     */
     var allowSimbols = new RegExp("[^a-zA-Zа-яА-Я0-9-_=№#%&*()«»!?,.;:@'\"\n ]");
+
     $('.askquestion').click(function(){
         swal({
             title: 'Связь с командой',
@@ -140,8 +211,8 @@ $(document).ready(function () {
             html:
                 'Если у вас возник вопрос, то не стесняйтесь спросить его у нас!' +
                 '<div class="input-field label-with-icon">' +
-                    '<input type="email" id="email" placeholder="Email для обратной связи" autofocus>' +
-                    '<label for="email" class="icon-label" style="left: 0;">' +
+                    '<input type="email" id="askquestion_email" placeholder="Email для обратной связи" autofocus>' +
+                    '<label for="askquestion_email" class="icon-label" style="left: 0;">' +
                         '<i aria-hidden="true" class="fa fa-envelope"></i>' +
                     '</label>' +
                 '</div>' +
@@ -149,15 +220,15 @@ $(document).ready(function () {
                     '<textarea id="question" name="question" placeholder="Напишете, что Вас интересует"></textarea>'+
                 '</div>',
 
-            preConfirm: function (email) {
+            preConfirm: function () {
                 return new Promise(function (resolve, reject) {
-                    if ($('#email').val() == '' || ! /\S+@\S+\.\S+/.test($('#email').val()) ) {
+                    if ($('#askquestion_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#askquestion_email').val()) ) {
                         $.notify({
                             message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
                         },{
                             type: 'danger'
                         });
-                        $('#email').addClass('invalid');
+                        $('#askquestion_email').addClass('invalid');
                     } else if ( allowSimbols.test($('#question').val()) || $('#question').val() == ''  ) {
                         $.notify({
                             message: 'Вы используете запрещенные символы, пожалуйста исключите их!'
@@ -167,7 +238,7 @@ $(document).ready(function () {
                         $('#question').addClass('invalid');
                     } else {
                         resolve([
-                            $('#email').val(),
+                            $('#askquestion_email').val(),
                             $('#question').val()
                         ])
                     }
@@ -182,6 +253,6 @@ $(document).ready(function () {
             // send data
             swal(JSON.stringify(result))
         })
-    })
+    });
 
 });

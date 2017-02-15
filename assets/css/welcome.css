@@ -206,8 +206,9 @@ body.mobile-open{
 
 
 
-
-
+section{
+    margin-top: 65px;
+}
 
 .section{
     display: block;
