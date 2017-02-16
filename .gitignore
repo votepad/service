@@ -14,3 +14,4 @@ application/vendor/phpoffice/phpexcel/
 assets/frontend/modules/
 assets/frontend/index.js
 assets/frontend/webpack.config.js
+/assets/frontend/

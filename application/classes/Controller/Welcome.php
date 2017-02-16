@@ -10,14 +10,13 @@
  *
  */
 
-
 class Controller_Welcome extends Dispatch
 {
     public $template = 'welcome/main';
 
-    /*
+    /**
      * Welcome Page
-    */
+     */
     public function action_index()
     {
         $this->template->title = "Главная | Votepad.ru";
@@ -28,9 +27,9 @@ class Controller_Welcome extends Dispatch
         $this->template->auth_modal = View::factory('welcome/blocks/auth_modal');
     }
 
-    /*
+    /**
      * VotePad Features
-    */
+     */
     public function action_features()
     {
         $this->template->title = "Возможности | Votepad.ru";
@@ -43,28 +42,33 @@ class Controller_Welcome extends Dispatch
 
 
     /**
-    * TEMP CONTROLLERS FOR EVENT
-    */
+     * TEMP CONTROLLERS FOR EVENT
+     */
     public function action_ifse()
     {
         $this->template = View::factory('welcome/temp_events/ifse/index');
     }
+
     public function action_point()
     {
         $this->template = View::factory('welcome/temp_events/point/index');
     }
+
     public function action_mister2017()
     {
         $this->template = View::factory('welcome/temp_events/mister17/index');
     }
+
     public function action_pervokursnik()
     {
         $this->template = View::factory('welcome/temp_events/pervokursnik/index');
     }
+
     public function action_tnl()
     {
         $this->template = View::factory('welcome/temp_events/tnl/index');
     }
+
     public function action_miss2016()
     {
         $this->template = View::factory('welcome/temp_events/miss2016/index');
