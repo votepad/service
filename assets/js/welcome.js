@@ -1,82 +1,258 @@
-$(document).ready(function() {
-  $('#fullpage').fullpage({
-    anchors: ['Welcome', 'About', 'Organizator', 'Feedback'],
-    menu: '#menu',
-    slidesNavigation: true
-  });
-  
-  $('#moveSlideRight').click(function(e){
-    e.preventDefault();
-    $.fn.fullpage.moveSlideRight();
-  });
-  
-  (function () {
-    var removeSuccess;
-    removeSuccess = function () {
-      return $('.button').removeClass('success');
-    };
-    $(document).ready(function () {
-      return $('.button').click(function () {
-        $(this).addClass('success');
-        return setTimeout(removeSuccess, 3000);
-      });
+$(document).ready(function () {
+
+    /**
+    * Authorization Validation
+    * user modal
+    * judge modal
+    */
+
+    $('body').on('keyup','#user_modal', function(event){
+        if (event.keyCode == 13)
+            $('#userSignIn').click();
     });
-  }.call(this));
-  
-  setTimeout(function(){
-    $('body').addClass('loaded');
-  }, 1000);
+    $('body').on('keyup','#judge_modal', function(event){
+        if (event.keyCode == 13)
+            $('#judgeSignIn').click();
+    });
+
+    /**
+    * EventNumver inputmask
+    */
+    $("#auth_eventnumber").inputmask({
+        "mask": "9 9 9   9 9 9",
+        onincomplete: function(){
+            $("#auth_eventnumber").addClass('invalid');
+        },
+        oncomplete: function() {
+            $("#auth_eventnumber").removeClass('invalid');
+        }
+    });
+
+    /**
+    * Change User & Jusge SignIn forms
+    */
+    $('#toJudgeModal').click(function(){
+        $('.auth-modal .modal-wrapper').addClass('up');
+    });
+    $('#toUserModal').click(function(){
+        $('.auth-modal .modal-wrapper').removeClass('up');
+    });
+
+    /**
+    * Confirm Auth forms
+    */
+    $('#userSignIn').click(function(){
+        if ($('#auth_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#auth_email').val()) ) {
+            $.notify({
+                message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
+            },{
+                type: 'danger'
+            });
+            $('#auth_email').addClass('invalid');
+        } else if ( $("#auth_password").val() == '' ) {
+            $('#auth_password').addClass('invalid');
+        } else {
+            $('#user_modal')[0].submit();
+        }
+    });
+    $('#judgeSignIn').click(function(){
+        if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
+            $.notify({
+                message: 'Вы ввели неправильный номер мероприятия. Попробуйте ввести снова!'
+            },{
+                type: 'danger'
+            });
+        } else if ( $("#auth_judgesecret").val() == '' ) {
+            $("#auth_judgesecret").addClass('invalid');
+        } else {
+            $('#judge_modal')[0].submit();
+        }
+    });
 
 
-  var slideCounter = 0;
-  var allow = true;
-  var slider = function(){
-    $("#slide_"+slideCounter++).fadeToggle("slow", function(){
-      $("#slide_"+slideCounter).fadeToggle("slow");
-      $("#selector_"+slideCounter).prop('checked',true);
-      allow = true;
+
+    $('#OpenMobileHeader').click(function () {
+        if ( $(window).width() < 390 ) {
+            $('.header-btn').css('display','none');
+        }
+
+        if ( $(this).hasClass('mobile-open') ) {
+            $('body').find('.mobile-close').click();
+        } else {
+            $('body').addClass('mobile-open').append('<div class="mobile-close"></div>');;
+            $('#HeaderMobile').animateCss('fadeInLeft');
+            $('#HeaderMobile').addClass("open");
+            $('.header_text-logo').wait(200).addClass("mobile-open");
+            $('#OpenMobileHeader').addClass("mobile-open");
+        }
     });
-    allow = false;
-    if (slideCounter == 3)
-      slideCounter = 0;
-  }
-  
-  var timer = setInterval(slider,10000);
-  
-  $('.selector input').on('click',function(){
-    if (allow == true){
-      clearInterval(timer);
-      timer = setInterval(slider,10000);
-      $("#slide_"+slideCounter).fadeToggle("slow", function(){
-        $("#slide_"+slideCounter).fadeToggle("slow");
-        allow = true;
-      });
-      allow = false;
-      
-      slideCounter = $(this).attr('id')[9];
+
+    $('body').on('click', '.mobile-close', function() {
+        $('#HeaderMobile').animateCss('fadeOutLeft');
+        $('#HeaderMobile').wait(200).removeClass("open animated fadeOutLeft");
+        $('body').removeClass('mobile-open')
+        $('.header_text-logo').wait(100).removeClass("mobile-open");
+        $('#OpenMobileHeader').wait(100).removeClass("mobile-open");
+        $('.header-btn').css('display','block');
+        $(this).remove();
+    });
+
+    $(window).resize(function () {
+        if ( $(window).width() > 992 && $('body').hasClass('mobile-open') ) {
+            $('body').find('.mobile-close').click();
+        }
+        if ( $(window).width() < 390 ) {
+            $('.header-btn').css('display','none');
+        } else {
+            $('.header-btn').css('display','block');
+        }
+    });
+
+    $(window).scroll(function () {
+        if ( $(window).scrollTop() > 620 ) {
+            $('#toTop').css('display','block');
+        } else {
+            $('#toTop').css('display','none');
+        }
+    });
+
+    $('#ToSection2').click(function(){
+        $('body').animate({ scrollTop: $('.section-2').offset().top }, 600);
+    });
+
+    $('.toEvents').click(function(){
+        $('body').animate({ scrollTop: $('.section-4').offset().top }, 600);
+    });
+    if (window.location.href.split('/')[3] == "#events") {
+        $('body').animate({ scrollTop: $('.section-4').offset().top }, 600);
     }
-  });
+    if (window.location.href.split('/')[3] == "features#scoringsystem") {
+        $('body').animate({ scrollTop: $('.section-scoringsystem').offset().top - 65 }, 600);
+    }
+    if (window.location.href.split('/')[3] == "features#immediatelyresults") {
+        $('body').animate({ scrollTop: $('.section-immediatelyresults').offset().top - 65 }, 600);
+    }
+    if (window.location.href.split('/')[3] == "features#correctlyresults") {
+        $('body').animate({ scrollTop: $('.section-correctlyresults').offset().top - 65 }, 600);
+    }
 
-  $('[data-toggle="tooltip"]').tooltip();
+    $('#toTop').click(function(){
+        $('body').animate({ scrollTop: 0 }, 600);
+    });
 
-  $('.fa-envelope-o').on('click',function(){
-    $(".alert").removeClass("bounceOut").addClass("bounceIn").css("display","block");
-    $('.p4').css('background-color', 'rgba(0,0,0,0.4)','opacity', '1.07');
-    $('.getready').css('display','none');
-  });
-  $('.alert-close').on('click',function(){
-    $(".alert").removeClass("bounceIn").addClass("bounceOut");
-    $('.p4').css('background-color', '#fff','opacity', '1');
-    $('.getready').css('display','block');
-  });
 
-  var url = location.protocol + '//' +location.hostname;
+    /**
+    * Open Subscribe Form
+    */
+    $('.publish').click(function(){
+        swal({
+            title: 'Стань первым!',
+            showCancelButton: true,
+            buttonsStyling: false,
+            confirmButtonText: 'Быть в курсе!',
+            cancelButtonText: 'Отмена',
+            confirmButtonClass: 'btn btn_primary',
+            cancelButtonClass: 'btn btn_default',
+            html:
+                'Совсем скоро наш сервис начнёт работу! Узнайте о старте первым, просто оставив нам вашу эл. почту!' +
+                '<div class="input-field label-with-icon">' +
+                    '<input type="email" id="publish_email" placeholder="Введите email" autofocus>' +
+                    '<label for="publish_email" class="icon-label" style="left: 0;">' +
+                        '<i aria-hidden="true" class="fa fa-envelope"></i>' +
+                    '</label>' +
+                '</div>' +
+                'Хотите принять участие в beta-тестирование сервиса? <br><br>' +
+                '<input type="checkbox" id="betatest" class="">' +
+                '<label for="betatest"> Принять участие </label>',
 
-  $('.ev').on('click', function(){
-    swal({   
-      title: "Мероприятия",   
-      text: "<div><img class='img-responsive' src='" + url + "/assets/img/temp/misteritmo15.png'> <a class='pronwe_Link-small pronwe_color link-pos' style='font-size: 1.5em' href='//misteritmo.pronwe.ru'>Мистер ИТМО 2016</a></div><div style='margin-top:10px'><img class='img-responsive' src='" + url + "/assets/img/temp/missitmo16.png'> <a class='pronwe_Link-small pronwe_color link-pos' style='font-size: 1.5em' href='//missitmo.pronwe.ru'>Мисс ИТМО 2016</a></div>",
-      html: true });
-  });
+            preConfirm: function (email) {
+                return new Promise(function (resolve, reject) {
+                    if ($('#publish_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#publish_email').val()) ) {
+                        $.notify({
+                            message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
+                        },{
+                            type: 'danger'
+                        });
+                        $('#publish_email').addClass('invalid');
+                    } else {
+                        resolve([
+                            $('#publish_email').val(),
+                            $('#betatest').is(':checked')
+                        ])
+                    }
+                })
+            },
+        }).then(function (result) {
+            $.notify({
+                message: 'Успешно! Совсем скоро Вам прийдет уведомление о запуске сервиса!'
+            },{
+                type: 'success'
+            });
+            // send data
+            swal(JSON.stringify(result))
+        })
+    })
+
+
+    /**
+    * Open Feedback Form
+    */
+    var allowSimbols = new RegExp("[^a-zA-Zа-яА-Я0-9-_=№#%&*()«»!?,.;:@'\"\n ]");
+
+    $('.askquestion').click(function(){
+        swal({
+            title: 'Связь с командой',
+            showCancelButton: true,
+            buttonsStyling: false,
+            confirmButtonText: 'Узнать!',
+            cancelButtonText: 'Отмена',
+            confirmButtonClass: 'btn btn_primary',
+            cancelButtonClass: 'btn btn_default',
+            html:
+                'Если у вас возник вопрос, то не стесняйтесь спросить его у нас!' +
+                '<div class="input-field label-with-icon">' +
+                    '<input type="email" id="askquestion_email" placeholder="Email для обратной связи" autofocus>' +
+                    '<label for="askquestion_email" class="icon-label" style="left: 0;">' +
+                        '<i aria-hidden="true" class="fa fa-envelope"></i>' +
+                    '</label>' +
+                '</div>' +
+                '<div class="input-field">'+
+                    '<textarea id="question" name="question" placeholder="Напишете, что Вас интересует"></textarea>'+
+                '</div>',
+
+            preConfirm: function () {
+                return new Promise(function (resolve, reject) {
+                    if ($('#askquestion_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#askquestion_email').val()) ) {
+                        $.notify({
+                            message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
+                        },{
+                            type: 'danger'
+                        });
+                        $('#askquestion_email').addClass('invalid');
+                    } else if ( allowSimbols.test($('#question').val()) || $('#question').val() == ''  ) {
+                        $.notify({
+                            message: 'Вы используете запрещенные символы, пожалуйста исключите их!'
+                        },{
+                            type: 'danger'
+                        });
+                        $('#question').addClass('invalid');
+                    } else {
+                        resolve([
+                            $('#askquestion_email').val(),
+                            $('#question').val()
+                        ])
+                    }
+                })
+            },
+        }).then(function (result) {
+            $.notify({
+                message: 'Успешно! Мы ответим вам в ближайшее время!'
+            },{
+                type: 'success'
+            });
+            // send data
+            swal(JSON.stringify(result))
+        })
+    });
 
 });
