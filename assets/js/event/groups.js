@@ -196,8 +196,7 @@ $(document).ready(function() {
         var activeAction = $(this).get(0),
             dataPk = activeAction.dataset.pk;
 
-        var groupPk = $('#group_' + dataPk).get(0),
-            eventPk = $('#event_id').val();
+        var groupPk = $('#group_' + dataPk).get(0);
 
         swal({
             customClass: "delete-block",
@@ -214,11 +213,8 @@ $(document).ready(function() {
         }).then(function () {
 
             $.ajax({
-                url : '/groups/delete/' + eventPk + '/' + dataPk,
-                data : {},
+                url : '/group/delete/' + dataPk,
                 success : function(callback) {
-
-                    groupPk.remove();
 
                     swal({
                         width: 300,
@@ -230,10 +226,12 @@ $(document).ready(function() {
                         confirmButtonText: 'Готово',
                         confirmButtonClass: 'btn btn_primary',
                         buttonsStyling: false
-                    })
+                    });
+
+                    window.location.reload();
                 },
                 error : function(callback) {
-                    console.log("Error has occured in deleting stage");
+
                     swal({
                         width: 300,
                         customClass: "delete-block",

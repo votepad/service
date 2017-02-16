@@ -95,7 +95,13 @@ class Model_Groups extends Model {
             $result->id_event       = $group->id_event;
             $result->name           = $group->name;
             $result->description    = $group->description;
+            $result->mode           = $group->mode;
 
+            if ($result->mode == self::GROUP_TYPE_PARTICIPANTS) {
+                $result->participants = Methods_Groups::getGroupMembers($result->id, $result->mode);
+            } else {
+                $result->teams = Methods_Groups::getGroupMembers($result->id, $result->mode);
+            }
         }
 
         return $result;

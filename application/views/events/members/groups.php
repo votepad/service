@@ -78,12 +78,12 @@
 <!-- List of Groups -->
 <div class="row row-col">
     <div class="col-xs-12">
-
         <? foreach ($groups as $group) : ?>
+            
             <div class="card clear_fix" action="" id="group_1">
                 <div class="card_title">
                     <div class="card_title-text" id="name_group_1">
-                        <?=$group['name']; ?>
+                        <?=$group->name; ?>
                     </div>
                     <div class="card_title-dropdown">
                         <div role="button" class="card_title-dropdown-icon">
@@ -93,7 +93,7 @@
                             <a class="card_title-dropdown-item edit">
                                 Изменить информацию
                             </a>
-                            <a class="card_title-dropdown-item delete" data-pk="">
+                            <a class="card_title-dropdown-item delete" data-pk="<?=$group->id; ?>">
                                 Удалить группу
                             </a>
                         </div>
@@ -102,64 +102,37 @@
                 <div class="card_content">
                     <p class="card_content-text">
                         <i><u>О группе:</u></i>
-                        <span id="description_group_1"><?=$group['description']; ?></span>
+                        <span id="description_group_1"><?=$group->description; ?></span>
                     </p>
                     <p class="card_content-text">
-                        <i><u>Состав группы:</u></i>
-                        <!-- Participants in Groups, if they existed -->
-                        <span id="participants_group_1">
-                            <option value="0" data-logo="" selected="">Участник 1</option>
-                            <option value="1" data-logo="" selected="">Участник 2</option>
-                        </span>
 
-                        <!-- Teams in Groups, if they existed -->
-                        <span id="teams_group_1">
-                        </span>
+                        <i><u>Состав группы:</u></i>
+
+                        <? if ($group->mode == Model_Groups::GROUP_TYPE_PARTICIPANTS) : ?>
+
+                            <!-- Participants in Groups, if they existed -->
+                            <span id="participants_group_1">
+                                <? foreach ($group->participants as $participant) : ?>
+                                    <option value="<?=$participant->id; ?>" data-logo="" selected=""><?=$participant->name; ?></option>
+                                <? endforeach;?>
+
+                            </span>
+
+                        <? else: ?>
+
+                            <!-- Teams in Groups, if they existed -->
+                            <span id="teams_group_1">
+                                <? foreach ($group->teams as $team) : ?>
+                                    <option value="<?=$team->id; ?>" data-logo="" selected=""><?=$team->name; ?></option>
+                                <? endforeach;?>
+                            </span>
+
+                        <? endif; ?>
+
                     </p>
                 </div>
             </div>
         <? endforeach; ?>
-
-        <div class="card clear_fix" action="" id="group_2">
-            <div class="card_title">
-                <div class="card_title-text" id="name_group_2">
-                    Название Группы 2
-                </div>
-                <div class="card_title-dropdown">
-                    <div role="button" class="card_title-dropdown-icon">
-                        <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-                    </div>
-                    <div class="card_title-dropdown-menu">
-                        <a class="card_title-dropdown-item edit">
-                            Изменить информацию
-                        </a>
-                        <a class="card_title-dropdown-item delete" data-pk="">
-                            Удалить группу
-                        </a>
-                    </div>
-                </div>
-            </div>
-            <div class="card_content">
-                <p class="card_content-text">
-                    <i><u>О группе:</u></i>
-                    <span id="description_group_2">описание группы №2</span>
-                </p>
-                <p class="card_content-text">
-                    <i><u>Состав группы:</u></i>
-
-                    <!-- Participants in Groups, if they existed -->
-                    <span id="participants_group_2">
-
-                    </span>
-
-                    <!-- Teams in Groups, if they existed -->
-                    <span id="teams_group_2">
-                        <option value="0" data-logo="" selected="">Команда 1</option>
-                        <option value="1" data-logo="" selected="">Команда 2</option>
-                    </span>
-                </p>
-            </div>
-        </div>
 
     </div>
 </div>
@@ -205,3 +178,4 @@
         </div>
     </div>
 </form>
+

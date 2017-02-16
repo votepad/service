@@ -185,4 +185,15 @@ class Methods_Teams extends Model_Teams
         return $allparticipants;
     }
 
+    public static function getSetOfTeams($teamsId) {
+
+        $result = array();
+
+        foreach ($teamsId as $team) {
+            array_push($result, self::get($team));
+        }
+
+        return $result;
+    }
+
 }

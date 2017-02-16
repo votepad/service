@@ -10,6 +10,8 @@ class Controller_Groups_Ajax extends Ajax {
     {
         /** @var  $id_group - group identity */
         $id_group = $this->request->param('id_group');
+
+        Methods_Groups::removeGroup($id_group);
     }
 
 }
