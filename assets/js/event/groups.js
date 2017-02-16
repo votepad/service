@@ -4,12 +4,14 @@ $(document).ready(function() {
      *  Vars
     */
     var url = "",
-        card, id, name, description, part, team,
+        card, id, name, description, parts, teams,
         parts_not_distributed = document.getElementById('newgroup_participants').innerHTML,
         teams_not_distributed = document.getElementById('newgroup_teams').innerHTML,
         modal_name = document.getElementById('editgroup_name'),
         modal_description = document.getElementById('editgroup_description'),
-        modal_members = document.getElementById('editgroup_members');
+        modal_members = document.getElementById('editgroup_members'),
+        all_parts = document.getElementById('newgroup_participants').getElementsByTagName('option'),
+        all_teams = document.getElementById('newgroup_teams').getElementsByTagName('option');
 
 
     /*
@@ -124,17 +126,18 @@ $(document).ready(function() {
         id = card.getAttribute('id');
         name = $.trim(document.getElementById('name_' + id).innerHTML);
         description = $.trim(document.getElementById('description_' + id).innerHTML);
-        part = $.trim(document.getElementById('participants_' + id).innerHTML);
-        team = $.trim(document.getElementById('teams_' + id).innerHTML);
+
 
         //  Fill modal information
         modal_name.value = name;
         modal_description.innerHTML = description;
 
-        if ( part == "" ) {
-            modal_members.innerHTML = team + teams_not_distributed;
+        if ( document.getElementById('teams_' + id) != null) {
+            teams = document.getElementById('teams_' + id).getElementsByTagName('option');
+            modal_members.innerHTML = check_free_judges(all_teams, teams);
         } else {
-            modal_members.innerHTML = part + parts_not_distributed;
+            parts = document.getElementById('participants_' + id).getElementsByTagName('option');
+            modal_members.innerHTML = check_free_judges(all_parts, parts);
         }
 
         // initialize select2
@@ -297,5 +300,22 @@ $(document).ready(function() {
         }
 
     }
+
+
+    /*
+    *    Function for Checking Two select2 Arrays
+   */
+   function check_free_judges (arr1, arr2) {
+       var string = "";
+       for (var i = 0; i < arr1.length; i++) {
+           for (var j = 0; j < arr2.length; j++) {
+               if (arr1[i].value == arr2[j].value) {
+                   arr1[i].setAttribute('selected', true);
+               }
+           }
+           string += arr1[i].outerHTML;
+       }
+       return string;
+   };
 
 });

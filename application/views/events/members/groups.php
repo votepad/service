@@ -47,7 +47,7 @@
                     <select name="participants[]" id="newgroup_participants" multiple="" class="elements_in_group">
 
                             <? foreach ($participants as $participant) : ?>
-                                <option value="<?=$participant->id; ?>"><?=$participant->name; ?></option>
+                                <option value="<?=$participant->id; ?>" data-logo="<?=$participant->photo; ?>"><?=$participant->name; ?></option>
                             <? endforeach; ?>
 
                     </select>
@@ -57,7 +57,7 @@
                     <select name="teams[]" id="newgroup_teams" multiple="" class="elements_in_group">
 
                             <? foreach ($teams as $team) : ?>
-                                <option value="<?=$team->id; ?>"><?=$team->name; ?></option>
+                                <option value="<?=$team->id; ?>" data-logo="<?=$team->logo; ?>"><?=$team->name; ?></option>
                             <? endforeach; ?>
 
                     </select>
@@ -79,10 +79,10 @@
 <div class="row row-col">
     <div class="col-xs-12">
         <? foreach ($groups as $group) : ?>
-            
-            <div class="card clear_fix" action="" id="group_1">
+
+            <div class="card clear_fix" action="" id="group_<?=$group->id; ?>">
                 <div class="card_title">
-                    <div class="card_title-text" id="name_group_1">
+                    <div class="card_title-text" id="name_group_<?=$group->id; ?>">
                         <?=$group->name; ?>
                     </div>
                     <div class="card_title-dropdown">
@@ -102,7 +102,7 @@
                 <div class="card_content">
                     <p class="card_content-text">
                         <i><u>О группе:</u></i>
-                        <span id="description_group_1"><?=$group->description; ?></span>
+                        <span id="description_group_<?=$group->id; ?>"><?=$group->description; ?></span>
                     </p>
                     <p class="card_content-text">
 
@@ -111,9 +111,9 @@
                         <? if ($group->mode == Model_Groups::GROUP_TYPE_PARTICIPANTS) : ?>
 
                             <!-- Participants in Groups, if they existed -->
-                            <span id="participants_group_1">
+                            <span id="participants_group_<?=$group->id; ?>">
                                 <? foreach ($group->participants as $participant) : ?>
-                                    <option value="<?=$participant->id; ?>" data-logo="" selected=""><?=$participant->name; ?></option>
+                                    <option value="<?=$participant->id; ?>" data-logo="<?=$participant->photo; ?>"><?=$participant->name; ?></option>
                                 <? endforeach;?>
 
                             </span>
@@ -121,9 +121,9 @@
                         <? else: ?>
 
                             <!-- Teams in Groups, if they existed -->
-                            <span id="teams_group_1">
+                            <span id="teams_group_<?=$group->id; ?>">
                                 <? foreach ($group->teams as $team) : ?>
-                                    <option value="<?=$team->id; ?>" data-logo="" selected=""><?=$team->name; ?></option>
+                                    <option value="<?=$team->id; ?>" data-logo="<?=$team->logo; ?>"><?=$team->name; ?></option>
                                 <? endforeach;?>
                             </span>
 
@@ -164,8 +164,9 @@
                 </div>
                 <div class="row">
                     <div class="input-field">
+                        <!-- [part || team] in group + [part || team] not_distributed -->
                         <select name="members[]" multiple id="editgroup_members">
-                            <!-- [part || team] in group + [part || team] not_distributed -->
+
                         </select>
                         <label for="editgroup_members">Состав группы</label>
                     </div>
@@ -178,4 +179,3 @@
         </div>
     </div>
 </form>
-
