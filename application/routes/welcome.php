@@ -60,7 +60,7 @@ Route::set('Event_tnl', 'ifmo/tnl')
         'action'     => 'tnl',
     ))
     ->cache();
-Route::set('Event_tnl', 'ifmo/miss2016')
+Route::set('Event_miss2016', 'ifmo/miss2016')
     ->defaults(array(
         'controller' => 'Welcome',
         'action'     => 'miss2016',
