@@ -28,7 +28,7 @@
                     Оценивание в один клик
                 </h4>
                 <p class="container-feature-text">
-                    Используя votepad, Вам не составит труда проставить баллы участникам по заданым критериям. Просто предоставьте доступ жюри к системе, где они со своих устройств смогут оценить в один клик.
+                    Используя votepad, Вам не составит труда проставить баллы участникам по заданным критериям. Просто предоставьте доступ жюри к системе, где они со своих устройств смогут оценить в один клик.
                 </p>
                 <!--<a href="/features#scoringsystem" type="button" class="btn btn_primary container-feature-button">Подробнее</a>-->
             </div>
@@ -52,7 +52,7 @@
                     Получите актуальные баллы сразу после их проставления жюри. Опубликуйте результаты на странице мероприятия в тот момент, когда вам необходимо их огласить.
                 </p>
                 <p class="container-feature-text">
-                    Уставите автоматическую публикацию результатов, чтобы гости знали актуальные баллы в режиме онлайн.
+                    Установите автоматическую публикацию результатов, чтобы гости знали актуальные баллы в режиме онлайн.
                 </p>
                 <!--<a href="/features#immediatelyresults" type="button" class="btn btn_primary container-feature-button">Подробнее</a>-->
             </div>
@@ -98,7 +98,7 @@
         <p class="container-text">
             4. Опубликуйте результаты.
         </p>
-        <a type="button" class="btn btn_primary container-button link_uppercase publish" style="padding: 20px 30px">создать мероприятие</a>
+        <a type="button" class="btn btn_primary container-button link_uppercase publish" style="padding: 15px">создать мероприятие</a>
     </div>
 </div>
 <div class="section section-4 clear_fix">
