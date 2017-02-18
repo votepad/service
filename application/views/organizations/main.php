@@ -5,26 +5,34 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title><?=$organization->name; ?> | NWE</title>
+    <meta charset="UTF-8">
+    <meta name="author" content="Votepad" />
+    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/favicon.png" />
+
+    <title><?=$organization->name; ?> | Votepad.ru</title>
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="страница орагнизации, votepad, organization" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<!-- =============== VENDOR STYLES ===============-->
-	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
-	<link rel="stylesheet" href="<?=$assets; ?>css/app.css?v=<?= filemtime("assets/css/app.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css">
+    <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css?v=<?= filemtime("assets/css/app.css") ?>">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
-	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-tooltip.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>js/organizations/org.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>js/app.js"></script>
-	<script src='https://www.google.com/recaptcha/api.js'></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
+    <!--<script type="text/javascript" src="<?=$assets; ?>js/organizations/org.js"></script>-->
 
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
 <body>
+
+    <?=$header; ?>
+
 
 	<!--  ORGANIZATION MENU   -->
 	<div class="user-menu bg_grey_800">

@@ -109,7 +109,11 @@ ul{
 }
 
 .header_button{
-	display: inline-block;
+	max-width: 200px;
+	overflow: hidden;
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	color: #FCFCFC;
 	float: left;
 	padding: 0 18px;
 	transition: background-color .1s;
@@ -138,9 +142,12 @@ ul{
 	max-width: 10em;
 	margin-right: 1em;
 }
-
+	.header_text-logo:hover,.header_text-logo:focus{
+		color: #FCFCFC
+	}
 
 .header_menu{
+	overflow-x: hidden;
 	position: relative;
 	float: left;
 	width: calc(100% - 11em - 160px);

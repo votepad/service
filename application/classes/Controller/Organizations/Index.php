@@ -4,7 +4,8 @@
  * All pages which has relationship with Organizations will be here
  * @author Pronwe team
  * @copyright Khaydarov Murod
- * @version 0.1.1
+ * @copyright Turov Nikolay
+ * @version 0.1.2
  */
 
 class Controller_Organizations_Index extends Dispatch
@@ -81,9 +82,18 @@ class Controller_Organizations_Index extends Dispatch
           $this->template->jumbotron = View::factory('organizations/blocks/jumbotron')
               ->set('organization', $this->organization);
 
+
           /**
-           * Navigation
+           * Header
+           * + header navigation
            */
+           $this->template->header = View::factory('/organizations/blocks/header')
+                ->set('auth_modal', View::factory('welcome/blocks/auth_modal'))
+                ->set('organization', $this->organization);
+
+
+
+
           $this->template->navigation = View::factory('organizations/blocks/navigation')
               ->set('id', $this->organization->id);
 
@@ -115,6 +125,8 @@ class Controller_Organizations_Index extends Dispatch
     {
 
         $this->template->main_section = '';
+
+
     }
 
     /**
@@ -155,7 +167,7 @@ class Controller_Organizations_Index extends Dispatch
         $topmenu = View::factory('organizations/blocks/topmenu')
             ->set('menus', $this->template->menus)
             ->set('id', $this->organization->id);
-        
+
         /**
          * Content of target menu
          */
@@ -163,7 +175,7 @@ class Controller_Organizations_Index extends Dispatch
                 ->set('organization', $this->organization)
                 ->set('topmenu', $topmenu);
 
-        $isLogged = Dispatch::isLogged();
+        //$isLogged = Dispatch::isLogged();
         $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
 
         if (!$isLogged || !$owner) {
