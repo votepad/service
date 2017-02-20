@@ -23,7 +23,7 @@
 
 	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
-	<script type="text/javascript" src="<?=$assets; ?>js/events/event-new.js"></script>
+	<script type="text/javascript" src="<?=$assets; ?>js/event/new.js"></script>
 	<script type="text/javascript" src="<?=$assets; ?>js/app.js"></script>
 
 </head>
