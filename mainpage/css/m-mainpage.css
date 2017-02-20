@@ -1,0 +1,290 @@
+@font-face {
+    font-family: "MyriadProRegular";
+    src: url("../fonts/MyriadProRegular/MyriadProRegular.eot");
+    src: url("../fonts/MyriadProRegular/MyriadProRegular.eot?#iefix")format("embedded-opentype"),
+    url("../fonts/MyriadProRegular/MyriadProRegular.woff") format("woff"),
+    url("../fonts/MyriadProRegular/MyriadProRegular.ttf") format("truetype");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body{
+	margin:0;
+	font-size:16px;
+	background-color:#fff/*#0288D1*/;
+	font-family: MyriadProRegular;
+}
+
+h1,h2{
+	color:#ebebeb;
+	font-weight:500;
+	font-size:2em;
+	text-shadow: 0px 1px 1px rgba(71,71,71,0.75);
+}
+
+.org_title{
+	display:inline-block;
+	margin:0;
+	font-size:5vh;
+	/*position:relative;*/
+	line-height:10vh;
+}
+
+.topmenu{
+	width:100%;
+	margin:0;
+	padding:0;
+	height:70vh;
+	position:fixed;
+	top:0;
+	top:-60vh;
+	left:0;
+	background-color:#ebebeb;
+	z-index:999;
+	
+	box-shadow:inset 0 -5em 5em -1em rgba(0,0,0,0.5);
+}
+
+
+.topmenu .line{
+	height:10vh;
+	position:absolute;
+	left:0;
+	bottom:0;
+	width:inherit;
+	background-color:rgba(3,62,109,1);
+	
+	box-shadow:inset 0 2em 5em -1em rgba(0,0,0,0.5);
+	/*border-bottom:1px solid rgba(70,70,70,1);*/
+}
+
+.topmenu:hover{	
+	animation-name:slideDownAnim;
+	animation-duration:1s;
+	animation-timing-function: ease-out;
+	animation-fill-mode: forwards;
+}
+
+.triangle{
+	display:inline-block;
+}
+.triangle::after {
+	content: ''; 	
+	position: relative; /* Абсолютное позиционирование */
+	top: 1em;
+	border: 0.5em solid transparent; /* Прозрачные границы */
+	border-top: 0.5em solid #f7f7f7; /* Добавляем треугольник */
+}
+
+.welcome{
+	margin:10vh 0 0 0;
+	height:90vh;
+	text-align:center;
+	width:100%;
+}
+
+.welcome h1{
+	display:inline-block;
+	max-width:100%;
+	text-align:center;
+	font-size:2.5em;
+}
+
+.button-area{
+	width:100%;
+	position:absolute;
+	bottom:5em;
+}
+
+.button-area a{
+	display:inline-block;
+	margin:1vmin;
+}
+
+.viewCommunity{
+	position:absolute;
+	height:1em;
+	padding-top:0.5em;
+	padding-bottom:0.5em;
+	bottom:0;
+	left:0;
+	width:100%;
+	background-color:#01579B;
+}
+
+.content{
+	/*min-height:100vh;*/
+	background-color:#f7f7f7;
+	text-align:center;
+}
+
+.button{
+	border-radius:2px;
+	color:#ebebeb;
+	background: linear-gradient(to top, rgba(0,0,0,0.2), rgba(255,255,255,0.2));
+	text-shadow: 0px 1px 1px rgba(71,71,71,0.75);
+	text-decoration:none;
+	box-shadow: 0px 1px 3px 0px #000,
+	inset 0px 0px 15px 0px rgba(255,255,255,0.2);
+	padding:0.25em 0.75em;
+}
+
+.button:hover{
+	background: #fff;
+}
+
+.main_button{
+	font-size:5vmax;
+	background-color:rgba(0,196,65,1)!important;
+}
+
+.blue_button{
+	background-color:#315572!important;
+}
+
+.nav .main_button{
+	font-size:2.5vmax;
+}
+
+.nav{
+	overflow-y:visible;
+	width:inherit;
+	text-align:center;
+	list-style:none;
+	margin:5% 0 0 0;
+	padding:0;
+}
+
+.nav li{
+	display:inline-block;
+	width:50%;
+}
+
+.nav a{
+	display:block;
+	margin:0.5em;
+}
+
+select{
+	display:inline-block;
+	width:90%;
+	font-size:1.25em;
+	padding:0.5em;
+	margin:0.5em 0 0 0;
+	color:#343434;
+	border:1px solid rgba(0,0,0,0.1);
+	outline:none;
+}
+
+.news{
+	list-style:none;
+	width:90%;
+	margin:5% auto;
+	padding:0;
+}
+
+.news li{
+	/*border:1px solid rgba(50,50,50,0.5);*/
+	box-shadow:0 0 25px -12px rgba(0,0,0,1);
+	margin:0.25em 0 0.75em 0;
+	padding: 0.75em 1em;
+	min-height:80px;
+	background-color:#fff;
+}
+
+.news-content>span{
+	font-size:1.5em;
+	color:#505050;
+	text-shadow: 0px 1px 1px rgba(71,71,71,0.75);
+	line-height:1.5em;
+}
+
+.news-content p{
+	font-size:0.9em;
+	margin:0;
+}
+
+.news-content:after{
+	content:'Подробнее';
+	font-size:0.75em;
+}
+
+.org-name{
+	color:#315572;
+}
+
+.date{
+	background:url(../img/calendar.png);
+	background-size:2em;
+	background-position:50% 0;
+	background-repeat:no-repeat;
+	width:11%;
+	min-height:80px;
+	min-width:90px;
+	font-size:2em;
+	color:#505050;
+	display:inline-block;
+	float:left;
+}
+
+.news li:after{
+	content:'';
+	display:table;
+	clear:both;
+}
+
+.news-content{
+	display:block;
+}
+
+.date>.month{
+	display:block;
+	margin-top:0.1em;
+	font-size:0.49em;
+}
+
+.date span{
+	position:relative;
+	top:0.75em;
+}
+
+.text{
+	display:none;
+}
+
+.text a{
+	text-decoration:none;
+	color:#343434;
+}
+
+@media screen and (orientation: landscape) { 
+	.main_button{
+		font-size:3vmax;
+	}
+	
+	.nav li{
+		float:left;
+	}
+	
+	.nav{
+		margin-top:1%;
+	}
+}
+@media screen and (orientation: portrait) { 
+	.main_button{
+		font-size:5vmax;
+	}
+	
+	.nav .main_button{
+		font-size:3vmax;
+	}
+}
+
+@keyframes slideDownAnim {
+    from {
+        top:-60vh;
+    }
+    to {
+        top:0;
+    }
+}
