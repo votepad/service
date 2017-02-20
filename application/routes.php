@@ -36,6 +36,9 @@ Route::set('IMAGE_TRANSPORT', 'transport')
         'action'     => 'file_uploader'
     ));
 
+
+
+require_once ('routes/judges.php');
 require_once ('routes/ui.php');
 require_once ('routes/organizations.php');
 require_once ('routes/events.php');
