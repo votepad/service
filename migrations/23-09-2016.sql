@@ -1,0 +1,1 @@
+ALTER TABLE `Events` ADD `full_description` TEXT NOT NULL AFTER `short_description`;

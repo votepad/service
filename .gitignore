@@ -3,3 +3,21 @@
 uploads/
 application/vendor/
 assets/frontend/node_modules
+application/cache
+application/logs
+.idea/*
+uploads/
+
+application/vendor/phing/phing/
+application/vendor/phpoffice/phpexcel/
+
+# Bundler
+assets/frontend/.idea/
+assets/frontend/modules/*
+assets/frontend/webpack.config.js
+assets/frontend/node_modules/*
+assets/vendor/*
+
+
+# Media files
+assets/img/

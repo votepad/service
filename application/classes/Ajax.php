@@ -7,12 +7,13 @@
  */
 class Ajax extends Controller {
 
-    public static function _is_ajax()
+    public static function is_ajax()
     {
         if( isset($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             !empty($_SERVER['HTTP_X_REQUESTED_WITH']) &&
             strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest')
-            return 1;
-        return 0;
+            return true;
+
+        return false;
     }
 }

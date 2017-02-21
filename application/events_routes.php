@@ -1,68 +1,132 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php defined('SYSPATH') or die('No direct pattern access.');
+
 /**
- * @team ProNWE team
+ *
+ * Routes for module Events
+ * @author NWE team
  * @author Khaydarov Murod
+ *
+ * @copyright Turov Nikolay
+ *
+ * @version 0.2.3
  */
 
-Route::set('MYEVENTS', 'events/my')
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'myevents'
-    ));
 
-Route::set('ALLEVENTS', 'events/all')
+/**
+ * This route checks website existance. Responces only for XMLHTTP requests
+ *
+ * @example http://pronwe.ru/events/check/ifmo.ru - returns JSON encoded Boolean responce.
+ * @return [Boolean]
+ */
+Route::set('CHECK_EVENT_WEBSITE', 'events/check/<website>',
+    array(
+        'website' => $STRING
+    ))
     ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'all'
+      'controller' => 'Events_Ajax',
+      'action'     => 'checkwebsite'
     ));
-
-Route::set('NEWEVENT', 'events/new')
+/**
+ * Route for event creation
+ *
+ * @property String $organizationpage - organization local website (without nwe.ru afterfix)
+ */
+Route::set('NEW_EVENT', '<organizationpage>/event/new',
+    array(
+        'organizationpage' => $STRING
+    ))
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'New'
     ));
 
-
+/**
+ * Route works with Database.
+ * Validates POST data and inserts.
+ * Hasn't properties
+ */
+Route::set('ADD_EVENT', 'event/add')
+    ->defaults(array(
+        'controller' => 'Events_Modify',
+        'action'     => 'add'
+    ));
 
 /**
- * Add substances
+ * Route for event main page.
+ *
+ * @property String $organizationpage - organization website (without nwe.ru)
+ * @property String $eventpage - events website (without nwe.ru)
+ * @property String $action - action in controller
+ *
+ * @example http://pronwe.ru/ifmo/miss
  */
-Route::set('ADDPARTICIPANTS', 'events/addparticipants/<id>')
-    ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addParticipant'
-    ));
+Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)',
+    array(
+        'organizationpage' => $STRING,
+        'eventpage' => $STRING,
+        'action' => $STRING
+    ))
+    ->filter(function(Route $route, $params, Request $request) {
 
-Route::set('ADDJUDGE', 'events/addjudge/<id>')
-    ->defaults(array(
-        'controller'  => 'Judges_Modify',
-        'action'      => 'addjudge'
-    ));
+        $website = Arr::get($params, 'organizationpage');
 
-Route::set('ADDSTAGE', 'events/addStage/<id>')
-    ->defaults(array(
-        'controller'  => 'Events_Modify',
-        'action'      => 'addStage'
-    ));
+        if (!Methods_Organizations::isOrganizationWebsiteExists($website))
+            return false;
 
-
-/**
- * EventMakers Page
- */
-
-ROUTE::set('EVENTMAKER', 'events/<id>/eventmaker')
+    })
     ->defaults(array(
         'controller' => 'Events_Index',
-        'action'     => 'eventmaker',
+        'action'     => 'landing'
     ));
 
-
 /**
- * Judges
+ * Route for backoffice
+ *
+ * @property String $organizationpage - organization website (without nwe.ru)
+ * @property String $eventpage - event website (without nwe.ru)
+ * @property String $section - backoffice section (settings | pattern | members)
+ * @property String $action - controller action
+ *
+ * @property [Function] $callback - this callback defines is route allowed to the section or not
+ *
+ * @example http://pronwe.ru/ifmo/miss/manage|members|pattern|control/<action>
  */
+$callback = function(Route $route, $params, Request $request){
 
-Route::set('Judge-Settings', 'event/<id>/<action>')
+    $allowedRoutes = array(
+
+        'manage' => array(
+            'event', 'settings'
+        ),
+
+        'control' => array(
+            'before', 'during', 'after'
+        ),
+
+        'pattern' => array(
+            'criterias', 'stages', 'contests', 'results'
+        ),
+
+        'members' => array(
+            'judges', 'participants', 'teams', 'groups'
+        )
+
+    );
+
+    if (!isset($params['section']) || !in_array($params['action'], $allowedRoutes[$params['section']])) {
+        return false;
+    }
+};
+
+Route::set('EVENT_MANAGEMENT', '<organizationpage>/<eventpage>/<section>(/<action>)',
+    array(
+        'organizationpage' => $STRING,
+        'eventpage' => $STRING,
+        'section' => 'manage|control|pattern|members',
+        'action' => $STRING
+    ))
+    ->filter($callback)
     ->defaults(array(
-        'controller' => 'Judges_Settings_Index',
-        'action'     => ''
+        'controller' => 'Events_Index',
+        'action'     => 'ControlMain'
     ));

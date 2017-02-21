@@ -10,21 +10,14 @@ class Controller_Auth extends Dispatch {
 
     function action_index()
     {
-        array_push( $this->css, 'css/auth.css');
-        array_push( $this->css, 'css/ProNWE_input.css');
-        array_push( $this->js, 'js/auth.js');
-        
-        unset( $this->css[5] );
-
-
-        $this->template->css = $this->css;
-        $this->template->js = $this->js;
+        Session::instance()->destroy();
     }
 
     function action_signin()
     {
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
+        $mode       = Arr::get($_GET, 'mode', '');
 
         /**
          * Проверяем, если поля пустые, то отправляем обратно на авторизацию
@@ -51,16 +44,13 @@ class Controller_Auth extends Dispatch {
 
             $this->redirect('auth/');
         }
+        else
+        {
+            $id_user = $this->session->get('id_user');
 
-        /**
-         * Удачная авторизация - перекидываем в приложение.
-         */
+            $id = Model_PrivillegedUser::getUserOrganization($id_user);
 
-        else {
-            if ($logIn == 2)
-                $this->redirect('signup/continue');
-            else
-                $this->redirect('events/my');
+            $this->redirect('organization/' . $id);
         }
     }
 
@@ -76,20 +66,23 @@ class Controller_Auth extends Dispatch {
 
     }
 
-    function action_facebook()
+    private function login($email, $password, $remember = FALSE)
     {
 
     }
 
-    function action_twitter()
+    private function logout($email)
     {
 
     }
 
-
-    /*
-     * Продолжение регистрации
+    /**
+     * @todo Check form
      */
+    private function checkForm()
+    {
+
+    }
 
 }
 

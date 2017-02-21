@@ -1,256 +1,328 @@
-<?php
+<?php defined('SYSPATH') or die('No direct pattern access.');
+
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 13.03.2016
- * Time: 13:01
+ * Class Controller_Events_Index
+ * All pages which has relationship with Events will be here
+ *
+ * @author Khaydarov Murod
+ * @copyright Khaydarov Murod
+ *
+ * @author Turov Nikolay
+ *
+ * @version 0.2.3
  */
+class Controller_Events_Index extends Dispatch
+{
+    /**
+     * @const ACTION_NEW [String] - for creating a new event
+     */
+    const ACTION_NEW        = 'New';
 
-class Controller_Events_Index extends Dispatch {
+    /**
+     * @const ACTION_SHOW_ALL [String] - Show all action
+     */
+    const ACTION_SHOW_ALL   = 'showAll';
 
-    public $template = 'main';
+    /**
+     * @var $organization [String] - default value is null. Keeps cached render
+     */
+    protected $organization = null;
 
-    public function action_edit()
+    /**
+     * @var $event [String] - default value is null. Keeps cached render
+     */
+    protected $event = null;
+
+    /**
+     * Function that calls before main action
+     *
+     * - Defines main template of actions
+     * - Gets organization info
+     * - Gets event info
+     */
+    public function before()
     {
-        parent::isLogged();
+        switch ($this->request->action()) {
 
-        $id_event = $this->request->param('id');
+            /**
+             * Creating a new event
+             */
+            case self::ACTION_NEW :
+                $this->template = 'events/new';
+                break;
 
-        $this->template->title          = 'Редактирование мероприятия';
-        $this->template->description    = 'Описание страницы';
-        $this->template->keywords       = 'C';
+            /**
+             *  Show Events on Organization page
+             */
+            case self::ACTION_SHOW_ALL :
+                $this->template = 'events/all';
+                break;
 
-        array_push($this->css,  'css/edit-event.css');
-        array_push( $this->css, 'vendor/x-editable/bootstrap3-editable/css/bootstrap-editable.css');
-        array_push( $this->js,  'vendor/x-editable/bootstrap3-editable/js/bootstrap-editable.min.js');
-        array_push( $this->css, 'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js-bootstrap.css');
-        array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/lib/typeahead.js');
-        array_push( $this->js,  'vendor/x-editable/inputs-ext/typeaheadjs/typeaheadjs.js');
-        array_push( $this->js,  'vendor/moment/min/moment.js');
-        array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
-        array_push( $this->js,  'vendor/jquery-ui/jquery-ui.js');
-        array_push( $this->js,  'vendor/jquery.cookie/jquery.cookie.js');
-        array_push( $this->js,  'js/pjsc.js');
-        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
-        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
-        array_push( $this->js,  'js/app.js');
-        
+            /**
+             * Default template for others pages
+             */
+            default :
+                $this->template = 'events/main';
+                break;
+        }
 
-        $types = Kohana::$config->load('type');
-        $status = Kohana::$config->load('status');
+        parent::before();
 
-        $arrcity = new Model_Events;
-        $cities = $arrcity->getCities();
 
-        $this->template->css = $this->css;
-        $this->template->js = $this->js;
-
-        $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/edit-event')
-                                                ->set('types', $types)
-                                                ->set('status', $status)
-                                                ->bind('cities', $cities)
-                                                ->bind('event', $event)
-                                                ->bind('participants', $participants)
-                                                ->bind('judges', $judges)
-                                                ->bind('stages', $stages);
+        $organizationPage = $this->request->param('organizationpage');
+        $this->organization = Model_Organizations::getByFieldName('website', $organizationPage);
 
         /**
-         * Getting Event INFO.
+         * Organization info
          */
+        $this->template->organization = $this->organization;
 
-        $event = new Model_Events();
-        $event = $event->getEvent($id_event);
 
         /**
-         * Getting Events Participant by Id
+         * @var 'eventpage' - event website
          */
-
-        $participants = Model_Participants::getAll($id_event);
+        $eventPage = $this->request->param('eventpage');
+        $this->event = Model_Events::getByFieldName('page', $eventPage);
 
         /**
-         * Getting Events Judges by id_event
+         * Event info
          */
+        $this->template->event = $this->event;
 
-        $judges = Model_Judge::getAll($id_event);
+        if (!$this->organization && !$this->event) {
+            throw new HTTP_Exception_404();
+        }
 
-        /**
-         * Getting Events stages
-         */
-
-        $stages = Model_Stages::getAll($id_event);
+        $this->template->top = View::factory('/events/blocks/top_navigation')
+            ->set('organizationPage', $organizationPage)
+            ->set('eventPage', $eventPage);
 
     }
 
+    /**
+     * NEW EVENT
+     * action_new - action that open page where users create new event
+     */
     public function action_new()
     {
-        parent::isLogged();
-
-        /*
-         * Meta Datas
-         */
-        
-        $this->template->title  ='Создать новое мероприятие';
-        $this->template->description    = 'Новое мероприятие';
-        $this->template->keywords       = 'SEO';
-
-        /*
-         * Styles And Templates
-         */
-        array_push( $this->css, 'vendor/chosen_v1.2.0/chosen.min.css');
-        array_push( $this->js,  'vendor/chosen_v1.2.0/chosen.jquery.min.js');
-        array_push( $this->js,  'vendor/jquery-validation/dist/jquery.validate.js');
-        array_push( $this->js,  'vendor/combodate/combodate.js');
-        array_push( $this->js,  'vendor/moment/min/moment.js');
-        array_push( $this->js,  'vendor/moment/min/moment-with-locales.min.js');
-        array_push( $this->js,  'js/event.js');
-        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
-        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
-        array_push( $this->js,  'js/app.js');
-        
-
-        $types  = Kohana::$config->load('type');
-        $status = Kohana::$config->load('status');
-
-        $arrcity = new Model_Events;
-        $cities = $arrcity->getCities();
-
-        $this->template->css    = $this->css;
-        $this->template->js     = $this->js;
-
-        $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/new-event')
-                                                ->set('types', $types)
-                                                ->set('status', $status)
-                                                ->bind('cities', $cities);
+        $team = Model_Organizations::team($this->organization->id);
+        $this->template->team = $team;
     }
 
-    public function action_myevents()
+
+    /**
+     * MANAGE submodule
+     * action_managemain - action that open page where is a main panel for manage event
+     */
+    public function action_event()
     {
-       // parent::isLogged();
-        $this->template->title          = 'Мои мероприятия';
-        $this->template->description    = 'Мои мероприятия';
-        $this->template->keywords       = 'Мои мероприятия';
-
-        array_push( $this->css, 'vendor/datatables/media/css/jquery.dataTables.css');
-        array_push( $this->js,  'vendor/datatables/media/js/jquery.dataTables.js');
-        array_push( $this->js,  'vendor/datatables/media/plugins/date-de.js');
-        array_push( $this->js,  'vendor/datatable-bootstrap/js/dataTables.bootstrap.js');        
-        array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
-        array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
-        array_push( $this->css, 'css/table-my-event.css');
-        array_push( $this->js,  'js/myevent.js');
-        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
-        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
-        array_push( $this->js,  'js/app.js');
-        
-    
-        $this->template->css = $this->css;
-        $this->template->js = $this->js;
-
-        $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/my-events')
-            ->bind('events', $events);
-
-
-        $model_events = new Model_Events();
-        $events       = $model_events->getEvents();
+        $this->template->main_section = View::factory('events/manage/main');
+        $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
     }
 
-    public function action_all()
+
+    /**
+     * MANAGE submodule
+     * action_settings - action that open page where users can edit main information about event
+     */
+    public function action_settings()
     {
-        parent::isLogged();
-
-        $this->template->title          = 'Все мероприятия';
-        $this->template->description    = 'Все мероприятия';
-        $this->template->keywords       = 'Все мероприятия';
-
-        array_push( $this->js,  'js/all-events.js');
-
-        $this->template->css = $this->css;
-        $this->template->js = $this->js;
-
-        $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/all-events')
-            ->bind('events', $events);
-
-
-        $model_events = new Model_Events();
-        $events = $model_events->getEvents();
+        $this->template->main_section = View::factory('events/manage/settings');
+        $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
     }
 
-    public function action_eventmaker()
+    /**
+     * CONTROL submodule
+     * action_before - administrate event before the start
+     */
+    public function action_before()
     {
-        parent::isLogged();
-
-        $id_event = $this->request->param('id');
-
-        $this->template->title          = 'Панель администрирования мероприятия';
-        $this->template->description    = 'Описание страницы';
-        $this->template->keywords       = 'C';
-
-        array_push( $this->js,  'vendor/jquery-ui/jquery-ui.js');
-        array_push( $this->js,  'vendor/jquery.cookie/jquery.cookie.js');
-        array_push( $this->js,  'vendor/jqueryui-touch-punch/jquery.ui.touch-punch.min.js');
-        array_push( $this->js,  'vendor/jquery.steps/jquery.steps.js');
-        array_push( $this->css, 'vendor/sweetalert/dist/sweetalert.css');
-        array_push( $this->js,  'vendor/sweetalert/dist/sweetalert.min.js');
-        array_push( $this->css, 'css/administrate-event.css');
-        array_push( $this->js,  'js/administrate-event.js');
-        
-        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
-        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
-        array_push( $this->js,  'js/app.js');
-        
-        $types = Kohana::$config->load('type');
-
-        $this->template->css = $this->css;
-        $this->template->js = $this->js;
-
-        $this->template->aside      = View::factory('aside');
-        $this->template->section    = View::factory('events/eventmaker')
-            ->set('id_event', $id_event)
-            ->bind('judges', $judges)
-            ->bind('stages', $stages)
-            ->bind('criterias', $criterias)
-            ->bind('participants_1', $participants_1)
-            ->bind('participants', $participants);
-
-        /**
-         * Getting Event INFO.
-         */
-
-        $event = new Model_Events();
-        $event = $event->getEvent($id_event);
-
-        /**
-         * Getting Events Judges by id_event
-         */
-
-        $online = Model_Judge::JudgesOnline($event['id']);
-
-        for($i = 0; $i < count($online); $i++)
-        {
-            $judges[] = Model_Judge::getJudge($online[$i]['id_judge'], $event['id']);
-        }
-
-        /**
-         * Getting Events stages
-         */
-
-        $stages = Model_Stages::getAll($id_event);
-
-        /**
-         * Getting Participants
-         */
-        $participants_1 = Model_Participants::getAll($event['id']);
-
-        for($i = 0; $i < count($stages); $i++)
-        {
-            $id = $stages[$i]['id'];
-            $participants[] = Model_Participants::getParticipantsByPosition($event['id'], $id);
-
-            $criterias[] = Model_Stages::getCriteriasByStageId($id);
-        }
+        $this->template->main_section = View::factory('events/control/before');
+        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
     }
+
+
+    /**
+     * CONTROL submodule
+     * action_during - administrate event in real time
+     */
+    public function action_during()
+    {
+        $this->template->main_section = View::factory('events/control/during');
+        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
+    }
+
+
+    /**
+     * CONTROL submodule
+     * action_after - administrate event after the end
+     */
+    public function action_after()
+    {
+        $this->template->main_section = View::factory('events/control/after');
+        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
+                ->set('organizationPage', $this->organization->website)
+                ->set('eventPage', $this->event->page);
+    }
+
+    /**
+     * PATTERN submodule
+     * criteria CRUD
+     */
+    public function action_criterias()
+    {
+        $this->template->main_section = View::factory('events/pattern/criterias');
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+    /**
+     * PATTERN submodule
+     * stage CRUD
+     */
+    public function action_stages()
+    {
+        $this->template->main_section = View::factory('events/pattern/stages');
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+    /**
+     * PATTERN submodule
+     * contest CRUD
+     */
+    public function action_contests()
+    {
+        $this->template->main_section = View::factory('events/pattern/contests');
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+    /**
+     * PATTERN submodule
+     *
+     * Creating pattern of event.
+     */
+    public function action_results()
+    {
+        $this->template->main_section = View::factory('events/pattern/results');
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+
+    /**
+     * MEMBERS submodule
+     * action_judges - action that open page where users can edit information about judges
+     */
+    public function action_judges()
+    {
+        $this->template->main_section = View::factory('events/members/judges');
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+
+    /**
+     * MEMBERS submodule
+     * action_participants - action that open page where users can edit information about participants
+     */
+    public function action_participants()
+    {
+        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+
+        $this->template->main_section = View::factory('events/members/participants')
+            ->set('event', $this->event);
+
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+
+    /**
+     * MEMBERS submodule
+     * action_teams - action that open page where users can edit information about teams
+     */
+    public function action_teams()
+    {
+        /**
+         * getting all teams from event
+         * and make an array of their IDs
+         */
+        $teams = Methods_Teams::getAllTeams($this->event->id);
+        $teamsId = array_map("Methods_Common::getObjectIdentities", $teams);
+
+        /** $allparticipants - array of participant from all teams */
+        $allparticipants = Methods_Teams::getAllParticipantsFromTeams($teamsId);
+
+        /** @var $participants - array of participants from whole event */
+        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+        $participantIds = array_map("Methods_Common::getObjectIdentities", $participants);
+
+        /** @var $freeParticipants - array of participants that not included in teams */
+        $freeParticipants = array_diff($participantIds, $allparticipants);
+        $participantsWithoutTeam = Methods_Participants::getSetOfParticipants($freeParticipants);
+
+        $teams = Methods_Teams::getAllTeams($this->event->id);
+
+        $this->template->main_section = View::factory('events/members/teams')
+            ->set('event', $this->event)
+            ->set('participants', $participantsWithoutTeam)
+            ->set('teams', $teams);
+
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+
+    /**
+     * MEMBERS submodule
+     * action_groups - action that open page where users can edit information about groups
+     */
+    public function action_groups()
+    {
+        $teams = Methods_Teams::getAllTeams($this->event->id);
+        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+        $groups = Methods_Groups::getAllGroups($this->event->id);
+
+        $this->template->main_section = View::factory('events/members/groups')
+            ->set('event', $this->event)
+            ->set('teams', $teams)
+            ->set('participants', $participants)
+            ->set('groups', $groups);
+
+        /** @var jumbotron_navigation */
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+            ->set('organizationPage', $this->organization->website)
+            ->set('eventPage', $this->event->page);
+    }
+
+
+    /**
+     * LANDING submodule
+     * Action is available for all users.
+     * Shows main information about event
+     */
+    public function action_landing()
+    {
+        $this->template->main_section = View::factory('events/landing/main');
+        $this->template->jumbotron_navigation = '';
+    }
+
+
 }

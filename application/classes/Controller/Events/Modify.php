@@ -1,122 +1,60 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 13.03.2016
- * Time: 13:01
+ * Class Controller_Events_Modify
+ * @author
+ * @copyright
  */
 
-class Controller_Events_Modify extends Controller {
+class Controller_Events_Modify extends Controller
+{
 
-    function action_add()
+    /**
+     * Action for creating new event
+     */
+    public function action_add()
     {
-        $data['title']                = Arr::get($_POST, 'input-event-name');
-        $data['description']          = Arr::get($_POST, 'input-event-description');
-        $data['event_status']         = Arr::get($_POST, 'input-event-status');
-        $data['event_start-date']     = Arr::get($_POST, 'input-event-start');
-        $data['event_finish-date']    = Arr::get($_POST, 'input-event-end');
-        $data['event_city']           = Arr::get($_POST, 'input-event-city');
-        $data['event_type']           = Arr::get($_POST, 'input-event-type');
-        $data['photo']                = $_FILES['input-event-photo']['name'];
+        if ($this->request->method() == Request::POST) {
 
-        Model_Uploader::fileTransport($_FILES, 'input-event-photo');
+            $event_name         = Arr::get($_POST, 'event_name', '');
+            $event_site         = Arr::get($_POST, 'event_site', '');
+            $event_description  = Arr::get($_POST, 'event_desc', '');
+            $event_keywords     = Arr::get($_POST, 'event_keywords', '');
+            $event_start        = Arr::get($_POST, 'datestart', '');
+            $event_end          = Arr::get($_POST, 'dateend', '');
+            $event_address      = Arr::get($_POST, 'address_coords', '');
+            $id_organization = Arr::get($_POST, 'id_organization', '');
 
-        $model_events = new Model_Events();
-        $model_events->NewEvent($data);
-        $result = $model_events->save();
+            $event = new Model_Events();
 
+            $event->name              = $event_name;
+            $event->page              = $event_site;
+            $event->short_description = $event_description;
+            $event->full_description  = '';
+            $event->keywords          = $event_keywords;
+            $event->start_time        = $event_start;
+            $event->end_time          = $event_end;
+            $event->address           = $event_address;
 
-        /**
-         * Creating WorkBook
-         */
-        Model_Excel::createNewEventsSheet($data['title']);
+            $result = $event->save();
 
+            $event->addToOrganization($id_organization, $event->id);
 
-        if ($result)
-            $this->redirect('/events/my');
+            $this->request->redirect('event/' . $event->name);
 
+        } else {
+
+            throw new HTTP_Exception_404();
+        }
     }
 
-    function action_addParticipant()
+    public function action_addFullDescription()
     {
-        $id_event = $this->request->param('id');
+        if ($this->request->method() == Request::POST && Ajax::is_ajax()) {
 
-        $k = 0;
-        for($i = 0; $i < count($_POST) / 2; $i++)
-        {
-            $k++;
-            $name           = $_POST['participant_name_'. $k];
-            $description    = $_POST['participant_description_'. $k];
-            $photo          = $_FILES['participant_photo_'. $k]['name'] ?: 'no-user.png';
-
-            $model_participant = new Model_Participants($id_event, $name, $description, $photo);
-
-            $model_participant->save();
-
-            if ($photo != 'no-user.png') {
-                $model_uploader = new Model_Uploader($_FILES['participant_photo_' . $k], 'participant_photo', $k);
-                $model_uploader->upload();
-            }
+            $full_description = Arr::get($_POST, 'text');
+            $id_event = Arr::get($_POST, 'id');
         }
-
-        $this->redirect('/events/'. $id_event . '/edit' );
     }
 
-    function action_addStage()
-    {
-        $id_event = $this->request->param('id');
-
-        $stageNameIndex         = 1;
-        $stageDescriptionIndex  = 1;
-
-        foreach($_POST as $item => $value)
-        {
-            if ($item == 'stage_name_' . $stageNameIndex) {
-                $stageName[] = $value;
-                $stageNameIndex++;
-            }
-
-            if ($item == 'stage_description_' . $stageDescriptionIndex) {
-                $stageDescription[] = $value;
-                $stageDescriptionIndex ++ ;
-            }
-        }
-
-        $criteriaNameIndex  = 1;
-        $criteriaScoreIndex = 1;
-
-        for($i = 1; $i < $stageNameIndex; $i++)
-        {
-
-            $model_stages = new Model_Stages();
-            $id_stage = $model_stages->insertStages($stageName[$i - 1], $stageDescription[$i - 1], $id_event);
-            $model_stages->block($id_stage);
-            
-            foreach($_POST as $item => $value)
-            {
-                $str1 = 'criterion-name_'. $i . '_' . $criteriaNameIndex ;
-                $str2 = 'criterion-maxscore_'. $i . '_' . $criteriaScoreIndex;
-
-                if ($item == $str1)
-                {
-                    $criteriaName[$i]['name'][] = $value;
-                    $criteriaNameIndex ++;
-                }
-
-                if ($item == $str2)
-                {
-                    $criteriaScore[$i]['score'][] = $value;
-                    $criteriaScoreIndex ++;
-                }
-            }
-
-            for($j = 1; $j < $criteriaNameIndex; $j++)
-                $model_stages->insertCriteria($criteriaName[$i]['name'][$j - 1], $criteriaScore[$i]['score'][$j - 1], $id_stage);
-
-            $criteriaNameIndex  = 1;
-            $criteriaScoreIndex = 1;
-        }
-
-        $this->redirect('/events/'. $id_event . '/edit' );
-    }
 }

