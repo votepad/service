@@ -34,20 +34,8 @@ class Dispatch extends Controller_Template
         $GLOBALS['SITE_NAME']   = "Votepad";
         $GLOBALS['FROM_ACTION'] = $this->request->action();
 
-        $this->setGlobals();
-        
-        parent::before();
-
         // XSS clean in POST and GET requests
-        //self::XSSfilter();
-
-    }
-
-    public static function isLogged()
-    {
-        $session = Session::Instance();
-        if ( empty($session->get('user_id')) )
-            Controller::redirect('/auth');
+        self::XSSfilter();
 
         $driver = 'cookie';
         $this->session = self::sessionInstance($driver);

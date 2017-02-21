@@ -1,14 +1,6 @@
 <?php
 
 /**
-<<<<<<< HEAD
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 24.04.2016
- * Time: 20:29
- */
-class Controller_Welcome extends Controller_Template
-=======
  * Class Controller_Welcome
  *
  * @copyright Khaydarov Murod
@@ -19,7 +11,6 @@ class Controller_Welcome extends Controller_Template
  */
 
 class Controller_Welcome extends Dispatch
->>>>>>> beta
 {
     public $template = 'welcome/main';
 
