@@ -4,39 +4,44 @@
     $allowed = $isLogged && $owner;
 ?>
 
-<div class="parallax-container org-background">
-  <div class="parallax">
-    <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>">
-  </div>
+
+<div class="jumbotron_wrapper parallax-container">
+    <div class="parallax jumbotron_cover">
+        <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>">
+    </div>
+
     <? if ($allowed) : ?>
-    <div class="edit-org-back">
-      <a id="edit_org_back" href="#" role="button">
-        <i class="fa fa-camera" aria-hidden="true"></i>
-        <span>Обновить фото обложки</span>
-      </a>
+    <div class="jumbotron_wrapper_edit">
+        <a id="jumbotron_org-cover-edit" role="button" class="jumbotron_wrapper_edit-btn">
+            <i class="fa fa-camera jumbotron_wrapper_edit-icon" aria-hidden="true"></i>
+            <span class="jumbotron_wrapper_edit-text">Обновить фото обложки</span>
+        </a>
     </div>
     <? endif; ?>
-<div class="org-avatar">
-    <img id="org-avatar-uploaded" src="/uploads/organizations/m_<?=$organization->logo; ?>">
-    <? if ($allowed) : ?>
-    <div class="edit-org-avatar">
-	<a id="edit_org_avatar" href="#" role="button">
-      <i class="fa fa-camera" aria-hidden="true"></i>
-	  <span>Обновить логотип организации</span>
-	</a>
+
+
+    <div class="jumbotron_org-avatar">
+        <img id="jumbotron_org-avatar-uploaded" src="/uploads/organizations/m_<?=$organization->logo; ?>">
+
+        <? if ($allowed) : ?>
+        <div class="jumbotron_org-avatar-edit">
+            <a id="jumbotron_org-avatar-edit" href="#" role="button">
+                <i class="fa fa-camera" aria-hidden="true"></i>
+                <span>Обновить логотип организации</span>
+            </a>
+        </div>
+        <? endif; ?>
     </div>
-    <? endif; ?>
-</div>
-<div class="org-name-background"></div>
-<div class="org-name">
-    <h2>
-        <?=$organization->name; ?>
-        <a href="http://<?=$organization->officialSite; ?>" class="inline" data-toggle="tooltip" data-placement="top" title="Официальный сайт">
+    <div class="jumbotron_org-name-background"></div>
+    <div class="jumbotron_org-name">
+        <h2><?=$organization->name; ?></h2>
+        <a href="//<?=$organization->officialSite; ?>" title="Официальный сайт">
             <i class="fa fa-external-link" aria-hidden="true"></i>
         </a>
-    </h2>
+    </div>
 </div>
-</div>
+
+
 <? if ($allowed): ?>
 <script>
 
@@ -141,17 +146,19 @@
     /**
      * Upload organization logo
      */
-    $('#edit_org_avatar').click(function() {
+    $('#jumbotron_org-avatar-edit').click(function() {
 
         var params = {
 
             success : function(callback) {
 
+                $('.jumbotron_org-avatar').addClass('whirl');
+
                 var file = JSON.parse(callback),
                     image   = file.filename,
-                    el = document.getElementById('org-avatar-uploaded');
+                    el = document.getElementById('jumbotron_org-avatar-uploaded');
 
-                $.ajax({
+                $.when( $.ajax({
                     url  : "/organization/<?=$organization->id; ?>/update_with_ajax",
                     type : "POST",
                     data : {
@@ -168,6 +175,8 @@
                     error : function(result) {
                         console.log('something gone wrong!');
                     }
+                })).then(function(){
+                    $('.jumbotron_org-avatar').removeClass('whirl');
                 });
 
             },
@@ -183,17 +192,19 @@
     /**
      * Upload or Change organizations cover
      */
-    $('#edit_org_back').click(function() {
+    $('#jumbotron_org-cover-edit').click(function() {
 
         var params = {
 
             success : function(callback) {
 
+                $('.jumbotron_cover').addClass('whirl');
+
                 var file = JSON.parse(callback),
                     image   = file.filename,
                     el = document.getElementById('org-background-uploaded');
 
-                $.ajax({
+                $.when( $.ajax({
                     url  : "/organization/<?=$organization->id; ?>/update_with_ajax",
                     type : "POST",
                     data : {
@@ -210,6 +221,8 @@
                     error : function(result) {
                         console.log('something gone wrong!');
                     }
+                })).then(function(){
+                    $('.jumbotron_cover').removeClass('whirl');
                 });
 
             },

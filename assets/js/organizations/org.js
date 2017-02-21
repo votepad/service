@@ -1,37 +1,5 @@
 $(document).ready(function(){
-  
-change_user_menu_tooltip_placement();
-
-
-$(window).resize(function() {
-  change_user_menu_tooltip_placement();
-});
-
-/*
-**  Tooltip Template
-*/
-
-$('[data-toggle="tooltip"]').tooltip({
-  template: '<div class="tooltip" role="tooltip"><div class="tooltip-inner"></div></div>'
-});
-
-
-function change_user_menu_tooltip_placement() {
-  if ($(window).width() < 992) {
-    $('.user-menu li[data-toggle="tooltip"]').each(function(){
-      var text = $(this).attr('data-original-title');
-      $(this).tooltip('destroy');
-      $(this).tooltip({placement: 'bottom',title: text});
-    });
-  } else {
-    $('.user-menu li[data-toggle="tooltip"]').each(function(){
-      var text = $(this).attr('data-original-title');
-      $(this).tooltip('destroy');
-      $(this).tooltip({placement: 'right',title: text});
-    });
-  }
-}
-
+    
 var urlPage = location.href;
 
 var main = /main/;

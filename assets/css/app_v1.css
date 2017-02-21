@@ -113,7 +113,6 @@ ul{
 	overflow: hidden;
 	white-space: nowrap;
 	text-overflow: ellipsis;
-	color: #FCFCFC;
 	float: left;
 	padding: 0 18px;
 	transition: background-color .1s;
@@ -312,7 +311,6 @@ ul{
 	line-height: 40px;
 }
 .jumbotron_nav-list{
-	height: inherit;
 	width: 80%;
 	margin: auto;
 	text-align: center;
@@ -404,6 +402,15 @@ ul{
 	.jumbotron_wrapper_text{
 		width: 90%;
 	}
+	.jumbotron_wrapper_edit-btn{
+		padding: 16px;
+	}
+	.jumbotron_wrapper_edit:hover{
+		background: transparent;
+	}
+	.jumbotron_wrapper_edit:hover .jumbotron_wrapper_edit-text{
+		display: none;
+	}
 	.jumbotron_wrapper_text-eventname{
 		font-size: 2em;
 	}
@@ -414,6 +421,9 @@ ul{
 @media (max-width: 680px) {
 	.jumbotron{
 		height: 260px;
+	}
+	.jumbotron_nav-list{
+		height: initial;
 	}
 	.jumbotron_nav{
 		position: fixed;
@@ -465,15 +475,17 @@ ul{
     	border-left: 3px solid #008DA7;
     	background-color: rgba(0,0,0,0.05);
 	}
-	.jumbotron_wrapper_edit{
-		left: 20px;
+	.jumbotron_wrapper_edit {
+	    left: 0;
+	    top: 10px;
 	}
 	.jumbotron_wrapper_text{
 		width: 95%;
 	}
-	.jumbotron_wrapper_text-eventname{
-		font-size: 1.8em;
-	}
+		.jumbotron_wrapper_text-eventname{
+			font-size: 1.8em;
+		}
+
 }
 
 
@@ -924,7 +936,7 @@ a, a:hover, a:focus{
 
 .whirl:before {
 	content: "";
-	z-index: 110;
+	z-index: 10;
 	position: absolute;
 	top: 0;
 	right: 0;

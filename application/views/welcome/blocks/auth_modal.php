@@ -1,7 +1,8 @@
 <!-- Authorization Modal -->
 
-<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/auth.js"></script>
 
 <div class="modal valign auth-modal" id="auth_modal" tabindex="-1">
     <div class="modal-dialog modal-sm">

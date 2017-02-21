@@ -4,7 +4,7 @@
  * All pages which has relationship with Organizations will be here
  * @author Pronwe team
  * @copyright Khaydarov Murod
- * @copyright Turov Nikolay
+ * @author Turov Nikolay
  * @version 0.1.2
  */
 
@@ -76,38 +76,43 @@ class Controller_Organizations_Index extends Dispatch
 
         if ($this->organization != false) {
 
-          /**
-           * Jumbotron
-           */
-          $this->template->jumbotron = View::factory('organizations/blocks/jumbotron')
-              ->set('organization', $this->organization);
-
-
-          /**
-           * Header
-           * + header navigation
-           */
-           $this->template->header = View::factory('/organizations/blocks/header')
+            /**
+            * Header
+            * + header navigation (Logged && ! Logged)
+            * + authorization modal
+            */
+            $this->template->header = View::factory('/organizations/blocks/header')
                 ->set('auth_modal', View::factory('welcome/blocks/auth_modal'))
                 ->set('organization', $this->organization);
 
 
+            /**
+            * Jumbotron Wrapper
+            * - without navigation
+            */
+            $this->template->jumbotron_wrapper = View::factory('organizations/blocks/jumbotron_wrapper')
+                ->set('organization', $this->organization);
+
+            /**
+            * Get all menus items in Jumbotron Navigation
+            */
+            $this->template->menus = Kohana::$config->load('topnav')->as_array();
 
 
-          $this->template->navigation = View::factory('organizations/blocks/navigation')
-              ->set('id', $this->organization->id);
+            /**
+            * Footer
+            */
+            $this->template->footer = View::factory('organizations/blocks/footer');
 
-          /**
-           * get all menus of top navigation bar
-           */
-          $this->template->menus = $menus = Kohana::$config->load('topnav')->as_array();
 
         }
 
     }
 
+
     /**
-     * New organization form
+     *
+     * action_new - open new organization form
      * Doesn't need any variables
      */
     public function action_new()
@@ -118,19 +123,65 @@ class Controller_Organizations_Index extends Dispatch
         }
     }
 
+
     /**
-     * Shows events of target organization
+     * EVENTS submodule
+     * action_show - shows events of target organization
      */
     public function action_show()
     {
+        /**
+        * Jumbotron Navigation
+        * - searching events on page
+        */
+        $this->template->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
+            ->set('id', $this->organization->id);;
 
         $this->template->main_section = '';
 
 
     }
 
+
     /**
-     * Organizations team
+     * SETTINGS submodule
+     * action_main - main information about target organization
+     */
+    public function action_main()
+    {
+        /**
+        * Jumbotron Navigation
+        * - show all tabs of SETTINGS submodule - menu with roles
+        */
+        $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
+            ->set('menus', $this->template->menus)
+            ->set('id', $this->organization->id);
+
+
+
+        $topmenu = View::factory('organizations/blocks/topmenu')
+            ->set('menus', $this->template->menus)
+            ->set('id', $this->organization->id);
+
+        /**
+         * Content of target menu
+         */
+        $this->template->main_section = View::factory('organizations/settings/main')
+                ->set('organization', $this->organization)
+                ->set('topmenu', $topmenu);
+
+        $isLogged = Dispatch::isLogged();
+        $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
+
+        if (!$isLogged || !$owner) {
+            $this->redirect('/organization/' . $this->organization->id);
+        }
+    }
+
+
+    /**
+     * SETTINGS submodule
+     * action_team - shows team of target organization
      */
     public function action_team()
     {
@@ -149,33 +200,6 @@ class Controller_Organizations_Index extends Dispatch
             ->set('topmenu', $topmenu);
 
         $isLogged = Dispatch::isLogged();
-        $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
-
-        if (!$isLogged || !$owner) {
-            $this->redirect('/organization/' . $this->organization->id);
-        }
-    }
-
-    /**
-     * Main information about target organization
-     */
-    public function action_main()
-    {
-        /** @var $topmenu
-         * Top menu with roles
-         */
-        $topmenu = View::factory('organizations/blocks/topmenu')
-            ->set('menus', $this->template->menus)
-            ->set('id', $this->organization->id);
-
-        /**
-         * Content of target menu
-         */
-        $this->template->main_section = View::factory('organizations/settings/main')
-                ->set('organization', $this->organization)
-                ->set('topmenu', $topmenu);
-
-        //$isLogged = Dispatch::isLogged();
         $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
 
         if (!$isLogged || !$owner) {
