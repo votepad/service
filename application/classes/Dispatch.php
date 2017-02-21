@@ -75,7 +75,7 @@ class Dispatch extends Controller_Template
     */
     public function after()
     {
-        echo View::factory('profiler/stats');
+//        echo View::factory('profiler/stats');
 
         parent::after();
     }
