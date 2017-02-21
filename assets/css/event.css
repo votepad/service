@@ -218,14 +218,3 @@
 	.form_collapse.open .hidden{
 		display: block;;
 	}
-
-
-/*
- *   Cards Styles
-*/
-.card_content-text option{
-    display: inline-block;
-}
-	.card_content-text option:not(:last-child):after{
-	    content: ',';
-	}

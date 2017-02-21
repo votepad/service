@@ -2,10 +2,9 @@
 /**
  * Class Organizations_Index
  * All pages which has relationship with Organizations will be here
- * @author Pronwe team
  * @copyright Khaydarov Murod
  * @author Turov Nikolay
- * @version 0.1.2
+ * @version 0.2.0
  */
 
 class Controller_Organizations_Index extends Dispatch
@@ -96,7 +95,7 @@ class Controller_Organizations_Index extends Dispatch
             /**
             * Get all menus items in Jumbotron Navigation
             */
-            $this->template->menus = Kohana::$config->load('topnav')->as_array();
+            $this->template->JumbotronNav = Kohana::$config->load('orgJumbotronNav')->as_array();
 
 
             /**
@@ -154,28 +153,16 @@ class Controller_Organizations_Index extends Dispatch
         * - show all tabs of SETTINGS submodule - menu with roles
         */
         $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
-            ->set('menus', $this->template->menus)
+            ->set('JumbotronNav', $this->template->JumbotronNav)
             ->set('id', $this->organization->id);
 
-
-
-        $topmenu = View::factory('organizations/blocks/topmenu')
-            ->set('menus', $this->template->menus)
-            ->set('id', $this->organization->id);
 
         /**
-         * Content of target menu
+         * Main Section
          */
         $this->template->main_section = View::factory('organizations/settings/main')
-                ->set('organization', $this->organization)
-                ->set('topmenu', $topmenu);
+                ->set('organization', $this->organization);
 
-        $isLogged = Dispatch::isLogged();
-        $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
-
-        if (!$isLogged || !$owner) {
-            $this->redirect('/organization/' . $this->organization->id);
-        }
     }
 
 
@@ -185,26 +172,23 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_team()
     {
-        /** @var $topmenu
-         * Top menu with roles
-         */
-        $topmenu = View::factory('organizations/blocks/topmenu')
-            ->set('menus', $this->template->menus)
-            ->set('id', $this->organization->id);
 
         /**
-         * Content of target menu
+        * Jumbotron Navigation
+        * - show all tabs of SETTINGS submodule - menu with roles
+        */
+        $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
+            ->set('JumbotronNav', $this->template->JumbotronNav)
+            ->set('id', $this->organization->id);
+
+
+        /**
+         * Main Section
          */
         $this->template->main_section = View::factory('organizations/settings/team')
-            ->set('organization', $this->organization)
-            ->set('topmenu', $topmenu);
+                ->set('organization', $this->organization);
 
-        $isLogged = Dispatch::isLogged();
-        $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
 
-        if (!$isLogged || !$owner) {
-            $this->redirect('/organization/' . $this->organization->id);
-        }
     }
 
 }

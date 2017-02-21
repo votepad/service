@@ -1,9 +1,9 @@
 <?
-    $owner      = Model_PrivillegedUser::getUserOrganization(Session::instance()->get('id_user')) == $organization->id;
     $user       = Session::instance();
+    $isOwner    = Model_PrivillegedUser::getUserOrganization($user->get('id_user')) == $organization->id;
     $myorg      = Model_Organizations::getByFieldName('id', Model_User::getUserOrganization($user->get('id_user')));
     $isLogged   = Dispatch::isLogged();
-    $allowed = $isLogged && $owner;
+    $allowed = $isLogged && $isOwner;
 ?>
 
 
@@ -64,6 +64,10 @@
                 <a href="<?=URL::site('organization/' . $myorg->id); ?>" class="header_button dropdown-button">
                     <i class="fa fa-cubes dropdown-icon header_icon" aria-hidden="true"></i>
                     <span class="dropdown-text"><?=$myorg->name; ?></span>
+                </a>
+                <a href="#" class="header_button dropdown-button">
+                    <i class="fa fa-user dropdown-icon header_icon" aria-hidden="true"></i>
+                    <span class="dropdown-text">Профиль</span>
                 </a>
                 <div role="separator" class="divider"></div>
                 <a href="<?=URL::site('auth/'); ?>" class="header_button dropdown-button">

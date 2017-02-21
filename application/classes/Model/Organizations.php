@@ -20,6 +20,11 @@ class Model_Organizations extends Model
     public $name;
 
     /**
+     * @var $logo
+     */
+    public $description;
+
+    /**
      * @var $website
      */
     public $website;
@@ -91,6 +96,7 @@ class Model_Organizations extends Model
         }
 
         $organization->name         = $this->name ?: $organization->name;
+        $organization->description  = $this->description ?: $organization->description;
         $organization->website      = $this->website ?: $organization->website;
         $organization->officialSite = $this->officialSite ?: $organization->officialSite;
         $organization->dt_update    = DB::expr('Now()');
@@ -125,6 +131,7 @@ class Model_Organizations extends Model
 
             $target->id           = $organization->id;
             $target->name         = $organization->name;
+            $target->description  = $organization->description;
             $target->website      = $organization->website;
             $target->officialSite = $organization->officialSite;
             $target->dt_update    = $organization->dt_update;
@@ -162,6 +169,7 @@ class Model_Organizations extends Model
 
             $result->id           = $organization->id;
             $result->name         = $organization->name;
+            $result->description  = $organization->description;
             $result->website      = $organization->website;
             $result->officialSite = $organization->officialSite;
 

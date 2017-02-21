@@ -29,10 +29,11 @@ class Controller_Organizations_Modify extends Dispatch
 
         if ($this->request->method() == Request::POST) {
 
-            $name = Arr::get($_POST, 'org_name', '');
-            $website = Arr::get($_POST, 'org_site');
-            $official = Arr::get($_POST, 'official_org_site', '');
-            $phone = Arr::get($_POST, 'org_phone', '');
+            $name           = Arr::get($_POST, 'org_name', '');
+            $description    = Arr::get($_POST, 'org_description', '');
+            $website        = Arr::get($_POST, 'org_site');
+            $official       = Arr::get($_POST, 'official_org_site', '');
+            $phone          = Arr::get($_POST, 'org_phone', '');
 
             if (self::isLogged()) {
 
@@ -65,6 +66,7 @@ class Controller_Organizations_Modify extends Dispatch
 
             $organization = new Model_Organizations();
             $organization->name = $name;
+            $organization->description = $description;
             $organization->website = $website;
             $organization->officialSite = $official;
 
@@ -90,7 +92,7 @@ class Controller_Organizations_Modify extends Dispatch
                 ->execute();
 
             $this->redirect('organization/' . $organization->id);
-            
+
         } else {
 
             /**
@@ -108,6 +110,7 @@ class Controller_Organizations_Modify extends Dispatch
 
         /** POST params */
         $name           = Arr::get($_POST, 'org_name', '');
+        $description    = Arr::get($_POST, 'org_description', '');
         $officialSite   = Arr::get($_POST, 'official_org_site', '');
 
         if (self::isLogged()) {
@@ -120,9 +123,10 @@ class Controller_Organizations_Modify extends Dispatch
         }
 
         $fields = array(
-            'name'         => $name,
-            'officialSite' => $officialSite,
-            'is_removed'   => 0
+            'name'              => $name,
+            'description'       => $description,
+            'officialSite'      => $officialSite,
+            'is_removed'        => 0
         );
 
         $organization = Model_Organizations::get($id_organization, 0);

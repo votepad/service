@@ -1167,6 +1167,13 @@ a, a:hover, a:focus{
     position: relative;
 }
 
+.card_content-text option{
+	display: inline-block;
+}
+	.card_content-text option:not(:last-child):after{
+		content: ',';
+	}
+
 .card_content-text-hidden{
     position: absolute;
     left: 0;
@@ -1606,7 +1613,7 @@ label.btn{
 }
 
 
-@media (max-width: 481px) {
+@media (max-width: 680px) {
 	.btn.col-xs-12:not(:last-child), .modal-footer .btn:not(:last-child){
 		margin-bottom: 10px;
 	}
