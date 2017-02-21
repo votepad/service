@@ -10,9 +10,10 @@ application/vendor/phpoffice/phpexcel/
 
 # Bundler
 assets/frontend/.idea/
-assets/frontend/modules/
+assets/frontend/modules/*
 assets/frontend/webpack.config.js
-assets/frontend/node_modules/
+assets/frontend/node_modules/*
+assets/vendor/*
 
 
 # Media files
