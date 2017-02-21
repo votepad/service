@@ -52,6 +52,7 @@
         	Создать команду
         </button>
     </div>
+    <input type="hidden" name="csrf" value="<?=Security::token(TRUE); ?>">
 </form>
 
 <div class="row row-col">
@@ -59,7 +60,7 @@
 
         <? foreach ($teams as $team) : ?>
             <card class="card clear_fix" id="team_<?=$team->id;?>">
-                <div class="card_image" id="logo_team_1">
+                <div class="card_image" id="logo_team_<?=$team->id;?>">
                     <img src="/uploads/teams/<?=$team->logo; ?>" alt="">
                 </div>
                 <div class="card_withimage card_title">

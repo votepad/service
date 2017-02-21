@@ -29,10 +29,6 @@ $(document).ready(function() {
             readOnly: true,
         },
         {
-            data:'login',
-            readOnly: true,
-        },
-        {
             data:'password',
             readOnly: true,
         },
@@ -51,14 +47,16 @@ $(document).ready(function() {
                 }
             },
         },
-        {
-			data:'login',
-			editor: false,
-        },
 		{
 			data:'password',
-            type: 'password',
-			editor: false,
+            readOnly: false,
+            validator: function (value, callback) {
+                if ( /[^A-Za-z0-9А-Яа-я]/.test(value) || value == "" ) {
+					callback(false);
+                } else {
+					callback(true);
+                }
+            },
 		}
     ];
 
@@ -73,7 +71,6 @@ $(document).ready(function() {
      var get_array_judges = [
 		 {
 			 "name": "Иванов Иван Иванович",
-			 "login": "ifmo-mister-1",
 			 "password": "dff6asdl7",
              "status": "none"
 		 },
@@ -82,7 +79,6 @@ $(document).ready(function() {
      var array_judges = [
          {
 			 "name": "Иванов Иван Иванович",
-			 "login": "ifmo-mister-1",
 			 "password": "dff6asdl7",
              "status": "none"
 		 },
@@ -96,7 +92,7 @@ $(document).ready(function() {
          data: array_judges,
 		 rowHeaders: true,
 		 fillHandle: false,
-		 colHeaders: ['Фамилия Имя Отчество', 'Логин', 'Пароль'],
+		 colHeaders: ['Фамилия Имя Отчество', 'Пароль'],
          columns: column_disabled,
      };
 
@@ -144,7 +140,15 @@ $(document).ready(function() {
 
         hot.validateCells(function(valid) {
 
-            if ( valid == true) {
+            if ( password_is_same() ){
+
+                $.notify({
+                    message: 'Пороли у предстовителей жюри должны быть разными!'
+                },{
+                    type: 'danger'
+                });
+
+            } else if ( valid == true) {
 
                 edit.className = "pull-right displayblock";
                 save.className = "displaynone";
@@ -180,6 +184,7 @@ $(document).ready(function() {
                     }
 
                     console.log(JSON.stringify(array_judges));
+
                 }
 
             } else {
@@ -231,26 +236,6 @@ $(document).ready(function() {
 
 
      /*
-      *  After Validate Add Login And Password
-     */
-     hot.addHook('afterValidate', function(isValid, value, row, prop, source) {
-
-         if (isValid && value != null) {
-
-             hot.setDataAtCell(row, 1, orgpage + '-' + eventpage + '-' + parseInt(row + 1));
-             hot.setDataAtCell(row, 2, 'generated');
-
-         } else {
-
-             hot.setDataAtCell(row, 1, '');
-             hot.setDataAtCell(row, 2, '');
-
-         }
-
-     });
-
-
-     /*
       *  Calculate columns size on resize window
      */
      Handsontable.Dom.addEvent(window, 'resize', calculateSize);
@@ -272,7 +257,7 @@ $(document).ready(function() {
          if (window.innerWidth <= 680) {
              hot.updateSettings({
                  stretchH: 'none',
-                 colWidths: [250,180,130]
+                 colWidths: [340,220]
              });
 
              document.getElementById('judges').style.overflowX = "auto";
@@ -283,30 +268,55 @@ $(document).ready(function() {
              hot.updateSettings({
                  stretchH: 'all',
                  colWidths: function(index) {
-                     var width = parseInt(document.body.clientWidth);
+                     var width = parseInt(document.body.clientWidth)+17;
 
                      // desctop width for columns
-                     // 0.7  (section.width = 70%)
-                     // 60 - width of first column
+                     // 50 - width of first column
                      if (width > 992)
-                         width = width * 0.8 - 50;
+                         width = width * 0.8 - 60;
 
                      // tablet width for columns
                      else if (width <= 992 && width > 680)
-                        width = width * 0.9 - 50;
+                        width = width * 0.9 - 60;
 
                      if (index == 0)
-                         return width * 0.5;
+                         return width * 0.6;
 
                      if (index == 1)
-                         return width * 0.25;
-
-                     if (index == 2)
-                         return width * 0.25;
+                         return width * 0.4;
 
                  }
              });
          }
      }
+
+
+
+     /**
+     * Function: Checking on simmilar password
+     */
+     function password_is_same() {
+         for (var i = 0; i < array_judges.length; i++) {
+             for (var j = 1 + i; j < array_judges.length; j++) {
+                 if (array_judges[i]['password'] == array_judges[j]['password'])
+                    return true;
+             }
+         }
+         return false;
+     }
+
+
+
+
+     /**
+     * Create EventID view
+     */
+     var ArrEventID = $('#eventID').attr('data-id').split(''),
+         OutEventID = '<div class="eventID-list">';
+     for (var i = 0; i < ArrEventID.length; i++) {
+         OutEventID = OutEventID + '<span class="eventID-item">' + ArrEventID[i] + '</span>';
+     }
+     OutEventID += '</div>'
+     $('#eventID').append(OutEventID);
 
 });

@@ -4,7 +4,6 @@ application/cache
 application/logs
 .idea/*
 uploads/
-.idea/sqldialects.xml
 
 application/vendor/phing/phing/
 

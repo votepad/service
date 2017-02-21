@@ -135,7 +135,6 @@ class Controller_Events_Index extends Dispatch
                 ->set('eventPage', $this->event->page);
     }
 
-
     /**
      * CONTROL submodule
      * action_before - administrate event before the start
@@ -173,7 +172,6 @@ class Controller_Events_Index extends Dispatch
                 ->set('organizationPage', $this->organization->website)
                 ->set('eventPage', $this->event->page);
     }
-
 
     /**
      * PATTERN submodule
@@ -298,7 +296,17 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_groups()
     {
-        $this->template->main_section = View::factory('events/members/groups');
+        $teams = Methods_Teams::getAllTeams($this->event->id);
+        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+        $groups = Methods_Groups::getAllGroups($this->event->id);
+
+        $this->template->main_section = View::factory('events/members/groups')
+            ->set('event', $this->event)
+            ->set('teams', $teams)
+            ->set('participants', $participants)
+            ->set('groups', $groups);
+
+        /** @var jumbotron_navigation */
         $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
             ->set('organizationPage', $this->organization->website)
             ->set('eventPage', $this->event->page);
