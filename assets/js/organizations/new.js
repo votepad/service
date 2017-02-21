@@ -1,4 +1,17 @@
-$().ready(function() {
+$(document).ready(function() {
+
+    /**
+    * Add min-height to Section
+    */
+
+    $('section').css('min-height', $(window).height()-$('footer').height()-150+'px');
+    $(window).resize(function(){
+        $('section').css('min-height', $(window).height()-$('footer').height()-150+'px');
+    })
+
+
+    
+
 
   var url = "http://pronwe";
 

@@ -15,11 +15,12 @@
             </button>
         </div>
 
-        <!-- Votepad Brand + link to Organization Page -->
     <? if ($isLogged) : ?>
+        <!-- Votepad Brand + link to Organization Page -->
         <a href="<?=URL::site('organization/' . $myorg->id); ?>" title="На страницу организации <?=$myorg->name; ?>" class="header_text header_text-logo">Votepad</a>
     <? else : ?>
-        <div class="header_text header_text-logo">Votepad</div>
+        <!-- Votepad Brand + link to Welcome Votepad Page -->
+        <a href="<?=URL::site('/'); ?>" class="header_text header_text-logo">Votepad</a>
     <? endif; ?>
 
 

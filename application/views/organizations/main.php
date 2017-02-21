@@ -1,7 +1,3 @@
-<?
-    $isLogged = Dispatch::isLogged();
-?>
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -16,9 +12,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<!-- =============== VENDOR STYLES ===============-->
-    <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css">
-    <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css?v=<?= filemtime("assets/css/app.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css?v=<?= filemtime("assets/css/icons_fonts.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css?v=<?= filemtime("assets/css/app_v1.css") ?>">
 	<link rel="stylesheet" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
@@ -26,7 +22,6 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/organizations/org.js"></script>
 
 </head>
 <body>

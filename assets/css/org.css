@@ -458,6 +458,12 @@
 **	New Organization's Page Style
 */
 
+.form_neworg{
+	width: 100%;
+	
+}
+
+
 .neworg-wrapper{
 	width: 100%;
 	min-height: calc(100% - 100px);

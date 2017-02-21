@@ -44,7 +44,7 @@ class Controller_Organizations_Index extends Dispatch
              * Two types of creating orgs: Logged and Not logged
              */
             case self::ACTION_NEW :
-                $this->template = 'organizations/new_not_logged';
+                $this->template = 'organizations/new';
                 break;
 
             /**
@@ -97,14 +97,12 @@ class Controller_Organizations_Index extends Dispatch
             */
             $this->template->JumbotronNav = Kohana::$config->load('orgJumbotronNav')->as_array();
 
-
-            /**
-            * Footer
-            */
-            $this->template->footer = View::factory('organizations/blocks/footer');
-
-
         }
+
+        /**
+        * Footer
+        */
+        $this->template->footer = View::factory('organizations/blocks/footer');
 
     }
 
@@ -117,8 +115,23 @@ class Controller_Organizations_Index extends Dispatch
     public function action_new()
     {
         $isUserAuthenitfied = !empty($this->session->get('id_user'));
+
         if ($isUserAuthenitfied) {
+
             throw new HTTP_Exception_404;
+
+        } else {
+
+            /**
+            * Header
+            * + header navigation (Logged && ! Logged)
+            * + authorization modal
+            */
+            $this->template->header = View::factory('/organizations/blocks/header_notLogged')
+                ->set('auth_modal', View::factory('welcome/blocks/auth_modal'));
+
+            $this->template->main_section = View::factory('/organizations/new');
+
         }
     }
 
