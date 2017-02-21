@@ -12,9 +12,6 @@ class Controller_Auth extends Dispatch {
 
     function action_index()
     {
-        /**
-         * Destroy session
-         */
         Session::instance()->destroy();
     }
 
@@ -22,6 +19,7 @@ class Controller_Auth extends Dispatch {
     {
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
+        $mode       = Arr::get($_GET, 'mode', '');
 
         $this->model = new Model_Auth();
 
@@ -50,7 +48,7 @@ class Controller_Auth extends Dispatch {
 
         $this->auth_render = false;
     }
-    
+
     private function login($email, $password, $remember = FALSE)
     {
         return $this->model->login($email, $password);
@@ -59,6 +57,14 @@ class Controller_Auth extends Dispatch {
     private function logout($email)
     {
         return $this->model->logout($email, FALSE);
+    }
+
+    /**
+     * @todo Check form
+     */
+    private function checkForm()
+    {
+
     }
 
 }

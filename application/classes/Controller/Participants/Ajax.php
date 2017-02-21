@@ -28,10 +28,9 @@ class Controller_Participants_Ajax extends Ajax
 
                 $model_participants = new Model_Participants();
 
-                $model_participants->name  = $participant['name'];
-                $model_participants->about = $participant['about'];
-                $model_participants->photo = $participant['photo'];
-                $model_participants->email = $participant['email'];
+                $model_participants->name  = Arr::get($participant,'name','');
+                $model_participants->about = Arr::get($participant,'about','');
+                $model_participants->photo = Arr::get($participant,'photo','');
 
                 /**
                  * Different action depending on status
@@ -53,6 +52,7 @@ class Controller_Participants_Ajax extends Ajax
 
                     $id = $participant['id'];
                     Methods_Participants::removeParticipant($id);
+                    Methods_Teams::removeParticipantFromTeam(null, $id);
 
                 }
             }
@@ -81,8 +81,6 @@ class Controller_Participants_Ajax extends Ajax
                 'photo' => $part->photo ?: "",
                 'name' => $part->name,
                 'about' => $part->about ?: "",
-                'email' => $part->email ?: "",
-                'sendresult' => false,
                 'status' => ''
             );
         }

@@ -4,8 +4,9 @@ class Controller_Teams_Modify extends Dispatch {
 
     public function before() {
 
+        echo Debug::Vars($_POST);
         $this->auto_render = false;
-
+        $this->checkCsrf();
         parent::before();
     }
 
@@ -45,6 +46,24 @@ class Controller_Teams_Modify extends Dispatch {
 
         $this->redirect($referrer);
 
+    }
+
+    /**
+     * Change team information
+     */
+    public function action_edit()
+    {
+        $name = Arr::get($_POST, 'name');
+        $description = Arr::get($_POST, 'description');
+        $participants = Arr::get($_POST, 'participants');
+        $logo = Arr::get($_POST, 'logo');
+        $id_team = Arr::get($_POST, 'id_team');
+
+        $proccess = Methods_Teams::editTeamInformation($id_team, $name, $description, $logo, $participants);
+
+        if ($proccess) {
+            $this->redirect($this->request->referrer());
+        }
     }
 
 }
