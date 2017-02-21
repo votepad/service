@@ -100,7 +100,7 @@ $(document).ready(function(){
      */
 
      $('body').on('click', '.backdrop', function(){
-         $('body').removeClass('hidden')
+         $('body').removeClass('hidden').removeClass('mobile-open');
          $('.header_menu').removeClass('open');
          $('.jumbotron_nav').removeClass('open');
          $(this).remove();
@@ -541,7 +541,7 @@ $(function(){
       if (initial) {
         $img.css('display', 'block');
       }
-      if ((bottom > scrollTop) && (top < (scrollTop + windowHeight))) {
+      else if ((bottom > scrollTop) && (top < (scrollTop + windowHeight))) {
         $img.css('transform', "translate3D(-50%," + parallax + "px, 0)");
       }
 
@@ -549,19 +549,28 @@ $(function(){
 
     // Wait for image load
     $this.children("img").one("load", function() {
-      updateParallax(true);
+        updateParallax(true);
+        updateParallax(false);
     }).each(function() {
-      if(this.complete) $(this).load();
+        if(this.complete) $(this).load();
     });
 
     $(window).scroll(function() {
-      window_width = $(window).width();
-      updateParallax(false);
+        window_width = $(window).width();
+        if ( window_width < 600 ) {
+            updateParallax(true);
+        } else {
+            updateParallax(false);
+        }
     });
 
     $(window).resize(function() {
-      window_width = $(window).width();
-      updateParallax(false);
+        window_width = $(window).width();
+        if ( window_width < 600 ) {
+            updateParallax(true);
+        } else {
+            updateParallax(false);
+        }
     });
 
   });

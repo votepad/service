@@ -6,12 +6,12 @@ $STRING = '\w+';
 /**
  * Welcome page
  */
-Route::set('Welcome_Page', '')
+/*Route::set('Welcome_Page', '')
     ->defaults(array(
         'controller' => 'Welcome',
         'action'     => 'index',
     ))
-    ->cache();
+    ->cache();*/
 
 /**
  * Route for authentification
@@ -43,6 +43,7 @@ Route::set('IMAGE_TRANSPORT', 'transport')
         'action'     => 'file_uploader'
     ));
 
+require_once ('routes/welcome.php');
 require_once ('routes/ui.php');
 require_once ('routes/organizations.php');
 require_once ('routes/events.php');

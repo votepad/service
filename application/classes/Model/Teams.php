@@ -5,7 +5,8 @@
  * CRUD
  */
 
-class Model_Teams extends Model {
+class Model_Teams extends Model 
+{
 
     public $id;
 
@@ -67,7 +68,8 @@ class Model_Teams extends Model {
      * @return bool
      * @throws Kohana_Exception
      */
-    protected static function get($id) {
+    protected static function get($id) 
+    {
 
         $team = new ORM_Teams();
 
@@ -100,7 +102,8 @@ class Model_Teams extends Model {
      * @return bool
      * @throws Kohana_Exception
      */
-    protected static function delete($id) {
+    protected static function delete($id) 
+    {
 
         $team = new ORM_Teams();
 

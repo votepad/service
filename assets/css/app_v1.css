@@ -27,8 +27,8 @@ body.hidden{
 	overflow: hidden;
 	padding-right: 17px;
 }
-body.modal-open .header_text-logo, body.hidden .header_text-logo{
-	right: 8.5px;
+body.modal-open .header{
+	padding-right: 17px;
 }
 button, input, textarea {
 	margin: 0;
@@ -515,7 +515,7 @@ ul{
 .footer .logo-name{
 	margin-left: 15px;
     vertical-align: top;
-}
+}*
 .footer .logo-text{
 	display: block;
 	font-size: .9em;
@@ -1593,6 +1593,7 @@ label.btn{
 	background-color: rgba(0,0,0,0.05);
 }
 .btn_primary:hover, .btn_primary:focus{
+	color: #FFF;
 	background-color: #1F757D;
 }
 
@@ -2268,7 +2269,44 @@ select.invalid + .select2-container .select2-selection{
 
 
 
-
+/**
+* Authorization Modal Style
+*/
+.auth-modal .modal-dialog{
+    margin: 120px auto
+}
+.auth-modal .modal-content{
+	height: 300px;
+	overflow: hidden;
+    border-radius: 5px;
+}
+.auth-modal .modal-wrapper{
+	transition: .5s ease-out;
+}
+.auth-modal .modal-wrapper.up{
+    -webkit-transform: translateY(-300px);
+    transform: translateY(-300px);
+}
+.auth-modal .modal-body{
+    min-height: 250px;
+}
+.auth-modal .modal-footer, .auth-modal .modal-header{
+	background: #fafbfc;
+	float: none;
+	text-align: center;
+}
+.auth-modal a:hover, .auth-modal .modal-header:hover{
+	color: #008DA7;
+}
+.auth-modal h4{
+    font-size: 1.5em;
+    margin: 10px auto;
+    letter-spacing: .01em;
+    text-align: center;
+}
+.auth-modal .input-field {
+    margin-top: .6em;
+}
 
 
 /*
@@ -2650,6 +2688,7 @@ section:after, section:before,
 	overflow: hidden;
 	background-color: #e5e5e5;
 }
+<<<<<<< HEAD
 
 .tooltip {
   position: absolute;
@@ -2784,4 +2823,19 @@ section:after, section:before,
 	font-weight: 500;
 	margin: 0 10px;
 	padding: 8px 25px;
+=======
+.swal2-container{
+	z-index: 1020;
+}
+.swal2-container .btn{
+	margin: 0 20px;
+	padding: 10px 20px;
+	font-size: 16px;
+}
+.swal2-modal :not(.swal2-styled).swal2-loading::after{
+    margin-left: 10px;
+	height: 15px;
+	width: 15px;
+	border: 3px solid #FFF;
+>>>>>>> beta
 }
