@@ -1,0 +1,86 @@
+.header-home{
+    background: initial;
+	height: 85px;
+	line-height: 85px;
+    position: absolute;
+    z-index: 10;
+    box-shadow: none;
+}
+
+.header-default{
+	height: 60px;
+	line-height: 60px;
+}
+
+.header-wrapper{
+    position: relative;
+    margin: 0 auto;
+    height: inherit;
+    width: 85%;
+}
+
+
+/*
+ * Header Button
+ */
+
+.header_menu-btn-icon, .header_menu-btn-icon > .header_button{
+    width: 60px;
+    height: inherit;
+}
+
+.header_menu-btn-icon > .header_button > i{
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    width: 20px;
+    left: 20px;
+    top: 40px;
+    margin: 5px auto;
+    height: 2px;
+    transition-property: background-color,transform,opacity,top;
+    transition-duration: .25s,.25s,.25s,.25s;
+    transition-delay: 0s;
+    transition-timing-function: ease,ease-out,ease,ease-out;
+}
+.header_menu-btn-icon > .header_button > i:first-child{
+    top: 33px;
+}
+.header_menu-btn-icon > .header_button > i:last-child{
+    top: 47px;
+}
+.header_menu-btn-icon > .header_button.mobile-open > i:first-child,
+.header_menu-btn-icon > .header_button.mobile-open >i:last-child {
+    top: 40px;
+    background-color: #008DA7;
+    opacity: 1;
+}
+.header_menu-btn-icon > .header_button.mobile-open > i:first-child {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.header_menu-btn-icon > .header_button.mobile-open > i {
+    opacity: 0;
+}
+.header_menu-btn-icon > .header_button.mobile-open >i:last-child {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+        .header-default .header_menu-btn-icon > .header_button > i{
+            top: 27px
+        }
+        .header-default .header_menu-btn-icon > .header_button > i:first-child{
+            top: 20px
+        }
+        .header-default .header_menu-btn-icon > .header_button > i:last-child{
+            top: 34px
+        }
+        .header-default .header_menu-btn-icon > .header_button.mobile-open > i:first-child,
+        .header-default .header_menu-btn-icon > .header_button.mobile-open >i:last-child {
+            top: 30px;
+            background-color: #FFF;
+            opacity: 1;
+        }
