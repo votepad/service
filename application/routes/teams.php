@@ -35,3 +35,20 @@ Route::set("DELETE_TEAM", "teams/delete/<id_event>/<id_team>", array(
         'controller' => 'Teams_Ajax',
         'action'     => 'delete'
     ));
+
+/**
+ * Route to change the teams information
+ * gets POST data
+ *
+ * @example http://pronwe.ru/teams/edit/3
+ *
+ * @params [INT] id_event - event identity
+ * @params [INT] id_team - team identity
+ */
+Route::set('EDIT_TEAM', "teams/edit/<id_event>", array(
+        'id_event' => $DIGIT
+    ))
+    ->defaults(array(
+       'controller' => 'Teams_Modify',
+        'action'    => 'edit'
+    ));

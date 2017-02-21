@@ -8,23 +8,33 @@
 
 class Dispatch extends Controller_Template
 {
-    public $template = '';
-
-    protected $errors;
-    protected $cache;
-    protected $session;
-    public    $user;
-
     const POST = 'POST';
     const GET  = 'GET';
 
+    /** @var string - Path to template */
+    public $template = '';
+
+    /** @var $errors - Page erros */
+    protected $errors;
+
+    /** @var  $memcache - Memcache */
+    protected $memcache;
+
+    /** @var $redis - Redis instance */
+    protected $redis;
+
+    /** @var  $session - Session singleton instance */
+    protected $session;
+
+    /** @var  $user - Current user */
+    public    $user;
+
     function before()
     {
-        $GLOBALS['SITE_NAME']   = "ProNWE";
+        $GLOBALS['SITE_NAME']   = "Votepad";
         $GLOBALS['FROM_ACTION'] = $this->request->action();
 
         /** Disallow requests from other domains */
-
         if (Kohana::$environment === Kohana::PRODUCTION) {
 
             if ((Arr::get($_SERVER, 'SERVER_NAME') != '') &&
@@ -37,15 +47,17 @@ class Dispatch extends Controller_Template
             $this->request->secure(true);
         }
 
-        $this->session = Session::instance();
+        $driver = 'cookie';
+        $this->session = self::sessionInstance($driver);
         $this->setGlobals();
-
-        parent::before();
 
         // XSS clean in POST and GET requests
         self::XSSfilter();
 
+        parent::before();
+
         if ($this->auto_render) {
+
             // Initialize with empty values
             $this->template->title = $this->title = $GLOBALS['SITE_NAME'];
             $this->template->keywords    = '';
@@ -63,7 +75,7 @@ class Dispatch extends Controller_Template
     */
     public function after()
     {
-//        echo View::factory('profiler/stats');
+        echo View::factory('profiler/stats');
 
         parent::after();
     }
@@ -94,17 +106,14 @@ class Dispatch extends Controller_Template
         }
     }
 
-
     /**
-     * @public
-     *
      * Return "True" if user is logged
-     *
      * @return bool
      */
     public static function isLogged()
     {
         $session = Session::Instance();
+
         if ( empty($session->get('id_user')) ) {
             return false;
         } else {
@@ -114,19 +123,33 @@ class Dispatch extends Controller_Template
     }
 
     /**
-     * @todo
-     * Попробовать в бою Redis
+     * Redis connection
      */
-    public static function _redis()
+    public static function redisInstance()
     {
+        $config = Kohana::$config->load('redis.default');
 
+        $redis = new Redis();
+        $redis->connect($config['hostname'], $config['port']);
+        $redis->auth($config['password']);
+        $redis->select(0);
+
+        return $redis;
+    }
+
+    public static function memcacheInstance()
+    {
+        return Cache::instance('memcache');
+    }
+
+    public static function sessionInstance($driver)
+    {
+        return Session::instance($driver);
     }
 
     private function setGlobals()
     {
         if (!empty($this->session->get('id_user'))) {
-
-            $id = $this->session->get('id_user');
 
             $user = new Model_PrivillegedUser();
 
@@ -134,11 +157,20 @@ class Dispatch extends Controller_Template
             View::set_global('user', $user);
         }
 
-        $address = 'http://' . $_SERVER['SERVER_NAME'] ;
-        View::set_global('assets', $address . '/assets/');
+        $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
+
+        View::set_global('assets', $address . DIRECTORY_SEPARATOR. 'assets' . DIRECTORY_SEPARATOR);
         View::set_global('website', $address);
 
-        /** Set caching method */
-        $this->cache = Cache::instance();
+        $this->memcache = self::memcacheInstance();
+        $this->redis    = self::redisInstance();
+    }
+
+    protected function checkCsrf()
+    {
+        /** Check CSRF */
+        if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf', ''))) {
+            throw new Kohana_HTTP_Exception_403();
+        }
     }
 }

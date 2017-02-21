@@ -93,7 +93,7 @@ class Methods_Participants extends Model_Participants
 
             $counter = 0;
             $result = array();
-            
+
             foreach($participants as $participant) {
 
                 $result[$counter] = self::getParticipant($participant["id_participant"]);
@@ -113,5 +113,17 @@ class Methods_Participants extends Model_Participants
      */
     public static function removeParticipant($id) {
         self::delete($id);
+    }
+
+    public static function getSetOfParticipants($participantsId) {
+
+        $result = array();
+
+        foreach ($participantsId as $participant) {
+            array_push($result, self::getParticipant($participant));
+        }
+
+        return $result;
+
     }
 }

@@ -13,17 +13,20 @@ class Model_Auth extends Model {
 
     private $_session = null;
 
+    private $_session_driver = 'cookie';
+
     public function login($email, $password, $remember = false)
     {
-        $select = DB::select('*')->from('Users')
+        $select = Dao_Users::select('*')
             ->where('email', '=', $email)
-            ->and_where('password', '=', $password)
+            ->where('password', '=', $password)
             ->limit(1)
-            ->execute()->current();
+            ->cached(DATE::DAY*30, 'users', array('users') )
+            ->execute();
 
         if (Arr::get($select, 'id'))
         {
-            $this->_session = Session::instance();
+            $this->_session = Dispatch::sessionInstance($this->_session_driver);
             $this->complete($select);
         }
 
@@ -35,15 +38,15 @@ class Model_Auth extends Model {
         if ($destroy === TRUE)
         {
             // Destroy the session completely
-            Session::instance()->destroy();
+            Session::instance($this->_session_driver)->destroy();
         }
         else
         {
             // Remove the user from the session
-            Session::instance()->delete();
+            Session::instance($this->_session_driver)->delete();
 
         }
-        
+
         return false;
     }
 
