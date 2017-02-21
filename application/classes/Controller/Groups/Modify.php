@@ -42,11 +42,37 @@ class Controller_Groups_Modify extends Dispatch {
 
     }
 
-    private function addMembers($id_group, $members) {
-
+    private function addMembers($id_group, $members)
+    {
         foreach ($members as $member) {
             Methods_Groups::addGroupMembers($id_group, $member);
         }
+    }
+
+    public function action_edit()
+    {
+        $id_group = $this->request->param('id_group');
+        $name = Arr::get($_POST, 'name');
+        $description = Arr::get($_POST, 'description');
+        $newMemberList = Arr::get($_POST, 'members');
+
+        $model_groups = Model_Groups::get($id_group);
+
+        /** Edit main group info */
+        $model_groups->name = $name;
+        $model_groups->description = $description;
+        $model_groups->save($id_group);
+
+        /** working with members */
+        $existedMembers = Methods_Groups::getGroupIdMembers($id_group);
+        $existedMembersIds = array();
+
+        foreach ($existedMembers as $member) {
+            $existedMembersIds[] = $member['id_member'];
+        }
+
+        $diff = array_diff($existedMembersIds, $newMemberList);
+        echo Debug::Vars($diff);
 
     }
 

@@ -4,9 +4,9 @@ class Controller_Teams_Modify extends Dispatch {
 
     public function before() {
 
+        echo Debug::Vars($_POST);
         $this->auto_render = false;
         $this->checkCsrf();
-        
         parent::before();
     }
 

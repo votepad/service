@@ -52,6 +52,7 @@
         	Создать команду
         </button>
     </div>
+    <input type="hidden" name="csrf" value="<?=Security::token(TRUE); ?>">
 </form>
 
 <div class="row row-col">

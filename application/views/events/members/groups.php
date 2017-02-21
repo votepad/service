@@ -80,7 +80,7 @@
     <div class="col-xs-12">
         <? foreach ($groups as $group) : ?>
 
-            <div class="card clear_fix" action="" id="group_<?=$group->id; ?>">
+            <div class="card clear_fix" id="group_<?=$group->id; ?>">
                 <div class="card_title">
                     <div class="card_title-text" id="name_group_<?=$group->id; ?>">
                         <?=$group->name; ?>
@@ -176,6 +176,9 @@
                 <button type="button" class="btn btn_default" data-dismiss="modal">Отмена</button>
                 <button id="update-info" type="button" class="btn btn_primary">Сохранить изменения</button>
             </div>
+
+            <input type="hidden" name="csrf" value="<?= Security::token(TRUE); ?>">
+            
         </div>
     </div>
 </form>

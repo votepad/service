@@ -12,8 +12,8 @@ class Methods_Groups extends Model_Groups {
         $result = array();
         foreach ($select as $item) {
 
-            $group = new Model_Groups();
-            array_push($result, $group->get($item['id']));
+            $group = Model_Groups::get($item['id']);
+            array_push($result, $group);
 
         }
 
@@ -67,6 +67,17 @@ class Methods_Groups extends Model_Groups {
 
         }
 
+    }
+
+    public static function getGroupIdMembers($id_group)
+    {
+        $select = DB::select('id_member')
+            ->from('Group_Members')
+            ->where('id_group', '=', $id_group)
+            ->execute()
+            ->as_array();
+
+        return $select;
     }
 
     public static function getGroupMembers($id_group, $mode)

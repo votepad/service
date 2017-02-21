@@ -18,6 +18,11 @@ return array
 		),
 		'instant_death'      => TRUE,               // Take server offline immediately on first fail (no retry)
 	),
+	'memcacheimp' => array(
+		'driver'  => 'memcacheimp',
+		'lifetime' => 3600,
+		'requests' => 1000,
+	),
 	/* 'memcachetag' => array(
 		'driver'             => 'memcachetag',
 		'default_expire'     => 3600,

@@ -24,7 +24,7 @@ Route::set('ADD_GROUP', 'group/add/<id_event>',
 /**
  * Route to remove group
  *
- * @example http://pronwe.local/group/delete/3
+ * @example http://site.com/group/delete/3
  *
  */
 Route::set('REMOVE_GROUP', 'group/delete/<id_group>',
@@ -35,4 +35,19 @@ Route::set('REMOVE_GROUP', 'group/delete/<id_group>',
     ))->defaults(array(
         'controller' => 'Groups_Ajax',
         'action'     => 'delete'
+    ));
+
+/**
+ * Route for changing information about groups
+ *
+ * @example http://site.com/group/edit/3
+ */
+Route::set('EDIT_GROUP', 'group/edit/<id_group>',
+    array(
+
+        'id_group' => $DIGIT
+
+    ))->defaults(array(
+        'controller' => 'Groups_Modify',
+        'action'     => 'edit'
     ));

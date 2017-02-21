@@ -78,7 +78,7 @@ class Model_Groups extends Model {
      * @return Model_Groups
      * @throws Kohana_Exception
      */
-    public function get($id)
+    public static function get($id)
     {
         $group = new ORM_Groups();
 

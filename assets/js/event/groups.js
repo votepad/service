@@ -124,6 +124,9 @@ $(document).ready(function() {
     $('.edit').click(function(){
         card = this.closest('.card');
         id = card.getAttribute('id');
+
+        console.log(id);
+
         name = $.trim(document.getElementById('name_' + id).innerHTML);
         description = $.trim(document.getElementById('description_' + id).innerHTML);
 
@@ -152,10 +155,21 @@ $(document).ready(function() {
         });
 
         // initialize modal
-        $("#editgroup_modal").modal({
+        var modalForm = $("#editgroup_modal");
+
+        modalForm.modal({
             backdrop: 'static',
             keyboard: false
         });
+
+        /**
+         * Split id string
+         */
+        var id_str = id.split('_'),
+            id_num = +id_str[1];
+
+        /** Add form action */
+        modalForm.get(0).action = '/group/edit/' + id_num;
 
     });
 
