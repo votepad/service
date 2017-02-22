@@ -108,7 +108,6 @@ class Controller_Organizations_Index extends Dispatch
 
 
     /**
-     *
      * action_new - open new organization form
      * Doesn't need any variables
      */
@@ -130,7 +129,7 @@ class Controller_Organizations_Index extends Dispatch
             $this->template->header = View::factory('/organizations/blocks/header_notLogged')
                 ->set('auth_modal', View::factory('welcome/blocks/auth_modal'));
 
-            $this->template->main_section = View::factory('/organizations/new');
+            //$this->template->main_section = View::factory('/organizations/new');
 
         }
     }

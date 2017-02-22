@@ -719,8 +719,8 @@ $(function(){
           $(this).next('label').addClass('active');
           var max_len = parseInt($(this).attr('length'));
 
-          if ( $(this).hasClass('nwe_site'))  // http://nwe.ru/
-              max_len = max_len -  14;
+          if ( $(this).hasClass('vp_site'))  // http://nwe.ru/
+              max_len = max_len - 18;
 
           $(this).closest('.input-field').find(".counter").append("0/" + max_len);
       }
@@ -742,9 +742,9 @@ $(function(){
     var cur_len = $(this).val().length;
     var max_len = parseInt($(this).attr('length'));
 
-    if( $(this).hasClass('nwe_site') ) {
-        if( cur_len >= 14 ) cur_len = cur_len - 14;
-        max_len = max_len -  14;
+    if( $(this).hasClass('vp_site') ) {
+        if( cur_len >= 18 ) cur_len = cur_len - 18;
+        max_len = max_len -  18;
     }
 
     $(this).closest('.input-field').find(".counter").empty().append(cur_len + "/" + max_len);

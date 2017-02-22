@@ -2,9 +2,9 @@
 
 /**
  * Class Model_Organizations
- * @author ProNWE team
+ * @author Votepad team
  * @copyright Khaydarov Murod
- * @version 0.1.0
+ * @version 0.2.0
  */
 
 class Model_Organizations extends Model
