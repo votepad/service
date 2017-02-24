@@ -13,8 +13,18 @@ assets/frontend/.idea/
 assets/frontend/modules/*
 assets/frontend/webpack.config.js
 assets/frontend/node_modules/*
-assets/vendor/*
 
+# vendor 
+assets/vendor/bootstrap/*
+assets/vendor/bootstrap-notify/*
+assets/vendor/fontawesome/*
+assets/vendor/handsontable/*
+assets/vendor/jquery/*
+assets/vendor/jquery-validation/*
+assets/vendor/jquery.inputmask/*
+assets/vendor/select2/*
+assets/vendor/sortable/*
+assets/vendor/sweetalert2/*
 
 # Media files
 assets/img/

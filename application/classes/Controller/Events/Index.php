@@ -9,7 +9,7 @@
  *
  * @author Turov Nikolay
  *
- * @version 0.2.3
+ * @version 0.2.4
  */
 class Controller_Events_Index extends Dispatch
 {
@@ -105,6 +105,20 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_new()
     {
+        /**
+        * Header
+        * + header navigation (Logged && ! Logged)
+        * + authorization modal
+        */
+        $this->template->header = View::factory('/organizations/blocks/header')
+            ->set('auth_modal', View::factory('welcome/blocks/auth_modal'));
+
+        /**
+        * Footer
+        */
+        $this->template->footer = View::factory('organizations/blocks/footer');
+
+
         $team = Model_Organizations::team($this->organization->id);
         $this->template->team = $team;
     }

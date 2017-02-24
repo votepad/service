@@ -1,5 +1,24 @@
 $(document).ready(function(){
 
+    /**
+    * Open Select for Jumbotron Navigation
+    */
+    $('.jumbotron_nav-searching-select-wrapper').mouseover(function () {
+        $(this).addClass('open');
+    });
+    $('.jumbotron_nav-searching-select-wrapper').mouseout(function () {
+        $(this).removeClass('open');
+    });
+    $('.jumbotron_nav-searching-select-icon').click(function () {
+        if ( ! $(this).parent().hasClass('open')) {
+            $(this).parent().addClass('open');
+        } else{
+            $(this).parent().removeClass('open');
+        }
+    });
+
+
+
   /**
    * Show description of event
    */
@@ -67,13 +86,13 @@ $(document).ready(function(){
     minute: 'numeric',
   };
 
-    return date.toLocaleString("ru", {weekday: 'long', day: 'numeric', month: 'long'}) + ' ' + date.getFullYear() + ' в ' + date.toLocaleString("ru", {hour: 'numeric', minute: 'numeric'});  
+    return date.toLocaleString("ru", {weekday: 'long', day: 'numeric', month: 'long'}) + ' ' + date.getFullYear() + ' в ' + date.toLocaleString("ru", {hour: 'numeric', minute: 'numeric'});
   }
 
   /**
    *  SEARCHING EVENT BY NAME
    */
-  $('.search-block').on('keyup', 'input[name="event_name"]', function(){
+  $('.jumbotron_nav-searching-input').on('keyup', 'input[name="event_name"]', function(){
     searching();
   });
 
@@ -81,10 +100,10 @@ $(document).ready(function(){
   /**
    * SEARCHING EVENT BY TYPE
    */
-  $('.select_btn_list[name="event_type"] li').click( function(){
+  $('.select_btn[name="event_type"] li').click( function(){
 
     type = $(this).text();
-    $('.select_btn_list[name="event_type"] li').each(function(){$(this).removeClass('active');})
+    $('.select_btn[name="event_type"] li').each(function(){$(this).removeClass('active');})
     $(this).addClass('active');
     searching();
 
@@ -94,9 +113,9 @@ $(document).ready(function(){
   /**
    *  SORTING EVENTS ARRAY
    */
-  $('.select_btn_list[name="event_sort"] li').click( function(){
+  $('.select_btn[name="event_sort"] li').click( function(){
 
-    $('.select_btn_list[name="event_sort"] li').each(function(){$(this).removeClass('active');})
+    $('.select_btn[name="event_sort"] li').each(function(){$(this).removeClass('active');})
 
     $(this).addClass('active');
 
