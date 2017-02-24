@@ -1,5 +1,5 @@
 <!-- =============== PAGE STYLES ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
+<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
 
 <h3 class="page-header">
 	Изменение основной информации об организации
@@ -49,7 +49,7 @@
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/organizations/settings-maininfo.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/organization/settings-maininfo.js"></script>
 <script>
 	$(document).ready(function() {
 

@@ -54,37 +54,57 @@ $(document).ready(function() {
             return;
         }
 
-        translateX -= 100;
-        $('.form_neworg_body-wrapper-item').each(function(){
-            $(this).css('transform', 'translateX(' + translateX + '%)').css('-webkit-transform','translateX(' + translateX + '%)');
-        })
-
-        changeNextPrevSubmitBtns();
+        changeStep('next');
 
     });
+
 
 
     /**
     * Previous step
     */
-
     $('#btnprevious').click(function () {
 
-        translateX += 100;
-        $('.form_neworg_body-wrapper-item').each(function(){
-            $(this).css('transform', 'translateX(' + translateX + '%)').css('-webkit-transform','translateX(' + translateX + '%)');
-        })
-
-        changeNextPrevSubmitBtns();
+        changeStep('previous');
 
     });
+
+
 
     /**
     * Submit form
     */
      $('#btnsubmit').click(function () {
-        $("#org_site").inputmask('remove');
-        $('.form_neworg')[0].submit();
+
+         var isFormInvalid = false, id;
+         $('.form_neworg input, textarea').each(function(){
+             id = $(this).attr('id');
+             if (isFormInvalid == false) {
+                 isFormInvalid = isElementInvalid($(this), 'submit')
+
+                 if (isFormInvalid == true) {
+                     if ( $(this).attr('id') == "confirmrools" ) {
+                         $.notify({
+                             message: 'Вы не согласились с правилами, пожалуйста, прочитайте и согласитесь'
+                         },{
+                             type: 'danger'
+                         });
+                     } else {
+                         $.notify({
+                             message: 'У вас ошибка при вводе "' + $('#' + id + ' + label').text().toLowerCase() + '"'
+                         },{
+                             type: 'danger'
+                         });
+                     }
+                 }
+             }
+         });
+
+         if ( isFormInvalid == false ) {
+             $("#org_site").inputmask('remove');
+             $('.form_neworg')[0].submit();
+         }
+
     });
 
 
@@ -92,7 +112,19 @@ $(document).ready(function() {
     /**
     * Show/hide Next|Previous|Submit btns
     */
-    function changeNextPrevSubmitBtns() {
+    function changeStep() {
+
+        if (direction == 'next') {
+			translateX -= 100;
+		} else if (direction == 'previous') {
+			translateX += 100;
+		}
+
+		$('.form_newevent_body-wrapper-item').each(function(){
+			$(this).css('transform', 'translateX(' + translateX + '%)').css('-webkit-transform','translateX(' + translateX + '%)');
+		})
+
+
         if ( translateX < 0 && translateX > -200 ) {
             $('#btnnext').removeClass('displaynone');
             $('#btnprevious').removeClass('displaynone');
@@ -102,6 +134,7 @@ $(document).ready(function() {
             $('#btnprevious').addClass('displaynone');
         }
     }
+
 
 
     /**
@@ -182,6 +215,16 @@ $(document).ready(function() {
                 return false;
             }
 
+        } else if ( status == "submit" ) {
+
+            if ( elements[i].flag == false ) {
+                $el.addClass('invalid');
+                return true;
+            } else {
+                $el.removeClass('invalid');
+                return false;
+            }
+
         }
 
     }
@@ -222,7 +265,7 @@ $(document).ready(function() {
             }
         },
         showMaskOnHover: false,
-        showMaskOnFocus: false,
+        showMaskOnFocus: true,
         oncomplete: function(){
             isElementInvalid($(this), "valid");
         },

@@ -4,7 +4,7 @@
     $allowed    = $isLogged && $owner;
 ?>
 
-<script type="text/javascript" src="<?=$assets; ?>js/organizations/EventsInOrg.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/organization/EventsInOrg.js"></script>
 
 <!-- Searching event on loaded page -->
 <div class="jumbotron_nav-searching-block">

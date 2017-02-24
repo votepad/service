@@ -126,10 +126,9 @@ class Controller_Organizations_Index extends Dispatch
             * + header navigation (Logged && ! Logged)
             * + authorization modal
             */
-            $this->template->header = View::factory('/organizations/blocks/header_notLogged')
+            $this->template->header = View::factory('/organizations/blocks/header')
                 ->set('auth_modal', View::factory('welcome/blocks/auth_modal'));
 
-            //$this->template->main_section = View::factory('/organizations/new');
 
         }
     }

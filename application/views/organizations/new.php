@@ -12,16 +12,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
 	<!-- =============== VENDOR STYLES ===============-->
-	<link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css?v=<?= filemtime("assets/css/icons_fonts.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css?v=<?= filemtime("assets/css/app_v1.css") ?>">
-	<link rel="stylesheet" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
+	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
+    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/icons_fonts.css?v=<?= filemtime("assets/css/icons_fonts.css") ?>">
+    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/app_v1.css?v=<?= filemtime("assets/css/app_v1.css") ?>">
+	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/organizations/new.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>js/organization/new.js"></script>
 
 </head>
 <body>
@@ -52,7 +53,7 @@
                         <span class="help-block">По этому адресу будет доступен личный кабинет организации и видны все мероприятия, проводимые организацией.</span>
                     </div>
                 </div>
-                <div id="step2" class="row col-xs-4 form_neworg_body-wrapper-item" style="overflow-y:auto">
+                <div id="step2" class="row col-xs-4 form_neworg_body-wrapper-item">
     				<div class="input-field col-xs-12">
     					<textarea id="org_description" name="org_description" length="300" tabindex="-1"></textarea>
     					<label for="org_description">Описание организации</label>
@@ -67,9 +68,7 @@
     				</div>
     				<div class="col-xs-12">
     					<input type="checkbox" id="confirmrools" name="confirmrools" tabindex="-1">
-    					<label for="confirmrools">
-    						Мною прочитаны <a href="#/modal_rools" class="underlinehover" tabindex="-1">правила и соглашение</a> об оказании услуг NWE
-    					</label>
+    					<label for="confirmrools">Мною прочитаны <a href="#/modal_rools" class="underlinehover" style="color:#008DA7" tabindex="-1">правила и соглашение</a> об оказании услуг Votepad</label>
     				</div>
     			</div>
             </div>

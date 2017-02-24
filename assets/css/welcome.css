@@ -1,5 +1,6 @@
-body.mobile-open{
+body.mobile-open, body.mobile-open .header{
     overflow: hidden;
+    padding-right: 17px;
 }
 
 .header-home{
@@ -30,7 +31,7 @@ body.mobile-open{
     background-color: #fff;
     width: 20px;
     left: 25px;
-    top: 40px;
+    top: 35px;
     margin: 5px auto;
     height: 2px;
     transition-property: background-color,transform,opacity,top;
@@ -39,14 +40,14 @@ body.mobile-open{
     transition-timing-function: ease,ease-out,ease,ease-out;
 }
 .header_menu-btn-icon > .header_button > i:first-child{
-    top: 33px;
+    top: 28px;
 }
 .header_menu-btn-icon > .header_button > i:last-child{
-    top: 47px;
+    top: 42px;
 }
 .header_menu-btn-icon > .header_button.mobile-open > i:first-child,
 .header_menu-btn-icon > .header_button.mobile-open >i:last-child {
-    top: 40px;
+    top: 35px;
     background-color: #008DA7;
     opacity: 1;
 }

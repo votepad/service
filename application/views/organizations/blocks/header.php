@@ -1,9 +1,11 @@
 <?
-    $user       = Session::instance();
-    $isOwner    = Model_PrivillegedUser::getUserOrganization($user->get('id_user')) == $organization->id;
-    $myorg      = Model_Organizations::getByFieldName('id', Model_User::getUserOrganization($user->get('id_user')));
-    $isLogged   = Dispatch::isLogged();
-    $allowed = $isLogged && $isOwner;
+    $isLogged       = Dispatch::isLogged();
+    $isOwner        = null;
+    $allowed        = $isLogged && $isOwner;
+    if ($isLogged) :
+        $isOwner    = Model_PrivillegedUser::getUserOrganization($user->get('id_user')) == $organization->id;
+        $myorg      = Model_Organizations::getByFieldName('id', Model_User::getUserOrganization($user->get('id_user')));
+    endif;
 ?>
 
 
@@ -27,13 +29,7 @@
         <!-- Header Menu -->
         <div class="header_menu">
 
-        <? if ( !$isLogged): ?>
-
-            <a class="header_button" href="<?=URL::site('organization/new'); ?>">
-                <span class="header_text">Создать организацию</span>
-            </a>
-
-        <? else : ?>
+        <? if ( $isLogged): ?>
 
             <a class="header_button" href="<?=URL::site($myorg->website .'/event/new'); ?>">
                 <span class="header_text">Создать мероприятие</span>
@@ -55,7 +51,7 @@
         <!-- Header Menu Dropdown (Enter or user Name) -->
         <div class="header_menu-dropdown dropdown">
 
-            <? if ($isLogged) : ?>
+        <? if ($isLogged) : ?>
 
             <a id="open_usermenu" class="header_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                 <span class="header_text"><?=$user->get('name'); ?></span>
@@ -77,21 +73,25 @@
                 </a>
             </div>
 
-            <? else : ?>
+        <? else : ?>
 
             <a class="header_button header_auth" data-toggle="modal" data-target="#auth_modal">
                 <span class="header_text">Войти</span>
             </a>
 
-            <? endif; ?>
+        <? endif; ?>
 
         </div>
+
+        <? if ( $allowed): ?>
 
         <div class="header_menu-btn-icon right">
             <button id="open_jumbotron_nav" class="header_button">
                 <i class="fa fa-ellipsis-v header_icon" aria-hidden="true"></i>
             </button>
         </div>
+
+        <? endif; ?>
 
     </div>
 </header>

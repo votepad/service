@@ -1,7 +1,7 @@
 <!-- =============== PAGE STYLES ===============-->
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>js/organizations/settings-team.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/organization/settings-team.js"></script>
 
 <h3 class="page-header">
 	Состав команды
