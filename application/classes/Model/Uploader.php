@@ -3,7 +3,6 @@
 /**
  * Model_Uploader
  */
-
 class Model_Uploader extends Model
 {
     /**

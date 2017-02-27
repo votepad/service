@@ -1,9 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-
 /**
- * Class Dispatch
- * @author ProNWE team
- * @copyright Khaydarov Murod`
+ * Created by PhpStorm.
+ * User: Murod's Macbook Pro
+ * Date: 22.02.2016
+ * Time: 12:33
  */
 
 class Dispatch extends Controller_Template
@@ -34,18 +34,8 @@ class Dispatch extends Controller_Template
         $GLOBALS['SITE_NAME']   = "Votepad";
         $GLOBALS['FROM_ACTION'] = $this->request->action();
 
-        /** Disallow requests from other domains */
-        if (Kohana::$environment === Kohana::PRODUCTION) {
-
-            if ((Arr::get($_SERVER, 'SERVER_NAME') != '') &&
-                (Arr::get($_SERVER, 'SERVER_NAME') != '')
-            ) {
-                exit();
-            }
-
-            /** Mark requests as secure and working with HTTPS  */
-            $this->request->secure(true);
-        }
+        // XSS clean in POST and GET requests
+        self::XSSfilter();
 
         $driver = 'cookie';
         $this->session = self::sessionInstance($driver);

@@ -1,4 +1,4 @@
-<!--<!DOCTYPE html>
+<!--DOCTYPE html>
 <html lang="ru">
 <head>
 	<title>Авторизация | Votepad.ru</title>
@@ -6,12 +6,11 @@
     <meta name="author" content="Votepad" />
 
     <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/favicon.png" />
-
     <meta name="description" content="Страница авторизации для зарегистрированных пользователей" />
     <meta name="keywords" content="вход,регистрация,авторизация" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <!-- =============== VENDOR STYLES ===============--
+    <!-- =============== VENDOR STYLES ===============
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
     <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css">
