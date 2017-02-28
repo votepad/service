@@ -190,6 +190,11 @@ body.mobile-open{
     line-height: 1.5em;
     white-space: normal;
 }
+.header-btn > .btn_empty{
+    color: #fcfcfc;
+    font-size:.9em;
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
 .mobile-close {
     position: fixed;
     top: 0;
@@ -452,7 +457,7 @@ section{
     text-align: center;
     width: 80px;
     height: 80px;
-    margin: 20px auto 0 auto;
+    margin: 80px auto 0 auto;
     color: #FCFCFC;
     cursor: pointer;
 }

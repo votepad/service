@@ -24,6 +24,11 @@
                 Вход
             </a>
         </div>
+        <div class="pull-right header-list header-btn">
+            <a class="btn_empty" data-toggle="modal" data-target="#registr_modal">
+                Регистрация
+            </a>
+        </div>
     </div>
 </header>
 <div id="HeaderMobile" class="header-mobile">

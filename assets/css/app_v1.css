@@ -2272,10 +2272,10 @@ select.invalid + .select2-container .select2-selection{
 /**
 * Authorization Modal Style
 */
-.auth-modal .modal-dialog{
+.auth-modal .modal-dialog, .registr-modal .modal-dialog{
     margin: 120px auto
 }
-.auth-modal .modal-content{
+.auth-modal .modal-content, .registr-modal .modal-content{
 	height: 300px;
 	overflow: hidden;
     border-radius: 5px;
@@ -2287,7 +2287,7 @@ select.invalid + .select2-container .select2-selection{
     -webkit-transform: translateY(-300px);
     transform: translateY(-300px);
 }
-.auth-modal .modal-body{
+.auth-modal .modal-body, .registr-modal .modal-body{
     min-height: 250px;
 }
 .auth-modal .modal-footer, .auth-modal .modal-header{
@@ -2298,13 +2298,13 @@ select.invalid + .select2-container .select2-selection{
 .auth-modal a:hover, .auth-modal .modal-header:hover{
 	color: #008DA7;
 }
-.auth-modal h4{
+.auth-modal h4, .registr-modal h4{
     font-size: 1.5em;
     margin: 10px auto;
     letter-spacing: .01em;
     text-align: center;
 }
-.auth-modal .input-field {
+.auth-modal .input-field, .registr-modal .input-field {
     margin-top: .6em;
 }
 .auth_logged{
