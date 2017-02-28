@@ -1,4 +1,14 @@
 <!-- Authorization Modal -->
+<?php
+
+    $isLogged = Dispatch::isLogged();
+    $hadLogged = Dispatch::hadLogged();
+    $canLogin = false;
+
+    if ($isLogged || (!$isLogged && $hadLogged))
+        $canLogin = true;
+
+?>
 
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
