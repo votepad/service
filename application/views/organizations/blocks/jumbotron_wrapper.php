@@ -1,36 +1,26 @@
-<?
-    $isLogged = Dispatch::isLogged();
-    $owner    = Model_PrivillegedUser::getUserOrganization(Session::instance()->get('id_user')) == $organization->id;
-    $allowed = $isLogged && $owner;
-?>
-
 
 <div class="jumbotron_wrapper parallax-container">
     <div class="parallax jumbotron_cover">
         <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>">
     </div>
 
-    <? if ($allowed) : ?>
     <div class="jumbotron_wrapper_edit">
         <a id="jumbotron_org-cover-edit" role="button" class="jumbotron_wrapper_edit-btn">
             <i class="fa fa-camera jumbotron_wrapper_edit-icon" aria-hidden="true"></i>
             <span class="jumbotron_wrapper_edit-text">Обновить фото обложки</span>
         </a>
     </div>
-    <? endif; ?>
 
 
     <div class="jumbotron_org-avatar">
         <img id="jumbotron_org-avatar-uploaded" src="/uploads/organizations/m_<?=$organization->logo; ?>">
 
-        <? if ($allowed) : ?>
         <div class="jumbotron_org-avatar-edit">
             <a id="jumbotron_org-avatar-edit" href="#" role="button">
                 <i class="fa fa-camera" aria-hidden="true"></i>
                 <span>Обновить логотип организации</span>
             </a>
         </div>
-        <? endif; ?>
     </div>
     <div class="jumbotron_org-name-background"></div>
     <div class="jumbotron_org-name">
@@ -42,7 +32,6 @@
 </div>
 
 
-<? if ($allowed): ?>
 <script>
 
     var nwe = (function(nwe) {
@@ -237,4 +226,3 @@
     });
 
 </script>
-<? endif; ?>
