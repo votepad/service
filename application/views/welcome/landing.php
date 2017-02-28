@@ -62,7 +62,7 @@
         <div class="container-image pull-left">
             <div class="container-image-area">
                 <img src="<?=$assets; ?>img/welcome/iphoneframe.png" alt="Get the correctly counted results">
-                <video id="">
+                <video id="" autoplay loop>
                     <source src="<?=$assets; ?>img/welcome/allok.mov" />
                 </video>
             </div>
