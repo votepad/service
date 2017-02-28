@@ -1,48 +1,156 @@
-$(document).ready(function () {
-    
-    $('#OpenMobileHeader').click(function () {
-        if ( $(window).width() < 390 ) {
-            $('.header-btn').css('display','none');
+var slider = function(){
+
+    var letters = ['A', 'B', 'C', 'Ц', 'D', 'E', 'F', 'Ё'];
+
+    letters.sort();
+
+    //Получение элементов ползунка
+
+    var sliderElem = document.getElementById('slider');
+    var letterElem = document.getElementById('letter');
+    var bandElem =  sliderElem.children[0];
+    var circleElem = sliderElem.children[1];
+
+    //Получение координат полосы прокрутки
+
+    var bandCord = bandElem.getBoundingClientRect();
+
+    //Переменные для обработки события прокрутки
+
+    var circleCord = null;
+    var shiftX = null;
+
+    //Обработка touch-нажатия
+
+    circleElem.addEventListener('touchstart', function(event) {
+
+        if (event.targetTouches.length != 1) {
+            return;
         }
 
-        if ( $(this).hasClass('mobile-open') ) {
-            $('body').find('.mobile-close').click();
-        } else {
-            $('body').addClass('mobile-open').append('<div class="mobile-close"></div>');;
-            $('#HeaderMobile').animateCss('fadeInLeft');
-            $('#HeaderMobile').addClass("open");
-            $('.header_text-logo').wait(200).addClass("mobile-open");
-            $('#OpenMobileHeader').addClass("mobile-open");
-        }
-    });
+        var touch = event.targetTouches[0];
 
-    $('body').on('click', '.mobile-close', function() {
-        $('#HeaderMobile').animateCss('fadeOutLeft');
-        $('#HeaderMobile').wait(200).removeClass("open animated fadeOutLeft");
-        $('body').removeClass('mobile-open')
-        $('.header_text-logo').wait(100).removeClass("mobile-open");
-        $('#OpenMobileHeader').wait(100).removeClass("mobile-open");
-        $('.header-btn').css('display','block');
-        $(this).remove();
-    });
+        circleCord = circleElem.getBoundingClientRect();
 
-    $(window).resize(function () {
-        if ( $(window).width() > 992 && $('body').hasClass('mobile-open') ) {
-            $('body').find('.mobile-close').click();
-        }
-        if ( $(window).width() < 390 ) {
-            $('.header-btn').css('display','none');
-        } else {
-            $('.header-btn').css('display','block');
-        }
-    });
+        shiftX = touch.pageX - circleCord.left;
 
-    $(window).scroll(function () {
-        if ( $(window).scrollTop() > 620 ) {
-            $('#toTop').css('display','block');
-        } else {
-            $('#toTop').css('display','none');
-        }
-    });
+    }, false);
 
-});
+    //Обработка touch-перемещения
+
+    circleElem.addEventListener('touchmove', function (event) {
+
+        if (event.targetTouches.length != 1) {
+            return;
+        }
+
+        var touch = event.targetTouches[0];
+
+        var newLeft = touch.pageX - shiftX - bandCord.left;
+
+        var rightEdge = sliderElem.offsetWidth - circleElem.offsetWidth;
+
+        var newLetterIndex = Math.floor(newLeft/(rightEdge/letters.length));
+
+        if ( newLetterIndex < 0 )
+            newLetterIndex = 0;
+        if ( newLetterIndex > letters.length - 1 )
+            newLetterIndex = letters.length - 1;
+
+        // курсор ушёл вне слайдера
+        if (newLeft < 0) {
+            newLeft = 0;
+        }
+
+        if (newLeft > rightEdge) {
+            newLeft = rightEdge;
+        }
+
+        letterElem.innerHTML = letters[newLetterIndex];
+        circleElem.style.left = newLeft + 'px';
+
+    }, false);
+
+};
+
+var stage_nav = function () {
+
+    var stage = document.getElementById('stage');
+
+    var leftSize = stage.style.left;
+
+    var lenStage = stage.scrollWidth;
+
+    var windowWidth =  window.innerWidth;
+
+    var startX = null;
+
+    function FirstPosition() {
+
+        var newLeft = null;
+
+        if ( windowWidth >= lenStage ){
+            newLeft = Math.floor((windowWidth - lenStage)/2);
+        }
+        else{
+            newLeft = 0;
+        }
+
+        stage.style.left = newLeft + 'px';
+    }
+
+    FirstPosition();
+
+    stage.addEventListener('touchstart', function(event) {
+
+        if (event.targetTouches.length != 1) {
+            return;
+        }
+
+        leftSize = stage.style.left;
+
+        lenStage = stage.scrollWidth;
+
+        var touch = event.targetTouches[0];
+
+        startX = touch.pageX;
+
+    }, false);
+
+    stage.addEventListener('touchmove', function (event) {
+
+        if (event.targetTouches.length != 1) {
+            return;
+        }
+
+        var touch = event.targetTouches[0];
+
+        var newLeft = touch.pageX - startX + leftSize;
+
+        if ( newLeft < windowWidth - lenStage)
+            newLeft = windowWidth - lenStage;
+
+        if (newLeft > 0){
+            newLeft = 0;
+        }
+
+        if ( windowWidth >= lenStage ){
+            newLeft = Math.floor((windowWidth - lenStage)/2);
+        }
+
+        stage.style.left = newLeft + 'px';
+
+    }, false);
+
+
+
+
+};
+
+function init() {
+    slider();
+    stage_nav();
+}
+
+
+document.addEventListener('DOMContentLoaded', init);

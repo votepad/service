@@ -106,6 +106,7 @@ ul{
 	display: block;
 	width: 80%;
     margin: 0 auto;
+	height: inherit;
 }
 
 .header_button{
