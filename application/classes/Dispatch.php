@@ -156,14 +156,16 @@ class Dispatch extends Controller_Template
 
     private function setGlobals()
     {
-        if (!empty($this->session->get('uid'))) {
+        if (self::isLogged()) {
 
             $user = new Model_User($this->session->get('uid'));
 
             /** Authentificated User is visible in all pages */
             View::set_global('logged_user', $user);
-            View::set_global('isLogged', self::isLogged());
+
         }
+
+        View::set_global('isLogged', self::isLogged());
 
         $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
 

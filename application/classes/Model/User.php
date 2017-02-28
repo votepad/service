@@ -88,8 +88,33 @@ Class Model_User {
      * @param $id
      * Saves or Updates User to Database
      */
-     public function save($id = null)
+     public function save()
      {
+
+        $insert = Dao_Users::insert();
+
+        foreach ($this as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
+        }
+
+        $id = $insert->execute();
+
+         return $this->get_($id);
+
+     }
+
+     public function update()
+     {
+
+        $insert = Dao_Users::update();
+
+        foreach ($this as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
+        }
+
+        $id = $insert->execute();
+
+         return $this->get_($id);
 
      }
 

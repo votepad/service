@@ -1,10 +1,4 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-/**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 07.03.2016
- * Time: 22:50
- */
 
 class Controller_SignUp extends Dispatch
 {
@@ -14,15 +8,27 @@ class Controller_SignUp extends Dispatch
     {
         $email = Arr::get($_POST, 'email', '');
         $password = Arr::get($_POST, 'password', '');
+        $name = Arr::get($_POST, 'name', '');
+
+        $user = new Model_User();
+
+        $user->email = $email;
+        $user->password = $password;
+        $user->name = $name;
+
+        $user->save();
+
+        $auth = new Model_Auth();
+
+        if ($auth->login($email, $password)) {
+
+            $this->redirect('/user/'.$user->id);
+
+        };
 
         /**
          * TODO: Email - Validation
          */
-
-        $model_user = Model_User::Instance();
-        $model_user->signUp($email, $password);
-
-        $this->redirect('signup/continue');
 
     }
 }

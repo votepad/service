@@ -30,7 +30,7 @@ Route::set('AUTH', 'sign/<mode>')
 /**
  * Route for signing up
  */
-Route::set('SINGUP', 'signup(/<action>)')
+Route::set('SINGUP', 'signup')
     ->defaults(array(
         'controller'  => 'SignUp',
         'action'      => 'index',

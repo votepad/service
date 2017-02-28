@@ -40,7 +40,7 @@
 <section>
     <div class="profile_info block">
         <div class="block_body text-center">
-            <? if ($logged_user->id == $user->id) :?>
+            <? if ($isLogged && $logged_user->id == $user->id) :?>
                 <a id="profile_info-edit" class="profile_info-edit">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                 </a>

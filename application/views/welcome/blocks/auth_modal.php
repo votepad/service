@@ -92,7 +92,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content row-col">
             <div class="modal-wrapper">
-                <form class="modal-body" id="user_modal" action="<?=URL::site(''); ?>" method="POST">
+                <form class="modal-body" id="user_modal" action="<?=URL::site('/signup'); ?>" method="POST">
 
                     <h4>Регистрация</h4>
                     <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
@@ -114,7 +114,7 @@
                         </label>
                     </div>
                     <div class="col-xs-12 text-center">
-                        <button type="button" id="registr" class="btn btn_primary">Зарегистрироваться</button>
+                        <button type="submit" id="registr" class="btn btn_primary">Зарегистрироваться</button>
                     </div>
 
                 </form>
