@@ -82,3 +82,44 @@
         </div>
     </div>
 </div>
+
+
+<? if (! $canLogin) : ?>
+
+<!-- Registration Modal -->
+
+<div class="modal valign registr-modal" id="registr_modal" tabindex="-1">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content row-col">
+            <div class="modal-wrapper">
+                <form class="modal-body" id="user_modal" action="<?=URL::site(''); ?>" method="POST">
+
+                    <h4>Регистрация</h4>
+                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                        <input type="email" id="registr_email" name="email" placeholder="Введите ваш email" required="">
+                        <label for="registr_email" class="icon-label">
+                            <i aria-hidden="true" class="fa fa-user"></i>
+                        </label>
+                    </div>
+                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                        <input type="password" id="registr_password" name="password" placeholder="Придумайте пароль" required="">
+                        <label for="registr_password" class="icon-label">
+                            <i aria-hidden="true" class="fa fa-lock"></i>
+                        </label>
+                    </div>
+                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                        <input type="password" id="registr_password2" name="password2" placeholder="Повторите пароль" required="">
+                        <label for="registr_password2" class="icon-label">
+                            <i aria-hidden="true" class="fa fa-lock"></i>
+                        </label>
+                    </div>
+                    <div class="col-xs-12 text-center">
+                        <button type="button" id="registr" class="btn btn_primary">Зарегистрироваться</button>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<? endif; ?>

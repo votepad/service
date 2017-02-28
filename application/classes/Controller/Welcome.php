@@ -37,7 +37,6 @@ class Controller_Welcome extends Dispatch
         $this->template->keywords = "";
         $this->template->header = View::factory('welcome/blocks/header');
         $this->template->section = View::factory('welcome/features');
-        //$this->template->auth_modal = View::factory('welcome/blocks/auth_modal');
     }
 
 
