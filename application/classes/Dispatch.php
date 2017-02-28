@@ -37,7 +37,7 @@ class Dispatch extends Controller_Template
         // XSS clean in POST and GET requests
         self::XSSfilter();
 
-        $driver = 'cookie';
+        $driver = 'native';
         $this->session = self::sessionInstance($driver);
         $this->setGlobals();
 
@@ -104,12 +104,29 @@ class Dispatch extends Controller_Template
     {
         $session = Session::Instance();
 
-        if ( empty($session->get('id_user')) ) {
+        if ( empty($session->get('uid')) ) {
             return false;
         } else {
             return true;
         }
 
+    }
+
+    /**
+     * Return True if user had logged
+     * @return bool
+     */
+    public static function hadLogged()
+    {
+        $secret = Cookie::get('secret', '');
+        $uid = Cookie::get('uid', '');
+        $sid = Cookie::get('sid', '');
+
+        if ($secret && $uid && $sid) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
@@ -154,6 +171,10 @@ class Dispatch extends Controller_Template
 
         $this->memcache = self::memcacheInstance();
         $this->redis    = self::redisInstance();
+    }
+
+    protected function makeHash($algo, $string) {
+        return hash($algo, $string);
     }
 
     protected function checkCsrf()

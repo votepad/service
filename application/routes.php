@@ -3,25 +3,29 @@
 $DIGIT  = '\d+';
 $STRING = '\w+';
 
-/**
- * Welcome page
- */
-// Route::set('Welcome_Page', '')
-//     ->defaults(array(
-//         'controller' => 'Welcome',
-//         'action'     => 'index',
-//     ));
 
-/**
- * Route for authentification
- *
- * @property String $action - login|logout
- */
-Route::set('AUTH', 'auth(/<action>)')
+/** Welcome page */
+Route::set('Welcome_Page', '')
     ->defaults(array(
-        'controller' => 'Auth',
-        'action' => 'index',
-    ));
+        'controller' => 'Welcome',
+        'action'     => 'index',
+    ))
+    ->cache();
+
+/** Authentification */
+Route::set('AUTH', 'sign/<mode>')
+    ->filter(function ($route, $params, $request) {
+
+        $params['controller'] = 'Auth';
+        $params['action']     = 'Action';
+        $params['mode'] = ucfirst($params['mode']);
+
+        $params['controller'] = $params['controller'] . '_' . $params['mode'];
+        $params['action']     = 'auth';
+
+        return $params;
+
+    });
 
 /**
  * Route for signing up

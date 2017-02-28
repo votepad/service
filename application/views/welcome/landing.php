@@ -5,9 +5,6 @@
         <h1>Автоматизированный подсчёт результатов голосования</h1>
         <h3>Создайте свое мероприятие и предоставьте доступ экспертному жюри. Получите мгновенно подсчитанные результаты и страницу с победителями.</h3>
     </div>
-    <div class="container-small container-button">
-        <a class="btn btn_primary btn_publish publish">опубликовать мероприятие</a>
-    </div>
     <div class="bounce-block">
         <i id="ToSection2" class="fa fa-3x fa-chevron-down bounce" aria-hidden="true"></i>
     </div>
@@ -62,7 +59,7 @@
         <div class="container-image pull-left">
             <div class="container-image-area">
                 <img src="<?=$assets; ?>img/welcome/iphoneframe.png" alt="Get the correctly counted results">
-                <video id="">
+                <video id="" autoplay loop>
                     <source src="<?=$assets; ?>img/welcome/allok.mov" />
                 </video>
             </div>
@@ -98,7 +95,7 @@
         <p class="container-text">
             4. Опубликуйте результаты.
         </p>
-        <a type="button" class="btn btn_primary container-button link_uppercase publish" style="padding: 15px">создать мероприятие</a>
+        <a type="button" class="btn btn_primary container-button link_uppercase" style="padding: 15px">зарегистрироваться</a>
     </div>
 </div>
 <div class="section section-4 clear_fix">

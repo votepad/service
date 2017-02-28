@@ -4,17 +4,6 @@
  * @copyright Turov Nikolay
  */
 
-
- /**
- * Welcome page
- */
-Route::set('Welcome_Page', '')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'index',
-    ))
-    ->cache();
-
 /**
 * Features of votepad
 */

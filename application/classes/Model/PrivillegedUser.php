@@ -7,7 +7,7 @@
 class Model_PrivillegedUser extends Model_User {
 
     /**
-     * @var $role 
+     * @var $role
      */
     protected $role;
 
@@ -44,7 +44,7 @@ class Model_PrivillegedUser extends Model_User {
      * @param null $id
      */
     public function save($id = null) {
-        
+
         parent::save();
         $this->addRole();
 
@@ -92,7 +92,7 @@ class Model_PrivillegedUser extends Model_User {
 
         $this->role_name = Arr::get($select, '0')['role_name'];
         $this->id_role   = $id_role;
-        
+
         return $id_role;
     }
 
@@ -107,20 +107,20 @@ class Model_PrivillegedUser extends Model_User {
         if (!$session->get('id_user')) {
             return false;
         }
-        
-        $user = new ORM_User();
-        $user->where('id', '=', $session->get('id_user'))
-            ->find();
 
-        $this->id_user   = $user->id;
-        $this->lastname  = $user->lastname;
-        $this->name      = $user->name;
-        $this->surname   = $user->surname;
-        $this->email     = $user->email;
-        $this->phone     = $user->phone;
-        $this->role      = Model_Role::getRolePermissions($this->getRole($user->id));
-
-        return $this;
+//        $user = new ORM_User();
+//        $user->where('id', '=', $session->get('id_user'))
+//            ->find();
+//
+//        $this->id_user   = $user->id;
+//        $this->lastname  = $user->lastname;
+//        $this->name      = $user->name;
+//        $this->surname   = $user->surname;
+//        $this->email     = $user->email;
+//        $this->phone     = $user->phone;
+//        $this->role      = Model_Role::getRolePermissions($this->getRole($user->id));
+//
+//        return $this;
     }
 
     /**
@@ -130,19 +130,19 @@ class Model_PrivillegedUser extends Model_User {
      */
     private function getUser($id) {
 
-        $user = new ORM_User();
-        $user->where('id', '=', $id)
-            ->find();
-
-        $this->id_user   = $user->id;
-        $this->lastname  = $user->lastname;
-        $this->name      = $user->name;
-        $this->surname   = $user->surname;
-        $this->email     = $user->email;
-        $this->phone     = $user->phone;
-        $this->role      = Model_Role::getRolePermissions($this->getRole($user->id));
-
-        return $this;
+//        $user = new ORM_User();
+//        $user->where('id', '=', $id)
+//            ->find();
+//
+//        $this->id_user   = $user->id;
+//        $this->lastname  = $user->lastname;
+//        $this->name      = $user->name;
+//        $this->surname   = $user->surname;
+//        $this->email     = $user->email;
+//        $this->phone     = $user->phone;
+//        $this->role      = Model_Role::getRolePermissions($this->getRole($user->id));
+//
+//        return $this;
     }
 
     /**

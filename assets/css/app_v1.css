@@ -2288,10 +2288,10 @@ select.invalid + .select2-container .select2-selection{
 /**
 * Authorization Modal Style
 */
-.auth-modal .modal-dialog{
+.auth-modal .modal-dialog, .registr-modal .modal-dialog{
     margin: 120px auto
 }
-.auth-modal .modal-content{
+.auth-modal .modal-content, .registr-modal .modal-content{
 	height: 300px;
 	overflow: hidden;
     border-radius: 5px;
@@ -2303,7 +2303,7 @@ select.invalid + .select2-container .select2-selection{
     -webkit-transform: translateY(-300px);
     transform: translateY(-300px);
 }
-.auth-modal .modal-body{
+.auth-modal .modal-body, .registr-modal .modal-body{
     min-height: 250px;
 }
 .auth-modal .modal-footer, .auth-modal .modal-header{
@@ -2314,16 +2314,34 @@ select.invalid + .select2-container .select2-selection{
 .auth-modal a:hover, .auth-modal .modal-header:hover{
 	color: #008DA7;
 }
-.auth-modal h4{
+.auth-modal h4, .registr-modal h4{
     font-size: 1.5em;
     margin: 10px auto;
     letter-spacing: .01em;
     text-align: center;
 }
-.auth-modal .input-field {
+.auth-modal .input-field, .registr-modal .input-field {
     margin-top: .6em;
 }
-
+.auth_logged{
+    margin-bottom: 10px;
+}
+.auth_logged-image{
+	margin: auto;
+	width: 100px;
+	height: 100px
+}
+.auth_logged-image img{
+	margin: 5px;
+	width: 90px;
+	height: 90px;
+}
+.auth_logged-name{
+    margin: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 /*
  *	Handsontable
@@ -2704,6 +2722,143 @@ section:after, section:before,
 	overflow: hidden;
 	background-color: #e5e5e5;
 }
+/*
+
+.tooltip {
+  position: absolute;
+  z-index: 1070;
+  display: block;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: left;
+  text-align: start;
+  text-decoration: none;
+  text-shadow: none;
+  text-transform: none;
+  letter-spacing: normal;
+  word-break: normal;
+  word-spacing: normal;
+  word-wrap: normal;
+  white-space: normal;
+  filter: alpha(opacity=0);
+  opacity: 0;
+
+  line-break: auto;
+}
+.tooltip.in {
+  filter: alpha(opacity=90);
+  opacity: .9;
+}
+.tooltip.top {
+  padding: 5px 0;
+  margin-top: -3px;
+}
+.tooltip.right {
+  padding: 0 5px;
+  margin-left: 3px;
+}
+.tooltip.bottom {
+  padding: 5px 0;
+  margin-top: 3px;
+}
+.tooltip.left {
+  padding: 0 5px;
+  margin-left: -3px;
+}
+.tooltip-inner {
+  max-width: 200px;
+  padding: 3px 8px;
+  color: #fff;
+  text-align: center;
+  background-color: #000;
+  border-radius: 4px;
+}
+.tooltip-arrow {
+  position: absolute;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+}
+.tooltip.top .tooltip-arrow {
+  bottom: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.top-left .tooltip-arrow {
+  right: 5px;
+  bottom: 0;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.top-right .tooltip-arrow {
+  bottom: 0;
+  left: 5px;
+  margin-bottom: -5px;
+  border-width: 5px 5px 0;
+  border-top-color: #000;
+}
+.tooltip.right .tooltip-arrow {
+  top: 50%;
+  left: 0;
+  margin-top: -5px;
+  border-width: 5px 5px 5px 0;
+  border-right-color: #000;
+}
+.tooltip.left .tooltip-arrow {
+  top: 50%;
+  right: 0;
+  margin-top: -5px;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #000;
+}
+.tooltip.bottom .tooltip-arrow {
+  top: 0;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+.tooltip.bottom-left .tooltip-arrow {
+  top: 0;
+  right: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+.tooltip.bottom-right .tooltip-arrow {
+  top: 0;
+  left: 5px;
+  margin-top: -5px;
+  border-width: 0 5px 5px;
+  border-bottom-color: #000;
+}
+
+
+// Swall
+.delete-block .swal2-icon{
+    margin: 5px auto 10px !important;
+}
+.delete-block .swal2-title{
+    font-size: 1.4em !important;
+	margin: 0 0 10px !important;
+}
+.delete-block .swal2-content{
+	font-size: 1em !important;
+}
+.delete-block .btn{
+	font-size: 1em;
+	font-weight: 500;
+	margin: 0 10px;
+	padding: 8px 25px;
+*/
+
 .swal2-container{
 	z-index: 1020;
 }
@@ -2717,6 +2872,7 @@ section:after, section:before,
 	height: 15px;
 	width: 15px;
 	border: 3px solid #FFF;
+
 }
 
 .displayblock{
@@ -2734,4 +2890,5 @@ section:after, section:before,
     -webkit-box-sizing: border-box;
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+
 }
