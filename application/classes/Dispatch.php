@@ -104,12 +104,29 @@ class Dispatch extends Controller_Template
     {
         $session = Session::Instance();
 
-        if ( empty($session->get('id_user')) ) {
+        if ( empty($session->get('uid')) ) {
             return false;
         } else {
             return true;
         }
 
+    }
+
+    /**
+     * Return True if user had logged
+     * @return bool
+     */
+    public static function hadLogged()
+    {
+        $secret = Cookie::get('secret', '');
+        $uid = Cookie::get('uid', '');
+        $sid = Cookie::get('sid', '');
+
+        if ($secret && $uid && $sid) {
+            return true;
+        }
+
+        return false;
     }
 
     /**
