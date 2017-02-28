@@ -42,6 +42,11 @@ Class Model_User {
     public $phone;
 
     /**
+     * @var $isConfirmed
+     */
+    public $isConfirmed;
+
+    /**
      * Model_User constructor.
      * get user info if data exist
      */
@@ -53,14 +58,29 @@ Class Model_User {
 
     }
 
+    private function fill_by_row($db_selection) {
+
+        if (empty($db_selection['id'])) return $this;
+
+        foreach ($db_selection as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $this->$fieldname = $value;
+        }
+
+        return $this;
+
+    }
+
     private function get_($id) {
 
         $select = Dao_Users::select()
             ->where('id', '=', $id)
             ->limit(1)
-            ->cached(DATE::MINUTE * 5, $id);
+            ->cached(DATE::MINUTE * 5, $id)
+            ->execute();
 
-        return $select;
+        $this->fill_by_row($select);
+
+        return $this;
 
     }
 

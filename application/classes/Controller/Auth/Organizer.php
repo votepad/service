@@ -40,6 +40,9 @@ class Controller_Auth_Organizer extends Auth {
         $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $uid);
 
         Cookie::set('secret', $hash, DATE::DAY);
+
+        $this->redirect('/user/'.$uid);
+
     }
 
 

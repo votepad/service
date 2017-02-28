@@ -1,14 +1,3 @@
-<?
-    $isLogged       = Dispatch::isLogged();
-    $isOwner        = null;
-    $allowed        = $isLogged && $isOwner;
-    if ($isLogged) :
-        $isOwner    = Model_PrivillegedUser::getUserOrganization($user->get('id_user')) == $organization->id;
-        $myorg      = Model_Organizations::getByFieldName('id', Model_User::getUserOrganization($user->get('id_user')));
-    endif;
-?>
-
-
 <header class="header">
     <div class="header_wrapper">
         <div class="header_menu-btn-icon left">
@@ -41,15 +30,11 @@
         <? if ($isLogged) : ?>
 
             <a id="open_usermenu" class="header_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="header_text"><?=$user->get('name'); ?></span>
+                <span class="header_text"><?=$logged_user->name; ?></span>
                 <i class="fa fa-caret-down header_icon" aria-hidden="true"></i>
             </a>
             <div class="dropdown-menu pull-right" aria-labelledby="open_usermenu">
-                <a href="<?=URL::site('organization/' . $myorg->id); ?>" class="header_button dropdown-button">
-                    <i class="fa fa-cubes dropdown-icon header_icon" aria-hidden="true"></i>
-                    <span class="dropdown-text"><?=$myorg->name; ?></span>
-                </a>
-                <a href="#" class="header_button dropdown-button">
+                <a href="<?= URL::site('user/'.$logged_user->id) ?>" class="header_button dropdown-button">
                     <i class="fa fa-user dropdown-icon header_icon" aria-hidden="true"></i>
                     <span class="dropdown-text">Профиль</span>
                 </a>
@@ -70,7 +55,7 @@
 
         </div>
 
-        <? if ( $allowed): ?>
+        <? if ( $isLogged): ?>
 
         <div class="header_menu-btn-icon right">
             <button id="open_jumbotron_nav" class="header_button">

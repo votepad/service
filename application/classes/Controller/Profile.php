@@ -16,10 +16,24 @@ class Controller_Profile extends Dispatch
      */
     public function action_index()
     {
+
+        $id = $this->request->param('id');
+
+        $user = new Model_User($id);
+
+        if (!$user) {
+            throw new HTTP_Exception_404();
+        }
+
+
+
+        $this->template->user = $user;
+
         $this->template->header = View::factory('profile/blocks/header')
-            ->set('auth_modal', View::factory('welcome/blocks/auth_modal'));
+            ->set('auth_modal', View::factory('welcome/blocks/auth_modal'))
+            ->set('user', $user);
         $this->template->footer = View::factory('profile/blocks/footer');
-        $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper');
+        $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper', array('user' => $user));
 
 
         /*$this->template->title = "Главная | Votepad.ru";

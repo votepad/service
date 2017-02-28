@@ -28,7 +28,6 @@
 
 </head>
 <body>
-
 <?=$header; ?>
 
 <div class="jumbotron block jumbotron_profile">
@@ -41,17 +40,17 @@
 <section>
     <div class="profile_info block">
         <div class="block_body text-center">
-            <a id="profile_info-edit" class="profile_info-edit">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
+            <? if ($logged_user->id == $user->id) :?>
+                <a id="profile_info-edit" class="profile_info-edit">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                </a>
+            <? endif; ?>
             <div class="profile_info-avatar">
                 <img src="<?=$assets; ?>img/logo.jpg" alt="User Avatar">
             </div>
             <div class="profile_info-description row">
-                <h1 class="profile_info-description-name">Nikolay Turov</h1>
-                <h2 class="profile_info-description-status">Status .. write smth</h2>
-                <h3 class="profile_info-description-city">SPB</h3>
-                <h3 class="profile_info-description-email">turov96@ya.ru</h3>
+                <h1 class="profile_info-description-name"><?= $user->name ?> <?= $user->surname ?></h1>
+                <h3 class="profile_info-description-email"><?= $user->email ?></h3>
             </div>
         </div>
     </div>
@@ -103,27 +102,15 @@
                     </div>
                     <div class="col-xs-12 col-md-auto edituser_modal-name">
                         <div class="input-field">
-                            <input type="text" id="edituser_name" name="name" value="Nikolay Turov">
+                            <input type="text" id="edituser_name" name="name" value="<?= $user->name ?> <?= $user->surname ?>">
                             <label for="edituser_name" class="active">ФИО</label>
                         </div>
-                        <div class="input-field">
-                            <input type="text" id="edituser_status" name="status" length="200" value="Status .. write smth">
-                            <label for="edituser_status" class="active">Статус</label>
-                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
                         <div class="input-field">
-                            <input type="text" id="edituser_city" name="city" value="SPB">
-                            <label for="edituser_city" class="active">Город</label>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-xs-12">
-                        <div class="input-field">
-                            <input type="email" id="edituser_email" name="email" value="turov96@ya.ru">
+                            <input type="email" id="edituser_email" name="email" value="<?= $user->email ?>">
                             <label for="edituser_email" class="active">Эл.почта</label>
                         </div>
                     </div>

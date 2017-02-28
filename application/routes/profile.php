@@ -9,7 +9,7 @@
  /**
  * Profile
  */
-Route::set('Profile_MainPage', 'profile')
+Route::set('Profile_MainPage', 'user/<id>(/<action>)', array('id' => $DIGIT, 'action' => 'organizations|events'))
     ->defaults(array(
         'controller' => 'Profile',
         'action'     => 'index',
