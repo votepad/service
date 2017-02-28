@@ -2307,7 +2307,25 @@ select.invalid + .select2-container .select2-selection{
 .auth-modal .input-field {
     margin-top: .6em;
 }
-
+.auth_logged{
+    margin-bottom: 10px;
+}
+.auth_logged-image{
+	margin: auto;
+	width: 100px;
+	height: 100px
+}
+.auth_logged-image img{
+	margin: 5px;
+	width: 90px;
+	height: 90px;
+}
+.auth_logged-name{
+    margin: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
 
 /*
  *	Handsontable
@@ -2688,7 +2706,7 @@ section:after, section:before,
 	overflow: hidden;
 	background-color: #e5e5e5;
 }
-<<<<<<< HEAD
+/*
 
 .tooltip {
   position: absolute;
@@ -2807,7 +2825,7 @@ section:after, section:before,
 }
 
 
-/* Swall */
+// Swall
 .delete-block .swal2-icon{
     margin: 5px auto 10px !important;
 }
@@ -2823,7 +2841,7 @@ section:after, section:before,
 	font-weight: 500;
 	margin: 0 10px;
 	padding: 8px 25px;
-=======
+*/
 .swal2-container{
 	z-index: 1020;
 }
@@ -2837,5 +2855,4 @@ section:after, section:before,
 	height: 15px;
 	width: 15px;
 	border: 3px solid #FFF;
->>>>>>> beta
 }

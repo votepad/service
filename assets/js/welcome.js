@@ -15,6 +15,12 @@ $(document).ready(function () {
             $('#judgeSignIn').click();
     });
 
+    // Logout
+    $('#logout').click(function(){
+        location.reload();
+    });
+
+
     /**
     * EventNumver inputmask
     */
