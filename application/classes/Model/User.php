@@ -14,7 +14,7 @@ Class Model_User {
     /**
      * @var $id_user
      */
-    public $id_user;
+    public $id;
 
     /**
      * @var $lastname
@@ -41,7 +41,28 @@ Class Model_User {
      */
     public $phone;
 
-    public function __construct() {}
+    /**
+     * Model_User constructor.
+     * get user info if data exist
+     */
+    public function __construct($id = null) {
+
+        if ( !empty($id) ) {
+            $this->get_($id);
+        }
+
+    }
+
+    private function get_($id) {
+
+        $select = Dao_Users::select()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->cached(DATE::MINUTE * 5, $id);
+
+        return $select;
+
+    }
 
     /**
      * @param $id
@@ -49,31 +70,12 @@ Class Model_User {
      */
      public function save($id = null)
      {
-         $user = new ORM_User();
 
-         if (isset($id)) {
-             $user->where('id', '=', $id)
-                 ->find();
-         }
-
-         $user->lastname = $this->lastname;
-         $user->name     = $this->name;
-         $user->surname  = $this->surname;
-         $user->email    = $this->email;
-         $user->password = $this->password;
-         $user->phone    = $this->phone;
-         $user->done     = $this->done;
-
-         $user->save();
-
-         $this->id_user = $user->id;
-
-         return $this;
      }
 
     /**
      * @param $id
-     * @return Id organization
+     * @return organization
      */
     public static function getUserOrganization($id)
     {

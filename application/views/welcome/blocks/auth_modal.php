@@ -7,7 +7,7 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content row-col">
             <div class="modal-wrapper">
-                <form class="modal-body" id="user_modal" action="/auth/signin" method="POST">
+                <form class="modal-body" id="user_modal" action="<?=URL::site('sign/organizer'); ?>" method="POST">
                     <h4>Авторизация</h4>
                     <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
                         <input type="email" id="auth_email" name="email" placeholder="Ваш email" required="">
@@ -35,7 +35,7 @@
                         Вход для организатора
                     </a>
                 </div>
-                <form class="modal-body" id="judge_modal" action="" method="POST">
+                <form class="modal-body" id="judge_modal" action="<?=URL::site('sign/judge'); ?>" method="POST">
                     <h4>Вход для жюри</h4>
                     <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
                         <input type="text" id="auth_eventnumber" name="eventNumber" placeholder="Код мероприятия" required="">

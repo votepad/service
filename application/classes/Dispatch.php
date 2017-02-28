@@ -37,7 +37,7 @@ class Dispatch extends Controller_Template
         // XSS clean in POST and GET requests
         self::XSSfilter();
 
-        $driver = 'cookie';
+        $driver = 'native';
         $this->session = self::sessionInstance($driver);
         $this->setGlobals();
 
@@ -154,6 +154,10 @@ class Dispatch extends Controller_Template
 
         $this->memcache = self::memcacheInstance();
         $this->redis    = self::redisInstance();
+    }
+
+    protected function makeHash($algo, $string) {
+        return hash($algo, $string);
     }
 
     protected function checkCsrf()
