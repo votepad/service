@@ -127,12 +127,11 @@
 }
 
 .edituser_modal-name > .input-field{
-    margin: 1.5em 0 2.5em 0;
+    padding: 0;
 }
-    .edituser_modal-name > .input-field:last-child{
-        margin-bottom: 10px;
-    }
-
+.edituser_modal-block .input-field{
+    margin-top: 2em;
+}
 @media (min-width: 680px) {
     .edituser_modal-avatarwrapper{
         width: 180px;
@@ -140,4 +139,8 @@
     .edituser_modal-name{
         width: calc(100% - 180px);
     }
+    .edituser_modal-name > .input-field{
+        margin-top: 1.5em;
+    }
+
 }

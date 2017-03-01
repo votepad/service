@@ -165,7 +165,7 @@ $(document).ready(function () {
                 $('#registr_password').addClass('invalid');
                 $('#registr_password2').addClass('invalid');
                 $.notify({
-                    message: 'Вы используются запрещенные символы для пароля!',
+                    message: 'Вы используете запрещенные символы для пароля!',
                 },{
                     type: 'danger'
                 });

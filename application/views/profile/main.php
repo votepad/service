@@ -19,10 +19,9 @@
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-transition.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/profile.js"></script>
 
@@ -49,8 +48,9 @@
                 <img src="<?=$assets; ?>img/logo.jpg" alt="User Avatar">
             </div>
             <div class="profile_info-description row">
-                <h1 class="profile_info-description-name"><?= $user->name ?> <?= $user->surname ?></h1>
+                <h1 class="profile_info-description-name"><?= $user->name ?> <?= $user->lastname ?> <?= $user->surname ?></h1>
                 <h3 class="profile_info-description-email"><?= $user->email ?></h3>
+                <h3 class="profile_info-description-phone" contenteditable="true"><?= $user->phone ?></h3>
             </div>
         </div>
     </div>
@@ -90,7 +90,7 @@
                 </button>
                 <h4 class="modal-title">Изменение персональной информации</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body clear_fix">
                 <div class="row">
                     <div class="col-xs-12 col-md-auto edituser_modal-avatarwrapper">
                         <div class="edituser_modal-avatar">
@@ -101,30 +101,48 @@
                         </div>
                     </div>
                     <div class="col-xs-12 col-md-auto edituser_modal-name">
-                        <div class="input-field">
-                            <input type="text" id="edituser_name" name="name" value="<?= $user->name ?> <?= $user->surname ?>">
-                            <label for="edituser_name" class="active">ФИО</label>
+                        <div class="input-field col-xs-12">
+                            <input type="text" id="edituser_surname" name="surname" value="<?= $user->surname ?>">
+                            <label for="edituser_surname" class="active">Фамилия</label>
                         </div>
+                        <div class="input-field col-xs-12 col-md-5">
+                            <input type="text" id="edituser_name" name="name" value="<?= $user->name ?>">
+                            <label for="edituser_name" class="active">Имя</label>
+                        </div>
+                        <div class="input-field col-xs-12 col-md-6 col-md-offset-1">
+                            <input type="text" id="edituser_lastname" name="lastname" value="<?= $user->lastname ?>">
+                            <label for="edituser_lastname" class="active">Отчество</label>
+                        </div>
+
                     </div>
                 </div>
-                <div class="row">
+                <div class="row edituser_modal-block">
                     <div class="col-xs-12">
+                        <h4>Контакты</h4>
                         <div class="input-field">
                             <input type="email" id="edituser_email" name="email" value="<?= $user->email ?>">
                             <label for="edituser_email" class="active">Эл.почта</label>
                         </div>
+
+                        <div class="input-field">
+                            <input type="tel" id="edituser_phone" name="phone" value="<?= $user->phone ?>">
+                            <label for="edituser_phone" class="active">Телефон</label>
+                        </div>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-xs-12">
+                        <h4>Изменить пароль</h4>
                         <div class="input-field">
                             <input type="password" id="edituser_oldpassword" name="oldpassword">
                             <label for="edituser_oldpassword" class="">Введите старый пароль</label>
                         </div>
+
                         <div class="input-field">
                             <input type="password" id="edituser_newpassword" name="newpassword">
                             <label for="edituser_newpassword" class="">Введите новый пароль</label>
                         </div>
+
                         <div class="input-field">
                             <input type="password" id="edituser_newpassword2" name="newpassword2">
                             <label for="edituser_newpassword2" class="">Повторите новый пароль</label>

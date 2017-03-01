@@ -12,10 +12,28 @@ $(document).ready(function () {
 
 
     /**
+    * Phone inputmask
+    */
+    $(".profile_info-description-phone").inputmask({ "mask": "+7 (999) 999-99-99" });
+
+    $("#edituser_phone").inputmask({
+        "mask": "+7 (999) 999-99-99",
+        onincomplete: function(){
+            $("#edituser_phone").addClass('invalid');
+        },
+        oncomplete: function() {
+            $("#edituser_phone").removeClass('invalid');
+        }
+    });
+
+
+
+    /**
     * Update Info about User in Modal Form
     */
-     var allowedSymbols = new RegExp("[^a-zA-Zа-яА-Я0-9-№#%&*()!?,.;:@ ]");
-     var allowedPassSymbols = new RegExp("[^a-zA-Z0-9~-№#%&*()[]/!?,.;:@]");
+     var allowedSymbols = new RegExp("[^a-zA-Zа-яА-Я0-9-№#%&*()!?,.;:@ ]"),
+        allowedPassSymbols = new RegExp("[^a-zA-Z0-9~-№#%&*()[]/!?,.;:@]"),
+        allowedPhoneSymbols = new RegExp("[^0-9+]");
 
     $('#update_info').click(function(){
         var form = $(this).closest('.modal'),
@@ -28,10 +46,31 @@ $(document).ready(function () {
                 $(this).removeClass('invalid');
             } else if ( isvalid ){
                 $(this).addClass('invalid');
+                $.notify({
+                    message: 'Возможно Вы забыли что-то указать или используете запрещенные символы.'
+                },{
+                    type: 'danger'
+                });
                 isvalid = false;
             }
 
         });
+
+
+        // checking phone
+        if ( isvalid && ! allowedPhoneSymbols.test($('#edituser_phone').val().replace(" (","").replace(") ","").replace("-","").replace("-","")) ) {
+            $('#edituser_phone').removeClass('invalid');
+        } else if ( isvalid ){
+            $('#edituser_phone').addClass('invalid');
+            $.notify({
+                message: 'Вы не правильно указали телефон!'
+            },{
+                type: 'danger'
+            });
+            isvalid = false;
+        }
+
+
 
         // checking type = password
         if ( isvalid && $('#edituser_oldpassword').val() != "" ) {
@@ -47,7 +86,7 @@ $(document).ready(function () {
                     $('#edituser_newpassword').addClass('invalid');
                     $('#edituser_newpassword2').addClass('invalid')
                     $.notify({
-                        message: 'Используются запрещенные символы!'
+                        message: 'Вы используете запрещенные символы!'
                     },{
                         type: 'danger'
                     });
@@ -71,13 +110,22 @@ $(document).ready(function () {
                 });
             }
 
+        } else if ( $('#edituser_newpassword').val() != "" || $('#edituser_newpassword2').val() != "" ) {
+            isvalid = false;
+            $('#edituser_oldpassword').addClass('invalid');
+            $('#edituser_newpassword').addClass('invalid');
+            $('#edituser_newpassword2').addClass('invalid')
+            $.notify({
+                message: 'Вы не указали старый пароль!'
+            },{
+                type: 'danger'
+            });
         }
 
 
         if ( isvalid == true ) {
+            $('#edituser_phone').inputmask('unmaskedvalue');
             form[0].submit();
-        } else {
-            console.log('Error in JS');
         }
     });
 

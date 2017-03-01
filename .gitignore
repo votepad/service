@@ -16,7 +16,7 @@ assets/frontend/.idea/
 assets/frontend/modules/*
 assets/frontend/webpack.config.js
 assets/frontend/node_modules/*
-assets/vendor/*
+# assets/vendor/*
 
 
 # Media files
