@@ -2276,9 +2276,11 @@ select.invalid + .select2-container .select2-selection{
     margin: 120px auto
 }
 .auth-modal .modal-content, .registr-modal .modal-content{
-	height: 300px;
 	overflow: hidden;
     border-radius: 5px;
+}
+.auth-modal .modal-content{
+	height: 300px;
 }
 .auth-modal .modal-wrapper{
 	transition: .5s ease-out;
@@ -2287,8 +2289,11 @@ select.invalid + .select2-container .select2-selection{
     -webkit-transform: translateY(-300px);
     transform: translateY(-300px);
 }
-.auth-modal .modal-body, .registr-modal .modal-body{
+.auth-modal .modal-body{
     min-height: 250px;
+}
+.registr-modal .modal-body{
+	height: inherit;
 }
 .auth-modal .modal-footer, .auth-modal .modal-header{
 	background: #fafbfc;
@@ -2326,6 +2331,27 @@ select.invalid + .select2-container .select2-selection{
     white-space: nowrap;
     text-overflow: ellipsis;
 }
+.btn_text-forgot{
+	padding: 6px 0 !important;
+	font-size: .9em;
+	color: #9E9E9E;
+	border: none;
+}
+.auth-modal .g-recaptcha {
+	float: left;
+	width: 100%;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+.auth-modal .g-recaptcha > div{
+	margin: auto;
+}
+@media (max-width: 680px) {
+	.auth-modal .modal-dialog, .registr-modal .modal-dialog{
+		width: 80%;
+	}
+}
+
 
 /*
  *	Handsontable
@@ -2706,13 +2732,11 @@ section:after, section:before,
 	overflow: hidden;
 	background-color: #e5e5e5;
 }
-/*
 
 .tooltip {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: normal;
@@ -2825,7 +2849,7 @@ section:after, section:before,
 }
 
 
-// Swall
+/* Swall */
 .delete-block .swal2-icon{
     margin: 5px auto 10px !important;
 }
@@ -2841,7 +2865,7 @@ section:after, section:before,
 	font-weight: 500;
 	margin: 0 10px;
 	padding: 8px 25px;
-*/
+}
 .swal2-container{
 	z-index: 1020;
 }

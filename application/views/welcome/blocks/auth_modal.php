@@ -1,4 +1,4 @@
-<!-- Authorization Modal -->
+
 <?php
 
     $isLogged = Dispatch::isLogged();
@@ -12,14 +12,18 @@
 
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/auth.js"></script>
+<script src='https://www.google.com/recaptcha/api.js'></script>
 
+<!-- Authorization Modal -->
 <div class="modal valign auth-modal" id="auth_modal" tabindex="-1">
     <div class="modal-dialog modal-sm">
         <div class="modal-content row-col">
             <div class="modal-wrapper">
-                <form class="modal-body" id="user_modal" action="<?=URL::site('sign/organizer'); ?>" method="POST">
 
-                    <? if ($canLogin) : ?>
+                <? if ($canLogin) : ?>
+                <!-- Logged User SignIn Form -->
+                <form class="modal-body" id="user_form_logged" action="<?=URL::site('sign/organizer'); ?>" method="POST">
                     <h4>Продолжить как</h4>
                     <div class="auth_logged col-xs-12">
                         <div class="auth_logged-image">
@@ -31,44 +35,69 @@
                         <button type="sumbit" class="btn btn_primary col-xs-5">Продолжить</button>
                         <button type="button" id="logout" class="btn btn_default col-xs-5 col-xs-offset-2">Выйти</button>
                     </div>
-                    <? else : ?>
+                </form>
+                <? endif; ?>
+
+                <!-- NOT Logged User SignIn Form -->
+                <form class="modal-body <? if ($canLogin) : ?>displaynone<? endif; ?>" id="user_form_notlogged" action="<?=URL::site('sign/organizer'); ?>" method="POST">
                     <h4>Авторизация</h4>
-                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                    <div class="input-field label-with-icon col-xs-12">
                         <input type="email" id="auth_email" name="email" placeholder="Ваш email" required="">
                         <label for="auth_email" class="icon-label">
-                            <i aria-hidden="true" class="fa fa-user"></i>
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
                         </label>
                     </div>
-                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                    <div class="input-field label-with-icon col-xs-12">
                         <input type="password" id="auth_password" name="password" placeholder="Ваш пароль" required="">
                         <label for="auth_password" class="icon-label">
                             <i aria-hidden="true" class="fa fa-lock"></i>
                         </label>
                     </div>
                     <div class="col-xs-12">
-                        <button type="button" id="userSignIn" class="btn btn_primary col-xs-6 col-xs-offset-3">Войти</button>
+                        <button type="button" id="resetPasword" class="btn btn_text-forgot col-xs-6">Забыли пароль?</button>
+                        <button type="button" id="userSignIn" class="btn btn_primary col-xs-5 col-xs-offset-1">Войти</button>
                     </div>
-                    <? endif; ?>
                 </form>
+
+                <!-- Forgot Password Form -->
+                <form class="modal-body displaynone" id="user_form_forgot" action="<?=URL::site(''); ?>" method="POST">
+                    <h4 style="margin-top:0">Востановление пароля</h4>
+                    <div class="input-field label-with-icon col-xs-12">
+                        <input type="email" id="forget_email" name="email" placeholder="Введите Ваш email" required="">
+                        <label for="forget_email" class="icon-label">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </label>
+                    </div>
+
+                    <div class="g-recaptcha text-center" data-sitekey="6LelVhcUAAAAAJFftx6Hr90Ff6VWc8-KlT86OJRF"></div>
+
+                    <div class="col-xs-12">
+                        <button type="button" id="toUserSignIn" class="btn btn_default col-xs-5">Отмена</button>
+                        <button type="button" id="resetPassword" class="btn btn_primary col-xs-6 col-xs-offset-1">Восстановить</button>
+                    </div>
+                </form>
+
                 <div class="modal-footer text-center">
-                    <a id="toJudgeModal" class="underlinehover">
+                    <a id="toJudgeForm" class="underlinehover">
                         Вход для жюри
                     </a>
                 </div>
                 <div class="modal-header text-center">
-                    <a id="toUserModal" class="underlinehover">
+                    <a id="toUserForm" class="underlinehover">
                         Вход для пользователя
                     </a>
                 </div>
-                <form class="modal-body" id="judge_modal" action="<?=URL::site('sign/judge'); ?>" method="POST">
+
+                <!-- Judge SignIn Form -->
+                <form class="modal-body" id="judge_form" action="<?=URL::site('sign/judge'); ?>" method="POST">
                     <h4>Вход для жюри</h4>
-                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                    <div class="input-field label-with-icon col-xs-12">
                         <input type="text" id="auth_eventnumber" name="eventNumber" placeholder="Код мероприятия" required="">
                         <label for="auth_eventnumber" class="icon-label">
                             <i class="fa fa-key" aria-hidden="true"></i>
                         </label>
                     </div>
-                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                    <div class="input-field label-with-icon col-xs-12">
                         <input type="password" id="auth_judgesecret" name="judgesecret" placeholder="Ваш пароль" required="">
                         <label for="auth_judgesecret" class="icon-label">
                             <i aria-hidden="true" class="fa fa-lock"></i>
@@ -92,31 +121,35 @@
     <div class="modal-dialog modal-sm">
         <div class="modal-content row-col">
             <div class="modal-wrapper">
-                <form class="modal-body" id="user_modal" action="<?=URL::site('/signup'); ?>" method="POST">
-
+                <form class="modal-body clear_fix" id="registr_form" action="<?=URL::site(''); ?>" method="POST">
                     <h4>Регистрация</h4>
-                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
-                        <input type="email" id="registr_email" name="email" placeholder="Введите ваш email" required="">
-                        <label for="registr_email" class="icon-label">
+                    <div class="input-field label-with-icon col-xs-12">
+                        <input type="text" id="registr_name" name="name" placeholder="Введите ваш имя" required="">
+                        <label for="registr_name" class="icon-label">
                             <i aria-hidden="true" class="fa fa-user"></i>
                         </label>
                     </div>
-                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                    <div class="input-field label-with-icon col-xs-12">
+                        <input type="email" id="registr_email" name="email" placeholder="Введите ваш email" required="">
+                        <label for="registr_email" class="icon-label">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </label>
+                    </div>
+                    <div class="input-field label-with-icon col-xs-12">
                         <input type="password" id="registr_password" name="password" placeholder="Придумайте пароль" required="">
                         <label for="registr_password" class="icon-label">
                             <i aria-hidden="true" class="fa fa-lock"></i>
                         </label>
                     </div>
-                    <div class="input-field label-with-icon col-xs-10 col-xs-offset-1">
+                    <div class="input-field label-with-icon col-xs-12">
                         <input type="password" id="registr_password2" name="password2" placeholder="Повторите пароль" required="">
                         <label for="registr_password2" class="icon-label">
                             <i aria-hidden="true" class="fa fa-lock"></i>
                         </label>
                     </div>
                     <div class="col-xs-12 text-center">
-                        <button type="submit" id="registr" class="btn btn_primary">Зарегистрироваться</button>
+                        <button type="button" id="registr" class="btn btn_primary">Зарегистрироваться</button>
                     </div>
-
                 </form>
             </div>
         </div>
