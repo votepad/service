@@ -5,7 +5,7 @@
     <meta name="author" content="Votepad" />
     <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/favicon.png" />
 
-    <title>Профиль UserName | Votepad.ru</title>
+    <title><?= $user->name ?> <?= $user->lastname ?> <?= $user->surname ?> | Votepad</title>
 
     <meta name="description" content="" />
     <meta name="keywords" content="страница профиля, профиль, votepad, profile, user" />
