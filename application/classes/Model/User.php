@@ -99,7 +99,7 @@ Class Model_User {
 
         $id = $insert->execute();
 
-         return $this->get_($id);
+        return $this->get_($id);
 
      }
 
@@ -112,9 +112,35 @@ Class Model_User {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
+        $insert->where('id', '=', $this->id);
+
         $id = $insert->execute();
 
-         return $this->get_($id);
+        return $this->get_($id);
+
+     }
+
+     public function checkPassword ($pass) {
+
+         $selection = Dao_Users::select(array('password'))
+                        ->where('id', '=', $this->id)
+                        ->limit(1)
+                        ->execute();
+
+         $password = $selection['password'];
+
+         return $password == $pass;
+
+     }
+
+     public function changePassword ($newpass) {
+
+         $insert = Dao_Users::update()
+                    ->set('password', $newpass)
+                    ->where('id', '=', $this->id)
+                    ->execute();
+
+         return $insert;
 
      }
 

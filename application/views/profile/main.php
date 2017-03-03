@@ -49,8 +49,8 @@
             </div>
             <div class="profile_info-description row">
                 <h1 class="profile_info-description-name"><?= $user->name ?> <?= $user->lastname ?> <?= $user->surname ?></h1>
-                <h3 class="profile_info-description-email"><?= $user->email ?></h3>
-                <h3 class="profile_info-description-phone" contenteditable="true"><?= $user->phone ?></h3>
+                <h3 class="profile_info-description-email"><a href="mailto:<?= $user->email; ?>"><?= $user->email ?></a></h3>
+                <h3 class="profile_info-description-phone"><a href="tel:<?= $user->phone; ?>"><?= $user->phone ?></a></h3>
             </div>
         </div>
     </div>
@@ -81,7 +81,7 @@
     </div>
 
 <!-- Modal - Update User Info -->
-<form action="" method="POST" class="modal fade" id="edituser_modal" tabindex="-1" role="dialog" >
+<form action="<?= $user->id ?>/update" method="POST" class="modal fade" id="edituser_modal" tabindex="-1" role="dialog" >
     <div class="modal-dialog" role="document">
         <div class="modal-content">
             <div class="modal-header">
