@@ -14,7 +14,7 @@ $(document).ready(function () {
     /**
     * Phone inputmask
     */
-    $(".profile_info-description-phone").inputmask({ "mask": "+7 (999) 999-99-99" });
+    $(".profile_info-description-phone a").inputmask({ "mask": "+7 (999) 999-99-99" });
 
     $("#edituser_phone").inputmask({
         "mask": "+7 (999) 999-99-99",
@@ -124,7 +124,6 @@ $(document).ready(function () {
 
 
         if ( isvalid == true ) {
-            $('#edituser_phone').inputmask('unmaskedvalue');
             form[0].submit();
         }
     });

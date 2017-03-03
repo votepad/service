@@ -47,15 +47,14 @@ $(document).ready(function () {
     });
     $('#toUserForm').click(function(){
         $('.auth-modal .modal-wrapper').removeClass('up');
-        $('#toUserSignIn').click();
     });
     $('#resetPasword').click(function () {
         $('#user_form_notlogged').addClass('displaynone');
         $('#user_form_forgot').removeClass('displaynone');
     });
     $('#toUserSignIn').click(function () {
-        $('#user_form_forgot').addClass('displaynone');
         $('#user_form_notlogged').removeClass('displaynone');
+        $('#user_form_forgot').addClass('displaynone');
     });
 
 
