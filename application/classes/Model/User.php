@@ -125,6 +125,7 @@ Class Model_User {
          $selection = Dao_Users::select(array('password'))
                         ->where('id', '=', $this->id)
                         ->limit(1)
+                        ->clearcache($this->id)
                         ->execute();
 
          $password = $selection['password'];
