@@ -58,7 +58,7 @@ class Controller_Profile extends Dispatch
         $user->surname = Arr::get($_POST, 'surname', $user->surname);
         $user->lastname = Arr::get($_POST, 'lastname', $user->lastname);
 
-        if (Arr::get($_POST, 'email') != $user->email) {
+        if (Arr::get($_POST, 'email', $user->email) != $user->email) {
             $user->email = Arr::get($_POST, 'email');
             $user->isConfirmed = 0;
         }
