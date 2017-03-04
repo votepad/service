@@ -112,11 +112,11 @@
                     </div>
                     <div class="col-xs-12 col-md-auto edituser_modal-name">
                         <div class="input-field col-xs-12">
-                            <input type="text" id="edituser_surname" name="surname" value="<?= $profile->surname ?>">
+                            <input type="text" id="edituser_surname" name="surname" value="<?= $profile->surname ?>" required>
                             <label for="edituser_surname" class="active">Фамилия</label>
                         </div>
                         <div class="input-field col-xs-12 col-md-5">
-                            <input type="text" id="edituser_name" name="name" value="<?= $profile->name ?>">
+                            <input type="text" id="edituser_name" name="name" value="<?= $profile->name ?>" required>
                             <label for="edituser_name" class="active">Имя</label>
                         </div>
                         <div class="input-field col-xs-12 col-md-6 col-md-offset-1">
@@ -130,7 +130,7 @@
                     <div class="col-xs-12">
                         <h4>Контакты</h4>
                         <div class="input-field">
-                            <input type="email" id="edituser_email" name="email" value="<?= $profile->email ?>">
+                            <input type="email" id="edituser_email" name="email" value="<?= $profile->email ?>" required>
                             <label for="edituser_email" class="active">Эл.почта</label>
                         </div>
 
