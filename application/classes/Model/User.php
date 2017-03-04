@@ -112,6 +112,7 @@ Class Model_User {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
+        $insert->clearcache($this->id);
         $insert->where('id', '=', $this->id);
 
         $id = $insert->execute();
@@ -125,7 +126,6 @@ Class Model_User {
          $selection = Dao_Users::select(array('password'))
                         ->where('id', '=', $this->id)
                         ->limit(1)
-                        ->clearcache($this->id)
                         ->execute();
 
          $password = $selection['password'];
