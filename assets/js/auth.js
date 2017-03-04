@@ -10,6 +10,10 @@ $(document).ready(function () {
         if (event.keyCode == 13)
             $('#judgeSignIn').click();
     });
+    $('body').on('keyup','#registr_modal', function(event){
+        if (event.keyCode == 13)
+            $('#registr').click();
+    });
 
 
     /**
@@ -122,7 +126,7 @@ $(document).ready(function () {
     * Submit Registration Form
     */
     var allowedSymbols = new RegExp("[^a-zA-Zа-яА-Я0-9-№#%&*()!?,.;:@ ]");
-    var allowedPassSymbols = new RegExp("[^a-zA-Z0-9~-№#%&*()[]/!?,.;:@]");
+    var allowedPassSymbols = new RegExp("[^a-zA-Z0-9№#%&*()/!?,.;:@]");
 
     $('#registr').click(function(){
         var form = $('#registr_form'),
@@ -145,7 +149,7 @@ $(document).ready(function () {
 
 
         // checking email
-        if ($('#registr_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#registr_email').val()) ) {
+        if ( isvalid && ($('#registr_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#registr_email').val())) ) {
             notifyErrorEmail();
             isvalid = false;
             $('#registr_email').addClass('invalid');
@@ -153,44 +157,24 @@ $(document).ready(function () {
 
 
         // checking type = password
-        if (isvalid) {
-
+        if (isvalid && ! allowedPassSymbols.test($('#registr_password').val()) && $('#registr_password').val() != "" ) {
             $('#registr_password').removeClass('invalid');
-            $('#registr_password2').removeClass('invalid');
+        } else {
+            isvalid = false;
+            $('#registr_password').addClass('invalid');
 
-            if (!allowedPassSymbols.test($('#registr_password').val()) || !allowedPassSymbols.test($('#registr_password2').val())) {
-
-                isvalid = false;
-                $('#registr_password').addClass('invalid');
-                $('#registr_password2').addClass('invalid');
+            if ($('#registr_password').val() == "") {
+                $.notify({
+                    message: 'Вы не указали парлоль'
+                },{
+                    type: 'danger'
+                });
+            } else {
                 $.notify({
                     message: 'Вы используете запрещенные символы для пароля!',
                 },{
                     type: 'danger'
                 });
-
-            } else if ($('#registr_password').val() == "") {
-
-                isvalid = false;
-                $('#registr_password').addClass('invalid');
-                $('#registr_password2').addClass('invalid');
-                $.notify({
-                    message: 'Пожалуйста, введите пароль!'
-                },{
-                    type: 'danger'
-                });
-
-            } else if ($('#registr_password').val() != $('#registr_password2').val()) {
-
-                isvalid = false;
-                $('#registr_password').addClass('invalid');
-                $('#registr_password2').addClass('invalid');
-                $.notify({
-                    message: 'Пароли не совпадают!'
-                },{
-                    type: 'danger'
-                });
-
             }
         }
 

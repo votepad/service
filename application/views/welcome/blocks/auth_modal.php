@@ -131,12 +131,6 @@
                             <i aria-hidden="true" class="fa fa-lock"></i>
                         </label>
                     </div>
-                    <div class="input-field label-with-icon col-xs-12">
-                        <input type="password" id="registr_password2" name="password2" placeholder="Повторите пароль" required="">
-                        <label for="registr_password2" class="icon-label">
-                            <i aria-hidden="true" class="fa fa-lock"></i>
-                        </label>
-                    </div>
                     <div class="col-xs-12 text-center">
                         <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
                         <button type="button" id="registr" class="btn btn_primary">Зарегистрироваться</button>
