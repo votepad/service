@@ -138,6 +138,7 @@
                         </label>
                     </div>
                     <div class="col-xs-12 text-center">
+                        <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
                         <button type="button" id="registr" class="btn btn_primary">Зарегистрироваться</button>
                     </div>
                 </form>

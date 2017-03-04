@@ -6,9 +6,9 @@ class Controller_SignUp extends Dispatch
 
     function action_index()
     {
-        $email = Arr::get($_POST, 'email', '');
-        $password = Arr::get($_POST, 'password', '');
-        $name = Arr::get($_POST, 'name', '');
+        $email      = Arr::get($_POST, 'email', '');
+        $password   = Arr::get($_POST, 'password', '');
+        $name       = Arr::get($_POST, 'name', '');
 
         $user = new Model_User();
 
