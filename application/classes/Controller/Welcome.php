@@ -19,12 +19,36 @@ class Controller_Welcome extends Dispatch
      */
     public function action_index()
     {
+        $isLogged = self::isLogged();
+        $hadLogged = self::hadLogged();
+        $canLogin = false;
+
+        if ($isLogged || (!$isLogged && $hadLogged))
+            $canLogin = true;
+
+        if ($canLogin) {
+            $userId = Cookie::get('uid');
+            $user = new Model_User($userId);
+        }
+
         $this->template->title = "Добро пожаловать | Votepad";
         $this->template->description = "VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря нашему сервису подсчет результатов становится гораздо быстрее и проще. Предлагаемые инструменты включают в себя создание сценария мероприятия любой сложности, контролирование процесса выставления баллов, получение результатов сразу после проставления их экспертным жюри, формирование протокола выставленных баллов, информирование гостей о результатах мероприятия.";
         $this->template->keywords = "Электронное голосование, Экспертное жюри, Деловые игры, Мероприятия, Конкурсы, Выставление баллов, Выбор победителя, Победитель, Результат, Рейтинг, Страница с результатами, votepad, event, competition, business game, judges, rating, vote, results";
         $this->template->header = View::factory('welcome/blocks/header_home');
         $this->template->section = View::factory('welcome/landing');
-        $this->template->auth_modal = View::factory('welcome/blocks/auth_modal');
+
+        if ($canLogin) {
+
+            $this->template->auth_modal = View::factory('welcome/blocks/auth_modal')
+                ->set('canLogin', $canLogin)
+                ->set('user', $user);
+        } else {
+
+            $this->template->auth_modal = View::factory('welcome/blocks/auth_modal')
+                ->set('canLogin', $canLogin);
+
+        }
+
     }
 
     /**

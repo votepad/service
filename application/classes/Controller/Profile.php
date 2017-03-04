@@ -16,31 +16,31 @@ class Controller_Profile extends Dispatch
      */
     public function action_index()
     {
-
         $id = $this->request->param('id');
 
-        $user = new Model_User($id);
+        $profile = new Model_User($id);
 
-        if (!$user->id) {
+        if (!$profile->id) {
             throw new HTTP_Exception_404();
         }
 
-
-
-        $this->template->user = $user;
+        $isProfileOwner = !empty($this->session->get('uid')) && $this->session->get('uid') == $id;
 
         $this->template->header = View::factory('profile/blocks/header')
-            ->set('auth_modal', View::factory('welcome/blocks/auth_modal'))
-            ->set('user', $user);
+            ->set('auth_modal', View::factory('welcome/blocks/auth_modal'));
+
         $this->template->footer = View::factory('profile/blocks/footer');
-        $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper', array('user' => $user));
 
+        $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper');
 
-        /*$this->template->title = "Главная | Votepad.ru";
-        $this->template->description = "VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря нашему сервису подсчет результатов становится гораздо быстрее и проще. Предлагаемые инструменты включают в себя создание сценария мероприятия любой сложности, контролирование процесса выставления баллов, получение результатов сразу после проставления их экспертным жюри, формирование протокола выставленных баллов, информирование гостей о результатах мероприятия.";
-        $this->template->keywords = "Электронное голосование, Экспертное жюри, Деловые игры, Мероприятия, Конкурсы, Выставление баллов, Выбор победителя, Победитель, Результат, Рейтинг, Страница с результатами, votepad, event, competition, business game, judges, rating, vote, results";
+        $this->template->profile = $profile;
+        $this->template->isProfileOwner = $isProfileOwner;
 
-        $this->template->section = View::factory('welcome/landing');*/
+            /** Meta data */
+        $this->template->title       = $profile->name. ' ' . $profile->surname . " | Votepad";
+        $this->template->description = "Просмотреть профиль " . $profile->name. ' ' . $profile->surname . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
+        $this->template->keywords    = "Профиль, Электронное голосование, Выставление баллов, Результат, Рейтинг, Страница с результатами, votepad, profile, voting, results, rating";
+
 
     }
 
@@ -57,9 +57,10 @@ class Controller_Profile extends Dispatch
         $user->name = Arr::get($_POST, 'name', $user->name);
         $user->surname = Arr::get($_POST, 'surname', $user->surname);
         $user->lastname = Arr::get($_POST, 'lastname', $user->lastname);
+        $email = Arr::get($_POST, 'email');
 
-        if (Arr::get($_POST, 'email') != $user->email) {
-            $user->email = Arr::get($_POST, 'email');
+        if ($email != $user->email) {
+            $user->email = $email;
             $user->isConfirmed = 0;
         }
 
