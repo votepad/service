@@ -61,4 +61,12 @@ require_once ('routes/ajax.php');
 //         'controller' => 'Welcome',
 //         'action'     => 'Index',
 //     ));
+
+Route::set('TEST', 'test')
+    ->defaults(array(
+        'controller' => 'Test',
+        'action'     => 'index'
+    ));
+
+
 ?>
