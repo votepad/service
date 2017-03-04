@@ -151,8 +151,10 @@
                 </div>
             </div>
             <div class="modal-footer clear_fix">
-                <button type="button" class="btn btn_default col-xs-12 col-md-auto" data-dismiss="modal">Отмена</button>
-                <button id="update_info" type="button" class="btn btn_primary pull-right col-xs-12 col-md-auto">Сохранить изменения</button>
+                <div class="col-xs-12">
+                    <button type="button" class="btn btn_default col-xs-12 col-md-auto" data-dismiss="modal">Отмена</button>
+                    <button id="update_info" type="button" class="btn btn_primary pull-right col-xs-12 col-md-auto">Сохранить изменения</button>
+                </div>
             </div>
 
         </div>
