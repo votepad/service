@@ -37,7 +37,7 @@
                 <span class="dropdown-text">Профиль</span>
             </a>
             <div role="separator" class="divider"></div>
-            <a href="<?=URL::site('/'); ?>" class="header_button dropdown-button">
+            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="header_button dropdown-button">
                 <i class="fa fa-sign-out dropdown-icon header_icon" aria-hidden="true"></i>
                 <span class="dropdown-text">Выйти</span>
             </a>

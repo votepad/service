@@ -10,8 +10,15 @@ class Controller_Auth_Organizer extends Auth {
      */
     public function before()
     {
-        // check CSRF
-        $this->checkCsrf();
+        // поля без CSRF
+        $exceptions = ['logout'];
+
+        if (!in_array($this->request->action(), $exceptions)) {
+
+            // check CSRF
+            $this->checkCsrf();
+
+        }
 
         // Do not allow render
         $this->auto_render = false;
@@ -27,6 +34,7 @@ class Controller_Auth_Organizer extends Auth {
             // Если сессия была уничтожена или хэш не совпал
             if (!$uid) {
                 $this->clearCookie();
+                $this->redirect('/');
             }
 
             // редирект на профиль
@@ -36,9 +44,7 @@ class Controller_Auth_Organizer extends Auth {
 
             $this->clearCookie();
             $this->session->destroy();
-
             $this->redirect('/');
-
         }
 
         $email      = Arr::get($_POST, 'email', '');
@@ -71,6 +77,16 @@ class Controller_Auth_Organizer extends Auth {
 
     }
 
+    public function action_logout()
+    {
+        $auth = new Model_Auth();
+        $auth->logout(TRUE);
+
+        $referer = $this->request->referrer();
+        $this->redirect($referer);
+
+    }
+
     /**
      * Check session token (make secret from Cookie data)
      *
@@ -84,7 +100,26 @@ class Controller_Auth_Organizer extends Auth {
 
         $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $uid);
 
-        if ($this->redis->get($hash)) {
+        if ($this->redis->get($hash) && $hash == $secret) {
+
+            // Создаем новую сессию
+            $auth = new Model_Auth();
+            $auth->recoverById($uid);
+
+            $sid = $this->session->id();
+            $uid = $this->session->get('uid');
+
+            $this->redis->delete($hash);
+
+            // генерируем новый хэш c новый session id
+            $newHash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $uid);
+
+            // меняем хэш в куки
+            Cookie::set('secret', $newHash, DATE::DAY);
+
+            // сохраняем в редис
+            $this->saveSessionData($newHash, $sid, $uid);
+
             return $uid;
         }
 

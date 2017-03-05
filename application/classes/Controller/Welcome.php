@@ -19,12 +19,8 @@ class Controller_Welcome extends Dispatch
      */
     public function action_index()
     {
-        $isLogged = self::isLogged();
-        $hadLogged = self::hadLogged();
-        $canLogin = false;
 
-        if ($isLogged || (!$isLogged && $hadLogged))
-            $canLogin = true;
+        $canLogin = Dispatch::canLogin();
 
         if ($canLogin) {
             $userId = Cookie::get('uid');
