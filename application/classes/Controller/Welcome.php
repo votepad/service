@@ -35,12 +35,12 @@ class Controller_Welcome extends Dispatch
 
         if ($canLogin) {
 
-            $this->template->auth_modal = View::factory('welcome/blocks/auth_modal')
+            $this->template->auth_modal = View::factory('globalblocks/auth_modal')
                 ->set('canLogin', $canLogin)
                 ->set('user', $user);
         } else {
 
-            $this->template->auth_modal = View::factory('welcome/blocks/auth_modal')
+            $this->template->auth_modal = View::factory('globalblocks/auth_modal')
                 ->set('canLogin', $canLogin);
 
         }

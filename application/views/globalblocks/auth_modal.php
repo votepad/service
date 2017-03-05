@@ -17,12 +17,12 @@
                         <div class="auth_logged-image">
                             <img class="" src="<?=$assets; ?>img/logo.jpg" alt="">
                         </div>
-                        <div class="auth_logged-name text-center"><?=$user->name . ' ' ,  $user->lastname; ?></div>
+                        <div class="auth_logged-name text-center"><?=$user->name . ' ' ,  $user->surname; ?></div>
                     </div>
                     <div class="col-xs-12">
                         <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
-                        <button type="sumbit" name="recover" class="btn btn_primary col-xs-5">Продолжить</button>
-                        <button type="submit" id="logout" name="logout" class="btn btn_default col-xs-5 col-xs-offset-2">Выйти</button>
+                        <button type="submit" id="logout" name="logout" class="btn btn_default col-xs-5">Выйти</button>
+                        <button type="sumbit" name="recover" class="btn btn_primary col-xs-5 col-xs-offset-2">Продолжить</button>
                     </div>
                 </form>
                 <? endif; ?>

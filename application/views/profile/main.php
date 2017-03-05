@@ -19,9 +19,13 @@
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
+
+    <? if ( $isLogged && $isProfileOwner ) :?>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+    <? endif; ?>
+
     <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/profile.js"></script>
 
@@ -90,6 +94,7 @@
         </div>
     </div>
 
+<? if ( $isLogged && $isProfileOwner ) :?>
 <!-- Modal - Update User Info -->
 <form action="<?= $profile->id ?>/update" method="POST" class="modal fade" id="edituser_modal" tabindex="-1" role="dialog" >
     <div class="modal-dialog" role="document">
@@ -170,6 +175,7 @@
         </div>
     </div>
 </form>
+<? endif; ?>
 
 </section>
 

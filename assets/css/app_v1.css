@@ -96,7 +96,7 @@ ul{
 	background-color: #008DA7;
 	box-shadow: rgb(0, 0, 0) 0px -1px 15px -5px;
 	cursor: default;
-	z-index: 1011;
+	z-index: 1012;
 	-moz-user-select: none;
 	-khtml-user-select: none;
     user-select: none;
@@ -2272,6 +2272,9 @@ select.invalid + .select2-container .select2-selection{
 /**
 * Authorization Modal Style
 */
+.auth-modal{
+	line-height: normal;
+}
 .auth-modal .modal-dialog, .registr-modal .modal-dialog{
     margin: 120px auto
 }

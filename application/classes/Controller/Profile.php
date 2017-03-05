@@ -26,9 +26,9 @@ class Controller_Profile extends Dispatch
 
         $isProfileOwner = !empty($this->session->get('uid')) && $this->session->get('uid') == $id;
         $canLogin = self::canLogin();
-        
+
         $this->template->header = View::factory('profile/blocks/header')
-            ->set('auth_modal', View::factory('welcome/blocks/auth_modal', array('canLogin' => $canLogin)));
+            ->set('auth_modal', View::factory('globalblocks/auth_modal', array('canLogin' => $canLogin)));
 
         $this->template->footer = View::factory('profile/blocks/footer');
 
