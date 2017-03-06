@@ -14,6 +14,11 @@ class Model_Auth extends Model {
     private $_session = null;
     private $_session_driver = 'native';
 
+    public function __construct()
+    {
+        $this->_session = Dispatch::sessionInstance($this->_session_driver);
+    }
+
     public function login($email, $password, $remember = false)
     {
         $select = Dao_Users::select('*')
@@ -24,16 +29,29 @@ class Model_Auth extends Model {
 
         if (Arr::get($select, 'id'))
         {
-            $this->_session = Dispatch::sessionInstance($this->_session_driver);
             $this->complete($select);
-
             return true;
         }
 
         return false;
     }
 
-    public function logout($email, $destroy = FALSE)
+    public function recoverById($id)
+    {
+        $select = Dao_Users::select('*')
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->execute();
+
+        if (Arr::get($select, 'id')) {
+            $this->complete($select);
+            return true;
+        }
+
+        return false;
+    }
+
+    public function logout($destroy = FALSE)
     {
         if ($destroy === TRUE)
         {

@@ -18,12 +18,7 @@ $(document).ready(function () {
 
     $("#edituser_phone").inputmask({
         "mask": "+7 (999) 999-99-99",
-        onincomplete: function(){
-            $("#edituser_phone").addClass('invalid');
-        },
-        oncomplete: function() {
-            $("#edituser_phone").removeClass('invalid');
-        }
+        clearIncomplete: true,
     });
 
 
@@ -41,17 +36,18 @@ $(document).ready(function () {
 
         // checking type = text || email
         $('.input-field > input[type="text"], .input-field > input[type="email"]', form).each(function(){
-
-            if ( isvalid && ! allowedSymbols.test($(this).val()) && $(this).val() != "") {
-                $(this).removeClass('invalid');
-            } else if ( isvalid ){
-                $(this).addClass('invalid');
-                $.notify({
-                    message: 'Возможно Вы забыли что-то указать или используете запрещенные символы.'
-                },{
-                    type: 'danger'
-                });
-                isvalid = false;
+            if ( $(this).attr('required') != undefined ){
+                if ( isvalid && ! allowedSymbols.test($(this).val()) && $(this).val() != "") {
+                    $(this).removeClass('invalid');
+                } else if ( isvalid ){
+                    $(this).addClass('invalid');
+                    $.notify({
+                        message: 'Возможно Вы забыли что-то указать или используете запрещенные символы.'
+                    },{
+                        type: 'danger'
+                    });
+                    isvalid = false;
+                }
             }
 
         });

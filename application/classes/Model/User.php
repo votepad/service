@@ -169,13 +169,13 @@ Class Model_User {
      * @param $value
      * @returns [Bool] True or False
      */
-    public static function isUserExist($field, $value) {
-        $select = DB::select('id')->from('Users')
-            ->where($field, '=', $value)
-            ->execute()
-            ->as_array();
+    public static function isUserExist($value, $field = 'email') {
+        $select = Dao_Users::select('id')
+                ->where($field, '=', $value)
+                ->limit(1)
+                ->execute();
 
-        if (count($select) > 0) {
+        if (!empty($select['id'])) {
             return true;
         } else {
             return false;

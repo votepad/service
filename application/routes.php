@@ -13,7 +13,7 @@ Route::set('Welcome_Page', '')
     ->cache();
 
 /** Authentification */
-Route::set('AUTH', 'sign/<mode>')
+Route::set('AUTH', 'sign/<mode>(/<additional>)')
     ->filter(function ($route, $params, $request) {
 
         $params['controller'] = 'Auth';
@@ -23,6 +23,11 @@ Route::set('AUTH', 'sign/<mode>')
         $params['controller'] = $params['controller'] . '_' . $params['mode'];
         $params['action']     = 'auth';
 
+        // log out action
+        if (!empty($params['additional'])) {
+            $params['action'] = 'logout';
+        }
+
         return $params;
 
     });
@@ -30,7 +35,7 @@ Route::set('AUTH', 'sign/<mode>')
 /**
  * Route for signing up
  */
-Route::set('SINGUP', 'signup')
+Route::set('SINGUP', 'signup(/<action>)', array('action' => 'check'))
     ->defaults(array(
         'controller'  => 'SignUp',
         'action'      => 'index',

@@ -1,19 +1,8 @@
-
-<?php
-
-    $isLogged = Dispatch::isLogged();
-    $hadLogged = Dispatch::hadLogged();
-    $canLogin = false;
-
-    if ($isLogged || (!$isLogged && $hadLogged))
-        $canLogin = true;
-
-?>
-
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/auth.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<script type="text/javascript" src="<?=$assets; ?>js/modules/ajax.js"></script>
 
 <!-- Authorization Modal -->
 <div class="modal valign auth-modal" id="auth_modal" tabindex="-1">
@@ -29,11 +18,13 @@
                         <div class="auth_logged-image">
                             <img class="" src="<?=$assets; ?>img/logo.jpg" alt="">
                         </div>
-                        <div class="auth_logged-name text-center">Nikolay Turov</div>
+                        <div class="auth_logged-name text-center"><?=$user->name . ' ' ,  $user->surname; ?></div>
                     </div>
                     <div class="col-xs-12">
-                        <button type="sumbit" class="btn btn_primary col-xs-5">Продолжить</button>
-                        <button type="button" id="logout" class="btn btn_default col-xs-5 col-xs-offset-2">Выйти</button>
+                        <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
+                        <input type="hidden" name="recover" value="1">
+                        <button type="submit" id="logout" name="logout" class="btn btn_default col-xs-5">Выйти</button>
+                        <button type="button" id="userRecover" name="submit_recover" class="btn btn_primary col-xs-5 col-xs-offset-2">Продолжить</button>
                     </div>
                 </form>
                 <? endif; ?>
@@ -54,6 +45,7 @@
                         </label>
                     </div>
                     <div class="col-xs-12">
+                        <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
                         <button type="button" id="resetPasword" class="btn btn_text-forgot col-xs-6">Забыли пароль?</button>
                         <button type="button" id="userSignIn" class="btn btn_primary col-xs-5 col-xs-offset-1">Войти</button>
                     </div>
@@ -112,9 +104,6 @@
     </div>
 </div>
 
-
-<? if (! $canLogin) : ?>
-
 <!-- Registration Modal -->
 
 <div class="modal valign registr-modal" id="registr_modal" tabindex="-1">
@@ -141,13 +130,8 @@
                             <i aria-hidden="true" class="fa fa-lock"></i>
                         </label>
                     </div>
-                    <div class="input-field label-with-icon col-xs-12">
-                        <input type="password" id="registr_password2" name="password2" placeholder="Повторите пароль" required="">
-                        <label for="registr_password2" class="icon-label">
-                            <i aria-hidden="true" class="fa fa-lock"></i>
-                        </label>
-                    </div>
                     <div class="col-xs-12 text-center">
+                        <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
                         <button type="button" id="registr" class="btn btn_primary">Зарегистрироваться</button>
                     </div>
                 </form>
@@ -155,4 +139,3 @@
         </div>
     </div>
 </div>
-<? endif; ?>
