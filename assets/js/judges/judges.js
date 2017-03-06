@@ -1,3 +1,5 @@
+//Преобразование touch-нажатий в схожие с нажатием мышки событиями
+
 var touchSupported = function(e) {
 
     if (e.changedTouches)
@@ -19,6 +21,7 @@ var touchSupported = function(e) {
     return e;
 };
 
+//Модуль слайдера
 
 var slider = function(){
 
@@ -39,27 +42,26 @@ var slider = function(){
 
     var bandCord = bandElem.getBoundingClientRect();
 
-    var circleWidth = null;
-
-    var proportion = null;
-
     //Переменные для обработки события прокрутки
 
     var circleCord = null;
-    var shiftX = null;
+    var circleWidth = null;
+
+    //Переменная для обработки события изменение окна
+
+    var proportionForResize = null;
+
+    //Переменная для проверки события клика мышки на ползунок
+
+    var checkDownMouse = false;
 
     var handlers = {
 
-        touchStart: function(event) {
+        downMouse: function(event) {
 
-           //console.log('here');
             if ( event.which > 1) {
-
-                console.log('out');
                 return;
             }
-
-            //console.log('start1');
 
             event.preventDefault();
 
@@ -69,21 +71,16 @@ var slider = function(){
 
             bandCord = bandElem.getBoundingClientRect();
 
-            shiftX = event.pageX - circleCord.left;
-
             circleWidth = (circleCord.right - circleCord.left) / 2;
-
-            //console.log('start2');
 
             circleElem.style.left = event.pageX - bandCord.left - circleWidth + 'px';
 
-            console.log(event.pageX - bandCord.left - circleWidth );
-
+            checkDownMouse = true;
         },
-        touchMove: function (event) {
 
-            if ( event.which > 1) {
-                console.log(event.which);
+        moveMouse: function (event) {
+
+            if ( event.which > 1 || !checkDownMouse ) {
                 return;
             }
 
@@ -93,7 +90,7 @@ var slider = function(){
 
             var rightEdge = sliderElem.offsetWidth - circleElem.offsetWidth;
 
-            var newLetterIndex = Math.floor(newLeft/(rightEdge/letters.length));
+            var newLetterIndex = Math.floor(newLeft / (rightEdge / letters.length));
 
             if ( newLetterIndex < 0 )
                 newLetterIndex = 0;
@@ -109,30 +106,40 @@ var slider = function(){
                 newLeft = rightEdge;
             }
 
-            //console.log(newLeft);
             letterElem.innerHTML = letters[newLetterIndex];
             circleElem.style.left = newLeft + 'px';
-            proportion = newLeft / (bandCord.right-bandCord.left);
+            proportionForResize = newLeft / (bandCord.right - bandCord.left);
         },
 
-        resize: function () {
+        upMouse: function (event) {
+            checkDownMouse = false;
+
+        },
+
+        //Изменение положение ползунка на линии при изменении размеров окна
+
+        replaceCirclePosition: function () {
             requestAnimationFrame(function () {
+
                 bandCord = bandElem.getBoundingClientRect();
-                console.log(proportion*(bandCord.right-bandCord.left));
-                circleElem.style.left = proportion*(bandCord.right-bandCord.left) + 'px';
-                //console.log('ok');
+
+                circleElem.style.left = proportionForResize * (bandCord.right - bandCord.left) + 'px';
             })
         }
     };
 
-    sliderElem.addEventListener('touchstart', handlers.touchStart, false);
-    sliderElem.addEventListener('mousedown', handlers.touchStart, false);
+    sliderElem.addEventListener('touchstart', handlers.downMouse, false);
+    sliderElem.addEventListener('mousedown', handlers.downMouse, false);
 
-    sliderElem.addEventListener('touchmove', handlers.touchMove, false);
-    sliderElem.addEventListener('mousemove', handlers.touchMove, false);
+    sliderElem.addEventListener('touchmove', handlers.moveMouse, false);
+    sliderElem.addEventListener('mousemove', handlers.moveMouse, false);
 
-    window.addEventListener('resize', handlers.resize, false);
+    sliderElem.addEventListener('mouseup', handlers.upMouse, false);
+
+    window.addEventListener('resize', handlers.replaceCirclePosition, false);
 };
+
+//Навигация по этапам мероприятия
 
 var stage_nav = function () {
 
@@ -140,8 +147,13 @@ var stage_nav = function () {
 
     var startX = null;
 
+    //Переменная для проверки события клика мышки на ползунок
+
+    var checkDownMouse = false;
+
     var handlers = {
-        touchStart: function(event) {
+
+        downMouse: function(event) {
 
             if ( event.which > 1) {
                 return;
@@ -151,11 +163,12 @@ var stage_nav = function () {
 
             startX = event.clientX;
 
+            checkDownMouse = true;
         },
 
-        touchMove: function (event) {
+        moveMouse: function (event) {
 
-            if ( event.which > 1) {
+            if ( event.which > 1 || !checkDownMouse ) {
                 return;
             }
 
@@ -165,25 +178,27 @@ var stage_nav = function () {
 
             stage.scrollLeft -= (finX - startX);
 
-            //console.log(finX - startX, stage.scrollLeft);
-
             startX = finX;
 
+        },
+
+        upMouse: function (event) {
+            checkDownMouse = false;
         }
     };
 
-    stage.addEventListener('touchstart', handlers.touchStart, false);
-    stage.addEventListener('mousedown', handlers.touchStart, false);
+    stage.addEventListener('touchstart', handlers.downMouse, false);
+    stage.addEventListener('mousedown', handlers.downMouse, false);
 
-    stage.addEventListener('touchmove', handlers.touchMove, false);
-    stage.addEventListener('mousemove', handlers.touchMove, false);
+    stage.addEventListener('touchmove', handlers.moveMouse, false);
+    stage.addEventListener('mousemove', handlers.moveMouse, false);
+
+    stage.addEventListener('mouseup', handlers.upMouse, false);
 };
 
 function init() {
     slider();
     stage_nav();
-    console.log('kek');
 }
-
 
 document.addEventListener('DOMContentLoaded', init);
