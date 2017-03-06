@@ -5,135 +5,54 @@
         <title>Подтверждение эл.почты | Votepad</title>
 
     </head>
-    <style media="screen">
-        body{
-            font-size: 16px;
-            color: #212121;
-            font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-        }
-        .center{
-            width:100%;
-            table-layout:fixed;
-        }
 
-        tr{
-            text-align:left;
-        }
-        td{
-            vertical-align:top;
-            text-align:left;
-        }
-        .h1{
-            margin:0 0 18px;
-            font-weight: bold;
-            font-size: 2em;
-        }
-        .h2{
-            margin:12px 0 24px;
-            font-size: 1.3em;
-        }
-        .p{
-            font-size: 1.1em;
-            line-height: 1.5em;
-        }
-        .link{
-            text-decoration: none;
-            color: #008DA7;
-            padding-bottom: 2px;
-            border-bottom: 2px solid #008DA7;
-        }
-        .btn{
-            display: block;
-            border-radius: 3px;
-            text-align: center;
-            color: #FCFCFC;
-            background: #008DA7;
-            padding: 20px;
-            font-size: 1.3em;
-            text-decoration: none;
-        }
-        .table-global {
-            border-spacing:0;
-            border-collapse:collapse;
-            width:100%;
-            max-width:580px;
-        }
-        .table-global-tr-td{
-            padding: 15px 0;
-        }
-        .table-border{
-            border-spacing: 0;
-            border: 15px solid #008DA7;
-        }
-        .table-border-td{
-            background:#ffffff;
-            padding: 35px;
-        }
-        .table-border-td-dark{
-            background:#EEEEEE;
-            padding: 24px 34px;
-        }
-        .table{
-            border-spacing:0;
-            width:100%;
-        }
-        .table-td{
-            background:#EEEEEE;
-            padding:18px 24px;
-        }
-        .table-td-p{
-            margin: 7px 0;
-            font-size: 1.3em;
-        }
-    </style>
-    <body>
+    <body style="font-size: 16px;color: #212121;font-family: -apple-system, BlinkMacSystemFont, sans-serif;">
 
-
-<center class="center">
-    <table align="center" class="table-global">
+<center class="center" style="width:100%;table-layout:fixed;">
+    <table align="center" class="table-global" style="border-spacing:0;border-collapse:collapse;width:100%;max-width:580px;">
         <tbody>
 
             <!-- Main Info -->
-            <tr align="left">
-                <td class="table-global-tr-td" align="left" valign="top">
-                    <table width="100%" class="table-border">
+            <tr align="left" style="text-align:left;">
+                <td class="table-global-tr-td" align="left" valign="top" style="vertical-align:top;text-align:left;padding: 15px 0;">
+                    <table width="100%" class="table-border" style="border-spacing: 0;border: 15px solid #008DA7;">
                         <tbody>
-                            <tr align="left">
-                                <td class="table-border-td" align="left" valign="top">
-                                    <p class="h1">Добро пожаловать в Votepad!</p>
-                                    <p class="h2">Поздравляем вас с успешной регистрацией на сайте votepad.ru!</p>
-                                    <table class="table">
+                            <tr align="left" style="text-align:left;">
+                                <td class="table-border-td" align="left" valign="top" style="vertical-align:top;text-align:left;background:#ffffff;padding: 35px;">
+                                    <p class="h1" style="margin:0 0 18px;font-weight: bold;font-size: 2em;">Добро пожаловать в Votepad!</p>
+                                    <p class="h2" style="margin:12px 0 24px;font-size: 1.3em;"><?= $user->name ?>,  поздравляем вас с успешной регистрацией на сайте votepad.ru!</p>
+                                    <table class="table" style="border-spacing:0;width:100%;">
                                         <tbody>
-                                            <tr align="left">
-                                                <td class="table-td" align="left" valign="top">
-                                                    <p class="table-td-p">
+                                            <tr align="left" style="text-align:left;">
+                                                <td class="table-td" align="left" valign="top" style="vertical-align:top;text-align:left;background:#EEEEEE;padding:18px 24px;">
+                                                    <p class="table-td-p" style="margin: 7px 0;font-size: 1.3em;">
                                                         <img alt="" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fnew_user%2Fb-mail-new-user__customer.png&amp;proxy=yes&amp;key=74f42c69f9f045fbe48cd2731db72876">
-                                                        <b>Ваш логин:</b> <a class="link">test@ya.ru</a>
+                                                        <b>Ваш логин:</b> <a class="link" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;"><?= $user->email; ?></a>
                                                     </p>
-                                                    <p class="table-td-p">
+                                                    <p class="table-td-p" style="margin: 7px 0;font-size: 1.3em;">
                                                         <img alt="" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fnew_user%2Fb-mail-new-user__lock.png&amp;proxy=yes&amp;key=709ee8fbd4918c19390d60947faca210">
-                                                        <b>Ваш пароль:</b> password
+                                                        <b>Ваш пароль:</b> <?= $user->password ?>
                                                     </p>
                                                 </td>
                                             </tr>
                                         </tbody>
                                     </table>
-                                    <p class="p">
-                                        Войти в <a href="" class="link">Личный кабинет</a>
+                                    <p class="p" style="font-size: 1.1em;line-height: 1.5em;">
+                                        Войти в <a href="<?= $_SERVER['HTTP_HOST'].'/user/'.$user->id ?>" class="link" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;">Личный кабинет</a>
                                     </p>
                                 </td>
                             </tr>
 
-                            <tr align="left">
-                                <td class="table-border-td-dark" align="left" valign="top">
-                                    <table class="table">
+                            <tr align="left" style="text-align:left;">
+                                <td class="table-border-td-dark" align="left" valign="top" style="vertical-align:top;text-align:left;background:#EEEEEE;padding: 24px 34px;">
+                                    <table class="table" style="border-spacing:0;width:100%;">
                                         <tbody>
-                                            <tr align="left">
-                                                <td style="padding: 10px" align="left" valign="top">
+                                            <tr align="left" style="text-align:left;">
+                                                <td style="padding: 10px" align="left" valign="top" style="vertical-align:top;text-align:left;">
                                                     <img alt="" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fi.reg.ru%2Fi%2Fmail%2Fimg%2Fmail-icon-alert.png&amp;proxy=yes&amp;key=dada823f08ed77f3029a82a7d6c8ec5f">
                                                 </td>
                                                 <td style="vertical-align:middle;line-height:1.5em" align="left" valign="middle">
-                                                    Для активации аккаунта, пожалуйста, <a href="" class="link">подтвердите регистрацию</a> на сайте votepad.ru.
+                                                    Для активации аккаунта, пожалуйста, <a href="<?= $_SERVER['HTTP_HOST'].'/confirm/'.$hash ?>" class="link" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;">подтвердите регистрацию</a> на сайте votepad.ru.
                                                 </td>
                                             </tr>
                                         </tbody>
@@ -141,19 +60,19 @@
                                 </td>
                             </tr>
 
-                            <tr align="left">
-                                <td class="table-border-td" align="left" valign="top">
-                                    <a href="" class="btn">
+                            <tr align="left" style="text-align:left;">
+                                <td class="table-border-td" align="left" valign="top" style="vertical-align:top;text-align:left;background:#ffffff;padding: 35px;">
+                                    <a href="<?= $_SERVER['HTTP_HOST'].'/confirm/'.$hash ?>" class="btn" style="display: block;border-radius: 3px;text-align: center;color: #FCFCFC;background: #008DA7;padding: 20px;font-size: 1.3em;text-decoration: none;cursor: pointer;">
                                         Подтвердить регистрацию
                                     </a>
                                 </td>
                             </tr>
 
-                            <tr align="left">
-                                <td class="table-border-td" align="left" valign="top" style="padding-top:0">
-                                    <p class="p">
+                            <tr align="left" style="text-align:left;">
+                                <td class="table-border-td" align="left" valign="top" style="padding-top:0;vertical-align:top;text-align:left;background:#ffffff;padding: 35px;">
+                                    <p class="p" style="font-size: 1.1em;line-height: 1.5em;">
                                         Если вы не осуществляли регистрацию на нашем сайте, проигнорируйте это письмо. В таком случае аккаунт не будет активирован и будет автоматически удалён через месяц. Для быстрого удаления обратитесь в
-                                        <a href="" class="link">службу поддержки</a>.
+                                        <a href="mailto: votepad@ya.ru" class="link" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;">службу поддержки: votepad@ya.ru</a>.
                                     </p>
                                 </td>
                             </tr>
@@ -164,34 +83,34 @@
 
 
             <!-- Links to Social networks -->
-            <tr align="left">
-                <td align="left" valign="top" style="padding:50px 0">
-                    <table class="table">
+            <tr align="left" style="text-align:left;">
+                <td align="left" valign="top" style="padding:50px 0;vertical-align:top;text-align:left;">
+                    <table class="table" style="border-spacing:0;width:100%;">
                         <tbody>
-                            <tr align="left">
-                                <td class="table-td" align="center" valign="top" style="text-align:center">
-                                    <p class="h1">Присоединяйтесь</p>
-                                    <p class="p">Подписывайтесь на наши группы в социальных сетях, чтобы постоянно быть в курсе всего самого интересного.</p>
-                                    <table class="table" align="center">
+                            <tr align="left" style="text-align:left;">
+                                <td class="table-td" align="center" valign="top" style="background:#EEEEEE;padding:18px 24px;text-align:center;vertical-align:top;text-align:left;">
+                                    <p class="h1" style="margin:0 0 18px;font-weight: bold;font-size: 2em;">Присоединяйтесь</p>
+                                    <p class="p" style="font-size: 1.1em;line-height: 1.5em;">Подписывайтесь на наши группы в социальных сетях, чтобы постоянно быть в курсе всего самого интересного.</p>
+                                    <table class="table" align="center" style="border-spacing:0;width:100%;">
                                         <tbody>
-                                            <tr align="left">
-                                                <td style="text-align:center" align="center" valign="top">
+                                            <tr align="left" style="text-align:left;">
+                                                <td style="vertical-align:top;text-align:left;text-align:center" align="center" valign="top">
                                                     <div style="max-width: 150px; display:inline-block; width:100%;" align="left">
-                                                        <table class="table">
+                                                        <table class="table" style="border-spacing:0;width:100%;">
                                                             <tbody>
-                                                                <tr align="left">
-                                                                    <td align="left" valign="top" style="text-align:center">
+                                                                <tr align="left" style="text-align:left;">
+                                                                    <td align="left" valign="top" style="vertical-align:top;text-align:left;text-align:center">
                                                                         <a href="//vk.com/votepad">
                                                                             <img alt="" width="44" height="44" style="border:0;" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fb-mail-socailnets%2Fb-mail-socialnets__icon_mode_vk.png&amp;proxy=yes&amp;key=9d348c064fe34052fa13656889b15d3a">
                                                                         </a>
                                                                     </td>
-                                                                    <td align="left" valign="top" style="text-align:center">
+                                                                    <td align="left" valign="top" style="vertical-align:top;text-align:left;text-align:center">
                                                                         <a href="//twitter.com/votepadevent">
                                                                             <img alt="" width="44" height="44" style="border:0;" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fb-mail-socailnets%2Fb-mail-socialnets__icon_mode_twitter.png&amp;proxy=yes&amp;key=c851df1c2ca0f4ddadc0a6fb730ac073">
 
                                                                         </a>
                                                                     </td>
-                                                                    <!--<td align="left" valign="top">
+                                                                    <!--<td align="left" valign="top" style="vertical-align:top;text-align:left;">
                                                                         <a href="">
                                                                             <img alt="" width="44" height="44" style="border:0;" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fb-mail-socailnets%2Fb-mail-socialnets__icon_mode_fb.png&amp;proxy=yes&amp;key=4c08c1ac4f8432433063c386e1384bf4">
                                                                         </a>

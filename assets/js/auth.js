@@ -183,6 +183,7 @@ $(document).ready(function () {
 
         // checking type = password
         if (isvalid && ! allowedPassSymbols.test($('#registr_password').val()) && $('#registr_password').val() != "" ) {
+            console.log(isvalid, allowedPassSymbols.test($('#registr_password').val()));
             $('#registr_password').removeClass('invalid');
         } else {
             isvalid = false;

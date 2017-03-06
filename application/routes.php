@@ -51,6 +51,7 @@ Route::set('IMAGE_TRANSPORT', 'transport')
         'action'     => 'file_uploader'
     ));
 
+
 require_once ('routes/welcome.php');
 require_once ('routes/profile.php');
 require_once ('routes/ui.php');
@@ -72,6 +73,12 @@ Route::set('TEST', 'test')
         'controller' => 'Test',
         'action'     => 'index'
     ));
+
+Route::set('EMAIL_CONFIRMATION', 'confirm/<hash>')
+    ->defaults(array(
+        'controller' => 'SignUp',
+        'action'     => 'confirmEmail'
+    ))
 
 
 ?>
