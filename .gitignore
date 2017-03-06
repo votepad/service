@@ -10,9 +10,6 @@ uploads/
 /vendor/
 vendor/*
 
-application/vendor/phing/phing/
-application/vendor/phpoffice/phpexcel/
-
 # Bundler
 assets/frontend/.idea/
 assets/frontend/modules/*
@@ -23,3 +20,9 @@ assets/frontend/node_modules/*
 
 # Media files
 assets/img/
+
+# config files
+application/config/cache.php
+application/config/database.php
+application/config/redis.php
+application/config/session.php
