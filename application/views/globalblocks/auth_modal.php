@@ -104,9 +104,6 @@
     </div>
 </div>
 
-
-<? if (! $canLogin) : ?>
-
 <!-- Registration Modal -->
 
 <div class="modal valign registr-modal" id="registr_modal" tabindex="-1">
@@ -142,4 +139,3 @@
         </div>
     </div>
 </div>
-<? endif; ?>
