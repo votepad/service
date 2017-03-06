@@ -27,6 +27,11 @@ class Controller_Auth_Organizer extends Auth {
 
     public function action_auth()
     {
+
+        if (!$this->request->is_ajax()) {
+            return;
+        }
+
         if ( isset($_POST['recover']) ) {
 
             $uid = $this->recover();
@@ -34,17 +39,28 @@ class Controller_Auth_Organizer extends Auth {
             // Если сессия была уничтожена или хэш не совпал
             if (!$uid) {
                 $this->clearCookie();
-                $this->redirect('/');
+
+                $response = new Model_Response_Auth('RECOVER_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
+                return;
+
+
             }
 
-            // редирект на профиль
-            $this->redirect('/user/' . $uid);
+            $response = new Model_Response_Auth('RECOVER_SUCCESS', 'success', array('id' => $uid));
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
 
         } else if ( isset($_POST['logout'])) {
 
             $this->clearCookie();
             $this->session->destroy();
-            $this->redirect('/');
+
+            $response = new Model_Response_Auth('LOGOUT_SUCCESS', 'success');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
         }
 
         $email      = Arr::get($_POST, 'email', '');
@@ -52,15 +68,27 @@ class Controller_Auth_Organizer extends Auth {
         $remember   = false;
 
         if ( empty($email) || empty($password)) {
+
             $this->makeAttempt();
-            $this->redirect('/');
+
+            $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+
         }
 
         $user = new Model_Auth();
 
         if (!$user->login($email, $password, $remember)) {
+
             $this->makeAttempt();
-            $this->redirect('/');
+
+
+            $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
         }
 
         $session = Session::instance();
@@ -73,7 +101,9 @@ class Controller_Auth_Organizer extends Auth {
 
         $this->saveSessionData($hash, $sid, $uid);
 
-        $this->redirect('/user/'.$uid);
+
+        $response = new Model_Response_Auth('LOGIN_SUCCESS', 'success', array('id' => $uid));
+        $this->response->body(@json_encode($response->get_response()));
 
     }
 

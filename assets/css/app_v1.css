@@ -65,7 +65,7 @@ ul{
 	display: block;
 }
 .displaynone{
-	display:none;
+	display:none !important;
 }
 .inlineblock{
 	display: inline-block;

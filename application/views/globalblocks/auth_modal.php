@@ -2,6 +2,7 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>js/auth.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/ajax.js"></script>
 
 <!-- Authorization Modal -->
 <div class="modal valign auth-modal" id="auth_modal" tabindex="-1">
@@ -21,8 +22,9 @@
                     </div>
                     <div class="col-xs-12">
                         <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
+                        <input type="hidden" name="recover" value="1">
                         <button type="submit" id="logout" name="logout" class="btn btn_default col-xs-5">Выйти</button>
-                        <button type="sumbit" name="recover" class="btn btn_primary col-xs-5 col-xs-offset-2">Продолжить</button>
+                        <button type="button" id="userRecover" name="submit_recover" class="btn btn_primary col-xs-5 col-xs-offset-2">Продолжить</button>
                     </div>
                 </form>
                 <? endif; ?>

@@ -36,13 +36,11 @@
                 Вход
             </a>
         </div>
-        <? if (! $canLogin) : ?>
-        <div class="pull-right header-list header-btn">
+        <div id="registr_btn" class="pull-right header-list header-btn <?= $canLogin?'displaynone':''; ?>">
             <a href="#registr_modal" class="btn_empty" data-toggle="modal" data-target="#registr_modal" tabindex="3">
                 Регистрация
             </a>
         </div>
-    <? endif; ?>
     </div>
 </header>
 <div id="HeaderMobile" class="header-mobile">

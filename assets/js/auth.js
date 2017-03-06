@@ -10,7 +10,7 @@ $(document).ready(function () {
         if (event.keyCode == 13)
             $('#judgeSignIn').click();
     });
-    $('body').on('keyup','#registr_modal', function(event){
+    $('body').on('keyup','#registr_form', function(event){
         if (event.keyCode == 13)
             $('#registr').click();
     });
@@ -73,10 +73,34 @@ $(document).ready(function () {
         } else if ( $("#auth_password").val() == '' ) {
             $('#auth_password').addClass('invalid');
         } else {
-            $('#user_form_notlogged')[0].submit();
+
+
+            var ajaxData = {
+                url: '/sign/organizer',
+                type: 'POST',
+                data: new FormData($('#user_form_notlogged')[0]),
+                success: authResponse
+            }
+
+            ajax.send(ajaxData);
         }
     });
 
+    /**
+     * Submit Logged User SignIn form
+     */
+    $('#userRecover').click(function(){
+
+            var ajaxData = {
+                url: '/sign/organizer',
+                type: 'POST',
+                data: new FormData($('#user_form_logged')[0]),
+                success: authResponse
+            }
+
+            ajax.send(ajaxData);
+
+    });
 
     /**
     * Sumbit Judges SignIn Form
@@ -117,6 +141,7 @@ $(document).ready(function () {
     $('#logout').click(function(){
         $('#user_form_logged').remove();
         $('#user_form_notlogged').removeClass('displaynone');
+        $('#registr_btn').removeClass('displaynone');
         document.cookie.split(";").forEach(function(c) { document.cookie = c.replace(/^ +/, "").replace(/=.*/, "=;expires=" + new Date().toUTCString() + ";path=/"); });
     });
 
@@ -180,13 +205,112 @@ $(document).ready(function () {
 
 
         if ( isvalid == true ) {
-            form[0].submit();
+
+            var ajaxData = {
+                url: '/signup',
+                type: 'POST',
+                data: new FormData(form[0]),
+                success: signupResponse
+            }
+
+            ajax.send(ajaxData);
+
         }
 
     });
 
 
+    function signupResponse(response) {
 
+        response = JSON.parse(response);
+
+        if (response.status == 'success') {
+
+            var host        = window.location.host,
+                protocol    = window.location.protocol,
+                id          = parseInt(response.id);
+
+            if (id) {
+                window.location.replace(protocol+'//'+host+'/user/'+id);
+            } else {
+                $.notify({
+                        message: 'Произошла ошибка'
+                    },
+                    {
+                        type: 'danger'
+                    });
+            }
+
+            return;
+
+        }
+
+        var message;
+
+        switch (parseInt(response.code)) {
+            case 30: message = 'Пожалуйста, заполните все поля';
+            break;
+            case 20: message = 'Пользователь с таким email уже зарегистрирован';
+            break;
+            default: message = 'Произошла ошибка. Попробуйте снова';
+        }
+
+        $.notify({
+                message: message
+            },
+            {
+                type: 'danger'
+            });
+
+
+    }
+
+
+
+    function authResponse(response) {
+
+        response = JSON.parse(response);
+
+        if (response.status == 'success') {
+
+            var host        = window.location.host,
+                protocol    = window.location.protocol,
+                id          = parseInt(response.id);
+
+            if (id) {
+                window.location.replace(protocol+'//'+host+'/user/'+id);
+            } else {
+                $.notify({
+                        message: 'Произошла ошибка'
+                    },
+                    {
+                        type: 'danger'
+                    });
+            }
+
+            return;
+
+        }
+
+        var message;
+
+        switch (parseInt(response.code)) {
+            case 30: message = 'Пожалуйста, заполните все поля';
+            break;
+            case 13: message = 'Неверно введен email или пароль';
+            break;
+            default: message = 'Произошла ошибка. Попробуйте снова';
+        }
+
+        $.notify({
+                message: message
+            },
+            {
+                type: 'danger'
+            });
+
+
+    }
 
 
     function notifyErrorEmail() {
