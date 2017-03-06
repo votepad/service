@@ -7,6 +7,8 @@ application/cache
 application/logs
 .idea/*
 uploads/
+/vendor/
+vendor/*
 
 application/vendor/phing/phing/
 application/vendor/phpoffice/phpexcel/
