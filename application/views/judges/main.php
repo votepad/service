@@ -24,8 +24,8 @@
     <?=$header?>
     <?=$jumbotron_wrapper?>
 
-    <div class="stage_nav">
-        <ul id="stage" class="stage_nav-ul">
+    <div id="stage" class="stage_nav">
+        <ul class="stage_nav-ul">
             <li class="stage_nav_ul-li">Деловая игра</li>
             <li class="stage_nav_ul-li">Доклад участника</li>
             <li class="stage_nav_ul-li">Творческий этап</li>

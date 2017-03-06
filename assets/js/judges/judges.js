@@ -1,3 +1,25 @@
+var touchSupported = function(e) {
+
+    if (e.changedTouches)
+        var touch = e.changedTouches[0];
+    else
+        return e;
+
+    e.pageX = touch.pageX;
+    e.pageY = touch.pageY;
+
+    e.clientX = touch.clientX;
+    e.clientY = touch.clientY;
+
+    e.screenX = touch.screenX;
+    e.screenY = touch.screenY;
+
+    e.target = touch.target;
+
+    return e;
+};
+
+
 var slider = function(){
 
     var letters = ['A', 'B', 'C', 'Ц', 'D', 'E', 'F', 'Ё'];
@@ -11,145 +33,156 @@ var slider = function(){
     var bandElem =  sliderElem.children[0];
     var circleElem = sliderElem.children[1];
 
+    circleElem.style.left = 0;
+
     //Получение координат полосы прокрутки
 
     var bandCord = bandElem.getBoundingClientRect();
+
+    var circleWidth = null;
+
+    var proportion = null;
 
     //Переменные для обработки события прокрутки
 
     var circleCord = null;
     var shiftX = null;
 
-    //Обработка touch-нажатия
+    var handlers = {
 
-    circleElem.addEventListener('touchstart', function(event) {
+        touchStart: function(event) {
 
-        if (event.targetTouches.length != 1) {
-            return;
+           //console.log('here');
+            if ( event.which > 1) {
+
+                console.log('out');
+                return;
+            }
+
+            //console.log('start1');
+
+            event.preventDefault();
+
+            event = touchSupported(event);
+
+            circleCord = circleElem.getBoundingClientRect();
+
+            bandCord = bandElem.getBoundingClientRect();
+
+            shiftX = event.pageX - circleCord.left;
+
+            circleWidth = (circleCord.right - circleCord.left) / 2;
+
+            //console.log('start2');
+
+            circleElem.style.left = event.pageX - bandCord.left - circleWidth + 'px';
+
+            console.log(event.pageX - bandCord.left - circleWidth );
+
+        },
+        touchMove: function (event) {
+
+            if ( event.which > 1) {
+                console.log(event.which);
+                return;
+            }
+
+            event = touchSupported(event);
+
+            var newLeft =  event.pageX - bandCord.left - circleWidth ;
+
+            var rightEdge = sliderElem.offsetWidth - circleElem.offsetWidth;
+
+            var newLetterIndex = Math.floor(newLeft/(rightEdge/letters.length));
+
+            if ( newLetterIndex < 0 )
+                newLetterIndex = 0;
+            if ( newLetterIndex > letters.length - 1 )
+                newLetterIndex = letters.length - 1;
+
+            // курсор ушёл вне слайдера
+            if (newLeft < 0) {
+                newLeft = 0;
+            }
+
+            if (newLeft > rightEdge) {
+                newLeft = rightEdge;
+            }
+
+            //console.log(newLeft);
+            letterElem.innerHTML = letters[newLetterIndex];
+            circleElem.style.left = newLeft + 'px';
+            proportion = newLeft / (bandCord.right-bandCord.left);
+        },
+
+        resize: function () {
+            requestAnimationFrame(function () {
+                bandCord = bandElem.getBoundingClientRect();
+                console.log(proportion*(bandCord.right-bandCord.left));
+                circleElem.style.left = proportion*(bandCord.right-bandCord.left) + 'px';
+                //console.log('ok');
+            })
         }
+    };
 
-        var touch = event.targetTouches[0];
+    sliderElem.addEventListener('touchstart', handlers.touchStart, false);
+    sliderElem.addEventListener('mousedown', handlers.touchStart, false);
 
-        circleCord = circleElem.getBoundingClientRect();
+    sliderElem.addEventListener('touchmove', handlers.touchMove, false);
+    sliderElem.addEventListener('mousemove', handlers.touchMove, false);
 
-        shiftX = touch.pageX - circleCord.left;
-
-    }, false);
-
-    //Обработка touch-перемещения
-
-    circleElem.addEventListener('touchmove', function (event) {
-
-        if (event.targetTouches.length != 1) {
-            return;
-        }
-
-        var touch = event.targetTouches[0];
-
-        var newLeft = touch.pageX - shiftX - bandCord.left;
-
-        var rightEdge = sliderElem.offsetWidth - circleElem.offsetWidth;
-
-        var newLetterIndex = Math.floor(newLeft/(rightEdge/letters.length));
-
-        if ( newLetterIndex < 0 )
-            newLetterIndex = 0;
-        if ( newLetterIndex > letters.length - 1 )
-            newLetterIndex = letters.length - 1;
-
-        // курсор ушёл вне слайдера
-        if (newLeft < 0) {
-            newLeft = 0;
-        }
-
-        if (newLeft > rightEdge) {
-            newLeft = rightEdge;
-        }
-
-        letterElem.innerHTML = letters[newLetterIndex];
-        circleElem.style.left = newLeft + 'px';
-
-    }, false);
-
+    window.addEventListener('resize', handlers.resize, false);
 };
 
 var stage_nav = function () {
 
     var stage = document.getElementById('stage');
 
-    var leftSize = stage.style.left;
-
-    var lenStage = stage.scrollWidth;
-
-    var windowWidth =  window.innerWidth;
-
     var startX = null;
 
-    function FirstPosition() {
+    var handlers = {
+        touchStart: function(event) {
 
-        var newLeft = null;
+            if ( event.which > 1) {
+                return;
+            }
 
-        if ( windowWidth >= lenStage ){
-            newLeft = Math.floor((windowWidth - lenStage)/2);
+            event = touchSupported(event);
+
+            startX = event.clientX;
+
+        },
+
+        touchMove: function (event) {
+
+            if ( event.which > 1) {
+                return;
+            }
+
+            event = touchSupported(event);
+
+            var finX = event.clientX;
+
+            stage.scrollLeft -= (finX - startX);
+
+            //console.log(finX - startX, stage.scrollLeft);
+
+            startX = finX;
+
         }
-        else{
-            newLeft = 0;
-        }
+    };
 
-        stage.style.left = newLeft + 'px';
-    }
+    stage.addEventListener('touchstart', handlers.touchStart, false);
+    stage.addEventListener('mousedown', handlers.touchStart, false);
 
-    FirstPosition();
-
-    stage.addEventListener('touchstart', function(event) {
-
-        if (event.targetTouches.length != 1) {
-            return;
-        }
-
-        leftSize = stage.style.left;
-
-        lenStage = stage.scrollWidth;
-
-        var touch = event.targetTouches[0];
-
-        startX = touch.pageX;
-
-    }, false);
-
-    stage.addEventListener('touchmove', function (event) {
-
-        if (event.targetTouches.length != 1) {
-            return;
-        }
-
-        var touch = event.targetTouches[0];
-
-        var newLeft = touch.pageX - startX + leftSize;
-
-        if ( newLeft < windowWidth - lenStage)
-            newLeft = windowWidth - lenStage;
-
-        if (newLeft > 0){
-            newLeft = 0;
-        }
-
-        if ( windowWidth >= lenStage ){
-            newLeft = Math.floor((windowWidth - lenStage)/2);
-        }
-
-        stage.style.left = newLeft + 'px';
-
-    }, false);
-
-
-
-
+    stage.addEventListener('touchmove', handlers.touchMove, false);
+    stage.addEventListener('mousemove', handlers.touchMove, false);
 };
 
 function init() {
     slider();
     stage_nav();
+    console.log('kek');
 }
 
 
