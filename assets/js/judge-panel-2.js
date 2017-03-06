@@ -133,7 +133,7 @@ $( function ()
                 var radio = $('input[type=radio][name="score-' + newIndex + '-' + pos[i] + '"]:checked');
                 var score = radio.val();
                 
-                if (score == null) {
+                if (score == 0 || score == null) {
                     k = 1;
                     $("#errorMsg").click();
                 }
@@ -237,7 +237,7 @@ $( function ()
                 var radio = $('input[type=radio][name="score-' + (currentIndex + 1) + '-' + pos[i] + '"]:checked');
                 var score = radio.val();
                 
-                if (score == null) {
+                if (score == 0 || score == null) {
                     k = 1;
                     $("#errorMsg").click();
                 }
@@ -428,7 +428,6 @@ $( function ()
     });
 
     $('.colorpicker-component').colorpicker();
-    $('.buttons button:first-child').addClass('active');
     
     $("#panel-view").click(function(){
         $("#partposition").removeClass("in");

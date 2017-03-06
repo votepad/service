@@ -1,14 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * @author ProNWE team
- * @copyright Khaydarov Murod
+ * @team ProNWE team
+ * @author Khaydarov Murod
  */
 
 class Controller_Auth extends Dispatch {
 
     public $template = 'auth/auth';
-
-    protected $model = null;
 
     function action_index()
     {
@@ -21,19 +19,29 @@ class Controller_Auth extends Dispatch {
         $password   = Arr::get($_POST, 'password', '');
         $mode       = Arr::get($_GET, 'mode', '');
 
-        $this->model = new Model_Auth();
-
         /**
-         * If fields are empty
+         * Проверяем, если поля пустые, то отправляем обратно на авторизацию
          */
         if ( empty($email) || empty($password)) {
+            $this->errors = 'Something happen';
             $this->redirect('auth/');
         }
 
-        $auth = $this->login($email, $password);
+        $model_user = Model_User::Instance();
+        $logIn      = $model_user->login($email, $password);
 
-        if (!$auth)
-        {
+        /**
+         * Если не получилось авторизоваться - обратно на Auth/
+         */
+
+        if ( !$logIn ) {
+            $asJudge = Model_Judge::logInAsJudge($email, $email);
+
+            if (count($asJudge) != 0) {
+                Session::instance()->set('id_judge', $asJudge['id']);
+                $this->redirect('event/' . $asJudge['id_event']. '/judge/panel'. Model_Events::EventsType($asJudge['id_event']) );
+            }
+
             $this->redirect('auth/');
         }
         else
@@ -44,19 +52,28 @@ class Controller_Auth extends Dispatch {
 
             $this->redirect('organization/' . $id);
         }
+    }
 
+    function action_logout()
+    {
+        $model_user = Model_User::Instance();
+        $model_user->logout();
+        Controller::redirect('/auth');
+    }
 
-        $this->auth_render = false;
+    function action_vk()
+    {
+
     }
 
     private function login($email, $password, $remember = FALSE)
     {
-        return $this->model->login($email, $password);
+
     }
 
     private function logout($email)
     {
-        return $this->model->logout($email, FALSE);
+
     }
 
     /**

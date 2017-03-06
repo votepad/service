@@ -1,5 +1,8 @@
 # Created by .ignore support plugin (hsz.mobi)
-.gitignore
+.idea
+uploads/
+application/vendor/
+assets/frontend/node_modules
 application/cache
 application/logs
 .idea/*

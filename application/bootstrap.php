@@ -148,5 +148,5 @@ Cookie::$salt = "saltPronwesalt";
 /**
  * Include Composer libraries
 */
-require 'vendor/autoload.php';
+//require APPPATH.'vendor/autoload.php';
 require APPPATH.'routes'.EXT;

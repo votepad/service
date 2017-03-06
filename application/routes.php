@@ -6,12 +6,11 @@ $STRING = '\w+';
 /**
  * Welcome page
  */
-/*Route::set('Welcome_Page', '')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'index',
-    ))
-    ->cache();*/
+// Route::set('Welcome_Page', '')
+//     ->defaults(array(
+//         'controller' => 'Welcome',
+//         'action'     => 'index',
+//     ));
 
 /**
  * Route for authentification
@@ -54,4 +53,12 @@ require_once ('routes/teams.php');
 require_once ('routes/groups.php');
 require_once ('routes/ajax.php');
 
+// Route::set('Default', '<controller>(/<action>(/<id>))')
+//     ->defaults(array(
+//         'controller' => 'Welcome',
+//         'action'     => 'Index',
+//     ));
 ?>
+
+
+

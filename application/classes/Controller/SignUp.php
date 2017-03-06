@@ -1,9 +1,9 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-
 /**
- * Class Controller_SignUp
- * @author ProNWE team
- * @copyright Khaydarov Murod
+ * Created by PhpStorm.
+ * User: Murod's Macbook Pro
+ * Date: 07.03.2016
+ * Time: 22:50
  */
 
 class Controller_SignUp extends Dispatch
@@ -12,30 +12,17 @@ class Controller_SignUp extends Dispatch
 
     function action_index()
     {
-        $email      = Arr::get($_POST, 'email', '');
-        $password   = Arr::get($_POST, 'password', '');
+        $email = Arr::get($_POST, 'email', '');
+        $password = Arr::get($_POST, 'password', '');
 
-        /** Disallow template rendering */
-        $this->auto_render = false;
+        /**
+         * TODO: Email - Validation
+         */
 
-        if (!$email && !$password) {
-            $this->redirect('auth/');
-        }
-
-        $user = new ORM_User();
-
-        try {
-            $user->email    = $email;
-            $user->password = $password;
-            
-            $user->save();
-        }
-        catch (ORM_Validation_Exception $e) {
-            echo Debug::vars($e);
-        }
+        $model_user = Model_User::Instance();
+        $model_user->signUp($email, $password);
 
         $this->redirect('signup/continue');
 
     }
-    
 }
