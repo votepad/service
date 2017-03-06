@@ -3,8 +3,8 @@
 class Model_Response_Abstract extends Model
 {
 
-    public $ERROR_STATUS     = 'error';
-    public $SUCCESS_STATUS   = 'success';
+    const ERROR_STATUS     = 'error';
+    const SUCCESS_STATUS   = 'success';
     protected $response      = array();
 
     public function __construct($name, $status, $data = array()) {
@@ -15,7 +15,12 @@ class Model_Response_Abstract extends Model
 
         $this->response = $this->{'_'.$name};
 
-        $this->response['status'] = $this->{strtoupper($status).'_STATUS'};
+        switch ($status) {
+            case 'error': $this->response['status'] = self::ERROR_STATUS;
+            break;
+            case 'success': $this->response['status'] = self::SUCCESS_STATUS;
+            break;
+        }
 
         $this->response = array_merge($this->response, $data);
 
