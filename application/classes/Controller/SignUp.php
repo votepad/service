@@ -46,6 +46,8 @@ class Controller_SignUp extends Dispatch
 
         $user->save();
 
+        $this->send_email_confirmation($user, $password);
+
         $auth = new Model_Auth();
 
         if ($auth->login($email, $password)) {
@@ -58,6 +60,41 @@ class Controller_SignUp extends Dispatch
         /**
          * TODO: Email - Validation
          */
+
+    }
+
+    public function action_confirmEmail() {
+
+        $hash = $this->request->param('hash');
+
+        $id = $this->redis->hGet('confirmation_hashes', $hash);
+
+        if (!$id) {
+            return;
+        }
+
+        $user = new Model_User($id);
+
+        $user->isConfirmed = 1;
+
+        $user->update();
+
+        $this->redis->hDel('confirmation_hashes', $hash);
+
+        $this->redirect('/user/'.$id);
+
+    }
+
+    private function send_email_confirmation($user, $password) {
+
+        $hash = md5($user->email.$password);
+
+        $this->redis->hSet('confirmation_hashes', $hash, $user->id);
+
+        $template = View::factory('emailtemplates/confirm_email', array('user' => $user, 'hash' => $hash));
+
+        $email = new Email();
+        $email->send($user->email, 'gohabereg@gmail.com', 'Добро пожаловать в Votepad!', $template, true);
 
     }
 

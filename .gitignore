@@ -20,6 +20,7 @@ assets/frontend/node_modules/*
 
 # Media files
 assets/img/
+application/config/email.php
 
 # config files
 application/config/cache.php
