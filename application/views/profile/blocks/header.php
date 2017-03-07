@@ -5,6 +5,7 @@
         </button>
     </div>
 
+
     <? if ($isLogged) : ?>
         <!-- Votepad Brand + link to User Profile -->
         <a href="<?=URL::site('/user/' . $user->id); ?>" class="header_text header_text-logo">Votepad</a>
@@ -13,13 +14,14 @@
         <a href="<?=URL::site('/'); ?>" class="header_text header_text-logo">Votepad</a>
     <? endif; ?>
 
-
     <!-- Header Menu -->
     <div class="header_menu">
 
+        <? if ($isLogged) : ?>
         <a class="header_button" href="<?=URL::site('organization/new'); ?>">
             <span class="header_text">Создать организацию</span>
         </a>
+        <? endif; ?>
 
     </div>
 
@@ -45,23 +47,13 @@
 
     <? else : ?>
 
-        <a class="header_button header_auth" data-toggle="modal" data-target="#auth_modal">
+        <a class="header_button " data-toggle="modal" data-target="#auth_modal">
             <span class="header_text">Войти</span>
         </a>
 
     <? endif; ?>
 
     </div>
-
-    <? if ( $isLogged): ?>
-
-        <div class="header_menu-btn-icon right">
-            <button id="open_jumbotron_nav" class="header_button">
-                <i class="fa fa-ellipsis-v header_icon" aria-hidden="true"></i>
-            </button>
-        </div>
-
-    <? endif; ?>
 
 </div>
 

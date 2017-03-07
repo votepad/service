@@ -34,9 +34,11 @@ $(document).ready(function () {
     * Validate Email Field
     */
     $('input[type="email"]').blur(function(){
-        if ($(this).val() == '' || ! /\S+@\S+\.\S+/.test($(this).val()) ) {
-            notifyErrorEmail();
-            $(this).addClass('invalid');
+        if ( ! /\S+@\S+\.\S+/.test($(this).val()) ) {
+            if ($(this).val() != '') {
+                notifyErrors('email');
+                $(this).addClass('invalid');
+            }
         } else {
             $(this).removeClass('invalid');
         }
@@ -68,18 +70,23 @@ $(document).ready(function () {
     */
     $('#userSignIn').click(function(){
         if ($('#auth_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#auth_email').val()) ) {
-            notifyErrorEmail();
+            notifyErrors('email');
             $('#auth_email').addClass('invalid');
         } else if ( $("#auth_password").val() == '' ) {
             $('#auth_password').addClass('invalid');
         } else {
 
-
             var ajaxData = {
                 url: '/sign/organizer',
                 type: 'POST',
                 data: new FormData($('#user_form_notlogged')[0]),
-                success: authResponse
+                beforeSend: function() {
+                    $('#user_form_notlogged').parent('.modal-wrapper').addClass('whirl');
+                },
+                success: authResponse,
+                error: function() {
+                    removePreLoader();
+                }
             }
 
             ajax.send(ajaxData);
@@ -95,7 +102,13 @@ $(document).ready(function () {
                 url: '/sign/organizer',
                 type: 'POST',
                 data: new FormData($('#user_form_logged')[0]),
-                success: authResponse
+                beforeSend: function() {
+                    $('#user_form_logged').parent('.modal-wrapper').addClass('whirl');
+                },
+                success: authResponse,
+                error: function() {
+                    removePreLoader()
+                }
             }
 
             ajax.send(ajaxData);
@@ -107,11 +120,7 @@ $(document).ready(function () {
     */
     $('#judgeSignIn').click(function(){
         if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
-            $.notify({
-                message: 'Вы ввели неправильный номер мероприятия. Попробуйте ввести снова!'
-            },{
-                type: 'danger'
-            });
+            notifyErrors('eventNumber');
         } else if ( $("#auth_judgesecret").val() == '' ) {
             $("#auth_judgesecret").addClass('invalid');
         } else {
@@ -125,7 +134,7 @@ $(document).ready(function () {
     */
     $('#resetPassword').click(function(){
         if ($('#forget_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#forget_email').val()) ) {
-            notifyErrorEmail();
+            notifyErrors('email');
             $('#forget_email').addClass('invalid');
         } else {
             $('#user_form_forgot')[0].submit();
@@ -163,20 +172,17 @@ $(document).ready(function () {
             $('#registr_name').removeClass('invalid');
         } else {
             $('#registr_name').addClass('invalid');
-            $.notify({
-                message: 'Вы не ввели имя!',
-            },{
-                type: 'danger'
-            });
+            notifyErrors('regName');
             isvalid = false;
-
         }
 
 
         // checking email
-        if ( isvalid && ($('#registr_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#registr_email').val())) ) {
-            notifyErrorEmail();
+        if ( isvalid && $('#registr_email').val() != '' && /\S+@\S+\.\S+/.test($('#registr_email').val()) ) {
+            $('#registr_email').removeClass('invalid');
+        } else {
             isvalid = false;
+            notifyErrors('email');
             $('#registr_email').addClass('invalid');
         }
 
@@ -190,17 +196,9 @@ $(document).ready(function () {
             $('#registr_password').addClass('invalid');
 
             if ($('#registr_password').val() == "") {
-                $.notify({
-                    message: 'Вы не указали парлоль'
-                },{
-                    type: 'danger'
-                });
+                notifyErrors('emptyPassword');
             } else {
-                $.notify({
-                    message: 'Вы используете запрещенные символы для пароля!',
-                },{
-                    type: 'danger'
-                });
+                notifyErrors('errorPassword');
             }
         }
 
@@ -211,7 +209,13 @@ $(document).ready(function () {
                 url: '/signup',
                 type: 'POST',
                 data: new FormData(form[0]),
-                success: signupResponse
+                beforeSend: function(){
+                    $('#registr_form').parent('.modal-wrapper').addClass('whirl');
+                },
+                success: signupResponse,
+                error: function() {
+                    removePreLoader();
+                }
             }
 
             ajax.send(ajaxData);
@@ -257,13 +261,13 @@ $(document).ready(function () {
         }
 
         $.notify({
-                message: message
-            },
-            {
-                type: 'danger'
-            });
+            message: message
+        },
+        {
+            type: 'danger'
+        });
 
-
+        removePreLoader();
     }
 
 
@@ -282,11 +286,11 @@ $(document).ready(function () {
                 window.location.replace(protocol+'//'+host+'/user/'+id);
             } else {
                 $.notify({
-                        message: 'Произошла ошибка'
-                    },
-                    {
-                        type: 'danger'
-                    });
+                    message: 'Произошла ошибка'
+                },
+                {
+                    type: 'danger'
+                });
             }
 
             return;
@@ -304,21 +308,51 @@ $(document).ready(function () {
         }
 
         $.notify({
-                message: message
-            },
-            {
-                type: 'danger'
-            });
-
-
-    }
-
-
-    function notifyErrorEmail() {
-        $.notify({
-            message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
-        },{
+            message: message
+        },
+        {
             type: 'danger'
         });
+
+        removePreLoader();
     }
+
+
+
+    /**
+    * Notify Frontend Fields
+    */
+    function notifyErrors(field) {
+
+        var message;
+
+        switch (field) {
+
+            case 'email': message = 'Вы ввели неправильно email. Попробуйте ввести снова!'
+            break;
+            case 'emptyPassword': message = 'Вы не указали парлоль';
+            break;
+            case 'errorPassword': message = 'Вы используете запрещенные символы для пароля!';
+            break;
+            case 'regName': message = 'Вы не ввели имя!';
+            break;
+            case 'eventNumber': message = 'Вы ввели неправильный номер мероприятия. Попробуйте ввести снова!';
+            break;
+            default: message = 'Произошла ошибка. Попробуйте снова';
+        }
+
+        $.notify({
+            message: message
+        },
+        {
+            type: 'danger'
+        });
+
+
+    }
+
+    function removePreLoader() {
+        $('body').find('.whirl').removeClass('whirl');
+    }
+
 });

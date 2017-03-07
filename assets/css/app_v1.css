@@ -138,6 +138,9 @@ ul{
 	max-width: 10em;
 	margin-right: 1em;
 }
+.header_text-logo:hover{
+	color: #FCFCFC
+}
 
 
 .header_menu{

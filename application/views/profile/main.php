@@ -23,9 +23,9 @@
 
     <? if ( $isLogged && $isProfileOwner ) :?>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
     <? endif; ?>
 
+    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>js/profile.js"></script>
 
