@@ -20,7 +20,7 @@ abstract class Auth extends Dispatch
         }
 
         // incr attempt
-        Cookie::set('attempt', $attemptKey. ':' . ++$attempt, DATE::MINUTE * 5);
+        Cookie::set('attempt', $attemptKey. ':' . ++$attempt, Date::MINUTE * 5);
     }
 
     protected function getAttemptData($salt)

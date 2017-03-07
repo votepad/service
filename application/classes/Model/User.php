@@ -75,7 +75,7 @@ Class Model_User {
         $select = Dao_Users::select()
             ->where('id', '=', $id)
             ->limit(1)
-            ->cached(DATE::MINUTE * 5, $id)
+            ->cached(Date::MINUTE * 5, $id)
             ->execute();
 
         $this->fill_by_row($select);

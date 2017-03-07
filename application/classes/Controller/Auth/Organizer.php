@@ -97,7 +97,7 @@ class Controller_Auth_Organizer extends Auth {
 
         $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $uid);
 
-        Cookie::set('secret', $hash, DATE::DAY);
+        Cookie::set('secret', $hash, Date::DAY);
 
         $this->saveSessionData($hash, $sid, $uid);
 
@@ -145,7 +145,7 @@ class Controller_Auth_Organizer extends Auth {
             $newHash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $uid);
 
             // меняем хэш в куки
-            Cookie::set('secret', $newHash, DATE::DAY);
+            Cookie::set('secret', $newHash, Date::DAY);
 
             // сохраняем в редис
             $this->saveSessionData($newHash, $sid, $uid);
