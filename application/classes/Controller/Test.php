@@ -1,30 +1,23 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 21.03.2016
- * Time: 0:59
+ * Controller_Test
+ * @author Votepad team
+ * @copyright Turov Nikolai
+ * @version 0.0.1
  */
 
 class Controller_Test extends Dispatch {
 
-    //public $template = 'main';
     public $template = 'test/file';
 
     public function action_index()
     {
-        /*$this->template->title          = 'Тестирование страницы';
-        $this->template->description    = 'Тест';
-        $this->template->keywords       = 'Тест';*/
+        // path to file
+        // example:
+        //$this->template->file      = View::factory('emailtemplates/confirm_email');
 
-        array_push( $this->js,  'vendor/bootstrap/dist/js/bootstrap.js');
-        array_push( $this->js,  'vendor/jQuery-Storage-API/jquery.storageapi.js');
-        array_push( $this->js,  'js/app.js');
         
-        $this->template->css = $this->css;
-        $this->template->js = $this->js;
+        $this->template->file      = View::factory('emailtemplates/confirm_email');
 
-        //$this->template->aside      = View::factory('aside');
-        //$this->template->section    = View::factory('test/file');
     }
 }

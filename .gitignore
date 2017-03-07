@@ -7,17 +7,23 @@ application/cache
 application/logs
 .idea/*
 uploads/
-
-application/vendor/phing/phing/
-application/vendor/phpoffice/phpexcel/
+/vendor/
+vendor/*
 
 # Bundler
 assets/frontend/.idea/
 assets/frontend/modules/*
 assets/frontend/webpack.config.js
 assets/frontend/node_modules/*
-assets/vendor/*
+# assets/vendor/*
 
 
 # Media files
 assets/img/
+application/config/email.php
+
+# config files
+application/config/cache.php
+application/config/database.php
+application/config/redis.php
+application/config/session.php
