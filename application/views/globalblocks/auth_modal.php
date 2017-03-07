@@ -3,6 +3,7 @@
 <script type="text/javascript" src="<?=$assets; ?>js/auth.js"></script>
 <script src='https://www.google.com/recaptcha/api.js'></script>
 <script type="text/javascript" src="<?=$assets; ?>js/modules/ajax.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/modules/cookies.js"></script>
 
 <!-- Authorization Modal -->
 <div class="modal valign auth-modal" id="auth_modal" tabindex="-1">
