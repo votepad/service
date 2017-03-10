@@ -20,7 +20,7 @@ class Model_Organization extends Model
     public $name;
 
     /**
-     * @var $landing
+     * @var $uri
      */
     public $uri;
 
