@@ -22,7 +22,7 @@ class Model_Organization extends Model
     /**
      * @var $landing
      */
-    public $landing;
+    public $uri;
 
     /**
      * @var $website

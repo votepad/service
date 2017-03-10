@@ -30,7 +30,7 @@ DROP TABLE IF EXISTS `Organizations`;
 CREATE TABLE IF NOT EXISTS `Organizations` (
   `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `landing` varchar(65) NOT NULL,
+  `uri` varchar(65) NOT NULL,
   `website` varchar(65) NOT NULL,
   `dt_create` date NOT NULL,
   `is_removed` tinyint(4) NOT NULL DEFAULT '0',
