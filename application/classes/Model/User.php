@@ -47,6 +47,11 @@ Class Model_User {
     public $isConfirmed;
 
     /**
+     * @var $dt_create
+     */
+    public $dt_create;
+
+    /**
      * Model_User constructor.
      * get user info if data exist
      */
@@ -85,11 +90,12 @@ Class Model_User {
     }
 
     /**
-     * @param $id
-     * Saves or Updates User to Database
+     * Saves User to Database
      */
      public function save()
      {
+
+        $this->dt_create = Date::formatted_time('now', 'Y-m-d');
 
         $insert = Dao_Users::insert();
 
@@ -103,6 +109,11 @@ Class Model_User {
 
      }
 
+    /**
+     * Updates user data in database
+     *
+     * @return Model_User
+     */
      public function update()
      {
 

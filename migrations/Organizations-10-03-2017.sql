@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Мар 01 2017 г., 23:21
+-- Время создания: Мар 10 2017 г., 11:56
 -- Версия сервера: 5.5.50
 -- Версия PHP: 5.6.23
 
@@ -23,20 +23,20 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `Users`
+-- Структура таблицы `Organizations`
 --
 
-DROP TABLE IF EXISTS `Users`;
-CREATE TABLE IF NOT EXISTS `Users` (
-  `id` int(18) NOT NULL,
-  `lastname` varchar(20) DEFAULT NULL,
+DROP TABLE IF EXISTS `Organizations`;
+CREATE TABLE IF NOT EXISTS `Organizations` (
+  `id` int(11) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `surname` varchar(20) DEFAULT NULL,
-  `phone` varchar(18) DEFAULT NULL,
-  `avatar` varchar(65) DEFAULT 'no-user.png',
-  `email` varchar(65) NOT NULL,
-  `password` varchar(18) NOT NULL,
-  `isConfirmed` int(11) DEFAULT NULL
+  `uri` varchar(65) NOT NULL,
+  `website` varchar(65) NOT NULL,
+  `dt_create` date NOT NULL,
+  `is_removed` tinyint(4) NOT NULL DEFAULT '0',
+  `owner` int(11) NOT NULL,
+  `cover` varchar(65) NOT NULL DEFAULT 'default-cover.png',
+  `logo` varchar(65) NOT NULL DEFAULT 'no-logo.png'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -44,21 +44,20 @@ CREATE TABLE IF NOT EXISTS `Users` (
 --
 
 --
--- Индексы таблицы `Users`
+-- Индексы таблицы `Organizations`
 --
-ALTER TABLE `Users`
-  ADD PRIMARY KEY (`email`),
-  ADD UNIQUE KEY `id` (`id`);
+ALTER TABLE `Organizations`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT для сохранённых таблиц
 --
 
 --
--- AUTO_INCREMENT для таблицы `Users`
+-- AUTO_INCREMENT для таблицы `Organizations`
 --
-ALTER TABLE `Users`
-  MODIFY `id` int(18) NOT NULL AUTO_INCREMENT;
+ALTER TABLE `Organizations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
