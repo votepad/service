@@ -95,7 +95,7 @@
         <p class="container-text">
             4. Опубликуйте результаты.
         </p>
-        <a type="button" class="btn btn_primary container-button link_uppercase" style="padding: 15px">зарегистрироваться</a>
+        <a type="button" class="btn btn_primary container-button link_uppercase" style="padding: 15px" data-toggle="modal" data-target="#registr_modal">зарегистрироваться</a>
     </div>
 </div>
 <div class="section section-4 clear_fix">
@@ -105,54 +105,54 @@
             <li class="event_wrapper col-xs-12 col-md-6 col-lg-4">
                 <div class="event_card">
                     <div class="event_card-image" style="background-image: url('<?=$assets; ?>img/welcome/TEMP_EVENTS/point.jpg');"></div>
-                    <div class="background-dark"></div>
                     <a href="/ifmo/point" class="event_card-title valign">
                         <span class="center">Лига КВН POINT</span>
+                        <div class="background-dark"></div>
                     </a>
                 </div>
             </li>
             <li class="event_wrapper col-xs-12 col-md-6 col-lg-4">
                 <div class="event_card">
                     <div class="event_card-image" style="background-image: url('<?=$assets; ?>img/welcome/TEMP_EVENTS/ifse.jpg');"></div>
-                    <div class="background-dark"></div>
                     <a href="/ifmo/ifse" class="event_card-title valign">
                         <span class="center">International Festival Of Social Entrepreneurship 2016</span>
+                        <div class="background-dark"></div>
                     </a>
                 </div>
             </li>
             <li class="event_wrapper col-xs-12 col-md-6 col-lg-4">
                 <div class="event_card">
                     <div class="event_card-image" style="background-image: url('<?=$assets; ?>img/welcome/TEMP_EVENTS/mister.jpg');"></div>
-                    <div class="background-dark"></div>
                     <a href="/ifmo/mister2017" class="event_card-title valign">
                         <span class="center">Мистер ИТМО 2017</span>
+                        <div class="background-dark"></div>
                     </a>
                 </div>
             </li>
             <li class="event_wrapper col-xs-12 col-md-6 col-lg-4">
                 <div class="event_card">
                     <div class="event_card-image" style="background-image: url('<?=$assets; ?>img/welcome/TEMP_EVENTS/pervak.jpg');"></div>
-                    <div class="background-dark"></div>
                     <a href="/ifmo/ya-pervokursnik" class="event_card-title valign">
                         <span class="center">Фестиваль "Я - Первокурсник!"</span>
+                        <div class="background-dark"></div>
                     </a>
                 </div>
             </li>
             <li class="event_wrapper col-xs-12 col-md-6 col-lg-4">
                 <div class="event_card">
                     <div class="event_card-image" style="background-image: url('<?=$assets; ?>img/welcome/TEMP_EVENTS/tnl.jpg');"></div>
-                    <div class="background-dark"></div>
                     <a href="ifmo/tnl" class="event_card-title valign">
                         <span class="center">Финал конурса социальных проектов "Ты нужен людям"</span>
+                        <div class="background-dark"></div>
                     </a>
                 </div>
             </li>
             <li class="event_wrapper col-xs-12 col-md-6 col-lg-4">
                 <div class="event_card">
                     <div class="event_card-image" style="background-image: url('<?=$assets; ?>img/welcome/TEMP_EVENTS/missitmo.jpg');"></div>
-                    <div class="background-dark"></div>
                     <a href="/ifmo/miss2016" class="event_card-title valign">
                         <span class="center">Мисс ИТМО 2016</span>
+                        <div class="background-dark"></div>
                     </a>
                 </div>
             </li>

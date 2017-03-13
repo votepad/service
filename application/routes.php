@@ -13,7 +13,7 @@ Route::set('Welcome_Page', '')
     ->cache();
 
 /** Authentification */
-Route::set('AUTH', 'sign/<mode>')
+Route::set('AUTH', 'sign/<mode>(/<additional>)')
     ->filter(function ($route, $params, $request) {
 
         $params['controller'] = 'Auth';
@@ -23,6 +23,11 @@ Route::set('AUTH', 'sign/<mode>')
         $params['controller'] = $params['controller'] . '_' . $params['mode'];
         $params['action']     = 'auth';
 
+        // log out action
+        if (!empty($params['additional'])) {
+            $params['action'] = 'logout';
+        }
+
         return $params;
 
     });
@@ -30,7 +35,7 @@ Route::set('AUTH', 'sign/<mode>')
 /**
  * Route for signing up
  */
-Route::set('SINGUP', 'signup(/<action>)')
+Route::set('SINGUP', 'signup(/<action>)', array('action' => 'check'))
     ->defaults(array(
         'controller'  => 'SignUp',
         'action'      => 'index',
@@ -46,7 +51,9 @@ Route::set('IMAGE_TRANSPORT', 'transport')
         'action'     => 'file_uploader'
     ));
 
+
 require_once ('routes/welcome.php');
+require_once ('routes/profile.php');
 require_once ('routes/ui.php');
 require_once ('routes/organizations.php');
 require_once ('routes/events.php');
@@ -60,7 +67,18 @@ require_once ('routes/ajax.php');
 //         'controller' => 'Welcome',
 //         'action'     => 'Index',
 //     ));
+
+Route::set('TEST', 'test')
+    ->defaults(array(
+        'controller' => 'Test',
+        'action'     => 'index'
+    ));
+
+Route::set('EMAIL_CONFIRMATION', 'confirm/<hash>')
+    ->defaults(array(
+        'controller' => 'SignUp',
+        'action'     => 'confirmEmail'
+    ))
+
+
 ?>
-
-
-
