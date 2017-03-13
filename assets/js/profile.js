@@ -126,4 +126,48 @@ $(document).ready(function () {
 
 
 
+    /**
+     * Reset Password
+     */
+    $('#reset_password_form').on('submit', function() {
+
+        if (allowedPassSymbols.test($('#reset_password').val()) || allowedPassSymbols.test($('#reset_password1').val())) {
+
+            $('#reset_password').addClass('invalid');
+            $('#reset_password1').addClass('invalid');
+            $.notify({
+                message: 'Вы используете запрещенные символы!'
+            },{
+                type: 'danger'
+            });
+            return false;
+
+        } else if ( $('#reset_password').val() == "" ) {
+
+            $('#reset_password').addClass('invalid');
+            $.notify({
+                message: 'Вы не ввели новый пароль!'
+            },{
+                type: 'danger'
+            });
+            return false;
+
+        } else if ($('#reset_password').val() != $('#reset_password1').val()) {
+            $('#reset_password').addClass('invalid');
+            $('#reset_password1').addClass('invalid')
+            $.notify({
+                message: 'Пароли не совпадают!'
+            },{
+                type: 'danger'
+            });
+            return false;
+        }
+    });
+
+    $("#reset_password, #reset_password1").focus(function(){
+        $('#reset_password').removeClass('invalid');
+        $('#reset_password1').removeClass('invalid')
+    });
+
+
 });
