@@ -146,9 +146,9 @@ Route::set('CHECK_ORGANIZATION_EMAIL', 'organization/checkemail/<email>',
  *
  * @returns Boolean json encoded response
  */
-Route::set('CHECK_ORGANIZATION_WEBSITE', 'organization/checkwebsite/<website>',
+Route::set('CHECK_ORGANIZATION_WEBSITE', 'organization/checkwebsite/<uri>',
     array(
-        'website' => $STRING
+        'uri' => $STRING
     ))
     ->defaults(array(
         'controller' => 'Organizations_Ajax',

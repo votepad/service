@@ -179,10 +179,12 @@ class Dispatch extends Controller_Template
 
             /** Authentificated User is visible in all pages */
             View::set_global('user', $user);
+            $this->user = $user;
 
         }
 
         View::set_global('isLogged', self::isLogged());
+        View::set_global('canLogin', self::canLogin());
 
         $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
 

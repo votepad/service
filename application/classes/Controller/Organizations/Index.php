@@ -62,9 +62,9 @@ class Controller_Organizations_Index extends Dispatch
          */
         $id = $this->request->param('id');
 
-        $this->organization = Model_Organizations::get($id, 0);
+        $this->organization = new Model_Organization($id);
 
-        if (!$this->organization && $this->request->action() != self::ACTION_NEW) {
+        if (!$this->organization && $this->request->action() != self::ACTION_NEW || $this->organization->is_removed) {
             throw new HTTP_Exception_404();
         }
 
@@ -73,15 +73,14 @@ class Controller_Organizations_Index extends Dispatch
          */
         $this->template->organization = $this->organization;
 
-        if ($this->organization != false) {
-
+        if ($this->organization->id) {
             /**
             * Header
             * + header navigation (Logged && ! Logged)
             * + authorization modal
             */
             $this->template->header = View::factory('/organizations/blocks/header')
-                ->set('auth_modal', View::factory('welcome/blocks/auth_modal'))
+                ->set('auth_modal', View::factory('/globalblocks/auth_modal'))
                 ->set('organization', $this->organization);
 
 
@@ -113,11 +112,9 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_new()
     {
-        $isUserAuthenitfied = !empty($this->session->get('id_user'));
+        if (!$this->isLogged()) {
 
-        if ($isUserAuthenitfied) {
-
-            throw new HTTP_Exception_404;
+            throw new HTTP_Exception_403;
 
         } else {
 
@@ -126,8 +123,7 @@ class Controller_Organizations_Index extends Dispatch
             * + header navigation (Logged && ! Logged)
             * + authorization modal
             */
-            $this->template->header = View::factory('/organizations/blocks/header')
-                ->set('auth_modal', View::factory('welcome/blocks/auth_modal'));
+            $this->template->header = View::factory('/organizations/blocks/header');
 
 
         }
@@ -145,7 +141,7 @@ class Controller_Organizations_Index extends Dispatch
         * - searching events on page
         */
         $this->template->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
-            ->set('id', $this->organization->id);;
+            ->set('id', $this->organization->id);
 
         $this->template->main_section = '';
 
@@ -159,6 +155,11 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_main()
     {
+
+        if ($this->organization->owner != $this->user->id) {
+            throw new HTTP_Exception_403();
+        }
+
         /**
         * Jumbotron Navigation
         * - show all tabs of SETTINGS submodule - menu with roles

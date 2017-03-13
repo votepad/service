@@ -5,7 +5,18 @@
  * Date: 16.03.2016
  * Time: 21:42
  */
-class Ajax extends Controller {
+class Ajax extends Dispatch {
+
+    function before() {
+        $this->auto_render = false;
+
+        if (!self::is_ajax()) {
+            throw new HTTP_Exception_403;
+        }
+
+        parent::before();
+
+    }
 
     public static function is_ajax()
     {

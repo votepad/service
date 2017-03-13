@@ -25,7 +25,7 @@
     <div class="jumbotron_org-name-background"></div>
     <div class="jumbotron_org-name">
         <h2><?=$organization->name; ?></h2>
-        <a href="//<?=$organization->officialSite; ?>" title="Официальный сайт">
+        <a href="//<?=$organization->website; ?>" title="Официальный сайт">
             <i class="fa fa-external-link" aria-hidden="true"></i>
         </a>
     </div>

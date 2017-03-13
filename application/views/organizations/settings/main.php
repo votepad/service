@@ -15,7 +15,7 @@
 						<label for="org_name" class="input-label active">Название организации</label>
 					</div>
 					<div class="input-field col-xs-12 col-md-6">
-						<input type="text" id="org_site" disabled value="<?=$organization->website; ?>">
+						<input type="text" id="org_site" disabled value="<?=$organization->uri; ?>">
 						<label for="org_site" class="input-label active">Ссылка на страницу организации</label>
 						<span class="help-block">Хотите изменить ссылку на Вашу организацию? <a id="openChangeSiteModal" class="underlinehover" style="color: #bbb">Напишите нам</a></span>
 					</div>
@@ -27,7 +27,7 @@
 						<span class="help-block">Данная информация поможет найти Вашу организацию через поисковые системы.</span>
 					</div>
 					<div class="input-field col-xs-12 col-md-6">
-						<input type="text" id="official_org_site" name="official_org_site" value="<?=$organization->officialSite; ?>">
+						<input type="text" id="official_org_site" name="official_org_site" value="<?=$organization->website; ?>">
 						<label for="official_org_site" class="input-label active">Ссылка на официальный сайт</label>
 					</div>
 
@@ -77,13 +77,23 @@
 		             url: "<?=URL::site('organization/' . $organization->id . '/delete'); ?>",
 		             type: 'POST',
 		             data: {
-		                 id_organization : <?=$organization->id; ?>
+		                 id : <?=$organization->id; ?>
 		             },
 		             beforeSend: function(callback) {
 
 		             },
-		             success: function(callback) {
-		                 console.log(callback);
+		             success: function(response) {
+
+		                 response = JSON.parse(response);
+
+		                 if (response.code != '40') {
+		                     return;
+                         }
+
+                         var host        = window.location.host,
+                             protocol    = window.location.protocol;
+
+                         window.location.replace(protocol+'//'+host+'/user/'+<?= $user->id; ?>);
 		             },
 		             error: function(callback) {
 		                 console.log(callback);

@@ -61,4 +61,6 @@
     </div>
 </header>
 
-<?=$auth_modal; ?>
+<? if(!$isLogged): ?>
+    <?=$auth_modal; ?>
+<? endif; ?>

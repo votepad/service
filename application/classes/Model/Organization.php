@@ -20,6 +20,11 @@ class Model_Organization extends Model
     public $name;
 
     /**
+     * @var $description
+     */
+    public $description;
+
+    /**
      * @var $uri
      */
     public $uri;
@@ -47,12 +52,12 @@ class Model_Organization extends Model
     /**
      * @var $cover
      */
-    public $cover;
+    public $cover = 'no-cover.png';
 
     /**
      * @var $logo
      */
-    public $logo;
+    public $logo = 'no-logo.png';
 
     /**
      * Model_Organization constructor.
@@ -126,8 +131,8 @@ class Model_Organization extends Model
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
-        $insert->clearcache($this->id);
         $insert->where('id', '=', $this->id);
+        $insert->clearcache($this->id);
 
         $id = $insert->execute();
 

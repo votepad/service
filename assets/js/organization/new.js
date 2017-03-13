@@ -8,7 +8,7 @@ $(document).ready(function() {
         currentStep,
         currentStepBlock,
         currentStepElement = 'input',
-        progressWidth = 0,
+        progressWidth = 20,
         elements = [
             {
                 proc: "30",
@@ -23,7 +23,7 @@ $(document).ready(function() {
             {
                 proc: "20",
                 name: "org_description",
-                flag: false
+                flag: true
             },
             {
                 proc: "15",
@@ -112,7 +112,7 @@ $(document).ready(function() {
     /**
     * Show/hide Next|Previous|Submit btns
     */
-    function changeStep() {
+    function changeStep(direction) {
 
         if (direction == 'next') {
 			translateX -= 100;
@@ -120,9 +120,9 @@ $(document).ready(function() {
 			translateX += 100;
 		}
 
-		$('.form_newevent_body-wrapper-item').each(function(){
+		$('.form_neworg_body-wrapper-item').each(function(){
 			$(this).css('transform', 'translateX(' + translateX + '%)').css('-webkit-transform','translateX(' + translateX + '%)');
-		})
+		});
 
 
         if ( translateX < 0 && translateX > -200 ) {
@@ -323,7 +323,7 @@ $(document).ready(function() {
     });
 
 
-    $("#org_description").inputmask({
+    /*$("#org_description").inputmask({
         mask: '*{1,300}',
         definitions: {
             '*': {
@@ -333,12 +333,15 @@ $(document).ready(function() {
         showMaskOnHover: false,
         showMaskOnFocus: false,
         oncomplete: function(){
+
+            console.log(1);
             isElementInvalid($(this), "valid");
         },
         onincomplete: function(){
+            console.log(1);
             isElementInvalid($(this), "invalid");
         }
-    });
+    });*/
 
 
 
