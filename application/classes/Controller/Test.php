@@ -8,7 +8,7 @@
 
 class Controller_Test extends Dispatch {
 
-    public $template = 'emailtemplates/reset_password';
+    public $template = 'emailtemplates/new_password';
 
     public function action_index()
     {
