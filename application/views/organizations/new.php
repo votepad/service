@@ -43,26 +43,26 @@
             <div class="form_neworg_body-wrapper">
                 <div id="step1" class="row col-xs-4 form_neworg_body-wrapper-item">
                     <div class="input-field col-xs-12">
-                        <input type="text" id="org_name" name="org_name" length="60">
+                        <input type="text" id="org_name" name="org_name" length="60" placeholder="Университет ИТМО">
                         <label for="org_name">Название организации</label>
                         <span class="help-block">Название увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
                     </div>
                     <div class="input-field col-xs-12">
-                        <input type="text" id="org_site" name="org_site" class="vp_site" length="38">
+                        <input type="text" id="org_site" name="org_site" class="vp_site" length="38" placeholder="http://votepad.ru/ifmo">
                         <label for="org_site">Сайт организации</label>
                         <span class="help-block">По этому адресу будет доступен личный кабинет организации и видны все мероприятия, проводимые организацией.</span>
                     </div>
                 </div>
                 <div id="step2" class="row col-xs-4 form_neworg_body-wrapper-item">
     				<div class="input-field col-xs-12">
-    					<textarea id="org_description" name="org_description" length="300" tabindex="-1"></textarea>
+                        <textarea type="text" id="org_description" name="org_description" length="300" tabindex="-1" placeholder="Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики"></textarea>
     					<label for="org_description">Описание организации</label>
     					<span class="help-block">Напишите основную информацию об организации. По этой информации Вашу организацию можно будет найти через поиск.</span>
     				</div>
     			</div>
     			<div id="step3" class="row col-xs-4 form_neworg_body-wrapper-item">
     				<div class="input-field col-xs-12">
-    					<input type="text" id="official_org_site" name="official_org_site" tabindex="-1">
+    					<input type="text" id="official_org_site" name="official_org_site" tabindex="-1" placeholder="http://www.ifmo.ru/">
     					<label for="official_org_site">Официальный сайт организации</label>
     					<span class="help-block">Ссылка на официальный сайт или официальную группу в социальной сети.</span>
     				</div>

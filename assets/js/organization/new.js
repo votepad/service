@@ -8,7 +8,7 @@ $(document).ready(function() {
         currentStep,
         currentStepBlock,
         currentStepElement = 'input',
-        progressWidth = 20,
+        progressWidth = 0,
         elements = [
             {
                 proc: "30",
@@ -23,7 +23,7 @@ $(document).ready(function() {
             {
                 proc: "20",
                 name: "org_description",
-                flag: true
+                flag: false
             },
             {
                 proc: "15",
@@ -307,7 +307,7 @@ $(document).ready(function() {
                 else {
                     if ( ! $this.parent().children('span').hasClass('error-block') ) {
                         $.notify({
-                            message: 'К сожалению, такой адрес организации занят!'
+                            message: 'К сожалению, такой адрес организации занят. Пожалуйста, придумайте другой адрес'
                         },{
                             type: 'danger'
                         });
@@ -322,29 +322,24 @@ $(document).ready(function() {
         }
     });
 
+    var allowedDescSymbols = new RegExp("[^a-zA-Zа-яА-Я0-9-№\" ]");
+    console.log(allowedDescSymbols);
 
-    /*$("#org_description").inputmask({
-        mask: '*{1,300}',
-        definitions: {
-            '*': {
-                validator: "[a-zA-Z0-9а-яА-Я№\"' ]",
-            }
-        },
-        showMaskOnHover: false,
-        showMaskOnFocus: false,
-        oncomplete: function(){
+    $("#org_description").on('keydown', function(e){
+        var keyCode = e.keyCode || e.which;
+        if (keyCode == 13) {
+            e.preventDefault();
+        }
+    });
 
-            console.log(1);
+    $("#org_description").on('fucus, blur', function(e){
+        if ( $(this).val() != "" && $(this).val().length > 1 && $(this).val().length < parseInt($(this).attr('length')) && ! allowedDescSymbols.test($(this).val()) ) {
             isElementInvalid($(this), "valid");
-        },
-        onincomplete: function(){
-            console.log(1);
+        } else {
             isElementInvalid($(this), "invalid");
         }
-    });*/
-
-
-
+    });
+    
 
     $("#official_org_site").inputmask({
         mask: '[\\http]|[\\http\\s]://*{2,}.a{2,}',

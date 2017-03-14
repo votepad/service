@@ -17,7 +17,6 @@ assets/frontend/webpack.config.js
 assets/frontend/node_modules/*
 # assets/vendor/*
 # vendor 
-assets/vendor/bootstrap/*
 assets/vendor/bootstrap-notify/*
 assets/vendor/fontawesome/*
 assets/vendor/handsontable/*
