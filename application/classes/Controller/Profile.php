@@ -27,10 +27,11 @@ class Controller_Profile extends Dispatch
         $isProfileOwner = !empty($this->session->get('uid')) && $this->session->get('uid') == $id;
         $canLogin = self::canLogin();
 
-        $this->template->header = View::factory('profile/blocks/header')
+        $this->template->header = View::factory('globalblocks/header')
+            ->set('header_menu', View::factory('profile/blocks/header_menu'))
             ->set('auth_modal', View::factory('globalblocks/auth_modal', array('canLogin' => $canLogin)));
 
-        $this->template->footer = View::factory('profile/blocks/footer');
+        $this->template->footer = View::factory('globalblocks/footer');
 
         $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper');
 

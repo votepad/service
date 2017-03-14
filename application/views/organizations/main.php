@@ -26,7 +26,10 @@
 </head>
 <body>
 
+<header class="header">
     <?=$header; ?>
+</header>
+
 
 <div class="jumbotron block">
 
@@ -45,7 +48,9 @@
     <?=$main_section; ?>
 </section>
 
-<?=$footer; ?>
+<footer class="footer">
+    <?=$footer; ?>
+</footer>
 
 </body>
 </html>

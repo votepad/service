@@ -3,7 +3,9 @@
     margin-bottom: 0;
 }
 
-
+.header_menu-btn-icon.right{
+    display: none;
+}
 
 .profile_info{
     margin: -64px auto 20px auto;

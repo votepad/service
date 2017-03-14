@@ -323,7 +323,6 @@ $(document).ready(function() {
     });
 
     var allowedDescSymbols = new RegExp("[^a-zA-Zа-яА-Я0-9-№\" ]");
-    console.log(allowedDescSymbols);
 
     $("#org_description").on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
@@ -339,7 +338,7 @@ $(document).ready(function() {
             isElementInvalid($(this), "invalid");
         }
     });
-    
+
 
     $("#official_org_site").inputmask({
         mask: '[\\http]|[\\http\\s]://*{2,}.a{2,}',

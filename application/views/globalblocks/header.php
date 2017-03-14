@@ -17,11 +17,7 @@
     <!-- Header Menu -->
     <div class="header_menu">
 
-        <? if ($isLogged) : ?>
-        <a class="header_button" href="<?=URL::site('organization/new'); ?>">
-            <span class="header_text">Создать организацию</span>
-        </a>
-        <? endif; ?>
+        <?=$header_menu; ?>
 
     </div>
 
@@ -53,6 +49,13 @@
 
     <? endif; ?>
 
+    </div>
+
+
+    <div class="header_menu-btn-icon right">
+        <button id="open_jumbotron_nav" class="header_button">
+            <i class="fa fa-ellipsis-v header_icon" aria-hidden="true"></i>
+        </button>
     </div>
 
 </div>

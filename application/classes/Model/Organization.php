@@ -181,5 +181,14 @@ class Model_Organization extends Model
 
     }
 
+    /**
+     * Checking owner user
+     */
+    public function isOwner($id) {
+
+        return $this->owner == $id;
+
+    }
+
 
 }

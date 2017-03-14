@@ -28,4 +28,3 @@
         <a href="mailto:team@votepad.ru" class="email footer_btn footer_btn-light pull-right">team@votepad.ru</a>
     </div>
 </div>
-

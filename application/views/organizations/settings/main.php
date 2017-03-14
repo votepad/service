@@ -11,23 +11,23 @@
 			<div class="col-xs-12">
 				<div class="row row-col">
 					<div class="input-field col-xs-12 col-md-6">
-						<input type="text" id="org_name" name="org_name" length="60" value="<?=$organization->name; ?>">
+						<input type="text" id="org_name" name="org_name" length="60" value="<?=$organization->name; ?>" placeholder="<?=$organization->name; ?>">
 						<label for="org_name" class="input-label active">Название организации</label>
 					</div>
 					<div class="input-field col-xs-12 col-md-6">
-						<input type="text" id="org_site" disabled value="<?=$organization->uri; ?>">
+						<input type="text" id="org_site" name="org_site" class="vp_site" length="38" value="<?=$organization->uri; ?>" placeholder="http://votepad.ru/<?=$organization->uri; ?>">
 						<label for="org_site" class="input-label active">Ссылка на страницу организации</label>
 						<span class="help-block">Хотите изменить ссылку на Вашу организацию? <a id="openChangeSiteModal" class="underlinehover" style="color: #bbb">Напишите нам</a></span>
 					</div>
 				</div>
 				<div class="row row-col">
 					<div class="input-field col-xs-12 col-md-6">
-						<textarea id="org_description" name="org_description" length="300"><?=$organization->description; ?></textarea>
+						<textarea id="org_description" name="org_description" length="300" placeholder="<?=$organization->description; ?>"><?=$organization->description; ?></textarea>
 						<label for="org_description">Описание организации</label>
 						<span class="help-block">Данная информация поможет найти Вашу организацию через поисковые системы.</span>
 					</div>
 					<div class="input-field col-xs-12 col-md-6">
-						<input type="text" id="official_org_site" name="official_org_site" value="<?=$organization->website; ?>">
+						<input type="text" id="official_org_site" name="official_org_site" value="<?=$organization->website; ?>" placeholder="<?=$organization->website; ?>">
 						<label for="official_org_site" class="input-label active">Ссылка на официальный сайт</label>
 					</div>
 
@@ -35,7 +35,7 @@
 			</div>
 		</div>
 		<div class="form_submit clear_fix">
-			<button type="button" id="submit_btn" class="btn btn_primary col-xs-12 col-md-4 col-lg-3 pull-right">
+			<button type="submit" class="btn btn_primary col-xs-12 col-md-4 col-lg-3 pull-right">
 				Обновить информацию
 			</button>
 			<button type="button" id="remove_organization" class="btn btn_default col-xs-12 col-md-4 col-lg-3">

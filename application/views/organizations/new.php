@@ -27,7 +27,9 @@
 </head>
 <body>
 
-<?=$header; ?>
+<header class="header">
+    <?=$header; ?>
+</header>
 
 <section style="margin-top: 100px;">
 
@@ -94,7 +96,9 @@
 
 </section>
 
-<?=$footer; ?>
+<footer class="footer">
+    <?=$footer; ?>
+</footer>
 
 </body>
 

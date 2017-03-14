@@ -15,20 +15,12 @@ class Controller_Organizations_Index extends Dispatch
      */
     const ACTION_NEW = 'new';
 
-    /**
-     * @const ACTION_SHOW [String]
-     */
-    const ACTION_SHOW = 'show';
-
-    /**
-     * @const ACTION_SHOW_ALL [String]
-     */
-    const ACTION_SHOW_ALL = 'showAll';
 
     /**
      * @var $organization [String] - default value is null. Keeps cached render
      */
     protected $organization = null;
+
 
     /**
      * Function that calls before main action
@@ -41,7 +33,7 @@ class Controller_Organizations_Index extends Dispatch
     {
         switch ($this->request->action()) {
             /**
-             * Two types of creating orgs: Logged and Not logged
+             * New organization template
              */
             case self::ACTION_NEW :
                 $this->template = 'organizations/new';
@@ -64,7 +56,7 @@ class Controller_Organizations_Index extends Dispatch
 
         $this->organization = new Model_Organization($id);
 
-        if (!$this->organization && $this->request->action() != self::ACTION_NEW || $this->organization->is_removed) {
+        if (!$this->organization->id && $this->request->action() != self::ACTION_NEW || $this->organization->is_removed) {
             throw new HTTP_Exception_404();
         }
 
@@ -74,34 +66,31 @@ class Controller_Organizations_Index extends Dispatch
         $this->template->organization = $this->organization;
 
         if ($this->organization->id) {
+
             /**
             * Header
-            * + header navigation (Logged && ! Logged)
-            * + authorization modal
             */
-            $this->template->header = View::factory('/organizations/blocks/header')
-                ->set('auth_modal', View::factory('/globalblocks/auth_modal'))
+            $this->template->header = View::factory('globalblocks/header')
+                ->set('header_menu', View::factory('organizations/blocks/header_menu', array('id' => $this->organization->id)))
+                ->set('auth_modal', View::factory('globalblocks/auth_modal'))
                 ->set('organization', $this->organization);
 
 
             /**
             * Jumbotron Wrapper
-            * - without navigation
             */
             $this->template->jumbotron_wrapper = View::factory('organizations/blocks/jumbotron_wrapper')
                 ->set('organization', $this->organization);
 
+
             /**
-            * Get all menus items in Jumbotron Navigation
-            */
-            $this->template->JumbotronNav = Kohana::$config->load('orgJumbotronNav')->as_array();
+             * Footer
+             */
+            $this->template->footer = View::factory('globalblocks/footer');
 
         }
 
-        /**
-        * Footer
-        */
-        $this->template->footer = View::factory('organizations/blocks/footer');
+
 
     }
 
@@ -118,16 +107,13 @@ class Controller_Organizations_Index extends Dispatch
 
         } else {
 
-            /**
-            * Header
-            * + header navigation (Logged && ! Logged)
-            * + authorization modal
-            */
-            $this->template->header = View::factory('/organizations/blocks/header');
-
+            $this->template->header = View::factory('globalblocks/header')
+                ->set('header_menu', "");
+            $this->template->footer = View::factory('globalblocks/footer');
 
         }
     }
+
 
 
     /**
@@ -144,7 +130,6 @@ class Controller_Organizations_Index extends Dispatch
             ->set('id', $this->organization->id);
 
         $this->template->main_section = '';
-
 
     }
 
@@ -165,7 +150,6 @@ class Controller_Organizations_Index extends Dispatch
         * - show all tabs of SETTINGS submodule - menu with roles
         */
         $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
-            ->set('JumbotronNav', $this->template->JumbotronNav)
             ->set('id', $this->organization->id);
 
 
@@ -190,7 +174,6 @@ class Controller_Organizations_Index extends Dispatch
         * - show all tabs of SETTINGS submodule - menu with roles
         */
         $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
-            ->set('JumbotronNav', $this->template->JumbotronNav)
             ->set('id', $this->organization->id);
 
 
