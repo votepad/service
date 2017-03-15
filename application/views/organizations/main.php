@@ -5,9 +5,9 @@
     <meta name="author" content="Votepad" />
     <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/favicon.png" />
 
-    <title><?=$organization->name; ?> | Votepad.ru</title>
+    <title><?=$title ?> | Votepad</title>
 
-    <meta name="description" content="" />
+    <meta name="description" content="<?=$description ?>" />
     <meta name="keywords" content="страница орагнизации, votepad, organization" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 

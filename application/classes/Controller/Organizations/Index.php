@@ -4,7 +4,7 @@
  * All pages which has relationship with Organizations will be here
  * @copyright Khaydarov Murod
  * @author Turov Nikolay
- * @version 0.2.0
+ * @version 0.2.1
  */
 
 class Controller_Organizations_Index extends Dispatch
@@ -22,13 +22,6 @@ class Controller_Organizations_Index extends Dispatch
     protected $organization = null;
 
 
-    /**
-     * Function that calls before main action
-     *
-     * - Defines main template of actions
-     * - Gets organization info
-     * - Caches organization render
-     */
     public function before()
     {
         switch ($this->request->action()) {
@@ -68,8 +61,15 @@ class Controller_Organizations_Index extends Dispatch
         if ($this->organization->id) {
 
             /**
-            * Header
-            */
+             * Meta Dates
+             */
+            $this->template->title = $this->organization->name;
+            $this->template->description = $this->organization->description;
+
+
+            /**
+             * Header
+             */
             $this->template->header = View::factory('globalblocks/header')
                 ->set('header_menu', View::factory('organizations/blocks/header_menu', array('id' => $this->organization->id)))
                 ->set('auth_modal', View::factory('globalblocks/auth_modal'))
@@ -77,8 +77,8 @@ class Controller_Organizations_Index extends Dispatch
 
 
             /**
-            * Jumbotron Wrapper
-            */
+             * Jumbotron Wrapper
+             */
             $this->template->jumbotron_wrapper = View::factory('organizations/blocks/jumbotron_wrapper')
                 ->set('organization', $this->organization);
 
@@ -123,9 +123,8 @@ class Controller_Organizations_Index extends Dispatch
     public function action_show()
     {
         /**
-        * Jumbotron Navigation
-        * - searching events on page
-        */
+         * Jumbotron Navigation
+         */
         $this->template->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
             ->set('id', $this->organization->id);
 
@@ -146,9 +145,8 @@ class Controller_Organizations_Index extends Dispatch
         }
 
         /**
-        * Jumbotron Navigation
-        * - show all tabs of SETTINGS submodule - menu with roles
-        */
+         * Jumbotron Navigation
+         */
         $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
             ->set('id', $this->organization->id);
 
@@ -170,9 +168,8 @@ class Controller_Organizations_Index extends Dispatch
     {
 
         /**
-        * Jumbotron Navigation
-        * - show all tabs of SETTINGS submodule - menu with roles
-        */
+         * Jumbotron Navigation
+         */
         $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
             ->set('id', $this->organization->id);
 
@@ -180,7 +177,7 @@ class Controller_Organizations_Index extends Dispatch
         /**
          * Main Section
          */
-        $this->template->main_section = View::factory('organizations/settings/team')
+        $this->template->main_section = View::factory('organizations/settings/coworkers')
                 ->set('organization', $this->organization);
 
 
