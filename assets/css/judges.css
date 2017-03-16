@@ -97,6 +97,8 @@
     border-radius: 10px;
     background-color: rgb(255, 255, 255);
     box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
+    user-select: none;
+    cursor: pointer;
 }
 
 
@@ -110,7 +112,6 @@
     display: block;
     width: 100%;
     white-space: nowrap;
-    /*background-color: black;*/
 }
 
 .stages_holder-stage{
@@ -118,13 +119,11 @@
     height: 500px;
     background-color: lightblue;
     display: inline-block;
-    transition: left 5s ease;
 }
 
 .stages_holder_stage-peoples{
     background-color: green;
     margin: 20px 0;
-    transition: left 5s ease;
 }
 
 .stages_holder_stage_peoples-criteria-holder{
@@ -134,12 +133,11 @@
     display: block;
     white-space: nowrap;
     background-color: lightcoral;
-    transition: left 5s ease;
     letter-spacing: -0.3em;
 }
 
 .stages_holder_stage_peoples_criteria_holder-criteria {
-    transition: left 5s ease;
+    cursor: pointer;
     letter-spacing: normal;
     margin: 0 10px 0 0;
     width: 100%;

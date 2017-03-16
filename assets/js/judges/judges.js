@@ -55,6 +55,8 @@ var slider = function(){
 
     var checkDownMouse = false;
 
+    var rightEdge = null;
+
     var handlers = {
 
         downMouse: function(event) {
@@ -75,6 +77,10 @@ var slider = function(){
 
             circleElem.style.left = event.pageX - bandCord.left - circleWidth + 'px';
 
+            rightEdge = sliderElem.offsetWidth - circleElem.offsetWidth;
+
+            letterElem.innerHTML = letters[Math.floor((event.pageX - bandCord.left - circleWidth) / (rightEdge / letters.length))];
+
             checkDownMouse = true;
         },
 
@@ -84,11 +90,13 @@ var slider = function(){
                 return;
             }
 
+            event.preventDefault();
+
             event = touchSupported(event);
 
             var newLeft =  event.pageX - bandCord.left - circleWidth ;
 
-            var rightEdge = sliderElem.offsetWidth - circleElem.offsetWidth;
+            console.log('kek', rightEdge);
 
             var newLetterIndex = Math.floor(newLeft / (rightEdge / letters.length));
 
@@ -134,7 +142,7 @@ var slider = function(){
     sliderElem.addEventListener('touchmove', handlers.moveMouse, false);
     sliderElem.addEventListener('mousemove', handlers.moveMouse, false);
 
-    sliderElem.addEventListener('mouseup', handlers.upMouse, false);
+    document.addEventListener('mouseup', handlers.upMouse, false);
 
     window.addEventListener('resize', handlers.replaceCirclePosition, false);
 };
@@ -172,6 +180,8 @@ var stage_nav = function () {
                 return;
             }
 
+            event.preventDefault();
+
             event = touchSupported(event);
 
             var finX = event.clientX;
@@ -193,7 +203,7 @@ var stage_nav = function () {
     stage.addEventListener('touchmove', handlers.moveMouse, false);
     stage.addEventListener('mousemove', handlers.moveMouse, false);
 
-    stage.addEventListener('mouseup', handlers.upMouse, false);
+    document.addEventListener('mouseup', handlers.upMouse, false);
 };
 
 
@@ -255,6 +265,8 @@ var stages_holder = function () {
                 return;
             }
 
+            event.preventDefault();
+
             event = touchSupported(event);
 
             var finX = event.clientX;
@@ -281,9 +293,9 @@ var stages_holder = function () {
 
             //Перменные для анимации
 
-            var startAnimate = 0;
+            var startAnimate = currentElem.scrollLeft;
 
-            var endAnimate = 0;
+            var endAnimate = (widthCurrentElem + 10) * numberOfBlock - startAnimate;
 
             //Длина участка траектории, при котором один блок сменяется на другой
 
@@ -292,11 +304,10 @@ var stages_holder = function () {
             //Обработка нового положения, если скролл идет влево
 
             if (finX - startX > widthFingerScroll){
-                startAnimate = currentElem.scrollLeft;
 
-                numberOfBlock = Math.floor((currentElem.scrollLeft - finX + startX) / widthCurrentElem);
+                numberOfBlock = Math.floor((startAnimate - finX + startX) / widthCurrentElem);
 
-                endAnimate = (widthCurrentElem + 10) * numberOfBlock - currentElem.scrollLeft;
+                endAnimate = (widthCurrentElem + 10) * numberOfBlock - startAnimate;
             }
             else{
 
@@ -304,15 +315,13 @@ var stages_holder = function () {
 
                 if ( finX - startX < (-1)*widthFingerScroll){
 
-                    startAnimate = currentElem.scrollLeft;
+                    numberOfBlock = Math.ceil((startAnimate - finX + startX) / widthCurrentElem);
 
-                    numberOfBlock = Math.ceil((currentElem.scrollLeft - finX + startX) / widthCurrentElem);
-
-                    endAnimate = (widthCurrentElem + 10) * numberOfBlock - currentElem.scrollLeft;
+                    endAnimate = (widthCurrentElem + 10) * numberOfBlock - startAnimate;
                 }
             }
 
-            if ( currentElem.scrollLeft != 0 && currentElem.scrollLeft < (currentElem.childElementCount - 1)  * (widthCurrentElem + 10) - 10 )
+            if ( startAnimate != 0 && startAnimate < (currentElem.childElementCount - 1)  * (widthCurrentElem + 10) - 10 )
                 animate(functionForAnimate, currentElem, startAnimate, endAnimate);
 
             checkDownMouse = false;
