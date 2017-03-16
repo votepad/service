@@ -42,7 +42,7 @@
 
                             <tr align="left" style="text-align:left;">
                                 <td align="left" valign="top" style="vertical-align:top;text-align:left;background:#ffffff;padding: 0 35px 35px 35px;">
-                                    <a href="<?= $_SERVER['HTTP_HOST']; ?>" style="display: block;border-radius: 3px;text-align: center;color: #FCFCFC;background: #008DA7;padding: 20px;font-size: 1.3em;text-decoration: none;cursor: pointer;">
+                                    <a href="<?= $_SERVER['HTTP_HOST'].'/user/'.$user->id ?>" style="display: block;border-radius: 3px;text-align: center;color: #FCFCFC;background: #008DA7;padding: 20px;font-size: 1.3em;text-decoration: none;cursor: pointer;">
                                         Войти в личный кабинет
                                     </a>
                                 </td>
