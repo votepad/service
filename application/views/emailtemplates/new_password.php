@@ -19,19 +19,19 @@
                         <tbody>
                             <tr align="left" style="text-align:left;">
                                 <td align="left" valign="top" style="vertical-align:top;text-align:left;background:#ffffff;padding: 35px;">
-                                    <p style="margin:0 0 18px;font-weight: bold;font-size: 2em;">Новый пороль</p>
-                                    <p style="margin:12px 0 24px;font-size: 1.3em;">?= $user->name ?>,  поздравляем вас с успешной восстановлением пароля на сайте votepad.ru!</p>
+                                    <p style="margin:0 0 18px;font-weight: bold;font-size: 2em;">Новый пароль</p>
+                                    <p style="margin:12px 0 24px;font-size: 1.3em;"><?= $user->name ?>,  поздравляем вас с успешным восстановлением пароля на сайте votepad.ru!</p>
                                     <table style="border-spacing:0;width:100%;">
                                         <tbody>
                                             <tr align="left" style="text-align:left;">
                                                 <td align="left" valign="top" style="vertical-align:top;text-align:left;background:#EEEEEE;padding:18px 24px;">
                                                     <p style="margin: 7px 0;font-size: 1.3em;">
                                                         <img alt="" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fnew_user%2Fb-mail-new-user__customer.png&amp;proxy=yes&amp;key=74f42c69f9f045fbe48cd2731db72876">
-                                                        <b>Ваш логин:</b> <a style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;"><?= $user->email; ?></a>
+                                                        <b>Ваш логин: </b><a style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;"><?= $user->email; ?></a>
                                                     </p>
                                                     <p style="margin: 7px 0;font-size: 1.3em;">
                                                         <img alt="" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fnew_user%2Fb-mail-new-user__lock.png&amp;proxy=yes&amp;key=709ee8fbd4918c19390d60947faca210">
-                                                        <b>Ваш пароль:</b> ?= $user->password ?>
+                                                        <b>Ваш пароль: </b><?= $password ?>
                                                     </p>
                                                 </td>
                                             </tr>
@@ -42,7 +42,7 @@
 
                             <tr align="left" style="text-align:left;">
                                 <td align="left" valign="top" style="vertical-align:top;text-align:left;background:#ffffff;padding: 0 35px 35px 35px;">
-                                    <a href="?= $_SERVER['HTTP_HOST'].'/confirm/'.$hash ?>" style="display: block;border-radius: 3px;text-align: center;color: #FCFCFC;background: #008DA7;padding: 20px;font-size: 1.3em;text-decoration: none;cursor: pointer;">
+                                    <a href="<?= $_SERVER['HTTP_HOST']; ?>" style="display: block;border-radius: 3px;text-align: center;color: #FCFCFC;background: #008DA7;padding: 20px;font-size: 1.3em;text-decoration: none;cursor: pointer;">
                                         Войти в личный кабинет
                                     </a>
                                 </td>

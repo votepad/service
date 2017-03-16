@@ -265,6 +265,12 @@ class Controller_Auth_Organizer extends Auth {
         $response = new Model_Response_Auth('PASSWORD_CHANGE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
 
+        $email = new Email();
+
+        $template = View::factory('emailtemplates/new_password', array('user' => $user, 'password' => $newpass1));
+
+        $email->send($user->email, 'info@votepad.ru', 'Новый пароль на Votepad', $template, true);
+
         $this->redis->hDel(self::RESET_HASHES_KEY, $hash);
 
     }
