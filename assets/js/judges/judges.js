@@ -143,7 +143,7 @@ var slider = function(){
 
 var stage_nav = function () {
 
-    var stage = document.getElementById('stage');
+    var stage = document.getElementById('stage_nav');
 
     var startX = null;
 
@@ -196,9 +196,189 @@ var stage_nav = function () {
     stage.addEventListener('mouseup', handlers.upMouse, false);
 };
 
+
+var stages_holder = function () {
+
+    var stages = document.getElementsByClassName('stages_holder').item(0);
+
+    //Переменная для запоминания левой позиции блока
+
+    var startX = null;
+
+    //Переменная для скролла блока
+
+    var moveX = null;
+
+    //Длина одного блока
+
+    var widthCurrentElem = null;
+
+    //Объект полосы блоков
+
+    var sliderElem = null;
+
+    //Переменная для проверки события клика мышки на ползунок
+
+    var checkDownMouse = false;
+
+    //Текущее кол-во блоков, которое было прокручено
+
+    var numberOfBlock = null;
+
+    var handlers = {
+
+        //При нажатии на кнопку, мы должны запомнить начальное положение блоков, а также проинициалировать переменную для скролла
+        //Так же мы должны просчитать размер единичного блока
+
+        downMouse: function (event) {
+
+            var currentElem = event.target.closest('.stages_holder_stage_peoples_criteria_holder-criteria');
+
+            if (event.which > 1 || !currentElem) {
+                return;
+            }
+
+            widthCurrentElem = currentElem.getBoundingClientRect().width;
+
+            event = touchSupported(event);
+
+            startX = moveX = event.clientX;
+
+            checkDownMouse = true;
+        },
+
+        moveMouse: function (event) {
+
+            var currentElem = event.target.closest('.stages_holder_stage_peoples-criteria-holder');
+
+            if (event.which > 1 || !checkDownMouse || !currentElem) {
+                return;
+            }
+
+            event = touchSupported(event);
+
+            var finX = event.clientX;
+
+            currentElem.scrollLeft -= (finX - moveX);
+
+            moveX = finX;
+
+        },
+
+        upMouse: function (event) {
+
+            var currentElem = event.target.closest('.stages_holder_stage_peoples-criteria-holder');
+
+            if (event.which > 1 || !currentElem) {
+                return;
+            }
+
+            sliderElem = currentElem;
+
+            event = touchSupported(event);
+
+            var finX = event.clientX;
+
+            //Перменные для анимации
+
+            var startAnimate = 0;
+
+            var endAnimate = 0;
+
+            //Длина участка траектории, при котором один блок сменяется на другой
+
+            var widthFingerScroll = widthCurrentElem / 10;
+
+            //Обработка нового положения, если скролл идет влево
+
+            if (finX - startX > widthFingerScroll){
+                startAnimate = currentElem.scrollLeft;
+
+                numberOfBlock = Math.floor((currentElem.scrollLeft - finX + startX) / widthCurrentElem);
+
+                endAnimate = (widthCurrentElem + 10) * numberOfBlock - currentElem.scrollLeft;
+            }
+            else{
+
+                //Обработка нового положения, если скролл идет вправо
+
+                if ( finX - startX < (-1)*widthFingerScroll){
+
+                    startAnimate = currentElem.scrollLeft;
+
+                    numberOfBlock = Math.ceil((currentElem.scrollLeft - finX + startX) / widthCurrentElem);
+
+                    endAnimate = (widthCurrentElem + 10) * numberOfBlock - currentElem.scrollLeft;
+                }
+            }
+
+            if ( currentElem.scrollLeft != 0 && currentElem.scrollLeft < (currentElem.childElementCount - 1)  * (widthCurrentElem + 10) - 10 )
+                animate(functionForAnimate, currentElem, startAnimate, endAnimate);
+
+            checkDownMouse = false;
+        },
+
+        replaceBlockPosition: function () {
+            requestAnimationFrame(function () {
+
+               widthCurrentElem = sliderElem.getBoundingClientRect().width;
+
+               sliderElem.scrollLeft = (widthCurrentElem + 10) * numberOfBlock;
+            })
+        }
+    };
+
+    stages.addEventListener('touchstart', handlers.downMouse, false);
+    stages.addEventListener('mousedown', handlers.downMouse, false);
+
+    stages.addEventListener('touchmove', handlers.moveMouse, false);
+    stages.addEventListener('mousemove', handlers.moveMouse, false);
+
+    stages.addEventListener('touchend', handlers.upMouse, false);
+    stages.addEventListener('mouseup', handlers.upMouse, false);
+
+    window.addEventListener('resize', handlers.replaceBlockPosition, false);
+};
+
+
+var animate = function (options, elem, startan, end) {
+
+    var start = performance.now();
+
+    requestAnimationFrame(function animate(time) {
+        // timeFraction от 0 до 1
+        var timeFraction = (time - start) / options.duration;
+        if (timeFraction > 1) timeFraction = 1;
+
+        // текущее состояние анимации
+        var progress = options.timing(timeFraction);
+
+        options.draw(progress, elem, startan, end);
+
+        if (timeFraction < 1) {
+            requestAnimationFrame(animate);
+        }
+
+    });
+};
+
+var functionForAnimate = {
+    duration: 200,
+    timing: function(timeFraction) {
+        return timeFraction;
+    },
+
+    draw: function(progress, elem, start, end) {
+        elem.scrollLeft = start + progress * end;
+        //console.log(elem.scrollLeft);
+    }
+};
+
+
 function init() {
     slider();
     stage_nav();
+    stages_holder();
 }
 
 document.addEventListener('DOMContentLoaded', init);

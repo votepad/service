@@ -142,15 +142,29 @@ $(document).ready(function(){
      function change_card_style() {
          if ( $('body').width() + 17 < 992 && $('body').width() + 17 > 680 ) {
              $('.card').each(function () {
-                $(this).removeClass().addClass('card card-md clear_fix')
+                 if ($(this).hasClass('card_withimage')) {
+                     $(this).removeClass().addClass('card card_withimage card-md clear_fix')
+                 }
+                 else {
+                     $(this).removeClass().addClass('card card-md clear_fix')
+                 }
+
              });
          } else if ( $('body').width() + 17 < 680 ) {
              $('.card').each(function () {
-                $(this).removeClass().addClass('card card-sm clear_fix')
+                 if ($(this).hasClass('card_withimage')) {
+                     $(this).removeClass().addClass('card card_withimage card-sm clear_fix');
+                 } else {
+                     $(this).removeClass().addClass('card card-sm clear_fix');
+                 }
              });
          } else {
              $('.card').each(function () {
-                $(this).removeClass().addClass('card clear_fix')
+                 if ($(this).hasClass('card_withimage')) {
+                     $(this).removeClass().addClass('card card_withimage clear_fix')
+                 } else {
+                     $(this).removeClass().addClass('card  clear_fix')
+                 }
              });
          }
      }
