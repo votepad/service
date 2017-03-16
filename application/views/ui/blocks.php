@@ -2,7 +2,7 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-transition.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/tabs.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/modules/tabs.js"></script>
 
 
 <div class="row">
@@ -245,19 +245,19 @@
         <div class="row row-col">
             <div class="col-xs-12 col-md-6">
                 <div class="block" >
-                    <ul class="ui_tabs ui_tabs_header clear_fix">
+                    <ul class="tabs tabs_header clear_fix">
                         <li id="">
-                            <a data-ui="tabs" aria-controls="tab1" class="ui_tab ui_tab-active">Tab 1</a>
+                            <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
                         </li>
                         <li id="">
-                            <a data-ui="tabs" aria-controls="tab2" class="ui_tab ">Tab 2</a>
+                            <a data-ui="tabs" aria-controls="tab2" class="tab">Tab 2</a>
                         </li>
                     </ul>
-                    <div class="ui_tabs_content">
-                        <div id="tab1" class="ui_tab_block active">
+                    <div class="tabs_content">
+                        <div id="tab1" class="tab_block tab_block--active">
                             1
                         </div>
-                        <div id="tab2" class="ui_tab_block">
+                        <div id="tab2" class="tab_block">
                             2
                         </div>
                     </div>
@@ -265,19 +265,19 @@
                 </div>
 
                 <div class="block">
-                    <ul class="ui_tabs clear_fix">
+                    <ul class="tabs clear_fix">
                         <li id="">
-                            <a data-ui="tabs" aria-controls="tab3" class="ui_tab ui_tab-active">Tab 1</a>
+                            <a data-ui="tabs" aria-controls="tab3" class="tab tab--active">Tab 1</a>
                         </li>
                         <li id="">
-                            <a data-ui="tabs" aria-controls="tab4" class="ui_tab ">Tab 2</a>
+                            <a data-ui="tabs" aria-controls="tab4" class="tab">Tab 2</a>
                         </li>
                     </ul>
-                    <div class="ui_tabs_content">
-                        <div id="tab3" class="ui_tab_block active">
+                    <div class="tabs_content">
+                        <div id="tab3" class="tab_block tab_block--active">
                             3
                         </div>
-                        <div id="tab4" class="ui_tab_block">
+                        <div id="tab4" class="tab_block">
                             4
                         </div>
                     </div>
@@ -289,30 +289,30 @@
             </div>
             <div class="col-xs-12 col-md-6">
 <blockquote><b>Template</b><xmp><div class="block" >
-    <ul class="ui_tabs clear_fix">
+    <ul class="tabs clear_fix">
         <li id="">
-            <a data-ui="tabs" aria-controls="tab1" class="ui_tab ui_tab-active">Tab 1</a>
+            <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
         </li>
         <li id="">
-            <a data-ui="tabs" aria-controls="tab2" class="ui_tab ">Tab 2</a>
+            <a data-ui="tabs" aria-controls="tab2" class="tab">Tab 2</a>
         </li>
     </ul>
-    <div class="ui_tabs_content">
-        <div id="tab1" class="ui_tab_block active">
+    <div class="tabs_content">
+        <div id="tab1" class="tab_block active">
             1
         </div>
-        <div id="tab2" class="ui_tab_block">
+        <div id="tab2" class="tab_block">
             2
         </div>
     </div>
 </div></xmp>
 <br><b>Modify</b>
-<xmp><ul class="ui_tabs ui_tabs_header clear_fix">
+<xmp><ul class="tabs tabs_header clear_fix">
     <li id="">
-        <a data-ui="tabs" aria-controls="tab1" class="ui_tab ui_tab-active">Tab 1</a>
+        <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
     </li>
     <li id="">
-        <a data-ui="tabs" aria-controls="tab2" class="ui_tab ">Tab 2</a>
+        <a data-ui="tabs" aria-controls="tab2" class="tab">Tab 2</a>
     </li>
 </ul></xmp>
 <br><b>Script</b>

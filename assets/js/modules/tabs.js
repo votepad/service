@@ -21,34 +21,37 @@ var tabs = (function(tabs) {
     };
 
 
-    var changeTab = function() {
+    var changeTab = function(event) {
 
-        var newBlockId = this.getAttribute('aria-controls'),
+        var node = event.target;
+        if (! node.classList.contains('tab') )
+            node = event.target.parentElement;
+
+
+        var newBlockId = node.getAttribute('aria-controls'),
             newBlock = document.getElementById(newBlockId),
             blocksContent = newBlock.parentElement.children,
-            headerTabs = this.parentElement.parentElement.children,
+            headerTabs = node.parentElement.parentElement.getElementsByTagName("li"),
             className;
 
         /**
          * Change header active tab
          */
         for (var i = 0; i < headerTabs.length; i++) {
-            className = headerTabs[i].children[0].className.replace(" ui_tab-active", "");
-            headerTabs[i].children[0].className = className;
+            headerTabs[i].children[0].classList.remove("tab--active");
         }
 
-        this.className = this.className + " ui_tab-active";
+        node.classList.add("tab--active");
 
 
         /**
          * Change tabs content
          */
         for (var i = 0; i < blocksContent.length; i++) {
-            className = blocksContent[i].className.replace(" active", "");
-            blocksContent[i].className = className;
+            blocksContent[i].classList.remove("tab_block--active");
         }
 
-        newBlock.className = newBlock.className + " active";
+        newBlock.classList.add("tab_block--active");
 
     };
 

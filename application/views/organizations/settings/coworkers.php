@@ -6,22 +6,22 @@
 </h3>
 
 <div class="block" >
-	<ul class="ui_tabs ui_tabs_header clear_fix">
+	<ul class="tabs tabs_header clear_fix">
 	    <li id="">
-	        <a data-ui="tabs" aria-controls="coworkers" class="ui_tab ui_tab-active">Состоят в организации
-				<span class="ui_tab_count">5</span>
+	        <a data-ui="tabs" aria-controls="coworkers" class="tab tab--active">Состоят в организации
+				<span class="tab_count">5</span>
 			</a>
 	    </li>
 	    <li id="">
-	        <a data-ui="tabs" aria-controls="newCoworkers" class="ui_tab">Новые заявки
-				<span class="ui_tab_count">25</span>
+	        <a data-ui="tabs" aria-controls="newCoworkers" class="tab">Новые заявки
+				<span class="tab_count">25</span>
 			</a>
-			<button data-href="http://link" id="inviteBtn" class="btn btn_primary ui_tab-btn">Пригласить</button>
 	    </li>
+		<button data-href="http://link" id="inviteBtn" class="btn btn_primary tab_btn">Пригласить</button>
 	</ul>
-    <div class="ui_tabs_content clear_fix">
+    <div class="tabs_content clear_fix">
 
-        <div id="coworkers" class="ui_tab_block active">
+        <div id="coworkers" class="tab_block tab_block--active">
 
 			<div id="coworker_id15" class="coworker_row col-xs-12 col-md-6">
 				<div class="coworker_photo_wrap">
@@ -66,7 +66,7 @@
 
 
 
-        <div id="newCoworkers" class="ui_tab_block">
+        <div id="newCoworkers" class="tab_block">
 
 			<div id="coworker_id17" class="coworker_row col-xs-12 col-md-6">
 				<div class="coworker_photo_wrap">
@@ -115,7 +115,7 @@
 
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>js/tabs.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/modules/tabs.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/modules/ajax.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
-
 <script type="text/javascript" src="<?=$assets; ?>js/organization/settings-coworkers.js"></script>

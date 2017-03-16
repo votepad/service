@@ -1301,7 +1301,7 @@ a, a:hover, a:focus{
 /**
  * Tabs
  */
-.ui_tabs{
+.tabs{
 	position: relative;
     border-bottom: 1px solid #E0E0E0;
     padding-left: 10px;
@@ -1312,7 +1312,7 @@ a, a:hover, a:focus{
     -ms-user-select: none;
     user-select: none;
 }
-.ui_tab {
+.tab {
 	display: block;
 	padding: 11px 6px 10px;
 	margin: 0 8px -1px;
@@ -1320,36 +1320,36 @@ a, a:hover, a:focus{
 	float: left;
 	cursor: pointer;
 }
-.ui_tab-btn{
+.tab_btn{
 	float: right;
 	margin: 12px 20px 0 0;
 }
-.ui_tabs_header{
+.tabs_header{
 	background-color: #fafbfc;
 	font-size: 1em;
 	border-radius: 2px 2px 0 0;
 }
-.ui_tabs_header .ui_tab{
+.tabs_header .tab{
 	padding: 18px 6px 20px;
 	line-height: 1em;
 }
-.ui_tab:hover {
+.tab:hover {
     text-decoration: none;
     border-bottom: 2px solid #cad2db;
 }
-.ui_tab-active, .ui_tab-active:hover{
+.tab--active, .tab--active:hover{
 	border-bottom: 2px solid #008DA7;
 }
-.ui_tabs_content{
+.tabs_content{
 	padding: 0 20px;
 }
-.ui_tab_block{
+.tab_block{
 	display: none;
 }
-.ui_tab_block.active{
+.tab_block--active{
 	display: block;
 }
-.ui_tab_count{
+.tab_count{
 	padding-left: 3px;
 	font-size: .9em;
 	color: #959595;

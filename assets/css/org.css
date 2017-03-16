@@ -292,7 +292,7 @@
 /**
  * Setting Co-Workers
  */
- .ui_tabs_content{
+ .tabs_content{
 	 padding: 0;
  }
 .coworker_row {
@@ -428,17 +428,17 @@
 		margin-left: 0;
 	}
 
-	.ui_tabs{
+	.tabs{
 		padding: 0;
 	}
-	.ui_tabs_header .ui_tab{
+	.tabs_header .tab{
 		margin: 0;
 		width: 100%;
 		text-align: center;
 		padding: 10px 6px;
 		height: 38px
 	}
-	.ui_tab-btn{
+	.tab_btn{
 		float: none;
 		width: 100%;
 		padding: 10px 6px;

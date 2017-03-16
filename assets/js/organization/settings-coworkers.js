@@ -1,6 +1,6 @@
 tabs.init()
 
-var id, name, coworker_block, message, link,
+var id, name, coworker_block, message, link, ajaxData,
     deleteBtns = document.getElementsByClassName('deletebtn'),
     acceptBtns = document.getElementsByClassName('acceptbtn'),
     cancelBtns = document.getElementsByClassName('cancelbtn');
@@ -8,23 +8,27 @@ var id, name, coworker_block, message, link,
 /**
  * Add EventListener for btns
  */
-document.getElementById('inviteBtn').addEventListener('click', invite, false);
+if (document.getElementById('inviteBtn') != null );
+    document.getElementById('inviteBtn').addEventListener('click', invite, false);
+
 for (var i = 0; i < deleteBtns.length; i++) {
     deleteBtns[i].addEventListener('click', deletecoworker, false);
 }
+
 for (var i = 0; i < acceptBtns.length; i++) {
     acceptBtns[i].addEventListener('click', acceptrequest, false);
 }
+
 for (var i = 0; i < cancelBtns.length; i++) {
     cancelBtns[i].addEventListener('click', cancelrequest, false);
 }
 
 
 /**
- *
+ * Invite new Co-Worker
  */
-function invite() {
-    link = this.dataset.href;
+function invite(event) {
+    link = event.target.dataset.href;
 
     swal({
         html:   '<p>Сообщите вашим коллегам ссылку, по которой они смогу подать заявку на вступление в организацию!</p>' +
@@ -65,12 +69,12 @@ function selectText(containerid) {
 /**
  * Delete Co-worker
  */
-function deletecoworker() {
-    id = this.dataset.id;
-    name = this.dataset.name;
+function deletecoworker(event) {
+    id = event.target.dataset.id;
+    name = event.target.dataset.name;
 
     swal({
-    	text: "Вы уверены что хотите исклюсить " + name + " из организации?",
+    	text: "Вы уверены, что хотите исключить " + name + " из организации?",
     	showCancelButton: true,
     	confirmButtonText: 'Исключить',
     	cancelButtonText: 'Отмена',
@@ -84,12 +88,10 @@ function deletecoworker() {
     	/**
          * Send ajax request for deleted
          */
-         $.ajax({
-             url: "",
+         ajaxData = {
+             url: '/',
              type: 'POST',
-             data: {
-                 id : id
-             },
+             data: id,
              beforeSend: function(callback) {
                  addWhirl(coworker_block);
              },
@@ -103,18 +105,17 @@ function deletecoworker() {
 
                  notify("successDelete");
                  coworker_block.remove();
-
              },
              error: function(callback) {
                  console.log(callback);
                  notify("errorDelete");
                  removeWhirl(coworker_block);
              }
-    	 });
+         };
 
-    }, function(){
-        console.log('cancel deleting co-worker');
-    })
+         ajax.send(ajaxData);
+
+     });
 
 }
 
@@ -123,19 +124,17 @@ function deletecoworker() {
 /**
  * Accept co-worker's request
  */
-function acceptrequest() {
-    id = this.dataset.id;
+function acceptrequest(event) {
+    id = event.target.dataset.id;
     coworker_block = document.getElementById('coworker_id'+id);
 
     /**
      * Send ajax request for accept co-worker's request
      */
-     $.ajax({
-         url: "",
+     ajaxData = {
+         url: '/',
          type: 'POST',
-         data: {
-             id : id
-         },
+         data: id,
          beforeSend: function(callback) {
              addWhirl(coworker_block);
          },
@@ -148,7 +147,7 @@ function acceptrequest() {
              }
 
              notify("successAccept");
-             this.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
+             event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
 
          },
          error: function(callback) {
@@ -156,8 +155,9 @@ function acceptrequest() {
              notify("errorAccept");
              removeWhirl(coworker_block);
          }
-     });
+     };
 
+     ajax.send(ajaxData);
 
 }
 
@@ -166,46 +166,42 @@ function acceptrequest() {
 /**
  * Cansel co-worker's request
  */
-function cancelrequest() {
-    id = this.dataset.id;
+function cancelrequest(event) {
+    id = event.target.dataset.id;
     coworker_block = document.getElementById('coworker_id'+id);
 
     /**
      * Send ajax request for cansel co-worker's request
      */
-     $.ajax({
-         url: "",
-         type: 'POST',
-         data: {
-             id : id
-         },
-         beforeSend: function(callback) {
-             addWhirl(coworker_block);
-         },
-         success: function(response) {
+    ajaxData = {
+        url: '/',
+        type: 'POST',
+        data: id,
+        beforeSend: function(callback) {
+            addWhirl(coworker_block);
+        },
+        success: function(response) {
 
-             if (response.code != '40') {
-                 notify("errorCansel");
-                 removeWhirl(coworker_block);
-                 return;
-             }
+            if (response.code != '40') {
+                notify("errorCansel");
+                removeWhirl(coworker_block);
+                return;
+            }
 
-             notify("successCansel");
-             this.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка отклонена</div>';
+            notify("successCansel");
+            event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка отклонена</div>';
 
-         },
-         error: function(callback) {
-             console.log(callback);
-             notify("errorCansel");
-             removeWhirl(coworker_block);
-         }
-     });
+        },
+        error: function(callback) {
+            console.log(callback);
+            notify("errorCansel");
+            removeWhirl(coworker_block);
+        }
+    };
 
+    ajax.send(ajaxData);
 
 }
-
-
-
 
 
 
@@ -213,14 +209,13 @@ function cancelrequest() {
 /**
  * Remove || Add 'whirl'
  */
-var temp;
 function addWhirl(block) {
-    block.className += " whirl";
+    block.classList.add("whirl");
 }
 function removeWhirl(block) {
-    temp = block.className.replace(" whirl", "");
-    block.className = temp;
+    block.classList.remove("whirl");
 }
+
 
 
 /**
