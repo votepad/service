@@ -76,12 +76,14 @@ class Controller_Profile extends Dispatch
             $newpass2 = Arr::get($_POST, 'newpassword2');
 
             if ($newpass1 != $newpass2) {
-                echo ('pass1 != pass2');
+                $response = new Model_Response_Auth('PASSWORDS_ARE_NOT_EQUAL_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
                 return;
             }
 
             if (!$user->checkPassword($oldpass)) {
-                echo 'Invalid pass';
+                $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
                 return;
             }
 

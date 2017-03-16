@@ -69,6 +69,10 @@
         </div>
     </div>
 
+
+    <?= View::factory('profile/blocks/reset_password') ?>
+
+
     <div class="profile_statistic block clear_fix">
         <a href="/profile/events#archive" class="profile_statistic-item valign">
             <span class="center">

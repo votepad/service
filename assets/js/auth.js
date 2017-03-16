@@ -140,7 +140,20 @@ $(document).ready(function () {
             $('#forget_email').addClass('invalid');
         } else {
             $('#toUserSignIn').click();
-            $('#user_form_forgot')[0].submit();
+            var ajaxData = {
+                url: '/sign/organizer/reset',
+                type: 'POST',
+                data: new FormData($('#user_form_forgot')[0]),
+                beforeSend: function() {
+                    $('#user_form_forgot').parent('.modal-wrapper').addClass('whirl');
+                },
+                success: resetResponse,
+                error: function() {
+                    removePreLoader()
+                }
+            };
+
+            ajax.send(ajaxData);
         }
     });
 
@@ -336,6 +349,45 @@ $(document).ready(function () {
     }
 
 
+    var resetResponse = function (response) {
+
+        removePreLoader();
+
+        response = JSON.parse(response);
+
+        if (response.status == 'success') {
+            $.notify({
+                    message: 'Мы отправили письмо с инструкциями на вашу почту'
+                },
+                {
+                    type: 'success'
+                });
+
+            return;
+        }
+
+        var message;
+
+        switch (parseInt(response.code)) {
+            case 30: message = 'Пожалуйста, заполните все поля';
+                break;
+            case 60: message = 'Мы не смогли отправить письмо с инструкциями на вашу почту :(';
+                break;
+            case 15: message = 'Пользователь с таким email не найден';
+                break;
+            default: message = 'Произошла ошибка. Попробуйте снова';
+        }
+
+        $.notify({
+                message: message
+            },
+            {
+                type: 'danger'
+            });
+
+
+    };
+
 
     /**
     * Notify Frontend Fields
@@ -346,7 +398,7 @@ $(document).ready(function () {
 
         switch (field) {
 
-            case 'email': message = 'Вы ввели неправильно email. Попробуйте ввести снова!'
+            case 'email': message = 'Вы неправильно ввели email. Попробуйте ввести снова!'
             break;
             case 'emptyPassword': message = 'Вы не указали парлоль';
             break;

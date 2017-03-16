@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    var hash = cookies.get('reset_link');
+    hash = hash?hash.split('~')[1]:'';
+    cookies.remove('reset_link');
+
+
     /**
     * Open Modal Form for edit User Info
     */
@@ -110,7 +115,7 @@ $(document).ready(function () {
             isvalid = false;
             $('#edituser_oldpassword').addClass('invalid');
             $('#edituser_newpassword').addClass('invalid');
-            $('#edituser_newpassword2').addClass('invalid')
+            $('#edituser_newpassword2').addClass('invalid');
             $.notify({
                 message: 'Вы не указали старый пароль!'
             },{
@@ -154,7 +159,7 @@ $(document).ready(function () {
 
         } else if ($('#reset_password').val() != $('#reset_password1').val()) {
             $('#reset_password').addClass('invalid');
-            $('#reset_password1').addClass('invalid')
+            $('#reset_password1').addClass('invalid');
             $.notify({
                 message: 'Пароли не совпадают!'
             },{
@@ -162,7 +167,42 @@ $(document).ready(function () {
             });
             return false;
         }
+
+        ajax.send({
+            data: new FormData($('#reset_password_form')[0]),
+            url: '/reset/' + hash,
+            type: 'POST',
+            success: resetPasswordResponse
+        });
+
+        return false;
+
     });
+
+    var resetPasswordResponse = function (response) {
+
+        response = JSON.parse(response);
+
+        if (response.status == 'success') {
+
+            $.notify({
+                message: 'ok'
+            },
+            {
+                type: 'success'
+            })
+
+        } else {
+
+            $.notify({
+                    message: 'error'
+                },
+                {
+                    type: 'danger'
+                })
+        }
+
+    };
 
     $("#reset_password, #reset_password1").focus(function(){
         $('#reset_password').removeClass('invalid');
