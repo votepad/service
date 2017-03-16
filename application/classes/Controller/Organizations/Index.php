@@ -128,7 +128,7 @@ class Controller_Organizations_Index extends Dispatch
         $this->template->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
             ->set('id', $this->organization->id);
 
-        $this->template->main_section = '';
+        $this->template->main_section = View::factory('organizations/events/main');
 
     }
 
