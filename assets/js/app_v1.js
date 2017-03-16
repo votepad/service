@@ -214,11 +214,10 @@ $(document).ready(function(){
      function header_menu_fun() {
 
          if ( $('body').width() + 17 > 992 && start_on_small == true){
-             header_menu_nav_items = create_header_menu_elements();
              start_on_small = false;
              var count = 0;
              for (var i = 0; i < header_menu_nav_items.length; i++) {
-                 if ( header_menu_nav_items[i].class == "header_global header_button dropdown-button") {
+                 if ( header_menu_nav_items[i].class == "header_button dropdown-button") {
                      count += 1;
                  }
              }
@@ -250,10 +249,15 @@ $(document).ready(function(){
                 temp;
 
              $('.header_menu-dropdown .dropdown-menu .header_button').each(function(){
-                 dropdown_global = dropdown_global +'<a href="' + $(this)[0]['href'] + '" class="header_global ' + $(this)[0]['className'] + '">' + $(this).html() + '</a>';
+                 dropdown_global = dropdown_global +'<a href="' + $(this)[0]['href'] + '" class="' + $(this)[0]['className'] + '">' + $(this).html() + '</a>';
              });
 
-             $('.header_menu').append('<p class="header_text header_text-title">Быстрая навигация</p><div class="divider"></div>' + dropdown_global);
+             if (dropdown_global != "") {
+                 $('.header_menu').append('<p class="header_text header_text-title">Быстрая навигация</p><div class="divider"></div>' + dropdown_global);
+             } else {
+                 $('.header_menu').append('<p class="header_text header_text-title">Быстрая навигация</p><div class="divider"></div>');
+                 $('.header_menu').append($('.header_menu-dropdown > .header_button')[0]);
+             }
 
          }
 
@@ -304,7 +308,9 @@ $(document).ready(function(){
 
          } else {
 
-             $('.header_menu').append('<p class="header_text header_text-title">Навигация</p><div class="divider"></div>' + header_menu_elements + header_menu_dropdown_elements);
+            if ( header_menu_elements != "" || header_menu_dropdown_elements != "") {
+                $('.header_menu').append('<p class="header_text header_text-title">Навигация</p><div class="divider"></div>' + header_menu_elements + header_menu_dropdown_elements);
+            }
 
          }
 

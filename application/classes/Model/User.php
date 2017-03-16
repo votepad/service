@@ -14,7 +14,7 @@ Class Model_User {
     /**
      * @var $id_user
      */
-    public $id_user;
+    public $id;
 
     /**
      * @var $lastname
@@ -41,39 +41,124 @@ Class Model_User {
      */
     public $phone;
 
-    public function __construct() {}
+    /**
+     * @var $isConfirmed
+     */
+    public $isConfirmed;
 
     /**
-     * @param $id
-     * Saves or Updates User to Database
+     * @var $dt_create
      */
-     public function save($id = null)
+    public $dt_create;
+
+    /**
+     * Model_User constructor.
+     * get user info if data exist
+     */
+    public function __construct($id = null) {
+
+        if ( !empty($id) ) {
+            $this->get_($id);
+        }
+
+    }
+
+    private function fill_by_row($db_selection) {
+
+        if (empty($db_selection['id'])) return $this;
+
+        foreach ($db_selection as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $this->$fieldname = $value;
+        }
+
+        return $this;
+
+    }
+
+    private function get_($id) {
+
+        $select = Dao_Users::select()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->cached(Date::MINUTE * 5, $id)
+            ->execute();
+
+        $this->fill_by_row($select);
+
+        return $this;
+
+    }
+
+    /**
+     * Saves User to Database
+     */
+     public function save()
      {
-         $user = new ORM_User();
 
-         if (isset($id)) {
-             $user->where('id', '=', $id)
-                 ->find();
-         }
+        $this->dt_create = Date::formatted_time('now', 'Y-m-d');
 
-         $user->lastname = $this->lastname;
-         $user->name     = $this->name;
-         $user->surname  = $this->surname;
-         $user->email    = $this->email;
-         $user->password = $this->password;
-         $user->phone    = $this->phone;
-         $user->done     = $this->done;
+        $insert = Dao_Users::insert();
 
-         $user->save();
+        foreach ($this as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
+        }
 
-         $this->id_user = $user->id;
+        $id = $insert->execute();
 
-         return $this;
+        return $this->get_($id);
+
+     }
+
+    /**
+     * Updates user data in database
+     *
+     * @return Model_User
+     */
+     public function update()
+     {
+
+        $insert = Dao_Users::update();
+
+        foreach ($this as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
+        }
+
+        $insert->clearcache($this->id);
+        $insert->where('id', '=', $this->id);
+
+        $id = $insert->execute();
+
+        return $this->get_($id);
+
+     }
+
+     public function checkPassword ($pass) {
+
+         $selection = Dao_Users::select(array('password'))
+                        ->where('id', '=', $this->id)
+                        ->limit(1)
+                        ->execute();
+
+         $password = $selection['password'];
+
+         return $password == $pass;
+
+     }
+
+     public function changePassword ($newpass) {
+
+         $insert = Dao_Users::update()
+                    ->set('password', $newpass)
+                    ->where('id', '=', $this->id)
+                    ->execute();
+
+         return $insert;
+
      }
 
     /**
      * @param $id
-     * @return Id organization
+     * @return organization
      */
     public static function getUserOrganization($id)
     {
@@ -95,13 +180,13 @@ Class Model_User {
      * @param $value
      * @returns [Bool] True or False
      */
-    public static function isUserExist($field, $value) {
-        $select = DB::select('id')->from('Users')
-            ->where($field, '=', $value)
-            ->execute()
-            ->as_array();
+    public static function isUserExist($value, $field = 'email') {
+        $select = Dao_Users::select('id')
+                ->where($field, '=', $value)
+                ->limit(1)
+                ->execute();
 
-        if (count($select) > 0) {
+        if (!empty($select['id'])) {
             return true;
         } else {
             return false;

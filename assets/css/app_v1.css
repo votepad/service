@@ -18,7 +18,7 @@ body {
     font-family: 'Raleway', sans-serif;
 	font-size: 16px;
     color: #413a41;
-    background-color: #fcfcfc;
+    background-color: #f9f9f9;
 	overflow-x: hidden;
     padding:0;
 	margin: 0;
@@ -65,7 +65,7 @@ ul{
 	display: block;
 }
 .displaynone{
-	display:none;
+	display:none !important;
 }
 .inlineblock{
 	display: inline-block;
@@ -96,7 +96,7 @@ ul{
 	background-color: #008DA7;
 	box-shadow: rgb(0, 0, 0) 0px -1px 15px -5px;
 	cursor: default;
-	z-index: 1011;
+	z-index: 1012;
 	-moz-user-select: none;
 	-khtml-user-select: none;
     user-select: none;
@@ -138,6 +138,9 @@ ul{
 	font-size: 2em;
 	max-width: 10em;
 	margin-right: 1em;
+}
+.header_text-logo:hover{
+	color: #FCFCFC
 }
 
 
@@ -2273,13 +2276,18 @@ select.invalid + .select2-container .select2-selection{
 /**
 * Authorization Modal Style
 */
-.auth-modal .modal-dialog{
+.auth-modal{
+	line-height: normal;
+}
+.auth-modal .modal-dialog, .registr-modal .modal-dialog{
     margin: 120px auto
+}
+.auth-modal .modal-content, .registr-modal .modal-content{
+	overflow: hidden;
+    border-radius: 5px;
 }
 .auth-modal .modal-content{
 	height: 300px;
-	overflow: hidden;
-    border-radius: 5px;
 }
 .auth-modal .modal-wrapper{
 	transition: .5s ease-out;
@@ -2291,6 +2299,9 @@ select.invalid + .select2-container .select2-selection{
 .auth-modal .modal-body{
     min-height: 250px;
 }
+.registr-modal .modal-body{
+	height: inherit;
+}
 .auth-modal .modal-footer, .auth-modal .modal-header{
 	background: #fafbfc;
 	float: none;
@@ -2299,14 +2310,53 @@ select.invalid + .select2-container .select2-selection{
 .auth-modal a:hover, .auth-modal .modal-header:hover{
 	color: #008DA7;
 }
-.auth-modal h4{
+.auth-modal h4, .registr-modal h4{
     font-size: 1.5em;
     margin: 10px auto;
     letter-spacing: .01em;
     text-align: center;
 }
-.auth-modal .input-field {
+.auth-modal .input-field, .registr-modal .input-field {
     margin-top: .6em;
+}
+.auth_logged{
+    margin-bottom: 10px;
+}
+.auth_logged-image{
+	margin: auto;
+	width: 100px;
+	height: 100px
+}
+.auth_logged-image img{
+	margin: 5px;
+	width: 90px;
+	height: 90px;
+}
+.auth_logged-name{
+    margin: 5px 0;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.btn_text-forgot{
+	padding: 6px 0 !important;
+	font-size: .9em;
+	color: #9E9E9E;
+	border: none;
+}
+.auth-modal .g-recaptcha {
+	float: left;
+	width: 100%;
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+.auth-modal .g-recaptcha > div{
+	margin: auto;
+}
+@media (max-width: 680px) {
+	.auth-modal .modal-dialog, .registr-modal .modal-dialog{
+		width: 80%;
+	}
 }
 
 
@@ -2689,13 +2739,11 @@ section:after, section:before,
 	overflow: hidden;
 	background-color: #e5e5e5;
 }
-<<<<<<< HEAD
 
 .tooltip {
   position: absolute;
   z-index: 1070;
   display: block;
-  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 12px;
   font-style: normal;
   font-weight: normal;
@@ -2824,7 +2872,7 @@ section:after, section:before,
 	font-weight: 500;
 	margin: 0 10px;
 	padding: 8px 25px;
-=======
+}
 .swal2-container{
 	z-index: 1020;
 }
@@ -2838,5 +2886,4 @@ section:after, section:before,
 	height: 15px;
 	width: 15px;
 	border: 3px solid #FFF;
->>>>>>> beta
 }

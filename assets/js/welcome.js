@@ -1,80 +1,6 @@
 $(document).ready(function () {
 
-    /**
-    * Authorization Validation
-    * user modal
-    * judge modal
-    */
-
-    $('body').on('keyup','#user_modal', function(event){
-        if (event.keyCode == 13)
-            $('#userSignIn').click();
-    });
-    $('body').on('keyup','#judge_modal', function(event){
-        if (event.keyCode == 13)
-            $('#judgeSignIn').click();
-    });
-
-    /**
-    * EventNumver inputmask
-    */
-    $("#auth_eventnumber").inputmask({
-        "mask": "9 9 9   9 9 9",
-        onincomplete: function(){
-            $("#auth_eventnumber").addClass('invalid');
-        },
-        oncomplete: function() {
-            $("#auth_eventnumber").removeClass('invalid');
-        }
-    });
-
-    /**
-    * Change User & Jusge SignIn forms
-    */
-    $('#toJudgeModal').click(function(){
-        $('.auth-modal .modal-wrapper').addClass('up');
-    });
-    $('#toUserModal').click(function(){
-        $('.auth-modal .modal-wrapper').removeClass('up');
-    });
-
-    /**
-    * Confirm Auth forms
-    */
-    $('#userSignIn').click(function(){
-        if ($('#auth_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#auth_email').val()) ) {
-            $.notify({
-                message: 'Вы ввели неправильно email. Попробуйте ввести снова!'
-            },{
-                type: 'danger'
-            });
-            $('#auth_email').addClass('invalid');
-        } else if ( $("#auth_password").val() == '' ) {
-            $('#auth_password').addClass('invalid');
-        } else {
-            $('#user_modal')[0].submit();
-        }
-    });
-    $('#judgeSignIn').click(function(){
-        if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
-            $.notify({
-                message: 'Вы ввели неправильный номер мероприятия. Попробуйте ввести снова!'
-            },{
-                type: 'danger'
-            });
-        } else if ( $("#auth_judgesecret").val() == '' ) {
-            $("#auth_judgesecret").addClass('invalid');
-        } else {
-            $('#judge_modal')[0].submit();
-        }
-    });
-
-
-
     $('#OpenMobileHeader').click(function () {
-        if ( $(window).width() < 390 ) {
-            $('.header-btn').css('display','none');
-        }
 
         if ( $(this).hasClass('mobile-open') ) {
             $('body').find('.mobile-close').click();
@@ -93,18 +19,12 @@ $(document).ready(function () {
         $('body').removeClass('mobile-open')
         $('.header_text-logo').wait(100).removeClass("mobile-open");
         $('#OpenMobileHeader').wait(100).removeClass("mobile-open");
-        $('.header-btn').css('display','block');
         $(this).remove();
     });
 
     $(window).resize(function () {
         if ( $(window).width() > 992 && $('body').hasClass('mobile-open') ) {
             $('body').find('.mobile-close').click();
-        }
-        if ( $(window).width() < 390 ) {
-            $('.header-btn').css('display','none');
-        } else {
-            $('.header-btn').css('display','block');
         }
     });
 
@@ -143,7 +63,7 @@ $(document).ready(function () {
 
     /**
     * Open Subscribe Form
-    */
+    *
     $('.publish').click(function(){
         swal({
             title: 'Стань первым!',

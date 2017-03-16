@@ -37,7 +37,7 @@ class Dispatch extends Controller_Template
         // XSS clean in POST and GET requests
         self::XSSfilter();
 
-        $driver = 'cookie';
+        $driver = 'native';
         $this->session = self::sessionInstance($driver);
         $this->setGlobals();
 
@@ -104,12 +104,45 @@ class Dispatch extends Controller_Template
     {
         $session = Session::Instance();
 
-        if ( empty($session->get('id_user')) ) {
+        if ( empty($session->get('uid')) ) {
             return false;
         } else {
             return true;
         }
 
+    }
+
+    /**
+     * Return True if user had logged
+     * @return bool
+     */
+    public static function hadLogged()
+    {
+        $secret = Cookie::get('secret', '');
+        $uid = Cookie::get('uid', '');
+        $sid = Cookie::get('sid', '');
+
+        if ($secret && $uid && $sid) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * Can user login or not
+     */
+    public static function canLogin()
+    {
+        $isLogged  = self::isLogged();
+        $hadLogged = self::hadLogged();
+
+        $canLogin = false;
+
+        if ($isLogged || (!$isLogged && $hadLogged))
+            $canLogin = true;
+
+        return $canLogin;
     }
 
     /**
@@ -139,13 +172,17 @@ class Dispatch extends Controller_Template
 
     private function setGlobals()
     {
-        if (!empty($this->session->get('id_user'))) {
+        if (self::canLogin()) {
 
-            $user = new Model_PrivillegedUser();
+            $uid = $this->session->get('uid') ?: (int) Cookie::get('uid');
+            $user = new Model_User($uid);
 
             /** Authentificated User is visible in all pages */
             View::set_global('user', $user);
+
         }
+
+        View::set_global('isLogged', self::isLogged());
 
         $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
 
@@ -156,11 +193,17 @@ class Dispatch extends Controller_Template
         $this->redis    = self::redisInstance();
     }
 
+    protected function makeHash($algo, $string) {
+        return hash($algo, $string);
+    }
+
     protected function checkCsrf()
     {
         /** Check CSRF */
         if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf', ''))) {
             throw new Kohana_HTTP_Exception_403();
         }
+
+        return true;
     }
 }
