@@ -265,6 +265,7 @@ class Controller_Auth_Organizer extends Auth {
         $response = new Model_Response_Auth('PASSWORD_CHANGE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
 
+        $this->redis->hDel(self::RESET_HASHES_KEY, $hash);
 
     }
 
