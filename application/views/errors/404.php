@@ -1,16 +1,18 @@
-<link rel='stylesheet' href="<?=URL::base(). 'assets/css/404.css'; ?>">
-<link rel='stylesheet' href="<?=URL::base(). 'assets/css/pronwe.css'; ?>">
-
-<div class='main-container'>
-	<img src="<?=URL::base(). 'assets/img/ProNWE_logo.svg'; ?>" alt="ProNWE logo" class='topLogo'>
-	<h1>Ошибка 404. Страница не найдена</h1>
-</div>
-<div class='secondary-container'>
-	<p>Очень жаль, искомая страница не найдена. Но мы можем вам предложить что-то интересное.</p>
-	<ul class='submenu'>
-		<li><a href='http://pronwe.ru' class='pronwe_Link-small pronwe_color'>Главная</a></li>
-		<li><a href='' class='pronwe_Link-small pronwe_color'>Организации</a></li>
-		<li><a href='' class='pronwe_Link-small pronwe_color'>Мероприятия</a></li>
-		<li><a href='' class='pronwe_Link-small pronwe_color'>FAQ</a></li>
-	</ul>
-</div>
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Ошибка 404. Документ не найден</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel='stylesheet' href="<?=URL::base(). 'assets/css/error.css'; ?>">
+		<link rel='stylesheet' href="<?=URL::base(). 'assets/css/app_v1.css'; ?>">
+	</head>
+	<body class="valign error_block">
+		<div class="center">
+			<h1 class="error_title">Votepad</h1>
+			<p class="error_text"><b>Ошибка 404.</b> Документ не найден</p>
+			<a href="#" class="error_link text_link">Назад</a>
+			<a href="/" class="error_link text_link">Главная</a>
+		</div>
+	</body>
+</html>

@@ -28,21 +28,3 @@
     </div>
 </form>
 <? endif;?>
-
-
-
-
-
-<!--
-    ТУТ редирект сделаем на страницу, где ссылка не действительна
-    ? if (Cookie::get('reset_link') === false): ?>
-
-        <div class="form_body alert alert-danger ">
-            <h4>Ошибка!</h4>
-            <button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="font-size: 20px; position: absolute; right: 10px; top: 5px; z-index: 1033;">×</button>
-            <span>Ссылка устарела. Пожалуйста, сделайте новый запрос пароля.</span>
-            <a href="#" target="_blank" data-notify="url"></a>
-        </div>
-
-    ? endif;?>
--->
