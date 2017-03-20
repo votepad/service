@@ -154,3 +154,15 @@ Route::set('CHECK_ORGANIZATION_WEBSITE', 'organization/checkwebsite/<uri>',
         'controller' => 'Organizations_Ajax',
         'action'     => 'checkWebsite'
     ));
+
+Route::set('JOIN_TO_ORGANIZATION', 'organization/<id>/join', array('id' => $DIGIT, 'hash' => $STRING))
+    ->defaults(array(
+        'controller' => 'Organizations_Index',
+        'action'     => 'join'
+    ));
+
+Route::set('MEMBERS_ACTIONS', 'organization/<id>/member/<method>/<userid>', array('id' => $DIGIT, 'userid' => $DIGIT, 'method' => 'add|remove|reject'))
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
+        'action'     => 'member'
+    ));

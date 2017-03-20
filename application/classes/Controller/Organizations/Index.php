@@ -140,7 +140,7 @@ class Controller_Organizations_Index extends Dispatch
     public function action_main()
     {
 
-        if ($this->organization->owner != $this->user->id) {
+        if (!$this->organization->isOwner($this->user->id)) {
             throw new HTTP_Exception_403();
         }
 
@@ -166,6 +166,19 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_team()
     {
+
+        if (!$this->organization->isOwner($this->user->id)) {
+            throw new HTTP_Exception_403();
+        }
+
+        $this->organization->team = $this->organization->getTeam();
+        $requests_ids = $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests');
+
+        $this->organization->requests = array();
+
+        foreach ($requests_ids as $id) {
+            array_push($this->organization->requests, new Model_User($id));
+        }
 
         /**
          * Jumbotron Navigation

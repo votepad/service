@@ -217,7 +217,7 @@
                 error: function() {
                     removePreLoader();
                 }
-            }
+            };
 
             ajax.send(ajaxData);
 
@@ -237,7 +237,7 @@
                 id          = parseInt(response.id);
 
             if (id) {
-                window.location.replace(protocol+'//'+host+'/user/'+id);
+                window.location.replace(protocol + '//' + host + '/user/' + id);
             } else {
                 $.notify({
                         message: 'Произошла ошибка'
@@ -284,7 +284,7 @@
                 id          = parseInt(response.id);
 
             if (id) {
-                window.location.replace(protocol+'//'+host+'/user/'+id);
+                window.location.replace(protocol + '//' + host + '/user/' + id);
             } else {
                 $.notify({
                     message: 'Произошла ошибка'

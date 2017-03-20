@@ -3,7 +3,8 @@ tabs.init()
 var id, name, coworker_block, message, link, ajaxData,
     deleteBtns = document.getElementsByClassName('deletebtn'),
     acceptBtns = document.getElementsByClassName('acceptbtn'),
-    cancelBtns = document.getElementsByClassName('cancelbtn');
+    cancelBtns = document.getElementsByClassName('cancelbtn'),
+    orgId      = document.getElementById('org_id').value;
 
 /**
  * Add EventListener for btns
@@ -89,9 +90,7 @@ function deletecoworker(event) {
          * Send ajax request for deleted
          */
          ajaxData = {
-             url: '/',
-             type: 'POST',
-             data: id,
+             url: '/organization/'+orgId+'/member/remove/'+id,
              beforeSend: function(callback) {
                  addWhirl(coworker_block);
              },
@@ -132,9 +131,7 @@ function acceptrequest(event) {
      * Send ajax request for accept co-worker's request
      */
      ajaxData = {
-         url: '/',
-         type: 'POST',
-         data: id,
+         url: '/organization/'+orgId+'/member/add/'+id,
          beforeSend: function(callback) {
              addWhirl(coworker_block);
          },
@@ -174,9 +171,7 @@ function cancelrequest(event) {
      * Send ajax request for cansel co-worker's request
      */
     ajaxData = {
-        url: '/',
-        type: 'POST',
-        data: id,
+        url: '/organization/'+orgId+'/member/reject/'+id,
         beforeSend: function(callback) {
             addWhirl(coworker_block);
         },

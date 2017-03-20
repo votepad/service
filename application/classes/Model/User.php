@@ -156,19 +156,21 @@ Class Model_User {
 
      }
 
-    /**
-     * @param $id
-     * @return organization
-     */
-    public static function getUserOrganization($id)
-    {
-        $select = DB::select('id_organization')->from('User_Organizations')
-                        ->where('id_user', '=', $id)
-                        ->limit(1)
-                        ->execute()
-                        ->as_array();
 
-        return Arr::get($select, '0')['id_organization'];
+    public function getOrganizations()
+    {
+        $ids = Dao_UsersOrganizations::select('o_id')
+            ->where('u_id', '=', $this->id)
+            ->cached(Date::MINUTE * 5, 'user:' . $this->id)
+            ->execute('o_id');
+
+        $orgs = array();
+
+        foreach ($ids as $id => $value) {
+            array_push($orgs, new Model_Organization($id));
+        }
+
+        return $orgs;
     }
 
     /**
