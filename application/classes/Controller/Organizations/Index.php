@@ -60,21 +60,25 @@ class Controller_Organizations_Index extends Dispatch
 
         if ($this->organization->id) {
 
+            if ($this->user) {
+                $isOwner  = $this->organization->isOwner($this->user->id);
+                $isMember  = $this->organization->isMember($this->user->id);
+            } else {
+                $isOwner  = false;
+                $isMember  = false;
+            }
+
             /**
              * Meta Dates
              */
             $this->template->title = $this->organization->name;
             $this->template->description = $this->organization->description;
 
-
             /**
              * Header
              */
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('organizations/blocks/header_menu', array(
-                        'id'        => $this->organization->id,
-                        'isOwner'   => $this->organization->isOwner($this->user->id),
-                        'isMember'  => $this->organization->isMember($this->user->id))))
+                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'id' => $this->organization->id, 'isOwner' => $isOwner, 'isMember' => $isMember)))
                 ->set('auth_modal', View::factory('globalblocks/auth_modal'))
                 ->set('organization', $this->organization);
 
