@@ -2379,7 +2379,7 @@ select.invalid + .select2-container .select2-selection{
 /**
 * Authorization Modal Style
 */
-.auth-modal{
+.auth-modal, .registr-modal{
 	line-height: normal;
 }
 .auth-modal .modal-dialog, .registr-modal .modal-dialog{
