@@ -171,7 +171,6 @@ ul{
 .header_menu-dropdown{
 	position: relative;
 	float: right;
-	max-width: 160px;
 }
 .header_menu-dropdown > .header_button > .header_text{
 	display: inline-block;
@@ -2380,7 +2379,7 @@ select.invalid + .select2-container .select2-selection{
 /**
 * Authorization Modal Style
 */
-.auth-modal{
+.auth-modal, .registr-modal{
 	line-height: normal;
 }
 .auth-modal .modal-dialog, .registr-modal .modal-dialog{
