@@ -71,7 +71,10 @@ class Controller_Organizations_Index extends Dispatch
              * Header
              */
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('organizations/blocks/header_menu', array('id' => $this->organization->id)))
+                ->set('header_menu', View::factory('organizations/blocks/header_menu', array(
+                        'id'        => $this->organization->id,
+                        'isOwner'   => $this->organization->isOwner($this->user->id),
+                        'isMember'  => $this->organization->isMember($this->user->id))))
                 ->set('auth_modal', View::factory('globalblocks/auth_modal'))
                 ->set('organization', $this->organization);
 
