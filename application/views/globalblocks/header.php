@@ -42,7 +42,9 @@
         </div>
 
     <? else : ?>
-
+        <a class="header_button" data-toggle="modal" data-target="#registr_modal">
+            <span class="header_text">Регистрация</span>
+        </a>
         <a class="header_button " data-toggle="modal" data-target="#auth_modal">
             <span class="header_text">Войти</span>
         </a>

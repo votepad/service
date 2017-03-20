@@ -171,7 +171,6 @@ ul{
 .header_menu-dropdown{
 	position: relative;
 	float: right;
-	max-width: 160px;
 }
 .header_menu-dropdown > .header_button > .header_text{
 	display: inline-block;
