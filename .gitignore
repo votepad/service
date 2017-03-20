@@ -1,20 +1,14 @@
 # Created by .ignore support plugin (hsz.mobi)
-.idea
-uploads/
-/application/vendor/
-assets/frontend/node_modules
+.idea/
+application/vendor/
 application/cache
 application/logs
-.idea/*
-/vendor/
-vendor/*
+uploads/
 
 # Bundler
-assets/frontend/.idea/
 assets/frontend/modules/*
 assets/frontend/webpack.config.js
-assets/frontend/node_modules/*
-# assets/vendor/*
+# assets/vendor/
 
 
 # Media files
