@@ -200,14 +200,14 @@ class Controller_Auth_Organizer extends Auth {
             return;
         }
 
-        $hash = $this->makeHash('sha256', $user->id.$user->email);
+        $hash = $this->makeHash('sha256', $_SERVER['SALT'] . $user->id . time());
 
         $this->redis->hSet(self::RESET_HASHES_KEY, $hash, $user->id);
 
         $template = View::factory('emailtemplates/reset_password', array('user' => $user, 'hash' => $hash));
 
         $email = new Email();
-        $isSuccess = $email->send($user->email, 'gohabereg@gmail.com', 'Сброс пароля на Votepad', $template, true);
+        $isSuccess = $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Сброс пароля на Votepad', $template, true);
 
         if ($isSuccess) {
             $response = new Model_Response_Email('EMAIL_SUCCESS', 'success');
@@ -231,8 +231,7 @@ class Controller_Auth_Organizer extends Auth {
         if (!$this->request->is_ajax()) {
 
             if (!$user->id) {
-                Cookie::set('reset_link', false, Date::HOUR);
-                $this->redirect('/');
+                throw new HTTP_Exception_400();
             }
 
             Cookie::set('reset_link', $hash, Date::HOUR);
@@ -269,7 +268,7 @@ class Controller_Auth_Organizer extends Auth {
 
         $template = View::factory('emailtemplates/new_password', array('user' => $user, 'password' => $newpass1));
 
-        $email->send($user->email, 'info@votepad.ru', 'Новый пароль на Votepad', $template, true);
+        $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Новый пароль на Votepad', $template, true);
 
         $this->redis->hDel(self::RESET_HASHES_KEY, $hash);
 

@@ -89,7 +89,7 @@ class Controller_SignUp extends Dispatch
 
     private function send_email_confirmation($user, $password) {
 
-        $hash = $this->makeHash('sha256', $user->id.$user->email.$password);
+        $hash = $this->makeHash('sha256', $user->id . $_SERVER['SALT'] . $user->email);
 
         $this->redis->hSet(self::CONFIRMATION_HASHES_KEY, $hash, $user->id);
 
@@ -97,7 +97,7 @@ class Controller_SignUp extends Dispatch
 
         $email = new Email();
 
-        return $email->send($user->email, 'gohabereg@gmail.com', 'Добро пожаловать в Votepad!', $template, true);
+        return $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Добро пожаловать в Votepad!', $template, true);
 
     }
 

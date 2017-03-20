@@ -201,7 +201,7 @@ class Dispatch extends Controller_Template
     {
         /** Check CSRF */
         if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf', ''))) {
-            throw new Kohana_HTTP_Exception_403();
+            throw new HTTP_Exception_403();
         }
 
         return true;

@@ -1,12 +1,11 @@
 # Created by .ignore support plugin (hsz.mobi)
 .idea
 uploads/
-application/vendor/
+/application/vendor/
 assets/frontend/node_modules
 application/cache
 application/logs
 .idea/*
-uploads/
 /vendor/
 vendor/*
 
@@ -20,10 +19,13 @@ assets/frontend/node_modules/*
 
 # Media files
 assets/img/
-application/config/email.php
 
 # config files
 application/config/cache.php
 application/config/database.php
 application/config/redis.php
 application/config/session.php
+application/config/email.php
+/.env
+frontend/
+modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
