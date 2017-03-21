@@ -62,6 +62,11 @@ class Model_Response_Organization extends  Model_Response_Abstract
         'message' => 'User is owner'
     );
 
+    protected $_ACCESS_DENIED_ERROR = array(
+        'type' => 'organization',
+        'code' => '400',
+        'message' => 'Access denied'
+    );
 
 
 }

@@ -121,13 +121,13 @@ class Controller_Organizations_Ajax extends Ajax
     public function action_member() {
 
         $method = $this->request->param('method');
-        $o_id     = $this->request->param('id');
-        $u_id     = $this->request->param('userid');
+        $organizationId     = $this->request->param('id');
+        $userId     = $this->request->param('userId');
 
-        $user = new Model_User($u_id);
-        $org  = new Model_Organization($o_id);
+        $user = new Model_User($userId);
+        $org  = new Model_Organization($organizationId);
 
-        $this->redis->sRem('votepad.orgs:'.$o_id.':join.requests', $u_id);
+        $this->redis->sRem('votepad.orgs:'.$organizationId.':join.requests', $userId);
 
         if (!$user->id) {
 
@@ -145,6 +145,15 @@ class Controller_Organizations_Ajax extends Ajax
             return;
 
         }
+        if ($org->isOwner($this->user->id)) {
+
+            $response = new Model_Response_Organization('ACCESS_DENIED_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
 
         switch($method) {
             case 'add': $this->addMember($org, $user); break;

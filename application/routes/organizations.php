@@ -161,7 +161,7 @@ Route::set('JOIN_TO_ORGANIZATION', 'organization/<id>/join', array('id' => $DIGI
         'action'     => 'join'
     ));
 
-Route::set('MEMBERS_ACTIONS', 'organization/<id>/member/<method>/<userid>', array('id' => $DIGIT, 'userid' => $DIGIT, 'method' => 'add|remove|reject'))
+Route::set('MEMBERS_ACTIONS', 'organization/<id>/member/<method>/<userId>', array('id' => $DIGIT, 'userId' => $DIGIT, 'method' => 'add|remove|reject'))
     ->defaults(array(
         'controller' => 'Organizations_Ajax',
         'action'     => 'member'
