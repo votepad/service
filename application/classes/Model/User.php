@@ -150,9 +150,28 @@ Class Model_User {
          $insert = Dao_Users::update()
                     ->set('password', $newpass)
                     ->where('id', '=', $this->id)
+                    ->clearcache($this->id)
                     ->execute();
 
          return $insert;
+
+     }
+
+     public static function getByFields($fields) {
+
+         $select = Dao_Users::select('id');
+
+         foreach ($fields as $field => $value) {
+             $select->where($field, '=', $value);
+         }
+
+
+
+         $selection = $select
+                ->limit(1)
+                ->execute();
+
+         return new Model_User($selection['id']);
 
      }
 

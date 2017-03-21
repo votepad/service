@@ -1,1 +1,1 @@
-<h1>Ошибка 403</h1>
+<?= View::factory('errors/error', array('code' => 403, 'message' => 'Доступ запрещен')); ?>

@@ -18,10 +18,10 @@ return array
 			 *
 			 * Ports and sockets may be appended to the hostname.
 			 */
-			'hostname'   => 'localhost',
-			'database'   => 'pronwe',
+			'hostname'   => 'db',
+			'database'   => 'votepad',
 			'username'   => 'root',
-			'password'   => '',
+			'password'   => 'root',
 			'persistent' => FALSE,
 		),
 		'table_prefix' => '',

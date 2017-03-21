@@ -1,128 +1,130 @@
+$(document).ready(function () {
     /**
-    * Sumbit Judges SignIn Form
-    */
-    $('#judgeSignIn').click(function(){
-        if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
-            notifyErrors('eventNumber');
-        } else if ( $("#auth_judgesecret").val() == '' ) {
-            $("#auth_judgesecret").addClass('invalid');
-        } else {
-            $('#judge_form')[0].submit();
+     * Keyup Submit
+     */
+    $('body').on('keyup','#user_form_notlogged', function(event){
+        if (event.keyCode == 13)
+            $('#userSignIn').click();
+    });
+    $('body').on('keyup','#judge_form', function(event){
+        if (event.keyCode == 13)
+            $('#judgeSignIn').click();
+    });
+    $('body').on('keyup','#registr_form', function(event){
+        if (event.keyCode == 13)
+            $('#registr').click();
+    });
+
+
+    /**
+     * UserName in Regestr Form
+     */
+    $("#registr_name").inputmask({
+        mask: 'a{1,20}',
+        definitions: {
+          'a': {
+            validator: "[a-zA-Zа-яА-Я]",
+          }
+        },
+        showMaskOnHover: false,
+        showMaskOnFocus: true,
+    });
+
+
+    /**
+     * EventNumver inputmask
+     */
+    $("#auth_eventnumber").inputmask({
+        mask: "9 9 9   9 9 9",
+        onincomplete: function(){
+            $("#auth_eventnumber").addClass('invalid');
+        },
+        oncomplete: function() {
+            $("#auth_eventnumber").removeClass('invalid');
         }
     });
 
-    $(document).ready(function () {
-        /**
-         * Keyup Submit
-         */
-        $('body').on('keyup','#user_form_notlogged', function(event){
-            if (event.keyCode == 13)
-                $('#userSignIn').click();
-        });
-        $('body').on('keyup','#judge_form', function(event){
-            if (event.keyCode == 13)
-                $('#judgeSignIn').click();
-        });
-        $('body').on('keyup','#registr_form', function(event){
-            if (event.keyCode == 13)
-                $('#registr').click();
-        });
 
-
-        /**
-         * EventNumver inputmask
-         */
-        $("#auth_eventnumber").inputmask({
-            "mask": "9 9 9   9 9 9",
-            onincomplete: function(){
-                $("#auth_eventnumber").addClass('invalid');
-            },
-            oncomplete: function() {
-                $("#auth_eventnumber").removeClass('invalid');
-            }
-        });
-
-
-        /**
-         * Validate Email Field
-         */
-        $('input[type="email"]').blur(function(){
-            if ( ! /\S+@\S+\.\S+/.test($(this).val()) ) {
-                if ($(this).val() != '') {
-                    notifyErrors('email');
-                    $(this).addClass('invalid');
-                }
-            } else {
-                $(this).removeClass('invalid');
-            }
-        });
-
-
-        /**
-         * Change User, Jusge SignIn, Reset forms
-         */
-        $('#toJudgeForm').click(function(){
-            $('.auth-modal .modal-wrapper').addClass('up');
-        });
-        $('#toUserForm').click(function(){
-            $('.auth-modal .modal-wrapper').removeClass('up');
-        });
-        $('#resetPasword').click(function () {
-            $('#user_form_notlogged').addClass('displaynone');
-            $('#user_form_forgot').removeClass('displaynone');
-        });
-        $('#toUserSignIn').click(function () {
-            $('#user_form_notlogged').removeClass('displaynone');
-            $('#user_form_forgot').addClass('displaynone');
-        });
-
-
-
-        /**
-         * Sumbit NOT Logged User SignIn Form
-         */
-        $('#userSignIn').click(function(){
-            if ($('#auth_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#auth_email').val()) ) {
+    /**
+     * Validate Email Field
+     */
+    $('input[type="email"]').blur(function(){
+        if ( ! /\S+@\S+\.\S+/.test($(this).val()) ) {
+            if ($(this).val() != '') {
                 notifyErrors('email');
-                $('#auth_email').addClass('invalid');
-            } else if ( $("#auth_password").val() == '' ) {
-                $('#auth_password').addClass('invalid');
-            } else {
-
-                var ajaxData = {
-                    url: '/sign/organizer',
-                    type: 'POST',
-                    data: new FormData($('#user_form_notlogged')[0]),
-                    beforeSend: function() {
-                        $('#user_form_notlogged').parent('.modal-wrapper').addClass('whirl');
-                    },
-                    success: authResponse,
-                    error: function() {
-                        removePreLoader();
-                    }
-                };
-
-                ajax.send(ajaxData);
+                $(this).addClass('invalid');
             }
-        });
+        } else {
+            $(this).removeClass('invalid');
+        }
+    });
 
-        /**
-         * Submit Logged User SignIn form
-         */
-        $('#userRecover').click(function(){
+
+    /**
+     * Change User, Jusge SignIn, Reset forms
+     */
+    $('#toJudgeForm').click(function(){
+        $('.auth-modal .modal-wrapper').addClass('up');
+    });
+    $('#toUserForm').click(function(){
+        $('.auth-modal .modal-wrapper').removeClass('up');
+    });
+    $('#resetPasword').click(function () {
+        $('#user_form_notlogged').addClass('displaynone');
+        $('#user_form_forgot').removeClass('displaynone');
+    });
+    $('#toUserSignIn').click(function () {
+        $('#user_form_notlogged').removeClass('displaynone');
+        $('#user_form_forgot').addClass('displaynone');
+    });
+
+
+
+    /**
+     * Sumbit NOT Logged User SignIn Form
+     */
+    $('#userSignIn').click(function(){
+        if ($('#auth_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#auth_email').val()) ) {
+            notifyErrors('email');
+            $('#auth_email').addClass('invalid');
+        } else if ( $("#auth_password").val() == '' ) {
+            $('#auth_password').addClass('invalid');
+        } else {
 
             var ajaxData = {
                 url: '/sign/organizer',
                 type: 'POST',
-                data: new FormData($('#user_form_logged')[0]),
+                data: new FormData($('#user_form_notlogged')[0]),
                 beforeSend: function() {
-                    $('#user_form_logged').parent('.modal-wrapper').addClass('whirl');
+                    $('#user_form_notlogged').parent('.modal-wrapper').addClass('whirl');
                 },
                 success: authResponse,
                 error: function() {
-                    removePreLoader()
+                    removePreLoader();
                 }
             };
+
+            ajax.send(ajaxData);
+        }
+    });
+
+    /**
+     * Submit Logged User SignIn form
+     */
+    $('#userRecover').click(function(){
+
+        var ajaxData = {
+            url: '/sign/organizer',
+            type: 'POST',
+            data: new FormData($('#user_form_logged')[0]),
+            beforeSend: function() {
+                $('#user_form_logged').parent('.modal-wrapper').addClass('whirl');
+            },
+            success: authResponse,
+            error: function() {
+                removePreLoader()
+            }
+        };
 
         ajax.send(ajaxData);
 
@@ -137,7 +139,21 @@
             notifyErrors('email');
             $('#forget_email').addClass('invalid');
         } else {
-            $('#user_form_forgot')[0].submit();
+            $('#toUserSignIn').click();
+            var ajaxData = {
+                url: '/sign/organizer/reset',
+                type: 'POST',
+                data: new FormData($('#user_form_forgot')[0]),
+                beforeSend: function() {
+                    $('#user_form_forgot').parent('.modal-wrapper').addClass('whirl');
+                },
+                success: resetResponse,
+                error: function() {
+                    removePreLoader()
+                }
+            };
+
+            ajax.send(ajaxData);
         }
     });
 
@@ -156,6 +172,19 @@
         cookies.remove('secret');
     });
 
+
+    /**
+    * Sumbit Judges SignIn Form
+    */
+    $('#judgeSignIn').click(function(){
+        if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
+            notifyErrors('eventNumber');
+        } else if ( $("#auth_judgesecret").val() == '' ) {
+            $("#auth_judgesecret").addClass('invalid');
+        } else {
+            $('#judge_form')[0].submit();
+        }
+    });
 
 
     /**
@@ -319,6 +348,45 @@
     }
 
 
+    var resetResponse = function (response) {
+
+        removePreLoader();
+
+        response = JSON.parse(response);
+
+        if (response.status == 'success') {
+            $.notify({
+                    message: 'Мы отправили письмо с инструкциями на вашу почту'
+                },
+                {
+                    type: 'success'
+                });
+
+            return;
+        }
+
+        var message;
+
+        switch (parseInt(response.code)) {
+            case 30: message = 'Пожалуйста, заполните все поля';
+                break;
+            case 60: message = 'Мы не смогли отправить письмо с инструкциями на вашу почту :(';
+                break;
+            case 15: message = 'Пользователь с таким email не найден';
+                break;
+            default: message = 'Произошла ошибка. Попробуйте снова';
+        }
+
+        $.notify({
+                message: message
+            },
+            {
+                type: 'danger'
+            });
+
+
+    };
+
 
     /**
     * Notify Frontend Fields
@@ -329,7 +397,7 @@
 
         switch (field) {
 
-            case 'email': message = 'Вы ввели неправильно email. Попробуйте ввести снова!'
+            case 'email': message = 'Вы неправильно ввели email. Попробуйте ввести снова!'
             break;
             case 'emptyPassword': message = 'Вы не указали парлоль';
             break;

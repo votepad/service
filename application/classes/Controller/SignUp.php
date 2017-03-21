@@ -3,6 +3,9 @@
 class Controller_SignUp extends Dispatch
 {
 
+    const CONFIRMATION_HASHES_KEY = 'votepad.confirmation.hashes';
+    public $template    = 'main';
+
     function before()
     {
         $this->auto_render = false;
@@ -69,7 +72,7 @@ class Controller_SignUp extends Dispatch
 
         $hash = $this->request->param('hash');
 
-        $id = $this->redis->hGet('confirmation_hashes', $hash);
+        $id = $this->redis->hGet(self::CONFIRMATION_HASHES_KEY, $hash);
 
         if (!$id) {
             return;
@@ -81,7 +84,7 @@ class Controller_SignUp extends Dispatch
 
         $user->update();
 
-        $this->redis->hDel('confirmation_hashes', $hash);
+        $this->redis->hDel(self::CONFIRMATION_HASHES_KEY, $hash);
 
         $this->redirect('/user/'.$id);
 
@@ -89,14 +92,15 @@ class Controller_SignUp extends Dispatch
 
     private function send_email_confirmation($user, $password) {
 
-        $hash = md5($user->email.$password);
+        $hash = $this->makeHash('sha256', $user->id . $_SERVER['SALT'] . $user->email);
 
-        $this->redis->hSet('confirmation_hashes', $hash, $user->id);
+        $this->redis->hSet(self::CONFIRMATION_HASHES_KEY, $hash, $user->id);
 
         $template = View::factory('emailtemplates/confirm_email', array('user' => $user, 'hash' => $hash));
 
         $email = new Email();
-        $email->send($user->email, 'gohabereg@gmail.com', 'Добро пожаловать в Votepad!', $template, true);
+
+        return $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Добро пожаловать в Votepad!', $template, true);
 
     }
 
