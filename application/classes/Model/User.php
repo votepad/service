@@ -150,12 +150,12 @@ Class Model_User {
          $insert = Dao_Users::update()
                     ->set('password', $newpass)
                     ->where('id', '=', $this->id)
+                    ->clearcache($this->id)
                     ->execute();
 
          return $insert;
 
      }
-
 
     public function getOrganizations()
     {

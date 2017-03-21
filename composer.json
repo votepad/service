@@ -6,6 +6,7 @@
 		"phpunit/phpunit": "3.7.24",
 		"phing/phing": "dev-master",
 		"phpoffice/phpexcel": "dev-develop",
-		"doctrine/orm": "*"
+		"doctrine/orm": "*",
+		"vlucas/phpdotenv": "^2.4"
 	}
 }

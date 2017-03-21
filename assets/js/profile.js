@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+    var hash = cookies.get('reset_link');
+    hash = hash?hash.split('~')[1]:'';
+    cookies.remove('reset_link');
+
+
     /**
     * Open Modal Form for edit User Info
     */
@@ -110,7 +115,7 @@ $(document).ready(function () {
             isvalid = false;
             $('#edituser_oldpassword').addClass('invalid');
             $('#edituser_newpassword').addClass('invalid');
-            $('#edituser_newpassword2').addClass('invalid')
+            $('#edituser_newpassword2').addClass('invalid');
             $.notify({
                 message: 'Вы не указали старый пароль!'
             },{
@@ -124,6 +129,119 @@ $(document).ready(function () {
         }
     });
 
+
+
+    /**
+    * Reset Password
+    */
+    $("#reset_password, #reset_password1").focus(function(){
+        $('#reset_password').removeClass('invalid');
+        $('#reset_password1').removeClass('invalid')
+    });
+
+    // open modal if it is n the page
+    $('#reset_password_form').modal({
+        keyboard: false
+    });
+    $('#reset_password_form').modal('show');
+    // submit on 'Enter'
+    $('#reset_password_form').on('keyup', function (e) {
+        if ( e.keycode == 13) {
+            $('#reset_password_form').submit()
+        }
+    });
+    $("#reset_password").focus();
+
+    // cancel new password
+    $('#cancelReset').click(function() {
+        $('#reset_password_form').modal('hide');
+        $('#reset_password_form').remove();
+    });
+
+
+    $('#reset_password_form').submit(function() {
+
+        if (allowedPassSymbols.test($('#reset_password').val()) || allowedPassSymbols.test($('#reset_password1').val())) {
+
+            $('#reset_password').addClass('invalid');
+            $('#reset_password1').addClass('invalid');
+            $.notify({
+                message: 'Вы используете запрещенные символы!'
+            },{
+                type: 'danger'
+            });
+            return false;
+
+        } else if ( $('#reset_password').val() == "" ) {
+
+            $('#reset_password').addClass('invalid');
+            $.notify({
+                message: 'Вы не ввели новый пароль!'
+            },{
+                type: 'danger'
+            });
+            return false;
+
+        } else if ($('#reset_password').val() != $('#reset_password1').val()) {
+            $('#reset_password').addClass('invalid');
+            $('#reset_password1').addClass('invalid');
+            $.notify({
+                message: 'Пароли не совпадают!'
+            },{
+                type: 'danger'
+            });
+            return false;
+        }
+
+        ajax.send({
+            data: new FormData($('#reset_password_form')[0]),
+            url: '/reset/' + hash,
+            type: 'POST',
+            beforeSend: function() {
+                $('#reset_password_form .modal-content').addClass('whirl');
+            },
+            success: resetPasswordResponse,
+            error: function() {
+                console.log('error ajax send');
+                $('#reset_password_form .modal-content').removeClass('whirl');
+            }
+        });
+
+        return false;
+
+    });
+
+    var resetPasswordResponse = function (response) {
+
+        response = JSON.parse(response);
+
+        if (response.status == 'success') {
+
+            $.notify({
+                message: 'Пароль успешно изменен!'
+            },
+            {
+                type: 'success'
+            })
+
+            $('#cancelReset').click();
+            $('#auth_modal').modal('show');
+
+        } else {
+
+            $.notify({
+                message: 'Ошибка при смене пароля. Попробуйте ещё раз!'
+            },
+            {
+                type: 'danger'
+            })
+
+
+        }
+
+        $('#reset_password_form .modal-content').removeClass('whirl');
+
+    };
 
 
 });
