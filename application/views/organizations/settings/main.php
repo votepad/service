@@ -1,88 +1,114 @@
-<div class="columns-area">
-	<div class="block block-default">
-		<div id="topmenu" class="block-heading tabs">
-				<?=$topmenu; ?>
-		</div>
-		<div class="block-body">
-			<form action="<?=URL::site('organization/' . $organization->id . '/update'); ?>" method="POST" id="update_main_info">
-				<div class="col-xs-12 col-md-6">
-					<div class="input-field">
-						<input type="text" id="org_name" name="org_name" class="input-area" autocomplete="off" length="60" value="<?=$organization->name; ?>">
+<!-- =============== PAGE STYLES ===============-->
+<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
+
+<h3 class="page-header">
+	Изменение основной информации об организации
+</h3>
+
+<div class="row">
+	<form class="form" action="<?=URL::site('organization/' . $organization->id . '/update'); ?>" method="POST" id="update_main_info">
+		<div class="form_body">
+			<div class="col-xs-12">
+				<div class="row row-col">
+					<div class="input-field col-xs-12 col-md-6">
+						<input type="text" id="org_name" name="org_name" length="60" value="<?=$organization->name; ?>" placeholder="<?=$organization->name; ?>">
 						<label for="org_name" class="input-label active">Название организации</label>
 					</div>
-					<div class="input-field">
-						<div type="text" id="org_site" class="input-area" disabled style="line-height: 2em"><?=$organization->website; ?></div>
+					<div class="input-field col-xs-12 col-md-6">
+						<input type="text" id="org_site" name="org_site" class="vp_site" length="38" value="<?=$organization->uri; ?>" placeholder="http://votepad.ru/<?=$organization->uri; ?>">
 						<label for="org_site" class="input-label active">Ссылка на страницу организации</label>
-						<span class="help-block">Хотите изменить ссылку на Вашу организацию?<a id="open_feedback" class="link underlinehover">Напишите нам</a></span>
+						<span class="help-block">Хотите изменить ссылку на Вашу организацию? <a id="openChangeSiteModal" class="underlinehover" style="color: #bbb">Напишите нам</a></span>
 					</div>
 				</div>
-				<div class="col-xs-12 col-md-6">
-					<div class="input-field">
-						<input type="text" id="official_org_site" name="official_org_site" class="input-area" autocomplete="off" value="<?=$organization->officialSite; ?>">
+				<div class="row row-col">
+					<div class="input-field col-xs-12 col-md-6">
+						<textarea id="org_description" name="org_description" length="300" placeholder="<?=$organization->description; ?>"><?=$organization->description; ?></textarea>
+						<label for="org_description">Описание организации</label>
+						<span class="help-block">Данная информация поможет найти Вашу организацию через поисковые системы.</span>
+					</div>
+					<div class="input-field col-xs-12 col-md-6">
+						<input type="text" id="official_org_site" name="official_org_site" value="<?=$organization->website; ?>" placeholder="<?=$organization->website; ?>">
 						<label for="official_org_site" class="input-label active">Ссылка на официальный сайт</label>
 					</div>
-					<div class="col-xs-12 col-md-5 col-lg-5 pad0">
-						<button type="button" id="submit_btn" class="btn btn-md btn-labeled btn-success col-xs-12 col-md-auto">
-							<span class="btn-text">Обновить</span>
-							<span class="btn-icon"><i class="fa fa-check" aria-hidden="true"></i></span>
-						</button>
-					</div>
-					<div class="col-xs-12 col-md-7 col-lg-5 col-lg-offset-2 pad0">
-						<button type="button" id="remove_organization" class="btn btn-md btn-labeled btn-danger col-xs-12 col-md-auto" style="float:right">
-							<span class="btn-text">Удалить организацию</span>
-							<span class="btn-icon"><i class="fa fa-trash" aria-hidden="true"></i></span>
-						</button>
-					</div>
+
 				</div>
-			</form>
+			</div>
 		</div>
-	</div>
+		<div class="form_submit clear_fix">
+			<button type="submit" class="btn btn_primary col-xs-12 col-md-4 col-lg-3 pull-right">
+				Обновить информацию
+			</button>
+			<button type="button" id="remove_organization" class="btn btn_default col-xs-12 col-md-4 col-lg-3">
+				Удалить организацию
+			</button>
+		</div>
+	</form>
 </div>
+
 
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/organizations/org-settings-main.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/organization/settings-maininfo.js"></script>
 <script>
 	$(document).ready(function() {
 
 		'use strict';
 
-        $('#remove_organization').click(function(){
+		/**
+	    * Delete Organization
+	    */
+	    $('#remove_organization').click(function(){
 
-            if (!confirm('Вы уверены что хотите удалить организацию?'))
-                return;
+			swal({
+				text: "Вы уверены что хотите удалить организацию?",
+				showCancelButton: true,
+				confirmButtonText: 'Удалить!',
+				cancelButtonText: 'Отмена!',
+				confirmButtonClass: 'btn btn_primary',
+				cancelButtonClass: 'btn btn_default',
+				buttonsStyling: false
+			}).then(function () {
 
-            /**
-             * Prepare data before sending
-             */
-            var data = {
+				/**
+		         * Send ajax request for deleted
+		         */
+		         $.ajax({
+		             url: "<?=URL::site('organization/' . $organization->id . '/delete'); ?>",
+		             type: 'POST',
+		             data: {
+		                 id : <?=$organization->id; ?>
+		             },
+		             beforeSend: function(callback) {
 
-                url     : "<?=URL::site('organization/' . $organization->id . '/delete'); ?>",
+		             },
+		             success: function(response) {
 
-                type    : 'POST',
+		                 response = JSON.parse(response);
 
-                data    : {
+		                 if (response.code != '40') {
+		                     return;
+                         }
 
-                    id_organization : <?=$organization->id; ?>
+                         var host        = window.location.host,
+                             protocol    = window.location.protocol;
 
-                },
+                         window.location.replace(protocol+'//'+host+'/user/'+<?= $user->id; ?>);
+		             },
+		             error: function(callback) {
+		                 console.log(callback);
+		             }
+				 });
 
-                beforeSend  : function(callback) {},
+				 $.notify({
+                    message: 'Организация удалена!'
+                },{
+                    type: 'success'
+                });
+			})
 
-                success     : function(callback) {
-                    console.log(callback);
-                },
 
-                error       : function(callback) {
-                    console.log(callback);
-                }
-            };
+	     });
 
-            /**
-             * Send ajax request
-             */
-            $.ajax(data);
-
-        });
 	});
 </script>

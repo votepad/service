@@ -2,9 +2,9 @@
 /**
  * Class Organizations_Index
  * All pages which has relationship with Organizations will be here
- * @author Pronwe team
  * @copyright Khaydarov Murod
- * @version 0.1.1
+ * @author Turov Nikolay
+ * @version 0.2.1
  */
 
 class Controller_Organizations_Index extends Dispatch
@@ -15,36 +15,21 @@ class Controller_Organizations_Index extends Dispatch
      */
     const ACTION_NEW = 'new';
 
-    /**
-     * @const ACTION_SHOW [String]
-     */
-    const ACTION_SHOW = 'show';
-
-    /**
-     * @const ACTION_SHOW_ALL [String]
-     */
-    const ACTION_SHOW_ALL = 'showAll';
 
     /**
      * @var $organization [String] - default value is null. Keeps cached render
      */
     protected $organization = null;
 
-    /**
-     * Function that calls before main action
-     *
-     * - Defines main template of actions
-     * - Gets organization info
-     * - Caches organization render
-     */
+
     public function before()
     {
         switch ($this->request->action()) {
             /**
-             * Two types of creating orgs: Logged and Not logged
+             * New organization template
              */
             case self::ACTION_NEW :
-                $this->template = 'organizations/new_not_logged';
+                $this->template = 'organizations/new';
                 break;
 
             /**
@@ -62,9 +47,9 @@ class Controller_Organizations_Index extends Dispatch
          */
         $id = $this->request->param('id');
 
-        $this->organization = Model_Organizations::get($id, 0);
+        $this->organization = new Model_Organization($id);
 
-        if (!$this->organization && $this->request->action() != self::ACTION_NEW) {
+        if (!$this->organization->id && $this->request->action() != self::ACTION_NEW || $this->organization->is_removed) {
             throw new HTTP_Exception_404();
         }
 
@@ -73,102 +58,136 @@ class Controller_Organizations_Index extends Dispatch
          */
         $this->template->organization = $this->organization;
 
-        if ($this->organization != false) {
+        if ($this->organization->id) {
 
-          /**
-           * Jumbotron
-           */
-          $this->template->jumbotron = View::factory('organizations/blocks/jumbotron')
-              ->set('organization', $this->organization);
+            if ($this->user) {
+                $isOwner  = $this->organization->isOwner($this->user->id);
+                $isMember  = $this->organization->isMember($this->user->id);
+            } else {
+                $isOwner  = false;
+                $isMember  = false;
+            }
 
-          /**
-           * Navigation
-           */
-          $this->template->navigation = View::factory('organizations/blocks/navigation')
-              ->set('id', $this->organization->id);
+            /**
+             * Meta Dates
+             */
+            $this->template->title = $this->organization->name;
+            $this->template->description = $this->organization->description;
 
-          /**
-           * get all menus of top navigation bar
-           */
-          $this->template->menus = $menus = Kohana::$config->load('topnav')->as_array();
+            /**
+             * Header
+             */
+            $this->template->header = View::factory('globalblocks/header')
+                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'id' => $this->organization->id, 'isOwner' => $isOwner, 'isMember' => $isMember)))
+                ->set('auth_modal', View::factory('globalblocks/auth_modal'))
+                ->set('organization', $this->organization);
+
+
+            /**
+             * Jumbotron Wrapper
+             */
+            $this->template->jumbotron_wrapper = View::factory('organizations/blocks/jumbotron_wrapper')
+                ->set('organization', $this->organization);
+
+
+            /**
+             * Footer
+             */
+            $this->template->footer = View::factory('globalblocks/footer');
 
         }
 
+
+
     }
 
+
     /**
-     * New organization form
+     * action_new - open new organization form
      * Doesn't need any variables
      */
     public function action_new()
     {
-        $isUserAuthenitfied = !empty($this->session->get('id_user'));
-        if ($isUserAuthenitfied) {
-            throw new HTTP_Exception_404;
+        if (!$this->isLogged()) {
+
+            throw new HTTP_Exception_403;
+
+        } else {
+
+            $this->template->header = View::factory('globalblocks/header')
+                ->set('header_menu', "");
+            $this->template->footer = View::factory('globalblocks/footer');
+
         }
     }
 
+
+
     /**
-     * Shows events of target organization
+     * EVENTS submodule
+     * action_show - shows events of target organization
      */
     public function action_show()
     {
-
-        $this->template->main_section = '';
-    }
-
-    /**
-     * Organizations team
-     */
-    public function action_team()
-    {
-        /** @var $topmenu
-         * Top menu with roles
+        /**
+         * Jumbotron Navigation
          */
-        $topmenu = View::factory('organizations/blocks/topmenu')
-            ->set('menus', $this->template->menus)
+        $this->template->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
             ->set('id', $this->organization->id);
 
-        /**
-         * Content of target menu
-         */
-        $this->template->main_section = View::factory('organizations/settings/team')
-            ->set('organization', $this->organization)
-            ->set('topmenu', $topmenu);
+        $this->template->main_section = View::factory('organizations/events/main');
 
-        $isLogged = Dispatch::isLogged();
-        $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
-
-        if (!$isLogged || !$owner) {
-            $this->redirect('/organization/' . $this->organization->id);
-        }
     }
 
+
     /**
-     * Main information about target organization
+     * SETTINGS submodule
+     * action_main - main information about target organization
      */
     public function action_main()
     {
-        /** @var $topmenu
-         * Top menu with roles
-         */
-        $topmenu = View::factory('organizations/blocks/topmenu')
-            ->set('menus', $this->template->menus)
-            ->set('id', $this->organization->id);
-        
+
+        if ($this->organization->owner != $this->user->id) {
+            throw new HTTP_Exception_403();
+        }
+
         /**
-         * Content of target menu
+         * Jumbotron Navigation
+         */
+        $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
+            ->set('id', $this->organization->id);
+
+
+        /**
+         * Main Section
          */
         $this->template->main_section = View::factory('organizations/settings/main')
-                ->set('organization', $this->organization)
-                ->set('topmenu', $topmenu);
+                ->set('organization', $this->organization);
 
-        $isLogged = Dispatch::isLogged();
-        $owner    = Model_PrivillegedUser::getUserOrganization($this->session->get('id_user')) == $this->organization->id;
+    }
 
-        if (!$isLogged || !$owner) {
-            $this->redirect('/organization/' . $this->organization->id);
-        }
+
+    /**
+     * SETTINGS submodule
+     * action_team - shows team of target organization
+     */
+    public function action_team()
+    {
+
+        /**
+         * Jumbotron Navigation
+         */
+        $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
+            ->set('id', $this->organization->id);
+
+
+        /**
+         * Main Section
+         */
+        $this->template->main_section = View::factory('organizations/settings/coworkers')
+                ->set('organization', $this->organization);
+
+
     }
 
 }

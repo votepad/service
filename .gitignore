@@ -8,8 +8,10 @@ uploads/
 # Bundler
 assets/frontend/modules/*
 assets/frontend/webpack.config.js
-# assets/vendor/
-
+assets/frontend/node_modules/*
+# assets/vendor/*
+# vendor
+assets/vendor/
 
 # Media files
 assets/img/
@@ -23,9 +25,5 @@ application/config/email.php
 /.env
 frontend/
 modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
-
-application/config/database.php
-
-application/config/redis.php
 
 composer.lock

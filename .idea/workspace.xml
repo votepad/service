@@ -1,18 +1,113 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="BookmarkManager">
-    <bookmark url="file://$PROJECT_DIR$/application/views/globalblocks/header.php" line="1" />
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="335e3e25-6596-4a55-9797-1a53c4973bc3" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/static/css/header.css" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/static/js/header.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/pronwe.iml" afterPath="$PROJECT_DIR$/.idea/pronwe.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/classes/Model/Response/Organization.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/config/cache.php.sample" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/organizations/blocks/header_menu.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/organizations/blocks/jumbotron_wrapper.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/organizations/events/jumbotron_navigation.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/organizations/events/main.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/organizations/new.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/organizations/settings/coworkers.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/organizations/settings/jumbotron_navigation.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/application/views/profile/blocks/header_menu.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/modules/tabs.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/organization/new.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/organization/settings-coworkers.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/js/organization/settings-maininfo.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/vendor/bootstrap-datetimepicker/css/bootstrap-datetimepicker.min.css" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/vendor/bootstrap-datetimepicker/js/bootstrap-datetimepicker.min.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/assets/vendor/bootstrap-datetimepicker/js/locales/bootstrap-datetimepicker.ru.js" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/migrations/2017-02-21.sql" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/.env" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/config/redis.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/config/status.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/config/topnav.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/config/type.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/events/judge-panel/settings/setting-1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/events/judge-panel/settings/setting-2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/events/judge-panel/views/view-1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/events/judge-panel/views/view-2.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/events/welcome-event/main.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/events/welcome-event/setting/wes.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/events/welcome-event/views/we1.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/main.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/organizations/blocks/jumbotron.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/organizations/blocks/navigation.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/organizations/blocks/topmenu.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/organizations/new_logged.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/organizations/new_not_logged.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/organizations/settings/team.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/profile/blocks/header.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/application/views/welcome/blocks/header.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/css/administrate-event.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/css/app.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/css/judge-panel.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/frontend/modules/nwe.uploader.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/ProNWE_logo.svg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/ProNWE_logo_large.zip" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/temp/itmouniversity.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/img/temp/miss_itmo.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/administrate-event.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/app.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/judge-panel-1.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/judge-panel-2.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/organizations/org-new.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/organizations/org-settings-main.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/organizations/org-settings-team.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/organizations/org.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/js/upload.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.css" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/vendor/bootstrap-datetimepicker/bootstrap-datetimepicker.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/vendor/select2/dist/js/select2.full.js" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/assets/vendor/select2/dist/js/select2.js" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Ajax.php" afterPath="$PROJECT_DIR$/application/classes/Ajax.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Controller/Events/Index.php" afterPath="$PROJECT_DIR$/application/classes/Controller/Events/Index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Controller/Organizations/Ajax.php" afterPath="$PROJECT_DIR$/application/classes/Controller/Organizations/Ajax.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Controller/Organizations/Index.php" afterPath="$PROJECT_DIR$/application/classes/Controller/Organizations/Index.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Controller/Organizations/Modify.php" afterPath="$PROJECT_DIR$/application/classes/Controller/Organizations/Modify.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Controller/Profile.php" afterPath="$PROJECT_DIR$/application/classes/Controller/Profile.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Controller/SignUp.php" afterPath="$PROJECT_DIR$/application/classes/Controller/SignUp.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Controller/Test.php" afterPath="$PROJECT_DIR$/application/classes/Controller/Test.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Dao/MySQL/Base.php" afterPath="$PROJECT_DIR$/application/classes/Dao/MySQL/Base.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Dispatch.php" afterPath="$PROJECT_DIR$/application/classes/Dispatch.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Model/Response/Abstract.php" afterPath="$PROJECT_DIR$/application/classes/Model/Response/Abstract.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/classes/Model/Teams.php" afterPath="$PROJECT_DIR$/application/classes/Model/Teams.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/routes/organizations.php" afterPath="$PROJECT_DIR$/application/routes/organizations.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/errors/403.php" afterPath="$PROJECT_DIR$/application/views/errors/403.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/events/new.php" afterPath="$PROJECT_DIR$/application/views/events/new.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/globalblocks/header.php" afterPath="$PROJECT_DIR$/application/views/globalblocks/header.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/organizations/main.php" afterPath="$PROJECT_DIR$/application/views/organizations/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/organizations/settings/main.php" afterPath="$PROJECT_DIR$/application/views/organizations/settings/main.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/ui/blocks.php" afterPath="$PROJECT_DIR$/application/views/ui/blocks.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/application/views/ui/forms.php" afterPath="$PROJECT_DIR$/application/views/ui/forms.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/app_v1.css" afterPath="$PROJECT_DIR$/assets/css/app_v1.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/event.css" afterPath="$PROJECT_DIR$/assets/css/event.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/org.css" afterPath="$PROJECT_DIR$/assets/css/org.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/profile.css" afterPath="$PROJECT_DIR$/assets/css/profile.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/css/welcome.css" afterPath="$PROJECT_DIR$/assets/css/welcome.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/app_v1.js" afterPath="$PROJECT_DIR$/assets/js/app_v1.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/welcome.js" afterPath="$PROJECT_DIR$/assets/js/welcome.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/auth.js" afterPath="$PROJECT_DIR$/assets/js/auth.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/js/event/new.js" afterPath="$PROJECT_DIR$/assets/js/event/new.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/vendor/bootstrap/dist/css/bootstrap.css" afterPath="$PROJECT_DIR$/assets/vendor/bootstrap/dist/css/bootstrap.css" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/assets/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js" afterPath="$PROJECT_DIR$/assets/vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/migrations/Organizations-10-03-2017.sql" afterPath="$PROJECT_DIR$/migrations/Organizations-10-03-2017.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/compile-doxygen.sh" afterPath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/compile-doxygen.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/flush-definition-cache.php" afterPath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/flush-definition-cache.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/generate-entity-file.php" afterPath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/generate-entity-file.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/generate-standalone.php" afterPath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/generate-standalone.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/merge-library.php" afterPath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/merge-library.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/regenerate-docs.sh" afterPath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/maintenance/regenerate-docs.sh" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/tests/HTMLPurifier/Injector/RemoveSpansWithoutAttributesTest.php" afterPath="$PROJECT_DIR$/modules/purifier/vendor/htmlpurifier/tests/HTMLPurifier/Injector/RemoveSpansWithoutAttributesTest.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/application/classes/Dao/Organisations.php" afterPath="$PROJECT_DIR$/application/classes/Dao/Organizations.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/application/classes/Model/Organizations.php" afterPath="$PROJECT_DIR$/application/classes/Model/Organization.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/application/config/database.php" afterPath="$PROJECT_DIR$/application/config/database.php.sample" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/application/views/profile/blocks/footer.php" afterPath="$PROJECT_DIR$/application/views/globalblocks/footer.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/assets/js/organizations/org-all.js" afterPath="$PROJECT_DIR$/assets/js/organization/EventsInOrg.js" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -30,14 +125,14 @@
       <file leaf-file-name="Ajax.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/classes/Controller/Organizations/Ajax.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="248">
-              <caret line="112" column="84" lean-forward="false" selection-start-line="112" selection-start-column="77" selection-end-line="112" selection-end-column="84" />
+            <state relative-caret-position="0">
+              <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="header.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/assets/static/css/header.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="408">
@@ -52,9 +147,7 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="85">
               <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-              <folding>
-                <marker date="1490109511051" expanded="true" signature="5406:5414" ph="..." />
-              </folding>
+              <folding />
             </state>
           </provider>
         </entry>
@@ -69,42 +162,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/application/views/globalblocks/header.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="6" column="61" lean-forward="true" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="61" />
-              <folding>
-                <element signature="n#div#2;n#div#0;n#!!top" expanded="false" />
-                <element signature="n#div#3;n#div#0;n#!!top" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="header.js" pinned="false" current-in-tab="false">
+      <file leaf-file-name="header.js" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/assets/static/js/header.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
               <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
               <folding>
                 <element signature="e#7147#7611#0" expanded="false" />
-                <marker date="1490109016673" expanded="true" signature="6191:6238" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="app_v1.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/assets/js/app_v1.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="74" column="8" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="74" selection-end-column="8" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-                <marker date="1490108783615" expanded="true" signature="9715:9730" ph="..." />
-                <marker date="1490108783615" expanded="true" signature="10088:10098" ph="..." />
-                <marker date="1490108783615" expanded="true" signature="12933:12954" ph="..." />
+                <marker date="1490112711093" expanded="true" signature="6191:6238" ph="..." />
               </folding>
             </state>
           </provider>
@@ -133,8 +198,8 @@
       <file leaf-file-name="organizations.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/application/routes/organizations.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2720">
-              <caret line="167" column="7" lean-forward="false" selection-start-line="167" selection-start-column="7" selection-end-line="167" selection-end-column="7" />
+            <state relative-caret-position="2533">
+              <caret line="156" column="0" lean-forward="true" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -165,6 +230,7 @@
       <find>header</find>
       <find>header-wrapper_menu</find>
       <find>header_button.mobile-open</find>
+      <find>HEAD</find>
     </findStrings>
     <replaceStrings>
       <replace>header-wrapper_menu-btn-icon</replace>
@@ -197,11 +263,11 @@
         <option value="$PROJECT_DIR$/application/views/organizations/settings/coworkers.php" />
         <option value="$PROJECT_DIR$/assets/css/app_v1.css" />
         <option value="$PROJECT_DIR$/application/views/profile/main.php" />
-        <option value="$PROJECT_DIR$/assets/js/app_v1.js" />
         <option value="$PROJECT_DIR$/assets/static/js/header.js" />
         <option value="$PROJECT_DIR$/assets/js/welcome.js" />
-        <option value="$PROJECT_DIR$/application/views/globalblocks/header.php" />
         <option value="$PROJECT_DIR$/assets/static/css/header.css" />
+        <option value="$PROJECT_DIR$/application/views/globalblocks/header.php" />
+        <option value="$PROJECT_DIR$/assets/js/app_v1.js" />
       </list>
     </option>
   </component>
@@ -242,7 +308,6 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -458,6 +523,7 @@
         </subPane>
       </pane>
       <pane id="Scope" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -545,11 +611,12 @@
       <workItem from="1490011851255" duration="49000" />
       <workItem from="1490011909827" duration="12666000" />
       <workItem from="1490106792695" duration="3244000" />
+      <workItem from="1490112732947" duration="201000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17976000" />
+    <option name="totallyTimeSpent" value="18177000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -602,13 +669,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.lock">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.lock" />
     <entry file="file://$PROJECT_DIR$/composer.json">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -639,20 +700,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/composer.lock">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/composer.lock">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/composer.lock" />
+    <entry file="file://$PROJECT_DIR$/composer.lock" />
     <entry file="file://$PROJECT_DIR$/application/config/.gitignore">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -705,13 +754,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/classes/Dao/UsersOrganizations.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="43" lean-forward="true" selection-start-line="2" selection-start-column="43" selection-end-line="2" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/application/classes/Dao/UsersOrganizations.php" />
     <entry file="file://$PROJECT_DIR$/assets/css/org.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
@@ -724,7 +767,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
           <caret line="7" column="6" lean-forward="false" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -746,7 +788,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="282">
           <caret line="169" column="38" lean-forward="false" selection-start-line="169" selection-start-column="38" selection-end-line="169" selection-end-column="38" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -754,7 +795,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="97" column="24" lean-forward="true" selection-start-line="97" selection-start-column="24" selection-end-line="97" selection-end-column="24" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -762,7 +802,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="199">
           <caret line="753" column="20" lean-forward="false" selection-start-line="753" selection-start-column="20" selection-end-line="753" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -799,7 +838,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4896">
           <caret line="288" column="21" lean-forward="false" selection-start-line="288" selection-start-column="21" selection-end-line="288" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -807,7 +845,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="646">
           <caret line="38" column="45" lean-forward="false" selection-start-line="38" selection-start-column="45" selection-end-line="38" selection-end-column="45" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -815,7 +852,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="61" column="31" lean-forward="false" selection-start-line="61" selection-start-column="27" selection-end-line="61" selection-end-column="31" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -845,7 +881,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="4267">
           <caret line="256" column="5" lean-forward="false" selection-start-line="256" selection-start-column="5" selection-end-line="256" selection-end-column="5" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -868,7 +903,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="3077">
           <caret line="181" column="23" lean-forward="false" selection-start-line="181" selection-start-column="23" selection-end-line="181" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -890,16 +924,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/routes/organizations.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2720">
-          <caret line="167" column="7" lean-forward="false" selection-start-line="167" selection-start-column="7" selection-end-line="167" selection-end-column="7" />
+        <state relative-caret-position="2533">
+          <caret line="156" column="0" lean-forward="true" selection-start-line="156" selection-start-column="0" selection-end-line="156" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/application/classes/Controller/Organizations/Ajax.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="112" column="84" lean-forward="false" selection-start-line="112" selection-start-column="77" selection-end-line="112" selection-end-column="84" />
+        <state relative-caret-position="0">
+          <caret line="103" column="0" lean-forward="false" selection-start-line="103" selection-start-column="0" selection-end-line="103" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -909,19 +943,6 @@
         <state relative-caret-position="425">
           <caret line="25" column="11" lean-forward="false" selection-start-line="25" selection-start-column="11" selection-end-line="25" selection-end-column="11" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/assets/js/app_v1.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="74" column="8" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="74" selection-end-column="8" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-            <marker date="1490108783615" expanded="true" signature="9715:9730" ph="..." />
-            <marker date="1490108783615" expanded="true" signature="10088:10098" ph="..." />
-            <marker date="1490108783615" expanded="true" signature="12933:12954" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -937,20 +958,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="85">
           <caret line="5" column="0" lean-forward="false" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="0" />
-          <folding>
-            <marker date="1490109511051" expanded="true" signature="5406:5414" ph="..." />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/static/js/header.js">
+    <entry file="file://$PROJECT_DIR$/assets/static/css/header.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
-          <folding>
-            <element signature="e#7147#7611#0" expanded="false" />
-            <marker date="1490109016673" expanded="true" signature="6191:6238" ph="..." />
-          </folding>
+        <state relative-caret-position="408">
+          <caret line="88" column="37" lean-forward="false" selection-start-line="88" selection-start-column="37" selection-end-line="88" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/application/views/globalblocks/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="342">
+          <caret line="66" column="10" lean-forward="false" selection-start-line="66" selection-start-column="10" selection-end-line="66" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -962,22 +986,28 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/application/views/globalblocks/header.php">
+    <entry file="file://$PROJECT_DIR$/assets/js/app_v1.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="61" lean-forward="true" selection-start-line="6" selection-start-column="43" selection-end-line="6" selection-end-column="61" />
+        <state relative-caret-position="166">
+          <caret line="190" column="0" lean-forward="false" selection-start-line="190" selection-start-column="0" selection-end-line="190" selection-end-column="0" />
           <folding>
-            <element signature="n#div#2;n#div#0;n#!!top" expanded="false" />
-            <element signature="n#div#3;n#div#0;n#!!top" expanded="false" />
+            <element signature="n#!!doc" expanded="true" />
+            <marker date="1490112931259" expanded="true" signature="10411:10458" ph="..." />
+            <marker date="1490112931259" expanded="true" signature="15249:15264" ph="..." />
+            <marker date="1490112931259" expanded="true" signature="15622:15632" ph="..." />
+            <marker date="1490112931259" expanded="true" signature="18467:18488" ph="..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/assets/static/css/header.css">
+    <entry file="file://$PROJECT_DIR$/assets/static/js/header.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="88" column="37" lean-forward="false" selection-start-line="88" selection-start-column="37" selection-end-line="88" selection-end-column="37" />
-          <folding />
+        <state relative-caret-position="51">
+          <caret line="3" column="0" lean-forward="false" selection-start-line="3" selection-start-column="0" selection-end-line="3" selection-end-column="0" />
+          <folding>
+            <element signature="e#7147#7611#0" expanded="false" />
+            <marker date="1490112711093" expanded="true" signature="6191:6238" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>
