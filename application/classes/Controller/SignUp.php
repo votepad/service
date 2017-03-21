@@ -6,16 +6,19 @@ class Controller_SignUp extends Dispatch
     const CONFIRMATION_HASHES_KEY = 'votepad.confirmation.hashes';
     public $template    = 'main';
 
-    function action_index()
+    function before()
     {
         $this->auto_render = false;
 
+       parent::before();
+
+    }
+
+    function action_index()
+    {
         if (!$this->request->is_ajax()) {
-
             return;
-
         }
-
 
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');

@@ -8,8 +8,10 @@ uploads/
 # Bundler
 assets/frontend/modules/*
 assets/frontend/webpack.config.js
-# assets/vendor/
-
+assets/frontend/node_modules/*
+# assets/vendor/*
+# vendor
+assets/vendor/
 
 # Media files
 assets/img/

@@ -18,16 +18,12 @@ class Controller_Organizations_Ajax extends Ajax
     {
         $email = $this->request->param('email');
 
-        if (Ajax::is_ajax()) {
-            $result = Model_User::isUserExist('email', $email);
+        $result = Model_User::isUserExist('email', $email);
 
-            if ($result) {
-                echo "true";
-            } else {
-                echo "false";
-            }
+        if ($result) {
+            echo "true";
         } else {
-            die('direct access not allowed');
+            echo "false";
         }
 
     }
@@ -38,39 +34,36 @@ class Controller_Organizations_Ajax extends Ajax
      */
     public function action_checkWebsite()
     {
-        $website = $this->request->param('website');
+        $uri = $this->request->param('uri');
 
-        if (Ajax::is_ajax()) {
-            $result = Model_Organizations::getByFieldName('website', $website);
+        $result = Model_Organization::getByFieldName('uri', $uri);
 
-            if (count($result) > 0) {
-                echo "true";
-            } else {
-                echo "false";
-            }
-
+        if ($result->id) {
+            echo "true";
         } else {
-            die ('no direct access, sorry');
+            echo "false";
         }
+
     }
 
     /**
      * Deletes organization (makes 'is_removed' flag true)
-     * @return [Boolean]
      */
     public function action_delete()
     {
-        $id_organization = $this->request->param('id');
+        $id = $this->request->param('id');
+        $org = new Model_Organization($id);
 
-        if (Ajax::is_ajax()) {
-            $result = Model_Organizations::delete_organization($id_organization);
+        if (!$org->id) {
+            throw new HTTP_Exception_404();
         }
 
-        if ($result){
-            return true;
-        } else {
-            return false;
-        }
+        $org->remove();
+
+        $response = new Model_Response_Organization('ORG_REMOVE_SUCCESS', 'success');
+
+        $this->response->body(@json_encode($response->get_response()));
+
     }
 
     /**
@@ -79,17 +72,16 @@ class Controller_Organizations_Ajax extends Ajax
      */
     public function action_reestablish()
     {
-        $id_organization = $this->request->param('id');
+        $id = $this->request->param('id');
 
-        if (Ajax::is_ajax()) {
-            $result = Model_Organizations::reestablish_organization($id_organization);
-        }
+        $org = new Model_Organization($id);
 
-        if ($result){
-            return true;
-        } else {
-            return false;
-        }
+        $org->reestablish();
+
+        $response = new Model_Response_Organization('ORG_REMOVE_SUCCESS', 'success');
+
+        $this->response->body(@json_encode($response->get_response()));
+
     }
 
     /**
@@ -99,16 +91,13 @@ class Controller_Organizations_Ajax extends Ajax
     {
         $id_organization = $this->request->param('id');
 
-        if (Ajax::is_ajax()) {
 
-            $field = Arr::get($_POST, 'field');
-            $value = Arr::get($_POST, 'value');
+        $field = Arr::get($_POST, 'field');
+        $value = Arr::get($_POST, 'value');
 
-            $organization = Model_Organizations::get($id_organization, 0);
-            $organization->$field = $value;
-            $organization->save($id_organization);
-        }
-
+        $organization = Model_Organizations::get($id_organization, 0);
+        $organization->$field = $value;
+        $organization->save($id_organization);
     }
 
 }

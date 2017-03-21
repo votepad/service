@@ -1,5 +1,6 @@
-body.mobile-open{
+body.mobile-open, body.mobile-open .header{
     overflow: hidden;
+    padding-right: 17px;
 }
 
 .header-home{
