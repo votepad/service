@@ -23,3 +23,7 @@ application/config/email.php
 /.env
 frontend/
 modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
+
+application/config/database.php
+
+application/config/redis.php
