@@ -157,7 +157,7 @@ Route::set('CHECK_ORGANIZATION_WEBSITE', 'organization/checkwebsite/<uri>',
 
 Route::set('JOIN_TO_ORGANIZATION', 'organization/<id>/join', array('id' => $DIGIT, 'hash' => $STRING))
     ->defaults(array(
-        'controller' => 'Organizations_Index',
+        'controller' => 'Organizations_Ajax',
         'action'     => 'join'
     ));
 

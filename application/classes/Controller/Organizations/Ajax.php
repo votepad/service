@@ -132,6 +132,8 @@ class Controller_Organizations_Ajax extends Ajax
             case 'reject': $this->rejectMember($o_id, $u_id); break;
         }
 
+
+
     }
 
     private function addMember($o_id, $u_id) {
@@ -205,6 +207,15 @@ class Controller_Organizations_Ajax extends Ajax
 
         }
 
+        if ($org->isOwner($user->id)) {
+
+            $response = new Model_Response_Organization('USER_IS_OWNER_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
         $org->removeMember($user->id);
 
         $response = new Model_Response_Organization('REMOVE_MEMBER_SUCCESS', 'success');
@@ -235,7 +246,7 @@ class Controller_Organizations_Ajax extends Ajax
             return;
 
         }
-
+        
         $response = new Model_Response_Organization('REJECT_MEMBER_SUCCESS', 'success');
 
         $this->response->body(@json_encode($response->get_response()));

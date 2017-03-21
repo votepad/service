@@ -1,24 +1,5 @@
 $(document).ready(function(){
 
-    /**
-    * Open Select for Jumbotron Navigation
-    */
-    $('.jumbotron_nav-searching-select-wrapper').mouseover(function () {
-        $(this).addClass('open');
-    });
-    $('.jumbotron_nav-searching-select-wrapper').mouseout(function () {
-        $(this).removeClass('open');
-    });
-    $('.jumbotron_nav-searching-select-icon').click(function () {
-        if ( ! $(this).parent().hasClass('open')) {
-            $(this).parent().addClass('open');
-        } else{
-            $(this).parent().removeClass('open');
-        }
-    });
-
-
-
   /**
    * Show description of event
    */

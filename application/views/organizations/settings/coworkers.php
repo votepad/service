@@ -11,15 +11,17 @@
 	<ul class="tabs tabs_header clear_fix">
 	    <li id="">
 	        <a data-ui="tabs" aria-controls="coworkers" class="tab tab--active">Состоят в организации
-				<span class="tab_count"><?= count($organization->team); ?></span>
+				<span id="countCowerkers" class="tab_count"><?= count($organization->team); ?></span>
 			</a>
 	    </li>
+        <? if(count($organization->requests)): ?>
 	    <li id="">
 	        <a data-ui="tabs" aria-controls="newCoworkers" class="tab">Новые заявки
 				<span class="tab_count"><?= count($organization->requests); ?></span>
 			</a>
 	    </li>
-		<button data-href="http://link" id="inviteBtn" class="btn btn_primary tab_btn">Пригласить</button>
+        <? endif; ?>
+		<button data-href="http://votepad.ru/organization/<?= $organization->id ?>" id="inviteBtn" class="btn btn_primary tab_btn">Пригласить</button>
 	</ul>
     <div class="tabs_content clear_fix">
 
@@ -52,8 +54,7 @@
 
         </div>
 
-
-
+        <? if(count($organization->requests)): ?>
         <div id="newCoworkers" class="tab_block">
 
             <? foreach ($organization->requests as $request): ?>
@@ -78,8 +79,9 @@
                     </div>
                 </div>
             <? endforeach; ?>
-
         </div>
+        <? endif; ?>
+
     </div>
 </div>
 

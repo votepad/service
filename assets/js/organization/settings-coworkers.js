@@ -13,15 +13,15 @@ if (document.getElementById('inviteBtn') != null );
     document.getElementById('inviteBtn').addEventListener('click', invite, false);
 
 for (var i = 0; i < deleteBtns.length; i++) {
-    deleteBtns[i].addEventListener('click', deletecoworker, false);
+    deleteBtns[i].addEventListener('click', removeCoworker, false);
 }
 
 for (var i = 0; i < acceptBtns.length; i++) {
-    acceptBtns[i].addEventListener('click', acceptrequest, false);
+    acceptBtns[i].addEventListener('click', addCoworker, false);
 }
 
 for (var i = 0; i < cancelBtns.length; i++) {
-    cancelBtns[i].addEventListener('click', cancelrequest, false);
+    cancelBtns[i].addEventListener('click', rejectCoworker, false);
 }
 
 
@@ -32,9 +32,9 @@ function invite(event) {
     link = event.target.dataset.href;
 
     swal({
-        html:   '<p>Сообщите вашим коллегам ссылку, по которой они смогу подать заявку на вступление в организацию!</p>' +
+        html:   '<p>Сообщите вашим коллегам ссылку, по которой они смогу вступить в организацию!</p>' +
                 '<p id="copyText" style="cursor:copy; margin:20px auto; font-size:.8em; text-decoration:underline; color:#008DA7">' + link + '</p>'+
-                '<p>Не забудьте подтвердить "Новые заявки"</p>',
+                '<p>Не забудьте подтвердить их в "Новых заявках"</p>',
     	confirmButtonText: 'Готово',
     	confirmButtonClass: 'btn btn_primary',
     	buttonsStyling: false
@@ -70,7 +70,7 @@ function selectText(containerid) {
 /**
  * Delete Co-worker
  */
-function deletecoworker(event) {
+function removeCoworker(event) {
     id = event.target.dataset.id;
     name = event.target.dataset.name;
 
@@ -95,15 +95,16 @@ function deletecoworker(event) {
                  addWhirl(coworker_block);
              },
              success: function(response) {
-
-                 if (response.code != '40') {
+                 response = JSON.parse(response);
+                 if (response.code == '47') {
+                     notify("successDelete");
+                     coworker_block.remove();
+                     document.getElementById('countCowerkers').innerHTML = parseInt(document.getElementById('countCowerkers').innerHTML) - 1;
+                 } else {
                      notify("errorDelete");
                      removeWhirl(coworker_block);
                      return;
                  }
-
-                 notify("successDelete");
-                 coworker_block.remove();
              },
              error: function(callback) {
                  console.log(callback);
@@ -123,7 +124,7 @@ function deletecoworker(event) {
 /**
  * Accept co-worker's request
  */
-function acceptrequest(event) {
+function addCoworker(event) {
     id = event.target.dataset.id;
     coworker_block = document.getElementById('coworker_id'+id);
 
@@ -136,16 +137,16 @@ function acceptrequest(event) {
              addWhirl(coworker_block);
          },
          success: function(response) {
-
-             if (response.code != '40') {
+             response = JSON.parse(response);
+             if (response.code == '46') {
+                 notify("successAccept");
+                 event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
+                 removeWhirl(coworker_block);
+             } else {
                  notify("errorAccept");
                  removeWhirl(coworker_block);
                  return;
              }
-
-             notify("successAccept");
-             event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
-
          },
          error: function(callback) {
              console.log(callback);
@@ -163,7 +164,7 @@ function acceptrequest(event) {
 /**
  * Cansel co-worker's request
  */
-function cancelrequest(event) {
+function rejectCoworker(event) {
     id = event.target.dataset.id;
     coworker_block = document.getElementById('coworker_id'+id);
 
@@ -176,16 +177,16 @@ function cancelrequest(event) {
             addWhirl(coworker_block);
         },
         success: function(response) {
-
-            if (response.code != '40') {
+            response = JSON.parse(response);
+            if (response.code == '48') {
+                notify("successCansel");
+                event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка отклонена</div>';
+                removeWhirl(coworker_block);
+            } else {
                 notify("errorCansel");
                 removeWhirl(coworker_block);
                 return;
             }
-
-            notify("successCansel");
-            event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка отклонена</div>';
-
         },
         error: function(callback) {
             console.log(callback);

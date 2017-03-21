@@ -167,126 +167,24 @@
 
 
 /**
- * Jumbotron Navigation in EVENTS SUBMODULE
+ * Jumbotron Navigation in EVENTS SUBMODULES
  */
-
-.jumbotron_nav-searching-block{
-	height: inherit;
-	margin: 0 20% 0 270px;
-}
-.jumbotron_nav-searching-block input{
-	width: calc(100% - 60px);
-	border: 0;
-	outline: 0;
-	height: inherit;
-	padding: 0 5px;
-	float: left;
-}
-
-	.jumbotron_nav-searching-block input:focus{
-		box-shadow: inset 0 -1px 0 0 #008DA7;
-	}
-
-.jumbotron_nav-searching-select-wrapper{
-	display: inline-block;
-	position: relative;
-	float: left;
-	height: inherit;;
-	width: 30px;
-    text-align: center;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-}
-
-.jumbotron_nav-searching-select-icon{
-    line-height: 40px;
-    color: #BDBDBD;
-}
-.jumbotron_nav-searching-select-wrapper:hover > .jumbotron_nav-searching-select-icon{
-	color: #757575;
-}
-.jumbotron_nav-searching-select-dropdown-menu{
-	margin-top: 4px;
-	font-weight: 400;
-	position: absolute;
-	visibility: hidden;
-	min-width: 100px;
-	max-width: 200px;
-	top: 40px;
-	left: -30px;
-	background-color: #FFF;
-	border: 1px solid #BBB;
-	padding: 5px 0;
-	border-radius: 3px;
-	box-shadow: 0 1px 3px rgba(0, 0, 0, .175);
-	pointer-events: none;
-	opacity: 0;
-	filter: alpha(opacity=0);
-	transition: opacity 100ms linear, top 100ms linear, visibility 100ms linear;
-	z-index: 10;
-}
-.jumbotron_nav-searching-select-dropdown-menu:after, .jumbotron_nav-searching-select-dropdown-menu:before {
-    position: absolute;
-    content: '';
-    height: 0;
-    width: 0;
-    bottom: 100%;
-    left: 44px;
-    border: solid transparent;
-}
-	.jumbotron_nav-searching-select-dropdown-menu:before {
-	    border-width: 6px;
-	    border-bottom-color: #BBB;
-		margin: 0 -6px;
-	}
-	.jumbotron_nav-searching-select-dropdown-menu:after {
-    	border-width: 5px;
-    	border-bottom-color: #fff;
-		margin: 0 -5px;
-	}
-
-
-
-.jumbotron_nav-searching-select-wrapper.open .jumbotron_nav-searching-select-dropdown-menu{
-	visibility: visible;
-	pointer-events: auto;
-	opacity: 1;
-	filter: none;
-	display: block;
-}
-
-.jumbotron_nav-searching-select-dropdown-item{
-	display: block;
-	position: relative;
-	text-align: left;
-	height: 30px;
-	line-height: 30px;
-	padding: 0 15px;
-	font-size: .8em;
-	white-space: nowrap;
-	overflow: hidden;
-	text-overflow: ellipsis;
-}
-	.jumbotron_nav-searching-select-dropdown-item:hover {
-		background-color: rgba(0,0,0,0.05);
-	}
-
-
-/**
- * Jumbotron Navigation in SETTINGS SUBMODULE
- */
-
-.jumbotron_nav-settings-list{
+.jumbotron_nav_org-list{
 	width: 100%;
-    height: inherit;
-    margin-left: 280px;
+	height: inherit;
+	margin-left: 280px;
 }
-.jumbotron_nav-settings-item{
+.jumbotron_nav_org-item {
+	position: relative;
+	cursor: pointer;
 	float: left;
+}
+.jumbotron_nav_org-item:not(:last-child) {
 	margin-right: 30px;
 }
-
+.jumbotron_nav-btn{
+	line-height: normal;
+}
 
 
 /**
@@ -419,11 +317,7 @@
 		height: 80px;
 	}
 
-	.jumbotron_nav-searching-block{
-		display: none;
-	}
-
-	.jumbotron_nav-settings-list{
+	.jumbotron_nav_org-list{
 		height: initial;
 		margin-left: 0;
 	}

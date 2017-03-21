@@ -56,6 +56,12 @@ class Model_Response_Organization extends  Model_Response_Abstract
         'message' => 'Member rejected'
     );
 
+    protected $_USER_IS_OWNER_ERROR = array(
+        'type' => 'organizations',
+        'code' => '49',
+        'message' => 'User is owner'
+    );
+
 
 
 }
