@@ -27,3 +27,5 @@ modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serial
 application/config/database.php
 
 application/config/redis.php
+
+composer.lock
