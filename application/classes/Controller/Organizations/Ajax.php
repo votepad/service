@@ -124,22 +124,10 @@ class Controller_Organizations_Ajax extends Ajax
         $o_id     = $this->request->param('id');
         $u_id     = $this->request->param('userid');
 
-        $this->redis->sRem('votepad.orgs:'.$o_id.':join.requests', $u_id);
-
-        switch($method) {
-            case 'add': $this->addMember($o_id, $u_id); break;
-            case 'remove': $this->removeMember($o_id, $u_id); break;
-            case 'reject': $this->rejectMember($o_id, $u_id); break;
-        }
-
-
-
-    }
-
-    private function addMember($o_id, $u_id) {
-
         $user = new Model_User($u_id);
         $org  = new Model_Organization($o_id);
+
+        $this->redis->sRem('votepad.orgs:'.$o_id.':join.requests', $u_id);
 
         if (!$user->id) {
 
@@ -157,6 +145,18 @@ class Controller_Organizations_Ajax extends Ajax
             return;
 
         }
+
+        switch($method) {
+            case 'add': $this->addMember($org, $user); break;
+            case 'remove': $this->removeMember($org, $user); break;
+            case 'reject': $this->rejectMember(); break;
+        }
+
+
+
+    }
+
+    private function addMember($org, $user) {
 
         if ($org->isMember($user->id)) {
 
@@ -176,27 +176,7 @@ class Controller_Organizations_Ajax extends Ajax
 
     }
 
-    private function removeMember($o_id, $u_id) {
-
-        $user = new Model_User($u_id);
-        $org  = new Model_Organization($o_id);
-
-        if (!$user->id) {
-
-            $response = new Model_Response_Auth('USER_DOES_NOT_EXIST_ERROR', 'error');
-
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-
-        }
-        if (!$org->id) {
-
-            $response = new Model_Response_Organization('ORGANIZATION_DOES_NOT_EXIST_ERROR', 'error');
-
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-
-        }
+    private function removeMember($org, $user) {
 
         if (!$org->isMember($user->id)) {
 
@@ -225,27 +205,7 @@ class Controller_Organizations_Ajax extends Ajax
 
     }
 
-    private function rejectMember($o_id, $u_id) {
-
-        $user = new Model_User($u_id);
-        $org  = new Model_Organization($o_id);
-
-        if (!$user->id) {
-
-            $response = new Model_Response_Auth('USER_DOES_NOT_EXIST_ERROR', 'error');
-
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-
-        }
-        if (!$org->id) {
-
-            $response = new Model_Response_Organization('ORGANIZATION_DOES_NOT_EXIST_ERROR', 'error');
-
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-
-        }
+    private function rejectMember() {
         
         $response = new Model_Response_Organization('REJECT_MEMBER_SUCCESS', 'success');
 
