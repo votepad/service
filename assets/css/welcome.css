@@ -21,11 +21,11 @@ body.mobile-open, body.mobile-open .header{
     height: inherit;
     width: 85%;
 }
-.header_menu-btn-icon, .header_menu-btn-icon > .header_button{
+.header_menu_btnicon, .header_menu_btnicon > .header_button{
     width: 80px;
     height: inherit;
 }
-.header_menu-btn-icon > .header_button > i{
+.header_menu_btnicon > .header_button > i{
     display: block;
     position: absolute;
     background-color: #fff;
@@ -39,43 +39,43 @@ body.mobile-open, body.mobile-open .header{
     transition-delay: 0s;
     transition-timing-function: ease,ease-out,ease,ease-out;
 }
-.header_menu-btn-icon > .header_button > i:first-child{
+.header_menu_btnicon > .header_button > i:first-child{
     top: 29px;
 }
-.header_menu-btn-icon > .header_button > i:last-child{
+.header_menu_btnicon > .header_button > i:last-child{
     top: 43px;
 }
-.header_menu-btn-icon > .header_button.mobile-open > i:first-child,
-.header_menu-btn-icon > .header_button.mobile-open >i:last-child {
+.header_menu_btnicon > .header_button.mobile-open > i:first-child,
+.header_menu_btnicon > .header_button.mobile-open >i:last-child {
     top: 36px;
     background-color: #008DA7;
     opacity: 1;
 }
-.header_menu-btn-icon > .header_button.mobile-open > i:first-child {
+.header_menu_btnicon > .header_button.mobile-open > i:first-child {
     -webkit-transform: rotate(45deg);
     -moz-transform: rotate(45deg);
     transform: rotate(45deg);
 }
-.header_menu-btn-icon > .header_button.mobile-open > i {
+.header_menu_btnicon > .header_button.mobile-open > i {
     opacity: 0;
 }
-.header_menu-btn-icon > .header_button.mobile-open >i:last-child {
+.header_menu_btnicon > .header_button.mobile-open >i:last-child {
     -webkit-transform: rotate(-45deg);
     -moz-transform: rotate(-45deg);
     transform: rotate(-45deg);
 }
 
-        .header-default .header_menu-btn-icon > .header_button > i{
+        .header-default .header_menu_btnicon > .header_button > i{
             top: 30px
         }
-        .header-default .header_menu-btn-icon > .header_button > i:first-child{
+        .header-default .header_menu_btnicon > .header_button > i:first-child{
             top: 23px
         }
-        .header-default .header_menu-btn-icon > .header_button > i:last-child{
+        .header-default .header_menu_btnicon > .header_button > i:last-child{
             top: 37px
         }
-        .header-default .header_menu-btn-icon > .header_button.mobile-open > i:first-child,
-        .header-default .header_menu-btn-icon > .header_button.mobile-open >i:last-child {
+        .header-default .header_menu_btnicon > .header_button.mobile-open > i:first-child,
+        .header-default .header_menu_btnicon > .header_button.mobile-open >i:last-child {
             top: 30px;
             background-color: #FFF;
             opacity: 1;
@@ -598,7 +598,7 @@ section{
     .header-wrapper{
         padding-right: 0px;
     }
-    .header_menu-btn-icon, .header_menu-btn-icon > .header_button{
+    .header_menu_btnicon, .header_menu_btnicon > .header_button{
         width: 50px;
     }
     .header-btn {
@@ -611,7 +611,7 @@ section{
     .header-home .header_text-logo{
         margin-right: 15px;
     }
-    .header_menu-btn-icon > .header_button > i{
+    .header_menu_btnicon > .header_button > i{
         left: 15px;
     }
 }

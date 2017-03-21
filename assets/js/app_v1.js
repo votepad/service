@@ -27,13 +27,17 @@ $(document).ready(function(){
         }
     });
     $('.jumbotron_nav .jumbotron_nav-btn').each(function(){
-        var temp = $(this).attr('href').split('/');
-        temp = new RegExp(temp[1] + '/' + temp[2] + '/' + temp[3] + '/' + temp[4]);
-        if ( temp.test(address2) ) {
-            $(this).addClass('active');
-        } else {
-            $(this).removeClass('active');
+        var temp;
+        if ($(this).attr('href')) {
+            temp = $(this).attr('href').split('/');
+            temp = new RegExp(temp[1] + '/' + temp[2] + '/' + temp[3] + '/' + temp[4]);
+            if ( temp.test(address2) ) {
+                $(this).addClass('active');
+            } else {
+                $(this).removeClass('active');
+            }
         }
+
     });
 
 
@@ -135,9 +139,29 @@ $(document).ready(function(){
          }
      });
 
-     /*
-      *  Changing cards Style
+    /**
+     * Show/hide dropdown
      */
+    $('[data-toggle="dropdown"]').mouseover(function () {
+        $(this).addClass('open');
+    });
+    $('[data-toggle="dropdown"]').mouseout(function () {
+        $(this).removeClass('open');
+    });
+    $('[data-toggle="dropdown"]').click(function () {
+        if ( ! $(this).parent().hasClass('open')) {
+            $(this).parent().addClass('open');
+        } else{
+            $(this).parent().removeClass('open');
+        }
+    });
+
+
+
+
+    /*
+     *  Changing cards Style
+    */
      change_card_style();
      function change_card_style() {
          if ( $('body').width() + 17 < 992 && $('body').width() + 17 > 680 ) {
