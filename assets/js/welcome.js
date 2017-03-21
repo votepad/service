@@ -1,5 +1,10 @@
 $(document).ready(function () {
 
+
+
+
+
+
     $('#OpenMobileHeader').click(function () {
 
         if ( $(this).hasClass('mobile-open') ) {

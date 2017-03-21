@@ -4,28 +4,13 @@
 
 $(document).ready(function(){
 
-    var start_on_small = false;
-    if ($('body').width() + 17 < 992){
-        start_on_small = true;
-    }
-
-
-
     /*
      *  Get Page Link and Add Class to Link
     */
     var address = window.location.pathname.split('/');
     address1 =   '/' + address[1] + '/' + address[2] + '/' + address[3];
     address2 =   '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4];
-    $('.header_menu .header_button').each(function(){
-        var temp = $(this).attr('href').split('/');
-        temp = new RegExp(temp[1] + '/' + temp[2] + '/' + temp[3]);
-        if ( temp.test(address1) ) {
-            $(this).addClass('active');
-        } else {
-            $(this).removeClass('active');
-        }
-    });
+
     $('.jumbotron_nav .jumbotron_nav-btn').each(function(){
         var temp = $(this).attr('href').split('/');
         temp = new RegExp(temp[1] + '/' + temp[2] + '/' + temp[3] + '/' + temp[4]);
@@ -35,38 +20,6 @@ $(document).ready(function(){
             $(this).removeClass('active');
         }
     });
-
-
-
-     /*
-      *  Show header_menu block
-     */
-
-     $('.header_menu').animateCss('fadeIn');
-     $('.header_menu').css('opacity','1');
-
-
-     /*
-      *  Call 'header_menu_fun' for creating header_menu and navleft elements
-     */
-     var header_menu_nav_items = create_header_menu_elements();
-     header_menu_fun();
-
-
-
-     /*
-      *  Window Resize Function
-      *
-      *  Call 'header_menu_fun' for updating elements in header_menu and navleft
-     */
-
-     $(window).resize(function(){
-
-         header_menu_fun();
-
-     });
-
-
 
      /*
       *  Open header_menu on tablet and mobile versions
@@ -178,6 +131,7 @@ $(document).ready(function(){
 
 
 
+<<<<<<< Updated upstream
 
 
 
@@ -337,6 +291,15 @@ $(document).ready(function(){
       return temp_header_menu_nav_items;
 
     }
+=======
+    /*
+    * Radio
+    */
+
+    $('input[type="radio"]').on('blur click', function(){
+       $(this).removeClass('focus');
+    });
+>>>>>>> Stashed changes
 
 });
 

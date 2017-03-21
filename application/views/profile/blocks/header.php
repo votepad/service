@@ -1,21 +1,29 @@
+<<<<<<< Updated upstream:application/views/profile/blocks/header.php
 <div class="header_wrapper">
     <div class="header_menu-btn-icon left">
         <button id="open_header_menu" class="header_button">
             <i class="fa fa-bars header_icon" aria-hidden="true"></i>
+=======
+<link rel="stylesheet" href="<?=$assets; ?>static/css/header.css?"> <!--v=<?= filemtime("assets/static/css/header.css") ?>-->
+<script type="text/javascript" src="<?=$assets; ?>static/js/header.js"></script>
+
+<div class="header-wrapper">
+
+    <div class="header-wrapper_menu-icon">
+        <button id="openMobileMenu" class="header-wrapper_btn">
+            <i></i><i></i><i></i>
+>>>>>>> Stashed changes:application/views/globalblocks/header.php
         </button>
     </div>
 
-
     <? if ($isLogged) : ?>
-        <!-- Votepad Brand + link to User Profile -->
-        <a href="<?=URL::site('/user/' . $user->id); ?>" class="header_text header_text-logo">Votepad</a>
+        <a href="<?=URL::site('/user/' . $user->id); ?>" class="header-wrapper_brand">Votepad</a>
     <? else : ?>
-        <!-- Votepad Brand + link to Welcome Votepad Page -->
-        <a href="<?=URL::site('/'); ?>" class="header_text header_text-logo">Votepad</a>
+        <a href="<?=URL::site('/'); ?>" class="header-wrapper_brand">Votepad</a>
     <? endif; ?>
 
     <!-- Header Menu -->
-    <div class="header_menu">
+    <div class="header-wrapper_menu">
 
         <? if ($isLogged) : ?>
         <a class="header_button" href="<?=URL::site('organization/new'); ?>">
@@ -28,6 +36,10 @@
     <!-- Header Menu Dropdown (Enter or user Name) -->
     <div class="header_menu-dropdown dropdown">
     <? if ($isLogged) : ?>
+<<<<<<< Updated upstream:application/views/profile/blocks/header.php
+=======
+    <div class="header-wrapper_menu-right dropdown" data-toggle="dropdown" data-position="right">
+>>>>>>> Stashed changes:application/views/globalblocks/header.php
 
         <a id="open_usermenu" class="header_button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             <span class="header_text"><?=$user->name; ?></span>
@@ -50,10 +62,21 @@
         <a class="header_button " data-toggle="modal" data-target="#auth_modal">
             <span class="header_text">Войти</span>
         </a>
+<<<<<<< Updated upstream:application/views/profile/blocks/header.php
 
     <? endif; ?>
 
+=======
     </div>
+    <? endif; ?>
+
+
+    <div class="header-wrapper_menu-mobile">
+
+>>>>>>> Stashed changes:application/views/globalblocks/header.php
+    </div>
+
+
 
 </div>
 
