@@ -8,16 +8,10 @@
 
 class Controller_Test extends Dispatch {
 
-    public $template = 'test/file';
+    public $template = 'emailtemplates/new_password';
 
     public function action_index()
     {
-        // path to file
-        // example:
-        //$this->template->file      = View::factory('emailtemplates/confirm_email');
-
-        
-        $this->template->file      = View::factory('emailtemplates/confirm_email');
 
     }
 }

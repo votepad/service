@@ -54,7 +54,9 @@
 
                 <!-- Forgot Password Form -->
                 <form class="modal-body displaynone" id="user_form_forgot" action="<?=URL::site(''); ?>" method="POST">
+
                     <h4 style="margin-top:0">Востановление пароля</h4>
+
                     <div class="input-field label-with-icon col-xs-12">
                         <input type="email" id="forget_email" name="email" placeholder="Введите Ваш email" required="">
                         <label for="forget_email" class="icon-label">
@@ -62,9 +64,10 @@
                         </label>
                     </div>
 
-                    <div class="g-recaptcha text-center" data-sitekey="6LelVhcUAAAAAJFftx6Hr90Ff6VWc8-KlT86OJRF"></div>
+                    <!--<div class="g-recaptcha text-center" data-sitekey="6LelVhcUAAAAAJFftx6Hr90Ff6VWc8-KlT86OJRF"></div>-->
 
                     <div class="col-xs-12">
+                        <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
                         <button type="button" id="toUserSignIn" class="btn btn_default col-xs-5">Отмена</button>
                         <button type="button" id="resetPassword" class="btn btn_primary col-xs-6 col-xs-offset-1">Восстановить</button>
                     </div>

@@ -6,7 +6,7 @@
  * Time: 16:34
  */
 
-class Methods_Organizations extends Model_Organizations {
+class Methods_Organizations extends Model_Organization {
 
     public static function isOrganizationWebsiteExists($website) {
 

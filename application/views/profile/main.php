@@ -23,6 +23,7 @@
 
     <? if ( $isLogged && $isProfileOwner ) :?>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>js/modules/cookies.js"></script>
     <? endif; ?>
 
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
@@ -68,6 +69,10 @@
 
         </div>
     </div>
+
+
+    <?= View::factory('profile/blocks/reset_password') ?>
+
 
     <div class="profile_statistic block clear_fix">
         <a href="/profile/events#archive" class="profile_statistic-item valign">
