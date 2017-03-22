@@ -1,18 +1,18 @@
 
 <? if($isLogged && $isMember && $isOwner): ?>
-<a class="header_button" href="<?=URL::site('organization/' . $id . '/settings/main' ); ?>">
-    <span class="header_text">Настройки</span>
+<a class="header-wrapper_menu_btn" href="<?=URL::site('organization/' . $id . '/settings/main' ); ?>">
+    Настройки
 </a>
 <? endif; ?>
 
 <? if($isLogged && $isMember): ?>
-    <a class="header_button" href="<?=URL::site('event/new'); ?>">
-        <span class="header_text">Создать мероприятие</span>
+    <a class="header-wrapper_menu_btn" href="<?=URL::site('event/new'); ?>">
+        Создать мероприятие
     </a>
 <? endif; ?>
 
 <? if($isLogged && !$isMember):     ?>
-    <a class="header_button" href="<?=URL::site('organization/new'); ?>">
-        <span class="header_text">Создать организацию</span>
+    <a class="header-wrapper_menu_btn" href="<?=URL::site('organization/new'); ?>">
+        Создать организацию
     </a>
 <? endif; ?>

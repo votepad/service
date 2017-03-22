@@ -21,54 +21,6 @@ $(document).ready(function(){
         }
     });
 
-     /*
-      *  Open header_menu on tablet and mobile versions
-     */
-
-     $('#open_header_menu').click(function(){
-         if ( ! $('.jumbotron_nav').hasClass('open') && ! $('.header_menu').hasClass('open') ) {
-             $('body').addClass('hidden').append('<div class="backdrop"></div>');
-         }
-         $('.jumbotron_nav').removeClass('open');
-         $('.header_menu').addClass('open');
-     });
-
-
-
-     /*
-      *  Open jumbotron_nav on mobile versions
-     */
-
-     $('#open_jumbotron_nav').click(function(){
-         if ( ! $('.jumbotron_nav').hasClass('open') && ! $('.header_menu').hasClass('open') ) {
-             $('body').addClass('hidden').append('<div class="backdrop"></div>');
-         }
-         $('.header_menu').removeClass('open');
-         $('.jumbotron_nav').addClass('open');
-     });
-
-
-     /*
-      *  Close header_menu && jumbotron_nav
-     */
-
-     $('body').on('click', '.backdrop', function(){
-         $('body').removeClass('hidden').removeClass('mobile-open');
-         $('.header_menu').removeClass('open');
-         $('.jumbotron_nav').removeClass('open');
-         $(this).remove();
-     });
-
-
-     /*
-      *  Header On hover open/close
-     */
-     $('.header_menu-dropdown').mouseover(function () {
-         $(this).addClass('open');
-     });
-     $('.header_menu-dropdown').mouseout(function () {
-         $(this).removeClass('open');
-     });
 
 
      /*
@@ -128,170 +80,93 @@ $(document).ready(function(){
 
 
 
+    /*
+    * Input, textarea
+    */
+    $('input, textarea').on('focus', function() {
 
+     if ( $(this).val() == "") {
+       if ( ! $(this).next('label').hasClass('icon-label') ) {
+           $(this).next('label').addClass('active');
+           var max_len = parseInt($(this).attr('length'));
 
+           if ( $(this).hasClass('vp_site'))
+               max_len = max_len - 18; // http://votepad.ru/
 
-<<<<<<< Updated upstream
+           $(this).closest('.input-field').find(".counter").append("0/" + max_len);
+       }
+     }
 
+    });
 
+    $('input, textarea').blur(function() {
 
+     if ( $(this).val() == "" && ! $(this).attr('placeholder')) {
+         $(this).next('label').removeClass('active');
+         $(this).closest('.input-field').find(".counter").empty();
+     }
 
-     /*
-      *  Functions
-      *  - header_menu_fun()     -  creating and updating header_menu and navleft elements
-      *
-     */
+    });
 
+    $('input, textarea').keyup(function() {
 
+     var cur_len = $(this).val().length,
+         max_len = parseInt($(this).attr('length')),
+         orgsite_len;
 
+     if( $(this).hasClass('vp_site') ) {
 
-     /*
-      *   Create Header_Menu Dropdown
-      *
-      *   @var header_menu_nav_items
-     */
+         if ( $(this).hasClass('vp_site-event') ) {
 
-     function header_menu_fun() {
+             orgsite_len = $(this).attr('data-orgwebsite').length + 1;
 
-         if ( $('body').width() + 17 > 992 && start_on_small == true){
-             start_on_small = false;
-             var count = 0;
-             for (var i = 0; i < header_menu_nav_items.length; i++) {
-                 if ( header_menu_nav_items[i].class == "header_button dropdown-button") {
-                     count += 1;
-                 }
+             if ( cur_len >= orgsite_len ) {
+                 cur_len = cur_len - orgsite_len - 18; // http://votepad.ru/ORG_NAME/
              }
-             header_menu_nav_items.splice(0,count);
-         }
-
-         /*
-          *  Vars
-         */
-         var
-            header_menu_width = $('.header_menu').width(), // curent width of header_menu
-            header_menu_nav_width = 80,  // width of header_menu_elements,  65 - min width for last element
-            header_menu_elements = '',  // elements which shows in header_menu
-            header_menu_dropdown = '',  // header_dropdown block
-            header_menu_dropdown_elements = '', // elements which shows in header_dropdown block
-            header_menu_dropdown_pull_right,  // for style - right: __px
-            seperator = '',
-            temp = true;  // temp - boolean for seperate elements from header_menu_nav_items to header_menu_elements and header_menu_dropdown_elements
-
-
-         $('.header_menu').empty();
-
-         /*
-          * Add quick navigation on mobile vetsion
-         */
-         if ( $('body').width() + 17 < 681 ){
-             var
-                dropdown_global = '',
-                temp;
-
-             $('.header_menu-dropdown .dropdown-menu .header_button').each(function(){
-                 dropdown_global = dropdown_global +'<a href="' + $(this)[0]['href'] + '" class="' + $(this)[0]['className'] + '">' + $(this).html() + '</a>';
-             });
-
-             if (dropdown_global != "") {
-                 $('.header_menu').append('<p class="header_text header_text-title">Быстрая навигация</p><div class="divider"></div>' + dropdown_global);
-             } else {
-                 $('.header_menu').append('<p class="header_text header_text-title">Быстрая навигация</p><div class="divider"></div>');
-                 $('.header_menu').append($('.header_menu-dropdown > .header_button')[0]);
-             }
-
-         }
-
-
-         /*
-          *  Creating header_menu_elements and header_menu_dropdown_elements
-         */
-
-         for (var i = 0; i < header_menu_nav_items.length; i++) {
-
-             if ( temp && (header_menu_nav_width + header_menu_nav_items[i].width) < header_menu_width) {
-                 header_menu_nav_width = header_menu_nav_width + header_menu_nav_items[i].width;
-                 header_menu_elements = header_menu_elements + '<a href="' + header_menu_nav_items[i].href + '" class="' + header_menu_nav_items[i].class + '">' + header_menu_nav_items[i].html + '</a>';
-             }
-
-             else{
-                 temp = false;
-                 var temp_span = $.trim(header_menu_nav_items[i].html);
-                 header_menu_dropdown_elements = header_menu_dropdown_elements + '<a href="' + header_menu_nav_items[i].href + '" class="' + header_menu_nav_items[i].class + ' dropdown-button">' + temp_span.substr(0,24) + ' dropdown-text' + temp_span.substr(24,temp_span.length) + '</a>';
-             }
-
-         }
-
-         if ($('body').width() + 17 > 992){
-             /*
-              *  Add pull-right width for header_menu_dropdown_pull_right
-              *
-              *  @var header_menu_width
-              *  @var header_menu_nav_width
-             */
-
-             header_menu_dropdown_pull_right = header_menu_width - header_menu_nav_width;
-
-
-             /*
-              *  Checking header_menu_dropdown_elements for empty
-              *
-              *  @var header_menu_dropdown_elements
-             */
-
-             if (header_menu_dropdown_elements != '') {
-
-                 header_menu_dropdown = '<div class="dropdown"><a id="header_menu_dropdown" class="header_button dropdown-button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"><span class="header_text">Ещё</span><i class="fa fa-caret-down header_icon" aria-hidden="true"></i></a><div class="dropdown-menu pull-right" style="right:' + header_menu_dropdown_pull_right + 'px" aria-labelledby="header_menu_dropdown">' + header_menu_dropdown_elements + '</div></div>';
-
-             }
-
-             $('.header_menu').append(header_menu_elements + header_menu_dropdown);
 
          } else {
 
-            if ( header_menu_elements != "" || header_menu_dropdown_elements != "") {
-                $('.header_menu').append('<p class="header_text header_text-title">Навигация</p><div class="divider"></div>' + header_menu_elements + header_menu_dropdown_elements);
-            }
+             if ( cur_len >= 18 ) {
+                 cur_len = cur_len - 18; // http://votepad.ru/
+             }
 
          }
 
+         max_len = max_len -  18; // http://votepad.ru/
      }
 
+     $(this).closest('.input-field').find(".counter").empty().append(cur_len + "/" + max_len);
+
+    });
+
+    /*
+    * Textarea
+    */
+    $('textarea').on('init keyup focus', function(){
+       textarea_resize($(this));
+    });
 
 
-     /*
-      *  Create Header Menu Elements
-      *
-      *  @var header_menu_nav_items  -  array of header_menu elements
-      *  @var temp
-     */
-     function create_header_menu_elements() {
+    /*
+    * Checkbox
+    */
+    $('input[type="checkbox"], input[type="radio"]').focus(function(){
+       $(this).addClass('focus');
+    });
 
-      var
-         temp_header_menu_nav_items = [],
-         temp;
+    $('input[type="checkbox"]').on('blur click', function(){
+       $(this).removeClass('focus');
+    });
+
+    $('input[type="checkbox"]').on('click', function(){
+       if ( $(this).is(':checked') == true ) {
+           $(this).removeClass('invalid');
+       } else if ( $(this).attr('required') ){
+           $(this).addClass('invalid');
+       }
+    });
 
 
-      /*
-       *  Create header_menu_nav_items array
-      */
-
-      $('.header_menu .header_button').each(function(){
-
-          temp = {
-              html: $(this).html(),
-              href: $(this)[0]['href'],
-              class: $(this)[0]['className'],
-              width: $(this).width() + 36
-          }
-
-          temp_header_menu_nav_items.push(temp);
-
-      });
-
-      return temp_header_menu_nav_items;
-
-    }
-=======
     /*
     * Radio
     */
@@ -299,7 +174,14 @@ $(document).ready(function(){
     $('input[type="radio"]').on('blur click', function(){
        $(this).removeClass('focus');
     });
->>>>>>> Stashed changes
+
+    /*
+    * Radio
+    */
+
+    $('input[type="radio"]').on('blur click', function(){
+       $(this).removeClass('focus');
+    });
 
 });
 
@@ -659,97 +541,6 @@ $(document).on('click', 'a[data-toggle="refresh"]', function(){
 
   $(document).ajaxComplete(function(){
       $block.removeClass('whirl');
-  });
-
-});
-
-
-
-/*
- * Inputes Fields
-*/
-
-$(function(){
-
-  /*
-   * Input, textarea
-  */
-  $('input, textarea').on('focus', function() {
-
-    if ( $(this).val() == "") {
-      if ( ! $(this).next('label').hasClass('icon-label') ) {
-          $(this).next('label').addClass('active');
-          var max_len = parseInt($(this).attr('length'));
-
-          if ( $(this).hasClass('nwe_site'))  // http://nwe.ru/
-              max_len = max_len -  14;
-
-          $(this).closest('.input-field').find(".counter").append("0/" + max_len);
-      }
-    }
-
-  });
-
-  $('input, textarea').blur(function() {
-
-    if ( $(this).val() == "" && ! $(this).attr('placeholder')) {
-        $(this).next('label').removeClass('active');
-        $(this).closest('.input-field').find(".counter").empty();
-    }
-
-  });
-
-  $('input, textarea').keyup(function() {
-
-    var cur_len = $(this).val().length;
-    var max_len = parseInt($(this).attr('length'));
-
-    if( $(this).hasClass('nwe_site') ) {
-        if( cur_len >= 14 ) cur_len = cur_len - 14;
-        max_len = max_len -  14;
-    }
-
-    $(this).closest('.input-field').find(".counter").empty().append(cur_len + "/" + max_len);
-
-  });
-
-
-
-
-  /*
-   * Textarea
-  */
-  $('textarea').on('init keyup focus', function(){
-      textarea_resize($(this));
-  });
-
-
-  /*
-   * Checkbox
-  */
-  $('input[type="checkbox"], input[type="radio"]').focus(function(){
-      $(this).addClass('focus');
-  });
-
-  $('input[type="checkbox"]').on('blur click', function(){
-      $(this).removeClass('focus');
-  });
-
-  $('input[type="checkbox"]').on('click', function(){
-      if ( $(this).is(':checked') == true ) {
-          $(this).removeClass('invalid');
-      } else if ( $(this).attr('required') ){
-          $(this).addClass('invalid');
-      }
-  });
-
-
-  /*
-   * Radio
-  */
-
-  $('input[type="radio"]').on('blur click', function(){
-      $(this).removeClass('focus');
   });
 
 });

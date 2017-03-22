@@ -28,8 +28,9 @@
 </head>
 
  <body>
- 
-    <?=$header; ?>
+    <header class="header header-home">
+        <?=$header; ?>
+    </header>
 
     <?=$section; ?>
 
@@ -70,7 +71,6 @@
         <i class="fa fa-4x fa-angle-double-up" aria-hidden="true"></i>
     </div>
 
-    <?=$auth_modal; ?>
 
 </body>
 <!-- Yandex.Metrika counter --

@@ -1,7 +1,5 @@
 <? if ($isLogged) : ?>
-
-<a class="header_button" href="<?=URL::site('organization/new'); ?>">
-    <span class="header_text">Создать организацию</span>
+<a class="header-wrapper_menu_btn" href="<?=URL::site('organization/new'); ?>">
+    Создать организацию
 </a>
-
 <? endif; ?>

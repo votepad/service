@@ -1,22 +1,11 @@
 $(document).ready(function () {
 
 
-
-
-
-
-    $('#OpenMobileHeader').click(function () {
-
-        if ( $(this).hasClass('mobile-open') ) {
-            $('body').find('.mobile-close').click();
-        } else {
-            $('body').addClass('mobile-open').append('<div class="mobile-close"></div>');;
-            $('#HeaderMobile').animateCss('fadeInLeft');
-            $('#HeaderMobile').addClass("open");
-            $('.header_text-logo').wait(200).addClass("mobile-open");
-            $('#OpenMobileHeader').addClass("mobile-open");
-        }
+    $("openMobileMenu").on("click", function () {
+        $(this).addClass('header-wrapper_btn--open');
     });
+
+
 
     $('body').on('click', '.mobile-close', function() {
         $('#HeaderMobile').animateCss('fadeOutLeft');
