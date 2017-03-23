@@ -8,7 +8,7 @@ uploads/
 # Bundler
 assets/frontend/modules/*
 assets/frontend/webpack.config.js
-assets/frontend/node_modules/*
+node_modules/*
 # assets/vendor/*
 # vendor
 assets/vendor/
