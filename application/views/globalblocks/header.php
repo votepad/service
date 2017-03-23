@@ -24,11 +24,11 @@
             <i class="fa fa-caret-down" aria-hidden="true"></i>
         </a>
         <div class="dropdown-menu dropdown-menu--right">
-            <a href="<?= URL::site('user/'.$user->id) ?>" class="dropdown-menu_link">
+            <a href="<?= URL::site('user/'.$user->id) ?>" class="dropdown-menu_btn">
                 <i class="fa fa-user" aria-hidden="true"></i>
                 Профиль
             </a>
-            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="dropdown-menu_link">
+            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="dropdown-menu_btn">
                 <i class="fa fa-sign-out" aria-hidden="true"></i>
                 Выйти
             </a>
@@ -50,18 +50,18 @@
             <? if ($isLogged) : ?>
 
             <li class="mobile-menu_item show-only-mobile">
-                <a role="button" class="mobile-menu_item-link" data-toggle="collapse" data-area="userAction">
+                <a role="button" class="mobile-menu_item-btn" data-toggle="collapse" data-area="userAction">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <?=$user->name; ?>
                 </a>
                 <ul id="userAction" class="mobile-menu_collapse collapse">
                     <li class="mobile-menu_collapse-item">
-                        <a href="<?= URL::site('user/'.$user->id) ?>" class="mobile-menu_collapse-link">
+                        <a href="<?= URL::site('user/'.$user->id) ?>" class="mobile-menu_collapse-btn">
                             Профиль
                         </a>
                     </li>
                     <li class="mobile-menu_collapse-item">
-                        <a href="<?=URL::site('sign/organizer/logout'); ?>" class="mobile-menu_collapse-link ">
+                        <a href="<?=URL::site('sign/organizer/logout'); ?>" class="mobile-menu_collapse-btn ">
                             Выйти
                         </a>
                     </li>
@@ -71,13 +71,13 @@
             <? else : ?>
 
             <li class="mobile-menu_item show-only-mobile">
-                <a class="mobile-menu_item-link" data-toggle="modal" data-target="#auth_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+                <a class="mobile-menu_item-btn" data-toggle="modal" data-target="#auth_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
                     Войти
                 </a>
             </li>
 
             <li class="mobile-menu_item show-only-mobile">
-                <a class="mobile-menu_item-link" data-toggle="modal" data-target="#registr_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+                <a class="mobile-menu_item-btn" data-toggle="modal" data-target="#registr_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
                     Регистрация
                 </a>
             </li>

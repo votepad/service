@@ -60,8 +60,15 @@
 </body>
 
 <!-- modules -->
+<script type="text/javascript" src="<?=$assets; ?>modules/js/header.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>modules/js/collapse.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>modules/js/dropdown.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>modules/js/header.js"></script>
+
+
+<script type="text/javascript">
+    header.init();
+    collapse.init();
+    dropdown.init();
+</script>
 
 </html>

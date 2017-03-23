@@ -39,6 +39,7 @@ body.hidden .header, body.hidden .header_text-logo{
     width: 80%;
     height: inherit;
     margin: 0 auto;
+    opacity:0;
 }
 
 
@@ -246,24 +247,24 @@ body.hidden .header, body.hidden .header_text-logo{
     margin-top: 85px;
 }
 
-.mobile-menu_item-link, .mobile-menu_collapse-link{
+.mobile-menu_item-btn, .mobile-menu_collapse-btn{
     display: block;
     padding: 10px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.mobile-menu_item-link > .fa, .mobile-menu_collapse-link > .fa  {
+.mobile-menu_item-btn > .fa, .mobile-menu_collapse-btn > .fa  {
     width: 15px;
     margin-right: 5px;
 }
-.mobile-menu_collapse-link{
+.mobile-menu_collapse-btn{
     padding-left: 35px;
 }
 
-.mobile-menu_item-link:hover, .mobile-menu_item-link:focus,
-.mobile-menu_collapse-link:hover, .mobile-menu_collapse-link:focus,
-.mobile-menu_item-link--active, .mobile-menu_collapse-link--active{
+.mobile-menu_item-btn:hover, .mobile-menu_item-btn:focus,
+.mobile-menu_collapse-btn:hover, .mobile-menu_collapse-btn:focus,
+.mobile-menu_item-btn--active, .mobile-menu_collapse-btn--active{
     color: #008DA7;
 }
 .mobile-menu_item--active{

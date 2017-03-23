@@ -76,7 +76,7 @@
     top: calc(100% - 4px);
 }
 
-.dropdown-menu_link{
+.dropdown-menu_btn{
     display: block;
     position: relative;
     height: 30px;
@@ -87,10 +87,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.dropdown-menu_link > .fa {
+.dropdown-menu_btn > .fa {
     margin-right: 7px;
     color: #008DA7;
 }
-.dropdown-menu_link:hover{
+.dropdown-menu_btn:hover{
     background-color: rgba(0,0,0,0.05);
 }

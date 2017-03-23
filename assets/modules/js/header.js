@@ -1,210 +1,201 @@
+var header = (function(header) {
 
-var headerWrapper = document.getElementsByClassName('header-wrapper')[0],
-    headerMenuIcon = document.getElementById('openMobileMenu'),
-    headerBrand = document.getElementsByClassName('header-brand')[0],
-    headerMenu = document.getElementsByClassName('header-menu')[0],
-    headerMenuRight = document.getElementsByClassName('header-menu-right')[0],
-    headerMenuBtn = document.getElementsByClassName('header-menu_btn'),
-    headerMenuMobileItem = document.getElementsByClassName('mobile-menu_item'),
-    headerMenuMobileCollapseItem = document.getElementsByClassName('mobile-menu_collapse-item'),
-    headerMenuItems = [],
-    headerMobileMenu = document.getElementsByClassName('header-mobile')[0],
-    address = window.location.pathname.split('/'),
-    address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
-    address4 = '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4],
-    btnHref;
+    var headerWrapper = document.getElementsByClassName('header-wrapper')[0],
+        headerMenuIcon = document.getElementById('openMobileMenu'),
+        headerBrand = document.getElementsByClassName('header-brand')[0],
+        headerMenu = document.getElementsByClassName('header-menu')[0],
+        headerMenuItems = [],
+        headerMenuRight = document.getElementsByClassName('header-menu-right')[0],
+        headerMobile = document.getElementsByClassName('header-mobile')[0],
+        headerLinks = document.getElementsByClassName('header-menu_btn'),
+        mobileLinks = document.getElementsByClassName('mobile-menu_item-btn'),
+        mobileCollapseLinks = document.getElementsByClassName('mobile-menu_collapse-btn'),
+        address = window.location.pathname.split('/'),
+        address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
+        address4 = address3 + '/' + address[4],
+        btnHref, i, item;
 
+    var backdrop = document.createElement('div');
+        backdrop.className = "modal-backdrop in";
 
-var backdrop = document.createElement('div');
-    backdrop.className = "modal-backdrop in";
-
-var headerMenuRightWidth = headerMenuRight.clientWidth + 1;
-    headerMenuRight.style.width = headerMenuRight.clientWidth + 1 + "px";
-
-/**
- * Event Listener
- */
-headerMenuIcon.addEventListener('click', openMobileMenu, false);
-backdrop.addEventListener('click', closeMobileMenu, false);
+    var headerMenuRightWidth = headerMenuRight.clientWidth + 1;
+        headerMenuRight.style.width = headerMenuRight.clientWidth + 1 + "px";
 
 
-/**
- * Add active class to header menu btn
- */
-for (var i = 0; i < headerMenuBtn.length; i++) {
 
-    btnHref = '';
+    header.init = function() {
 
-    if (headerMenuBtn[i].getAttribute('href') != null)
-        btnHref = headerMenuBtn[i].getAttribute('href').split('/');
+        headerMenuIcon.addEventListener('click', openMobileMenu, false);
+        backdrop.addEventListener('click', closeMobileMenu, false);
 
-    btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
+        setActiveClassOnMenuItems();
+        createHeaderMenuItems();
+        calculateHeaderMenuWidth();
+        changeHeaderMenuItems();
+        headerWrapper.style.opacity = "1";
+    };
 
-    if ( btnHref.test(address3) ) {
-        headerMenuBtn[i].classList.add('header-menu_btn--active');
-    }
 
-}
+    window.onresize = function(event) {
+        calculateHeaderMenuWidth();
+        changeHeaderMenuItems();
+    };
 
-/**
- * Add active class to header menu MOBILE btn
- */
-for (var i = 0; i < headerMenuMobileItem.length; i++) {
-    for (var j=0; j < headerMenuMobileItem[i].childNodes.length; j++) {
 
-        btnHref = '';
+    /**
+     * setActiveClassOnMenuItems - set Active class for btns
+     */
+    var setActiveClassOnMenuItems = function () {
 
-        if (headerMenuMobileItem[i].childNodes[j].href) {
+        /* class="header-menu_btn" */
+        for (i = 0; i < headerLinks.length; i++) {
+            if (headerLinks[i].href) {
+                btnHref = headerLinks[i].getAttribute('href').split('/');
+                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
 
-            btnHref = headerMenuMobileItem[i].childNodes[j].getAttribute('href').split('/');
-            btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
-
-            if ( btnHref.test(address3) ) {
-                headerMenuMobileItem[i].classList.add('mobile-menu_item--active')
-                headerMenuMobileItem[i].childNodes[j].classList.add('mobile-menu_item-link--active');
+                if ( btnHref.test(address3) ) {
+                    headerLinks[i].classList.add('header-menu_btn--active');
+                }
             }
-
         }
-    }
-}
 
+        /* class="mobile-menu_item-btn" */
+        for (i = 0; i < mobileLinks.length; i++) {
+            if (mobileLinks[i].href) {
+                btnHref = mobileLinks[i].getAttribute('href').split('/');
+                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
 
-
-/**
- * Add active class to header menu MOBILE Collapse btn
- */
-for (var i = 0; i < headerMenuMobileCollapseItem.length; i++) {
-    for (var j=0; j < headerMenuMobileCollapseItem[i].childNodes.length; j++) {
-
-        btnHref = '';
-
-        if (headerMenuMobileCollapseItem[i].childNodes[j].href) {
-
-            btnHref = headerMenuMobileCollapseItem[i].childNodes[j].getAttribute('href').split('/');
-            btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
-
-            if ( btnHref.test(address4) ) {
-                headerMenuMobileCollapseItem[i].parentNode.parentNode.classList.add('mobile-menu_item--active');
-                headerMenuMobileCollapseItem[i].childNodes[j].classList.add('mobile-menu_collapse-link--active');
+                if (btnHref.test(address3)) {
+                    mobileLinks[i].parentNode.classList.add('mobile-menu_item--active');
+                    mobileLinks[i].classList.add('mobile-menu_item-btn--active');
+                }
             }
-
-
         }
-    }
-}
 
+        /* class="mobile-menu_collapse-btn" */
 
-
-
-/**
- * Call Functions on init
- */
-createHeaderMenuItems();
-calculateHeaderMenuWidth();
-changeHeaderMenuItems();
-collapse.init();
-dropdown.init();
-
-
-/**
- * Window Resize
- */
-window.onresize = function(event) {
-    calculateHeaderMenuWidth();
-    changeHeaderMenuItems();
-};
-
-
-/**
- * Functions
- *
- * openMobileMenu - open mobile menu on click
- * closeMobileMenu - close mobile menu on click
- * calculateHeaderMenuWidth - add style.width to header-menu and header-menu-right
- */
-
-function openMobileMenu () {
-    if ( ! headerMenuIcon.classList.contains('header-wrapper_btn--open')) {
-        headerMenuIcon.classList.add('header-wrapper_btn--open');
-        document.body.classList.add('modal-open');
-        headerBrand.classList.add('header-brand--active');
-        headerMobileMenu.classList.add('header-mobile--open');
-        document.body.appendChild(backdrop);
-    } else {
-        closeMobileMenu();
-    }
-}
-
-function closeMobileMenu() {
-    headerMenuIcon.classList.remove('header-wrapper_btn--open');
-    document.body.classList.remove('modal-open');
-    headerBrand.classList.remove('header-brand--active');
-    headerMobileMenu.classList.remove('header-mobile--open');
-    document.getElementsByClassName('modal-backdrop')[0].remove()
-}
-
-function calculateHeaderMenuWidth() {
-    var width = headerWrapper.clientWidth - headerMenuIcon.clientWidth - headerBrand.clientWidth - headerMenuRightWidth - 80;
-
-    if (width > 0) {
-        headerMenu.style.width = width + "px";
-    } else {
-        headerMenu.style.width = 0 + "px";
-    }
-
-}
-
-function createHeaderMenuItems() {
-    var item;
-    for (var i=0; i < headerMenu.childNodes.length; i++) {
-        if (headerMenu.childNodes[i].href) {
-            item = {
-                obj: headerMenu.childNodes[i],
-                text: headerMenu.childNodes[i].innerHTML,
-                class: headerMenu.childNodes[i].className,
-                href: headerMenu.childNodes[i].getAttribute('href'),
-                width: headerMenu.childNodes[i].clientWidth
+        for (i = 0; i < mobileCollapseLinks.length; i++) {
+            if (mobileCollapseLinks[i].href) {
+                btnHref = mobileCollapseLinks[i].getAttribute('href').split('/');
+                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
+                
+                if (btnHref.test(address4)) {
+                    mobileCollapseLinks[i].parentNode.parentNode.parentNode.classList.add('mobile-menu_item--active');
+                    mobileCollapseLinks[i].classList.add('mobile-menu_collapse-btn--active');
+                }
             }
-            headerMenuItems.push(item);
         }
-    }
-}
 
-function changeHeaderMenuItems() {
+    };
 
-    headerMenu.innerHTML = "";
-    var maxWidth = headerMenu.clientWidth,
-        curWidth = 80,
-        hasAdditional = false;
 
-    var MenuItem = "",
-        additionalMenuItem = "";
 
-    if (window.innerWidth > 992) {
-
-        if (document.getElementsByClassName('modal-backdrop')[0]) {
+    /**
+     * openMobileMenu - open mobile menu on click
+     */
+    var openMobileMenu = function() {
+        if ( ! headerMenuIcon.classList.contains('header-wrapper_btn--open')) {
+            headerMenuIcon.classList.add('header-wrapper_btn--open');
+            document.body.classList.add('modal-open');
+            headerBrand.classList.add('header-brand--active');
+            headerMobile.classList.add('header-mobile--open');
+            document.body.appendChild(backdrop);
+        } else {
             closeMobileMenu();
         }
+    };
 
-        for (var i = 0; i < headerMenuItems.length; i++) {
-            if (maxWidth > curWidth + headerMenuItems[i].width) {
-                curWidth += headerMenuItems[i].width;
-                MenuItem += "<a href='" + headerMenuItems[i].href + "' class='" + headerMenuItems[i].class + "'>" + headerMenuItems[i].text + "</a>";
-            } else {
-                hasAdditional = true;
-                additionalMenuItem += "<a href='" + headerMenuItems[i].href + "' class='dropdown_menu_item'>" + headerMenuItems[i].text + "</a>";
+
+    /**
+     * closeMobileMenu - close mobile menu on click
+     */
+    var closeMobileMenu = function() {
+        headerMenuIcon.classList.remove('header-wrapper_btn--open');
+        document.body.classList.remove('modal-open');
+        headerBrand.classList.remove('header-brand--active');
+        headerMobile.classList.remove('header-mobile--open');
+        document.getElementsByClassName('modal-backdrop')[0].remove()
+    };
+
+
+    /**
+     * calculateHeaderMenuWidth - add style.width to `header-menu` and `header-menu--right`
+     */
+    var calculateHeaderMenuWidth = function() {
+        var width = headerWrapper.clientWidth - headerMenuIcon.clientWidth - headerBrand.clientWidth - headerMenuRightWidth - 80;
+
+        if (width > 0) {
+            headerMenu.style.width = width + "px";
+        } else {
+            headerMenu.style.width = 0 + "px";
+        }
+
+    };
+
+    /**
+     * createHeaderMenuItems - create array of HeaderMenuItems
+     */
+    var createHeaderMenuItems = function () {
+        item;
+        for (i=0; i < headerMenu.childNodes.length; i++) {
+            if (headerMenu.childNodes[i].href) {
+                item = {
+                    obj: headerMenu.childNodes[i],
+                    text: headerMenu.childNodes[i].innerHTML,
+                    class: headerMenu.childNodes[i].className,
+                    href: headerMenu.childNodes[i].getAttribute('href'),
+                    width: headerMenu.childNodes[i].clientWidth
+                };
+                headerMenuItems.push(item);
             }
         }
-        if (hasAdditional) {
-            headerMenu.innerHTML = MenuItem + '<div class="dropdown" data-toggle="dropdown" data-position="right"><a class="header-menu_btn dropdown_btn"><span class="header_text" style="margin-right: 5px">Ещё</span><i class="fa fa-caret-down header_icon" aria-hidden="true"></i></a><div class="dropdown_menu">' + additionalMenuItem + '</div></div>';
-        } else {
-            headerMenu.innerHTML = MenuItem;
-        }
-    }
+    };
 
-    if (window.innerWidth < 460) {
-        headerMenuRight.classList.add('hide')
-    } else {
-        headerMenuRight.classList.remove('hide')
-    }
-}
+
+    /**
+     * changeHeaderMenuItems - change HeaderMenuItems on resize
+     */
+    var changeHeaderMenuItems = function() {
+
+        headerMenu.innerHTML = "";
+        var maxWidth = headerMenu.clientWidth,
+            curWidth = 80,
+            hasAdditional = false;
+
+        var MenuItem = "",
+            additionalMenuItem = "";
+
+        if (window.innerWidth > 992) {
+
+            if (document.getElementsByClassName('modal-backdrop')[0]) {
+                closeMobileMenu();
+            }
+
+            for (i = 0; i < headerMenuItems.length; i++) {
+                if (maxWidth > curWidth + headerMenuItems[i].width) {
+                    curWidth += headerMenuItems[i].width;
+                    MenuItem += "<a href='" + headerMenuItems[i].href + "' class='" + headerMenuItems[i].class + "'>" + headerMenuItems[i].text + "</a>";
+                } else {
+                    hasAdditional = true;
+                    additionalMenuItem += "<a href='" + headerMenuItems[i].href + "' class='dropdown-menu_btn'>" + headerMenuItems[i].text + "</a>";
+                }
+            }
+            if (hasAdditional) {
+                headerMenu.innerHTML = MenuItem + '<div class="dropdown-block" data-toggle="dropdown"><a class="header-menu_btn dropdown-btn"><span style="margin-right: 5px">Ещё</span><i class="fa fa-caret-down header_icon" aria-hidden="true"></i></a><div class="dropdown-menu dropdown-menu--right">' + additionalMenuItem + '</div></div>';
+            } else {
+                headerMenu.innerHTML = MenuItem;
+            }
+        }
+
+        if (window.innerWidth < 460) {
+            headerMenuRight.classList.add('hide')
+        } else {
+            headerMenuRight.classList.remove('hide')
+        }
+    };
+
+
+    return header;
+
+
+})({});
