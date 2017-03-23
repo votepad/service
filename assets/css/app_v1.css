@@ -771,30 +771,6 @@ a, a:hover, a:focus{
 @keyframes rotate{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 
 
-/*
- * Collapse Style
-*/
-.collapse{
-	display: none;
-}
-
-    .collapse.in{
-        display: block;
-    }
-
-.collapsing {
-    position: relative;
-    height: 0;
-    overflow: hidden;
-    -webkit-transition-property: height,visibility;
-    transition-property: height,visibility;
-    -webkit-transition-duration: .35s;
-    transition-duration: .35s;
-    -webkit-transition-timing-function: ease;
-    transition-timing-function: ease;
-}
-
-
 
 
 /*
@@ -1170,7 +1146,7 @@ body.modal-open .header{
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 1020;
+	z-index: 200;
 	display: none;
 	overflow: hidden;
 	-webkit-overflow-scrolling: touch;
@@ -1210,11 +1186,8 @@ body.modal-open .header{
 	right: 0;
 	bottom: 0;
 	left: 0;
-	z-index: 1011;
+	z-index: 101;
 	background-color: #000;
-}
-.backdrop{
-	z-index: 1010;
 }
 .modal-backdrop.fade {
 	filter: alpha(opacity=0);
@@ -2559,70 +2532,7 @@ section:after, section:before,
 
 
 
-/*
-**	Dropdown Menu Style
-*/
 
-.open > .dropdown-menu {
-    display: block;
-}
-.dropdown-menu {
-    position: absolute;
-    top: 100%;
-    left: 0;
-    z-index: 1030;
-    display: none;
-    float: left;
-    min-width: 50px;
-    padding: 5px 0;
-    margin: 2px 0 0;
-    list-style: none;
-    font-size: 1em;
-    text-align: left;
-    background-color: #fff;
-	border: 1px solid #E0E0E0;
-	border-radius: 3px;
-	-webkit-box-shadow: 0 1px 3px rgba(0, 0, 0, .175);
-	      box-shadow: 0 1px 3px rgba(0, 0, 0, .175);
-}
-	.dropdown-menu.pull-right {
-		right: 0;
-		left: auto;
-	}
-
-	.dropdown-menu .dropdown-button {
-		float: none;
-		display: block;
-		padding: 8px 10px;
-		clear: both;
-		line-height: normal;
-	}
-	.dropdown-menu .dropdown-text{
-		font-weight: 400;
-		color: #413a41;
-		font-size: .8em;
-		white-space: nowrap;
-	    text-shadow: none;
-	    text-align: left;
-	}
-	.dropdown-menu .dropdown-icon{
-		margin-right: 5px;
-		min-width: 20px;
-		vertical-align: middle;
-	}
-
-	.dropdown-menu .dropdown-button:hover,
-	.dropdown-menu .dropdown-button:focus {
-		background-color: rgba(0,0,0,0.05);
-	}
-	.dropdown-menu .dropdown-button.disabled:hover,
-	.dropdown-menu .dropdown-button.disabled:focus {
-		text-decoration: none;
-		cursor: not-allowed;
-		background-color: transparent;
-		background-image: none;
-		filter: progid:DXImageTransform.Microsoft.gradient(enabled = false);
-	}
 
 .divider {
 	height: 1px;

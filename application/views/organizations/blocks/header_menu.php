@@ -1,6 +1,9 @@
+<a class="header-wrapper_menu_btn" href="<?=URL::site('organization/' . $organization->id ); ?>">
+    <?=$organization->name; ?>
+</a>
 
 <? if($isLogged && $isMember && $isOwner): ?>
-<a class="header-wrapper_menu_btn" href="<?=URL::site('organization/' . $id . '/settings/main' ); ?>">
+<a class="header-wrapper_menu_btn" href="<?=URL::site('organization/' . $organization->id . '/settings/main' ); ?>">
     Настройки
 </a>
 <? endif; ?>

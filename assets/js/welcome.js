@@ -18,7 +18,7 @@ $(document).ready(function () {
 
     $(window).resize(function () {
         if ( $(window).width() > 992 && $('body').hasClass('mobile-open') ) {
-            $('body').find('.mobile-close').click();
+            $('.modal-backdrop').click();
         }
     });
 
@@ -35,6 +35,7 @@ $(document).ready(function () {
     });
 
     $('.toEvents').click(function(){
+        $('.modal-backdrop').click();
         $('body').animate({ scrollTop: $('.section-4').offset().top }, 600);
     });
     if (window.location.href.split('/')[3] == "#events") {

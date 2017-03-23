@@ -5,9 +5,13 @@ var headerWrapper = document.getElementsByClassName('header-wrapper')[0],
     headerMenu = document.getElementsByClassName('header-wrapper_menu')[0],
     headerMenuRight = document.getElementsByClassName('header-wrapper_menu-right')[0],
     headerMenuBtn = document.getElementsByClassName('header-wrapper_menu_btn'),
+    headerMenuMobileItem = document.getElementsByClassName('header-mobile_menu_item'),
+    headerMenuMobileCollapseItem = document.getElementsByClassName('header-mobile_menu_item_collapse-menu_item'),
     headerMenuItems = [],
+    headerMobileMenu = document.getElementsByClassName('header-mobile')[0],
     address = window.location.pathname.split('/'),
-    address = '/' + address[1] + '/' + address[2] + '/' + address[3],
+    address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
+    address4 = '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4],
     btnHref;
 
 
@@ -25,30 +29,81 @@ backdrop.addEventListener('click', closeMobileMenu, false);
 
 
 /**
- * Call Functions on init
- */
-createHeaderMenuItems();
-calculateHeaderMenuWidth();
-changeHeaderMenuItems();
-
-
-
-/**
- * Add active class to header btn
+ * Add active class to header menu btn
  */
 for (var i = 0; i < headerMenuBtn.length; i++) {
+
     btnHref = '';
+
     if (headerMenuBtn[i].getAttribute('href') != null)
         btnHref = headerMenuBtn[i].getAttribute('href').split('/');
 
     btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
 
-    if ( btnHref.test(address) ) {
+    if ( btnHref.test(address3) ) {
         headerMenuBtn[i].classList.add('header-wrapper_menu_btn--active');
-    } else {
-        headerMenuBtn[i].classList.remove('header-wrapper_menu_btn--active');
+    }
+
+}
+
+/**
+ * Add active class to header menu MOBILE btn
+ */
+for (var i = 0; i < headerMenuMobileItem.length; i++) {
+    for (var j=0; j < headerMenuMobileItem[i].childNodes.length; j++) {
+
+        btnHref = '';
+
+        if (headerMenuMobileItem[i].childNodes[j].href) {
+
+            btnHref = headerMenuMobileItem[i].childNodes[j].getAttribute('href').split('/');
+            btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
+
+            if ( btnHref.test(address3) ) {
+                headerMenuMobileItem[i].classList.add('header-mobile_menu_item--active')
+                headerMenuMobileItem[i].childNodes[j].classList.add('header-mobile_menu_item_btn--active');
+            }
+
+        }
     }
 }
+
+
+
+/**
+ * Add active class to header menu MOBILE Collapse btn
+ */
+for (var i = 0; i < headerMenuMobileCollapseItem.length; i++) {
+    for (var j=0; j < headerMenuMobileCollapseItem[i].childNodes.length; j++) {
+
+        btnHref = '';
+
+        if (headerMenuMobileCollapseItem[i].childNodes[j].href) {
+
+            btnHref = headerMenuMobileCollapseItem[i].childNodes[j].getAttribute('href').split('/');
+            btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
+
+            if ( btnHref.test(address4) ) {
+                headerMenuMobileCollapseItem[i].parentNode.parentNode.classList.add('header-mobile_menu_item--active');
+                headerMenuMobileCollapseItem[i].childNodes[j].classList.add('header-mobile_menu_item_collapse-menu_item_btn--active');
+            }
+
+
+        }
+    }
+}
+
+
+
+
+/**
+ * Call Functions on init
+ */
+createHeaderMenuItems();
+calculateHeaderMenuWidth();
+changeHeaderMenuItems();
+collapse.init();
+dropdown.init();
 
 
 /**
@@ -73,6 +128,7 @@ function openMobileMenu () {
         headerMenuIcon.classList.add('header-wrapper_btn--open');
         document.body.classList.add('modal-open');
         headerBrand.classList.add('header-wrapper_brand--active');
+        headerMobileMenu.classList.add('header-mobile--open');
         document.body.appendChild(backdrop);
     } else {
         closeMobileMenu();
@@ -83,11 +139,12 @@ function closeMobileMenu() {
     headerMenuIcon.classList.remove('header-wrapper_btn--open');
     document.body.classList.remove('modal-open');
     headerBrand.classList.remove('header-wrapper_brand--active');
+    headerMobileMenu.classList.remove('header-mobile--open');
     document.getElementsByClassName('modal-backdrop')[0].remove()
 }
 
 function calculateHeaderMenuWidth() {
-    var width = headerWrapper.clientWidth - headerMenuIcon.clientWidth - headerBrand.clientWidth - headerMenuRightWidth - 50;
+    var width = headerWrapper.clientWidth - headerMenuIcon.clientWidth - headerBrand.clientWidth - headerMenuRightWidth - 80;
 
     if (width > 0) {
         headerMenu.style.width = width + "px";
@@ -121,16 +178,21 @@ function changeHeaderMenuItems() {
         hasAdditional = false;
 
     var MenuItem = "",
-        additionalMenuItem = ""
+        additionalMenuItem = "";
 
     if (window.innerWidth > 992) {
+
+        if (document.getElementsByClassName('modal-backdrop')[0]) {
+            closeMobileMenu();
+        }
+
         for (var i = 0; i < headerMenuItems.length; i++) {
             if (maxWidth > curWidth + headerMenuItems[i].width) {
                 curWidth += headerMenuItems[i].width;
                 MenuItem += "<a href='" + headerMenuItems[i].href + "' class='" + headerMenuItems[i].class + "'>" + headerMenuItems[i].text + "</a>";
             } else {
                 hasAdditional = true;
-                additionalMenuItem += "<a href='" + headerMenuItems[i].href + "' class='" + headerMenuItems[i].class + " dropdown_item'>" + headerMenuItems[i].text + "</a>";
+                additionalMenuItem += "<a href='" + headerMenuItems[i].href + "' class='dropdown_menu_item'>" + headerMenuItems[i].text + "</a>";
             }
         }
         if (hasAdditional) {
@@ -140,7 +202,7 @@ function changeHeaderMenuItems() {
         }
     }
 
-    if (window.innerWidth < 450) {
+    if (window.innerWidth < 460) {
         headerMenuRight.classList.add('hide')
     } else {
         headerMenuRight.classList.remove('hide')

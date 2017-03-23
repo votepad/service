@@ -62,7 +62,7 @@ class Controller_Organizations_Index extends Dispatch
 
             if ($this->user) {
                 $isOwner  = $this->organization->isOwner($this->user->id);
-                $isMember  = $this->organization->isMember($this->user->id);
+                $isMember  = true;//$this->organization->isMember($this->user->id);
             } else {
                 $isOwner  = false;
                 $isMember  = false;
@@ -78,7 +78,8 @@ class Controller_Organizations_Index extends Dispatch
              * Header
              */
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'id' => $this->organization->id, 'isOwner' => $isOwner, 'isMember' => $isMember)))
+                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'organization' => $this->organization, 'isOwner' => $isOwner, 'isMember' => $isMember)))
+                ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', array( 'organization' => $this->organization, 'isOwner' => $isOwner, 'isMember' => $isMember)))
                 ->set('auth_modal', View::factory('globalblocks/auth_modal'))
                 ->set('organization', $this->organization);
 
@@ -115,7 +116,9 @@ class Controller_Organizations_Index extends Dispatch
         } else {
 
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', "");
+                ->set('header_menu', "")
+                ->set('header_menu_mobile', "");
+
             $this->template->footer = View::factory('globalblocks/footer');
 
         }

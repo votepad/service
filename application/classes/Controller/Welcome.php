@@ -32,6 +32,7 @@ class Controller_Welcome extends Dispatch
         $this->template->keywords = "Электронное голосование, Экспертное жюри, Деловые игры, Мероприятия, Конкурсы, Выставление баллов, Выбор победителя, Победитель, Результат, Рейтинг, Страница с результатами, votepad, event, competition, business game, judges, rating, vote, results";
         $this->template->header = View::factory('globalblocks/header')
                 ->set('header_menu', View::factory('welcome/blocks/header_menu'))
+                ->set('header_menu_mobile', View::factory('welcome/blocks/header_menu_mobile'))
                 ->set('auth_modal', View::factory('globalblocks/auth_modal'));
         $this->template->section = View::factory('welcome/landing');
 

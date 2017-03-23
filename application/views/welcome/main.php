@@ -15,6 +15,13 @@
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
     <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css">
+
+    <!-- modules -->
+    <link rel="stylesheet" href="<?=$assets; ?>modules/css/header.css?v=<?= filemtime("assets/modules/css/header.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>modules/css/dropdown.css?v=<?= filemtime("assets/modules/css/dropdown.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>modules/css/collapse.css?v=<?= filemtime("assets/modules/css/collapse.css") ?>">
+
+
     <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css">
     <link rel="stylesheet" href="<?=$assets; ?>css/welcome.css">
 
@@ -73,6 +80,12 @@
 
 
 </body>
+
+<!-- modules -->
+<script type="text/javascript" src="<?=$assets; ?>modules/js/collapse.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>modules/js/dropdown.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>modules/js/header.js"></script>
+
 <!-- Yandex.Metrika counter --
 <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter42856294 = new Ya.Metrika({ id:42856294, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/42856294" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->

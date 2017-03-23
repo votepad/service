@@ -1,0 +1,17 @@
+/**
+ * Collapse Style
+ */
+.collapse{
+    display: block;
+    overflow: hidden;
+    visibility: hidden;
+    transition-property: height, visibility;
+    transition-duration: .35s;
+    transition-timing-function: ease;
+    -webkit-transition-property: height, visibility;
+    -webkit-transition-duration: .35s;
+    -webkit-transition-timing-function: ease;
+}
+.collapse.in{
+    visibility: visible;
+}

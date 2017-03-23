@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="<?=$assets; ?>modules/css/header.css?"> <!--v=<?= filemtime("assets/modules/css/header.css") ?>-->
-
 <div class="header-wrapper">
 
     <div class="header-wrapper_menu-icon">
@@ -19,84 +17,79 @@
     </div>
 
 
-    <div class="header-wrapper_menu-right">
-    <? if ($isLogged) : ?>
-
-        <a class="header-wrapper_menu_btn" data-toggle="dropdown" data-position="right">
+    <div class="header-wrapper_menu-right dropdown" data-toggle="dropdown" data-position="right">
+        <? if ($isLogged) : ?>
+        <a class="header-wrapper_menu_btn dropdown_btn">
             <?=$user->name; ?>
             <i class="fa fa-caret-down header_icon" aria-hidden="true"></i>
         </a>
-
-        <div class="dropdown-menu">
-            <a href="<?= URL::site('user/'.$user->id) ?>" class="header_button dropdown-button">
-                <i class="fa fa-user dropdown-icon header_icon" aria-hidden="true"></i>
-                <span class="dropdown-text">Профиль</span>
+        <div class="dropdown_menu">
+            <a href="<?= URL::site('user/'.$user->id) ?>" class="dropdown_menu_item">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Профиль
             </a>
-            <div role="separator" class="divider"></div>
-            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="header_button dropdown-button">
-                <i class="fa fa-sign-out dropdown-icon header_icon" aria-hidden="true"></i>
-                <span class="dropdown-text">Выйти</span>
+
+            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="dropdown_menu_item">
+                <i class="fa fa-sign-out" aria-hidden="true"></i>
+                Выйти
             </a>
         </div>
-
-    <? else : ?>
+        <? else : ?>
         <a class="header-wrapper_menu_btn" data-toggle="modal" data-target="#registr_modal">
             Регистрация
         </a>
-        <a class="header-wrapper_menu_btn " data-toggle="modal" data-target="#auth_modal">
+        <a class="header-wrapper_menu_btn header-wrapper_menu_btn--hollow" data-toggle="modal" data-target="#auth_modal">
             Войти
         </a>
-    <? endif; ?>
+        <? endif; ?>
 
     </div>
 
+    <div class="header-mobile">
+        <ul class="header-mobile_menu">
+
+            <? if ($isLogged) : ?>
+
+            <li class="header-mobile_menu_item show-only-mobile">
+                <a role="button" class="header-mobile_menu_item_btn" data-toggle="collapse" area-control="userAction">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <?=$user->name; ?>
+                </a>
+                <ul id="userAction" class="header-mobile_menu_item_collapse-menu collapse">
+                    <li class="header-mobile_menu_item_collapse-menu_item">
+                        <a href="<?= URL::site('user/'.$user->id) ?>" class="header-mobile_menu_item_collapse-menu_item_btn">
+                            Профиль
+                        </a>
+                    </li>
+                    <li class="header-mobile_menu_item_collapse-menu_item">
+                        <a href="<?=URL::site('sign/organizer/logout'); ?>" class="header-mobile_menu_item_collapse-menu_item_btn ">
+                            Выйти
+                        </a>
+                    </li>
+                </ul>
+            </li>
+
+            <? else : ?>
+
+            <li class="header-mobile_menu_item show-only-mobile">
+                <a class="header-mobile_menu_item_btn" data-toggle="modal" data-target="#auth_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+                    Войти
+                </a>
+            </li>
+
+            <li class="header-mobile_menu_item show-only-mobile">
+                <a class="header-mobile_menu_item_btn" data-toggle="modal" data-target="#registr_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+                    Регистрация
+                </a>
+            </li>
+
+            <? endif; ?>
+
+            <?=$header_menu_mobile; ?>
+        </ul>
+    </div>
 </div>
 
-
-<div class="header-mobile">
-    <div class="header-mobile_menu">
-
-    </div>
-</div>
-
-<!--    </ul>
-
-
-<div id="HeaderMobile" class="header-mobile">
-    <ul class="header-menu-mobile header-menu-mobile-home clear_fix">
-        <!--<li class="header-list">
-            <a href="/features" class="btn btn_hollow">
-                Возможности
-            </a>
-        </li>--
-        <li class="header-list">
-            <a class="btn btn_hollow askquestion">
-                Связь с командой
-            </a>
-        </li>
-        <li class="header-list">
-            <a href="/#events" class="btn btn_hollow" onclick="$('.mobile-close').click();$('.toEvents').click();">
-                Мероприятия
-            </a>
-        </li>
-    </ul>
-    <div class="header-btn-mobile">
-        <a class="btn btn_hollow" data-toggle="modal" data-target="#auth_modal">
-            <i class="fa fa-sign-in" aria-hidden="true"></i>
-            Вход
-        </a>
-    </div>
-
-    <div class="header-btn-mobile">
-        <a class="btn btn_primary" data-toggle="modal" data-target="#registr_modal">
-            Регистрация
-        </a>
-    </div>
-
-</div>
--->
-
-<script type="text/javascript" src="<?=$assets; ?>modules/js/header.js"></script>
 <? if ( !$isLogged): ?>
     <?=$auth_modal; ?>
 <? endif; ?>
