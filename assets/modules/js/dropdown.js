@@ -1,7 +1,7 @@
 var dropdown = (function(dropdown) {
 
 
-    dropdown.nodes = {};
+    var nodes = {};
 
 
     dropdown.init = function() {
@@ -19,30 +19,30 @@ var dropdown = (function(dropdown) {
 
     var changeDropdown = function (event) {
 
-        if (event.target.parentNode.classList.contains('dropdown') && ! event.target.parentNode.classList.contains('open')) {
-            event.target.parentNode.classList.add('open');
+        if (event.target.parentNode.parentNode.classList.contains('dropdown-block')) {
+            event = event.target.parentNode.parentNode;
+        } else if (event.target.parentNode.classList.contains('dropdown-block')){
+            event = event.target.parentNode;
         } else {
-            event.target.parentNode.classList.remove('open');
+            event = event.target;
         }
 
-        if (event.target.parentNode.parentNode.classList.contains('dropdown') && ! event.target.parentNode.parentNode.classList.contains('open')) {
-            event.target.parentNode.parentNode.classList.add('open');
+        if (event.classList.contains('dropdown-block--open')) {
+            event.classList.remove('dropdown-block--open');
         } else {
-            event.target.parentNode.parentNode.classList.remove('open');
+            event.classList.add('dropdown-block--open');
         }
 
     };
 
-
     var openDropdown = function (event) {
-        event.target.classList.add('open');
+        event.target.classList.add('dropdown-block--open');
     };
 
 
     var hideDropdown = function (event) {
-        event.target.classList.remove('open');
+        event.target.classList.remove('dropdown-block--open');
     };
-
 
     return dropdown;
 

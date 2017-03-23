@@ -1,22 +1,22 @@
-<li class="header-mobile_menu_item">
-    <a href="<?=URL::site('organization/' . $organization->id ); ?>" class="header-mobile_menu_item_btn">
+<li class="mobile-menu_item">
+    <a href="<?=URL::site('organization/' . $organization->id ); ?>" class="mobile-menu_item-link">
         <?=$organization->name; ?>
     </a>
 </li>
 <? if($isLogged && $isMember && $isOwner): ?>
-    <li class="header-mobile_menu_item">
-        <a role="button" class="header-mobile_menu_item_btn" data-toggle="collapse" area-control="orgSettings">
+    <li class="mobile-menu_item">
+        <a role="button" class="mobile-menu_item-link" data-toggle="collapse" data-area="orgSettings">
             <i class="fa fa-cog" aria-hidden="true"></i>
             Настройки
         </a>
-        <ul id="orgSettings" class="collapse header-mobile_menu_item_collapse-menu">
-            <li class="header-mobile_menu_item_collapse-menu_item">
-                <a href="<?=URL::site('organization/' . $organization->id . '/settings/main' ); ?>" class="header-mobile_menu_item_collapse-menu_item_btn">
+        <ul id="orgSettings" class="mobile-menu_collapse collapse">
+            <li class="mobile-menu_collapse-item">
+                <a href="<?=URL::site('organization/' . $organization->id . '/settings/main' ); ?>" class="mobile-menu_collapse-link">
                     Об организации
                 </a>
             </li>
-            <li class="header-mobile_menu_item_collapse-menu_item">
-                <a href="<?=URL::site('organization/' . $organization->id . '/settings/team' ); ?>" class="header-mobile_menu_item_collapse-menu_item_btn">
+            <li class="mobile-menu_collapse-item">
+                <a href="<?=URL::site('organization/' . $organization->id . '/settings/team' ); ?>" class="mobile-menu_collapse-link">
                     Сотрудники
                 </a>
             </li>
@@ -26,16 +26,16 @@
 <? endif; ?>
 
 <? if($isLogged && $isMember): ?>
-    <li class="header-mobile_menu_item">
-        <a href="<?=URL::site('event/new'); ?>" class="header-mobile_menu_item_btn">
+    <li class="mobile-menu_item">
+        <a href="<?=URL::site('event/new'); ?>" class="mobile-menu_item-link">
             Создать мероприятие
         </a>
     </li>
 <? endif; ?>
 
 <? if($isLogged && !$isMember): ?>
-    <li class="header-mobile_menu_item">
-        <a href="<?=URL::site('organization/new'); ?>"  class="header-mobile_menu_item_btn">
+    <li class="mobile-menu_item">
+        <a href="<?=URL::site('organization/new'); ?>"  class="mobile-menu_item-link">
             Создать организацию
         </a>
     </li>

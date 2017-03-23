@@ -1,7 +1,7 @@
 var collapse = (function(collapse) {
 
 
-    collapse.nodes = {};
+    var nodes = {};
 
 
     collapse.init = function() {
@@ -14,7 +14,7 @@ var collapse = (function(collapse) {
             for (var i = 0; i < collapse.nodes.length; i++) {
 
                 nodeBtn = collapse.nodes[i];
-                nodeList = document.getElementById(collapse.nodes[i].getAttribute('area-control'));
+                nodeList = document.getElementById(collapse.nodes[i].dataset.area);
 
                 if (checkCollapse(nodeBtn)){
                     addCollapse(nodeBtn, nodeList);
@@ -33,8 +33,7 @@ var collapse = (function(collapse) {
 
     var changeCollapse = function (event) {
         var nodeBtn = event.target,
-            nodeList = document.getElementById(event.target.getAttribute('area-control'));
-
+            nodeList = document.getElementById(event.target.dataset.area);
 
         if (checkCollapse(nodeBtn)){
             addCollapse(nodeBtn, nodeList);
@@ -53,20 +52,20 @@ var collapse = (function(collapse) {
 
 
     var addCollapse = function (nodeBtn, nodeList) {
+        nodeList.style.height = calculateHeight(nodeList) + "px";
+        nodeList.classList.add('collapse--open');
         nodeBtn.classList.remove('collapsed');
-        nodeList.style.height = nodeListHeight(nodeList) + "px";
-        nodeList.classList.add('in');
     };
 
 
     var removeCollapse = function (nodeBtn, nodeList) {
+        nodeList.style = "";
+        nodeList.classList.remove('collapse--open');
         nodeBtn.classList.add('collapsed');
-        nodeList.style.height = "0";
-        nodeList.classList.remove('in');
     };
 
 
-    var nodeListHeight = function (nodeList) {
+    var calculateHeight = function (nodeList) {
         var height = 0;
         for (var i = 0; i < nodeList.childNodes.length; i++) {
             if (nodeList.childNodes[i].className) {

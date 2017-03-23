@@ -2,16 +2,13 @@
  * Collapse Style
  */
 .collapse{
+    height:0;
+    visibility: hidden;
     display: block;
     overflow: hidden;
-    visibility: hidden;
-    transition-property: height, visibility;
-    transition-duration: .35s;
-    transition-timing-function: ease;
-    -webkit-transition-property: height, visibility;
-    -webkit-transition-duration: .35s;
-    -webkit-transition-timing-function: ease;
+    transition: height ease .35s, visibility ease .35s;
 }
-.collapse.in{
+
+.collapse--open{
     visibility: visible;
 }

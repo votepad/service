@@ -2722,12 +2722,12 @@ section:after, section:before,
 }
 
 
-fl_r{
+.fl_r{
 	float: right !important;
 }
-fl_l{
+.fl_l{
 	float: left !important;
 }
-fl_n{
+.fl_n{
 	float: none !important;
 }
