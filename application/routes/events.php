@@ -31,9 +31,9 @@ Route::set('CHECK_EVENT_WEBSITE', 'events/check/<website>',
  *
  * @property String $organizationpage - organization local website (without nwe.ru afterfix)
  */
-Route::set('NEW_EVENT', '<organizationpage>/event/new',
+Route::set('NEW_EVENT', '/organization/<id>/event/new',
     array(
-        'organizationpage' => $STRING
+        'id' => $DIGIT
     ))
     ->defaults(array(
         'controller' => 'Events_Index',
@@ -60,20 +60,11 @@ Route::set('ADD_EVENT', 'event/add')
  *
  * @example http://pronwe.ru/ifmo/miss
  */
-Route::set('EVENTPAGE_MAIN', '<organizationpage>/<eventpage>(/<action>)',
+Route::set('EVENTPAGE_MAIN', 'event/<id>(/<action>)',
     array(
-        'organizationpage' => $STRING,
-        'eventpage' => $STRING,
+        'id' => $DIGIT,
         'action' => $STRING
     ))
-    ->filter(function(Route $route, $params, Request $request) {
-
-        $website = Arr::get($params, 'organizationpage');
-
-        if (!Methods_Organizations::isOrganizationWebsiteExists($website))
-            return false;
-
-    })
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'landing'

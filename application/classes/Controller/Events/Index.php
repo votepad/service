@@ -118,9 +118,8 @@ class Controller_Events_Index extends Dispatch
         */
         $this->template->footer = View::factory('organizations/blocks/footer');
 
-
-        $team = Model_Organizations::team($this->organization->id);
-        $this->template->team = $team;
+        $org = new Model_Organization($this->organization->id);
+        $this->template->team = $org->getTeam();
     }
 
 
