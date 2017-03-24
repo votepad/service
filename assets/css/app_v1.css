@@ -592,8 +592,10 @@ xmp{
 	font-size: .8em;
 }
 
-a, a:hover, a:focus{
+a{
 	color: #413a41;
+}
+a, a:hover, a:focus{
 	outline: none;
 	text-decoration: none;
 }

@@ -1,17 +1,17 @@
 /**
  * Dropdown Style
  */
-.dropdown-block{
+.dropdown{
     position: relative;
     cursor: pointer;
     float: left;
 }
-.dropdown-btn{
+.dropdown__btn{
     display: inline-block;
     text-align: center;
     float: left;
 }
-.dropdown-menu{
+.dropdown__menu{
     margin-top: 4px;
     font-weight: 400;
     position: absolute;
@@ -30,8 +30,8 @@
     transition: opacity 100ms linear, top 100ms linear, visibility 100ms linear;
     z-index: 10;
 }
-.dropdown-menu:after,
-.dropdown-menu:before {
+.dropdown__menu:after,
+.dropdown__menu:before {
     position: absolute;
     content: '';
     height: 0;
@@ -40,34 +40,35 @@
     right: 25%;
     border: solid transparent;
 }
-.dropdown-menu:before{
+.dropdown__menu:before{
     border-width: 6px;
     border-bottom-color: #BBB;
     margin: 0 -6px;
 }
-.dropdown-menu:after {
+.dropdown__menu:after {
     border-width: 5px;
     border-bottom-color: #fff;
     margin: 0 -5px;
 }
 
-.dropdown-menu--right {
+.dropdown__menu--right {
     right: 0;
 }
-.dropdown-menu--right:after,
-.dropdown-menu--right:before {
+.dropdown__menu--right:after,
+.dropdown__menu--right:before {
     right: 25%;
 }
-.dropdown-menu--left {
+.dropdown__menu--left {
     left: 0;
     right: inherit;
 }
-.dropdown-menu--left:after,
-.dropdown-menu--left:before {
+.dropdown__menu--left:after,
+.dropdown__menu--left:before {
     left: 25%;
     right: inherit;
 }
-.dropdown-block--open .dropdown-menu {
+
+.dropdown--open .dropdown__menu {
     visibility: visible;
     pointer-events: auto;
     opacity: 1;
@@ -75,8 +76,7 @@
     display: block;
     top: calc(100% - 4px);
 }
-
-.dropdown-menu_btn{
+.dropdown__menu-link{
     display: block;
     position: relative;
     height: 30px;
@@ -87,10 +87,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.dropdown-menu_btn > .fa {
+.dropdown__menu-link:hover{
+    background-color: rgba(0,0,0,0.05);
+}
+.dropdown__menu-icon{
     margin-right: 7px;
     color: #008DA7;
-}
-.dropdown-menu_btn:hover{
-    background-color: rgba(0,0,0,0.05);
 }

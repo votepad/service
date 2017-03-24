@@ -1,15 +1,15 @@
 var header = (function(header) {
 
-    var headerWrapper = document.getElementsByClassName('header-wrapper')[0],
+    var headerWrapper = document.getElementsByClassName('header__wrapper')[0],
         headerMenuIcon = document.getElementById('openMobileMenu'),
-        headerBrand = document.getElementsByClassName('header-brand')[0],
-        headerMenu = document.getElementsByClassName('header-menu')[0],
+        headerBrand = document.getElementsByClassName('header__brand')[0],
+        headerMenu = document.getElementsByClassName('header__menu')[0],
+        headerMenuRight = document.getElementsByClassName('header__menu')[1],
         headerMenuItems = [],
-        headerMenuRight = document.getElementsByClassName('header-menu-right')[0],
-        headerMobile = document.getElementsByClassName('header-mobile')[0],
-        headerLinks = document.getElementsByClassName('header-menu_btn'),
-        mobileLinks = document.getElementsByClassName('mobile-menu_item-btn'),
-        mobileCollapseLinks = document.getElementsByClassName('mobile-menu_collapse-btn'),
+        headerMobile = document.getElementsByClassName('mobile')[0],
+        headerLinks = document.getElementsByClassName('header__button'),
+        mobileLinks = document.getElementsByClassName('mobile__menu__link'),
+        mobileCollapseLinks = document.getElementsByClassName('mobile__collapse__link'),
         address = window.location.pathname.split('/'),
         address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
         address4 = address3 + '/' + address[4],
@@ -47,32 +47,28 @@ var header = (function(header) {
      */
     var setActiveClassOnMenuItems = function () {
 
-        /* class="header-menu_btn" */
         for (i = 0; i < headerLinks.length; i++) {
             if (headerLinks[i].href) {
                 btnHref = headerLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
 
                 if ( btnHref.test(address3) ) {
-                    headerLinks[i].classList.add('header-menu_btn--active');
+                    headerLinks[i].classList.add('header__button--active');
                 }
             }
         }
 
-        /* class="mobile-menu_item-btn" */
         for (i = 0; i < mobileLinks.length; i++) {
             if (mobileLinks[i].href) {
                 btnHref = mobileLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
 
                 if (btnHref.test(address3)) {
-                    mobileLinks[i].parentNode.classList.add('mobile-menu_item--active');
-                    mobileLinks[i].classList.add('mobile-menu_item-btn--active');
+                    mobileLinks[i].parentNode.classList.add('mobile__menu__item--active');
+                    mobileLinks[i].classList.add('mobile__menu__link--active');
                 }
             }
         }
-
-        /* class="mobile-menu_collapse-btn" */
 
         for (i = 0; i < mobileCollapseLinks.length; i++) {
             if (mobileCollapseLinks[i].href) {
@@ -80,8 +76,8 @@ var header = (function(header) {
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
                 
                 if (btnHref.test(address4)) {
-                    mobileCollapseLinks[i].parentNode.parentNode.parentNode.classList.add('mobile-menu_item--active');
-                    mobileCollapseLinks[i].classList.add('mobile-menu_collapse-btn--active');
+                    mobileCollapseLinks[i].parentNode.parentNode.parentNode.classList.add('mobile__menu__item--active');
+                    mobileCollapseLinks[i].classList.add('mobile__collapse__link--active');
                 }
             }
         }
@@ -94,11 +90,11 @@ var header = (function(header) {
      * openMobileMenu - open mobile menu on click
      */
     var openMobileMenu = function() {
-        if ( ! headerMenuIcon.classList.contains('header-wrapper_btn--open')) {
-            headerMenuIcon.classList.add('header-wrapper_btn--open');
+        if ( ! headerMenuIcon.parentNode.classList.contains('header__menu-icon--open')) {
+            headerMenuIcon.parentNode.classList.add('header__menu-icon--open');
             document.body.classList.add('modal-open');
-            headerBrand.classList.add('header-brand--active');
-            headerMobile.classList.add('header-mobile--open');
+            headerBrand.classList.add('header__brand--active');
+            headerMobile.classList.add('mobile--open');
             document.body.appendChild(backdrop);
         } else {
             closeMobileMenu();
@@ -110,16 +106,16 @@ var header = (function(header) {
      * closeMobileMenu - close mobile menu on click
      */
     var closeMobileMenu = function() {
-        headerMenuIcon.classList.remove('header-wrapper_btn--open');
+        headerMenuIcon.parentNode.classList.remove('header__menu-icon--open');
         document.body.classList.remove('modal-open');
-        headerBrand.classList.remove('header-brand--active');
-        headerMobile.classList.remove('header-mobile--open');
+        headerBrand.classList.remove('header__brand--active');
+        headerMobile.classList.remove('mobile--open');
         document.getElementsByClassName('modal-backdrop')[0].remove()
     };
 
 
     /**
-     * calculateHeaderMenuWidth - add style.width to `header-menu` and `header-menu--right`
+     * calculateHeaderMenuWidth - add style.width to `header__menu`
      */
     var calculateHeaderMenuWidth = function() {
         var width = headerWrapper.clientWidth - headerMenuIcon.clientWidth - headerBrand.clientWidth - headerMenuRightWidth - 80;
@@ -177,11 +173,11 @@ var header = (function(header) {
                     MenuItem += "<a href='" + headerMenuItems[i].href + "' class='" + headerMenuItems[i].class + "'>" + headerMenuItems[i].text + "</a>";
                 } else {
                     hasAdditional = true;
-                    additionalMenuItem += "<a href='" + headerMenuItems[i].href + "' class='dropdown-menu_btn'>" + headerMenuItems[i].text + "</a>";
+                    additionalMenuItem += "<a href='" + headerMenuItems[i].href + "' class='dropdown__menu-link'>" + headerMenuItems[i].text + "</a>";
                 }
             }
             if (hasAdditional) {
-                headerMenu.innerHTML = MenuItem + '<div class="dropdown-block" data-toggle="dropdown"><a class="header-menu_btn dropdown-btn"><span style="margin-right: 5px">Ещё</span><i class="fa fa-caret-down header_icon" aria-hidden="true"></i></a><div class="dropdown-menu dropdown-menu--right">' + additionalMenuItem + '</div></div>';
+                headerMenu.innerHTML = MenuItem + '<div class="dropdown" data-toggle="dropdown"><a class="header__button dropdown__btn"><span style="margin-right: 5px">Ещё</span><i class="fa fa-caret-down" aria-hidden="true"></i></a><div class="dropdown__menu dropdown__menu--right">' + additionalMenuItem + '</div></div>';
             } else {
                 headerMenu.innerHTML = MenuItem;
             }

@@ -3,12 +3,7 @@
  */
 .collapse{
     height:0;
-    visibility: hidden;
     display: block;
     overflow: hidden;
-    transition: height ease .35s, visibility ease .35s;
-}
-
-.collapse--open{
-    visibility: visible;
+    transition: height ease .35s;
 }

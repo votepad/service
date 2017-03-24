@@ -1,3 +1,47 @@
+.header-home{
+    background: initial;
+    height: 85px;
+    line-height: 85px;
+    position: absolute;
+    box-shadow: none;
+}
+.header-home .header__menu-icon,
+.header-home .header__menu-icon .header__button {
+    width: 60px;
+}
+.header-home .header__menu-icon i{
+    left: 20px;
+    top: 35px
+}
+.header-home .header__menu-icon i:first-child{
+    top: 28px
+}
+.header-home .header__menu-icon i:last-child{
+    top: 42px
+}
+.header-home .header__menu-icon--open i:first-child,
+.header-home .header__menu-icon--open i:last-child {
+    top: 35px;
+}
+.header-home .header__button--hollow{
+    padding: 6px 16px;
+    line-height: 1.5em;
+    border: 1px solid #FCFCFC;
+    border-radius: 3px;
+    margin: 25px 0 25px 5px;
+    background: 0;
+    box-shadow: none;
+}
+.header-home .header__button--hollow:hover,
+.header-home .header__button--hollow:focus{
+    background: #008DA7;
+}
+.header-home .mobile__menu{
+    margin-top: 85px;
+}
+
+
+
 
 section{
     margin-top: 65px;

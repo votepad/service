@@ -1,6 +1,6 @@
 
-<li class="header-mobile_menu_item">
-    <a href="#events" class="header-mobile_menu_item_btn toEvents">
+<li class="mobile__menu__item">
+    <a href="#events" class="mobile__menu__link toEvents">
         Мероприятия
     </a>
 </li>
