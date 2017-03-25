@@ -31,7 +31,7 @@ var header = (function(header) {
         setActiveClassOnMenuItems();
         createHeaderMenuItems();
         calculateHeaderMenuWidth();
-        changeHeaderMenuItems();
+        //changeHeaderMenuItems();
         headerWrapper.style.opacity = "1";
     };
 
@@ -123,7 +123,7 @@ var header = (function(header) {
         if (width > 0) {
             headerMenu.style.width = width + "px";
         } else {
-            headerMenu.style.width = 0 + "px";
+            headerMenu.style.width = "0";
         }
 
     };

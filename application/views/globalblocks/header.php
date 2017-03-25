@@ -24,12 +24,12 @@
             <i class="fa fa-caret-down" aria-hidden="true"></i>
         </a>
         <div class="dropdown__menu dropdown__menu--right">
-            <a href="<?= URL::site('user/'.$user->id) ?>" class="dropdown__menu-link">
-                <i class="fa fa-user dropdown__menu-icon" aria-hidden="true"></i>
+            <a href="<?= URL::site('user/'.$user->id) ?>" class="dropdown__link">
+                <i class="fa fa-user dropdown__icon" aria-hidden="true"></i>
                 Профиль
             </a>
-            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="dropdown__menu-link">
-                <i class="fa fa-sign-out dropdown__menu-icon" aria-hidden="true"></i>
+            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="dropdown__link">
+                <i class="fa fa-sign-out dropdown__icon" aria-hidden="true"></i>
                 Выйти
             </a>
         </div>

@@ -82,7 +82,7 @@
 }
 
 
-.dropdown__menu-link{
+.dropdown__link{
     display: block;
     position: relative;
     height: 30px;
@@ -93,10 +93,10 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.dropdown__menu-link:hover{
+.dropdown__link:hover{
     background-color: rgba(0,0,0,0.05);
 }
-.dropdown__menu-icon{
+.dropdown__icon{
     margin-right: 7px;
     color: #008DA7;
 }
