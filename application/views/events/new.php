@@ -59,24 +59,24 @@
             <div class="form_newevent_body-wrapper">
                 <div id="step1" class="row col-xs-3 form_newevent_body-wrapper-item">
                     <div class="input-field col-xs-12">
-                        <input type="text" id="event_name" name="event_name" length="100" placeholder="Например: Мисс ИТМО">
-                        <label for="event_name">Название мероприятия</label>
+                        <input type="text" id="name" name="name" length="100" placeholder="Например: Мисс ИТМО">
+                        <label for="name">Название мероприятия</label>
                         <span class="help-block">Название будет отображено на странице с результатами мероприятия.</span>
                     </div>
                     <div class="input-field col-xs-12">
-                        <input type="text" id="event_site" name="event_site" class="vp_site vp_site-event" length="38" data-orgwebsite="" placeholder="Например: http://votepad.ru/miss2017">
-                        <label for="event_site">Страница мероприятия</label>
+                        <input type="text" id="site" name="site" class="vp_site vp_site-event" length="38" data-orgwebsite="" placeholder="Например: http://votepad.ru/miss2017">
+                        <label for="site">Страница мероприятия</label>
                         <span class="help-block">По этому адресу будет доступна страница в системе votepad.</span>
                     </div>
                 </div>
                 <div id="step2" class="row col-xs-3 form_newevent_body-wrapper-item">
     				<div class="input-field col-xs-12">
-    					<textarea id="event_desc" name="event_desc" length="300" tabindex="-1" placeholder="описание"></textarea>
-						<label for="event_desc">Описание мероприятия</label>
+    					<textarea id="desc" name="desc" length="300" tabindex="-1" placeholder="описание"></textarea>
+						<label for="desc">Описание мероприятия</label>
     					<span class="help-block">Напишите основную информацию о мероприятии. По этой информации Ваше мероприятие будет проще найти через поиск.</span>
     				</div>
 					<div class="input-field col-xs-12">
-						<select id="keywords" name="event_keywords[]" multiple="multiple" tabindex="-1"></select>
+						<select id="keywords" name="keywords[]" multiple="multiple" tabindex="-1"></select>
 						<label for="keywords" style="padding-left: 15px">Хэш-теги меропрития</label>
 					</div>
     			</div>

@@ -19,6 +19,16 @@ Route::set('NEW_ORGANIZATION', 'organization/new')
     ));
 
 /**
+ * Route for form execution. Saves data
+ * Inserts to database
+ */
+Route::set('ADD_ORGANIZATION', 'organization/add')
+    ->defaults(array(
+        'controller' => 'Organizations_Modify',
+        'action'     => 'add'
+    ));
+
+/**
  * Route for making organization removed (flag = 1)
  * Only XMLHTTP requests
  *
@@ -49,7 +59,7 @@ Route::set('REESTABLISH_ORGANIZATION', 'organization/<id>/reestablish',
  *
  * @property int $id - organization identifier
  */
-Route::set('SHOW_ORGANIZATION', 'organization/<id>',
+Route::set('SHOW_ORGANIZATION', 'organization(/<id>)',
     array(
         'id' => $DIGIT
     ))
@@ -87,6 +97,23 @@ Route::set('UPDATE_ORGANIZATION', 'organization/<id>/update',
     ))
     ->defaults(array(
         'controller' => 'Organizations_Modify',
+        'action'     => 'update'
+    ));
+
+/**
+ * Route for management
+ * only for XMLHTTP requests
+ * updates any fields with ajax
+ *
+ * @property $id - organization identifier
+ * @returns Boolean json encoded response
+ */
+Route::set('UPDATE_ORGANIZATION_FIELDS', 'organization/<id>/update_with_ajax',
+    array(
+        'id' => $DIGIT
+    ))
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
         'action'     => 'update'
     ));
 

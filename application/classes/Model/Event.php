@@ -10,7 +10,7 @@ class Model_Event extends Model
     public $id;
 
     /**
-     * @var $organization [Model_Organization]
+     * @var $organization [Number] id
      */
     public $organization;
 
@@ -30,6 +30,10 @@ class Model_Event extends Model
     public $description;
 
     /**
+     * @var $tags [JSON]
+     */
+    public $tags;
+    /**
      * @var $address [String]
      */
     public $address;
@@ -48,7 +52,7 @@ class Model_Event extends Model
     /**
      * @var $is_published [Bool]
      */
-    public $is_published;
+    public $is_published = 0;
 
     /*
      * @var $dt_create [Date]

@@ -16,31 +16,29 @@ class Controller_Events_Modify extends Controller
     {
         if ($this->request->method() == Request::POST) {
 
-            $event_name         = Arr::get($_POST, 'event_name', '');
-            $event_site         = Arr::get($_POST, 'event_site', '');
-            $event_description  = Arr::get($_POST, 'event_desc', '');
-            $event_keywords     = Arr::get($_POST, 'event_keywords', '');
-            $event_start        = Arr::get($_POST, 'datestart', '');
-            $event_end          = Arr::get($_POST, 'dateend', '');
-            $event_address      = Arr::get($_POST, 'address_coords', '');
-            $id_organization = Arr::get($_POST, 'id_organization', '');
+            $title         = Arr::get($_POST, 'name', '');
+            $uri         = Arr::get($_POST, 'site', '');
+            $description  = Arr::get($_POST, 'desc', '');
+            $keywords     = Arr::get($_POST, 'keywords', '');
+            $start        = Arr::get($_POST, 'datestart', '');
+            $end          = Arr::get($_POST, 'dateend', '');
+            $address      = Arr::get($_POST, 'address_coords', '');
+            $id_organization    = Arr::get($_POST, 'id_organization', '');
 
-            $event = new Model_Events();
+            $event = new Model_Event();
 
-            $event->name              = $event_name;
-            $event->page              = $event_site;
-            $event->short_description = $event_description;
-            $event->full_description  = '';
-            $event->keywords          = $event_keywords;
-            $event->start_time        = $event_start;
-            $event->end_time          = $event_end;
-            $event->address           = $event_address;
+            $event->title        = $title;
+            $event->uri          = $uri;
+            $event->description  = $description;
+            $event->tags         = $keywords;
+            $event->dt_start     = $start;
+            $event->dt_end       = $end;
+            $event->address      = $address;
+            $event->organization = $id_organization;
 
-            $result = $event->save();
+            $event = $event->save();
 
-            $event->addToOrganization($id_organization, $event->id);
-
-            $this->request->redirect('event/' . $event->name);
+            $this->redirect('event/' . $event->id . '/manage/event');
 
         } else {
 

@@ -68,21 +68,14 @@ class Controller_Events_Index extends Dispatch
 
         parent::before();
 
-
-        $organizationPage = $this->request->param('organizationpage');
-        $this->organization = Model_Organization::getByFieldName('website', $organizationPage);
+        $id = $this->request->param('id');
+        $this->event = new Model_Event($id);
+        $this->organization = new Model_Organization($this->event->organization);
 
         /**
          * Organization info
          */
         $this->template->organization = $this->organization;
-
-
-        /**
-         * @var 'eventpage' - event website
-         */
-        $eventPage = $this->request->param('eventpage');
-        //$this->event = Model_Events::getByFieldName('page', $eventPage);
 
         /**
          * Event info
@@ -93,9 +86,9 @@ class Controller_Events_Index extends Dispatch
             //throw new HTTP_Exception_404();
         }
 
-        $this->template->top = View::factory('/events/blocks/top_navigation')
+        /*$this->template->top = View::factory('/events/blocks/top_navigation')
             ->set('organizationPage', $organizationPage)
-            ->set('eventPage', $eventPage);
+            ->set('eventPage', $eventPage);*/
 
     }
 
@@ -111,7 +104,7 @@ class Controller_Events_Index extends Dispatch
         * + authorization modal
         */
         $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu', '')//View::factory('organizations/blocks/header_menu'))
+            ->set('header_menu', '')
             ->set('auth_modal', View::factory('globalblocks/auth_modal'))
             ->set('organization', $this->organization);
 
@@ -120,8 +113,7 @@ class Controller_Events_Index extends Dispatch
         */
         $this->template->footer = View::factory('globalblocks/footer');
 
-        $org = new Model_Organization($this->organization->id);
-        $this->template->team = array($this->user);//$org->getTeam();
+
     }
 
 
@@ -133,8 +125,8 @@ class Controller_Events_Index extends Dispatch
     {
         $this->template->main_section = View::factory('events/manage/main');
         $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')
-                ->set('organizationPage', $this->organization->website)
-                ->set('eventPage', $this->event->page);
+                ->set('organizationPage', $this->organization->uri)
+                ->set('eventPage', $this->event->uri);
     }
 
 

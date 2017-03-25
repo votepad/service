@@ -111,10 +111,9 @@ $callback = function(Route $route, $params, Request $request){
     }
 };
 
-Route::set('EVENT_MANAGEMENT', '<organizationpage>/<eventpage>/<section>(/<action>)',
+Route::set('EVENT_MANAGEMENT', 'event/<id>/<section>(/<action>)',
     array(
-        'organizationpage' => $STRING,
-        'eventpage' => $STRING,
+        'id' => $DIGIT,
         'section' => 'manage|control|pattern|members',
         'action' => $STRING
     ))
