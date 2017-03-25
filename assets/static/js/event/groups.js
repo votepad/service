@@ -276,7 +276,7 @@ $(document).ready(function() {
             return el.text;
         }
         var $el = $(
-            '<span class="select2-results__withlogo"><img src="' + url + '/' + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
+            '<span class="select2-results__withlogo"><img src="/" class="select2-results__logo" ' + url + '/' + el.element.dataset.logo + '> <span class="select2-results__text">' + el.text + '</span></span>'
         );
         return $el;
     };

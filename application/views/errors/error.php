@@ -4,8 +4,8 @@
 		<meta charset="utf-8">
 		<title>Ошибка <?= $code; ?>. Неверный запрос</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel='stylesheet' href="<?=URL::base(). 'assets/css/error.css'; ?>">
-		<link rel='stylesheet' href="<?=URL::base(). 'assets/css/app_v1.css'; ?>">
+		<link rel='stylesheet' href="<?=URL::base(). 'assets/static/css/error.css'; ?>">
+		<link rel='stylesheet' href="<?=URL::base(). 'assets/static/css/app_v1.css'; ?>">
 	</head>
 	<body class="valign error_block">
 		<div class="center">
