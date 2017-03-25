@@ -1,75 +1,67 @@
 var collapse = (function(collapse) {
 
 
-    var nodes = {};
+    var nodes = [];
 
 
     collapse.init = function() {
 
-        collapse.nodes = document.querySelectorAll('[data-toggle="collapse"]');
+        nodes = document.querySelectorAll('[data-toggle="collapse"]');
 
-        if (collapse.nodes.length > 0) {
-            var nodeBtn, nodeList;
+        if (nodes.length > 0) {
 
-            for (var i = 0; i < collapse.nodes.length; i++) {
+            for (var i = 0; i < nodes.length; i++) {
 
-                nodeBtn = collapse.nodes[i];
-                nodeList = document.getElementById(collapse.nodes[i].dataset.area);
-
-                if (checkCollapse(nodeBtn)){
-                    addCollapse(nodeBtn, nodeList);
-                } else {
-                    removeCollapse(nodeBtn, nodeList);
+                nodes[i].addEventListener('click', toogle, false);
+                
+                if(nodes[i].dataset.opened == "true") {
+                    openCollapse(nodes[i], document.getElementById(nodes[i].dataset.area));
                 }
 
-                collapse.nodes[i].addEventListener('click', changeCollapse, false);
-
             }
-
         }
 
     };
 
 
-    var changeCollapse = function (event) {
-        var nodeBtn = event.target,
-            nodeList = document.getElementById(event.target.dataset.area);
+    var toogle = function (event) {
+        var btn = event.target,
+            list = document.getElementById(btn.dataset.area);
 
-        if (checkCollapse(nodeBtn)){
-            addCollapse(nodeBtn, nodeList);
+        console.log(btn.dataset.opened);
+        if (btn.dataset.opened == "false") {
+            btn.dataset.opened = "true";
+            openCollapse(btn,list);
         } else {
-            removeCollapse(nodeBtn, nodeList);
+            btn.dataset.opened = "false";
+            hideCollapse(btn,list);
         }
 
     };
 
 
-    var checkCollapse = function (nodeBtn) {
-        if (nodeBtn.classList.contains('collapsed'))
-            return true;
-        return false;
+    var openCollapse = function (btn, list) {
+
+        if (!list.dataset.height)
+            list.dataset.height = calculateHeight(list);
+
+        list.style.height = list.dataset.height + "px";
+
     };
 
 
-    var addCollapse = function (nodeBtn, nodeList) {
-        nodeList.style.height = calculateHeight(nodeList) + "px";
-        nodeList.classList.add('collapse--open');
-        nodeBtn.classList.remove('collapsed');
+    var hideCollapse = function (btn, list) {
+
+        list.style.height = "0";
+
     };
 
 
-    var removeCollapse = function (nodeBtn, nodeList) {
-        nodeList.style = "";
-        nodeList.classList.remove('collapse--open');
-        nodeBtn.classList.add('collapsed');
-    };
-
-
-    var calculateHeight = function (nodeList) {
+    var calculateHeight = function (list) {
         var height = 0;
-        for (var i = 0; i < nodeList.childNodes.length; i++) {
-            if (nodeList.childNodes[i].className) {
-                height += nodeList.childNodes[i].clientHeight;
+        for (var i = 0; i < list.childNodes.length; i++) {
+            if (list.childNodes[i].className) {
+                height += list.childNodes[i].clientHeight;
             }
         }
         return height;

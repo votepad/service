@@ -50,7 +50,7 @@
             <? if ($isLogged) : ?>
 
             <li class="mobile__menu__item mobile--show">
-                <a role="button" class="mobile__menu__link" data-toggle="collapse" data-area="userAction">
+                <a role="button" class="mobile__menu__link" data-toggle="collapse" data-area="userAction" data-opened="false">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <?=$user->name; ?>
                 </a>

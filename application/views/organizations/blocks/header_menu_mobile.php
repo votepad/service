@@ -5,7 +5,7 @@
 </li>
 <? if($isLogged && $isMember && $isOwner): ?>
     <li class="mobile__menu__item">
-        <a role="button" class="mobile__menu__link" data-toggle="collapse" data-area="orgSettings">
+        <a role="button" class="mobile__menu__link" data-toggle="collapse" data-area="orgSettings" data-opened="false">
             <i class="fa fa-cog" aria-hidden="true"></i>
             Настройки
         </a>
