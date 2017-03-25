@@ -103,6 +103,11 @@ class Model_Organization extends Model
     public function save()
     {
 
+        Dao_UsersOrganizations::insert()
+            ->set('u_id', $this->owner)
+            ->set('o_id', $this->id)
+            ->execute();
+
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
 
         $insert = Dao_Organizations::insert();
@@ -190,5 +195,65 @@ class Model_Organization extends Model
 
     }
 
+    public function addMember($id) {
+
+        $user = new Model_User($id);
+
+        if (!$user->id) {
+
+            return false;
+
+        }
+
+        Dao_UsersOrganizations::insert()
+            ->set('u_id', $user->id)
+            ->set('o_id', $this->id)
+            ->clearcache('org:' . $this->id)
+            ->clearcache('user:' . $user->id)
+            ->execute();
+
+        return true;
+
+    }
+
+    public function removeMember($id) {
+
+        Dao_UsersOrganizations::delete()
+            ->where('u_id', '=' , $id)
+            ->where('o_id', '=', $this->id)
+            ->clearcache('org:' . $this->id)
+            ->clearcache('user:' . $id)
+            ->execute();
+
+        return true;
+
+    }
+
+    public function isMember($id) {
+
+        return (bool) Dao_UsersOrganizations::select('u_id')
+            ->where('u_id', '=', $id)
+            ->where('o_id', '=', $this->id)
+            ->limit(1)
+            ->execute();
+
+    }
+
+    public function getTeam() {
+
+        $ids = Dao_UsersOrganizations::select('u_id')
+            ->where('o_id', '=', $this->id)
+            ->cached(Date::MINUTE * 5, 'org:' . $this->id)
+            ->execute('u_id');
+
+        $team = array();
+
+        foreach ($ids as $id => $value) {
+            array_push($team, new Model_User($id));
+        }
+
+        return $team;
+
+    }
 
 }

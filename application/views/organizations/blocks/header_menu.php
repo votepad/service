@@ -6,7 +6,7 @@
 <? endif; ?>
 
 <? if($isLogged && $isMember): ?>
-    <a class="header_button" href="<?=URL::site('event/new'); ?>">
+    <a class="header_button" href="<?=URL::site('organization/' . $id . '/newevent'); ?>">
         <span class="header_text">Создать мероприятие</span>
     </a>
 <? endif; ?>

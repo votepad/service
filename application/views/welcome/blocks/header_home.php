@@ -12,7 +12,7 @@
 
 <header class="header header-home">
     <div class="header-wrapper clear_fix">
-        <div class="header_menu-btn-icon left">
+        <div class="header_menu_btnicon left">
             <button id="OpenMobileHeader" class="header_button">
                 <i></i><i></i><i></i>
             </button>
