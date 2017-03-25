@@ -43,25 +43,6 @@ $(document).ready(function(){
          }
      });
 
-    /**
-     * Show/hide dropdown
-     */
-    $('[data-toggle="dropdown"]').mouseover(function () {
-        $(this).addClass('open');
-    });
-    $('[data-toggle="dropdown"]').mouseout(function () {
-        $(this).removeClass('open');
-    });
-    $('[data-toggle="dropdown"]').click(function () {
-        if ( ! $(this).parent().hasClass('open')) {
-            $(this).parent().addClass('open');
-        } else{
-            $(this).parent().removeClass('open');
-        }
-    });
-
-
-
 
     /*
      *  Changing cards Style
