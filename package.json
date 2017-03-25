@@ -1,0 +1,19 @@
+{
+  "name": "votepad",
+  "version": "1.0.0",
+  "description": "service\r Saas model of Pronwe",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProNWE/service.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ProNWE/service/issues"
+  },
+  "homepage": "https://github.com/ProNWE/service#readme"
+}

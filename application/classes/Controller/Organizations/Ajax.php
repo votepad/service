@@ -84,20 +84,144 @@ class Controller_Organizations_Ajax extends Ajax
 
     }
 
-    /**
-     * Updates organization fields by Ajax Request
-     */
-    public function action_update()
-    {
-        $id_organization = $this->request->param('id');
+    public function action_join() {
+
+        $id   = $this->request->param('id');
+
+        $org = new Model_Organization($id);
+
+        if (!$org->id) {
+
+            $response = new Model_Response_Organization('ORGANIZATION_DOES_NOT_EXIST_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
+        if (!$this->user->id) {
+
+            $response = new Model_Response_Auth('AUTHORIZATION_REQUIRED_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
+        $this->redis->sAdd('votepad.orgs:'.$org->id.':join.requests', $this->user->id);
+
+        $response = new Model_Response_Organization('JOIN_REQUEST_SUCCESS', 'success');
+
+        $this->response->body(@json_encode($response->get_response()));
+        return;
 
 
-        $field = Arr::get($_POST, 'field');
-        $value = Arr::get($_POST, 'value');
-
-        $organization = Model_Organizations::get($id_organization, 0);
-        $organization->$field = $value;
-        $organization->save($id_organization);
     }
+
+    public function action_member() {
+
+        $method = $this->request->param('method');
+        $organizationId     = $this->request->param('id');
+        $userId     = $this->request->param('userId');
+
+        $user = new Model_User($userId);
+        $org  = new Model_Organization($organizationId);
+
+        $this->redis->sRem('votepad.orgs:'.$organizationId.':join.requests', $userId);
+
+        if (!$user->id) {
+
+            $response = new Model_Response_Auth('USER_DOES_NOT_EXIST_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+        if (!$org->id) {
+
+            $response = new Model_Response_Organization('ORGANIZATION_DOES_NOT_EXIST_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+        if ($org->isOwner($this->user->id)) {
+
+            $response = new Model_Response_Organization('ACCESS_DENIED_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
+
+        switch($method) {
+            case 'add': $this->addMember($org, $user); break;
+            case 'remove': $this->removeMember($org, $user); break;
+            case 'reject': $this->rejectMember(); break;
+        }
+
+
+
+    }
+
+    private function addMember($org, $user) {
+
+        if ($org->isMember($user->id)) {
+
+            $response = new Model_Response_Organization('USER_IS_ALREADY_MEMBER_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
+        $org->addMember($user->id);
+
+        $response = new Model_Response_Organization('ADD_MEMBER_SUCCESS', 'success');
+
+        $this->response->body(@json_encode($response->get_response()));
+        return;
+
+    }
+
+    private function removeMember($org, $user) {
+
+        if (!$org->isMember($user->id)) {
+
+            $response = new Model_Response_Organization('USER_IS_NOT_MEMBER_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
+        if ($org->isOwner($user->id)) {
+
+            $response = new Model_Response_Organization('USER_IS_OWNER_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
+        $org->removeMember($user->id);
+
+        $response = new Model_Response_Organization('REMOVE_MEMBER_SUCCESS', 'success');
+
+        $this->response->body(@json_encode($response->get_response()));
+        return;
+
+    }
+
+    private function rejectMember() {
+        
+        $response = new Model_Response_Organization('REJECT_MEMBER_SUCCESS', 'success');
+
+        $this->response->body(@json_encode($response->get_response()));
+        return;
+
+    }
+
 
 }

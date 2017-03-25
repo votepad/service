@@ -11,7 +11,6 @@
 
     <!-- =============== VENDOR SCRIPTS ===============-->
   	<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-dropdown.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
   	<script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
   </head>

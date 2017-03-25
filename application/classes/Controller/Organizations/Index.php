@@ -53,6 +53,9 @@ class Controller_Organizations_Index extends Dispatch
             throw new HTTP_Exception_404();
         }
 
+        $this->isOwner  = false;
+        $this->isMember  = false;
+
         /**
          * Organization info
          */
@@ -61,11 +64,8 @@ class Controller_Organizations_Index extends Dispatch
         if ($this->organization->id) {
 
             if ($this->user) {
-                $isOwner  = $this->organization->isOwner($this->user->id);
-                $isMember  = true;//$this->organization->isMember($this->user->id);
-            } else {
-                $isOwner  = false;
-                $isMember  = false;
+                $this->isOwner  = $this->organization->isOwner($this->user->id);
+                $this->isMember  = $this->organization->isMember($this->user->id);
             }
 
             /**
@@ -78,7 +78,8 @@ class Controller_Organizations_Index extends Dispatch
              * Header
              */
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'id' => $this->organization->id, 'isOwner' => $isOwner, 'isMember' => $isMember)))
+                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'organization' => $this->organization, 'isOwner' => $this->isOwner, 'isMember' => $this->isMember)))
+                ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', array( 'organization' => $this->organization, 'isOwner' => $this->isOwner, 'isMember' => $this->isMember)))
                 ->set('auth_modal', View::factory('globalblocks/auth_modal'))
                 ->set('organization', $this->organization);
 
@@ -115,7 +116,9 @@ class Controller_Organizations_Index extends Dispatch
         } else {
 
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', "");
+                ->set('header_menu', "")
+                ->set('header_menu_mobile', "");
+
             $this->template->footer = View::factory('globalblocks/footer');
 
         }
@@ -133,6 +136,10 @@ class Controller_Organizations_Index extends Dispatch
          * Jumbotron Navigation
          */
         $this->template->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
+            ->set('isMember', $this->isMember)
+            ->set('isOwner', $this->isOwner)
+            ->set('isSendRequest', $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests'))
+            ->set('userID', $this->user->id)
             ->set('id', $this->organization->id);
 
         $this->template->main_section = View::factory('organizations/events/main');
@@ -147,7 +154,7 @@ class Controller_Organizations_Index extends Dispatch
     public function action_main()
     {
 
-        if ($this->organization->owner != $this->user->id) {
+        if (!$this->isOwner) {
             throw new HTTP_Exception_403();
         }
 
@@ -173,6 +180,19 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_team()
     {
+
+        if (!$this->isOwner) {
+            throw new HTTP_Exception_403();
+        }
+
+        $this->organization->team = $this->organization->getTeam();
+        $requests_ids = $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests');
+
+        $this->organization->requests = array();
+
+        foreach ($requests_ids as $id) {
+            array_push($this->organization->requests, new Model_User($id));
+        }
 
         /**
          * Jumbotron Navigation

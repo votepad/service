@@ -30,7 +30,10 @@ class Controller_Welcome extends Dispatch
         $this->template->title = "Добро пожаловать | Votepad";
         $this->template->description = "VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря нашему сервису подсчет результатов становится гораздо быстрее и проще. Предлагаемые инструменты включают в себя создание сценария мероприятия любой сложности, контролирование процесса выставления баллов, получение результатов сразу после проставления их экспертным жюри, формирование протокола выставленных баллов, информирование гостей о результатах мероприятия.";
         $this->template->keywords = "Электронное голосование, Экспертное жюри, Деловые игры, Мероприятия, Конкурсы, Выставление баллов, Выбор победителя, Победитель, Результат, Рейтинг, Страница с результатами, votepad, event, competition, business game, judges, rating, vote, results";
-        $this->template->header = View::factory('welcome/blocks/header_home');
+        $this->template->header = View::factory('globalblocks/header')
+                ->set('header_menu', View::factory('welcome/blocks/header_menu'))
+                ->set('header_menu_mobile', View::factory('welcome/blocks/header_menu_mobile'))
+                ->set('auth_modal', View::factory('globalblocks/auth_modal'));
         $this->template->section = View::factory('welcome/landing');
 
         if ($canLogin) {
