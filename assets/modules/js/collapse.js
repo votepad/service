@@ -12,7 +12,7 @@ var collapse = (function(collapse) {
 
             for (var i = 0; i < nodes.length; i++) {
 
-                nodes[i].addEventListener('click', toogle, false);
+                nodes[i].addEventListener('click', toggle, false);
                 
                 if(nodes[i].dataset.opened == "true") {
                     openCollapse(nodes[i], document.getElementById(nodes[i].dataset.area));
@@ -24,16 +24,13 @@ var collapse = (function(collapse) {
     };
 
 
-    var toogle = function (event) {
+    var toggle = function (event) {
         var btn = event.target,
             list = document.getElementById(btn.dataset.area);
 
-        console.log(btn.dataset.opened);
         if (btn.dataset.opened == "false") {
-            btn.dataset.opened = "true";
             openCollapse(btn,list);
         } else {
-            btn.dataset.opened = "false";
             hideCollapse(btn,list);
         }
 
@@ -41,6 +38,7 @@ var collapse = (function(collapse) {
 
 
     var openCollapse = function (btn, list) {
+        btn.dataset.opened = "true";
 
         if (!list.dataset.height)
             list.dataset.height = calculateHeight(list);
@@ -51,9 +49,8 @@ var collapse = (function(collapse) {
 
 
     var hideCollapse = function (btn, list) {
-
+        btn.dataset.opened = "false";
         list.style.height = "0";
-
     };
 
 
