@@ -31,7 +31,7 @@ var header = (function(header) {
         setActiveClassOnMenuItems();
         createHeaderMenuItems();
         calculateHeaderMenuWidth();
-        //changeHeaderMenuItems();
+        changeHeaderMenuItems();
         headerWrapper.style.opacity = "1";
     };
 
@@ -138,7 +138,6 @@ var header = (function(header) {
                 item = {
                     obj: headerMenu.childNodes[i],
                     text: headerMenu.childNodes[i].innerHTML,
-                    class: headerMenu.childNodes[i].className,
                     href: headerMenu.childNodes[i].getAttribute('href'),
                     width: headerMenu.childNodes[i].clientWidth
                 };
@@ -153,15 +152,14 @@ var header = (function(header) {
      */
     var changeHeaderMenuItems = function() {
 
-        headerMenu.innerHTML = "";
         var maxWidth = headerMenu.clientWidth,
             curWidth = 80,
             hasAdditional = false;
 
-        var MenuItem = "",
-            additionalMenuItem = "";
+        var additionalMenuItem ="";
 
         if (window.innerWidth > 992) {
+            headerMenu.classList.remove('hide');
 
             if (document.getElementsByClassName('modal-backdrop')[0]) {
                 closeMobileMenu();
@@ -170,17 +168,23 @@ var header = (function(header) {
             for (i = 0; i < headerMenuItems.length; i++) {
                 if (maxWidth > curWidth + headerMenuItems[i].width) {
                     curWidth += headerMenuItems[i].width;
-                    MenuItem += "<a href='" + headerMenuItems[i].href + "' class='" + headerMenuItems[i].class + "'>" + headerMenuItems[i].text + "</a>";
+                    headerMenuItems[i].obj.classList.remove('hide');
                 } else {
                     hasAdditional = true;
-                    additionalMenuItem += "<a href='" + headerMenuItems[i].href + "' class='dropdown__menu-link'>" + headerMenuItems[i].text + "</a>";
+                    headerMenuItems[i].obj.classList.add('hide');
+                    additionalMenuItem += "<a href='" + headerMenuItems[i].href + "' class='dropdown__link'>" + headerMenuItems[i].text + "</a>";
                 }
             }
+
             if (hasAdditional) {
-                headerMenu.innerHTML = MenuItem + '<div class="dropdown" data-toggle="dropdown"><a class="header__button dropdown__btn"><span style="margin-right: 5px">Ещё</span><i class="fa fa-caret-down" aria-hidden="true"></i></a><div class="dropdown__menu dropdown__menu--right">' + additionalMenuItem + '</div></div>';
+                document.getElementById('additionalMenuItem').parentNode.classList.remove('hide');
+                document.getElementById('additionalMenuItem').innerHTML = additionalMenuItem;
             } else {
-                headerMenu.innerHTML = MenuItem;
+                document.getElementById('additionalMenuItem').parentNode.classList.add('hide');
             }
+
+        } else {
+            headerMenu.classList.add('hide');
         }
 
         if (window.innerWidth < 460) {
@@ -188,6 +192,7 @@ var header = (function(header) {
         } else {
             headerMenuRight.classList.remove('hide')
         }
+
     };
 
 
