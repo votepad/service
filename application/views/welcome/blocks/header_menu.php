@@ -1,8 +1,7 @@
-<? if ($isLogged) : ?>
-<a class="header__button header__button--hover" href="<?=URL::site('organization/new'); ?>">
-    Создать организацию
+
+<a href="/#events" class="header__button header__button--hover header__button--hollow toEvents" tabindex="2">
+    Мероприятия
 </a>
-<? endif; ?>
 
 <div class="dropdown hide" data-toggle="dropdown">
     <a class="header__button dropdown__btn">
