@@ -59,20 +59,20 @@
             <div class="form_newevent_body-wrapper">
                 <div id="step1" class="row col-xs-3 form_newevent_body-wrapper-item">
                     <div class="input-field col-xs-12">
-                        <input type="text" id="event_name" name="event_name" length="100">
+                        <input type="text" id="event_name" name="event_name" length="100" placeholder="Например: Мисс ИТМО">
                         <label for="event_name">Название мероприятия</label>
                         <span class="help-block">Название будет отображено на странице с результатами мероприятия.</span>
                     </div>
                     <div class="input-field col-xs-12">
-                        <input type="text" id="event_site" name="event_site" class="vp_site vp_site-event" length="38" data-orgwebsite="<?=$organization->website; ?>">
+                        <input type="text" id="event_site" name="event_site" class="vp_site vp_site-event" length="38" data-orgwebsite="" placeholder="Например: http://votepad.ru/miss2017">
                         <label for="event_site">Страница мероприятия</label>
-                        <span class="help-block">По этому адресу будет доступна страница с результатами!</span>
+                        <span class="help-block">По этому адресу будет доступна страница в системе votepad.</span>
                     </div>
                 </div>
                 <div id="step2" class="row col-xs-3 form_newevent_body-wrapper-item">
     				<div class="input-field col-xs-12">
-    					<textarea id="event_desc" name="event_desc" length="300" tabindex="-1"></textarea>
-						<label for="event_desc">Раскажите о мероприятии</label>
+    					<textarea id="event_desc" name="event_desc" length="300" tabindex="-1" placeholder="описание"></textarea>
+						<label for="event_desc">Описание мероприятия</label>
     					<span class="help-block">Напишите основную информацию о мероприятии. По этой информации Ваше мероприятие будет проще найти через поиск.</span>
     				</div>
 					<div class="input-field col-xs-12">
@@ -90,7 +90,7 @@
 						<label for="dateendWidget" class="active">Дата завершения</label>
 					</div>
 					<div class="input-field col-xs-12">
-						<textarea id="address" name="address" length="200" tabindex="-1"></textarea>
+						<textarea id="address" name="address" length="200" tabindex="-1" placeholder="1"></textarea>
 						<label for="address">Адрес</label>
 						<span class="help-block">Укажите, где будет проходить мероприятие. Эта информация отразится на странице мероприятия.</span>
 					</div>
@@ -98,16 +98,6 @@
 					<input type="hidden" id="dateend" name="dateend">
 				</div>
 				<div id="step4" class="row col-xs-3 form_newevent_body-wrapper-item">
-    				<div class="input-field col-xs-12">
-						<select id="users" name="users" class="" multiple="multiple" tabindex="-1">
-							<? foreach($team as $user) : ?>
-								<option value="<?=$user->id; ?>"><?=$user->lastname. ' ' .$user->name; ?></option>
-							<? endforeach; ?>
-						</select>
-						<label for="users" style="padding-left: 15px">Ответственные лица</label>
-						<span class="help-block">Ответственные лица - члены команды, которым разрешено редактировать мероприятие.</span>
-
-    				</div>
     				<div class="col-xs-12">
     					<input type="checkbox" id="confirmrools" name="confirmrools" tabindex="-1">
     					<label for="confirmrools">

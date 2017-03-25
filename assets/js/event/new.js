@@ -8,7 +8,7 @@ $(document).ready(function() {
 		currentStep,
 		currentStepBlock,
 		currentStepElement = [],
-		progressWidth = 0,
+		progressWidth = 100,
 		elements = [
 			{
 				proc: "20",
@@ -85,7 +85,7 @@ $(document).ready(function() {
 	*/
 	 $('#btnsubmit').click(function () {
 
-		 var isFormInvalid = false, id;
+/*		 var isFormInvalid = false, id;
 		 $('.form_newevent input, textarea').each(function(){
 			 id = $(this).attr('id');
 			 if (isFormInvalid == false && id != undefined && $(this).attr('type') != 'hidden') {
@@ -110,9 +110,9 @@ $(document).ready(function() {
 		 });
 
 		 if ( isFormInvalid == false ) {
-			 $("#event_site").inputmask('remove');
+			 $("#event_site").inputmask('remove');*/
 			 $('.form_newevent')[0].submit();
-		 }
+		 //}
 	 });
 
 
@@ -208,7 +208,7 @@ $(document).ready(function() {
 			$el.removeClass('invalid');
 			if ( elements[i].flag == false ) {
 				elements[i].flag = true;
-				changeProgress(elements[i].proc, 'add');
+				//changeProgress(elements[i].proc, 'add');
 			}
 
 		} else if ( status == "invalid" ) {
@@ -216,7 +216,7 @@ $(document).ready(function() {
 			$el.addClass('invalid');
 			if ( elements[i].flag == true ) {
 				elements[i].flag = false;
-				changeProgress(elements[i].proc, 'remove');
+				//changeProgress(elements[i].proc, 'remove');
 			}
 
 		} else if ( status == "check" ) {
@@ -264,7 +264,7 @@ $(document).ready(function() {
 			$('#btnsubmit').addClass('displaynone');
 		}
 	}
-
+    $('#btnsubmit').removeClass('displaynone');
 
 
 	/**
@@ -272,7 +272,7 @@ $(document).ready(function() {
 	* - inputmask
 	* - datetimepicker
 	* - select2
-  	*/
+  	*
 
 	$("#event_name").inputmask({
 	    mask: '*{1,60}',
@@ -320,7 +320,7 @@ $(document).ready(function() {
 
 				/*
 				**  Checking event website in DB
-				*/
+				*
 			$.when(
 				$.ajax({
 					url: url + '/events/check/' + website,
@@ -351,7 +351,7 @@ $(document).ready(function() {
   	});
 
 
-	$("#event_desc").inputmask({
+	/*$("#event_desc").inputmask({
 		mask: '*{1,300}',
 		definitions: {
 			'*': {
@@ -366,7 +366,7 @@ $(document).ready(function() {
 		onincomplete: function(){
 			isElementInvalid($(this), "invalid");
 		}
-	});
+	});*
 
 
 	$('#datestartWidget').datetimepicker({
@@ -439,5 +439,5 @@ $(document).ready(function() {
     	else
       		isElementInvalid($(this), "invalid");
   	});
-
+*/
 });
