@@ -246,7 +246,7 @@ $(document).ready(function () {
                 error: function() {
                     removePreLoader();
                 }
-            }
+            };
 
             ajax.send(ajaxData);
 
@@ -266,7 +266,7 @@ $(document).ready(function () {
                 id          = parseInt(response.id);
 
             if (id) {
-                window.location.replace(protocol+'//'+host+'/user/'+id);
+                window.location.replace(protocol + '//' + host + '/user/' + id);
             } else {
                 $.notify({
                         message: 'Произошла ошибка'
@@ -313,7 +313,7 @@ $(document).ready(function () {
                 id          = parseInt(response.id);
 
             if (id) {
-                window.location.replace(protocol+'//'+host+'/user/'+id);
+                window.location.replace(protocol + '//' + host + '/user/' + id);
             } else {
                 $.notify({
                     message: 'Произошла ошибка'

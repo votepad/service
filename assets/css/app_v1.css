@@ -945,7 +945,7 @@ a, a:hover, a:focus{
 
 .card_content-text{
     width: 100%;
-	word-break: break-word;
+	word-break: break-all;
     position: relative;
 }
 
@@ -2531,9 +2531,6 @@ section:after, section:before,
 .alert-danger .alert-link {
 	color: #843534;
 }
-
-
-
 
 
 .divider {

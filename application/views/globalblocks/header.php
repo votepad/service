@@ -41,27 +41,26 @@
             Войти
         </a>
         <? endif; ?>
-
     </div>
-
-    <div class="mobile">
-        <ul class="mobile__menu">
+    
+    <div class="mobile-aside">
+        <ul class="mobile-aside__menu">
 
             <? if ($isLogged) : ?>
 
-            <li class="mobile__menu__item mobile--show">
-                <a role="button" class="mobile__menu__link" data-toggle="collapse" data-area="userAction" data-opened="false">
+            <li class="mobile-aside__menu__item mobile-aside--show">
+                <a role="button" class="mobile-aside__menu-link" data-toggle="collapse" data-area="userAction" data-opened="false">
                     <i class="fa fa-user" aria-hidden="true"></i>
                     <?=$user->name; ?>
                 </a>
-                <ul id="userAction" class="mobile__collapse collapse">
-                    <li class="mobile__collapse__item">
-                        <a href="<?= URL::site('user/'.$user->id) ?>" class="mobile__collapse__link">
+                <ul id="userAction" class="mobile-aside__collapse collapse">
+                    <li class="mobile-aside__collapse__item">
+                        <a href="<?= URL::site('user/'.$user->id) ?>" class="mobile-aside__collapse-link">
                             Профиль
                         </a>
                     </li>
-                    <li class="mobile__collapse__item">
-                        <a href="<?=URL::site('sign/organizer/logout'); ?>" class="mobile__collapse__link">
+                    <li class="mobile-aside__collapse__item">
+                        <a href="<?=URL::site('sign/organizer/logout'); ?>" class="mobile-aside__collapse-link">
                             Выйти
                         </a>
                     </li>
@@ -70,14 +69,14 @@
 
             <? else : ?>
 
-            <li class="mobile__menu__item mobile--show">
-                <a class="mobile__menu__link" data-toggle="modal" data-target="#auth_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+            <li class="mobile-aside__menu__item mobile-aside--show">
+                <a class="mobile-aside__menu-link" data-toggle="modal" data-target="#auth_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
                     Войти
                 </a>
             </li>
 
-            <li class="mobile__menu__item mobile--show">
-                <a class="mobile__menu__link" data-toggle="modal" data-target="#registr_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+            <li class="mobile-aside__menu__item mobile-aside--show">
+                <a class="mobile-aside__menu-link" data-toggle="modal" data-target="#registr_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
                     Регистрация
                 </a>
             </li>

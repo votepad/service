@@ -33,6 +33,12 @@ class Model_Response_Auth extends Model_Response_Abstract
         'message' => 'Success login'
     );
 
+    protected $_AUTHORIZATION_REQUIRED_ERROR = array(
+        'type' => 'login',
+        'code' => '15',
+        'message' => 'Authorization required'
+    );
+
     protected $_USER_DOES_NOT_EXIST_ERROR = array (
         'type' => 'login',
         'code' => '15',

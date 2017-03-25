@@ -127,7 +127,7 @@
 }
 
 
-.mobile{
+.mobile-aside{
     position: fixed;
     top:0;
     bottom: 0;
@@ -138,12 +138,12 @@
     transition: left ease .5s;
     z-index: 110;
 }
-.mobile--open{
+.mobile-aside--open{
     overflow-y: auto;
     left: 0;
 }
 
-.mobile__menu{
+.mobile-aside__menu{
     position: absolute;
     overflow: hidden;
     line-height: normal;
@@ -156,37 +156,37 @@
     border-top: 1px solid #EEEEEE;
 }
 
-.mobile__collapse{
+.mobile-aside__collapse{
     padding-left: 25px;
 }
 
-.mobile__menu__link,
-.mobile__collapse__link{
+.mobile-aside__menu-link,
+.mobile-aside__collapse-link{
     display: block;
     padding: 10px;
     overflow: hidden;
     white-space: nowrap;
     text-overflow: ellipsis;
 }
-.mobile__menu__item--active{
+.mobile-aside__menu__item--active{
     background: rgba(0,0,0,0.02);
     border-left: 2px solid #008DA7;
 }
-.mobile__menu__link .fa {
+.mobile-aside__menu-link .fa {
     width: 15px;
     margin-right: 5px;
 }
 
-.mobile__menu__link:hover,
-.mobile__menu__link:focus,
-.mobile__menu__link--active,
-.mobile__collapse__link:hover,
-.mobile__collapse__link:focus,
-.mobile__collapse__link--active{
+.mobile-aside__menu-link:hover,
+.mobile-aside__menu-link:focus,
+.mobile-aside__menu-link--active,
+.mobile-aside__collapse-link:hover,
+.mobile-aside__collapse-link:focus,
+.mobile-aside__collapse-link--active{
     color: #008DA7;
 }
 
-.mobile--show{
+.mobile-aside--show{
     display: none;
 }
 
@@ -202,7 +202,7 @@
 }
 
 @media (max-width: 460px) {
-    .mobile--show{
+    .mobile-aside--show{
         display: block;
     }
 }

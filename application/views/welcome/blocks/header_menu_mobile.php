@@ -1,6 +1,6 @@
 
-<li class="mobile__menu__item">
-    <a href="#events" class="mobile__menu__link toEvents">
+<li class="mobile-aside__menu__item">
+    <a href="#events" class="mobile-aside__menu-link toEvents">
         Мероприятия
     </a>
 </li>
