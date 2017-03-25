@@ -86,9 +86,8 @@ class Controller_Events_Index extends Dispatch
             //throw new HTTP_Exception_404();
         }
 
-        /*$this->template->top = View::factory('/events/blocks/top_navigation')
-            ->set('organizationPage', $organizationPage)
-            ->set('eventPage', $eventPage);*/
+        $this->template->top = "";
+
 
     }
 
@@ -121,10 +120,10 @@ class Controller_Events_Index extends Dispatch
      * MANAGE submodule
      * action_managemain - action that open page where is a main panel for manage event
      */
-    public function action_event()
+    public function action_edit()
     {
-        $this->template->main_section = View::factory('events/manage/main');
-        $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')
+        $this->template->main_section = View::factory('events/settings/main');
+        $this->template->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation')
                 ->set('organizationPage', $this->organization->uri)
                 ->set('eventPage', $this->event->uri);
     }
@@ -134,7 +133,7 @@ class Controller_Events_Index extends Dispatch
      * MANAGE submodule
      * action_settings - action that open page where users can edit main information about event
      */
-    public function action_settings()
+    public function action_assistants()
     {
         $this->template->main_section = View::factory('events/manage/settings');
         $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')

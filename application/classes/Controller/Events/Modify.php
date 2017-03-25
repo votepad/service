@@ -38,10 +38,9 @@ class Controller_Events_Modify extends Controller
 
             $event = $event->save();
 
-            $this->redirect('event/' . $event->id . '/manage/event');
+            $this->redirect('event/' . $event->id . '/settings/edit');
 
         } else {
-
             throw new HTTP_Exception_404();
         }
     }

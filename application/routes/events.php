@@ -88,8 +88,8 @@ $callback = function(Route $route, $params, Request $request){
 
     $allowedRoutes = array(
 
-        'manage' => array(
-            'event', 'settings'
+        'settings' => array(
+            'edit', 'assistants'
         ),
 
         'control' => array(
@@ -114,7 +114,7 @@ $callback = function(Route $route, $params, Request $request){
 Route::set('EVENT_MANAGEMENT', 'event/<id>/<section>(/<action>)',
     array(
         'id' => $DIGIT,
-        'section' => 'manage|control|pattern|members',
+        'section' => 'settings|control|pattern|members',
         'action' => $STRING
     ))
     ->filter($callback)
