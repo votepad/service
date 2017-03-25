@@ -62,7 +62,7 @@ class Controller_Organizations_Index extends Dispatch
 
             if ($this->user) {
                 $isOwner  = $this->organization->isOwner($this->user->id);
-                $isMember  = $this->organization->isMember($this->user->id);
+                $isMember  = true;//$this->organization->isMember($this->user->id);
             } else {
                 $isOwner  = false;
                 $isMember  = false;

@@ -13,6 +13,21 @@
 
 
 /**
+ * Route for event creation
+ *
+ * @property String $organizationpage - organization local website (without nwe.ru afterfix)
+ */
+Route::set('NEW_EVENT', 'organization/<id>/event/new',
+    array(
+        'id' => $DIGIT
+    ))
+    ->defaults(array(
+        'controller' => 'Events_Index',
+        'action'     => 'new'
+    ));
+
+
+/**
  * This route checks website existance. Responces only for XMLHTTP requests
  *
  * @example http://pronwe.ru/events/check/ifmo.ru - returns JSON encoded Boolean responce.
@@ -25,19 +40,6 @@ Route::set('CHECK_EVENT_WEBSITE', 'events/check/<website>',
     ->defaults(array(
       'controller' => 'Events_Ajax',
       'action'     => 'checkwebsite'
-    ));
-/**
- * Route for event creation
- *
- * @property String $organizationpage - organization local website (without nwe.ru afterfix)
- */
-Route::set('NEW_EVENT', '/organization/<id>/event/new',
-    array(
-        'id' => $DIGIT
-    ))
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'New'
     ));
 
 /**

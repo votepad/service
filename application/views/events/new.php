@@ -41,8 +41,9 @@
 </head>
 
 <body class="clear_fix">
-
-<?=$header; ?>
+<header class="header">
+    <?=$header; ?>
+</header>
 
 <section style="margin-top: 100px;">
 
@@ -99,8 +100,8 @@
 				<div id="step4" class="row col-xs-3 form_newevent_body-wrapper-item">
     				<div class="input-field col-xs-12">
 						<select id="users" name="users" class="" multiple="multiple" tabindex="-1">
-							<? foreach($team as $key => $value) : ?>
-								<option value="<?=$value->id_user; ?>"><?=$value->lastname. ' ' .$value->name; ?></option>
+							<? foreach($team as $user) : ?>
+								<option value="<?=$user->id; ?>"><?=$user->lastname. ' ' .$user->name; ?></option>
 							<? endforeach; ?>
 						</select>
 						<label for="users" style="padding-left: 15px">Ответственные лица</label>
@@ -139,9 +140,9 @@
 	</form>
 
 </section>
-
+<footer class="footer">
 <?=$footer; ?>
-
+</footer>
 </body>
 
 </html>

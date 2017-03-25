@@ -16,7 +16,7 @@ class Controller_Events_Index extends Dispatch
     /**
      * @const ACTION_NEW [String] - for creating a new event
      */
-    const ACTION_NEW        = 'New';
+    const ACTION_NEW        = 'new';
 
     /**
      * @const ACTION_SHOW_ALL [String] - Show all action
@@ -70,7 +70,7 @@ class Controller_Events_Index extends Dispatch
 
 
         $organizationPage = $this->request->param('organizationpage');
-        $this->organization = Model_Organizations::getByFieldName('website', $organizationPage);
+        $this->organization = Model_Organization::getByFieldName('website', $organizationPage);
 
         /**
          * Organization info
@@ -82,7 +82,7 @@ class Controller_Events_Index extends Dispatch
          * @var 'eventpage' - event website
          */
         $eventPage = $this->request->param('eventpage');
-        $this->event = Model_Events::getByFieldName('page', $eventPage);
+        //$this->event = Model_Events::getByFieldName('page', $eventPage);
 
         /**
          * Event info
@@ -90,7 +90,7 @@ class Controller_Events_Index extends Dispatch
         $this->template->event = $this->event;
 
         if (!$this->organization && !$this->event) {
-            throw new HTTP_Exception_404();
+            //throw new HTTP_Exception_404();
         }
 
         $this->template->top = View::factory('/events/blocks/top_navigation')
@@ -110,16 +110,18 @@ class Controller_Events_Index extends Dispatch
         * + header navigation (Logged && ! Logged)
         * + authorization modal
         */
-        $this->template->header = View::factory('/organizations/blocks/header')
-            ->set('auth_modal', View::factory('welcome/blocks/auth_modal'));
+        $this->template->header = View::factory('globalblocks/header')
+            ->set('header_menu', '')//View::factory('organizations/blocks/header_menu'))
+            ->set('auth_modal', View::factory('globalblocks/auth_modal'))
+            ->set('organization', $this->organization);
 
         /**
         * Footer
         */
-        $this->template->footer = View::factory('organizations/blocks/footer');
+        $this->template->footer = View::factory('globalblocks/footer');
 
         $org = new Model_Organization($this->organization->id);
-        $this->template->team = $org->getTeam();
+        $this->template->team = array($this->user);//$org->getTeam();
     }
 
 
