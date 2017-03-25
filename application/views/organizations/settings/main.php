@@ -49,7 +49,7 @@
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/organization/settings-maininfo.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/organization/settings-maininfo.js"></script>
 <script>
 	$(document).ready(function() {
 
