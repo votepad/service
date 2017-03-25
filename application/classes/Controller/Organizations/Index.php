@@ -78,7 +78,8 @@ class Controller_Organizations_Index extends Dispatch
              * Header
              */
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'id' => $this->organization->id, 'isOwner' => $this->isOwner, 'isMember' => $this->isMember)))
+                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'organization' => $this->organization, 'isOwner' => $this->isOwner, 'isMember' => $this->isMember)))
+                ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', array( 'organization' => $this->organization, 'isOwner' => $this->isOwner, 'isMember' => $this->isMember)))
                 ->set('auth_modal', View::factory('globalblocks/auth_modal'))
                 ->set('organization', $this->organization);
 
@@ -115,7 +116,9 @@ class Controller_Organizations_Index extends Dispatch
         } else {
 
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', "");
+                ->set('header_menu', "")
+                ->set('header_menu_mobile', "");
+
             $this->template->footer = View::factory('globalblocks/footer');
 
         }

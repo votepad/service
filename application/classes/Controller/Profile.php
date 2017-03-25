@@ -29,6 +29,7 @@ class Controller_Profile extends Dispatch
 
         $this->template->header = View::factory('globalblocks/header')
             ->set('header_menu', View::factory('profile/blocks/header_menu'))
+            ->set('header_menu_mobile', View::factory('profile/blocks/header_menu_mobile'))
             ->set('auth_modal', View::factory('globalblocks/auth_modal', array('canLogin' => $canLogin)));
 
         $this->template->footer = View::factory('globalblocks/footer');

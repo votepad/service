@@ -1,69 +1,94 @@
-<div class="header_wrapper">
-    <div class="header_menu_btnicon left">
-        <button id="open_header_menu" class="header_button">
-            <i class="fa fa-bars header_icon" aria-hidden="true"></i>
+<div class="header__wrapper">
+
+    <div class="header__menu-icon">
+        <button id="openMobileMenu" class="header__button">
+            <i></i><i></i><i></i>
         </button>
     </div>
 
-
     <? if ($isLogged) : ?>
-        <!-- Votepad Brand + link to User Profile -->
-        <a href="<?=URL::site('/user/' . $user->id); ?>" class="header_text header_text-logo">Votepad</a>
+        <a href="<?=URL::site('/user/' . $user->id); ?>" class="header__brand">Votepad</a>
     <? else : ?>
-        <!-- Votepad Brand + link to Welcome Votepad Page -->
-        <a href="<?=URL::site('/'); ?>" class="header_text header_text-logo">Votepad</a>
+        <a href="<?=URL::site('/'); ?>" class="header__brand">Votepad</a>
     <? endif; ?>
 
-    <!-- Header Menu -->
-    <div class="header_menu">
-
+    <div class="header__menu fl_l">
         <?=$header_menu; ?>
-
     </div>
 
-    <!-- Header Menu Dropdown (Enter or user Name) -->
-    <? if ($isLogged) : ?>
-    <div class="header_menu-right dropdown" data-toggle="dropdown" data-position="right">
 
-        <a id="open_usermenu" class="header_button dropdown_btn">
-            <span class="header_text"><?=$user->name; ?></span>
-            <i class="fa fa-caret-down header_icon" aria-hidden="true"></i>
+    <div class="header__menu fl_r dropdown" data-toggle="dropdown">
+        <? if ($isLogged) : ?>
+        <a class="header__button header__button--hover dropdown__btn fl_r">
+            <?=$user->name; ?>
+            <i class="fa fa-caret-down" aria-hidden="true"></i>
         </a>
-        <div class="dropdown_menu" aria-labelledby="open_usermenu">
-            <a href="<?= URL::site('user/'.$user->id) ?>" class="header_button dropdown_item">
-                <i class="fa fa-user dropdown-icon header_icon" aria-hidden="true"></i>
-                <span class="dropdown-text">Профиль</span>
+        <div class="dropdown__menu dropdown__menu--right">
+            <a href="<?= URL::site('user/'.$user->id) ?>" class="dropdown__link">
+                <i class="fa fa-user dropdown__icon" aria-hidden="true"></i>
+                Профиль
             </a>
-            <div role="separator" class="divider"></div>
-            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="header_button dropdown_item">
-                <i class="fa fa-sign-out dropdown-icon header_icon" aria-hidden="true"></i>
-                <span class="dropdown-text">Выйти</span>
+            <a href="<?=URL::site('sign/organizer/logout'); ?>" class="dropdown__link">
+                <i class="fa fa-sign-out dropdown__icon" aria-hidden="true"></i>
+                Выйти
             </a>
         </div>
-    </div>
-    <? else : ?>
-    <div class="header_menu-right">
-        <a class="header_button" data-toggle="modal" data-target="#registr_modal">
-            <span class="header_text">Регистрация</span>
+        <? else : ?>
+        <a class="header__button header__button--hover" data-toggle="modal" data-target="#registr_modal">
+            Регистрация
         </a>
-        <a class="header_button " data-toggle="modal" data-target="#auth_modal">
-            <span class="header_text">Войти</span>
+        <a class="header__button header__button--hover header__button--hollow" data-toggle="modal" data-target="#auth_modal">
+            Войти
         </a>
+        <? endif; ?>
     </div>
-    <? endif; ?>
+    
+    <div class="mobile-aside">
+        <ul class="mobile-aside__menu">
 
+            <? if ($isLogged) : ?>
 
+            <li class="mobile-aside__menu__item mobile-aside--show">
+                <a role="button" class="mobile-aside__menu-link" data-toggle="collapse" data-area="userAction" data-opened="false">
+                    <i class="fa fa-user" aria-hidden="true"></i>
+                    <?=$user->name; ?>
+                </a>
+                <ul id="userAction" class="mobile-aside__collapse collapse">
+                    <li class="mobile-aside__collapse__item">
+                        <a href="<?= URL::site('user/'.$user->id) ?>" class="mobile-aside__collapse-link">
+                            Профиль
+                        </a>
+                    </li>
+                    <li class="mobile-aside__collapse__item">
+                        <a href="<?=URL::site('sign/organizer/logout'); ?>" class="mobile-aside__collapse-link">
+                            Выйти
+                        </a>
+                    </li>
+                </ul>
+            </li>
 
+            <? else : ?>
 
-    <div class="header_menu_btnicon right">
-        <button id="open_jumbotron_nav" class="header_button">
-            <i class="fa fa-ellipsis-v header_icon" aria-hidden="true"></i>
-        </button>
+            <li class="mobile-aside__menu__item mobile-aside--show">
+                <a class="mobile-aside__menu-link" data-toggle="modal" data-target="#auth_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+                    Войти
+                </a>
+            </li>
+
+            <li class="mobile-aside__menu__item mobile-aside--show">
+                <a class="mobile-aside__menu-link" data-toggle="modal" data-target="#registr_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+                    Регистрация
+                </a>
+            </li>
+
+            <? endif; ?>
+
+            <?=$header_menu_mobile; ?>
+        </ul>
     </div>
-
 </div>
-
 
 <? if ( !$isLogged): ?>
     <?=$auth_modal; ?>
 <? endif; ?>
+
