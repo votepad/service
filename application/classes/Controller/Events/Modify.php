@@ -2,7 +2,7 @@
 
 /**
  * Class Controller_Events_Modify
- * @author
+ * @author Votepad Team
  * @copyright
  */
 
@@ -38,20 +38,12 @@ class Controller_Events_Modify extends Controller
 
             $event = $event->save();
 
-            $this->redirect('event/' . $event->id . '/settings/edit');
+            $this->redirect('event/' . $event->id . '/settings');
 
         } else {
             throw new HTTP_Exception_404();
         }
     }
 
-    public function action_addFullDescription()
-    {
-        if ($this->request->method() == Request::POST && Ajax::is_ajax()) {
-
-            $full_description = Arr::get($_POST, 'text');
-            $id_event = Arr::get($_POST, 'id');
-        }
-    }
 
 }

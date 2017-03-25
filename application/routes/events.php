@@ -75,46 +75,28 @@ Route::set('EVENTPAGE_MAIN', 'event/<id>(/<action>)',
 /**
  * Route for backoffice
  *
- * @property String $organizationpage - organization website (without nwe.ru)
- * @property String $eventpage - event website (without nwe.ru)
- * @property String $section - backoffice section (settings | pattern | members)
  * @property String $action - controller action
- *
  * @property [Function] $callback - this callback defines is route allowed to the section or not
  *
- * @example http://pronwe.ru/ifmo/miss/manage|members|pattern|control/<action>
+ * @example http://votepad.ru/event/<id>/<action>
  */
 $callback = function(Route $route, $params, Request $request){
 
-    $allowedRoutes = array(
-
-        'settings' => array(
-            'edit', 'assistants'
-        ),
-
-        'control' => array(
-            'before', 'during', 'after'
-        ),
-
-        'pattern' => array(
-            'criterias', 'stages', 'contests', 'results'
-        ),
-
-        'members' => array(
-            'judges', 'participants', 'teams', 'groups'
-        )
-
+    $allowedAction = array(
+        'settings', 'assistants',
+        'control',
+        'criterias', 'stages', 'contests', 'results',
+        'judges', 'participants', 'teams', 'groups'
     );
 
-    if (!isset($params['section']) || !in_array($params['action'], $allowedRoutes[$params['section']])) {
+    if (!in_array($params['action'])) {
         return false;
     }
 };
 
-Route::set('EVENT_MANAGEMENT', 'event/<id>/<section>(/<action>)',
+Route::set('EVENT_MANAGEMENT', 'event/<id>/(/<action>)',
     array(
         'id' => $DIGIT,
-        'section' => 'settings|control|pattern|members',
         'action' => $STRING
     ))
     ->filter($callback)
