@@ -1,7 +1,5 @@
-<script type="text/javascript" src="<?=$assets; ?>static/js/organization/EventsInOrg.js"></script>
-<script type="text/javascript">
-    $('.header_menu-btn-icon.right').remove()
-</script>
+
+
 <!--
 <!-- Searching event on loaded page --
 <div class="jumbotron_nav-searching-block">

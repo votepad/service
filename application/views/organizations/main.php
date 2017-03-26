@@ -23,7 +23,10 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css?v=<?= filemtime("assets/static/css/app_v1.css") ?>">
 	<link rel="stylesheet" href="<?=$assets; ?>static/css/org.css?v=<?= filemtime("assets/static/css/org.css") ?>">
 
-
+    <!-- =============== VENDOR SCRIPTS ===============-->
+    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
 </head>
 <body>
 
@@ -55,10 +58,6 @@
 
 </body>
 
-<!-- =============== VENDOR SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
 
 <!-- modules -->
 <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>

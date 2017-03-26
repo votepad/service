@@ -1,5 +1,5 @@
-<script type="text/javascript" src="<?=$assets; ?>js/modules/ajax.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/modules/cookies.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
 
 <ul class="jumbotron_nav-list jumbotron_nav_org-list">
 
