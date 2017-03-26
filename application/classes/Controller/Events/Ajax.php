@@ -1,9 +1,6 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 14.03.2016
- * Time: 23:11
+ *
  */
 
 class Controller_Events_Ajax extends Ajax {
@@ -12,8 +9,8 @@ class Controller_Events_Ajax extends Ajax {
     {
         if (Ajax::is_ajax()) {
 
-            $event = $this->request->param('website');
-            $info = Model_Events::getByFieldName('page', $event);
+            $uri = $this->request->param('website');
+            $info = Model_Events::getByFieldName('uri', $uri);
 
             if (!empty($info)) {
                 echo "true";

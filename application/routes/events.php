@@ -1,14 +1,8 @@
 <?php defined('SYSPATH') or die('No direct pattern access.');
 
 /**
- *
  * Routes for module Events
- * @author NWE team
- * @author Khaydarov Murod
- *
- * @copyright Turov Nikolay
- *
- * @version 0.2.3
+ * @copyright Votepad Team
  */
 
 
@@ -17,9 +11,9 @@
  *
  * @property String $organizationpage - organization local website (without nwe.ru afterfix)
  */
-Route::set('NEW_EVENT', 'organization/<id>/event/new',
+Route::set('NEW_EVENT', 'organization/<id_org>/event/new',
     array(
-        'id' => $DIGIT
+        'id_org' => $DIGIT
     ))
     ->defaults(array(
         'controller' => 'Events_Index',
@@ -33,7 +27,7 @@ Route::set('NEW_EVENT', 'organization/<id>/event/new',
  * @example http://pronwe.ru/events/check/ifmo.ru - returns JSON encoded Boolean responce.
  * @return [Boolean]
  */
-Route::set('CHECK_EVENT_WEBSITE', 'events/check/<website>',
+Route::set('CHECK_EVENT_WEBSITE', 'event/check/<website>',
     array(
         'website' => $STRING
     ))
@@ -62,9 +56,9 @@ Route::set('ADD_EVENT', 'event/add')
  *
  * @example http://pronwe.ru/ifmo/miss
  */
-Route::set('EVENTPAGE_MAIN', 'event/<id>(/<action>)',
+Route::set('EVENTPAGE_MAIN', 'event/<id_event>(/<action>)',
     array(
-        'id' => $DIGIT,
+        'id_event' => $DIGIT,
         'action' => $STRING
     ))
     ->defaults(array(
@@ -96,7 +90,7 @@ $callback = function(Route $route, $params, Request $request){
 
 Route::set('EVENT_MANAGEMENT', 'event/<id>/(/<action>)',
     array(
-        'id' => $DIGIT,
+        'id_event' => $DIGIT,
         'action' => $STRING
     ))
     ->filter($callback)

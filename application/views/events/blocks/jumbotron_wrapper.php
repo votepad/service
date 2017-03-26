@@ -1,6 +1,6 @@
 <div class="jumbotron_wrapper parallax-container">
     <div class="parallax">
-        <img id="" src="/uploads/events/<?=$event->cover; ?>.jpg">
+        <img id="" src="/uploads/events/<? ?>.jpg">
     </div>
     <div class="jumbotron_wrapper-background"></div>
     <div class="jumbotron_wrapper_edit">

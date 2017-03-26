@@ -37,7 +37,7 @@ class Model_Event extends Model
     /**
      * @var $cover [Text]
      */
-    public $cover;
+    //public $cover;
 
     /**
      * @var $address [String]

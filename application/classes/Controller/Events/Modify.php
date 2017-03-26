@@ -16,13 +16,13 @@ class Controller_Events_Modify extends Controller
     {
         if ($this->request->method() == Request::POST) {
 
-            $title         = Arr::get($_POST, 'name', '');
-            $uri         = Arr::get($_POST, 'site', '');
-            $description  = Arr::get($_POST, 'desc', '');
-            $keywords     = Arr::get($_POST, 'keywords', '');
-            $start        = Arr::get($_POST, 'datestart', '');
-            $end          = Arr::get($_POST, 'dateend', '');
-            $address      = Arr::get($_POST, 'address_coords', '');
+            $title              = Arr::get($_POST, 'name', '');
+            $uri                = Arr::get($_POST, 'site', '');
+            $description        = Arr::get($_POST, 'desc', '');
+            $keywords           = Arr::get($_POST, 'keywords', '');
+            $start              = Arr::get($_POST, 'start', '');
+            $end                = Arr::get($_POST, 'end', '');
+            $address            = Arr::get($_POST, 'address', '');
             $id_organization    = Arr::get($_POST, 'id_organization', '');
 
             $event = new Model_Event();
