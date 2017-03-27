@@ -10,11 +10,11 @@
     Управление
 </a>
 
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/results'); ?>">
+<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/app/result'); ?>">
     Сценарий
 </a>
 
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/judges'); ?>">
+<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/app/judges'); ?>">
     Действующие лица
 </a>
 

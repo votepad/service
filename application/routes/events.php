@@ -54,13 +54,27 @@ Route::set('ADD_EVENT', 'event/add')
  * @property String $eventpage - events website (without nwe.ru)
  * @property String $action - action in controller
  *
- * @example http://pronwe.ru/ifmo/miss
+ * @example http://pronwe.ru/event/<id>(/<action>)
  */
-Route::set('EVENTPAGE_MAIN', 'event/<id_event>(/<action>)',
+$actioncallback = function(Route $route, $params, Request $request){
+
+    $allowedRoutes = array(
+        'settings',
+        'control',
+        'landing', 'news', 'results'
+    );
+
+    if (!in_array($params['action'], $allowedRoutes)) {
+        return false;
+    }
+};
+
+Route::set('EVENT_ACTION', 'event/<id_event>(/<action>)',
     array(
         'id_event' => $DIGIT,
         'action' => $STRING
     ))
+    ->filter($actioncallback)
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'landing'
@@ -72,28 +86,33 @@ Route::set('EVENTPAGE_MAIN', 'event/<id_event>(/<action>)',
  * @property String $action - controller action
  * @property [Function] $callback - this callback defines is route allowed to the section or not
  *
- * @example http://votepad.ru/event/<id>/<action>
+ * @example http://votepad.ru/event/<id>/<section>(/<action>)
  */
-$callback = function(Route $route, $params, Request $request){
+$sectioncallback = function(Route $route, $params, Request $request){
 
-    $allowedAction = array(
-        'settings', 'assistants',
-        'control',
-        'criterias', 'stages', 'contests', 'results',
-        'judges', 'participants', 'teams', 'groups'
+    $allowedRoutes = array(
+        'settings' => array(
+            'info', 'assistants'
+        ),
+        'app' => array(
+            'criterias', 'stages', 'contests', 'result',
+            'judges', 'participants', 'teams', 'groups'
+        ),
     );
 
-    if (!in_array($params['action'])) {
+    if (!isset($params['section']) || !in_array($params['action'], $allowedRoutes[$params['section']])) {
         return false;
     }
+
 };
 
-Route::set('EVENT_MANAGEMENT', 'event/<id>/(/<action>)',
+Route::set('EVENT_SECTION_ACTION', 'event/<id_event>/<section>(/<action>)',
     array(
         'id_event' => $DIGIT,
+        'section' => 'settings|app',
         'action' => $STRING
     ))
-    ->filter($callback)
+    ->filter($sectioncallback)
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'ControlMain'

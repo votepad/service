@@ -120,10 +120,25 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_settings()
     {
+
         $this->template->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation')
             ->set('event', $this->event);
 
         $this->template->main_section = View::factory('events/settings/main')
+            ->set('event', $this->event);
+    }
+
+
+    /**
+     * MANAGE submodule
+     * action_settings - change main-info
+     */
+    public function action_info()
+    {
+        $this->template->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation')
+            ->set('event', $this->event);
+
+        $this->template->main_section = View::factory('events/settings/info')
             ->set('event', $this->event);
     }
 
@@ -195,9 +210,9 @@ class Controller_Events_Index extends Dispatch
     /**
      * PATTERN submodule
      *
-     * action_results - results CRUD
+     * action_result - result CRUD
      */
-    public function action_results()
+    public function action_result()
     {
         $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
             ->set('event', $this->event);
