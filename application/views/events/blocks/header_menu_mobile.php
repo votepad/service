@@ -1,6 +1,6 @@
 <li class="mobile-aside__menu__item">
     <a href="<?=URL::site('event/' . $event->id); ?>" class="mobile-aside__menu-link">
-        <?=$event->title; ?>
+        <?=$event->name; ?>
     </a>
 </li>
 

@@ -12,11 +12,6 @@
  */
 class Controller_Events_Index extends Dispatch
 {
-    /**
-     * @const ACTION_NEW [String] - for creating a new event
-     */
-    const ACTION_NEW        = 'new';
-
 
     /**
      * @var $organization [String] - default value is null. Keeps cached render
@@ -33,30 +28,15 @@ class Controller_Events_Index extends Dispatch
      */
     public function before()
     {
-        switch ($this->request->action()) {
 
-            /**
-             * Creating a new event
-             */
-            case self::ACTION_NEW :
-                $this->template = 'events/new';
-                break;
-
-            /**
-             * Default template for others pages
-             */
-            default :
-                $this->template = 'events/main';
-                break;
-        }
+        $this->template = 'events/main';
 
         parent::before();
 
-        $this->idOrg = $this->request->param('id_org');
-        $id = $this->request->param('id_event');
+        $id = $this->request->param('id');
         $event = new Model_Event($id);
 
-        if ($event) {
+        if ($event->id) {
 
             $this->event = $event;
             $this->organization = new Model_Organization($event->organization);
@@ -64,7 +44,7 @@ class Controller_Events_Index extends Dispatch
             /**
              * Meta Dates
              */
-            $this->template->title = $event->title;
+            $this->template->title = $event->name;
             $this->template->description = $event->description;
             $this->template->tags = $event->tags;
 
@@ -92,24 +72,6 @@ class Controller_Events_Index extends Dispatch
             $this->template->footer = View::factory('globalblocks/footer');
 
         }
-
-    }
-
-    /**
-     * NEW EVENT
-     * action_new - action that open page where users create new event
-     */
-    public function action_new()
-    {
-
-        $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu', '')
-            ->set('header_menu_mobile', '')
-            ->set('auth_modal', View::factory('globalblocks/auth_modal'));
-
-        $this->template->footer = View::factory('globalblocks/footer');
-
-        $this->template->idOrg = $this->idOrg;
 
     }
 

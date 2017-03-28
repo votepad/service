@@ -11,13 +11,13 @@
  *
  * @property String $organizationpage - organization local website (without nwe.ru afterfix)
  */
-Route::set('NEW_EVENT', 'organization/<id_org>/event/new',
+Route::set('NEW_EVENT', 'organization/<id>/event/new',
     array(
-        'id_org' => $DIGIT
+        'id' => $DIGIT
     ))
     ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'new'
+        'controller' => 'Organizations_Index',
+        'action'     => 'new_event'
     ));
 
 
@@ -69,9 +69,9 @@ $actioncallback = function(Route $route, $params, Request $request){
     }
 };
 
-Route::set('EVENT_ACTION', 'event/<id_event>(/<action>)',
+Route::set('EVENT_ACTION', 'event/<id>(/<action>)',
     array(
-        'id_event' => $DIGIT,
+        'id' => $DIGIT,
         'action' => $STRING
     ))
     ->filter($actioncallback)
@@ -106,9 +106,9 @@ $sectioncallback = function(Route $route, $params, Request $request){
 
 };
 
-Route::set('EVENT_SECTION_ACTION', 'event/<id_event>/<section>(/<action>)',
+Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>(/<action>)',
     array(
-        'id_event' => $DIGIT,
+        'id' => $DIGIT,
         'section' => 'settings|app',
         'action' => $STRING
     ))
@@ -116,4 +116,12 @@ Route::set('EVENT_SECTION_ACTION', 'event/<id_event>/<section>(/<action>)',
     ->defaults(array(
         'controller' => 'Events_Index',
         'action'     => 'ControlMain'
+    ));
+
+
+Route::set('MAIN_SETTINGS_UPDATE', 'event/<id>/settings/info/update',
+    array('id' => $DIGIT))
+    ->defaults(array(
+        'controller' => 'Events_Modify',
+        'action'     => 'update'
     ));

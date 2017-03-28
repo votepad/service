@@ -9,7 +9,7 @@
 <? endif; ?>
 
 <? if($isLogged && $isMember): ?>
-    <a class="header__button header__button--hover" href="<?=URL::site('event/new'); ?>">
+    <a class="header__button header__button--hover" href="<?=URL::site('organization/' . $organization->id . '/event/new'); ?>">
         Создать мероприятие
     </a>
 <? endif; ?>

@@ -3,25 +3,25 @@
 </h3>
 
 <div class="row">
-	<form class="form" action="<?=URL::site('event/' . $event->id . '/update'); ?>" method="POST" id="update_main_info">
+	<form class="form" action="<?=URL::site('event/' . $event->id . '/settings/info/update'); ?>" method="POST" id="update_main_info">
 		<div class="form_body">
             <div class="col-xs-12">
                 <div class="row row-col">
                     <div class="input-field col-xs-12 col-md-6">
-                        <input type="text" id="org_name" name="org_name" length="60" value="<?=$event->title; ?>" placeholder="Например: <?=$event->title; ?>">
-                        <label for="org_name" class="input-label active">Название мероприятия</label>
+                        <input type="text" id="name" name="name" length="60" value="<?=$event->name; ?>" placeholder="Например: <?=$event->name; ?>">
+                        <label for="name" class="input-label active">Название мероприятия</label>
                     </div>
 
                     <div class="input-field col-xs-12 col-md-6">
-                        <input type="text" id="org_site" name="org_site" class="vp_site" length="38" value="<?=$event->uri; ?>" placeholder="Например: http://votepad.ru/<?=$event->uri; ?>">
-                        <label for="org_site" class="input-label active">Ссылка на страницу мероприятия</label>
+                        <input type="text" id="site" name="site" class="vp_site" length="38" value="<?=$event->uri; ?>" placeholder="Например: http://votepad.ru/<?=$event->uri; ?>">
+                        <label for="site" class="input-label active">Ссылка на страницу мероприятия</label>
                     </div>
                 </div>
 
                 <div class="row row-col">
                     <div class="input-field col-xs-12">
-                        <textarea id="org_description" name="org_description" length="300" placeholder="Например: <?=$event->description; ?>"><?=$event->description; ?></textarea>
-                        <label for="org_description">Описание мероприятия</label>
+                        <textarea id="description" name="desc" length="300" placeholder="Например: <?=$event->description; ?>"><?=$event->description; ?></textarea>
+                        <label for="description">Описание мероприятия</label>
                         <span class="help-block">Данная информация поможет найти Ваше мероприятие через поисковые системы.</span>
                     </div>
                 </div>

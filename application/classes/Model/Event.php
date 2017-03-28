@@ -15,9 +15,9 @@ class Model_Event extends Model
     public $organization;
 
     /**
-     * @var $title [String]
+     * @var $name [String]
      */
-    public $title;
+    public $name;
 
     /**
      * @var $uri [String]
@@ -127,21 +127,61 @@ class Model_Event extends Model
     public function update()
     {
 
-        $insert = Dao_Events::update();
+        $update = Dao_Events::update();
 
         foreach ($this as $fieldname => $value) {
-            if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
+            if (property_exists($this, $fieldname)) $update->set($fieldname, $value);
         }
 
-        $insert->clearcache($this->id);
-        $insert->where('id', '=', $this->id);
+        $update->clearcache($this->id);
+        $update->where('id', '=', $this->id);
 
-        $id = $insert->execute();
+        $id = $update->execute();
 
         return $this->get_($id);
 
     }
 
 
+    public function addAssistant($id) {
+
+        Dao_UsersEvents::insert()
+            ->set('u_id', $id)
+            ->set('e_id', $this->id)
+            ->clearcache('EventUsers:' . $this->id)
+            ->clearcache('UserEvents:' . $id)
+            ->execute();
+
+    }
+
+    public function getAssistants() {
+
+        $selection = Dao_UsersEvents::select('u_id')
+            ->where('e_id', '=', $this->id)
+            ->cached(Date::MINUTE * 5, 'EventUsers:' . $this->id)
+            ->execute('u_id');
+
+        $users = array();
+
+        foreach ($selection as $id => $value) {
+
+            array_push($users, new Model_User($id));
+
+        }
+
+        return $users;
+
+    }
+
+    public function removeAssistant($id) {
+
+        Dao_UsersEvents::delete()
+            ->where('u_id', '=', $id)
+            ->where('e_id', '=', $this->id)
+            ->clearcache('EventUsers:' . $this->id)
+            ->clearcache('UserEvents:' . $id)
+            ->execute();
+
+    }
 
 }

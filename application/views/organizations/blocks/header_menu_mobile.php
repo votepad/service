@@ -27,7 +27,7 @@
 
 <? if($isLogged && $isMember): ?>
     <li class="mobile-aside__menu__item">
-        <a href="<?=URL::site('event/new'); ?>" class="mobile-aside__menu-link">
+        <a href="<?=URL::site('organization/' . $organization->id . '/event/new'); ?>" class="mobile-aside__menu-link">
             Создать мероприятие
         </a>
     </li>

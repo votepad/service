@@ -1,5 +1,5 @@
 <a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id ); ?>">
-    <?=$event->title; ?>
+    <?=$event->name; ?>
 </a>
 
 <a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/settings'); ?>">

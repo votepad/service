@@ -12,7 +12,7 @@
     <div class="jumbotron_wrapper_text valign">
         <div class="center">
                 <span class="jumbotron_wrapper_text-eventname">
-                    <?=$event->title; ?>
+                    <?=$event->name; ?>
                 </span>
             <a href="<?=URL::site('organization/' . $organization->id); ?>" class="jumbotron_wrapper_text-orgname">
                 <?=$organization->name; ?>

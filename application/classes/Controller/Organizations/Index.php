@@ -15,6 +15,11 @@ class Controller_Organizations_Index extends Dispatch
      */
     const ACTION_NEW = 'new';
 
+    /**
+     * @const ACTION_NEW [String]
+     */
+    const ACTION_NEW_EVENT = 'new_event';
+
 
     /**
      * @var $organization [String] - default value is null. Keeps cached render
@@ -30,6 +35,10 @@ class Controller_Organizations_Index extends Dispatch
              */
             case self::ACTION_NEW :
                 $this->template = 'organizations/new';
+                break;
+
+            case self::ACTION_NEW_EVENT :
+                $this->template = 'events/new';
                 break;
 
             /**
@@ -209,5 +218,24 @@ class Controller_Organizations_Index extends Dispatch
 
 
     }
+
+    /**
+     * NEW EVENT
+     * action_new - action that open page where users create new event
+     */
+    public function action_new_event()
+    {
+
+        $this->template->header = View::factory('globalblocks/header')
+            ->set('header_menu', '')
+            ->set('header_menu_mobile', '')
+            ->set('auth_modal', View::factory('globalblocks/auth_modal'));
+
+        $this->template->footer = View::factory('globalblocks/footer');
+
+        $this->template->idOrg = $this->organization->id;
+
+    }
+
 
 }

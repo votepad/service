@@ -82,7 +82,6 @@
 
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>static/js/organization/settings-assistants.js"></script>
 
 <!-- modules -->
 <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/tabs.js"></script>
