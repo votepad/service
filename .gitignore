@@ -6,15 +6,11 @@ application/logs
 uploads/
 
 # Bundler
-assets/frontend/modules/*
-assets/frontend/webpack.config.js
 node_modules/*
-# assets/vendor/*
-# vendor
-assets/vendor/
+assets/vendor/*
 
 # Media files
-assets/img/
+assets/img/*
 
 # config files
 application/config/cache.php
@@ -22,8 +18,7 @@ application/config/database.php
 application/config/redis.php
 application/config/session.php
 application/config/email.php
-/.env
-frontend/
-modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
 
+/.env
+modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
 composer.lock
