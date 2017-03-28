@@ -87,7 +87,12 @@
 
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>js/modules/tabs.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/modules/ajax.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/organization/settings-coworkers.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/organization/settings-coworkers.js"></script>
+
+<!-- modules -->
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/tabs.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
+<script type="text/javascript">
+    tabs.init();
+</script>

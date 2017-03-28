@@ -1,5 +1,3 @@
-tabs.init()
-
 var id, name, coworker_block, message, link, ajaxData,
     deleteBtns = document.getElementsByClassName('deletebtn'),
     acceptBtns = document.getElementsByClassName('acceptbtn'),

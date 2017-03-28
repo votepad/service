@@ -11,8 +11,7 @@ var header = (function(header) {
         mobileLinks = document.getElementsByClassName('mobile-aside__menu-link'),
         mobileCollapseLinks = document.getElementsByClassName('mobile-aside__collapse-link'),
         address = window.location.pathname.split('/'),
-        address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
-        address4 = address3 + '/' + address[4],
+        address = '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4],
         btnHref, i, item;
 
     var backdrop = document.createElement('div');
@@ -50,9 +49,9 @@ var header = (function(header) {
         for (i = 0; i < headerLinks.length; i++) {
             if (headerLinks[i].href) {
                 btnHref = headerLinks[i].getAttribute('href').split('/');
-                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
+                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
 
-                if ( btnHref.test(address3) ) {
+                if ( btnHref.test(address) ) {
                     headerLinks[i].classList.add('header__button--active');
                 }
             }
@@ -61,9 +60,9 @@ var header = (function(header) {
         for (i = 0; i < mobileLinks.length; i++) {
             if (mobileLinks[i].href) {
                 btnHref = mobileLinks[i].getAttribute('href').split('/');
-                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
+                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
 
-                if (btnHref.test(address3)) {
+                if (btnHref.test(address)) {
                     mobileLinks[i].parentNode.classList.add('mobile-aside__menu__item--active');
                     mobileLinks[i].classList.add('mobile-aside__menu-link--active');
                 }
@@ -75,7 +74,7 @@ var header = (function(header) {
                 btnHref = mobileCollapseLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
                 
-                if (btnHref.test(address4)) {
+                if (btnHref.test(address)) {
                     mobileCollapseLinks[i].parentNode.parentNode.parentNode.classList.add('mobile-aside__menu__item--active');
                     mobileCollapseLinks[i].classList.add('mobile-aside__collapse-link--active');
                 }
@@ -176,12 +175,15 @@ var header = (function(header) {
                 }
             }
 
-            if (hasAdditional) {
-                document.getElementById('additionalMenuItem').parentNode.classList.remove('hide');
-                document.getElementById('additionalMenuItem').innerHTML = additionalMenuItem;
-            } else {
-                document.getElementById('additionalMenuItem').parentNode.classList.add('hide');
+            if (document.getElementById('additionalMenuItem')) {
+                if (hasAdditional) {
+                    document.getElementById('additionalMenuItem').parentNode.classList.remove('hide');
+                    document.getElementById('additionalMenuItem').innerHTML = additionalMenuItem;
+                } else {
+                    document.getElementById('additionalMenuItem').parentNode.classList.add('hide');
+                }
             }
+
 
         } else {
             headerMenu.classList.add('hide');

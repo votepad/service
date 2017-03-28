@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Votepad" />
-    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/favicon.png" />
+    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>static/img/favicon.png" />
 
     <title>Новая организация | Votepad.ru</title>
 
@@ -13,23 +13,16 @@
 
 	<!-- =============== VENDOR STYLES ===============-->
 	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
-    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/icons_fonts.css?v=<?= filemtime("assets/css/icons_fonts.css") ?>">
-    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/app_v1.css?v=<?= filemtime("assets/css/app_v1.css") ?>">
-	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/org.css?v=<?= filemtime("assets/css/org.css") ?>">
+    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>static/css/icons_fonts.css?v=<?= filemtime("assets/static/css/icons_fonts.css") ?>">
+    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>static/css/app_v1.css?v=<?= filemtime("assets/static/css/app_v1.css") ?>">
+	<link rel="stylesheet" type="text/css" href="<?=$assets; ?>static/css/org.css?v=<?= filemtime("assets/static/css/org.css") ?>">
 
 
     <!-- modules -->
-    <link rel="stylesheet" href="<?=$assets; ?>modules/css/header.css?v=<?= filemtime("assets/modules/css/header.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>modules/css/dropdown.css?v=<?= filemtime("assets/modules/css/dropdown.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>modules/css/collapse.css?v=<?= filemtime("assets/modules/css/collapse.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css?v=<?= filemtime("assets/frontend/modules/css/header.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/dropdown.css?v=<?= filemtime("assets/frontend/modules/css/dropdown.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css?v=<?= filemtime("assets/frontend/modules/css/collapse.css") ?>">
 
-
-	<!-- =============== VENDOR SCRIPTS ===============-->
-    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/organization/new.js"></script>
 
 </head>
 <body>
@@ -109,9 +102,16 @@
 
 </body>
 
+<!-- =============== VENDOR SCRIPTS ===============-->
+<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/organization/new.js"></script>
+
 <!-- modules -->
-<script type="text/javascript" src="<?=$assets; ?>modules/js/header.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>modules/js/collapse.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
 
 
 <script type="text/javascript">

@@ -13,16 +13,16 @@
 
 	<!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css?v=<?= filemtime("assets/css/icons_fonts.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/icons_fonts.css?v=<?= filemtime("assets/static/css/icons_fonts.css") ?>">
 
     <!-- modules -->
-    <link rel="stylesheet" href="<?=$assets; ?>modules/css/header.css?v=<?= filemtime("assets/modules/css/header.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>modules/css/dropdown.css?v=<?= filemtime("assets/modules/css/dropdown.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>modules/css/collapse.css?v=<?= filemtime("assets/modules/css/collapse.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css?v=<?= filemtime("assets/frontend/modules/css/header.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/dropdown.css?v=<?= filemtime("assets/frontend/modules/css/dropdown.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css?v=<?= filemtime("assets/frontend/modules/css/collapse.css") ?>">
 
 
-    <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css?v=<?= filemtime("assets/css/app_v1.css") ?>">
-	<link rel="stylesheet" href="<?=$assets; ?>css/profile.css?v=<?= filemtime("assets/css/profile.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css?v=<?= filemtime("assets/static/css/app_v1.css") ?>">
+	<link rel="stylesheet" href="<?=$assets; ?>static/css/profile.css?v=<?= filemtime("assets/static/css/profile.css") ?>">
 
 	<!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
@@ -30,12 +30,12 @@
 
     <? if ( $isLogged && $isProfileOwner ) :?>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/modules/cookies.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/modules/cookies.js"></script>
     <? endif; ?>
 
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/profile.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/profile.js"></script>
 
 </head>
 <body>
@@ -198,8 +198,8 @@
 </body>
 
 <!-- modules -->
-<script type="text/javascript" src="<?=$assets; ?>modules/js/header.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>modules/js/collapse.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
 
 
 <script type="text/javascript">
