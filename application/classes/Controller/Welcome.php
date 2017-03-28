@@ -35,6 +35,7 @@ class Controller_Welcome extends Dispatch
                 ->set('header_menu_mobile', View::factory('welcome/blocks/header_menu_mobile'))
                 ->set('auth_modal', View::factory('globalblocks/auth_modal'));
         $this->template->section = View::factory('welcome/landing');
+        $this->template->footer = View::factory('globalblocks/footer');
 
         if ($canLogin) {
 
