@@ -1,88 +1,19 @@
 /**
  * Webpack configuration
  *
- * @author Khaydarov Murpd <murod.haydarov@gmail.com>
+ * @author Khaydarov Murod <murod.haydarov@gmail.com>
  * @copyright Votepad Team 2017
  */
 'use strict';
-s
-/**
- * Plugins for bundle
- * @type {webpack}
- */
-var webpack                     = require('webpack');
-var ExtractTextWebpackPlugin    = require('extract-text-webpack-plugin');
 
-module.exports = {
+/** Globar configurations */
+var path = require('path');
+var configurationPath = __dirname + '/assets/frontend/config/';
+var main = configurationPath + '/main.js';
 
-    entry: {
-        "votepad": ".assets/frontend/votepad.js"
-    },
-    output: {
-        filename: "[name].js",
-        library: "vp"
-    },
+var mainConfiguration = require(main);
 
-    watch: true,
-
-    watchOptions: {
-        aggregateTimeOut: 50
-    },
-
-    devtool: NODE_ENV == 'development' ? "source-map" : null,
-
-    resolve : {
-        fallback: path.join(__dirname, "node_modules"),
-        modulesDirectories : ['./node_modules', './modules'],
-        extensions : ['', '.js', '.json']
-    },
-
-    resolveLoader : {
-        modulesDirectories: ['./node_modules'],
-        moduleTemplates: ["*-webpack-loader", "*-web-loader", "*-loader", "*"],
-        extensions: ['', '.js']
-    },
-
-    plugins: [
-
-        /** Pass variables into modules */
-        new webpack.DefinePlugin({
-            NODE_ENV: JSON.stringify(NODE_ENV),
-            VERSION: JSON.stringify(VERSION)
-        }),
-
-        /** Минифицируем CSS и JS */
-        new webpack.optimize.UglifyJsPlugin({
-            /** Disable warning messages. Cant disable uglify for 3rd party libs such as html-janitor */
-            compress: {
-                warnings: false
-            }
-        }),
-
-        /** Block biuld if errors found */
-        new webpack.NoErrorsPlugin()
-
-    ],
-
-    module : {
-
-        loaders : [{
-            test : /\.js$/,
-            exclude: /(node_modules)/,
-            loader : 'babel',
-            query: {
-                presets: [__dirname + '/node_modules/babel-preset-es2015']
-            }
-        },
-        {
-            test : /\.js$/,
-            loader: 'eslint-loader',
-            exclude: /(node_modules)/
-        },
-        {
-            test : /\.css$/,
-            exclude: /(node_modules)/,
-            loader: ExtractTextWebpackPlugin.extract('style-loader', 'css-loader')
-        }]
-    }
-};
+/** Export configurations to bundler */
+module.exports = [
+        mainConfiguration
+    ];
