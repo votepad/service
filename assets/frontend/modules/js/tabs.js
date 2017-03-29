@@ -1,21 +1,17 @@
 var tabs = (function(tabs) {
 
 
-    tabs.nodes = {};
+    var nodes = [];
 
 
     tabs.init = function() {
 
-        tabs.nodes = document.querySelectorAll('[data-ui="tabs"]');
+        tabs.nodes = document.querySelectorAll('[data-toggle="tabs"]');
 
-        listenNode();
-    };
-
-
-    var listenNode = function() {
-
-        for (var i = 0; i < tabs.nodes.length; i++) {
-            tabs.nodes[i].addEventListener('click', changeTab, false);
+        if (tabs.nodes.length > 0) {
+            for (var i = 0; i < tabs.nodes.length; i++) {
+                tabs.nodes[i].addEventListener('click', changeTab, false);
+            }
         }
 
     };
@@ -23,35 +19,32 @@ var tabs = (function(tabs) {
 
     var changeTab = function(event) {
 
-        var node = event.target;
-        if (! node.classList.contains('tab') )
-            node = event.target.parentElement;
+        var tabBtn = event.target;
 
+        if (! tabBtn.classList.contains('tabs__btn') )
+            tabBtn = event.target.parentElement;
 
-        var newBlockId = node.getAttribute('aria-controls'),
-            newBlock = document.getElementById(newBlockId),
+        var newBlock = document.getElementById(tabBtn.getAttribute('data-area')),
             blocksContent = newBlock.parentElement.children,
-            headerTabs = node.parentElement.parentElement.getElementsByTagName("li"),
-            className;
+            headerTabs = tabBtn.parentElement.parentElement.getElementsByTagName("a");
+
 
         /**
-         * Change header active tab
+         * Change header active tabBtn
          */
         for (var i = 0; i < headerTabs.length; i++) {
-            headerTabs[i].children[0].classList.remove("tab--active");
+            headerTabs[i].classList.remove("tabs__btn--active");
         }
-
-        node.classList.add("tab--active");
+        tabBtn.classList.add("tabs__btn--active");
 
 
         /**
          * Change tabs content
          */
         for (var i = 0; i < blocksContent.length; i++) {
-            blocksContent[i].classList.remove("tab_block--active");
+            blocksContent[i].classList.remove("tabs__block--active");
         }
-
-        newBlock.classList.add("tab_block--active");
+        newBlock.classList.add("tabs__block--active");
 
     };
 

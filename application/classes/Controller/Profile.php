@@ -27,6 +27,9 @@ class Controller_Profile extends Dispatch
         $isProfileOwner = !empty($this->session->get('uid')) && $this->session->get('uid') == $id;
         $canLogin = self::canLogin();
 
+        $this->template->profile = $profile;
+        $this->template->isProfileOwner = $isProfileOwner;
+
         $this->template->header = View::factory('globalblocks/header')
             ->set('header_menu', View::factory('profile/blocks/header_menu'))
             ->set('header_menu_mobile', View::factory('profile/blocks/header_menu_mobile'))
@@ -36,16 +39,15 @@ class Controller_Profile extends Dispatch
 
         $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper');
 
-        $this->template->profile = $profile;
-        $this->template->isProfileOwner = $isProfileOwner;
+        $this->template->mainSection = View::factory('profile/pages/main');
 
-            /** Meta data */
+
+        /** Meta data */
         $this->template->title       = $profile->name. ' ' . $profile->surname . " | Votepad";
         $this->template->description = "Просмотреть профиль " . $profile->name. ' ' . $profile->surname . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
         $this->template->keywords    = "Профиль, Электронное голосование, Выставление баллов, Результат, Рейтинг, Страница с результатами, votepad, profile, voting, results, rating";
-
-
     }
+
 
     public function action_update()
     {

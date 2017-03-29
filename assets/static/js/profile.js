@@ -9,7 +9,7 @@ $(document).ready(function () {
     * Open Modal Form for edit User Info
     */
     $('#profile_info-edit').click(function(){
-        $("#edituser_modal").modal({
+        $("#edit_user_modal").modal({
             backdrop: 'static',
             keyboard: false
         });
@@ -19,11 +19,11 @@ $(document).ready(function () {
     /**
     * Phone inputmask
     */
-    $(".profile_info-description-phone a").inputmask({ "mask": "+7 (999) 999-99-99" });
+    $(".user-info__description-phone a").inputmask({ "mask": "+7 (999) 999-99-99" });
 
-    $("#edituser_phone").inputmask({
+    $("#phone").inputmask({
         "mask": "+7 (999) 999-99-99",
-        clearIncomplete: true,
+        clearIncomplete: true
     });
 
 
@@ -35,23 +35,21 @@ $(document).ready(function () {
         allowedPassSymbols = new RegExp("[^a-zA-Z0-9~-№#%&*()[]/!?,.;:@]"),
         allowedPhoneSymbols = new RegExp("[^0-9+]");
 
-    $('#update_info').click(function(){
-        var form = $(this).closest('.modal'),
-            isvalid = true;
+    $('#edit_user_modal').submit(function(){
 
-        // checking type = text || email
-        $('.input-field > input[type="text"], .input-field > input[type="email"]', form).each(function(){
+        $('.input-field > input[type="text"], .input-field > input[type="email"]', $(this)).each(function(){
+
+            if ( ! allowedSymbols.test($(this).val())) {
+                $(this).removeClass('invalid');
+            } else {
+                $(this).addClass('invalid');
+                return false;
+            }
+
             if ( $(this).attr('required') != undefined ){
-                if ( isvalid && ! allowedSymbols.test($(this).val()) && $(this).val() != "") {
-                    $(this).removeClass('invalid');
-                } else if ( isvalid ){
+                if ( $(this).val() == "" ){
                     $(this).addClass('invalid');
-                    $.notify({
-                        message: 'Возможно Вы забыли что-то указать или используете запрещенные символы.'
-                    },{
-                        type: 'danger'
-                    });
-                    isvalid = false;
+                    return false;
                 }
             }
 
@@ -59,40 +57,33 @@ $(document).ready(function () {
 
 
         // checking phone
-        if ( isvalid && ! allowedPhoneSymbols.test($('#edituser_phone').val().replace(" (","").replace(") ","").replace("-","").replace("-","")) ) {
+        if ( allowedPhoneSymbols.test($('#edituser_phone').val().replace(" (","").replace(") ","").replace("-","").replace("-","")) ) {
             $('#edituser_phone').removeClass('invalid');
         } else if ( isvalid ){
             $('#edituser_phone').addClass('invalid');
-            $.notify({
-                message: 'Вы не правильно указали телефон!'
-            },{
-                type: 'danger'
-            });
-            isvalid = false;
+            return false;
         }
 
-
-
         // checking type = password
-        if ( isvalid && $('#edituser_oldpassword').val() != "" ) {
+        if ( $('#edituser_oldpassword').val() != "" ) {
             $('#edituser_oldpassword').removeClass('invalid');
             $('#edituser_newpassword').removeClass('invalid');
             $('#edituser_newpassword2').removeClass('invalid');
 
             if (allowedPassSymbols.test($('#edituser_oldpassword').val()) ||
                 allowedPassSymbols.test($('#edituser_newpassword').val()) ||
-                allowedPassSymbols.test($('#edituser_newpassword2').val())) {
-                    isvalid = false;
-                    $('#edituser_oldpassword').addClass('invalid');
-                    $('#edituser_newpassword').addClass('invalid');
-                    $('#edituser_newpassword2').addClass('invalid')
-                    $.notify({
-                        message: 'Вы используете запрещенные символы!'
-                    },{
-                        type: 'danger'
-                    });
+                allowedPassSymbols.test($('#edituser_newpassword2').val()))
+            {
+                $('#edituser_oldpassword').addClass('invalid');
+                $('#edituser_newpassword').addClass('invalid');
+                $('#edituser_newpassword2').addClass('invalid')
+                $.notify({
+                    message: 'Вы используете запрещенные символы!'
+                },{
+                    type: 'danger'
+                });
+                return false;
             } else if ($('#edituser_newpassword').val() == "") {
-                isvalid = false;
                 $('#edituser_newpassword').addClass('invalid');
                 $('#edituser_newpassword2').addClass('invalid')
                 $.notify({
@@ -100,8 +91,8 @@ $(document).ready(function () {
                 },{
                     type: 'danger'
                 });
+                return false;
             } else if ($('#edituser_newpassword').val() != $('#edituser_newpassword2').val()) {
-                isvalid = false;
                 $('#edituser_newpassword').addClass('invalid');
                 $('#edituser_newpassword2').addClass('invalid')
                 $.notify({
@@ -109,10 +100,10 @@ $(document).ready(function () {
                 },{
                     type: 'danger'
                 });
+                return false;
             }
 
         } else if ( $('#edituser_newpassword').val() != "" || $('#edituser_newpassword2').val() != "" ) {
-            isvalid = false;
             $('#edituser_oldpassword').addClass('invalid');
             $('#edituser_newpassword').addClass('invalid');
             $('#edituser_newpassword2').addClass('invalid');
@@ -121,11 +112,7 @@ $(document).ready(function () {
             },{
                 type: 'danger'
             });
-        }
-
-
-        if ( isvalid == true ) {
-            form[0].submit();
+            return false;
         }
     });
 
