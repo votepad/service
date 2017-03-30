@@ -231,4 +231,164 @@ $(document).ready(function () {
     };
 
 
+
+
+    var orgID, eventID, name, orgBlock, eventBlock, i,
+        userID = document.getElementById('userID').dataset.id;
+
+    var deleteOrgBnt = document.getElementsByClassName('deleteOrganization');
+    for (i = 0; i < deleteOrgBnt.length; i++) {
+        deleteOrgBnt[i].addEventListener('click', deleteOrganization, false);
+    }
+
+    var deleteEventBnt = document.getElementsByClassName('deleteEvent');
+    for (i = 0; i < deleteEventBnt.length; i++) {
+        deleteEventBnt[i].addEventListener('click', deleteEvent, false);
+    }
+
+    /**
+     * Delete organization
+     */
+    function deleteOrganization(event) {
+        orgID = event.target.dataset.id;
+        name = event.target.dataset.name;
+
+        swal({
+            text: "Вы уверены, что хотите выйти из " + name + " ?",
+            showCancelButton: true,
+            confirmButtonText: 'Выйти',
+            cancelButtonText: 'Отмена',
+            confirmButtonClass: 'btn btn_primary',
+            cancelButtonClass: 'btn btn_default',
+            buttonsStyling: false
+        }).then(function () {
+
+            orgBlock = document.getElementById('organization_'+orgID);
+
+
+            ajaxData = {
+                url: '/organization/'+orgID+'/member/remove/'+userID,
+                beforeSend: function(callback) {
+                    orgBlock.classList.add('whirl');
+                },
+                success: function(response) {
+                    response = JSON.parse(response);
+                    if (response.code == '47') {
+                        $.notify({ message: "Вы успешно вышли из организации "+ name}, { type: "success" });
+                        orgBlock.remove();
+                        document.getElementById('myOrganizationsCounter').innerHTML = parseInt(document.getElementById('myOrganizationsCounter').innerHTML) - 1;
+                        checkNumberOfOrgs();
+                    } else {
+                        $.notify({ message: "Что-то пошло не так... Попробуйте ещё раз"}, { type: "warning" });
+                        orgBlock.classList.remove('whirl');
+                        return;
+                    }
+                },
+                error: function(callback) {
+                    console.log(callback);
+                    orgBlock.classList.remove('whirl');
+                }
+            };
+
+            ajax.send(ajaxData);
+
+        });
+
+    }
+
+
+
+
+
+
+    /**
+     * Delete Event
+     */
+    function deleteEvent(event) {
+        eventID = event.target.dataset.id;
+        name = event.target.dataset.name;
+
+        swal({
+            text: "Вы уверены, что хотите выйти из " + name + " ?",
+            showCancelButton: true,
+            confirmButtonText: 'Выйти',
+            cancelButtonText: 'Отмена',
+            confirmButtonClass: 'btn btn_primary',
+            cancelButtonClass: 'btn btn_default',
+            buttonsStyling: false
+        }).then(function () {
+
+            eventBlock = document.getElementById('event_'+eventID);
+
+
+            ajaxData = {
+                url: '/event/'+eventID+'/member/remove/'+userID,
+                beforeSend: function(callback) {
+                    eventBlock.classList.add('whirl');
+                },
+                success: function(response) {
+                    response = JSON.parse(response);
+                    if (response.code == '47') {
+                        $.notify({ message: "Вы успешно вышли из мероприятия "+ name}, { type: "success" });
+                        eventBlock.remove();
+                        document.getElementById('myEventsCounter').innerHTML = parseInt(document.getElementById('myEventsCounter').innerHTML) - 1;
+                    } else {
+                        $.notify({ message: "Что-то пошло не так... Попробуйте ещё раз"}, { type: "warning" });
+                        eventBlock.classList.remove('whirl');
+                        return;
+                    }
+                },
+                error: function(callback) {
+                    console.log(callback);
+                    eventBlock.classList.remove('whirl');
+                }
+            };
+
+            ajax.send(ajaxData);
+
+        });
+
+    }
+
+
+    /**
+     * Checking number of organizations
+     */
+    var noorgs = document.createElement('div');
+    noorgs.id = "noOrgs";
+    noorgs.style = "padding: 20px;text-align: center;";
+    noorgs.innerHTML = "У Вас нет организаци. Вы можете <b><a href='/organization/new' class='underlinehover'>создать организацию</a></b>";
+
+    var checkNumberOfOrgs = function () {
+
+        if (parseInt(document.getElementById('myOrganizationsCounter').innerHTML) == 0) {
+            document.getElementById('myOrganizations').append(noorgs);
+        } else if ( document.getElementById('noOrgs') ) {
+            document.getElementById('noOrgs').remove();
+        }
+    };
+    checkNumberOfOrgs();
+
+
+    /**
+     * Checking number of events
+     */
+    var noevent = document.createElement('div');
+    noevent.id = "noEvent";
+    noevent.style = "padding: 20px;text-align: center;";
+    noevent.innerHTML = "У Вас нет мероприятий. Вы можете создать мероприятие внутри организации.";
+
+    var checkNumberOfEvent = function () {
+
+        if (parseInt(document.getElementById('myEventsCounter').innerHTML) == 0) {
+            document.getElementById('myEvents').append(noevent);
+        } else if ( document.getElementById('noEvent') ) {
+            document.getElementById('noEvent').remove();
+        }
+    };
+    checkNumberOfEvent();
+
+
+
+
 });

@@ -2672,3 +2672,14 @@ section:after, section:before,
 .fl_n{
 	float: none !important;
 }
+
+
+input::-webkit-input-placeholder{ color:#BDBDBD; }
+input::-moz-placeholder { color:#BDBDBD; }
+input:-moz-placeholder { color:#BDBDBD; }
+input:-ms-input-placeholder { color:#BDBDBD; }
+
+textarea::-webkit-input-placeholder { color:#BDBDBD; }
+textarea::-moz-placeholder { color:#BDBDBD; }
+textarea:-moz-placeholder { color:#BDBDBD; }
+textarea:-ms-input-placeholder { color:#BDBDBD; }

@@ -93,12 +93,12 @@
 
     <? if($isLogged && $isMember && !$isOwner) : ?>
     <li class="jumbotron_nav-item jumbotron_nav_org-item dropdown" data-toggle="dropdown" data-position="right" >
-        <div role="button" class="dropdown_btn">
+        <div role="button" class="dropdown__btn">
             Вы состоите в организации
             <i class="fa fa-caret-down" aria-hidden="true"></i>
         </div>
-        <div class="jumbotron_nav_org-dropdownmenu dropdown_menu">
-            <a class="jumbotron_nav_org-dropdownitem dropdown_item" onclick="leaveOrganization();">
+        <div class="jumbotron_nav_org-dropdownmenu dropdown__menu">
+            <a class="jumbotron_nav_org-dropdownitem dropdown__link onclick="leaveOrganization();">
                 Выйти из организации
             </a>
         </div>

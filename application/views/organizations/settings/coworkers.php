@@ -12,13 +12,13 @@
 <div class="block" >
 	<ul class="tabs__header">
 	    <li>
-	        <a role="button" data-toggle="tabs" data-area="coworkers" class="tabs__btn tabs__btn--active">Состоят в организации
+	        <a role="button" data-toggle="tabs" data-block="coworkers" class="tabs__btn tabs__btn--active">Состоят в организации
 				<span id="countCowerkers" class="tabs__count"><?= count($organization->team); ?></span>
 			</a>
 	    </li>
         <? if(count($organization->requests)): ?>
 	    <li>
-	        <a role="button" data-toggle="tabs" data-area="newCoworkers" class="tabs__btn">Новые заявки
+	        <a role="button" data-toggle="tabs" data-block="newCoworkers" class="tabs__btn">Новые заявки
 				<span class="tabs__count"><?= count($organization->requests); ?></span>
 			</a>
 	    </li>

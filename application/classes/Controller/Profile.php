@@ -39,8 +39,6 @@ class Controller_Profile extends Dispatch
 
         $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper');
 
-        $this->template->mainSection = View::factory('profile/pages/main');
-
 
         /** Meta data */
         $this->template->title       = $profile->name. ' ' . $profile->surname . " | Votepad";
