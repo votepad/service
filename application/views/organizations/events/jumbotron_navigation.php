@@ -1,5 +1,5 @@
-<script type="text/javascript" src="<?=$assets; ?>js/modules/ajax.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/modules/cookies.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
 
 <ul class="jumbotron_nav-list jumbotron_nav_org-list">
 
@@ -19,12 +19,12 @@
         </button>
     </li>
     <li id="cancelRequest" class="jumbotron_nav-item jumbotron_nav_org-item dropdown <? echo !$isSendRequest ? 'displaynone' : ''?>" data-toggle="dropdown" data-position="right" >
-        <div class="dropdown_btn">
+        <div class="dropdown__btn">
             Вы подали заявку
             <i class="fa fa-caret-down" aria-hidden="true"></i>
         </div>
-        <div class="jumbotron_nav_org-dropdownmenu dropdown_menu">
-            <a class="jumbotron_nav_org-dropdownitem dropdown_item" onclick="cancelRequest();">
+        <div class="jumbotron_nav_org-dropdownmenu dropdown__menu">
+            <a class="jumbotron_nav_org-dropdownitem dropdown__link" onclick="cancelRequest();">
                 Отменить заявку
             </a>
         </div>
