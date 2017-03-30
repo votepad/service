@@ -1,7 +1,7 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>static/js/auth.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/modules/ajax.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/cookies.js"></script>
 
 <!-- Authorization Modal -->
