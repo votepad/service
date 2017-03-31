@@ -23,51 +23,51 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css?v=<?= filemtime("assets/static/css/app_v1.css") ?>">
 	<link rel="stylesheet" href="<?=$assets; ?>static/css/org.css?v=<?= filemtime("assets/static/css/org.css") ?>">
 
+    <!-- =============== VENDOR SCRIPTS ===============-->
+    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
+
+    <!-- modules -->
+    <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js"></script>
 
 </head>
 <body>
 
 <header class="header">
+
     <?=$header; ?>
+
 </header>
 
-
-<div class="jumbotron block">
-
-    <!-- Jumbotron Wrapper -->
-    <?=$jumbotron_wrapper; ?>
-
-    <!-- Jumbotron Navigation -->
-    <div class="jumbotron_nav">
-        <?=$jumbotron_navigation; ?>
-    </div>
-
-</div>
-
-
 <section>
-    <?=$main_section; ?>
+
+    <?=$mainSection; ?>
+
 </section>
 
 <footer class="footer">
-    <?=$footer; ?>
+
+    <?= View::factory('globalblocks/footer'); ?>
+
 </footer>
+
+<!-- Modal form -->
+<? if ( !$isLogged ): ?>
+    <?= View::factory('globalblocks/auth_modal'); ?>
+<? endif; ?>
 
 </body>
 
-<!-- =============== VENDOR SCRIPTS ===============-->
-<script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
-
-<!-- modules -->
-<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
-
-
 <script type="text/javascript">
-    header.init();
-    collapse.init();
+
+    $( document ).ready(function() {
+        vp.header.init();
+        vp.collapse.init();
+    });
+
 </script>
+
+
 
 </html>

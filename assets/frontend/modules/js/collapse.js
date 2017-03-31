@@ -69,3 +69,5 @@ var collapse = (function(collapse) {
 
 
 })({});
+
+module.exports = collapse;

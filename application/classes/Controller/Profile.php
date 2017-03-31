@@ -9,67 +9,73 @@
 
 class Controller_Profile extends Dispatch
 {
-    public $template = 'profile/main';
+    public $template = 'main';
+
+    private $profile = null;
+
+    public function before()
+    {
+        switch ($this->request->action()) {
+
+            /**
+             * default template
+             */
+            default :
+                $this->template = 'main';
+                break;
+        }
+
+        parent::before();
+
+        $id = $this->request->param('id');
+        $profile = new Model_User($id);
+
+        if (!$id || !$profile->id) {
+            throw new HTTP_Exception_404();
+        }
+
+        $this->profile = $profile;
+
+        /** Meta data */
+        $this->template->title       = $profile->name. ' ' . $profile->surname . " | Votepad";
+        $this->template->description = "Просмотреть профиль " . $profile->name. ' ' . $profile->surname . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
+        $this->template->keywords    = "Профиль, Электронное голосование, Выставление баллов, Результат, Рейтинг, Страница с результатами, votepad, profile, voting, results, rating";
+
+
+        $this->template->header = View::factory('globalblocks/header')
+            ->set('header_menu', View::factory('profile/blocks/header_menu'))
+            ->set('header_menu_mobile', View::factory('profile/blocks/header_menu_mobile'));
+
+    }
 
     /**
      * Welcome Page
      */
     public function action_index()
     {
-        $id = $this->request->param('id');
+        $isProfileOwner = !empty($this->session->get('uid'))
+            && $this->session->get('uid') == $this->request->param('id');
 
-        $profile = new Model_User($id);
-
-        if (!$profile->id) {
-            throw new HTTP_Exception_404();
-        }
-
-        $isProfileOwner = !empty($this->session->get('uid')) && $this->session->get('uid') == $id;
-        $canLogin = self::canLogin();
-
-        $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu', View::factory('profile/blocks/header_menu'))
-            ->set('header_menu_mobile', View::factory('profile/blocks/header_menu_mobile'))
-            ->set('auth_modal', View::factory('globalblocks/auth_modal', array('canLogin' => $canLogin)));
-
-        $this->template->footer = View::factory('globalblocks/footer');
-
-        $this->template->jumbotron_wrapper = View::factory('profile/blocks/jumbotron_wrapper');
-
-        $this->template->profile = $profile;
-        $this->template->isProfileOwner = $isProfileOwner;
-
-            /** Meta data */
-        $this->template->title       = $profile->name. ' ' . $profile->surname . " | Votepad";
-        $this->template->description = "Просмотреть профиль " . $profile->name. ' ' . $profile->surname . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
-        $this->template->keywords    = "Профиль, Электронное голосование, Выставление баллов, Результат, Рейтинг, Страница с результатами, votepad, profile, voting, results, rating";
-
-
+        $this->template->mainSection = View::factory('profile/content')
+            ->set('isProfileOwner', $isProfileOwner)
+            ->set('profile', $this->profile);
     }
 
     public function action_update()
     {
-        $id = $this->request->param('id');
-
-        $user = new Model_User($id);
-
-        if (!$user->id) {
-            throw new HTTP_Exception_404();
-        }
-
-        $user->name = Arr::get($_POST, 'name', $user->name);
-        $user->surname = Arr::get($_POST, 'surname', $user->surname);
-        $user->lastname = Arr::get($_POST, 'lastname', $user->lastname);
+        $this->profile->name = Arr::get($_POST, 'name', $this->profile->name);
+        $this->profile->surname = Arr::get($_POST, 'surname', $this->profile->surname);
+        $this->profile->lastname = Arr::get($_POST, 'lastname', $this->profile->lastname);
         $email = Arr::get($_POST, 'email');
 
-        if ($email != $user->email) {
-            $user->email = $email;
-            $user->isConfirmed = 0;
+        if ($email != $this->profile->email) {
+            $this->profile->email = $email;
+            $this->profile->isConfirmed = 0;
         }
 
-        $user->phone = Arr::get($_POST, 'phone', $user->phone);
+        $this->profile->phone = Arr::get($_POST, 'phone', $this->profile->phone);
 
-        $user->update();
+        $this->profile->update();
 
         if (Arr::get($_POST, 'newpassword') && Arr::get($_POST, 'newpassword2')) {
 
@@ -83,17 +89,17 @@ class Controller_Profile extends Dispatch
                 return;
             }
 
-            if (!$user->checkPassword($oldpass)) {
+            if (!$this->profile->checkPassword($oldpass)) {
                 $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error');
                 $this->response->body(@json_encode($response->get_response()));
                 return;
             }
 
-            $user->changePassword($newpass1);
+            $this->profile->changePassword($newpass1);
 
         }
 
-        $this->redirect('user/'.$id);
+        $this->redirect('user/' . $this->profile->id);
 
     }
 

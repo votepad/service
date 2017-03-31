@@ -58,3 +58,5 @@ var tabs = (function(tabs) {
     return tabs;
 
 })({});
+
+module.exports = tabs;

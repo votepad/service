@@ -85,6 +85,7 @@
 <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/header.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/collapse.js"></script>
 
+<?=View::factory('globalblocks/auth_modal'); ?>
 
 <script type="text/javascript">
     header.init();

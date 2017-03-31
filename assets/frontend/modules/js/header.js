@@ -1,28 +1,45 @@
 var header = (function(header) {
 
-    var headerWrapper = document.getElementsByClassName('header__wrapper')[0],
-        headerMenuIcon = document.getElementById('openMobileMenu'),
-        headerBrand = document.getElementsByClassName('header__brand')[0],
-        headerMenu = document.getElementsByClassName('header__menu')[0],
-        headerMenuRight = document.getElementsByClassName('header__menu')[1],
+    var headerWrapper   = null,
+        headerMenuIcon  = null,
+        headerBrand     = null,
+        headerMenu      = null,
+        headerMenuRight = null,
         headerMenuItems = [],
-        headerMobile = document.getElementsByClassName('mobile-aside')[0],
-        headerLinks = document.getElementsByClassName('header__button'),
-        mobileLinks = document.getElementsByClassName('mobile-aside__menu-link'),
-        mobileCollapseLinks = document.getElementsByClassName('mobile-aside__collapse-link'),
+        headerMobile    = null,
+        headerLinks     = null,
+        mobileLinks     = null,
+        mobileCollapseLinks = null,
+
         address = window.location.pathname.split('/'),
         address = '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4],
-        btnHref, i, item;
+        btnHref, i, item,
+        headerMenuRightWidth = null;
 
     var backdrop = document.createElement('div');
         backdrop.className = "modal-backdrop in";
 
-    var headerMenuRightWidth = headerMenuRight.clientWidth + 1;
+    var prepare_ = function () {
+
+        headerWrapper = document.getElementsByClassName('header__wrapper')[0];
+        headerMenuIcon = document.getElementById('openMobileMenu');
+        headerBrand = document.getElementsByClassName('header__brand')[0];
+        headerMenu = document.getElementsByClassName('header__menu')[0];
+        headerMenuRight = document.getElementsByClassName('header__menu')[1];
+        headerMobile = document.getElementsByClassName('mobile-aside')[0];
+        headerLinks = document.getElementsByClassName('header__button');
+        mobileLinks = document.getElementsByClassName('mobile-aside__menu-link');
+        mobileCollapseLinks = document.getElementsByClassName('mobile-aside__collapse-link');
+
+        headerMenuRightWidth = headerMenuRight.clientWidth + 1;
         headerMenuRight.style.width = headerMenuRight.clientWidth + 1 + "px";
 
+    };
 
 
     header.init = function() {
+
+        prepare_();
 
         headerMenuIcon.addEventListener('click', openMobileMenu, false);
         backdrop.addEventListener('click', closeMobileMenu, false);
@@ -202,3 +219,5 @@ var header = (function(header) {
 
 
 })({});
+
+module.exports = header;
