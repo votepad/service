@@ -308,7 +308,8 @@ var header = (function(header) {
         mobileCollapseLinks = null,
 
         address = window.location.pathname.split('/'),
-        address = '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4],
+        address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
+        address4 = address3 + '/' + address[4],
         btnHref, i, item,
         headerMenuRightWidth = null;
 
@@ -362,9 +363,9 @@ var header = (function(header) {
         for (i = 0; i < headerLinks.length; i++) {
             if (headerLinks[i].href) {
                 btnHref = headerLinks[i].getAttribute('href').split('/');
-                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
+                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
 
-                if ( btnHref.test(address) ) {
+                if ( btnHref.test(address3) ) {
                     headerLinks[i].classList.add('header__button--active');
                 }
             }
@@ -375,7 +376,7 @@ var header = (function(header) {
                 btnHref = mobileLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
 
-                if (btnHref.test(address)) {
+                if (btnHref.test(address4)) {
                     mobileLinks[i].parentNode.classList.add('mobile-aside__menu__item--active');
                     mobileLinks[i].classList.add('mobile-aside__menu-link--active');
                 }
@@ -387,7 +388,7 @@ var header = (function(header) {
                 btnHref = mobileCollapseLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
                 
-                if (btnHref.test(address)) {
+                if (btnHref.test(address4)) {
                     mobileCollapseLinks[i].parentNode.parentNode.parentNode.classList.add('mobile-aside__menu__item--active');
                     mobileCollapseLinks[i].classList.add('mobile-aside__collapse-link--active');
                 }
@@ -525,57 +526,106 @@ module.exports = header;
 var tabs = (function(tabs) {
 
 
-    tabs.nodes = {};
+    var tabsArray_ = null,
+        nodes_ = [],
+        node_ = null,
+        noresult = null;
 
+    var prepare_ = function () {
 
-    tabs.init = function() {
+        noresult = document.createElement('div');
+        noresult.id = "noResult";
+        noresult.style = "padding: 20px;text-align: center;";
+        noresult.innerHTML = "К сожалению, ничего ненеайдено. Попробуйте изменить запрос";
 
-        tabs.nodes = document.querySelectorAll('[data-ui="tabs"]');
+        tabsArray_ = document.querySelectorAll('[data-toggle="tabs"]');
 
-        listenNode();
-    };
+        if (tabsArray_.length > 0) {
 
+            for (var i = 0; i < tabsArray_.length; i++) {
+                node_ = {
+                    btn: tabsArray_[i],
+                    block: document.getElementById(tabsArray_[i].dataset.block),
+                    search: document.getElementById(tabsArray_[i].dataset.search),
+                    input: document.getElementById(tabsArray_[i].dataset.search + "Input"),
+                    counter: document.getElementById(tabsArray_[i].dataset.block + "Counter"),
+                    search_elements: document.getElementById(tabsArray_[i].dataset.block).getElementsByClassName('item__info-name')
+                };
+                nodes_.push(node_);
 
-    var listenNode = function() {
+                nodes_[i].btn.dataset.id = i;
+                nodes_[i].btn.addEventListener('click', changeTab, false);
 
-        for (var i = 0; i < tabs.nodes.length; i++) {
-            tabs.nodes[i].addEventListener('click', changeTab, false);
+                if (nodes_[i].input){
+                    nodes_[i].input.dataset.id = i;
+                    nodes_[i].input.addEventListener('keyup', searchItem, false);
+                }
+            }
+
         }
 
     };
+
+
+
+    tabs.init = function() {
+        prepare_();
+    };
+
 
 
     var changeTab = function(event) {
 
-        var node = event.target;
-        if (! node.classList.contains('tab') )
-            node = event.target.parentElement;
-
-
-        var newBlockId = node.getAttribute('aria-controls'),
-            newBlock = document.getElementById(newBlockId),
-            blocksContent = newBlock.parentElement.children,
-            headerTabs = node.parentElement.parentElement.getElementsByTagName("li"),
-            className;
-
-        /**
-         * Change header active tab
-         */
-        for (var i = 0; i < headerTabs.length; i++) {
-            headerTabs[i].children[0].classList.remove("tab--active");
+        for (var i = 0; i < nodes_.length; i++) {
+            nodes_[i].btn.classList.remove("tabs__btn--active");
+            nodes_[i].block.classList.remove("tabs__block--active");
+            if (nodes_[i].search) {
+                nodes_[i].search.classList.remove("tabs__search-block--active");
+            }
         }
 
-        node.classList.add("tab--active");
-
-
-        /**
-         * Change tabs content
-         */
-        for (var i = 0; i < blocksContent.length; i++) {
-            blocksContent[i].classList.remove("tab_block--active");
+        nodes_[this.dataset.id].btn.classList.add("tabs__btn--active");
+        nodes_[this.dataset.id].block.classList.add("tabs__block--active");
+        if (nodes_[this.dataset.id].search) {
+            nodes_[this.dataset.id].search.classList.add("tabs__search-block--active");
         }
 
-        newBlock.classList.add("tab_block--active");
+    };
+
+
+    var searchItem = function () {
+
+        var node = nodes_[this.dataset.id],
+            searchingText = new RegExp(node.input.value.toLowerCase()),
+            elementBlock, element, element_text;
+
+        for (var i = 0; i < node.search_elements.length; i++) {
+            element = node.search_elements[i].getElementsByTagName('a')[0];
+            elementBlock = element.parentNode.parentNode.parentNode;
+            element_text = element.innerHTML.toLowerCase();
+
+            if ( ! searchingText.test(element_text) ) {
+
+                if (!elementBlock.classList.contains('hide'))
+                    node.counter.innerHTML = parseInt(node.counter.innerHTML) - 1;
+                element.parentNode.parentNode.parentNode.classList.add('hide');
+
+            } else {
+
+                if (element.parentNode.parentNode.parentNode.classList.contains('hide'))
+                    node.counter.innerHTML = parseInt(node.counter.innerHTML) + 1;
+                element.parentNode.parentNode.parentNode.classList.remove('hide');
+
+            }
+
+            if (parseInt(node.counter.innerHTML) == 0) {
+                elementBlock.parentNode.append(noresult);
+            } else if ( document.getElementById('noResult') ) {
+                document.getElementById('noResult').remove();
+            }
+
+
+        }
 
     };
 
