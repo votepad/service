@@ -180,7 +180,7 @@ $(document).ready(function () {
             return false;
         }
 
-        ajax.send({
+        vp.ajax.send({
             data: new FormData($('#reset_password_form')[0]),
             url: '/reset/' + hash,
             type: 'POST',
@@ -290,7 +290,7 @@ $(document).ready(function () {
                 }
             };
 
-            ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
 
         });
 
@@ -344,7 +344,7 @@ $(document).ready(function () {
                 }
             };
 
-            ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
 
         });
 

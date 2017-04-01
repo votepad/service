@@ -14,7 +14,7 @@
         </div>
 
         <div class="user-info__description row">
-            <h1 class="user-info__description-name"><?= $profile->name ?> <?= $profile->lastname ?> <?= $profile->surname ?></h1>
+            <h1 class="user-info__description-name"><?= $profile->name . ' ' . $profile->lastname . ' ' . $profile->surname; ?></h1>
             <h3 class="user-info__description-email"><a href="mailto:<?= $profile->email; ?>"><?= $profile->email ?></a></h3>
             <h3 class="user-info__description-phone"><a href="tel:<?= $profile->phone; ?>"><?= $profile->phone ?></a></h3>
         </div>
@@ -25,7 +25,7 @@
 
 <? if ( $isLogged && $isProfileOwner ) :?>
     <!-- Modal - Update User Info -->
-    <form action="<?= $profile->id ?>/update" method="POST" class="modal fade" id="edit_user_modal" tabindex="-1" role="dialog" >
+    <form action="/user/<?= $profile->id ?>/update" method="POST" class="modal fade" id="edit_user_modal" tabindex="-1" role="dialog" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">

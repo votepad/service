@@ -3,13 +3,15 @@
     <ul class="tabs__header">
 
         <li class="col-xs-12 col-md-6 text-center">
-            <a data-toggle="tabs" data-block="myOrganizations" data-search="myOrganizationsSearch" class="tabs__btn tabs__btn--active fl_n">Мои организации
-                <span id="myOrganizationsCounter" class="tabs__count">2</span>
+            <a data-toggle="tabs" data-block="myOrganizations" data-search="myOrganizationsSearch" class="tabs__btn tabs__btn--active fl_n">
+                <? if ($isProfileOwner) : ?>Мои организации <? else : ?> Организации <? endif; ?>
+                <span id="myOrganizationsCounter" class="tabs__count">1</span>
             </a>
         </li>
 
         <li class="col-xs-12 col-md-6 text-center">
-            <a data-toggle="tabs" data-block="myEvents" data-search="myEventsSearch" class="tabs__btn fl_n">Мои мероприятия
+            <a data-toggle="tabs" data-block="myEvents" data-search="myEventsSearch" class="tabs__btn fl_n">
+                <? if ($isProfileOwner) : ?>Мои мероприятия <? else : ?> Мероприятия <? endif; ?>
                 <span id="myEventsCounter" class="tabs__count">1</span>
             </a>
         </li>
@@ -45,25 +47,11 @@
                     <div class="item__info-additional">
                         <a href="">Состоит в организации 5дней(или 2 месяца, или 1 год)</a>
                     </div>
+                    <? if ($isProfileOwner) : ?>
                     <div class="item__info-controls clear_fix">
                         <button data-id="organization->id" data-name="organization->name" class="btn btn_default deleteOrganization">Выйти из организации</button>
                     </div>
-                </div>
-            </div>
-            <div id="organization_organization->id2" class="item col-xs-12 col-md-6">
-                <a href="" class="item__img-wrap">
-                    <img class="item__img" alt="Org img" src="">
-                </a>
-                <div class="item__info">
-                    <div class="item__info-name">
-                        <a href="<?= URL::site(''); ?>">Itmo Univer</a>
-                    </div>
-                    <div class="item__info-additional">
-                        <a href="">Состоит в организации 5дней(или 2 месяца, или 1 год)</a>
-                    </div>
-                    <div class="item__info-controls clear_fix">
-                        <button data-id="organization->id2" data-name="organization->name2" class="btn btn_default deleteOrganization">Выйти из организации</button>
-                    </div>
+                    <? endif; ?>
                 </div>
             </div>
 
@@ -83,9 +71,11 @@
                     <div class="item__info-additional">
                         <a href="">Над мероприятием работают 5 организатор(ов)</a>
                     </div>
+                    <? if ($isProfileOwner) : ?>
                     <div class="item__info-controls clear_fix">
                         <button data-id="event->id" data-name="event->name" class="btn btn_default deleteEvent">Покинуть мероприятия</button>
                     </div>
+                    <? endif; ?>
                 </div>
             </div>
 
@@ -93,5 +83,3 @@
 
     </div>
 </div>
-
-<input type="hidden" id="userID" data-id="<?=$user->id; ?>">
