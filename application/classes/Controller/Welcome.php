@@ -3,10 +3,12 @@
 /**
  * Class Controller_Welcome
  *
- * @copyright Khaydarov Murod
+ * @copyright Votepad Team
+ *
+ * @author Khaydarov Murod
  * @author Turov Nikolay
  *
- * @version 0.3
+ * @version
  *
  */
 

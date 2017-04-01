@@ -1,8 +1,8 @@
 $(document).ready(function () {
 
-    var hash = cookies.get('reset_link');
+    var hash = vp.cookies.get('reset_link');
     hash = hash?hash.split('~')[1]:'';
-    cookies.remove('reset_link');
+    vp.cookies.remove('reset_link');
 
 
     /**

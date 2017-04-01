@@ -1,4 +1,26 @@
+<!-- =============== PAGE STYLE ===============-->
+<link rel="stylesheet" href="<?=$assets; ?>static/css/profile.css?v=<?= filemtime("assets/static/css/profile.css") ?>">
+
+<div class="jumbotron block jumbotron_profile">
+    <div class="jumbotron_wrapper parallax-container">
+
+        <div class="parallax jumbotron_cover">
+            <img id="user-cover-uploaded" src="<?=$assets; ?>img/welcome/bg1.jpg">
+        </div>
+
+        <? if ($isLogged && $user->id) :?>
+        <div class="jumbotron_wrapper_edit">
+            <a id="user-cover-edit" role="button" class="jumbotron_wrapper_edit-btn">
+                    <i class="fa fa-camera jumbotron_wrapper_edit-icon" aria-hidden="true"></i>
+                <span class="jumbotron_wrapper_edit-text">Обновить фото шапки</span>
+            </a>
+        </div>
+        <? endif; ?>
+    </div>
+</div>
+
 <section>
+
     <div class="profile_info block">
         <div class="block_body text-center">
 
@@ -22,7 +44,6 @@
 
         </div>
     </div>
-
 
     <?= View::factory('profile/blocks/reset_password') ?>
 
@@ -136,3 +157,8 @@
     <? endif; ?>
 
 </section>
+
+
+<!-- =============== PAGE SCRIPTS ===============-->
+<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/profile.js"></script>
