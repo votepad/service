@@ -21,7 +21,7 @@
 
 <section>
 
-    <div class="profile_info block">
+    <div class="user-info block">
         <div class="block_body text-center">
 
             <? if ( $isLogged && $isProfileOwner ) :?>

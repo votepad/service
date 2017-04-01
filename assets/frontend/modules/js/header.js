@@ -12,7 +12,8 @@ var header = (function(header) {
         mobileCollapseLinks = null,
 
         address = window.location.pathname.split('/'),
-        address = '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4],
+        address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
+        address4 = address3 + '/' + address[4],
         btnHref, i, item,
         headerMenuRightWidth = null;
 
@@ -66,9 +67,9 @@ var header = (function(header) {
         for (i = 0; i < headerLinks.length; i++) {
             if (headerLinks[i].href) {
                 btnHref = headerLinks[i].getAttribute('href').split('/');
-                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
+                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
 
-                if ( btnHref.test(address) ) {
+                if ( btnHref.test(address3) ) {
                     headerLinks[i].classList.add('header__button--active');
                 }
             }
@@ -79,7 +80,7 @@ var header = (function(header) {
                 btnHref = mobileLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
 
-                if (btnHref.test(address)) {
+                if (btnHref.test(address4)) {
                     mobileLinks[i].parentNode.classList.add('mobile-aside__menu__item--active');
                     mobileLinks[i].classList.add('mobile-aside__menu-link--active');
                 }
@@ -91,7 +92,7 @@ var header = (function(header) {
                 btnHref = mobileCollapseLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
                 
-                if (btnHref.test(address)) {
+                if (btnHref.test(address4)) {
                     mobileCollapseLinks[i].parentNode.parentNode.parentNode.classList.add('mobile-aside__menu__item--active');
                     mobileCollapseLinks[i].classList.add('mobile-aside__collapse-link--active');
                 }

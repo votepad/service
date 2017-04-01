@@ -40,9 +40,7 @@
 </header>
 
 
-
 <?=$mainSection; ?>
-
 
 
 <footer class="footer">
@@ -51,7 +49,6 @@
 
 </footer>
 
-<!-- Modal form -->
 <? if ( !$isLogged ): ?>
     <?= View::factory('globalblocks/auth_modal'); ?>
 <? endif; ?>

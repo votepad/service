@@ -9,6 +9,7 @@
 
 class Controller_Organizations_Index extends Dispatch
 {
+
     /**
      * @const ACTION_NEW [String]
      */
@@ -19,18 +20,10 @@ class Controller_Organizations_Index extends Dispatch
      */
     protected $organization = null;
 
+    public $template = 'main';
 
     public function before()
     {
-        switch ($this->request->action()) {
-
-            /**
-             * default template
-             */
-            default :
-                $this->template = 'main';
-                break;
-        }
 
         parent::before();
 
@@ -49,12 +42,12 @@ class Controller_Organizations_Index extends Dispatch
 
         }
 
+        $isOwner = $isMember = false;
+
         /**
          * Organization info
          */
         $this->template->organization = $this->organization;
-
-        $isOwner = $isMember = false;
 
         if ($this->organization->id) {
 
@@ -105,18 +98,16 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_show()
     {
-        /**
-         * Jumbotron Navigation
-         */
-        $this->template->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
-            ->set('isMember', $this->isMember)
-            ->set('isOwner', $this->isOwner)
-            ->set('userID', $this->user->id)
-            ->set('id', $this->organization->id);
 
-        $this->template->mainSection = View::factory('organizations/events/main')
-            ->set('organization', $this->organization)
-            ->set('isSendRequest', $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests'));
+        $this->template->mainSection = View::factory('organizations/events/content')
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
+            ->set('isSendRequest', $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests'))
+            ->set('isOwner', $this->organization->isOwner($this->user ? $this->user->id : 0))
+            ->set('isMember', $this->organization->isMember($this->user ? $this->user->id : 0))
+            ->set('userID', $this->user ? $this->user->id : 0)
+            ->set('orgID', $this->organization->id);
 
     }
 
@@ -128,22 +119,18 @@ class Controller_Organizations_Index extends Dispatch
     public function action_main()
     {
 
-        if (!$this->isOwner) {
+        if (!$this->organization->isOwner($this->user ? $this->user->id : 0)) {
             throw new HTTP_Exception_403();
         }
 
-        /**
-         * Jumbotron Navigation
-         */
-        $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
+
+        $this->template->mainSection = View::factory('organizations/settings/maininfo')
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
             ->set('id', $this->organization->id);
 
 
-        /**
-         * Main Section
-         */
-        $this->template->main_section = View::factory('organizations/settings/main')
-                ->set('organization', $this->organization);
 
     }
 
@@ -155,7 +142,7 @@ class Controller_Organizations_Index extends Dispatch
     public function action_team()
     {
 
-        if (!$this->isOwner) {
+        if (!$this->organization->isOwner($this->user ? $this->user->id : 0)) {
             throw new HTTP_Exception_403();
         }
 
@@ -168,18 +155,11 @@ class Controller_Organizations_Index extends Dispatch
             array_push($this->organization->requests, new Model_User($id));
         }
 
-        /**
-         * Jumbotron Navigation
-         */
-        $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
+        $this->template->mainSection = View::factory('organizations/settings/coworkers')
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
             ->set('id', $this->organization->id);
-
-
-        /**
-         * Main Section
-         */
-        $this->template->main_section = View::factory('organizations/settings/coworkers')
-                ->set('organization', $this->organization);
 
 
     }

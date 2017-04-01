@@ -2,8 +2,9 @@
 
 /**
  * Class Controller_Profile
- * @author Votepad Team
- * @copyright Turov Nikolay
+ *
+ * @copyright Votepad Team
+ * @author Turov Nikolay
  * @version 0.1.0
  */
 
