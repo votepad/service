@@ -6,19 +6,23 @@
     Список сотрудников
 </h3>
 
+<?= Form::hidden('event_id', $event->id, array('id' => 'event_id')) ?>
+
 <div class="block" >
     <ul class="tabs tabs_header clear_fix">
         <li id="">
             <a data-ui="tabs" aria-controls="assistants" class="tab tab--active">Участвуют в проведении
-                <span id="" class="tab_count"><?= count($event->assistants) ?></span>
+                <span id="countAssistans" class="tab_count"><?= count($event->assistants) ?></span>
             </a>
         </li>
-        
+
+        <? if (count($requests) > 0) : ?>
         <li id="">
             <a data-ui="tabs" aria-controls="newAssistants" class="tab">Новые заявки
                 <span class="tab_count"><?= count($requests) ?></span>
             </a>
         </li>
+        <? endif; ?>
         
         <button data-href="<?= $_SERVER['HTTP_HOST'] . $invite_link ?>" id="inviteBtn" class="btn btn_primary tab_btn">Пригласить</button>
     </ul>
@@ -43,7 +47,7 @@
                         </div>
                         
                         <div class="coworker_controls clear_fix">
-                            <button data-id="<?= $user->id ?>" data-name="FI" class="btn btn_default deletebtn">Исключить</button>
+                            <button data-id="<?= $user->id ?>" data-name="<?= $user->surname . ' ' . $user->name; ?>" class="btn btn_default deletebtn">Исключить</button>
                         </div>
                         
                     </div>
@@ -52,7 +56,7 @@
 
         </div>
 
-        
+        <? if (count($requests) > 0) : ?>
         <div id="newAssistants" class="tab_block">
 
             <? foreach($requests as $user): ?>
@@ -81,6 +85,7 @@
             <? endforeach; ?>
 
         </div>
+        <? endif; ?>
 
     </div>
 </div>
@@ -88,6 +93,7 @@
 
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/event/settings-assistants.js"></script>
 
 <!-- modules -->
 <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/tabs.js"></script>
