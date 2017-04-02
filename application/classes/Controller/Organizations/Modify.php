@@ -35,8 +35,6 @@ class Controller_Organizations_Modify extends Dispatch
             $website        = Arr::get($_POST, 'official_org_site', '');
 
 
-
-
             $organization = new Model_Organization();
 
             $organization->name         = $name;

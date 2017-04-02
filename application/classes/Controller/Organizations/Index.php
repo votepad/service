@@ -88,7 +88,7 @@ class Controller_Organizations_Index extends Dispatch
             throw new HTTP_Exception_403;
 
         }
-
+        $this->template->title = "Новая организация";
         $this->template->mainSection = View::factory('organizations/new');
     }
 
