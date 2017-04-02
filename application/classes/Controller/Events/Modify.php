@@ -6,15 +6,24 @@
  * @copyright
  */
 
-class Controller_Events_Modify extends Controller
+class Controller_Events_Modify extends Dispatch
 {
+
+    public function before() {
+
+        $this->auto_render = false;
+
+        parent::before();
+
+    }
 
     /**
      * Action for creating new event
      */
     public function action_add()
     {
-        if ($this->request->method() == Request::POST) {
+
+        if ($this->request->method() != Request::POST) {
 
             throw new HTTP_Exception_403();
 
@@ -41,6 +50,7 @@ class Controller_Events_Modify extends Controller
         $event->organization = $id_organization;
 
         $event = $event->save();
+        $event->addAssistant($this->user->id);
 
         $this->redirect('event/' . $event->id . '/settings');
 
@@ -77,6 +87,25 @@ class Controller_Events_Modify extends Controller
         $event = $event->update();
 
         $this->redirect('event/' . $event->id . '/settings/info');
+
+    }
+
+    public function action_assistant_request() {
+
+        $id    = $this->request->param('id');
+        $event = new Model_Event($id);
+
+        if ($this->request->url() != $event->getInviteLink()) {
+            throw new HTTP_Exception_403();
+        };
+
+        if (!$this->user->id) {
+            echo 'Authorization required';
+            exit;
+        }
+
+        $this->redis->sAdd('votepad.orgs:' . $event->organization . ':events:' . $event->id . ':assistants.requests', $this->user->id);
+        $this->redirect('/event/' . $event->id);
 
     }
 

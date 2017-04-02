@@ -125,3 +125,10 @@ Route::set('MAIN_SETTINGS_UPDATE', 'event/<id>/settings/info/update',
         'controller' => 'Events_Modify',
         'action'     => 'update'
     ));
+
+Route::set('INVITE_LINK', 'event/<id>/invite/<hash>',
+    array('id' => $DIGIT, 'hash' => $STRING))
+    ->defaults(array(
+        'controller' => 'Events_Modify',
+        'action'     => 'assistant_request'
+    ));

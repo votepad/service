@@ -162,7 +162,6 @@ class Model_Event extends Model
             ->execute('u_id');
 
         $users = array();
-
         foreach ($selection as $id => $value) {
 
             array_push($users, new Model_User($id));
@@ -181,6 +180,13 @@ class Model_Event extends Model
             ->clearcache('EventUsers:' . $this->id)
             ->clearcache('UserEvents:' . $id)
             ->execute();
+
+    }
+
+    public function getInviteLink() {
+
+        $hash = hash('sha256', $this->organization . $_SERVER['SALT'] . $this->id);
+        return '/event/' . $this->id . '/invite/' . $hash;
 
     }
 

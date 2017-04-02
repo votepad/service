@@ -114,8 +114,20 @@ class Controller_Events_Index extends Dispatch
         $this->template->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation')
             ->set('event', $this->event);
 
+        $this->event->assistants = $this->event->getAssistants();
+
+        $requests_ids =  $this->redis->sMembers('votepad.orgs:' . $this->event->organization . ':events:' . $this->event->id . ':assistants.requests');
+        $requests = array();
+
+        foreach ($requests_ids as $id) {
+            array_push($requests, new Model_User($id));
+        }
+
         $this->template->main_section = View::factory('events/settings/assistants')
-            ->set('event', $this->event);
+            ->set('event', $this->event)
+            ->set('requests', $requests)
+            ->set('invite_link', $this->event->getInviteLink());
+
     }
 
 
