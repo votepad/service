@@ -88,13 +88,13 @@ function removeCoworker(event) {
          * Send ajax request for deleted
          */
         ajaxData = {
-            url: '/event/'+eventId+'/member/remove/'+id,
+            url: '/event/'+eventId+'/assistant/remove/'+id,
             beforeSend: function(callback) {
                 addWhirl(assistant_block);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                if (response.code == '47') {
+                if (response.code == '57') {
                     notify("successDelete");
                     assistant_block.remove();
                     document.getElementById('countAssistans').innerHTML = parseInt(document.getElementById('countAssistans').innerHTML) - 1;
@@ -111,7 +111,7 @@ function removeCoworker(event) {
             }
         };
 
-        ajax.send(ajaxData);
+        vp.ajax.send(ajaxData);
 
     });
 
@@ -124,22 +124,23 @@ function removeCoworker(event) {
  */
 function addAssistant(event) {
     id = event.target.dataset.id;
-    assistant_block = document.getElementById('coworker_id'+id);
+    assistant_block = document.getElementById('assistant_id'+id);
 
     /**
      * Send ajax request for accept assistant's request
      */
     ajaxData = {
-        url: '/event/'+eventId+'/member/add/'+id,
+        url: '/event/'+eventId+'/assistant/add/'+id,
         beforeSend: function(callback) {
             addWhirl(assistant_block);
         },
         success: function(response) {
             response = JSON.parse(response);
-            if (response.code == '46') {
+            if (response.code == '56') {
                 notify("successAccept");
                 event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
                 removeWhirl(assistant_block);
+                assistant_block.remove();
             } else {
                 notify("errorAccept");
                 removeWhirl(assistant_block);
@@ -153,7 +154,7 @@ function addAssistant(event) {
         }
     };
 
-    ajax.send(ajaxData);
+    vp.ajax.send(ajaxData);
 
 }
 
@@ -164,19 +165,19 @@ function addAssistant(event) {
  */
 function rejectAssistant(event) {
     id = event.target.dataset.id;
-    assistant_block = document.getElementById('coworker_id'+id);
+    assistant_block = document.getElementById('assistant_id'+id);
 
     /**
      * Send ajax request for cansel assistant's request
      */
     ajaxData = {
-        url: '/event/'+eventId+'/member/reject/'+id,
+        url: '/event/'+eventId+'/assistant/reject/'+id,
         beforeSend: function(callback) {
             addWhirl(assistant_block);
         },
         success: function(response) {
             response = JSON.parse(response);
-            if (response.code == '48') {
+            if (response.code == '58') {
                 notify("successCansel");
                 event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка отклонена</div>';
                 removeWhirl(assistant_block);
@@ -193,7 +194,7 @@ function rejectAssistant(event) {
         }
     };
 
-    ajax.send(ajaxData);
+    vp.ajax.send(ajaxData);
 
 }
 

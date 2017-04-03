@@ -43,10 +43,10 @@ class Controller_Events_Index extends Dispatch
         if ($event->id) {
 
             $this->event = $event;
-            $organization = new Model_Organization($event->organization);
+            $this->organization = new Model_Organization($event->organization);
 
             View::set_global('event', $event);
-            View::set_global('organization', $organization);
+            View::set_global('organization', $this->organization);
 
             /**
              * Meta Dates
@@ -107,6 +107,10 @@ class Controller_Events_Index extends Dispatch
     {
 
         $this->event->assistants = $this->event->getAssistants();
+
+        if (!$this->organization->isMember($this->user->id)) {
+            throw new HTTP_Exception_403();
+        }
 
         $requests_ids =  $this->redis->sMembers('votepad.orgs:' . $this->event->organization . ':events:' . $this->event->id . ':assistants.requests');
         $requests = array();

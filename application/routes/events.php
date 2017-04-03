@@ -132,3 +132,9 @@ Route::set('INVITE_LINK', 'event/<id>/invite/<hash>',
         'controller' => 'Events_Modify',
         'action'     => 'assistant_request'
     ));
+
+Route::set('ASSISTANTSS_ACTIONS', 'event/<id>/assistant/<method>/<userId>', array('id' => $DIGIT, 'userId' => $DIGIT, 'method' => 'add|remove|reject'))
+    ->defaults(array(
+        'controller' => 'Events_Ajax',
+        'action'     => 'assistant'
+    ));

@@ -183,6 +183,17 @@ class Model_Event extends Model
 
     }
 
+    public function isAssistant($id) {
+
+        return (bool) Dao_UsersEvents::select('u_id')
+            ->where('u_id', '=', $id)
+            ->where('e_id', '=', $this->id)
+            ->limit(1)
+            ->execute();
+
+    }
+
+
     public function getInviteLink() {
 
         $hash = hash('sha256', $this->organization . $_SERVER['SALT'] . $this->id);

@@ -99,7 +99,7 @@ class Controller_Events_Modify extends Dispatch
             throw new HTTP_Exception_403();
         };
 
-        if (!$this->user->id) {
+        if (empty($this->user)) {
             echo 'Authorization required';
             exit;
         }

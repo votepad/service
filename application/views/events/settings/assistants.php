@@ -31,7 +31,7 @@
                 </a>
             </li>
 
-            <? if (count($requests) > 0) : ?>
+            <? if (!empty($requests)) : ?>
             <li id="">
                 <a data-toggle="tabs" data-block="newAssistants" class="tabs__btn">Новые заявки
                     <span class="tab__count"><?= count($requests) ?></span>
@@ -74,35 +74,35 @@
 
             </div>
 
-            <? if (count($requests) > 0) : ?>
-            <div id="newAssistants" class="tabs__block">
+            <? if (!empty($requests)) : ?>
+                <div id="newAssistants" class="tabs__block">
 
-                <? foreach($requests as $user): ?>
-                    <div id="assistant_id<?= $user->id ?>" class="item col-xs-12 col-md-6">
+                    <? foreach($requests as $user): ?>
+                        <div id="assistant_id<?= $user->id ?>" class="item col-xs-12 col-md-6">
 
-                        <a class="D:\OpenServer\domains\pronwe\application\views\events\settings\assistants.php" href="">
-                            <img class="item__img" alt="Co-worker" src="">
-                        </a>
+                            <a class="D:\OpenServer\domains\pronwe\application\views\events\settings\assistants.php" href="">
+                                <img class="item__img" alt="Co-worker" src="">
+                            </a>
 
-                        <div class="item__info">
-                            <div class="item__info-name">
-                                <a href="/user/<?= $user->id ?>"><?= $user->surname . ' ' . $user->name . ' ' . $user->lastname ?></a>
+                            <div class="item__info">
+                                <div class="item__info-name">
+                                    <a href="/user/<?= $user->id ?>"><?= $user->surname . ' ' . $user->name . ' ' . $user->lastname ?></a>
+                                </div>
+                                <div class="item__info-additional">
+                                    <span><?= $user->email; ?></span>
+                                    <span><?= $user->phone ?></span>
+                                </div>
+
+                                <div class="item__info-controls clear_fix">
+                                    <button data-id="<?= $user->id ?>" class="btn btn_primary acceptbtn">Принять заявку</button>
+                                    <button data-id="<?= $user->id ?>" class="btn btn_text cancelbtn">Отклонить</button>
+                                </div>
+
                             </div>
-                            <div class="item__info-additional">
-                                <span><?= $user->email; ?></span>
-                                <span><?= $user->phone ?></span>
-                            </div>
-
-                            <div class="item__info-controls clear_fix">
-                                <button data-id="<?= $user->id ?>" class="btn btn_primary acceptbtn">Принять заявку</button>
-                                <button data-id="<?= $user->id ?>" class="btn btn_text cancelbtn">Отклонить</button>
-                            </div>
-
                         </div>
-                    </div>
-                <? endforeach; ?>
+                    <? endforeach; ?>
 
-            </div>
+                </div>
             <? endif; ?>
 
         </div>
@@ -112,3 +112,6 @@
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>static/js/event/settings-assistants.js"></script>
+<script>
+    vp.tabs.init();
+</script>
