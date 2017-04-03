@@ -87,7 +87,7 @@ $(document).ready(function() {
 
 		 var isFormInvalid = false, id;
 
-		 $('.form_newevent input, textarea').each(function(){
+		 $('#form_newevent input, textarea').each(function(){
 			 id = $(this).attr('id');
 			 if (isFormInvalid == false && id != undefined && $(this).attr('type') != 'hidden') {
 				 isFormInvalid = isElementInvalid($(this), 'submit')
@@ -111,7 +111,7 @@ $(document).ready(function() {
 		 });
 
 		 if ( isFormInvalid ) {
-		 	return
+		 	return;
 		 } else {
 			 $("#site").inputmask('remove');
 		 }
@@ -119,8 +119,10 @@ $(document).ready(function() {
 
 
 
+
 	/**
 	* Change step
+	* Show/hide Next|Previous|Submit btns
 	*/
 	function changeStep(direction) {
 
@@ -135,10 +137,10 @@ $(document).ready(function() {
 		});
 
 
-		if ( translateX < 0 && translateX > -300 ) {
+		if ( translateX < 0 && translateX > -200 ) {
 			$('#btnnext').removeClass('displaynone');
 			$('#btnprevious').removeClass('displaynone');
-		} else if ( translateX == -300 ) {
+		} else if ( translateX == -200 ) {
 			$('#btnnext').addClass('displaynone');
 		} else if ( translateX == 0 ) {
 			$('#btnprevious').addClass('displaynone');
@@ -146,42 +148,39 @@ $(document).ready(function() {
 	}
 
 
-	/**
-	* Checking does all field are compleated on step
-	*/
-	function isStepDone(translateX) {
+    /**
+     * Checking does all field are compleated on step
+     */
+    function isStepDone(translateX) {
 
-		if (translateX == 0) {
-			currentStep = 1;
-			currentStepElement = ['input','input'];
-		} else if (translateX == -100){
-			currentStep = 2;
-			currentStepElement = ['textarea','select'];
-		} else if (translateX == -200){
-			currentStep = 3;
-			currentStepElement = ['input','input','textarea'];
-		} else {
-			currentStep = 4;
-		}
+        if (translateX == 0) {
+            currentStep = 1;
+            currentStepElement = ['input','input'];
+        } else if (translateX == -100){
+            currentStep = 2;
+            currentStepElement = ['textarea','select'];
+        } else {
+            currentStep = 3;
+            currentStepElement = ['input','input','input'];
+        }
 
-		currentStepBlock = $('#step' + currentStep);
-		var tmpnum = 0;
+        currentStepBlock = $('#step' + currentStep);
+        var tmpnum = 0;
 
-		for (var i = 0; i < currentStepElement.length; i++) {
-			currentStepBlock.find(currentStepElement[i]).each(function(){
-				if ( isElementInvalid($(this), 'check') )
-					tmpnum++;
-			})
-		}
+        for (var i = 0; i < currentStepElement.length; i++) {
+            currentStepBlock.find(currentStepElement[i]).each(function(){
+                if ( isElementInvalid($(this), 'check') )
+                    tmpnum++;
+            })
+        }
 
+        if (tmpnum == 0) {
+            return true;
+        } else {
+            return false;
+        }
 
-		if (tmpnum == 0)
-			return true;
-		else
-			return false;
-
-	}
-
+    }
 
 
 	/**
@@ -265,7 +264,6 @@ $(document).ready(function() {
 			$('#btnsubmit').addClass('displaynone');
 		}
 	}
-    $('#btnsubmit').removeClass('displaynone');
 
 
 	/**
@@ -304,7 +302,44 @@ $(document).ready(function() {
     	showMaskOnFocus: true,
     	clearIncomplete: true,
 		oncomplete: function(){
-            isElementInvalid($(this), "valid");
+
+            var $this = $(this),
+				website = $("#site").inputmask('unmaskedvalue'),
+				host = window.location.origin;
+
+            /*
+			 **  Checking event website in DB
+			 */
+			var ajaxData = {
+                url: host + '/event/check/' + website,
+                type: "POST",
+                beforeSend: function () {
+
+                },
+                success: function (response) {
+
+                    if ( response === "false") {
+                        isElementInvalid($this, "valid");
+                    }
+                    else {
+                        if ( ! $(this).parent().children('span').hasClass('error-block') ) {
+                            $.notify({
+                                message: 'К сожалению, такой адрес мероприятия занят. Пожалуйста, придумайте другой'
+                            },{
+                                type: 'danger'
+                            });
+                        }
+                        isElementInvalid($this, "invalid");
+                    }
+
+                },
+				error: function (callback) {
+					console.log(callback);
+                }
+			};
+
+			vp.ajax.send(ajaxData);
+
 		},
     	onincomplete: function(){
 			isElementInvalid($(this), "invalid");
@@ -318,14 +353,14 @@ $(document).ready(function() {
 
     var allowedDescSymbols = new RegExp("[^a-zA-Zа-яА-Я0-9-№\" ]");
 
-    $("#desc, #address").on('keydown', function(e){
+    $("#desc").on('keydown', function(e){
         var keyCode = e.keyCode || e.which;
         if (keyCode == 13) {
             e.preventDefault();
         }
     });
 
-    $("#desc, #address").on('fucus, blur', function(e){
+    $("#desc").on('fucus, blur', function(e){
         if ( $(this).val() != "" && $(this).val().length > 1 && $(this).val().length < parseInt($(this).attr('length')) && ! allowedDescSymbols.test($(this).val()) ) {
             isElementInvalid($(this), "valid");
         } else {
@@ -340,6 +375,24 @@ $(document).ready(function() {
 		} else {
             isElementInvalid($(this), "valid");
 		}
+    });
+
+
+    $("#address").inputmask({
+        mask: '*{1,200}',
+        definitions: {
+            '*': {
+                validator: "[a-zA-Z0-9а-яА-Я№ ]",
+            }
+        },
+        showMaskOnHover: false,
+        showMaskOnFocus: true,
+        oncomplete: function(){
+            isElementInvalid($(this), "valid");
+        },
+        onincomplete: function(){
+            isElementInvalid($(this), "invalid");
+        }
     });
 
 

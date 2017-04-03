@@ -23,13 +23,17 @@ class Controller_Events_Index extends Dispatch
      */
     protected $event = null;
 
+
+    /**
+     * Global Template
+     */
+    public $template = 'main';
+
     /**
      * Function that calls before main action
      */
     public function before()
     {
-
-        $this->template = 'events/main';
 
         parent::before();
 

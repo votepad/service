@@ -24,7 +24,7 @@ Route::set('NEW_EVENT', 'organization/<id>/event/new',
 /**
  * This route checks website existance. Responces only for XMLHTTP requests
  *
- * @example http://pronwe.ru/events/check/ifmo.ru - returns JSON encoded Boolean responce.
+ * @example http://pronwe.ru/event/check/ifmo.ru - returns JSON encoded Boolean responce.
  * @return [Boolean]
  */
 Route::set('CHECK_EVENT_WEBSITE', 'event/check/<website>',

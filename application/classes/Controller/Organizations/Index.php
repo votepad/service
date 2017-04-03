@@ -163,12 +163,7 @@ class Controller_Organizations_Index extends Dispatch
     public function action_new_event()
     {
 
-        $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu', '')
-            ->set('header_menu_mobile', '')
-            ->set('auth_modal', View::factory('globalblocks/auth_modal'));
-
-        $this->template->footer = View::factory('globalblocks/footer');
+        $this->template->title = "Новое мероприятие";
 
         $this->template->mainSection = View::factory('events/new')
             ->set('idOrg', $this->organization->id);

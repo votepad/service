@@ -50,20 +50,16 @@ class Controller_Events_Ajax extends Ajax {
 
     public function action_checkwebsite()
     {
-        if (Ajax::is_ajax()) {
+        $uri = $this->request->param('website');
 
-            $uri = $this->request->param('website');
-            $info = Model_Event::getByFieldName('uri', $uri);
+        $info = Model_Event::getByFieldName('uri', $uri);
 
-            if (!empty($info)) {
-                echo "true";
-            } else {
-                echo "false";
-            }
-
+        if (empty($info)) {
+            echo "false";
         } else {
-            die ('No direct access to this route');
+            echo "true";
         }
+
     }
 
 }

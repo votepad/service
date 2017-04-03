@@ -190,4 +190,23 @@ class Model_Event extends Model
 
     }
 
+
+    /**
+     * Get Element By Field Name - for simple request
+     * @param $field
+     * @param $value
+     * @return Model_Event
+     */
+    public static function getByFieldName($field, $value)
+    {
+
+        $event = Dao_Events::select()
+            ->where($field, '=', $value)
+            ->limit(1)
+            ->execute();
+
+        return $event;
+
+    }
+
 }
