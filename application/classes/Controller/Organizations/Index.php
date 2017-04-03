@@ -15,30 +15,15 @@ class Controller_Organizations_Index extends Dispatch
      */
     const ACTION_NEW = 'new';
 
-
     /**
      * @var $organization [String] - default value is null. Keeps cached render
      */
     protected $organization = null;
 
+    public $template = 'main';
 
     public function before()
     {
-        switch ($this->request->action()) {
-            /**
-             * New organization template
-             */
-            case self::ACTION_NEW :
-                $this->template = 'organizations/new';
-                break;
-
-            /**
-             * default template
-             */
-            default :
-                $this->template = 'organizations/main';
-                break;
-        }
 
         parent::before();
 
@@ -49,12 +34,15 @@ class Controller_Organizations_Index extends Dispatch
 
         $this->organization = new Model_Organization($id);
 
-        if (!$this->organization->id && $this->request->action() != self::ACTION_NEW || $this->organization->is_removed) {
+        if (!$this->organization->id
+                && $this->request->action() != self::ACTION_NEW
+                || $this->organization->is_removed) {
+
             throw new HTTP_Exception_404();
+
         }
 
-        $this->isOwner  = false;
-        $this->isMember  = false;
+        $isOwner = $isMember = false;
 
         /**
          * Organization info
@@ -64,8 +52,8 @@ class Controller_Organizations_Index extends Dispatch
         if ($this->organization->id) {
 
             if ($this->user) {
-                $this->isOwner  = $this->organization->isOwner($this->user->id);
-                $this->isMember  = $this->organization->isMember($this->user->id);
+                $isOwner  = $this->organization->isOwner($this->user->id);
+                $isMember = $this->organization->isMember($this->user->id);
             }
 
             /**
@@ -74,34 +62,20 @@ class Controller_Organizations_Index extends Dispatch
             $this->template->title = $this->organization->name;
             $this->template->description = $this->organization->description;
 
-            /**
-             * Header
-             */
-            $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('organizations/blocks/header_menu', array( 'organization' => $this->organization, 'isOwner' => $this->isOwner, 'isMember' => $this->isMember)))
-                ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', array( 'organization' => $this->organization, 'isOwner' => $this->isOwner, 'isMember' => $this->isMember)))
-                ->set('auth_modal', View::factory('globalblocks/auth_modal'))
-                ->set('organization', $this->organization);
-
-
-            /**
-             * Jumbotron Wrapper
-             */
-            $this->template->jumbotron_wrapper = View::factory('organizations/blocks/jumbotron_wrapper')
-                ->set('organization', $this->organization);
-
-
-            /**
-             * Footer
-             */
-            $this->template->footer = View::factory('globalblocks/footer');
-
         }
 
+        /** Header */
+        $data = array(
+            'organization' => $this->organization,
+            'isOwner' => $isOwner,
+            'isMember' => $isMember
+        );
 
+        $this->template->header = View::factory('globalblocks/header')
+            ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', $data))
+            ->set('header_menu', View::factory('organizations/blocks/header_menu', $data));
 
     }
-
 
     /**
      * action_new - open new organization form
@@ -113,18 +87,10 @@ class Controller_Organizations_Index extends Dispatch
 
             throw new HTTP_Exception_403;
 
-        } else {
-
-            $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', "")
-                ->set('header_menu_mobile', "");
-
-            $this->template->footer = View::factory('globalblocks/footer');
-
         }
+        $this->template->title = "Новая организация";
+        $this->template->mainSection = View::factory('organizations/new');
     }
-
-
 
     /**
      * EVENTS submodule
@@ -132,17 +98,16 @@ class Controller_Organizations_Index extends Dispatch
      */
     public function action_show()
     {
-        /**
-         * Jumbotron Navigation
-         */
-        $this->template->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
-            ->set('isMember', $this->isMember)
-            ->set('isOwner', $this->isOwner)
-            ->set('isSendRequest', $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests'))
-            ->set('userID', $this->user->id)
-            ->set('id', $this->organization->id);
 
-        $this->template->main_section = View::factory('organizations/events/main');
+        $this->template->mainSection = View::factory('organizations/events/content')
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
+            ->set('isSendRequest', $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests'))
+            ->set('isOwner', $this->organization->isOwner($this->user ? $this->user->id : 0))
+            ->set('isMember', $this->organization->isMember($this->user ? $this->user->id : 0))
+            ->set('userID', $this->user ? $this->user->id : 0)
+            ->set('orgID', $this->organization->id);
 
     }
 
@@ -154,22 +119,18 @@ class Controller_Organizations_Index extends Dispatch
     public function action_main()
     {
 
-        if (!$this->isOwner) {
+        if (!$this->organization->isOwner($this->user ? $this->user->id : 0)) {
             throw new HTTP_Exception_403();
         }
 
-        /**
-         * Jumbotron Navigation
-         */
-        $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
+
+        $this->template->mainSection = View::factory('organizations/settings/maininfo')
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
             ->set('id', $this->organization->id);
 
 
-        /**
-         * Main Section
-         */
-        $this->template->main_section = View::factory('organizations/settings/main')
-                ->set('organization', $this->organization);
 
     }
 
@@ -181,7 +142,7 @@ class Controller_Organizations_Index extends Dispatch
     public function action_team()
     {
 
-        if (!$this->isOwner) {
+        if (!$this->organization->isOwner($this->user ? $this->user->id : 0)) {
             throw new HTTP_Exception_403();
         }
 
@@ -194,18 +155,11 @@ class Controller_Organizations_Index extends Dispatch
             array_push($this->organization->requests, new Model_User($id));
         }
 
-        /**
-         * Jumbotron Navigation
-         */
-        $this->template->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
+        $this->template->mainSection = View::factory('organizations/settings/coworkers')
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
             ->set('id', $this->organization->id);
-
-
-        /**
-         * Main Section
-         */
-        $this->template->main_section = View::factory('organizations/settings/coworkers')
-                ->set('organization', $this->organization);
 
 
     }

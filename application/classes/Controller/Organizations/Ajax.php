@@ -145,14 +145,6 @@ class Controller_Organizations_Ajax extends Ajax
             return;
 
         }
-        if ($org->isOwner($this->user->id)) {
-
-            $response = new Model_Response_Organization('ACCESS_DENIED_ERROR', 'error');
-
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-
-        }
 
 
         switch($method) {
@@ -162,10 +154,18 @@ class Controller_Organizations_Ajax extends Ajax
         }
 
 
-
     }
 
     private function addMember($org, $user) {
+
+        if (!$org->isOwner($this->user->id)) {
+
+            $response = new Model_Response_Organization('ACCESS_DENIED_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
 
         if ($org->isMember($user->id)) {
 
@@ -186,6 +186,15 @@ class Controller_Organizations_Ajax extends Ajax
     }
 
     private function removeMember($org, $user) {
+
+        if (!$org->isMember($user->id)) {
+
+            $response = new Model_Response_Organization('ACCESS_DENIED_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
 
         if (!$org->isMember($user->id)) {
 

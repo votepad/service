@@ -103,11 +103,6 @@ class Model_Organization extends Model
     public function save()
     {
 
-        Dao_UsersOrganizations::insert()
-            ->set('u_id', $this->owner)
-            ->set('o_id', $this->id)
-            ->execute();
-
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
 
         $insert = Dao_Organizations::insert();
@@ -117,6 +112,11 @@ class Model_Organization extends Model
         }
 
         $id = $insert->execute();
+
+        Dao_UsersOrganizations::insert()
+            ->set('u_id', $this->owner)
+            ->set('o_id', $id)
+            ->execute();
 
         return $this->get_($id);
 
