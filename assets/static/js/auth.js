@@ -104,7 +104,7 @@ $(document).ready(function () {
                 }
             };
 
-            ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
         }
     });
 
@@ -126,7 +126,7 @@ $(document).ready(function () {
             }
         };
 
-        ajax.send(ajaxData);
+        vp.ajax.send(ajaxData);
 
     });
 
@@ -153,7 +153,7 @@ $(document).ready(function () {
                 }
             };
 
-            ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
         }
     });
 
@@ -167,9 +167,9 @@ $(document).ready(function () {
         $('#user_form_logged').remove();
         $('#user_form_notlogged').removeClass('displaynone');
         $('#registr_btn').removeClass('displaynone');
-        cookies.remove('sid');
-        cookies.remove('uid');
-        cookies.remove('secret');
+        vp.cookies.remove('sid');
+        vp.cookies.remove('uid');
+        vp.cookies.remove('secret');
     });
 
 
@@ -248,7 +248,7 @@ $(document).ready(function () {
                 }
             };
 
-            ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
 
         }
 

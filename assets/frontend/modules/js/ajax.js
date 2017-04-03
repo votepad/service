@@ -57,10 +57,12 @@ var ajax = function () {
 
         return typeof data.append == 'function';
 
-    }
+    };
 
     return {
         send: send
     }
 
 }();
+
+module.exports = ajax;

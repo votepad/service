@@ -1,28 +1,46 @@
 var header = (function(header) {
 
-    var headerWrapper = document.getElementsByClassName('header__wrapper')[0],
-        headerMenuIcon = document.getElementById('openMobileMenu'),
-        headerBrand = document.getElementsByClassName('header__brand')[0],
-        headerMenu = document.getElementsByClassName('header__menu')[0],
-        headerMenuRight = document.getElementsByClassName('header__menu')[1],
+    var headerWrapper   = null,
+        headerMenuIcon  = null,
+        headerBrand     = null,
+        headerMenu      = null,
+        headerMenuRight = null,
         headerMenuItems = [],
-        headerMobile = document.getElementsByClassName('mobile-aside')[0],
-        headerLinks = document.getElementsByClassName('header__button'),
-        mobileLinks = document.getElementsByClassName('mobile-aside__menu-link'),
-        mobileCollapseLinks = document.getElementsByClassName('mobile-aside__collapse-link'),
+        headerMobile    = null,
+        headerLinks     = null,
+        mobileLinks     = null,
+        mobileCollapseLinks = null,
+
         address = window.location.pathname.split('/'),
-        address = '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4],
-        btnHref, i, item;
+        address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
+        address4 = address3 + '/' + address[4],
+        btnHref, i, item,
+        headerMenuRightWidth = null;
 
     var backdrop = document.createElement('div');
         backdrop.className = "modal-backdrop in";
 
-    var headerMenuRightWidth = headerMenuRight.clientWidth + 1;
+    var prepare_ = function () {
+
+        headerWrapper = document.getElementsByClassName('header__wrapper')[0];
+        headerMenuIcon = document.getElementById('openMobileMenu');
+        headerBrand = document.getElementsByClassName('header__brand')[0];
+        headerMenu = document.getElementsByClassName('header__menu')[0];
+        headerMenuRight = document.getElementsByClassName('header__menu')[1];
+        headerMobile = document.getElementsByClassName('mobile-aside')[0];
+        headerLinks = document.getElementsByClassName('header__button');
+        mobileLinks = document.getElementsByClassName('mobile-aside__menu-link');
+        mobileCollapseLinks = document.getElementsByClassName('mobile-aside__collapse-link');
+
+        headerMenuRightWidth = headerMenuRight.clientWidth + 1;
         headerMenuRight.style.width = headerMenuRight.clientWidth + 1 + "px";
 
+    };
 
 
     header.init = function() {
+
+        prepare_();
 
         headerMenuIcon.addEventListener('click', openMobileMenu, false);
         backdrop.addEventListener('click', closeMobileMenu, false);
@@ -49,9 +67,9 @@ var header = (function(header) {
         for (i = 0; i < headerLinks.length; i++) {
             if (headerLinks[i].href) {
                 btnHref = headerLinks[i].getAttribute('href').split('/');
-                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
+                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
 
-                if ( btnHref.test(address) ) {
+                if ( btnHref.test(address3) ) {
                     headerLinks[i].classList.add('header__button--active');
                 }
             }
@@ -62,7 +80,7 @@ var header = (function(header) {
                 btnHref = mobileLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
 
-                if (btnHref.test(address)) {
+                if (btnHref.test(address4)) {
                     mobileLinks[i].parentNode.classList.add('mobile-aside__menu__item--active');
                     mobileLinks[i].classList.add('mobile-aside__menu-link--active');
                 }
@@ -74,7 +92,7 @@ var header = (function(header) {
                 btnHref = mobileCollapseLinks[i].getAttribute('href').split('/');
                 btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
                 
-                if (btnHref.test(address)) {
+                if (btnHref.test(address4)) {
                     mobileCollapseLinks[i].parentNode.parentNode.parentNode.classList.add('mobile-aside__menu__item--active');
                     mobileCollapseLinks[i].classList.add('mobile-aside__collapse-link--active');
                 }
@@ -202,3 +220,5 @@ var header = (function(header) {
 
 
 })({});
+
+module.exports = header;

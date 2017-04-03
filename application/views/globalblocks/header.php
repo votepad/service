@@ -88,7 +88,3 @@
     </div>
 </div>
 
-<? if ( !$isLogged): ?>
-    <?=$auth_modal; ?>
-<? endif; ?>
-

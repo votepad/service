@@ -1,4 +1,3 @@
-
 <div class="jumbotron_wrapper parallax-container">
     <div class="parallax jumbotron_cover">
         <img id="org-background-uploaded" src="/uploads/organizations/o_<?=$organization->cover; ?>">

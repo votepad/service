@@ -2,8 +2,8 @@
 
 /**
  * Class Controller_Organizations_Modify
- * @author Pronwe team
- * @copyright Khaydarov Murod
+ * @copyright Votepad team
+ * @author Khaydarov Murod
  * @version 0.1.1
  */
 
@@ -35,8 +35,6 @@ class Controller_Organizations_Modify extends Dispatch
             $website        = Arr::get($_POST, 'official_org_site', '');
 
 
-
-
             $organization = new Model_Organization();
 
             $organization->name         = $name;
@@ -61,6 +59,9 @@ class Controller_Organizations_Modify extends Dispatch
 
     public function action_update()
     {
+        if ($this->request->method() != Request::POST) {
+            throw new HTTP_Exception_403();
+        }
 
         /** @var $id_organization */
         $id = $this->request->param('id');

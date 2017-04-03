@@ -53,17 +53,17 @@ var config = {
         // rules for modules
         rules : [
 
-            {
-                test : /\.js$/,
-                include: [
-                    modulePath
-                ],
-                loader: "babel",
-                options: {
-                    presets: ['node_modules', __dirname + 'node_modules/babel-preset-es2015', nodeModules + "/babel-preset-es2015", 'babili']
-                }
-
-            }
+            // {
+            //     test : /\.js$/,
+            //     include: [
+            //         modulePath
+            //     ],
+            //     loader: "babel",
+            //     options: {
+            //         presets: ['node_modules', __dirname + 'node_modules/babel-preset-es2015', nodeModules + "/babel-preset-es2015", 'babili']
+            //     }
+            //
+            // }
         ]
 
     },
