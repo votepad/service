@@ -54,7 +54,7 @@
 						<label for="end" class="active">Дата завершения</label>
 					</div>
 					<div class="input-field col-xs-12">
-						<input id="address" name="address" length="200" tabindex="-1" placeholder="Наприсер: Кронверкский пр. 49">
+						<input type="text" id="address" name="address" length="200" tabindex="-1" placeholder="Наприсер: Кронверкский пр. 49">
 						<label for="address">Адрес</label>
 						<span class="help-block">Укажите, где будет проходить мероприятие. Эта информация отразится на странице мероприятия.</span>
 					</div>

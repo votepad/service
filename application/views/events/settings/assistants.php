@@ -1,103 +1,114 @@
-<!-- =============== PAGE STYLES ===============-->
-
+<!-- =============== PAGE STYLE ===============-->
+<link rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
+<link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/tabs.css?v=<?= filemtime("assets/frontend/modules/css/tabs.css") ?>">
 <link rel="stylesheet" type="text/css" href="<?=$assets ?>vendor/sweetalert2/sweetalert2.css">
 
-<h3 class="page-header">
-    Список сотрудников
-</h3>
+<div class="jumbotron block">
 
-<?= Form::hidden('event_id', $event->id, array('id' => 'event_id')) ?>
+    <!-- Jumbotron Wrapper -->
+    <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>
 
-<div class="block" >
-    <ul class="tabs tabs_header clear_fix">
-        <li id="">
-            <a data-ui="tabs" aria-controls="assistants" class="tab tab--active">Участвуют в проведении
-                <span id="countAssistans" class="tab_count"><?= count($event->assistants) ?></span>
-            </a>
-        </li>
-
-        <? if (count($requests) > 0) : ?>
-        <li id="">
-            <a data-ui="tabs" aria-controls="newAssistants" class="tab">Новые заявки
-                <span class="tab_count"><?= count($requests) ?></span>
-            </a>
-        </li>
-        <? endif; ?>
-        
-        <button data-href="<?= $_SERVER['HTTP_HOST'] . $invite_link ?>" id="inviteBtn" class="btn btn_primary tab_btn">Пригласить</button>
-    </ul>
-    <div class="tabs_content clear_fix">
-
-        <div id="assistants" class="tab_block tab_block--active">
-
-            <? foreach($event->assistants as $user): ?>
-                <div id="assistant_id<?= $user->id ?>" class="coworker_row col-xs-12 col-md-6">
-                    <div class="coworker_photo_wrap">
-                        <a class="coworker_photo" href="">
-                            <img class="coworker_photo_img" alt="Co-worker" src="">
-                        </a>
-                    </div>
-                    <div class="coworker_info">
-                        <div class="coworker_field coworker_field-title">
-                            <a href="/user/<?= $user->id ?>"><?= $user->surname . ' ' . $user->name . ' ' . $user->lastname ?></a>
-                        </div>
-                        <div class="coworker_field coworker_field-contact">
-                            <span><?= $user->email; ?></span>
-                            <span><?= $user->phone ?></span>
-                        </div>
-                        
-                        <div class="coworker_controls clear_fix">
-                            <button data-id="<?= $user->id ?>" data-name="<?= $user->surname . ' ' . $user->name; ?>" class="btn btn_default deletebtn">Исключить</button>
-                        </div>
-                        
-                    </div>
-                </div>
-            <? endforeach; ?>
-
-        </div>
-
-        <? if (count($requests) > 0) : ?>
-        <div id="newAssistants" class="tab_block">
-
-            <? foreach($requests as $user): ?>
-                <div id="assistant_id<?= $user->id ?>" class="coworker_row col-xs-12 col-md-6">
-                    <div class="coworker_photo_wrap">
-                        <a class="coworker_photo" href="">
-                            <img class="coworker_photo_img" alt="Co-worker" src="">
-                        </a>
-                    </div>
-                    <div class="coworker_info">
-                        <div class="coworker_field coworker_field-title">
-                            <a href="/user/<?= $user->id ?>"><?= $user->surname . ' ' . $user->name . ' ' . $user->lastname ?></a>
-                        </div>
-                        <div class="coworker_field coworker_field-contact">
-                            <span><?= $user->email; ?></span>
-                            <span><?= $user->phone ?></span>
-                        </div>
-
-                        <div class="coworker_controls clear_fix">
-                            <button data-id="<?= $user->id ?>" class="btn btn_primary acceptbtn">Принять заявку</button>
-                            <button data-id="<?= $user->id ?>" class="btn btn_text cancelbtn">Отклонить</button>
-                        </div>
-
-                    </div>
-                </div>
-            <? endforeach; ?>
-
-        </div>
-        <? endif; ?>
-
+    <!-- Jumbotron Navigation -->
+    <div class="jumbotron_nav">
+        <?=$jumbotron_navigation; ?>
     </div>
+
 </div>
 
+<section>
+    <h3 class="page-header">
+        Список сотрудников
+    </h3>
+
+    <?= Form::hidden('event_id', $event->id, array('id' => 'event_id')) ?>
+
+    <div class="block" >
+        <ul class="tabs__header">
+
+            <li id="">
+                <a data-toggle="tabs" data-block="assistants" class="tabs__btn tabs__btn--active">Участвуют в проведении
+                    <span id="countAssistans" class="tab__count"><?= count($event->assistants) ?></span>
+                </a>
+            </li>
+
+            <? if (count($requests) > 0) : ?>
+            <li id="">
+                <a data-toggle="tabs" data-block="newAssistants" class="tabs__btn">Новые заявки
+                    <span class="tab__count"><?= count($requests) ?></span>
+                </a>
+            </li>
+            <? endif; ?>
+
+            <button data-href="<?= $_SERVER['HTTP_HOST'] . $invite_link ?>" id="inviteBtn" class="tabs__btn btn btn_primary fl_r">Пригласить</button>
+
+        </ul>
+
+
+        <div class="tabs__content clear_fix">
+
+            <div id="assistants" class="tabs__block tabs__block--active">
+
+                <? foreach($event->assistants as $user): ?>
+                    <div id="assistant_id<?= $user->id ?>" class="item col-xs-12 col-md-6">
+
+                        <a class="item__img-wrap" href="">
+                            <img class="item__img" alt="Assistant" src="">
+                        </a>
+
+                        <div class="item__info">
+                            <div class="item__info-name">
+                                <a href="/user/<?= $user->id ?>"><?= $user->surname . ' ' . $user->name . ' ' . $user->lastname ?></a>
+                            </div>
+                            <div class="item__info-additional">
+                                <span><?= $user->email; ?></span>
+                                <span><?= $user->phone ?></span>
+                            </div>
+
+                            <div class="item__info-controls clear_fix">
+                                <button data-id="<?= $user->id ?>" data-name="<?= $user->surname . ' ' . $user->name; ?>" class="btn btn_default deletebtn">Исключить</button>
+                            </div>
+
+                        </div>
+                    </div>
+                <? endforeach; ?>
+
+            </div>
+
+            <? if (count($requests) > 0) : ?>
+            <div id="newAssistants" class="tabs__block">
+
+                <? foreach($requests as $user): ?>
+                    <div id="assistant_id<?= $user->id ?>" class="item col-xs-12 col-md-6">
+
+                        <a class="D:\OpenServer\domains\pronwe\application\views\events\settings\assistants.php" href="">
+                            <img class="item__img" alt="Co-worker" src="">
+                        </a>
+
+                        <div class="item__info">
+                            <div class="item__info-name">
+                                <a href="/user/<?= $user->id ?>"><?= $user->surname . ' ' . $user->name . ' ' . $user->lastname ?></a>
+                            </div>
+                            <div class="item__info-additional">
+                                <span><?= $user->email; ?></span>
+                                <span><?= $user->phone ?></span>
+                            </div>
+
+                            <div class="item__info-controls clear_fix">
+                                <button data-id="<?= $user->id ?>" class="btn btn_primary acceptbtn">Принять заявку</button>
+                                <button data-id="<?= $user->id ?>" class="btn btn_text cancelbtn">Отклонить</button>
+                            </div>
+
+                        </div>
+                    </div>
+                <? endforeach; ?>
+
+            </div>
+            <? endif; ?>
+
+        </div>
+    </div>
+</section>
 
 <!-- =============== PAGE SCRIPTS ===============-->
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>static/js/event/settings-assistants.js"></script>
-
-<!-- modules -->
-<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/tabs.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/ajax.js"></script>
-<script type="text/javascript">
-    tabs.init();
-</script>
