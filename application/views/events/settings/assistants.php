@@ -80,7 +80,7 @@
                     <? foreach($requests as $user): ?>
                         <div id="assistant_id<?= $user->id ?>" class="item col-xs-12 col-md-6">
 
-                            <a class="D:\OpenServer\domains\pronwe\application\views\events\settings\assistants.php" href="">
+                            <a class="item__img-wrap" href="">
                                 <img class="item__img" alt="Co-worker" src="">
                             </a>
 
