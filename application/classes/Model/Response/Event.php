@@ -56,5 +56,11 @@ class Model_Response_Event extends  Model_Response_Abstract
         'message' => 'Assistant rejected'
     );
 
+    protected $_USER_IS_CREATOR_ERROR = array(
+        'type' => 'events',
+        'code' => '59',
+        'message' => 'User is creator of this event'
+    );
+
 
 }

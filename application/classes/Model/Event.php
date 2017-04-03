@@ -15,6 +15,11 @@ class Model_Event extends Model
     public $organization;
 
     /**
+     * @var $creator [Number] id
+     */
+    public $creator;
+
+    /**
      * @var $name [String]
      */
     public $name;
@@ -201,6 +206,9 @@ class Model_Event extends Model
 
     }
 
+    public function isCreator($id) {
+        return $id = $this->creator;
+    }
 
     /**
      * Get Element By Field Name - for simple request

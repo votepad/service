@@ -41,6 +41,7 @@ class Controller_Events_Modify extends Dispatch
         $event = new Model_Event();
 
         $event->name         = $name;
+        $event->creator      = $this->user->id;
         $event->uri          = $uri;
         $event->description  = $description;
         $event->tags         = json_encode($keywords);
@@ -94,6 +95,7 @@ class Controller_Events_Modify extends Dispatch
 
         $id    = $this->request->param('id');
         $event = new Model_Event($id);
+        $org   = new Model_Organization($event->organization);
 
         if ($this->request->url() != $event->getInviteLink()) {
             throw new HTTP_Exception_403();
@@ -104,8 +106,15 @@ class Controller_Events_Modify extends Dispatch
             exit;
         }
 
-        $this->redis->sAdd('votepad.orgs:' . $event->organization . ':events:' . $event->id . ':assistants.requests', $this->user->id);
-        $this->redirect('/event/' . $event->id);
+        if (!$event->isAssistant($this->user->id) && !$org->isMember($this->user->id)) {
+            $this->redis->sAdd('votepad.orgs:' . $event->organization . ':events:' . $event->id . ':assistants.requests', $this->user->id);
+        }
+
+        if ($org->isMember($this->user->id)) {
+            $event->addAssistant($this->user->id);
+        }
+
+       $this->redirect('/event/' . $event->id);
 
     }
 

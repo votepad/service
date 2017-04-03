@@ -108,7 +108,7 @@ class Controller_Events_Index extends Dispatch
 
         $this->event->assistants = $this->event->getAssistants();
 
-        if (!$this->organization->isMember($this->user->id)) {
+        if (empty($this->user) || !$this->organization->isMember($this->user->id)) {
             throw new HTTP_Exception_403();
         }
 

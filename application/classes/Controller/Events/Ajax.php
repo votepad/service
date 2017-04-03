@@ -78,6 +78,15 @@ class Controller_Events_Ajax extends Ajax {
 
     private function remove_assistant($event, $user) {
 
+        if ($event->isCreator($user->id)) {
+
+            $response = new Model_Response_Event('USER_IS_CREATOR_ERROR', 'error');
+
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+
+        }
+
         if (!$event->isAssistant($user->id)) {
 
             $response = new Model_Response_Event('USER_IS_NOT_ASSISTANT_ERROR', 'error');
