@@ -28,7 +28,7 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/dropdown.css?v=<?= filemtime("assets/frontend/modules/css/dropdown.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css?v=<?= filemtime("assets/frontend/modules/css/collapse.css") ?>">
 
-    <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js"></script>
+    <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js?v=<?= filemtime("assets/frontend/bundles/votepad.bundle.js") ?>"></script>
 
 </head>
 <body>
@@ -39,9 +39,11 @@
 
 </header>
 
+<section>
 
-<?=$mainSection; ?>
+    <?=$mainSection; ?>
 
+</section>
 
 <footer class="footer">
 

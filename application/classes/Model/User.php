@@ -42,6 +42,16 @@ Class Model_User {
     public $phone;
 
     /**
+     * @var $avatar
+     */
+    public $avatar;
+
+    /**
+     * @var $branding
+     */
+    public $branding;
+
+    /**
      * @var $isConfirmed
      */
     public $isConfirmed;
@@ -116,7 +126,6 @@ Class Model_User {
      */
      public function update()
      {
-
         $insert = Dao_Users::update();
 
         foreach ($this as $fieldname => $value) {

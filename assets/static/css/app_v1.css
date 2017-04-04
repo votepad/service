@@ -454,19 +454,19 @@ ul{
 /*
  * Section Size
 */
-section{
+.section__content {
 	position: relative;
 	width: 80%;
 	margin: auto;
 }
 
 @media (max-width: 992px) {
-	section{
+	.section__content{
 		width: 90%;
 	}
 }
 @media (max-width: 680px) {
-	section{
+	.section__content{
 		width: 95%;
 	}
 }

@@ -386,9 +386,121 @@ $(document).ready(function () {
             document.getElementById('noEvent').remove();
         }
     };
+
     checkNumberOfEvent();
 
 
+    $('.edit-user-info__avatar').on('click', function() {
+
+        var imgAvatar = document.getElementById('user-avatar'),
+            inputAvar = document.getElementById('input-avatar');
+
+        var callbacks_ = {
+
+            beforeSend : function() {
+
+                var fileReader = new FileReader(),
+                    input = vp.transport.getInput(),
+                    file = input.files[0];
+
+                fileReader.readAsDataURL(file);
+
+                fileReader.onload = function(event) {
+
+                    imgAvatar.classList.add('user-info__avatar--loading');
+                    imgAvatar.src = event.target.result;
+
+                }
+            },
+
+            success : function(response) {
+
+                var file = JSON.parse(response);
+
+                if (!file.success) {
+
+                    imgAvatar.src = '';
+                    return;
+
+                }
+
+                imgAvatar.src = file.data.url;
+                imgAvatar.classList.remove('user-info__avatar--loading');
+
+                inputAvar.value = file.data.name;
+
+            },
+
+            error : function(response) {
+
+                imgAvatar.src = '';
+
+            }
+
+        };
+
+        vp.transport.init({
+            url : '/transport/1',
+            multiple : false,
+            accept: '*',
+            beforeSend : callbacks_.beforeSend,
+            success : callbacks_.success,
+            error : callbacks_.error
+        });
+
+
+    });
+
+    $('.js-user-jumbotron-cover').on('click', function() {
+
+        var imgProfileBranding = document.getElementById('user-cover-uploaded');
+
+        var callbacks_ = {
+
+            beforeSend : function () {
+
+                var fileReader = new FileReader(),
+                    input = vp.transport.getInput(),
+                    file = input.files[0];
+
+                fileReader.readAsDataURL(file);
+
+                fileReader.onload = function(event) {
+
+                    imgProfileBranding.classList.add('user-info__branding--loading');
+                    imgProfileBranding.src = event.target.result;
+
+                }
+
+            },
+
+            success : function (response) {
+
+                var file = JSON.parse(response);
+
+                if (!file.success) {
+
+                    imgProfileBranding.src = '';
+                    return;
+
+                }
+
+                imgProfileBranding.src = file.data.url;
+                imgProfileBranding.classList.remove('user-info__branding--loading');
+
+            }
+
+        };
+
+        vp.transport.init({
+            url : '/transport/2',
+            multiple : false,
+            beforeSend : callbacks_.beforeSend,
+            success : callbacks_.success,
+            error : callbacks_.error
+        });
+
+    });
 
 
 });
