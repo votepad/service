@@ -27,10 +27,10 @@ var slider = function(){
 
     //Получение элементов ползунка
 
-    var sliderElem = document.getElementById('slider');
-    var letterElem = document.getElementById('letter');
-    var bandElem =  sliderElem.children[0];
-    var circleElem = sliderElem.children[1];
+    var sliderElem  = document.getElementById('slider'),
+        letterElem  = document.getElementById('letter'),
+        bandElem    =  document.getElementById('band'),
+        circleElem  = document.getElementById('circle');
 
     circleElem.style.left = 0;
 

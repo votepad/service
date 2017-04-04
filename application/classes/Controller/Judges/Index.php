@@ -1,23 +1,28 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
 /**
- * @author Khaydarov Murod
+ * Class Controller_Judges_Index
  */
-
-
 class Controller_Judges_Index extends Dispatch {
 
     
-    public $template = 'judges/main';
-    
+    public $template = 'judgepanel/main';
+
+    /**
+     * Function that calls before main action
+     */
+    public function before()
+    {
+        parent::before();
+    }
+
+
      /**
-     * action_votingpanel
+     * action_votingpanel - panel for judges where they are scoring
      */
     public function action_votingpanel()
     {
-        $this->template->header = View::factory('judges/blocks/header');
-        $this->template->jumbotron_wrapper = View::factory('judges/blocks/jumbotron_wrapper');
-        $this->template->main_section = View::factory('judges/panel/tmp');
+        $this->template->mainSection = View::factory('judgepanel/panels/panel1');
     }
 
     
