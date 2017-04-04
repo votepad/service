@@ -63,10 +63,11 @@
                                 <span><?= $user->email; ?></span>
                                 <span><?= $user->phone ?></span>
                             </div>
-
+                            <? if (!$event->isCreator($user->id)) :?>
                             <div class="item__info-controls clear_fix">
                                 <button data-id="<?= $user->id ?>" data-name="<?= $user->surname . ' ' . $user->name; ?>" class="btn btn_default deletebtn">Исключить</button>
                             </div>
+                            <? endif; ?>
 
                         </div>
                     </div>

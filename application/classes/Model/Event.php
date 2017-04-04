@@ -207,7 +207,7 @@ class Model_Event extends Model
     }
 
     public function isCreator($id) {
-        return $id = $this->creator;
+        return $id == $this->creator;
     }
 
     /**
