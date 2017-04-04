@@ -116,6 +116,7 @@ class Model_Organization extends Model
         Dao_UsersOrganizations::insert()
             ->set('u_id', $this->owner)
             ->set('o_id', $id)
+            ->clearcache('User:' . $this->owner)
             ->execute();
 
         return $this->get_($id);

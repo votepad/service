@@ -16,6 +16,12 @@ class Controller_Organizations_Index extends Dispatch
     const ACTION_NEW = 'new';
 
     /**
+     * @const ACTION_NEW [String]
+     */
+    const ACTION_NEW_EVENT = 'new_event';
+
+
+    /**
      * @var $organization [String] - default value is null. Keeps cached render
      */
     protected $organization = null;
@@ -42,33 +48,19 @@ class Controller_Organizations_Index extends Dispatch
 
         }
 
-        $isOwner = $isMember = false;
-
         /**
          * Organization info
          */
         $this->template->organization = $this->organization;
 
-        if ($this->organization->id) {
-
-            if ($this->user) {
-                $isOwner  = $this->organization->isOwner($this->user->id);
-                $isMember = $this->organization->isMember($this->user->id);
-            }
-
-            /**
-             * Meta Dates
-             */
-            $this->template->title = $this->organization->name;
-            $this->template->description = $this->organization->description;
-
-        }
+        $this->template->title = $this->organization->name;
+        $this->template->description = $this->organization->description;
 
         /** Header */
         $data = array(
             'organization' => $this->organization,
-            'isOwner' => $isOwner,
-            'isMember' => $isMember
+            'isOwner' => $this->organization->isOwner($this->user ? $this->user->id : 0),
+            'isMember' => $this->organization->isMember($this->user ? $this->user->id : 0)
         );
 
         $this->template->header = View::factory('globalblocks/header')
@@ -163,5 +155,20 @@ class Controller_Organizations_Index extends Dispatch
 
 
     }
+
+    /**
+     * NEW EVENT
+     * action_new - action that open page where users create new event
+     */
+    public function action_new_event()
+    {
+
+        $this->template->title = "Новое мероприятие";
+
+        $this->template->mainSection = View::factory('events/new')
+            ->set('idOrg', $this->organization->id);
+
+    }
+
 
 }

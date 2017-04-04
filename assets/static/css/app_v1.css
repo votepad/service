@@ -2689,7 +2689,7 @@ section:after, section:before,
 }
 
 .swal2-container{
-	z-index: 1020;
+	z-index: 1020 !important;
 }
 .swal2-container .btn{
 	margin: 0 20px;

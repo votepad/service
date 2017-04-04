@@ -2,59 +2,120 @@
 
 /**
  * Class Controller_Events_Modify
- * @author
+ * @author Votepad Team
  * @copyright
  */
 
-class Controller_Events_Modify extends Controller
+class Controller_Events_Modify extends Dispatch
 {
+
+    public function before() {
+
+        $this->auto_render = false;
+
+        parent::before();
+
+    }
 
     /**
      * Action for creating new event
      */
     public function action_add()
     {
-        if ($this->request->method() == Request::POST) {
 
-            $event_name         = Arr::get($_POST, 'event_name', '');
-            $event_site         = Arr::get($_POST, 'event_site', '');
-            $event_description  = Arr::get($_POST, 'event_desc', '');
-            $event_keywords     = Arr::get($_POST, 'event_keywords', '');
-            $event_start        = Arr::get($_POST, 'datestart', '');
-            $event_end          = Arr::get($_POST, 'dateend', '');
-            $event_address      = Arr::get($_POST, 'address_coords', '');
-            $id_organization = Arr::get($_POST, 'id_organization', '');
+        if ($this->request->method() != Request::POST) {
 
-            $event = new Model_Events();
+            throw new HTTP_Exception_403();
 
-            $event->name              = $event_name;
-            $event->page              = $event_site;
-            $event->short_description = $event_description;
-            $event->full_description  = '';
-            $event->keywords          = $event_keywords;
-            $event->start_time        = $event_start;
-            $event->end_time          = $event_end;
-            $event->address           = $event_address;
-
-            $result = $event->save();
-
-            $event->addToOrganization($id_organization, $event->id);
-
-            $this->request->redirect('event/' . $event->name);
-
-        } else {
-
-            throw new HTTP_Exception_404();
         }
+
+        $name              = Arr::get($_POST, 'name', '');
+        $uri                = Arr::get($_POST, 'site', '');
+        $description        = Arr::get($_POST, 'desc', '');
+        $keywords           = Arr::get($_POST, 'keywords', '');
+        $start              = Arr::get($_POST, 'start', '');
+        $end                = Arr::get($_POST, 'end', '');
+        $address            = Arr::get($_POST, 'address', '');
+        $id_organization    = Arr::get($_POST, 'id_organization', '');
+
+        $event = new Model_Event();
+
+        $event->name         = $name;
+        $event->creator      = $this->user->id;
+        $event->uri          = $uri;
+        $event->description  = $description;
+        $event->tags         = json_encode($keywords);
+        $event->dt_start     = $start;
+        $event->dt_end       = $end;
+        $event->address      = $address;
+        $event->organization = $id_organization;
+
+        $event = $event->save();
+        $event->addAssistant($this->user->id);
+
+        $this->redirect('event/' . $event->id . '/settings');
+
     }
 
-    public function action_addFullDescription()
-    {
-        if ($this->request->method() == Request::POST && Ajax::is_ajax()) {
+    public function action_update() {
 
-            $full_description = Arr::get($_POST, 'text');
-            $id_event = Arr::get($_POST, 'id');
+        if ($this->request->method() != Request::POST) {
+
+            throw new HTTP_Exception_403();
+
         }
+
+        $id = $this->request->param('id');
+
+        $name               = Arr::get($_POST, 'name', '');
+        $uri                = Arr::get($_POST, 'site', '');
+        $description        = Arr::get($_POST, 'desc', '');
+        $keywords           = Arr::get($_POST, 'keywords', '');
+        $start              = Arr::get($_POST, 'start', '');
+        $end                = Arr::get($_POST, 'end', '');
+        $address            = Arr::get($_POST, 'address', '');
+
+        $event = new Model_Event($id);
+
+        $event->name         = $name;
+        $event->uri          = $uri;
+        $event->description  = $description;
+        $event->tags         = json_encode($keywords);
+        $event->dt_start     = $start;
+        $event->dt_end       = $end;
+        $event->address      = $address;
+
+        $event = $event->update();
+
+        $this->redirect('event/' . $event->id . '/settings/info');
+
+    }
+
+    public function action_assistant_request() {
+
+        $id    = $this->request->param('id');
+        $event = new Model_Event($id);
+        $org   = new Model_Organization($event->organization);
+
+        if ($this->request->url() != $event->getInviteLink()) {
+            throw new HTTP_Exception_403();
+        };
+
+        if (empty($this->user)) {
+            echo 'Authorization required';
+            exit;
+        }
+
+        if (!$event->isAssistant($this->user->id) && !$org->isMember($this->user->id)) {
+            $this->redis->sAdd('votepad.orgs:' . $event->organization . ':events:' . $event->id . ':assistants.requests', $this->user->id);
+        }
+
+        if ($org->isMember($this->user->id)) {
+            $event->addAssistant($this->user->id);
+        }
+
+       $this->redirect('/event/' . $event->id);
+
     }
 
 }

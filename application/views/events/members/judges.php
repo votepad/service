@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="<?=$assets; ?>vendor/handsontable/handsontable.full.min.css">
 <script type="text/javascript" src="<?=$assets; ?>vendor/handsontable/handsontable.full.min.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/event/judges.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/event/judges.js"></script>
 
 
 <div id="eventID" data-id="456987" class="eventID">

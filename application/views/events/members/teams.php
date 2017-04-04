@@ -7,7 +7,7 @@
 <link href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
 
-<script type="text/javascript" src="<?=$assets; ?>js/event/teams.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/event/teams.js"></script>
 
 <h3 class="page-header">Список команд</h3>
 

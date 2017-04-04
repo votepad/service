@@ -53,6 +53,7 @@
     <?= View::factory('globalblocks/auth_modal'); ?>
 <? endif; ?>
 
+
 </body>
 
 <script type="text/javascript">
@@ -63,7 +64,5 @@
     });
 
 </script>
-
-
 
 </html>
