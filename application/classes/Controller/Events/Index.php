@@ -45,8 +45,8 @@ class Controller_Events_Index extends Dispatch
             $this->event = $event;
             $this->organization = new Model_Organization($event->organization);
 
-            View::set_global('event', $event);
-            View::set_global('organization', $this->organization);
+            //View::set_global('event', $event);
+            //View::set_global('organization', $this->organization);
 
             /**
              * Meta Dates
@@ -60,7 +60,7 @@ class Controller_Events_Index extends Dispatch
              * Header
              */
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('events/blocks/header_menu'))
+                ->set('header_menu', View::factory('events/blocks/header_menu', array('event' => $this->event)))
                 ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile'));
 
 
@@ -146,9 +146,12 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_criterias()
     {
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation');
+        $this->template->mainSection = View::factory('events/scenario/criterias')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
 
-        $this->template->mainSection = View::factory('events/pattern/criterias');
+        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
@@ -158,10 +161,12 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_stages()
     {
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('event', $this->event);
+        $this->template->mainSection = View::factory('events/scenario/stages')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
 
-        $this->template->mainSection = View::factory('events/pattern/stages');
+        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
@@ -171,10 +176,12 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_contests()
     {
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('event', $this->event);
+        $this->template->mainSection = View::factory('events/scenario/contests')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
 
-        $this->template->mainSection = View::factory('events/pattern/contests');
+        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
@@ -185,10 +192,12 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_result()
     {
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('event', $this->event);
+        $this->template->mainSection = View::factory('events/scenario/results')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
 
-        $this->template->mainSection = View::factory('events/pattern/results');
+        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
