@@ -25,10 +25,6 @@ var touchSupported = function(e) {
 
 var slider = function(){
 
-    var letters = ['A', 'B', 'C', 'Ц', 'D', 'E', 'F', 'Ё'];
-
-    letters.sort();
-
     //Получение элементов ползунка
 
     var sliderElem = document.getElementById('slider');
@@ -59,6 +55,25 @@ var slider = function(){
 
     var handlers = {
 
+        getNewLetter: function (left, right, elem) {
+
+            var letters = ['A', 'B', 'C', 'Ц', 'D', 'E', 'F', 'Ё'];
+
+            letters.sort();
+
+            var newLetterIndex = Math.floor(left / (right / letters.length));
+
+            if ( newLetterIndex < 0 )
+                newLetterIndex = 0;
+            if ( newLetterIndex > letters.length - 1 )
+                newLetterIndex = letters.length - 1;
+
+
+            elem.innerHTML = letters[newLetterIndex];
+
+        },
+
+
         downMouse: function(event) {
 
             if ( event.which > 1) {
@@ -75,11 +90,23 @@ var slider = function(){
 
             circleWidth = (circleCord.right - circleCord.left) / 2;
 
-            circleElem.style.left = event.pageX - bandCord.left - circleWidth + 'px';
-
             rightEdge = sliderElem.offsetWidth - circleElem.offsetWidth;
 
-            letterElem.innerHTML = letters[Math.floor((event.pageX - bandCord.left - circleWidth) / (rightEdge / letters.length))];
+
+            var l = event.pageX - bandCord.left - circleWidth;
+
+            if (l < 0) {
+                l = 0;
+            }
+
+            if (l > rightEdge) {
+                l = rightEdge;
+            }
+
+            circleElem.style.left =l  + 'px';
+
+
+            handlers.getNewLetter(event.pageX - bandCord.left - circleWidth, rightEdge, letterElem);
 
             checkDownMouse = true;
         },
@@ -98,12 +125,6 @@ var slider = function(){
 
             console.log('kek', rightEdge);
 
-            var newLetterIndex = Math.floor(newLeft / (rightEdge / letters.length));
-
-            if ( newLetterIndex < 0 )
-                newLetterIndex = 0;
-            if ( newLetterIndex > letters.length - 1 )
-                newLetterIndex = letters.length - 1;
 
             // курсор ушёл вне слайдера
             if (newLeft < 0) {
@@ -114,7 +135,9 @@ var slider = function(){
                 newLeft = rightEdge;
             }
 
-            letterElem.innerHTML = letters[newLetterIndex];
+            handlers.getNewLetter(newLeft, rightEdge, letterElem);
+
+
             circleElem.style.left = newLeft + 'px';
             proportionForResize = newLeft / (bandCord.right - bandCord.left);
         },
@@ -153,6 +176,10 @@ var stage_nav = function () {
 
     var stage = document.getElementById('stage_nav');
 
+    var elementsOfMenu = stage.children[0];
+
+    var elemActivity = elementsOfMenu.childElementCount;
+
     var startX = null;
 
     //Переменная для проверки события клика мышки на ползунок
@@ -162,7 +189,6 @@ var stage_nav = function () {
     var handlers = {
 
         downMouse: function(event) {
-
             if ( event.which > 1) {
                 return;
             }
@@ -175,7 +201,6 @@ var stage_nav = function () {
         },
 
         moveMouse: function (event) {
-
             if ( event.which > 1 || !checkDownMouse ) {
                 return;
             }
@@ -330,7 +355,7 @@ var stages_holder = function () {
         replaceBlockPosition: function () {
             requestAnimationFrame(function () {
 
-               widthCurrentElem = sliderElem.getBoundingClientRect().width;
+               widthCurrentElem = sliderElem.getBoundingClientRect().width();
 
                sliderElem.scrollLeft = (widthCurrentElem + 10) * numberOfBlock;
             })

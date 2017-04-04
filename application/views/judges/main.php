@@ -29,6 +29,7 @@
         <ul class="stage_nav-ul">
             <li class="stage_nav_ul-li">Деловая игра</li>
             <li class="stage_nav_ul-li">Доклад участника</li>
+            <li class="stage_nav_ul-li">Доклад участника</li>
             <li class="stage_nav_ul-li">Творческий этап</li>
             <li class="stage_nav_ul-li">Творческий этап</li>
         </ul>
