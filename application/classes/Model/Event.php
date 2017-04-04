@@ -118,34 +118,35 @@ class Model_Event extends Model
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
-        $id = $insert->execute();
+        $result = $insert->execute();
 
-        return $this->get_($id);
+        return $this->fill_by_row($result);
 
     }
 
     /**
-     * Updates user data in database
+     * Updates event data in database
      *
-     * @return Model_User
+     * @return Model_Event
      */
     public function update()
     {
 
-        $update = Dao_Events::update();
+        $insert = Dao_Users::update();
 
         foreach ($this as $fieldname => $value) {
-            if (property_exists($this, $fieldname)) $update->set($fieldname, $value);
+            if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
-        $update->clearcache($this->id);
-        $update->where('id', '=', $this->id);
+        $insert->clearcache($this->id);
+        $insert->where('id', '=', $this->id);
 
-        $id = $update->execute();
+        $insert->execute();
 
-        return $this->get_($id);
+        return $this->get_($this->id);
 
     }
+
 
 
     public function addAssistant($id) {
