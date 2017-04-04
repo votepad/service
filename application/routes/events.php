@@ -94,8 +94,10 @@ $sectioncallback = function(Route $route, $params, Request $request){
         'settings' => array(
             'info', 'assistants'
         ),
-        'app' => array(
-            'criterias', 'stages', 'contests', 'result',
+        'scenario' => array(
+            'criterias', 'stages', 'contests', 'result'
+        ),
+        'members' => array(
             'judges', 'participants', 'teams', 'groups'
         ),
     );
@@ -109,7 +111,7 @@ $sectioncallback = function(Route $route, $params, Request $request){
 Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>(/<action>)',
     array(
         'id' => $DIGIT,
-        'section' => 'settings|app',
+        'section' => 'settings|scenario|members',
         'action' => $STRING
     ))
     ->filter($sectioncallback)
