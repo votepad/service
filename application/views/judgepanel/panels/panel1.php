@@ -6,6 +6,8 @@
 
     <div id="stage_nav" class="stage_nav">
         <ul class="stage_nav-ul tabs__header">
+            <li class="stage_nav_ul-li tabs__btn tabs__btn--active" data-toggle="tabs" data-block="qw">Деловая игра</li>
+            <li class="stage_nav_ul-li tabs__btn " data-toggle="tabs" data-block="qw1">Доклад участника</li>
             <li class="stage_nav_ul-li">Доклад участника</li>
             <li class="stage_nav_ul-li">Творческий этап</li>
             <li class="stage_nav_ul-li">Творческий этап</li>
