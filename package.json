@@ -1,0 +1,34 @@
+{
+  "name": "votepad",
+  "version": "1.0.0",
+  "description": "service\r Saas model of Pronwe",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ProNWE/service.git"
+  },
+  "author": "Murod Khaydarov",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ProNWE/service/issues"
+  },
+  "homepage": "https://github.com/ProNWE/service#readme",
+  "dependencies": {
+    "babel": "^6.23.0",
+    "babel-core": "^6.24.0",
+    "babel-polyfill": "^6.23.0",
+    "babel-preset-es2015": "^6.24.0",
+    "babel-runtime": "^6.23.0",
+    "css-loader": "^0.27.3",
+    "eslint": "^3.18.0",
+    "eslint-loader": "^1.7.0",
+    "extract-text-webpack-plugin": "^2.1.0",
+    "html-janitor": "^2.0.2",
+    "path": "^0.12.7",
+    "stylelint-webpack-plugin": "^0.7.0",
+    "webpack": "^2.3.2"
+  }
+}

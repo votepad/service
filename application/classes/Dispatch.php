@@ -77,19 +77,34 @@ class Dispatch extends Controller_Template
     */
     public function XSSfilter()
     {
-        $exceptions = array(); // Исключения для полей с визуальным редактором
-
+        /**
+         * @var array Исключения для полей с визуальным редактором
+         */
+        $exceptionsAllowingHTML = array( 'contest_text', 'results_contest' );
+        /**
+         * Exception for CodeX Editor that has own sanitize methods in vendor package
+         * @var array
+         */
+        $exceptionsForCodexEditor = array('article_json');
         foreach ($_POST as $key => $value){
-
-            $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
-
-            if ( in_array($key, $exceptions) === false ){
+            if (is_array($value)) {
+                foreach ($value as $sub_key => $sub_value) {
+                    $sub_value = stripos( $sub_value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $sub_value ;
+                    $_POST[$key][$sub_key] = Security::xss_clean(HTML::chars($sub_value));
+                }
+                continue;
+            }
+            $value = stripos($value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
+            /**
+             * $exceptionsAllowingHTML — allow html tags (does not fire HTML Purifier)
+             * $exceptionsForCodexEditor — do nothing
+             */
+            if ( in_array($key, $exceptionsAllowingHTML) === false && in_array($key, $exceptionsForCodexEditor) === false){
                 $_POST[$key] = Security::xss_clean(HTML::chars($value));
-            } else {
-                $_POST[$key] = Security::xss_clean( strip_tags(trim($value), '<br><em><del><p><a><b><strong><i><strike><blockquote><ul><li><ol><img><tr><table><td><th><span><h1><h2><h3><iframe><div><code>'));
+            } elseif (in_array($key, $exceptionsForCodexEditor) === false) {
+                $_POST[$key] = strip_tags(trim($value), '<br><em><del><p><a><b><strong><i><strike><blockquote><ul><li><ol><img><tr><table><td><th><span><h1><h2><h3><iframe><div><code>');
             }
         }
-
         foreach ($_GET  as $key => $value) {
             $value = stripos( $value, 'سمَـَّوُوُحخ ̷̴̐خ ̷̴̐خ ̷̴̐خ امارتيخ ̷̴̐خ') !== false ? '' : $value ;
             $_GET[$key] = Security::xss_clean(HTML::chars($value));
@@ -179,10 +194,12 @@ class Dispatch extends Controller_Template
 
             /** Authentificated User is visible in all pages */
             View::set_global('user', $user);
+            $this->user = $user;
 
         }
 
         View::set_global('isLogged', self::isLogged());
+        View::set_global('canLogin', self::canLogin());
 
         $address = Arr::get($_SERVER, 'HTTP_ORIGIN');
 
@@ -201,7 +218,7 @@ class Dispatch extends Controller_Template
     {
         /** Check CSRF */
         if (!isset($_POST['csrf']) || !empty($_POST['csrf']) && !Security::check(Arr::get($_POST, 'csrf', ''))) {
-            throw new Kohana_HTTP_Exception_403();
+            throw new HTTP_Exception_403();
         }
 
         return true;

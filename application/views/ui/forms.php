@@ -481,7 +481,9 @@ $('#id').select2({
 
         <div class="row row-col">
             <div class="col-xs-12 col-md-6">
-                bootstrap datetimepicker
+                <a class="underlinehover" href="//www.malot.fr/bootstrap-datetimepicker/demo.php">http://www.malot.fr/bootstrap-datetimepicker/demo.php</a>
+                <br>
+                <a class="underlinehover" href="//github.com/smalot/bootstrap-datetimepicker">https://github.com/smalot/bootstrap-datetimepicker</a>
             </div>
             <div class="col-xs-12 col-md-6">
                 <blockquote>

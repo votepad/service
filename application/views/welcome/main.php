@@ -11,68 +11,61 @@
     <meta name="keywords" content="<?=$keywords; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
+    <!-- modules -->
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css?v=<?= filemtime("assets/frontend/modules/css/header.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/dropdown.css?v=<?= filemtime("assets/frontend/modules/css/dropdown.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css?v=<?= filemtime("assets/frontend/modules/css/collapse.css") ?>">
+
+    <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js"></script>
+
     <!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
-    <link rel="stylesheet" href="<?=$assets; ?>css/icons_fonts.css">
-    <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css">
-    <link rel="stylesheet" href="<?=$assets; ?>css/welcome.css">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/icons_fonts.css">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/welcome.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>js/app_v1.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/welcome.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
+
 
 </head>
 
  <body>
- 
-    <?=$header; ?>
+    <header class="header header-home">
+        <?=$header; ?>
+    </header>
 
     <?=$section; ?>
 
     <footer class="footer">
-         <div class="footer_wrapper">
-             <div class="footer_block clearfix">
-                 <div class="nav-addition pull-right">
-                     <!--<a href="/features" class="footer_btn footer_btn-light">О продукте</a>-->
-                     <a class="footer_btn footer_btn-light askquestion">Связь с командой</a>
-                     <!--<a href="#" class="footer_btn footer_btn-light">Вопросы</a>-->
-                 </div>
-                <div class="logo">
-                    <span class="logo-icon icon-leadership"><span class="path1"></span><span class="path2"></span><span class="path3"></span><span class="path4"></span><span class="path5"></span></span>
-                    <a href="/" class="logo-name">Votepad</a>
-                    <span class="logo-text">Автоматизированный подсчёт</span>
-                    <span class="logo-text">результатов голосования</span>
-                </div>
-                <div class="nav-main">
-                    <a href="/#events" class="footer_btn toEvents">Мероприятия</a>
-                    <!--<a href="#" class="footer_btn">Организации</a>-->
-                </div>
-            </div>
-            <div role="separator" class="divider"></div>
-            <div class="footer_block">
-                <div class="footer_icons">
-                    <a href="//vk.com/votepad" class="vk"><i class="fa fa-vk" aria-hidden="true"></i></a>
-                    <!--<a href="#" class="fb"><i class="fa fa-facebook" aria-hidden="true"></i></a>-->
-                    <a href="//twitter.com/votepadevent" class="tw"><i class="fa fa-twitter" aria-hidden="true"></i></a>
-                    <span>— подписывайтесь!</span>
-                </div>
-                <span class="copyright pull-right">© 2016-2017 votepad.ru</span>
-                <!--<a href="mailto:team@votepad.ru" class="email footer_btn footer_btn-light pull-right">team@votepad.ru</a>-->
-            </div>
-        </div>
+
+        <?= View::factory('globalblocks/footer'); ?>
+
     </footer>
 
     <div id="toTop" class="toTop">
         <i class="fa fa-4x fa-angle-double-up" aria-hidden="true"></i>
     </div>
 
-    <?=$auth_modal; ?>
+    <?= View::factory('globalblocks/auth_modal'); ?>
 
 </body>
+
+<script type="text/javascript">
+
+    $( document ).ready(function() {
+        vp.header.init();
+        vp.collapse.init();
+    });
+
+</script>
+
 <!-- Yandex.Metrika counter --
 <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter42856294 = new Ya.Metrika({ id:42856294, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/42856294" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
 <!-- /Yandex.Metrika counter -->

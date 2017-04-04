@@ -13,7 +13,7 @@ Route::set('Welcome_Page', '')
     ->cache();
 
 /** Authentification */
-Route::set('AUTH', 'sign/<mode>(/<additional>)')
+Route::set('AUTH', 'sign/<mode>(/<additional>)', array('additional' => 'logout|reset'))
     ->filter(function ($route, $params, $request) {
 
         $params['controller'] = 'Auth';
@@ -25,7 +25,7 @@ Route::set('AUTH', 'sign/<mode>(/<additional>)')
 
         // log out action
         if (!empty($params['additional'])) {
-            $params['action'] = 'logout';
+            $params['action'] = $params['additional'];
         }
 
         return $params;
@@ -53,7 +53,19 @@ Route::set('IMAGE_TRANSPORT', 'transport')
 
 
 
-require_once ('routes/judges.php');
+Route::set('EMAIL_CONFIRMATION', 'confirm/<hash>')
+    ->defaults(array(
+        'controller' => 'SignUp',
+        'action'     => 'confirmEmail'
+    ));
+
+Route::set('RESET_PASSWORD_LINK', 'reset/<hash>')
+    ->defaults(array(
+        'controller' => 'Auth_Organizer',
+        'action'     => 'resetPassword'
+    ));
+
+
 require_once ('routes/welcome.php');
 require_once ('routes/profile.php');
 require_once ('routes/ui.php');
@@ -63,6 +75,7 @@ require_once ('routes/participants.php');
 require_once ('routes/teams.php');
 require_once ('routes/groups.php');
 require_once ('routes/ajax.php');
+require_once ('routes/judges.php');
 
 // Route::set('Default', '<controller>(/<action>(/<id>))')
 //     ->defaults(array(
@@ -75,12 +88,6 @@ Route::set('TEST', 'test')
         'controller' => 'Test',
         'action'     => 'index'
     ));
-
-Route::set('EMAIL_CONFIRMATION', 'confirm/<hash>')
-    ->defaults(array(
-        'controller' => 'SignUp',
-        'action'     => 'confirmEmail'
-    ))
 
 
 ?>

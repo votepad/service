@@ -5,7 +5,7 @@ class Model_Response_Abstract extends Model
 
     const ERROR_STATUS     = 'error';
     const SUCCESS_STATUS   = 'success';
-    protected $response      = array();
+    protected $response    =  array();
 
     public function __construct($name, $status, $data = array()) {
 

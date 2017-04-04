@@ -1,0 +1,262 @@
+/**
+ * New Organization's Page Style
+ */
+
+.form_neworg{
+	width: 100%;
+}
+.form_neworg_progress{
+	position: relative;
+	height: 5px;
+	background-color: transparent;
+	z-index: 0;
+}
+	.form_neworg_progress-wrapper{
+		position: absolute;
+		height: inherit;
+		transition: 1s;
+		background: linear-gradient(to right,#ff0033,yellow,#32cd32);
+		background-repeat: no-repeat;
+		background-position: center;
+
+		-moz-box-shadow:inset 0px -30px 64px -45px #fff;
+		-webkit-box-shadow:inset 0px -30px 64px -45px #fff;
+		box-shadow:inset 0px -30px 64px -45px #fff;
+
+		top: 0;
+		left: 0;
+		width: 0;
+		z-index: -1;
+	}
+
+.form_neworg_body{
+	overflow: hidden;
+	padding: 0;
+	height: 227px;
+}
+.form_neworg_body-wrapper{
+	display: block;
+	position: relative;
+	width: 300%;
+	height: inherit;
+}
+.form_neworg_body-wrapper-item{
+	display: inline-block;
+	position: relative;
+    transition: .5s ease-out;
+	height: 187px;
+}
+
+.form_neworg .btn_hollow{
+	color: #616161
+}
+	.form_neworg .btn_hollow:hover, .form_neworg .btn_hollow:focus{
+		color: #212121
+	}
+
+.form_neworg .btn_hollow > .fa{
+	padding-left: 5px;
+	opacity: .5;
+}
+	.form_neworg .btn_hollow:hover > .fa, .form_neworg .btn_hollow:focus > .fa{
+		opacity: 1;
+	}
+
+
+
+
+/**
+ * Jumbotron Wrapper
+ */
+
+.jumbotron_nav{
+	border-top: 0;
+}
+.jumbotron_org-avatar{
+	position: absolute;
+	bottom: 20px;
+	left: 50px;
+	width: 180px;
+	height: 180px;
+	background-color: #fff;
+	box-shadow: 0 1px 3px 0 rgba(0,0,0,0.2),0 1px 1px 0 rgba(0,0,0,.14),0 2px 1px -1px rgba(0,0,0,.12);
+	z-index: 11;
+}
+	.jumbotron_org-avatar img{
+		position: relative;
+		margin: 5px;
+		height: 170px;
+		width: 170px;
+		z-index: 2;
+	}
+
+
+.jumbotron_org-avatar-edit{
+	position: absolute;
+    height: 40px;
+    transition: .15s;
+    z-index: 3;
+    bottom: 5px;
+    left: 5px;
+    width: 170px;
+}
+	.jumbotron_org-avatar-edit .fa{
+		position: absolute;
+	    font-size: 1.1em;
+	    color: #fafafa;
+	    opacity: .8;
+	    text-shadow: 0 0 2px #777;
+	    line-height: 40px;
+	    left: 11px;
+	    transition: .15s;
+	}
+
+	.jumbotron_org-avatar-edit span{
+		display: none;
+		padding: 5px 10px 5px 40px;
+		color: #fff;
+		font-size: 0.8em;
+	}
+
+
+.jumbotron_org-avatar:hover .jumbotron_org-avatar-edit{
+	background: rgba(0, 0, 0, .6);
+}
+	.jumbotron_org-avatar:hover .jumbotron_org-avatar-edit span{
+		display: inline-block;
+	}
+
+.jumbotron_org-avatar:hover .jumbotron_org-avatar-edit:hover{
+	background: rgba(0, 0, 0, .75);
+}
+
+
+.jumbotron_org-name-background{
+	position: absolute;
+	bottom: 40px;
+	left: 0;
+	width: 100%;
+	height: 120px;
+	background: linear-gradient(to bottom, transparent, rgba(0,0,0,0.75));
+}
+
+.jumbotron_org-name{
+	width: calc(100% - 300px);
+	position: absolute;
+	bottom: 50px;
+	left: 280px;
+}
+	.jumbotron_org-name h2{
+		display: inline-block;
+		overflow: hidden;
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		max-width: 90%;
+		color: #fff;
+	}
+	.jumbotron_org-name > a {
+		display: inline-block;
+		position: relative;
+		vertical-align: top;
+		top: 10px;
+		left: 5px;
+		font-size: 1.2em;
+		color: #f5f7fa;
+	}
+
+
+
+/**
+ * Jumbotron Navigation in EVENTS SUBMODULES
+ */
+.jumbotron_nav_org-list{
+	width: 100%;
+	height: inherit;
+	margin-left: 280px;
+}
+.jumbotron_nav_org-item {
+	position: relative;
+	cursor: pointer;
+	float: left;
+}
+.jumbotron_nav_org-item:not(:last-child) {
+	margin-right: 30px;
+}
+.jumbotron_nav-btn{
+	line-height: normal;
+}
+
+
+
+/**
+ * Media - Tablet
+ */
+
+@media (max-width: 992px) {
+
+	 .jumbotron_org-avatar-edit{
+		 width: 30%
+	 }
+	 	.jumbotron_org-avatar-edit a{
+			display: block;
+			height: inherit;
+			width: 100%;
+			text-align: center;
+		}
+			.jumbotron_org-avatar-edit a .fa{
+				position: relative;
+				left: 0;
+			}
+	.jumbotron_org-avatar:hover .jumbotron_org-avatar-edit{
+		background: transparent;
+	}
+		.jumbotron_org-avatar:hover .jumbotron_org-avatar-edit:hover{
+			background: transparent;
+		}
+		.jumbotron_org-avatar:hover .jumbotron_org-avatar-edit span{
+			display: none;
+		}
+
+
+
+}
+
+
+/**
+ * Media - Mobile
+ */
+
+@media (max-width: 680px){
+
+	.jumbotron_org-avatar{
+		left: calc(50% - 90px);
+    	width: 150px;
+		height: 150px;
+    	top: 50px;
+	}
+		.jumbotron_org-avatar img{
+			width: 140px;
+			height: 140px;
+		}
+
+	.jumbotron_org-name{
+		left:auto;
+		bottom:0;
+		width:95%;
+		text-align:center;
+	}
+		.jumbotron_org-name h2{
+			font-size:1.4em;
+		}
+
+	.jumbotron_org-name-background{
+		bottom: 0;
+		height: 80px;
+	}
+
+	.jumbotron_nav_org-list{
+		height: initial;
+		margin-left: 0;
+	}
+
+}

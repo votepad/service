@@ -150,25 +150,27 @@ Class Model_User {
          $insert = Dao_Users::update()
                     ->set('password', $newpass)
                     ->where('id', '=', $this->id)
+                    ->clearcache($this->id)
                     ->execute();
 
          return $insert;
 
      }
 
-    /**
-     * @param $id
-     * @return organization
-     */
-    public static function getUserOrganization($id)
+    public function getOrganizations()
     {
-        $select = DB::select('id_organization')->from('User_Organizations')
-                        ->where('id_user', '=', $id)
-                        ->limit(1)
-                        ->execute()
-                        ->as_array();
+        $ids = Dao_UsersOrganizations::select('o_id')
+            ->where('u_id', '=', $this->id)
+            ->cached(Date::MINUTE * 5, 'user:' . $this->id)
+            ->execute('o_id');
 
-        return Arr::get($select, '0')['id_organization'];
+        $orgs = array();
+
+        foreach ($ids as $id => $value) {
+            array_push($orgs, new Model_Organization($id));
+        }
+
+        return $orgs;
     }
 
     /**

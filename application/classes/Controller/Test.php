@@ -16,7 +16,7 @@ class Controller_Test extends Dispatch {
         // example:
         //$this->template->file      = View::factory('emailtemplates/confirm_email');
 
-        
+
         $this->template->file      = View::factory('emailtemplates/confirm_email');
 
     }

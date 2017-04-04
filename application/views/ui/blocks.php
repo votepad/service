@@ -2,6 +2,7 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-transition.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-collapse.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>js/modules/tabs.js"></script>
 
 
 <div class="row">
@@ -235,6 +236,98 @@
 </div></xmp></blockquote>
             </div>
         </div>
+
+
+
+
+        <h3 class="page-header">Tabs</h3>
+
+        <div class="row row-col">
+            <div class="col-xs-12 col-md-6">
+                <div class="block" >
+                    <ul class="tabs tabs_header clear_fix">
+                        <li id="">
+                            <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
+                        </li>
+                        <li id="">
+                            <a data-ui="tabs" aria-controls="tab2" class="tab">Tab 2</a>
+                        </li>
+                    </ul>
+                    <div class="tabs_content">
+                        <div id="tab1" class="tab_block tab_block--active">
+                            1
+                        </div>
+                        <div id="tab2" class="tab_block">
+                            2
+                        </div>
+                    </div>
+
+                </div>
+
+                <div class="block">
+                    <ul class="tabs clear_fix">
+                        <li id="">
+                            <a data-ui="tabs" aria-controls="tab3" class="tab tab--active">Tab 1</a>
+                        </li>
+                        <li id="">
+                            <a data-ui="tabs" aria-controls="tab4" class="tab">Tab 2</a>
+                        </li>
+                    </ul>
+                    <div class="tabs_content">
+                        <div id="tab3" class="tab_block tab_block--active">
+                            3
+                        </div>
+                        <div id="tab4" class="tab_block">
+                            4
+                        </div>
+                    </div>
+                </div>
+
+                <script type="text/javascript">
+                    tabs.init()
+                </script>
+            </div>
+            <div class="col-xs-12 col-md-6">
+<blockquote><b>Template</b><xmp><div class="block" >
+    <ul class="tabs clear_fix">
+        <li id="">
+            <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
+        </li>
+        <li id="">
+            <a data-ui="tabs" aria-controls="tab2" class="tab">Tab 2</a>
+        </li>
+    </ul>
+    <div class="tabs_content">
+        <div id="tab1" class="tab_block active">
+            1
+        </div>
+        <div id="tab2" class="tab_block">
+            2
+        </div>
+    </div>
+</div></xmp>
+<br><b>Modify</b>
+<xmp><ul class="tabs tabs_header clear_fix">
+    <li id="">
+        <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
+    </li>
+    <li id="">
+        <a data-ui="tabs" aria-controls="tab2" class="tab">Tab 2</a>
+    </li>
+</ul></xmp>
+<br><b>Script</b>
+<xmp>
+<script type="text/javascript" src="../tabs.js"></script>
+<script type="text/javascript">
+    tabs.init()
+</script>
+</xmp></blockquote>
+            </div>
+        </div>
+
+
+
+
 
 
         <h3 class="page-header">Modals</h3>

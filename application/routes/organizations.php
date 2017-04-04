@@ -146,11 +146,23 @@ Route::set('CHECK_ORGANIZATION_EMAIL', 'organization/checkemail/<email>',
  *
  * @returns Boolean json encoded response
  */
-Route::set('CHECK_ORGANIZATION_WEBSITE', 'organization/checkwebsite/<website>',
+Route::set('CHECK_ORGANIZATION_WEBSITE', 'organization/checkwebsite/<uri>',
     array(
-        'website' => $STRING
+        'uri' => $STRING
     ))
     ->defaults(array(
         'controller' => 'Organizations_Ajax',
         'action'     => 'checkWebsite'
+    ));
+
+Route::set('JOIN_TO_ORGANIZATION', 'organization/<id>/join', array('id' => $DIGIT, 'hash' => $STRING))
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
+        'action'     => 'join'
+    ));
+
+Route::set('MEMBERS_ACTIONS', 'organization/<id>/member/<method>/<userId>', array('id' => $DIGIT, 'userId' => $DIGIT, 'method' => 'add|remove|reject'))
+    ->defaults(array(
+        'controller' => 'Organizations_Ajax',
+        'action'     => 'member'
     ));

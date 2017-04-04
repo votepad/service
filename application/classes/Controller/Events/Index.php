@@ -4,24 +4,14 @@
  * Class Controller_Events_Index
  * All pages which has relationship with Events will be here
  *
+ * @copyright Votepad Team
  * @author Khaydarov Murod
- * @copyright Khaydarov Murod
- *
  * @author Turov Nikolay
  *
- * @version 0.2.3
+ * @version 0.2.5
  */
 class Controller_Events_Index extends Dispatch
 {
-    /**
-     * @const ACTION_NEW [String] - for creating a new event
-     */
-    const ACTION_NEW        = 'New';
-
-    /**
-     * @const ACTION_SHOW_ALL [String] - Show all action
-     */
-    const ACTION_SHOW_ALL   = 'showAll';
 
     /**
      * @var $organization [String] - default value is null. Keeps cached render
@@ -33,193 +23,172 @@ class Controller_Events_Index extends Dispatch
      */
     protected $event = null;
 
+
+    /**
+     * Global Template
+     */
+    public $template = 'main';
+
     /**
      * Function that calls before main action
-     *
-     * - Defines main template of actions
-     * - Gets organization info
-     * - Gets event info
      */
     public function before()
     {
-        switch ($this->request->action()) {
-
-            /**
-             * Creating a new event
-             */
-            case self::ACTION_NEW :
-                $this->template = 'events/new';
-                break;
-
-            /**
-             *  Show Events on Organization page
-             */
-            case self::ACTION_SHOW_ALL :
-                $this->template = 'events/all';
-                break;
-
-            /**
-             * Default template for others pages
-             */
-            default :
-                $this->template = 'events/main';
-                break;
-        }
 
         parent::before();
 
+        $id = $this->request->param('id');
+        $event = new Model_Event($id);
 
-        $organizationPage = $this->request->param('organizationpage');
-        $this->organization = Model_Organizations::getByFieldName('website', $organizationPage);
+        if ($event->id) {
 
-        /**
-         * Organization info
-         */
-        $this->template->organization = $this->organization;
+            $this->event = $event;
+            $this->organization = new Model_Organization($event->organization);
+
+            View::set_global('event', $event);
+            View::set_global('organization', $this->organization);
+
+            /**
+             * Meta Dates
+             */
+            $this->template->title = $event->name;
+            $this->template->description = $event->description;
+            $this->template->keywords = $event->tags;
 
 
-        /**
-         * @var 'eventpage' - event website
-         */
-        $eventPage = $this->request->param('eventpage');
-        $this->event = Model_Events::getByFieldName('page', $eventPage);
+            /**
+             * Header
+             */
+            $this->template->header = View::factory('globalblocks/header')
+                ->set('header_menu', View::factory('events/blocks/header_menu'))
+                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile'));
 
-        /**
-         * Event info
-         */
-        $this->template->event = $this->event;
 
-        if (!$this->organization && !$this->event) {
-            throw new HTTP_Exception_404();
+            /**
+             * Footer
+             */
+            $this->template->footer = View::factory('globalblocks/footer');
+
         }
 
-        $this->template->top = View::factory('/events/blocks/top_navigation')
-            ->set('organizationPage', $organizationPage)
-            ->set('eventPage', $eventPage);
-
-    }
-
-    /**
-     * NEW EVENT
-     * action_new - action that open page where users create new event
-     */
-    public function action_new()
-    {
-        $team = Model_Organizations::team($this->organization->id);
-        $this->template->team = $team;
     }
 
 
     /**
      * MANAGE submodule
-     * action_managemain - action that open page where is a main panel for manage event
-     */
-    public function action_event()
-    {
-        $this->template->main_section = View::factory('events/manage/main');
-        $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')
-                ->set('organizationPage', $this->organization->website)
-                ->set('eventPage', $this->event->page);
-    }
-
-
-    /**
-     * MANAGE submodule
-     * action_settings - action that open page where users can edit main information about event
+     * action_settings - change main-info
      */
     public function action_settings()
     {
-        $this->template->main_section = View::factory('events/manage/settings');
-        $this->template->jumbotron_navigation = View::factory('events/manage/jumbotron_navigation')
-                ->set('organizationPage', $this->organization->website)
-                ->set('eventPage', $this->event->page);
-    }
+        $this->template->mainSection = View::factory('events/settings/content');
 
-    /**
-     * CONTROL submodule
-     * action_before - administrate event before the start
-     */
-    public function action_before()
-    {
-        $this->template->main_section = View::factory('events/control/before');
-        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
-                ->set('organizationPage', $this->organization->website)
-                ->set('eventPage', $this->event->page);
+        $this->template->mainSection->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation');
     }
 
 
     /**
-     * CONTROL submodule
-     * action_during - administrate event in real time
+     * MANAGE submodule
+     * action_settings - change main-info
      */
-    public function action_during()
+    public function action_info()
     {
-        $this->template->main_section = View::factory('events/control/during');
-        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
-                ->set('organizationPage', $this->organization->website)
-                ->set('eventPage', $this->event->page);
+        $this->template->mainSection = View::factory('events/settings/info');
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation');
+
+    }
+
+
+    /**
+     * MANAGE submodule
+     * action_assistants - action that open page where users can edit assistants
+     */
+    public function action_assistants()
+    {
+
+        $this->event->assistants = $this->event->getAssistants();
+
+        if (empty($this->user) || !$this->organization->isMember($this->user->id)) {
+            throw new HTTP_Exception_403();
+        }
+
+        $requests_ids =  $this->redis->sMembers('votepad.orgs:' . $this->event->organization . ':events:' . $this->event->id . ':assistants.requests');
+        $requests = array();
+
+        foreach ($requests_ids as $id) {
+            array_push($requests, new Model_User($id));
+        }
+
+        $this->template->mainSection = View::factory('events/settings/assistants')
+            ->set('requests', $requests)
+            ->set('invite_link', $this->event->getInviteLink());
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation');
+
     }
 
 
     /**
      * CONTROL submodule
-     * action_after - administrate event after the end
+     * action_control - administrate event
      */
-    public function action_after()
+    public function action_control()
     {
-        $this->template->main_section = View::factory('events/control/after');
-        $this->template->jumbotron_navigation = View::factory('events/control/jumbotron_navigation')
-                ->set('organizationPage', $this->organization->website)
-                ->set('eventPage', $this->event->page);
+        $this->template->jumbotron_navigation = "";
+
+        $this->template->mainSection = View::factory('events/control/main');
     }
+
 
     /**
      * PATTERN submodule
-     * criteria CRUD
+     * action_criterias - criteria CRUD
      */
     public function action_criterias()
     {
-        $this->template->main_section = View::factory('events/pattern/criterias');
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
+        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation');
+
+        $this->template->mainSection = View::factory('events/pattern/criterias');
     }
+
 
     /**
      * PATTERN submodule
-     * stage CRUD
+     * action_stages - stage CRUD
      */
     public function action_stages()
     {
-        $this->template->main_section = View::factory('events/pattern/stages');
         $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
+            ->set('event', $this->event);
+
+        $this->template->mainSection = View::factory('events/pattern/stages');
     }
+
 
     /**
      * PATTERN submodule
-     * contest CRUD
+     * action_contests - contest CRUD
      */
     public function action_contests()
     {
-        $this->template->main_section = View::factory('events/pattern/contests');
         $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
+            ->set('event', $this->event);
+
+        $this->template->mainSection = View::factory('events/pattern/contests');
     }
+
 
     /**
      * PATTERN submodule
      *
-     * Creating pattern of event.
+     * action_result - result CRUD
      */
-    public function action_results()
+    public function action_result()
     {
-        $this->template->main_section = View::factory('events/pattern/results');
         $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
+            ->set('event', $this->event);
+
+        $this->template->mainSection = View::factory('events/pattern/results');
     }
 
 
@@ -229,10 +198,10 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_judges()
     {
-        $this->template->main_section = View::factory('events/members/judges');
         $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
+            ->set('event', $this->event);
+
+        $this->template->mainSection = View::factory('events/members/judges');
     }
 
 
@@ -244,12 +213,11 @@ class Controller_Events_Index extends Dispatch
     {
         $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
 
-        $this->template->main_section = View::factory('events/members/participants')
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
             ->set('event', $this->event);
 
-        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
+        $this->template->mainSection = View::factory('events/members/participants')
+            ->set('event', $this->event);
     }
 
 
@@ -279,14 +247,13 @@ class Controller_Events_Index extends Dispatch
 
         $teams = Methods_Teams::getAllTeams($this->event->id);
 
-        $this->template->main_section = View::factory('events/members/teams')
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+            ->set('event', $this->event);
+
+        $this->template->mainSection = View::factory('events/members/teams')
             ->set('event', $this->event)
             ->set('participants', $participantsWithoutTeam)
             ->set('teams', $teams);
-
-        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
     }
 
 
@@ -300,16 +267,14 @@ class Controller_Events_Index extends Dispatch
         $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
         $groups = Methods_Groups::getAllGroups($this->event->id);
 
-        $this->template->main_section = View::factory('events/members/groups')
+        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+            ->set('event', $this->event);
+
+        $this->template->mainSection = View::factory('events/members/groups')
             ->set('event', $this->event)
             ->set('teams', $teams)
             ->set('participants', $participants)
             ->set('groups', $groups);
-
-        /** @var jumbotron_navigation */
-        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('organizationPage', $this->organization->website)
-            ->set('eventPage', $this->event->page);
     }
 
 
@@ -320,8 +285,7 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_landing()
     {
-        $this->template->main_section = View::factory('events/landing/main');
-        $this->template->jumbotron_navigation = '';
+        $this->template = View::factory('events/landing/main');
     }
 
 

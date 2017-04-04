@@ -16,6 +16,8 @@ else
 	require SYSPATH.'classes/Kohana'.EXT;
 }
 
+require VENDORPATH.'autoload'.EXT;
+
 /**
  * Set the default time zone.
  *
@@ -70,6 +72,18 @@ mb_substitute_character('none');
  * Set the default language
  */
 I18n::lang('en-us');
+
+
+/**
+ * Load Dotenv
+ * @see https://github.com/vlucas/phpdotenv
+ */
+if (is_file(DOCROOT.'.env')) {
+    $dotenv = new Dotenv\Dotenv(DOCROOT);
+    $dotenv->load();
+}
+
+
 
 if (isset($_SERVER['SERVER_PROTOCOL']))
 {

@@ -1,0 +1,208 @@
+.header{
+    position:fixed;
+    top:0;
+    left:0;
+    right: 0;
+    height:50px;
+    line-height:50px;
+    background-color: #008DA7;
+    box-shadow: rgb(0, 0, 0) 0px -1px 15px -5px;
+    cursor: default;
+    z-index: 110;
+    user-select: none;
+}
+.header__wrapper{
+    display: block;
+    width: 80%;
+    height: inherit;
+    margin: 0 auto;
+    opacity:0;
+}
+
+
+.header__brand{
+    position: relative;
+    float: left;
+    text-align: center;
+    font-size: 2em;
+    width: 120px;
+    margin-right: 1em;
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+.header__brand,
+.header__brand:hover,
+.header__brand:focus{
+    color: #FCFCFC;
+}
+.header__brand--active,
+.header__brand--active:hover,
+.header__brand--active:focus {
+    color: #008DA7;
+    text-shadow: none;
+}
+
+.header__menu{
+    position: relative;
+    height: inherit;
+}
+
+.header__menu-icon{
+    display: none;
+    text-align: center;
+    position: relative;
+    float: left;
+}
+.header__brand,
+.header__menu-icon {
+    z-index: 111;
+}
+.header__menu-icon,
+.header__menu-icon .header__button{
+    height: inherit;
+    width: 50px;
+    padding: 0;
+}
+.header__menu-icon i{
+    display: block;
+    position: absolute;
+    background-color: #fff;
+    width: 20px;
+    left: 15px;
+    top: 20px;
+    margin: 5px auto;
+    height: 2px;
+    transition-property: background-color,transform,opacity,top;
+    transition-duration: .25s,.25s,.25s,.25s;
+    transition-delay: 0s;
+    transition-timing-function: ease,ease-out,ease,ease-out;
+}
+.header__menu-icon i:first-child{
+    top: 13px;
+}
+.header__menu-icon i:last-child{
+    top: 27px;
+}
+
+.header__menu-icon--open i {
+    opacity: 0;
+}
+.header__menu-icon--open i:first-child,
+.header__menu-icon--open i:last-child {
+    top: 20px;
+    background-color: #008DA7;
+    opacity: 1;
+}
+.header__menu-icon--open i:first-child {
+    -webkit-transform: rotate(45deg);
+    -moz-transform: rotate(45deg);
+    transform: rotate(45deg);
+}
+.header__menu-icon--open i:last-child {
+    -webkit-transform: rotate(-45deg);
+    -moz-transform: rotate(-45deg);
+    transform: rotate(-45deg);
+}
+
+
+.header__button{
+    float: left;
+    max-width: 200px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding: 0 18px;
+    transition: background-color .1s;
+    font-size: .9em;
+    text-align: center;
+    color: #FCFCFC;
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+.header__button--hover:hover{
+    background-color: rgba(0,0,0,0.1);
+    color: #FCFCFC;
+}
+.header__button--active{
+    background-color: rgba(0,0,0,0.1);
+    box-shadow: inset 0 -3px 0 0 #005D6E;
+}
+
+
+.mobile-aside{
+    position: fixed;
+    top:0;
+    bottom: 0;
+    left: -220px;
+    width: 220px;
+    background: #fff;
+    border-right: 1px solid #BBB;
+    transition: left ease .5s;
+    z-index: 110;
+}
+.mobile-aside--open{
+    overflow-y: auto;
+    left: 0;
+}
+
+.mobile-aside__menu{
+    position: absolute;
+    overflow: hidden;
+    line-height: normal;
+    padding-top: 10px;
+    margin-top: 50px;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    right: 0;
+    border-top: 1px solid #EEEEEE;
+}
+
+.mobile-aside__collapse{
+    padding-left: 25px;
+}
+
+.mobile-aside__menu-link,
+.mobile-aside__collapse-link{
+    display: block;
+    padding: 10px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.mobile-aside__menu__item--active{
+    background: rgba(0,0,0,0.02);
+    border-left: 2px solid #008DA7;
+}
+.mobile-aside__menu-link .fa {
+    width: 15px;
+    margin-right: 5px;
+}
+
+.mobile-aside__menu-link:hover,
+.mobile-aside__menu-link:focus,
+.mobile-aside__menu-link--active,
+.mobile-aside__collapse-link:hover,
+.mobile-aside__collapse-link:focus,
+.mobile-aside__collapse-link--active{
+    color: #008DA7;
+}
+
+.mobile-aside--show{
+    display: none;
+}
+
+@media (max-width: 992px) {
+    .header__wrapper{
+        width: 100%;
+        padding-right: 10px;
+    }
+
+    .header__menu-icon{
+        display: block;
+    }
+}
+
+@media (max-width: 460px) {
+    .mobile-aside--show{
+        display: block;
+    }
+}
