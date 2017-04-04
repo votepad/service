@@ -23,6 +23,10 @@
         <small>Придумайте этапы. В каждом этапе необходимо составить формулу из критериев, по которой будет формироваться балл.</small>
     </h3>
 
+
+    <input type="hidden" id="allCriterias" data-items="[]">
+
+
     <!-- Create New Stage -->
     <form method="POST" action="" class="form form_collapse" id="newstage" enctype="multipart/form-data">
         <div class="form_body">
@@ -99,59 +103,11 @@
             </div>
             <div class="col-sm-12">
                 <div class="row hidden">
-                    <div class="input-field">
-                        <input id="newstage_formula" type="hidden" name="formula" value="">
-                        <ul id="newstage_formula_area" class="dragable-inputarea">
-
-                        </ul>
-                        <label for="newstage_formula" data-toggle="tooltip" data-placement="right" title="Перетащите требуемые элементы, расположеные ниже">Задайте формулу</label>
+                    <div class="input-field" id="formula_newstage">
+                        
                     </div>
                 </div>
 
-                <div role="separator" class="divider"></div>
-
-                <div id="newstage_drop" class="drop">
-
-                    <!-- Droparea remove area -->
-                    <div id="newstage_droparea" class="drop-area">
-                        <i class="fa fa-4x fa-trash-o valign" aria-hidden="true"></i>
-                    </div>
-
-                    <!-- Coefficients -->
-                    <div class="row hidden">
-                        <span class="dragable-label">Весовые коэффициенты:</span>
-                        <ul id="newstage_coeff" class="dragable-area">
-                            <li class="item" data-val="count_judges">Колисество жюри</li>
-                            <li class="item dark" data-val="coeff_0.5">0.5</li>
-                            <li class="item dark" data-val="coeff_0.7">0.7</li>
-                            <li class="item dark" data-val="coeff_0.9">0.9</li>
-                        </ul>
-                        <button type="button" class="coeff-add" onclick="addcoeff(newstage_coeff)" data-toggle="tooltip" data-placement="right" title="Добавить"><i class="fa fa-plus" aria-hidden="true"></i></button>
-                    </div>
-
-                    <!-- Math Symbols -->
-                    <div class="row hidden">
-                        <span class="dragable-label">Алгебраические операции:</span>
-                        <ul id="newstage_math" class="dragable-area">
-                            <li class="item dark" data-val="math0"><span class="icon-bracket-left"></span></li>
-                            <li class="item dark" data-val="math1"><span class="icon-bracket-right"></span></li>
-                            <li class="item dark" data-val="math2"><span class="icon-plus"></span></li>
-                            <li class="item dark" data-val="math3"><span class="icon-minus"></span></li>
-                            <li class="item dark" data-val="math4"><span class="icon-multiply"></span></li>
-                            <li class="item dark" data-val="math5"><span class="icon-divide"></span></li>
-                        </ul>
-                    </div>
-
-                    <!-- Criterias -->
-                    <div class="row hidden">
-                        <span class="dragable-label">Спосик критериев:</span>
-                        <ul id="newstage_criterias" class="dragable-area">
-                            <li class="item" data-val="id_1">Балл за "Креативность выступления"</li>
-                            <li class="item" data-val="id_2">Балл за "Артистичность"</li>
-                            <li class="item" data-val="id_3">Балл за "Выступление"</li>
-                        </ul>
-                    </div>
-                </div>
             </div>
         </div>
         <div class="form_submit hidden clear_fix">
@@ -195,40 +151,24 @@
 
                         <!-- Participants in stage, if they existed -->
                         <span id="participants_stage_1">
-                        <option value="0" data-logo="01.jpeg" selected="">Участник 1</option>
-                        <option value="1" data-logo="02.jpeg" selected="">Участник 2</option>
-                    </span>
+                            <option value="0" data-logo="01.jpeg" selected="">Участник 1</option>
+                            <option value="1" data-logo="02.jpeg" selected="">Участник 2</option>
+                        </span>
 
                         <!-- Teams in stage, if they existed -->
                         <span id="teams_stage_1">
 
-                    </span>
+                        </span>
 
                         <!-- Groups in stage, if they existed -->
                         <span id="groups_stage_1">
 
-                    </span>
+                        </span>
                     </p>
                     <div class="card_content-text" style="font-size: .9em;margin: 0 0 10px;">
-                        <i><u>Формула подсчета баллов:</u></i>
-                        <input id="formula_input_stage_1" type="hidden" data-val="[math0, coeff_0.5, math4, id_1, math2, coeff_0.9, math4, id_2, math2, coeff_1.5, math4, id_3, math1, math5, count_judges]">
-                        <ul id="formula_area_stage_1" class="formula">
-                            <li class="item dark" data-val="math0"><span class="icon-bracket-left"></span></li>
-                            <li class="item dark" data-val="coeff_0.5">0.5</li>
-                            <li class="item dark" data-val="math4"><span class="icon-multiply"></span></li>
-                            <li class="item" data-val="id_1">Балл за "Креативность выступления"</li>
-                            <li class="item dark" data-val="math2"><span class="icon-plus"></span></li>
-                            <li class="item dark" data-val="coeff_0.9">0.9</li>
-                            <li class="item dark" data-val="math4"><span class="icon-multiply"></span></li>
-                            <li class="item" data-val="id_2">Балл за "Артистичность"</li>
-                            <li class="item dark" data-val="math2"><span class="icon-plus"></span></li>
-                            <li class="item dark" data-val="coeff_1.5">1.5</li>
-                            <li class="item dark" data-val="math4"><span class="icon-multiply"></span></li>
-                            <li class="item" data-val="id3">Балл за "Профессионализм"</li>
-                            <li class="item dark" data-val="math1"><span class="icon-bracket-right"></span></li>
-                            <li class="item dark" data-val="math5"><span class="icon-divide"></span></li>
-                            <li class="item" data-val="count_judges">Количество жюри</li>
-                        </ul>
+                        <div class="formula" id="formula_stage_1" data-items="JSON Object 1">
+
+                        </div>
                     </div>
                 </div>
             </div>
@@ -342,3 +282,5 @@
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>vendor/sortable/Sortable.js"></script>
 <script type="text/javascript" src="<?=$assets; ?>static/js/event/stages.js"></script>
+
+<script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/formula.js"></script>

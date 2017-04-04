@@ -1,12 +1,22 @@
 $(document).ready(function() {
 
+
+    formula.create(document.getElementById('formula_newstage'), {
+        'allItems': document.getElementById('allCriterias')
+    });
+
+    formula.create(document.getElementById('formula_stage_1'), {
+        'allItems': document.getElementById('allCriterias'),
+        'curItems': document.getElementById('formula_stage_1')
+    });
+
     /*
      *  Vars
     */
 
     var url = "",
         card, id, name, description, part, team, group, formula_input, formula_area,
-        droparea_new = document.getElementById('newstage_droparea').innerHTML,
+
         droparea_edit = document.getElementById('editstage_droparea').innerHTML,
         modal_name = document.getElementById('editstage_name'),
         modal_description = document.getElementById('editstage_description'),
@@ -155,51 +165,6 @@ $(document).ready(function() {
         }
     });
 
-
-    /*
-     *  Working with formula in newstage form
-    */
-    var new_sortable_id = ['newstage_formula_area','newstage_coeff','newstage_math','newstage_criterias','newstage_droparea'],
-        drop_block = document.getElementById('newstage_drop');
-	[{
-        sort: true,
-        pull: true,
-        put: true
-    },{
-        sort: false,
-		pull: 'clone',
-		put: false
-	}, {
-        sort: false,
-        pull: 'clone',
-		put: false
-	}, {
-        sort: false,
-        pull: 'clone',
-		put: false
-	}, {
-        sort: false,
-        pull: false,
-		put: true
-	}].forEach(function (groupOpts, i) {
-       Sortable.create(document.getElementById(new_sortable_id[i]), {
-           name: 'newstage_formula_area',
-           animation: 150,
-           group: groupOpts,
-           onStart: function (evt) {
-               drop_block.className = "drop open";
-               document.getElementById('newstage_formula_area').className = "dragable-inputarea focus";
-           },
-           onEnd: function (evt) {
-               drop_block.className = "drop";
-               document.getElementById('newstage_droparea').innerHTML = droparea_new;
-               document.getElementById('newstage_formula_area').className = "dragable-inputarea";
-               if ( document.getElementById('newstage_formula_area').childNodes.length == 0) {
-                   document.getElementById('newstage_formula_area').className = "dragable-inputarea invalid";
-               }
-           },
-       });
-	});
 
 
     /*
