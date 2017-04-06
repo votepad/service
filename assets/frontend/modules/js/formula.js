@@ -27,21 +27,24 @@ var formula = function(formula) {
     }
 
 
+    /**
+     * Parse formula Items if they exist
+     * @param items
+     * @returns null || JSON Objct
+     * @private
+     */
     function _parseItems(items) {
-        if (items === null)
+
+        if (items === null) {
+
             return null;
 
-        JSON.parse(items);
-        var arrayItems = [], item;
-        for (var i = 0; i < items.childElementCount; i++) {
-            item = {
-                id: items.children[i].dataset.id,
-                name: items.children[i].dataset.name,
-                coeff: items.children[i].dataset.coeff
-            };
-            arrayItems.push(item);
+        } else {
+
+            return JSON.parse(items);
+
         }
-        return arrayItems;
+
     }
 
 
