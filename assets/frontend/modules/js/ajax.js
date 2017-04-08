@@ -1,5 +1,7 @@
 var ajax = function () {
 
+    var XMLHTTP_ = null;
+
     var send = function (data) {
 
         if (!data || !data.url) return;
@@ -49,6 +51,9 @@ var ajax = function () {
 
         };
 
+        /** current XMLHTTP */
+        XMLHTTP_ = XMLHTTP;
+
         XMLHTTP.send(data.data);
 
     };
@@ -59,8 +64,15 @@ var ajax = function () {
 
     };
 
+    var getXMLHTTPRequestProccess = function () {
+
+        return XMLHTTP_;
+
+    };
+
     return {
-        send: send
+        send: send,
+        getXMLHTTPRequestProccess: getXMLHTTPRequestProccess
     }
 
 }();
