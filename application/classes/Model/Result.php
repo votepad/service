@@ -8,8 +8,7 @@ class Model_Result extends Model {
 
     public $id;
     public $event;
-    public $name;
-    public $description;
+    public $mode;
     public $formula;
 
     public function __construct($id = null) {
