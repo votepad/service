@@ -1,0 +1,8 @@
+<?php defined('SYSPATH') or die('No direct access to script');
+
+class Dao_Results extends Dao_MySQL_Base {
+
+    protected $cache_key = 'Dao_Results';
+    protected $table = 'Results';
+
+}
