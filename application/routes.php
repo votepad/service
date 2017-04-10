@@ -45,10 +45,10 @@ Route::set('SINGUP', 'signup(/<action>)', array('action' => 'check'))
  * Route for file (image) uploading
  * Only for XMLHTTP requests
  */
-Route::set('IMAGE_TRANSPORT', 'transport')
+Route::set('IMAGE_TRANSPORT', 'transport/<type>')
     ->defaults(array(
         'controller' => 'Transport',
-        'action'     => 'file_uploader'
+        'action'     => 'upload'
     ));
 
 

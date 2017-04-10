@@ -58,20 +58,19 @@ class Controller_Profile extends Dispatch
      */
     public function action_update()
     {
-
         if ($this->request->method() == Request::POST) {
 
-            $this->profile->name = Arr::get($_POST, 'name', $this->profile->name);
-            $this->profile->surname = Arr::get($_POST, 'surname', $this->profile->surname);
-            $this->profile->lastname = Arr::get($_POST, 'lastname', $this->profile->lastname);
+            $this->profile->name        = Arr::get($_POST, 'name', $this->profile->name);
+            $this->profile->surname     = Arr::get($_POST, 'surname', $this->profile->surname);
+            $this->profile->lastname    = Arr::get($_POST, 'lastname', $this->profile->lastname);
+            $this->profile->avatar      = Arr::get($_POST, 'avatar', $this->profile->avatar);
+            $this->profile->phone       = Arr::get($_POST, 'phone', $this->profile->phone);
             $email = Arr::get($_POST, 'email');
 
             if ($email != $this->profile->email) {
                 $this->profile->email = $email;
                 $this->profile->isConfirmed = 0;
             }
-
-            $this->profile->phone = Arr::get($_POST, 'phone', $this->profile->phone);
 
             $this->profile->update();
 
