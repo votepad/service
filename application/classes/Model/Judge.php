@@ -61,7 +61,7 @@ class Model_Judge extends Model {
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
 
     }
 
@@ -88,4 +88,15 @@ class Model_Judge extends Model {
 
     }
 
+    public function delete() {
+
+        $delete = Dao_Participants::delete()
+            ->where('id', '=', $this->id)
+            ->clearcache($this->id)
+            ->clearcache('event:' . $this->event)
+            ->execute();
+
+        return $delete;
+
+    }
 }
