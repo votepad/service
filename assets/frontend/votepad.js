@@ -13,10 +13,12 @@ var votepad = ( function (votepad) {
 
 })({});
 
-votepad.ajax     = require('./modules/js/ajax');
-votepad.header   = require('./modules/js/header');
-votepad.collapse = require('./modules/js/collapse');
-votepad.cookies  = require('./modules/js/cookies');
-votepad.tabs     = require('./modules/js/tabs');
+votepad.transport   = require('./modules/transport');
+votepad.draw        = require('./modules/draw');
+votepad.ajax        = require('./modules/js/ajax');
+votepad.header      = require('./modules/js/header');
+votepad.collapse    = require('./modules/js/collapse');
+votepad.cookies     = require('./modules/js/cookies');
+votepad.tabs        = require('./modules/js/tabs');
 
 module.exports = votepad;

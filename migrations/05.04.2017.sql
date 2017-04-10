@@ -1,0 +1,1 @@
+ALTER TABLE `users` ADD `branding` VARCHAR(127) NULL DEFAULT NULL AFTER `avatar`;
