@@ -2,15 +2,6 @@
 
 class Controller_Teams_Ajax extends Ajax {
 
-    /** XMLHTTP requests */
-    public function before() {
-
-        if (!self::is_ajax())
-            die('no direct access');
-
-        parent::before();
-    }
-
     public function action_delete()
     {
         $id_event = $this->request->param('id_event');

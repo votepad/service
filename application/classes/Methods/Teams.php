@@ -1,6 +1,6 @@
 <?php
 
-class Methods_Teams extends Model_Teams
+class Methods_Teams extends Model_Team
 {
 
     const UPDATE = "update";
