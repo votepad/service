@@ -31,17 +31,18 @@ class Controller_Participants_Ajax extends Ajax
                         break;
                     case Methods_Participants::DELETE:
                         $model->delete();
-                        continue;
                         break;
                 }
 
-                $response[] = array(
-                    'id'     => $model->id,
-                    'photo'  => $model->photo ?: "",
-                    'name'   => $model->name,
-                    'about'  => $model->about ?: "",
-                    'status' => ''
-                );
+                if ($status != Methods_Participants::DELETE) {
+                    $response[] = array(
+                        'id' => $model->id,
+                        'photo' => $model->photo ?: "",
+                        'name' => $model->name,
+                        'about' => $model->about ?: "",
+                        'status' => ''
+                    );
+                }
 
 
             }
@@ -51,6 +52,10 @@ class Controller_Participants_Ajax extends Ajax
             $response = false;
 
         }
+
+        usort($response, function($a, $b) {
+           return $a['id'] - $b['id'];
+        });
 
         $this->response->body(@json_encode($response));
     }

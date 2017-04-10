@@ -18,7 +18,12 @@ class Methods_Participants extends Model_Participant
         $participants = Dao_Participants::select()
             ->where('event', '=', $id_event)
             ->cached(Date::HOUR, 'event:' . $id_event)
+            ->order_by('id', 'ASC')
             ->execute();
+
+        if (!$participants) {
+            return array();
+        }
 
         $result = array();
 

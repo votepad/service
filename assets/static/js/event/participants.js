@@ -68,7 +68,7 @@ $(document).ready(function() {
             data:'about',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я#№!.,:;-_ ]/.test(value) ) {
+                if ( /[^A-Za-z0-9А-Яа-я#№!&.,:;-_ ]/.test(value) ) {
                     callback(false);
                 } else {
                     callback(true);
@@ -88,16 +88,17 @@ $(document).ready(function() {
             url : '/participants/get/' + idEvent,
             type: "POST",
             success: function(data, response) {
-                get_array = JSON.parse(data);
-                hot_array = JSON.parse(data);
                 if ( data == 'null' ){
                     hot_array = [];
                     get_array = [];
+                } else {
+                    get_array = JSON.parse(data);
+                    hot_array = JSON.parse(data);
                 }
                 hot.loadData(hot_array);
             },
             error: function(response) {
-                console.log("Something wrong");
+                console.log("Error while getting elements");
             },
         })
 
@@ -168,7 +169,7 @@ $(document).ready(function() {
      *  Save participants
     */
     Handsontable.Dom.addEvent(save, 'click', function(el) {
-
+        output_array = [];
         hot.validateCells(function(valid){
 
             if ( valid == true ) {
@@ -186,11 +187,6 @@ $(document).ready(function() {
                     hot.alter('remove_row', hot.countRows() - 1);
                 }
 
-
-
-                /*
-                 *  Update Data via Ajax
-                */
 
                 // when participants NOT existed
                 if ( get_array.length == 0 ) {
@@ -238,6 +234,8 @@ $(document).ready(function() {
                                     if ( ! is_similar (get_array[i], hot_array[j]) ) {
                                         hot_array[j]['status'] = "update";
                                         output_array.push(hot_array[j]);
+                                    } else {
+                                        output_array.push(hot_array[j]);
                                     }
                                 }
 
@@ -248,47 +246,69 @@ $(document).ready(function() {
                     }
                 }
 
-                dataToSave = JSON.stringify(output_array);
+                if (output_array.length == 0 ) {
+                    $('#participants').removeClass('whirl');
+                    edit.className = "pull-right displayblock";
+                    calculateSize();
+                } else {
+
+                    dataToSave = JSON.stringify(output_array);
 
 
-                /**
-                 *  Send information to DB
-                 */
-                $.ajax({
-                    url : '/participants/save/' + idEvent,
-                    type: "POST",
-                    data: {
-                        list: dataToSave
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        // if true - success updating
-                        // else    - some problems
-                        if (response) {
-                            $.notify({
-                            	message: 'Инфомация об участниках успешно обновлена.'
-                            },{
-                            	type: 'success'
-                            });
-                            document.location.reload();
+                    /**
+                     *  Send information to DB
+                     */
+                    $.ajax({
+                        url : '/participants/save/' + idEvent,
+                        type: "POST",
+                        data: {
+                            list: dataToSave
+                        },
+                        success: function(response) {
+                            //console.log(response);
+                            // if true - success updating
+                            // else    - some problems
+                            if (response) {
+                                $.notify({
+                                    message: 'Инфомация об участниках успешно обновлена.'
+                                },{
+                                    type: 'success'
+                                });
 
-                        } else {
-                            $.notify({
-                            	message: 'Что-то пошло не так... Данные не сохранены.'
-                            },{
-                            	type: 'warning'
-                            });
-                            hot.updateSettings({
-                                minSpareRows: 1,
-                                columns: column_edited
-                            });
-                            save.className = "pull-right displayblock";
+                                get_array = JSON.parse(response);
+                                hot_array = JSON.parse(response);
+
+                                hot.loadData(hot_array);
+                                checking_on_empty_table("save");
+                                $('#participants').removeClass('whirl');
+                                edit.className = "pull-right displayblock";
+                                calculateSize();
+
+                            } else {
+                                $.notify({
+                                    message: 'Что-то пошло не так... Данные не сохранены.'
+                                },{
+                                    type: 'warning'
+                                });
+                                hot.updateSettings({
+                                    minSpareRows: 1,
+                                    columns: column_edited
+                                });
+
+                                save.className = "pull-right displayblock";
+
+                                $('#participants').removeClass('whirl');
+                                calculateSize();
+                            }
+                        },
+                        error: function(response) {
+                            console.log("Error while ajax sending");
                         }
-                    },
-                    error: function(response) {
-                        console.log("Something wrong");
-                    }
-                })
+                    });
+
+                }
+
+
 
             } else {
 
