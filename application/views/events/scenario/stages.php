@@ -24,7 +24,7 @@
     </h3>
 
 
-    <input type="hidden" id="allCriterias" data-items="[]">
+    <span class="hide" id="allCriterias" data-items='[{"id": 1, "name":"Критерий 1"}, {"id": 2, "name":"Критерий 2"}, {"id": 3, "name":"Критерий 3"}, {"id": 4, "name":"Критерий 4"}]'></span>
 
 
     <!-- Create New Stage -->
@@ -166,9 +166,8 @@
                         </span>
                     </p>
                     <div class="card_content-text" style="font-size: .9em;margin: 0 0 10px;">
-                        <div class="formula" id="formula_stage_1" data-items="JSON Object 1">
-
-                        </div>
+                        <span class="hide" id="Criterias_Stage1" data-items='[{"id": 1, "name":"Критерий 1", "coeff":0.5}, {"id": 2, "name":"Критерий 2", "coeff":0.4}]'></span>
+                        <span class="formula" id="formula_stage_1"></div>
                     </div>
                 </div>
             </div>

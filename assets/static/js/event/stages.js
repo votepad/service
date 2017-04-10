@@ -1,13 +1,14 @@
 $(document).ready(function() {
 
 
-    formula.create(document.getElementById('formula_newstage'), {
-        'allItems': document.getElementById('allCriterias')
+    formula.create(document.getElementById('formula_stage_1'), {
+        'mode': "print",
+        'allItems': document.getElementById('allCriterias').dataset.items,
+        'curItems': document.getElementById('Criterias_Stage1').dataset.items
     });
 
-    formula.create(document.getElementById('formula_stage_1'), {
-        'allItems': document.getElementById('allCriterias'),
-        'curItems': document.getElementById('formula_stage_1')
+    formula.create(document.getElementById('formula_newstage'), {
+        'allItems': document.getElementById('allCriterias').dataset.items
     });
 
     /*

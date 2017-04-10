@@ -1,63 +1,45 @@
 var formula = function(formula) {
 
-    var items_all = [],
-        items_selected = [],
-        items_coeff = [],
-        operators = [];
-
-    var __prepare = function () {
-
-    };
-
-
     function formula(el, options) {
 
         if (!(el && el.nodeType && el.nodeType === 1)) {
             throw 'formula: `el` must be HTMLElement, and not ' + {}.toString.call(el);
         }
 
-        options = _extend({}, options);
 
         this.el = el;
-        //this.mode = options.mode;
-        this.allItems = _parseItems(options.allItems);
-        this.curItems = _parseItems(options.curItems);
+        this.mode = options.mode;
+        this.allItems = __parseItems(options.allItems);
+        this.curItems = __parseItems(options.curItems);
 
-        console.log(this.curItems);
+        if (this.mode === "print") {
+            __print(this);
+        }
+    }
+
+
+    function __print(formula) {
+        var output = "";
+        for (var i = 0; i < formula.curItems.length; i++) {
+            output += formula.curItems.name + "*" + formula.curItems.coeff + "+"
+        }
+        formula.el.innerHTML = output;
+        console.log(formula.el);
     }
 
 
     /**
      * Parse formula Items if they exist
      * @param items
-     * @returns null || JSON Objct
+     * @returns null || JSON Object
      * @private
      */
-    function _parseItems(items) {
-
-        if (items === null) {
-
+    function __parseItems(items) {
+        if (items === undefined) {
             return null;
-
         } else {
-
             return JSON.parse(items);
-
         }
-
-    }
-
-
-    function _extend(dst, src) {
-        if (dst && src) {
-            for (var key in src) {
-                if (src.hasOwnProperty(key)) {
-                    dst[key] = src[key];
-                }
-            }
-        }
-
-        return dst;
     }
 
 
@@ -76,6 +58,5 @@ var formula = function(formula) {
     // Export
     formula.version = '0.0.0';
     return formula;
-
 
 }();
