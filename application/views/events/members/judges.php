@@ -20,7 +20,7 @@
 
 
     <section class="section__content">
-        <div id="eventID" data-id="456987" class="eventID">
+        <div id="eventCode" data-id="456987" class="eventCode">
             <h2>Код мероприятия</h2>
         </div>
 
@@ -32,8 +32,14 @@
         </h3>
 
         <div class="row" id="table_wrapper">
-            <div id="judges"></div>
+            <div id="preloader" class="text-center">
+                <i class="fa fa-spinner fa-pulse fa-fw"></i>
+                Загрузка данных
+            </div>
+            <div id="judges" class="displaynone"></div>
         </div>
+
+        <input type="hidden" value="<?=$event->id; ?>" id="id_event">
     </section>
 
     <!-- =============== PAGE SCRIPTS ===============-->

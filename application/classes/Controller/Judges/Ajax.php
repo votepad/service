@@ -1,58 +1,9 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php
+
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 16.04.2016
- * Time: 13:13
+ * Class Controller_Judges_Ajax
  */
-
 class Controller_Judges_Ajax extends Ajax {
-
-    public function action_setScore()
-    {
-        /**
-         * Не впускать прямые Get запросы
-         */
-
-        if ( !parent::_is_ajax())
-            $this->request('/');
-
-        $id_event       = Arr::get($_POST, 'id_event');
-        $id_stage       = Arr::get($_POST, 'id_stage');
-        $id_criteria    = Arr::get($_POST, 'id_criteria');
-        $id_participant = Arr::get($_POST, 'id_participant');
-        $id_judge       = Arr::get($_POST, 'id_judge');
-        $score          = Arr::get($_POST, 'score');
-
-        Model_Score::set($id_event, $id_participant, $id_stage, $id_criteria, $id_judge, $score);
-
-        return true;
-    }
-
-    public function action_getCriteriaScore()
-    {
-        /**
-         * Не впускать прямые Get запросы
-         */
-
-        if ( !parent::_is_ajax())
-            $this->request('/');
-
-        $id_participant = Arr::get($_POST, 'id_participant');
-        $id_stage       = Arr::get($_POST, 'id_stage');
-        $id_judge       = Arr::get($_POST, 'id_judge');
-
-        $result = Model_Score::getCriteriasWithScores($id_judge, $id_stage, $id_participant);
-
-        for($i = 0; $i < count($result); $i++)
-        {
-            $criteria = Model_Stages::getCriteria($result[$i]['id_criteria']);
-
-            $ans[$i]['name'] = $criteria['name'];
-            $ans[$i]['score'] = $result[$i]['score'];
-        }
-        echo json_encode($ans);
-    }
 
     public function action_save()
     {
@@ -82,16 +33,18 @@ class Controller_Judges_Ajax extends Ajax {
                         break;
                     case Methods_Judges::DELETE:
                         $model->delete();
-                        continue;
                         break;
                 }
 
-                $response[] = array(
-                    'id'     => $model->id,
-                    'name'   => $model->name,
-                    'about'  => $model->password,
-                    'status' => ''
-                );
+
+                if ($status != Methods_Judges::DELETE) {
+                    $response[] = array(
+                        'id' => $model->id,
+                        'name' => $model->name,
+                        'password' => $model->password,
+                        'status' => ''
+                    );
+                }
 
 
             }
@@ -101,6 +54,10 @@ class Controller_Judges_Ajax extends Ajax {
             $response = false;
 
         }
+
+        usort($response, function($a, $b) {
+            return $a['id'] - $b['id'];
+        });
 
         $this->response->body(@json_encode($response));
     }
@@ -116,9 +73,8 @@ class Controller_Judges_Ajax extends Ajax {
         foreach($judges as $judge) {
             $arr[] = array(
                 'id'     => $judge->id,
-                'photo'  => $judge->photo ?: "",
                 'name'   => $judge->name,
-                'about'  => $judge->about ?: "",
+                'password'  => $judge->password ?: "",
                 'status' => ''
             );
         }

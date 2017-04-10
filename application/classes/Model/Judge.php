@@ -80,6 +80,7 @@ class Model_Judge extends Model {
         }
 
         $insert->clearcache($this->id);
+        $insert->clearcache('event:' . $this->event);
         $insert->where('id', '=', $this->id);
 
         $insert->execute();
@@ -90,7 +91,7 @@ class Model_Judge extends Model {
 
     public function delete() {
 
-        $delete = Dao_Participants::delete()
+        $delete = Dao_Judges::delete()
             ->where('id', '=', $this->id)
             ->clearcache($this->id)
             ->clearcache('event:' . $this->event)

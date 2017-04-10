@@ -2,6 +2,7 @@
 
 class Controller_Participants_Ajax extends Ajax
 {
+
     public function action_save()
     {
         $response = array();
