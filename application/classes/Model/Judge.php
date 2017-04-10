@@ -1,105 +1,91 @@
 <?php defined('SYSPATH') or die('No direct script access.');
-/**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 29.03.2016
- * Time: 10:37
- */
 
+/**
+ * Class Model_Judge
+ * CRUD
+ */
 class Model_Judge extends Model {
 
     public $id;
+    public $event;
     public $name;
-    public $email;
-    public $position;
-    public $photo;
+    public $password;
 
-    public $id_event;
+    public function __construct($id = null) {
 
-    public function __construct($id_event = '', $name = '', $email = '', $position = '', $photo = '')
-    {
-        $this->id_event = $id_event;
-        $this->name     = $name;
-        $this->email    = $email;
-        $this->position = $position;
-        $this->photo    = $photo;
-    }
-
-    public function save()
-    {
-        $insert = DB::insert('Judges', array(
-                        'id_event', 'name', 'email', 'position', 'photo'
-                    ))
-                    ->values(array(
-                        $this->id_event, $this->name, $this->email, $this->position, $this->photo
-                    ))->execute();
-
-        return $insert;
-    }
-
-    public static function logInAsJudge($email, $password)
-    {
-        $select = DB::select()->from('Judges')->where('email', '=', $email)->limit(1)->execute();
-        $result = Arr::get($select, '0');
-
-        $online = DB::select()->from('Online')->where('id_event', '=', $result['id_event'])
-            ->and_where('id_judge', '=', $result['id'])
-            ->execute()->as_array();
-
-        if ( count($online) == 0 && !empty($result) ) {
-
-            $insert = DB::insert('Online', array(
-                'id_event', 'id_judge'
-            ))->values(array(
-                'id_event' => $result['id_event'],
-                'id_judge' => $result['id'],
-            ))->execute();
-
+        if ( !empty($id) ) {
+            $this->get_($id);
         }
 
-        return $result;
     }
 
-    public static function JudgesOnline($id_event)
+    private function fill_by_row($db_selection) {
+
+        if (empty($db_selection['id'])) return $this;
+
+        foreach ($db_selection as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $this->$fieldname = $value;
+        }
+
+        return $this;
+
+    }
+
+    private function get_($id) {
+
+        $select = Dao_Judges::select()
+            ->where('id', '=', $id)
+            ->limit(1)
+            ->cached(Date::MINUTE * 5, $id)
+            ->execute();
+
+        $this->fill_by_row($select);
+
+        return $this;
+
+    }
+
+    /**
+     * Saves Judge to Database
+     */
+    public function save()
     {
-        $select = DB::select()->from('Online')->where('id_event', '=', $id_event)->execute()->as_array();
-        return $select;
+
+        $this->dt_create = Date::formatted_time('now', 'Y-m-d');
+
+        $insert = Dao_Judges::insert();
+
+        foreach ($this as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
+        }
+
+        $result = $insert->execute();
+
+        return $this->fill_by_row($result);
+
     }
 
-    private static function get($id = 0, $id_event)
+    /**
+     * Updates Judge data in database
+     *
+     * @return Model_Judge
+     */
+    public function update()
     {
-        $select = DB::select()->from('Judges')->where('id_event', '=', $id_event);
 
-        if ($id == 0)
-            $select = $select->execute();
-        else
-            $select = $select->where('id', '=', $id)->limit(1)->execute();
+        $insert = Dao_Judges::update();
 
-        return $id != 0 ? Arr::get($select, '0') : $select->as_array();
+        foreach ($this as $fieldname => $value) {
+            if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
+        }
+
+        $insert->clearcache($this->id);
+        $insert->where('id', '=', $this->id);
+
+        $insert->execute();
+
+        return $this->get_($this->id);
+
     }
 
-    public static function getAll($id_event)
-    {
-        return self::get(0, $id_event);
-    }
-
-    public static function getJudge($id, $id_event)
-    {
-        return self::get($id, $id_event);
-    }
-
-    public static function updateJudgeByFieldName($field, $value, $id)
-    {
-        $update = DB::update('Judges')->set(array(
-            $field  => $value
-        ))->where('id', '=', $id)->execute();
-
-        return $update;
-    }
-
-    public static function deleteJudgesById($id)
-    {
-        $delete = DB::delete('Judges')->where('id', '=', $id)->execute();
-        return $delete;
-    }
 }

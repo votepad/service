@@ -2,7 +2,7 @@
  * @author Khaydarov Murod
  */
 
-var core = (function(core) {
+var core = (function (core) {
 
     core.settings = {
 
