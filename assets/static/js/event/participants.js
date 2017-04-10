@@ -255,7 +255,7 @@ $(document).ready(function() {
                  *  Send information to DB
                  */
                 $.ajax({
-                    url : '/participants/add/' + idEvent,
+                    url : '/participants/save/' + idEvent,
                     type: "POST",
                     data: {
                         list: dataToSave
@@ -264,7 +264,7 @@ $(document).ready(function() {
                         console.log(response);
                         // if true - success updating
                         // else    - some problems
-                        if (response == 'true') {
+                        if (response) {
                             $.notify({
                             	message: 'Инфомация об участниках успешно обновлена.'
                             },{
