@@ -150,12 +150,9 @@ var slider = function(){
         //Изменение положение ползунка на линии при изменении размеров окна
 
         replaceCirclePosition: function () {
-            requestAnimationFrame(function () {
+            bandCord = bandElem.getBoundingClientRect();
 
-                bandCord = bandElem.getBoundingClientRect();
-
-                circleElem.style.left = proportionForResize * (bandCord.right - bandCord.left) + 'px';
-            })
+            circleElem.style.left = proportionForResize * (bandCord.right - bandCord.left) + 'px';
         }
     };
 
@@ -260,6 +257,7 @@ var stages_holder = function () {
 
     var numberOfBlock = null;
 
+
     var handlers = {
 
         //При нажатии на кнопку, мы должны запомнить начальное положение блоков, а также проинициалировать переменную для скролла
@@ -272,6 +270,8 @@ var stages_holder = function () {
             if (event.which > 1 || !currentElem) {
                 return;
             }
+
+            sliderElem = currentElem;
 
             widthCurrentElem = currentElem.getBoundingClientRect().width;
 
@@ -289,6 +289,8 @@ var stages_holder = function () {
             if (event.which > 1 || !checkDownMouse || !currentElem) {
                 return;
             }
+
+            sliderElem = currentElem;
 
             event.preventDefault();
 
@@ -349,16 +351,24 @@ var stages_holder = function () {
             if ( startAnimate != 0 && startAnimate < (currentElem.childElementCount - 1)  * (widthCurrentElem + 10) - 10 )
                 animate(functionForAnimate, currentElem, startAnimate, endAnimate);
 
+            console.log(numberOfBlock);
             checkDownMouse = false;
         },
 
-        replaceBlockPosition: function () {
-            requestAnimationFrame(function () {
+        replaceBlockPosition: function (event) {
 
-               widthCurrentElem = sliderElem.getBoundingClientRect().width();
 
-               sliderElem.scrollLeft = (widthCurrentElem + 10) * numberOfBlock;
-            })
+            sliderElem = document.getElementsByClassName('stages_holder_stage_peoples_criteria_holder-criteria');
+
+            widthCurrentElem = sliderElem[0].getBoundingClientRect();
+
+            console.log(sliderElem[0].getBoundingClientRect());
+
+            //widthCurrentElem = sliderElem.getBoundingClientRect();
+
+            console.log(Math.round(Math.abs(widthCurrentElem.left)/widthCurrentElem.width));
+
+            //currentElem.scrollLeft = (widthCurrentElem + 10) * numberOfBlock;
         }
     };
 
