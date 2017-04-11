@@ -8,64 +8,70 @@ class Methods_Teams extends Model_Team
     const INSERT = "insert";
     const SELECT = "select";
 
-    /**
-     * @param $participant
-     * @param $id_team
-     * @param $id_event
-     * @return bool
-     */
-    public static function addParticipantsToTeam($participant, $id_team)
+
+    public static function addParticipant($participant, $team)
     {
 
-        try {
+        return Dao_Participants::update()
+            ->where('id', '=', $participant)
+            ->set('team', $team)
+            ->execute();
 
-            $query = DB::insert('Teams_Participants', array(
-                'id_team', 'id_participant'
-            ))->values(array(
-                $id_team, $participant
-            ))->execute();
-
-
-        } catch (Exception $e) {
-            return false;
-        }
-
-        return $query;
     }
 
     public static function getAllTeams($id_event) {
 
-        try {
+        $selection = Dao_Teams::select()
+            ->where('event', '=', $id_event)
+            ->execute();
 
-            $teams = DB::select()->from('Teams')
-                ->where('id_event', '=', $id_event)
-                ->order_by('id', 'DESC')
-                ->execute()
-                ->as_array();
+        if (!$selection) {
+            return array();
+        }
 
-            $counter = 0;
-            $result = array();
+        $teams = array();
+        var_dump($selection);
+        foreach ($selection as $row) {
 
-            foreach ($teams as $team) {
+            $team = new Model_Team();
 
-                $result[$counter] = new Model_Teams();
-
-                $result[$counter]->id           = $team["id"];
-                $result[$counter]->id_event     = $team["id_event"];
-                $result[$counter]->name         = $team["name"];
-                $result[$counter]->description  = $team["description"];
-                $result[$counter]->logo         = $team["logo"];
-                $result[$counter]->participants = Methods_Participants::getParticipantsFromTeams($team["id"]);
-                $counter++;
-
+            if (empty($row['id'])) continue;
+            foreach ($row as $fieldname => $value) {
+                if (property_exists($team, $fieldname)) $team->$fieldname = $value;
             }
 
-            return $result;
+            $teams[] = $team;
 
-        } catch (Exception $e) {
-            echo Debug::vars($e);
-            exit;
         }
+
+        return $teams;
+
+    }
+
+    public static function getParticipantsWhitOutTeam($event) {
+
+        $selection = Dao_Participants::select()
+            ->where('event', '=', $event)
+            ->where('team', 'is not', NULL)
+            ->execute();
+
+        $participants = array();
+
+        foreach ($selection as $row) {
+
+            $participant = new Model_Participant();
+
+            if (empty($row['id'])) continue;
+            foreach ($row as $fieldname => $value) {
+                if (property_exists($participant, $fieldname)) $participant->$fieldname = $value;
+            }
+
+            $participants[] = $participant;
+
+        }
+
+        return $participants;
+
     }
 
     /**

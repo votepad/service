@@ -4,7 +4,6 @@ class Controller_Teams_Modify extends Dispatch {
 
     public function before() {
 
-        echo Debug::Vars($_POST);
         $this->auto_render = false;
         $this->checkCsrf();
         parent::before();
@@ -15,23 +14,19 @@ class Controller_Teams_Modify extends Dispatch {
      */
     public function action_add()
     {
+
         $id_event = $this->request->param('id_event');
 
         /** @var $referrer - URL to redirect */
         $referrer = $this->request->referrer();
 
-        $team = new Model_Teams();
+        $team = new Model_Team();
         $team->name         = Arr::get($_POST, 'name');
         $team->description  = Arr::get($_POST, 'description');
-        $team->id_event     = $id_event;
-
-        /** Upload logo of team */
-        $files = new Model_Uploader();
-        $filename = $files->saveImage(Arr::get($_FILES, 'logo'), 'uploads/teams/');
-        $team->logo = 'm_' . $filename;
+        $team->event        = $id_event;
 
         /** Save and return id */
-        $id_team = $team->save();
+        $team = $team->save();
 
         $participants = Arr::get($_POST, 'participants');
 
@@ -40,7 +35,7 @@ class Controller_Teams_Modify extends Dispatch {
          */
         foreach ($participants as $participant) {
 
-            Methods_Teams::addParticipantsToTeam($participant, $id_team);
+            Methods_Teams::addParticipant($participant, $team->id);
 
         }
 
