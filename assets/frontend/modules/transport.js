@@ -48,6 +48,7 @@ var transport = (function(transport) {
             formdData = new FormData();
 
         formdData.append('files', files[0], files[0].name);
+        formdData.append('params', JSON.stringify(settings_.params));
 
         vp.ajax.send({
             url: settings_.url,

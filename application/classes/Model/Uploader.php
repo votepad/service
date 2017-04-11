@@ -50,7 +50,7 @@ class Model_Uploader extends Model
      * @param  int $user_id  author
      * @return string   uploaded file name
      */
-    public function upload($type, $file, $user_id)
+    public function upload($type, $file, $user_id, $params)
     {
         $this->type = $type;
         $config = $this->config[$this->type];
@@ -78,6 +78,18 @@ class Model_Uploader extends Model
                 $user = new Model_User($user_id);
                 $user->branding = $this->filename;
                 $user->update();
+                break;
+            case self::ORGANIZATION_BRANDING:
+                $this->filename = 'o_' . $savedFilename;
+                $organization = new Model_Organization($params->id);
+                $organization->cover = $this->filename;
+                $organization->update();
+                break;
+            case self::ORGANIZATION_LOGO:
+                $this->filename = 'b_' . $savedFilename;
+                $organization = new Model_Organization($params->id);
+                $organization->logo = $this->filename;
+                $organization->update();
                 break;
         }
 

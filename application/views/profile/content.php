@@ -28,7 +28,7 @@
 
         <?= View::factory('profile/blocks/reset_password') ?>
 
-        <?= View::factory('profile/blocks/my-org-event', array('isProfileOwner' => $isProfileOwner, 'profile' => $profile)) ?>
+        <?= View::factory('profile/blocks/my-org-event', array('isProfileOwner' => $isProfileOwner, 'profile' => $profile, 'organizations' => $profile->getOrganizations())) ?>
 
     </section>
 
