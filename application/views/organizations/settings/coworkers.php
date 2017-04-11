@@ -48,7 +48,7 @@
                     <div id="coworker_id<?= $member->id ?>" class="item col-xs-12 col-md-6">
 
                         <a class="item__img-wrap" href="<?=URL::site('user/'. $member->id);?>">
-                            <img class="item__img" alt="Co-worker" src="">
+                            <img class="item__img" alt="Co-worker" src="/uploads/profiles/<?=$member->avatar; ?>">
                         </a>
 
                         <div class="item__info">

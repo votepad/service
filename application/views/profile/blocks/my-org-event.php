@@ -36,24 +36,28 @@
 
         <div id="myOrganizations" class="tabs__block tabs__block--active">
 
-            <div id="organization_organization->id" class="item col-xs-12 col-md-6">
-                <a href="" class="item__img-wrap">
-                    <img class="item__img" alt="Org img" src="">
-                </a>
-                <div class="item__info">
-                    <div class="item__info-name">
-                        <a href="<?= URL::site(''); ?>">Organization name</a>
+            <? foreach ($organizations as $organization) : ?>
+                <? if ($organization->id) : ?>
+                    <div id="organization_organization-><?=$organization->id; ?>" class="item col-xs-12 col-md-6">
+                        <a href="<?= URL::site( 'organization/' . $organization->id ); ?>" class="item__img-wrap">
+                            <img class="item__img" alt="Org img" src="/uploads/organization/logo/<?=$organization->logo; ?>">
+                        </a>
+                        <div class="item__info">
+                            <div class="item__info-name">
+                                <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$organization->name; ?></a>
+                            </div>
+                            <div class="item__info-additional">
+                                <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$isProfileOwner ? 'Основатель' : 'Сотрудник'; ?></a>
+                            </div>
+                            <? if (!$isProfileOwner) : ?>
+                            <div class="item__info-controls clear_fix">
+                                <button data-id="organization->id" data-name="organization->name" class="btn btn_default deleteOrganization">Выйти из организации</button>
+                            </div>
+                            <? endif; ?>
+                        </div>
                     </div>
-                    <div class="item__info-additional">
-                        <a href="">Состоит в организации 5дней(или 2 месяца, или 1 год)</a>
-                    </div>
-                    <? if ($isProfileOwner) : ?>
-                    <div class="item__info-controls clear_fix">
-                        <button data-id="organization->id" data-name="organization->name" class="btn btn_default deleteOrganization">Выйти из организации</button>
-                    </div>
-                    <? endif; ?>
-                </div>
-            </div>
+                <? endif; ?>
+            <? endforeach; ?>
 
         </div>
 

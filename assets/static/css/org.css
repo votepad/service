@@ -72,6 +72,11 @@
 .jumbotron_nav{
 	border-top: 0;
 }
+
+img.jumbotron--loading {
+	filter: blur(16px);
+}
+
 .jumbotron_org-avatar{
 	position: absolute;
 	bottom: 20px;
