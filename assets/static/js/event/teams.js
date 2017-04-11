@@ -3,7 +3,9 @@ $(document).ready(function() {
     /*
      *  Vars
     */
-    var url = "http://pronwe/assets/img/user",
+    var protocol = window.location.protocol,
+        hostname = window.location.hostname,
+        imagePath = "http://pronwe/assets/img/user",
         card, id, name, about, part, list,
         parts_not_distributed = document.getElementById('newteam_participants').innerHTML,
         modal_name = document.getElementById('editteam_name'),
@@ -49,22 +51,20 @@ $(document).ready(function() {
      *   Btn Submit newteam form
      *   including validation via inputmask
     */
-    $('#create_team').click(function() {
-        var form = $(this).closest('form'),
-            stat_1, stat_2, stat_3;
+    $("#newteam").submit(function() {
+        var stat_1, stat_2, stat_3;
 
         stat_1 = checking_el_valid($('#newteam_name'), '');
         stat_2 = checking_el_valid($('#newteam_description'), '');
         stat_3 = checking_el_valid($("#newteam_participants"), '');
 
-        if ( stat_1 == true && stat_2 == true && stat_3 == true) {
-            form[0].submit();
-        } else {
+        if ( stat_1 == false || stat_2 == false || stat_3 == false) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             },{
                 type: 'danger'
             });
+            return false;
         }
     });
 
@@ -163,20 +163,19 @@ $(document).ready(function() {
     /*
      *   Save Modification in Modal Form
     */
-    $('#update_info').click(function(){
+    $('#editteam_modal').submit(function(){
         var form = $(this).closest('.modal'),
             stat_1 = checking_el_valid($("#editteam_name"), ''),
             stat_2 = checking_el_valid($("#editteam_description"), ''),
             stat_3 = checking_el_valid($("#editteam_part"), '');
 
-        if ( stat_1 == true && stat_2 == true && stat_3 == true) {
-            form[0].submit();
-        } else {
+        if ( stat_1 == false || stat_2 == false || stat_3 == false) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             },{
                 type: 'danger'
             });
+            return false;
         }
     });
 
@@ -193,6 +192,9 @@ $(document).ready(function() {
         var teamPk = $('#team_' + dataPk).get(0),
             eventPk = $('#event_id').val();
 
+        var card = this.closest('.card'),
+            id = card.getAttribute('id'),
+            part = $.trim(document.getElementById('participants_' + id).innerHTML);
 
         swal({
             customClass: "delete-block",
@@ -209,9 +211,16 @@ $(document).ready(function() {
         }).then(function () {
 
             $.ajax({
-                url : '/teams/delete/' + dataPk,
+                url : protocol + '//' + hostname + '/teams/delete/' + dataPk,
                 data : {},
                 success : function(callback) {
+
+                    $("#newteam_participants").select2("destroy");
+                    $("#newteam_participants").html(part.replace(new RegExp('selected','g'),'') + parts_not_distributed);
+                    $("#newteam_participants").select2({
+                        language: 'ru',
+                        templateResult: render_image_for_select2
+                    });
 
                     teamPk.remove();
 
@@ -257,7 +266,7 @@ $(document).ready(function() {
             return el.text;
         }
         var $el = $(
-            '<span class="select2-results__withlogo"><img src="/" class="select2-results__logo" ' + url + '/' + el.element.dataset.logo + '> <span class="select2-results__text">' + el.text + '</span></span>'
+            '<span class="select2-results__withlogo"><img src="/" class="select2-results__logo" ' + imagePath + el.element.dataset.logo + '> <span class="select2-results__text">' + el.text + '</span></span>'
         );
         return $el;
     };

@@ -58,7 +58,7 @@
                     <span class="btn_text">Выбрать логотип</span>
                     <input id="newteam_logo" type="file" name="logo" accept="image/*">
                 </label>
-                <button id="create_team" type="button" class="btn btn_primary col-xs-12 col-sm-auto pull-right">
+                <button type="submit" class="btn btn_primary col-xs-12 col-sm-auto pull-right">
                     Создать команду
                 </button>
             </div>
@@ -154,7 +154,7 @@
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn_default" data-dismiss="modal">Отмена</button>
-                        <button id="update_info" type="button" class="btn btn_primary">Сохранить изменения</button>
+                        <button type="submit" class="btn btn_primary">Сохранить изменения</button>
                     </div>
 
                     <input type="hidden" id="editteam_identity" name="id_team" value="">
