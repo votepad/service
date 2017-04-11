@@ -61,7 +61,7 @@
                             </div>
                             <div class="radio-block">
                                 <input type="radio" id="group" name="partORteamORgroup">
-                                <label for="group">этапы</label>
+                                <label for="group">группы</label>
                             </div>
                             <div class="">
                                 <input type="checkbox" id="allParts">
@@ -97,10 +97,10 @@
                         <div id="show_groups" class="input-field displaynone">
                             <!-- Groups which are not distributed -->
                             <select name="groups[]" id="newstage_groups" multiple="" class="elements_in_stage">
-                                <option value="1">этапа 1</option>
-                                <option value="2">этапа 2</option>
+                                <option value="1">группа 1</option>
+                                <option value="2">группа 2</option>
                             </select>
-                            <label for="newstage_groups">Выберите этапы</label>
+                            <label for="newstage_groups">Выберите группы</label>
                         </div>
                     </div>
                 </div>

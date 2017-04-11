@@ -38,7 +38,7 @@ var formula = function(formula) {
             ul      = document.createElement('ul'),
             input   = document.createElement('input');
 
-        area.className  = "formula__area";
+        area.className  = "formula__area clear_fix";
         label.className = "formula__label";
         ul.className    = "formula__list";
 
@@ -52,10 +52,10 @@ var formula = function(formula) {
         input.name = "formula";
 
         add.append(icon_add);
-        ul.append(add);
         area.append(input);
         area.append(label);
         area.append(ul);
+        area.append(add);
 
         formula.el.appendChild(area);
 

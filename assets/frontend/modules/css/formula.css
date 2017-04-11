@@ -13,12 +13,23 @@
 
 .formula__area{
     position: relative;
+    display: block;
+    min-height: 2.2em;
+    user-select: none;
+    border-bottom: 1px solid #9e9e9e;
+    width: 100%;
+}
+.formula--error .formula__area{
+    border-bottom: 1px solid #F44336;
+    box-shadow: 0 1px 0 0 #F44336;
+}
+.formula--error .formula__label{
+    color: #F44336;
 }
 .formula__label{
     color: #9e9e9e;
     position: absolute;
     width: 70%;
-    left: 5px;
     top: .3em;
     cursor: text;
     font-size: .8em;
@@ -28,27 +39,11 @@
     overflow: hidden;
     text-overflow: ellipsis;
 }
-.formula__stage{
-
-}
 .formula__list{
-    outline: none;
-    min-height: 2em;
-    user-select: none;
-    -webkit-user-select: none;
-    border-bottom: 1px solid #9e9e9e;
     display: inline-block;
-    padding-right: 8px;
-    width: 100%;
-    margin-bottom: -5px;
+    float: left;
 }
-.formula--error .formula__list{
-    border-bottom: 1px solid #F44336;
-    box-shadow: 0 1px 0 0 #F44336;
-}
-.formula--error .formula__label{
-    color: #F44336;
-}
+
 .formula__item{
     position: relative;
     color: #616161;
@@ -86,7 +81,12 @@
     margin: 0 3px;
 }
 
-
+.formula__item-name{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
 .formula__item-icon{
     color: #999;
     cursor: pointer;
@@ -108,6 +108,7 @@
     font-size: .3em;
 }
 .formula__item-add{
+    display: inline-block;
     position: relative;
     cursor: pointer;
     float: left;
