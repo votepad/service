@@ -7,31 +7,28 @@ $(document).ready(function() {
         'curItems': document.getElementById('Criterias_Stage1').dataset.items
     });
 
-    formula.create(document.getElementById('formula_newstage'), {
+    var newStageFormula = formula.create(document.getElementById('formula_newstage'), {
+        'mode': "create",
         'allItems': document.getElementById('allCriterias').dataset.items
     });
+    
 
-    /*
-     *  Vars
-    */
-
+    /**
+     * Vars
+     */
     var url = "",
         card, id, name, description, part, team, group, formula_input, formula_area,
-
-        droparea_edit = document.getElementById('editstage_droparea').innerHTML,
         modal_name = document.getElementById('editstage_name'),
         modal_description = document.getElementById('editstage_description'),
         modal_members = document.getElementById('editstage_members'),
         modal_formula_input = document.getElementById('editstage_formula'),
-        modal_formula_area = document.getElementById('editstage_formula_area'),
-        parts_not_distributed = document.getElementById('newstage_participants').innerHTML,
-        teams_not_distributed = document.getElementById('newstage_teams').innerHTML,
-        groups_not_distributed = document.getElementById('newstage_groups').innerHTML;
+        modal_formula_area = document.getElementById('editstage_formula_area');
 
 
-    /*
-     *  Open newstage form
-    */
+
+    /**
+     * Open newstage form
+     */
     $('#newstage').click(function() {
         $(this).addClass('open');
     });
@@ -41,9 +38,9 @@ $(document).ready(function() {
 
 
 
-    /*
-     *  Close newstage form if inputs are empty
-    */
+    /**
+     * Close newstage form if inputs are empty
+     */
     $('body').click(function(event) {
         if ( ! $(event.target).closest("#newstage").is('#newstage') && $('#newstage_name').val() == "" && $('#newstage_description').val() == ""
                 && $("#newstage_participants").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
@@ -57,14 +54,13 @@ $(document).ready(function() {
             checking_el_valid($("#newstage_participants"), 'valid');
             checking_el_valid($("#newstage_team"), 'valid');
             checking_el_valid($("#newstage_groups"), 'valid');
-            document.getElementById('newstage_formula_area').className = "dragable-inputarea";
         }
     });
 
 
-    /*
-     *  Create select2 for newstage form
-    */
+    /**
+     * Create select2 for newstage form
+     */
     var select2Parts = $('#newstage_participants').select2({
         language: 'ru',
         templateResult: render_image_for_select2
@@ -90,9 +86,9 @@ $(document).ready(function() {
         select2Groups_val.push($(this).val());
     });
 
-    /*
+    /**
      * change stage members in newstage form
-    */
+     */
     $("#part").click(function(){
         $("#show_participants").removeClass("displaynone");
         $("#show_teams").addClass("displaynone");
@@ -127,9 +123,9 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *  Select all parts
-    */
+    /**
+     * Select all parts
+     */
     $("#allParts").on("click", function () {
         if ( document.getElementById("allParts").checked == true) {
             select2Parts.val(select2Parts_val).trigger("change");
@@ -140,9 +136,9 @@ $(document).ready(function() {
         }
     });
 
-    /*
-     *  Select all teams
-    */
+    /**
+     * Select all teams
+     */
     $("#allTeams").on("click", function () {
         if ( document.getElementById("allTeams").checked == true) {
             select2Teams.val(select2Teams_val).trigger("change");
@@ -153,9 +149,9 @@ $(document).ready(function() {
         }
     });
 
-    /*
-     *  Select all groups
-    */
+    /**
+     * Select all groups
+     */
     $("#allGroups").on("click", function () {
         if ( document.getElementById("allGroups").checked == true) {
             select2Groups.val(select2Groups_val).trigger("change");
@@ -168,30 +164,21 @@ $(document).ready(function() {
 
 
 
-    /*
-     *   Btn Submit newstage form
-     *   including validation via inputmask
-    */
-    $('#create_stage').click(function() {
-        var form = $(this).closest('form'),
-            stat_1, stat_2, stat_3, stat_4
+    /**
+     * Btn Submit newstage form including validation
+     */
+    $('#newstage').submit(function() {
+        var stat_1, stat_2, stat_3, stat_4,
             formula_val = [];
-
-        /* add value to input for formula */
-        $('#newstage_formula_area .item').each(function(i){
-            var data = $(this)[0].dataset;
-            formula_val.push(data.val);
-        });
 
         stat_1 = checking_el_valid($('#newstage_name'), '');
         stat_2 = checking_el_valid($('#newstage_description'), '');
 
-        if (formula_val.length == 0) {
-            document.getElementById('newstage_formula_area').className = "dragable-inputarea invalid"
+        if (newStageFormula.toJSON() == "[]") {
+            $('#formula_newstage').addClass('formula--error');
             stat_3 = false;
         } else {
-            document.getElementById('newstage_formula').value = JSON.stringify(formula_val);
-            stat_3 = true;
+            $('#formula_newstage').removeClass('formula--error');
         }
 
         if ( ! $("#show_participants").hasClass("displaynone") ) {
@@ -202,30 +189,30 @@ $(document).ready(function() {
             stat_4 = checking_el_valid($("#newstage_groups"), '');
         }
 
-        if ( stat_1 == true && stat_2 == true && stat_3 == true && stat_4 == true ) {
-            form[0].submit();
-        } else {
+        if ( stat_1 == false || stat_2 == false || stat_3 == false || stat_4 == false ) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
-            },{
+            }, {
                 type: 'danger'
             });
+            return false;
         }
+
     });
 
 
 
-    /*
+    /**
      * On change Input Field
-    */
+     */
     $('body').on('blur', 'input[type="text"], textarea', function(){
         checking_el_valid($(this));
     });
 
 
-    /*
+    /**
      * On load Add hidden class on long text in card_content-text
-    */
+     */
     $('.card').each(function () {
         var first = $('.card_content-text:nth-child(1)', this),
             second = $('.card_content-text:nth-child(2)', this),
@@ -243,9 +230,9 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *  Generate Modal Form for changing information about stage
-    */
+    /**
+     * Generate Modal Form for changing information about stage
+     */
     $('.edit').click(function(){
         card = this.closest('.card');
         id = card.getAttribute('id');
@@ -297,55 +284,9 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *  Working with formula in modal form
-    */
-    var editstage_sortable_id = ['editstage_formula_area','editstage_coeff','editstage_math','editstage_criterias','editstage_droparea'],
-            editstage_drop_block = document.getElementById('editstage_drop');
-	[{
-        sort: true,
-        pull: true,
-        put: true
-    },{
-        sort: false,
-		pull: 'clone',
-		put: false
-	}, {
-        sort: false,
-        pull: 'clone',
-		put: false
-	}, {
-        sort: false,
-        pull: 'clone',
-		put: false
-	}, {
-        sort: false,
-        pull: false,
-		put: true
-	}].forEach(function (groupOpts, i) {
-       Sortable.create(document.getElementById(editstage_sortable_id[i]), {
-           name: 'editstage_formula',
-           animation: 150,
-           group: groupOpts,
-           onStart: function (evt) {
-               editstage_drop_block.className = "drop open";
-               document.getElementById('editstage_formula_area').className = "dragable-inputarea focus";
-           },
-           onEnd: function (evt) {
-               editstage_drop_block.className = "drop";
-               document.getElementById('editstage_droparea').innerHTML = droparea_edit;
-               document.getElementById('editstage_formula_area').className = "dragable-inputarea";
-               if ( document.getElementById('editstage_formula_area').childNodes.length == 0) {
-                   document.getElementById('editstage_formula_area').className = "dragable-inputarea invalid";
-               }
-           },
-       });
-	});
-
-
-    /*
-     *  Cansel Edit in Modal Form
-    */
+    /**
+     * Cansel Edit in Modal Form
+     */
     $('button[data-dismiss]').click(function(){
         modal_name.value = "";
         modal_description.innerHTML = "";
@@ -356,10 +297,10 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *   Save Modification in Modal Form
-    */
-    $('#update_info').click(function(){
+    /**
+     * Save Modification in Modal Form
+     */
+    $('#editstage_modal').submit(function(){
         var form = $('#editstage_modal'),
             stat_1 = checking_el_valid($('#editstage_name'),''),
             stat_2 = checking_el_valid($('#editstage_description'),''),
@@ -392,9 +333,9 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *  Delete stage
-    */
+    /**
+     * Delete stage
+     */
     $('.delete').click(function(){
         /** Information about action */
         var activeAction = $(this).get(0),
@@ -459,23 +400,23 @@ $(document).ready(function() {
 
 
 
-    /*
-     *    Function for Rendering Image for select2 elements
-    */
+    /**
+     * Function for Rendering Image for select2 elements
+     */
     function render_image_for_select2 (el) {
         if (!el.id) {
             return el.text;
         }
         var $el = $(
-            '<span class="select2-results__withlogo"><img src="' + url + '/' + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
+            '<span class="select2-results__withlogo"><img src="' + url + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
         );
         return $el;
-    };
+    }
 
 
-    /*
-     *   Function for Checking on Valid newstage Form
-    */
+    /**
+     * Function for Checking on Valid newstage Form
+     */
     function checking_el_valid($el, status) {
 
         var arr = new RegExp("[^a-zA-Zа-яА-Я0-9-_=№#%&*()«»!?,.;:@'\"\n ]");
@@ -507,37 +448,3 @@ $(document).ready(function() {
     }
 
 });
-
-
-/*
- * Add coeff to coeff_arrays while editing formula
-*/
-function addcoeff(id_array) {
-    swal({
-        customClass: "coeff-area",
-        animation: false,
-        width: 300,
-        title: 'Введите коэффицент',
-        inputPlaceholder: "0.5",
-        input: 'text',
-        showCancelButton: true,
-        confirmButtonText: 'Добавить',
-        cancelButtonText: 'Отмена',
-        inputValidator: function (val) {
-            var number_arr = new RegExp("[^0-9.]");
-            return new Promise(function (resolve, reject) {
-                if ( ! number_arr.test(val) && val ) {
-                    resolve()
-                } else {
-                    reject('Вы ввели не число!')
-                }
-            })
-        }
-    }).then(function (number) {
-        var el = document.createElement('li');
-        el.className = "item dark";
-        el.dataset.val = "coeff_" + number;
-        el.innerHTML = number;
-        id_array.appendChild(el);
-    });
-}
