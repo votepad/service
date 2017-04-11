@@ -5,8 +5,9 @@ class Controller_Teams_Modify extends Dispatch {
     public function before() {
 
         $this->auto_render = false;
-        $this->checkCsrf();
         parent::before();
+        $this->checkCsrf();
+
     }
 
     /**
@@ -48,17 +49,28 @@ class Controller_Teams_Modify extends Dispatch {
      */
     public function action_edit()
     {
-        $name = Arr::get($_POST, 'name');
-        $description = Arr::get($_POST, 'description');
+        $name         = Arr::get($_POST, 'name');
+        $description  = Arr::get($_POST, 'description');
         $participants = Arr::get($_POST, 'participants');
-        $logo = Arr::get($_POST, 'logo');
-        $id_team = Arr::get($_POST, 'id_team');
+        $logo         = Arr::get($_POST, 'logo');
+        $id_team      = Arr::get($_POST, 'id_team');
 
-        $proccess = Methods_Teams::editTeamInformation($id_team, $name, $description, $logo, $participants);
+        $team = new Model_Team($id_team);
 
-        if ($proccess) {
-            $this->redirect($this->request->referrer());
+        if (!$team) {
+            throw new HTTP_Exception_500();
         }
+
+        $team->name        = $name;
+        $team->description = $description;
+        $team->logo        = $logo;
+
+        $team->update();
+
+        Methods_Teams::updateParticipants($id_team, $participants);
+
+        $this->redirect($this->request->referrer());
+
     }
 
 }

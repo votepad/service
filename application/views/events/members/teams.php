@@ -12,7 +12,7 @@
 
         <!-- Jumbotron Navigation -->
         <div class="jumbotron_nav">
-            <?=$jumbotron_navigation; ?>
+           <?=$jumbotron_navigation; ?>
         </div>
 
     </div>
@@ -41,9 +41,9 @@
                     <div class="row hidden">
                         <div class="input-field">
                             <select name="participants[]" id="newteam_participants" multiple="" class="participants_in_team">
-                                <? //foreach ($participants as $participant): ?>
-                                    <option value="<?//=$participant->id; ?>" data-logo="<?//=$participant->photo; ?>"><?//=$participant->name; ?></option>
-                                <? //endforeach; ?>
+                                <? foreach ($participants as $participant): ?>
+                                    <option value="<?=$participant->id; ?>" data-logo="<?=$participant->photo; ?>"><?=$participant->name; ?></option>
+                                <? endforeach; ?>
                             </select>
                             <label for="newteam_participants">Состав команды</label>
                         </div>
@@ -62,20 +62,20 @@
                     Создать команду
                 </button>
             </div>
-            <input type="hidden" name="csrf" value="<?=Security::token(TRUE); ?>">
+            <?=Form::hidden('csrf', Security::token()); ?>
         </form>
 
         <div class="row row-col">
             <div class="col-xs-12">
 
-                <? //foreach ($teams as $team) : ?>
-                    <card class="card clear_fix" id="team_<?//=$team->id;?>">
-                        <div class="card_image" id="logo_team_<?//=$team->id;?>">
-                            <img src="/uploads/teams/<?//=$team->logo; ?>" alt="">
+                <? foreach ($teams as $team) : ?>
+                    <card class="card clear_fix" id="team_<?=$team->id;?>">
+                        <div class="card_image" id="logo_team_<?=$team->id;?>">
+                            <img src="/uploads/teams/<?=$team->logo; ?>" alt="">
                         </div>
                         <div class="card_withimage card_title">
-                            <div class="card_title-text" id="name_team_<?//=$team->id; ?>">
-                                <?//=$team->name; ?>
+                            <div class="card_title-text" id="name_team_<?=$team->id; ?>">
+                                <?=$team->name; ?>
                             </div>
                             <div class="card_title-dropdown">
                                 <div role="button" class="card_title-dropdown-icon">
@@ -85,7 +85,7 @@
                                     <a class="card_title-dropdown-item edit">
                                         Изменить информацию
                                     </a>
-                                    <a class="card_title-dropdown-item delete" data-pk="<?//=$team->id; ?>">
+                                    <a class="card_title-dropdown-item delete" data-pk="<?=$team->id; ?>">
                                         Удалить команду
                                     </a>
                                 </div>
@@ -94,19 +94,19 @@
                         <div class="card_withimage card_content">
                             <p class="card_content-text">
                                 <i><u>О команде:</u></i>
-                            <span id="description_team_<?//=$team->id; ?>"><?//=$team->description; ?></span>
+                            <span id="description_team_<?=$team->id; ?>"><?=$team->description; ?></span>
                             </p>
                             <p class="card_content-text">
                                 <i><u>Состав команды:</u></i>
-                                <span id="participants_team_<?//=$team->id; ?>">
-                                    <? //foreach ($team->participants as $members) : ?>
-                                        <option value="<?//=$members->id; ?>"  data-logo="<?//=$members->photo; ?>" selected=""><?//=$members->name; ?></option>
-                                    <? //endforeach; ?>
+                                <span id="participants_team_<?=$team->id; ?>">
+                                    <? foreach ($team->participants as $members) : ?>
+                                        <option value="<?=$members->id; ?>"  data-logo="<?=$members->photo; ?>" selected=""><?=$members->name; ?></option>
+                                    <? endforeach; ?>
                                 </span>
                             </p>
                         </div>
                     </card>
-                <?// endforeach; ?>
+                <? endforeach; ?>
 
             </div>
         </div>
@@ -158,7 +158,7 @@
                     </div>
 
                     <input type="hidden" id="editteam_identity" name="id_team" value="">
-                    <input type="hidden" name="csrf" value="<?= Security::token(TRUE); ?>">
+                    <?=Form::hidden('csrf', Security::token())?>
 
                 </div>
             </div>

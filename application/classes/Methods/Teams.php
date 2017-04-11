@@ -30,7 +30,7 @@ class Methods_Teams extends Model_Team
         }
 
         $teams = array();
-        var_dump($selection);
+
         foreach ($selection as $row) {
 
             $team = new Model_Team();
@@ -39,6 +39,8 @@ class Methods_Teams extends Model_Team
             foreach ($row as $fieldname => $value) {
                 if (property_exists($team, $fieldname)) $team->$fieldname = $value;
             }
+
+            $team->participants = self::getTeamParticipants($team->id);
 
             $teams[] = $team;
 
@@ -52,10 +54,14 @@ class Methods_Teams extends Model_Team
 
         $selection = Dao_Participants::select()
             ->where('event', '=', $event)
-            ->where('team', 'is not', NULL)
-            ->execute();
+            ->where('team', 'is', NULL)
+            ->execute('id');
 
         $participants = array();
+
+        if (!$selection) {
+            return $participants;
+        }
 
         foreach ($selection as $row) {
 
@@ -71,6 +77,62 @@ class Methods_Teams extends Model_Team
         }
 
         return $participants;
+
+    }
+
+    public static function getTeamParticipants($team, $only_ids = false) {
+
+        $selection = Dao_Participants::select()
+            ->where('team', '=', $team)
+            ->execute('id');
+
+        $participants = array();
+
+        if (!$selection) {
+            return $participants;
+        }
+
+        if ($only_ids) {
+            return array_keys($selection);
+        }
+
+        foreach ($selection as $row) {
+
+            $participant = new Model_Participant();
+
+            if (empty($row['id'])) continue;
+            foreach ($row as $fieldname => $value) {
+                if (property_exists($participant, $fieldname)) $participant->$fieldname = $value;
+            }
+
+            $participants[] = $participant;
+
+        }
+
+        return $participants;
+
+    }
+
+    public static function updateParticipants($team, $participants) {
+
+        $teamParticipants = self::getTeamParticipants($team, true);
+
+        $deleted = array_diff($teamParticipants, $participants);
+
+        if (!empty($participants)) {
+
+            Dao_Participants::update()
+                ->set('team', $team)
+                ->where('id', 'in', $participants)
+                ->execute();
+        }
+
+        if (!empty($deleted)) {
+            Dao_Participants::update()
+                ->set('team', NULL)
+                ->where('id', 'in', $deleted)
+                ->execute();
+        }
 
     }
 
