@@ -209,7 +209,7 @@ $(document).ready(function() {
         }).then(function () {
 
             $.ajax({
-                url : '/teams/delete/' + eventPk + '/' + dataPk,
+                url : '/teams/delete/' + dataPk,
                 data : {},
                 success : function(callback) {
 

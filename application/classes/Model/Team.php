@@ -89,4 +89,14 @@ class Model_Team extends Model {
 
     }
 
+    public function delete() {
+
+        $delete = Dao_Teams::delete()
+            ->where('id', '=', $this->id)
+            ->clearcache($this->id)
+            ->execute();
+
+        return $delete;
+
+    }
 }
