@@ -10,8 +10,9 @@ class Controller_Transport extends Dispatch {
         'success' => 0
     );
 
-    private $files = null;
-    private $type  = null;
+    private $files  = null;
+    private $type   = null;
+    private $params = null;
 
     private $typesAvailable = array(
         Model_Uploader::PROFILE_AVATAR,
@@ -31,6 +32,7 @@ class Controller_Transport extends Dispatch {
     {
         $this->files    = Arr::get($_FILES, 'files');
         $this->type     = $this->request->param('type');
+        $this->params   = json_decode(Arr::get($_POST, 'params'));
 
         $file = new Model_Uploader();
 
@@ -38,7 +40,7 @@ class Controller_Transport extends Dispatch {
             goto finish;
         }
 
-        $uploadedFile = $file->upload($this->type, $this->files, $this->user->id);
+        $uploadedFile = $file->upload($this->type, $this->files, $this->user->id, $this->params);
 
         if ( $uploadedFile ) {
             $this->transportResponse['success'] = 1;

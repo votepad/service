@@ -133,7 +133,7 @@ class Model_Organization extends Model
     public function update()
     {
 
-        $insert = Dao_Users::update();
+        $insert = Dao_Organizations::update();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
