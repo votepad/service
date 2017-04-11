@@ -63,9 +63,7 @@
                     </div>
 
                     <div class="row hidden">
-                        <div class="input-field">
-                            <div id="newcontest_formula" class="formula"></div>
-                        </div>
+                        <div id="newcontest_formula" class="formula"></div>
                     </div>
                 </div>
             </div>
