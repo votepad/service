@@ -61,7 +61,7 @@ class Controller_Events_Index extends Dispatch
              */
             $this->template->header = View::factory('globalblocks/header')
                 ->set('header_menu', View::factory('events/blocks/header_menu',array('event' => $this->event)))
-                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile'));
+                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',array('event' => $this->event)));
 
 
             /**
@@ -253,22 +253,22 @@ class Controller_Events_Index extends Dispatch
      * MEMBERS submodule
      * action_groups - action that open page where users can edit information about groups
      */
-    public function action_groups()
-    {
-        //$teams = Methods_Teams::getAllTeams($this->event->id);
-        //$participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
-        //$groups = Methods_Groups::getAllGroups($this->event->id);
-
-        $this->template->mainSection = View::factory('events/members/groups')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-            //->set('teams', $teams)
-            //->set('participants', $participants)
-            //->set('groups', $groups);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
-    }
+//    public function action_groups()
+//    {
+//        //$teams = Methods_Teams::getAllTeams($this->event->id);
+//        //$participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+//        //$groups = Methods_Groups::getAllGroups($this->event->id);
+//
+//        $this->template->mainSection = View::factory('events/members/groups')
+//            ->set('event', $this->event)
+//            ->set('organization', $this->organization);
+//            //->set('teams', $teams)
+//            //->set('participants', $participants)
+//            //->set('groups', $groups);
+//
+//        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+//            ->set('event', $this->event);
+//    }
 
 
     /**
