@@ -45,8 +45,8 @@ class Controller_Events_Index extends Dispatch
             $this->event = $event;
             $this->organization = new Model_Organization($event->organization);
 
-            View::set_global('event', $event);
-            View::set_global('organization', $this->organization);
+            //View::set_global('event', $event);
+            //View::set_global('organization', $this->organization);
 
             /**
              * Meta Dates
@@ -60,8 +60,8 @@ class Controller_Events_Index extends Dispatch
              * Header
              */
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('events/blocks/header_menu'))
-                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile'));
+                ->set('header_menu', View::factory('events/blocks/header_menu',array('event' => $this->event)))
+                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',array('event' => $this->event)));
 
 
             /**
@@ -198,10 +198,12 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_judges()
     {
-        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
+        $this->template->mainSection = View::factory('events/members/judges')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
 
-        $this->template->mainSection = View::factory('events/members/judges');
+        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
@@ -211,13 +213,14 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_participants()
     {
-        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
-
-        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
 
         $this->template->mainSection = View::factory('events/members/participants')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
             ->set('event', $this->event);
+
     }
 
 
@@ -232,28 +235,17 @@ class Controller_Events_Index extends Dispatch
          * and make an array of their IDs
          */
         $teams = Methods_Teams::getAllTeams($this->event->id);
-        $teamsId = array_map("Methods_Common::getObjectIdentities", $teams);
-
-        /** $allparticipants - array of participant from all teams */
-        $allparticipants = Methods_Teams::getAllParticipantsFromTeams($teamsId);
-
-        /** @var $participants - array of participants from whole event */
-        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
-        $participantIds = array_map("Methods_Common::getObjectIdentities", $participants);
-
-        /** @var $freeParticipants - array of participants that not included in teams */
-        $freeParticipants = array_diff($participantIds, $allparticipants);
-        $participantsWithoutTeam = Methods_Participants::getSetOfParticipants($freeParticipants);
-
-        $teams = Methods_Teams::getAllTeams($this->event->id);
-
-        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
+        $participantsWoTeam = Methods_Teams::getParticipantsWhitOutTeam($this->event->id);
 
         $this->template->mainSection = View::factory('events/members/teams')
             ->set('event', $this->event)
-            ->set('participants', $participantsWithoutTeam)
+            ->set('organization', $this->organization)
+            ->set('participants', $participantsWoTeam)
             ->set('teams', $teams);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+            ->set('event', $this->event);
+
     }
 
 
@@ -261,21 +253,22 @@ class Controller_Events_Index extends Dispatch
      * MEMBERS submodule
      * action_groups - action that open page where users can edit information about groups
      */
-    public function action_groups()
-    {
-        $teams = Methods_Teams::getAllTeams($this->event->id);
-        $participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
-        $groups = Methods_Groups::getAllGroups($this->event->id);
-
-        $this->template->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
-
-        $this->template->mainSection = View::factory('events/members/groups')
-            ->set('event', $this->event)
-            ->set('teams', $teams)
-            ->set('participants', $participants)
-            ->set('groups', $groups);
-    }
+//    public function action_groups()
+//    {
+//        //$teams = Methods_Teams::getAllTeams($this->event->id);
+//        //$participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
+//        //$groups = Methods_Groups::getAllGroups($this->event->id);
+//
+//        $this->template->mainSection = View::factory('events/members/groups')
+//            ->set('event', $this->event)
+//            ->set('organization', $this->organization);
+//            //->set('teams', $teams)
+//            //->set('participants', $participants)
+//            //->set('groups', $groups);
+//
+//        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
+//            ->set('event', $this->event);
+//    }
 
 
     /**

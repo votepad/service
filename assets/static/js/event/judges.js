@@ -1,28 +1,31 @@
 $(document).ready(function() {
 
 
-    /*
+    /**
      *  Vars
-    */
-    var
-        //url = "http://pronwe/assets/",
-        orgpage = window.location.pathname.split("/")[1],
-        eventpage = window.location.pathname.split("/")[2],
+     */
+    var pathToImg = window.location.pathname + "//" + window.location.host + "/uploads/participants/",
         edit = document.getElementById('edit'),
         save = document.getElementById('save'),
         table = document.getElementById('judges'),
-        judges_settings,
+        idEvent = $('#id_event').val(),
+        get_array = [],
+        hot_array = [],
+        output_array = [],
+        deleted_elements = [],
+        dataToSave,
+        hot_settings,
         column_disabled,
         column_edited,
         hot;
 
-    /*
+
+    /**
      *  Columns Settings
      *
      *  column_disabled - when users are not allowed to edit cells in table
      *  column_edited - when users can edit cells in table
-    */
-
+     */
     column_disabled = [
         {
 			data:'name',
@@ -33,7 +36,6 @@ $(document).ready(function() {
             readOnly: true,
         },
     ];
-
 
     column_edited = [
         {
@@ -51,7 +53,7 @@ $(document).ready(function() {
 			data:'password',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я]/.test(value) || value == "" ) {
+                if ( /[^A-Za-z0-9]/.test(value) || value == "" ) {
 					callback(false);
                 } else {
 					callback(true);
@@ -61,35 +63,45 @@ $(document).ready(function() {
     ];
 
 
-    /*
-     * get_array_judges - array of judges from DB
-     * array_judges - equal to get_array_judges on load data from DB
-     * handsontable worhing only with array_judges
-     *
-     * status = none | insert | update
-    */
-     var get_array_judges = [
-		 {
-			 "name": "Иванов Иван Иванович",
-			 "password": "dff6asdl7",
-             "status": "none"
-		 },
-	 ];
-
-     var array_judges = [
-         {
-			 "name": "Иванов Иван Иванович",
-			 "password": "dff6asdl7",
-             "status": "none"
-		 },
-	 ];
-
-
-     /*
-      *  Handsontable settings
+    /**
+     * Get Judges data from DB
      */
-     judges_settings = {
-         data: array_judges,
+    $.when(
+
+        $.ajax({
+            url : '/judges/get/' + idEvent,
+            type: "POST",
+            success: function(data) {
+                if ( data == 'null' ){
+                    hot_array = [];
+                    get_array = [];
+                } else {
+                    get_array = JSON.parse(data);
+                    hot_array = JSON.parse(data);
+                }
+                hot.loadData(hot_array);
+            },
+            error: function(response) {
+                console.log("Error while getting elements: " + response);
+            },
+        })
+
+    ).then(function(){
+
+        document.getElementById('preloader').remove();
+        checking_on_empty_table('save');
+        calculateSize();
+        edit.className = "pull-right displayblock";
+
+    });
+
+
+
+    /**
+     * Handsontable settings
+     */
+    hot_settings = {
+         data: hot_array,
 		 rowHeaders: true,
 		 fillHandle: false,
 		 colHeaders: ['Фамилия Имя Отчество', 'Пароль'],
@@ -97,27 +109,15 @@ $(document).ready(function() {
      };
 
 
-    /*
+    /**
      *  Create Handsontable
-    */
-    hot = new Handsontable(table, judges_settings);
+     */
+    hot = new Handsontable(table, hot_settings);
 
 
-
-    /*
-	 *  Create title for column's headers
-	*/
-
-    $('body').on('mouseenter', '.relative', function(){
-        $(this).attr('title', $(this).children('.colHeader').text());
-	});
-
-
-
-    /*
-     *  Edit judges
-    */
-
+    /**
+     * Edit judges
+     */
     Handsontable.Dom.addEvent(edit, 'click', function() {
 
         save.className = "pull-right displayblock";
@@ -133,15 +133,15 @@ $(document).ready(function() {
     });
 
 
-    /*
+    /**
      *  Save judges
-    */
+     */
     Handsontable.Dom.addEvent(save, 'click', function(el) {
 
-        hot.validateCells(function(valid) {
+        output_array = [];
+        hot.validateCells(function(valid){
 
             if ( password_is_same() ){
-
                 $.notify({
                     message: 'Пороли у предстовителей жюри должны быть разными!'
                 },{
@@ -150,49 +150,148 @@ $(document).ready(function() {
 
             } else if ( valid == true) {
 
-                edit.className = "pull-right displayblock";
+                table.classList.add('whirl');
                 save.className = "displaynone";
-
-                var is_empty_table = checking_on_empty_table('save');
 
                 hot.updateSettings({
                     minSpareRows: 0,
                     columns: column_disabled
                 });
 
-
-                /* delete last row if it's empty  */
-                if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
+                // delete last row if it's empty
+                if (hot.isEmptyRow(hot.countRows() - 1) ) {
                     hot.alter('remove_row', hot.countRows() - 1);
                 }
 
-                /*
-                 *  Update Data via Ajax
-                */
-                if ( ! is_empty_table ) {
 
-                    for (var i = 0; i < array_judges.length; i++) {
+                // when judges NOT existed
+                if ( get_array.length == 0 ) {
 
-                        if ( i >= get_array_judges.length ) {
-                            array_judges[i].status = "insert";
-                        } else if ( get_array_judges[i].name != array_judges[i].name ) {
-                            array_judges[i].status = "update";
-                        } else {
-                            array_judges[i].status = "none";
+                    // when you don't add any judges
+                    if (hot_array.length == 0 ) {
+
+                        checking_on_empty_table('save');
+
+                    } else {
+
+                        // add to output_array only inserted new element
+                        for (var j = 0; j < hot_array.length; j++) {
+                            hot_array[j]['status'] = "insert";
+                            output_array.push(hot_array[j]);
                         }
 
                     }
 
-                    console.log(JSON.stringify(array_judges));
+                // when judges existed
+                } else {
+
+                    for (var i = 0; i < get_array.length; i++) {
+
+                        // add to output_array only deleted element from get_array
+                        if ( $.inArray(get_array[i]['id'], deleted_elements) != -1 ) {
+                            get_array[i]['status'] = "delete";
+                            output_array.push(get_array[i]);
+                        }
+
+                        else {
+
+                            for (var j = 0; j < hot_array.length; j++) {
+
+                                // add to output_array only inserted new element
+                                if ( hot_array[j]['id'] == null ) {
+                                    if ( ! find_output_el (hot_array[j]) ) {
+                                        hot_array[j]['status'] = "insert";
+                                        output_array.push(hot_array[j]);
+                                    }
+                                }
+
+                                // add to output_array only edited element from get_array
+                                else if ( get_array[i]['id'] == hot_array[j]['id']  ) {
+                                    if ( ! is_similar (get_array[i], hot_array[j]) ) {
+                                        hot_array[j]['status'] = "update";
+                                        output_array.push(hot_array[j]);
+                                    } else {
+                                        output_array.push(hot_array[j]);
+                                    }
+                                }
+
+                            }
+
+                        }
+
+                    }
 
                 }
+
+
+                if (output_array.length == 0 ) {
+
+                    table.classList.remove('whirl');
+                    edit.className = "pull-right displayblock";
+
+                } else {
+
+                    dataToSave = JSON.stringify(output_array);
+
+
+                    /**
+                     *  Send information to DB
+                     */
+                    $.ajax({
+                        url : '/judges/save/' + idEvent,
+                        type: "POST",
+                        data: {
+                            list: dataToSave
+                        },
+                        success: function(response) {
+                            //console.log(response);
+                            // if true - success updating
+                            // else    - some problems
+                            if (response) {
+                                $.notify({
+                                    message: 'Инфомация о представителях жюри успешно обновлена.'
+                                },{
+                                    type: 'success'
+                                });
+
+                                get_array = JSON.parse(response);
+                                hot_array = JSON.parse(response);
+
+                                hot.loadData(hot_array);
+                                checking_on_empty_table("save");
+                                table.classList.remove('whirl');
+                                edit.className = "pull-right displayblock";
+
+                            } else {
+                                $.notify({
+                                    message: 'Что-то пошло не так... Данные не сохранены.'
+                                },{
+                                    type: 'warning'
+                                });
+                                hot.updateSettings({
+                                    minSpareRows: 1,
+                                    columns: column_edited
+                                });
+
+                                save.className = "pull-right displayblock";
+                                table.classList.remove('whirl');
+
+                            }
+                        },
+                        error: function(response) {
+                            console.log("Error while ajax sending");
+                        }
+                    });
+
+                }
+
 
             } else {
 
                 $.notify({
-                	message: 'Пожалуйста, проверьте правильность введенных данных.'
+                    message: 'Пожалуйста, проверьте правильность введенных данных.'
                 },{
-                	type: 'danger'
+                    type: 'danger'
                 });
 
             }
@@ -202,55 +301,87 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *   Remove empty rows while editing
-    */
+    /**
+     * Remove empty rows while editing
+     */
      hot.addHook('afterChange', function() {
 
          for (var i = 0; i < hot.countRows(); i++) {
+
              if ( hot.isEmptyRow(i) ) {
+                 // add id of deleted element
+                 if ( hot_array[i]['id'] != null ) {
+                     deleted_elements.push(hot_array[i]['id']);
+                 }
                  hot.alter('remove_row', i);
              }
-         }
 
+         }
+         return;
      });
 
 
-     /*
+    /**
+     * Find element in output_array
+     * @param element
+     * @returns {boolean}
+     */
+    function find_output_el(element) {
+        for (var i = 0; i < output_array.length; i++) {
+            if (output_array[i]['status'] == "insert") {
+                if (element['name'] == output_array[i]['name'] && element['password'] == output_array[i]['password'])  {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Compare two arrays
+     * @param array1
+     * @param array2
+     * @returns {boolean}
+     */
+    function is_similar (array1, array2) {
+        if (array1['name'] == array2['name'] && array1['password'] == array2['password']) {
+            return true;
+        }
+        return false;
+    };
+
+
+     /**
       * Checking Table on existing one empty row
+      *
       * if empty row - hide table -> open info
       * if exist row - open table -> hide info
-     */
+      */
      function checking_on_empty_table(action) {
          if (hot.isEmptyRow(0) && action == "save" ) {
-             $('#judges').css('display', 'none');
+             table.classList.remove('displayblock');
+             table.classList.add('displaynone');
              $('#table_wrapper').append('<div id="no_judges" class="text-center"><h4>Представитили жюри ещё не созданы, для создания списка жюри нажмите на иконку <i class="fa fa-edit" aria-hidden="true"></i></h4></div>');
              return true;
          } else {
-             $('#judges').css('display', 'block');
+             table.classList.remove('displaynone');
+             table.classList.add('displayblock');
              $('#no_judges').remove();
              return false;
          }
      }
 
 
-
-     /*
-      *  Calculate columns size on resize window
+    /**
+     * Calculate columns size on resize window
      */
-     Handsontable.Dom.addEvent(window, 'resize', calculateSize);
+    Handsontable.Dom.addEvent(window, 'resize', calculateSize);
 
 
-     /*
-      *  Calculate columns size on page loading
-     */
-     calculateSize();
-
-
-     /*
+     /**
       *  Calculate columns size for table
       *  versions: mobile (<680px),  table(<992px) and  desctop (>992px)
-     */
+      */
      function calculateSize() {
 
          // mobile settings
@@ -291,14 +422,25 @@ $(document).ready(function() {
      }
 
 
+    /**
+     * Checking on empty FIO cell
+     */
+    hot.addHook('afterValidate', function(isValid, value, row, prop, source){
+        if ( prop != 'name' && hot.getDataAtCell(row, 0) === null ) {
+            hot.setDataAtCell(row, 0, "");
+        }
+        return;
+    });
 
-     /**
-     * Function: Checking on simmilar password
+
+    /**
+     * Checking on similar password
+     * @returns {boolean}
      */
      function password_is_same() {
-         for (var i = 0; i < array_judges.length; i++) {
-             for (var j = 1 + i; j < array_judges.length; j++) {
-                 if (array_judges[i]['password'] == array_judges[j]['password'])
+         for (var i = 0; i < hot_array.length - 1; i++) {
+             for (var j = 1 + i; j < hot_array.length; j++) {
+                 if (hot_array[i]['password'] == hot_array[j]['password'])
                     return true;
              }
          }
@@ -309,14 +451,14 @@ $(document).ready(function() {
 
 
      /**
-     * Create EventID view
-     */
-     var ArrEventID = $('#eventID').attr('data-id').split(''),
-         OutEventID = '<div class="eventID-list">';
+       * Create EventID view
+       */
+     var ArrEventID = $('#eventCode').attr('data-id').split(''),
+         OutEventID = '<div class="eventCode-list">';
      for (var i = 0; i < ArrEventID.length; i++) {
-         OutEventID = OutEventID + '<span class="eventID-item">' + ArrEventID[i] + '</span>';
+         OutEventID = OutEventID + '<span class="eventCode-item">' + ArrEventID[i] + '</span>';
      }
      OutEventID += '</div>'
-     $('#eventID').append(OutEventID);
+     $('#eventCode').append(OutEventID);
 
 });

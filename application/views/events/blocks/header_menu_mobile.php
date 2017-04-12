@@ -84,10 +84,10 @@
                 Команды
             </a>
         </li>
-        <li class="mobile-aside__collapse__item">
+        <!--<li class="mobile-aside__collapse__item">
             <a href="<?=URL::site('event/' . $event->id . '/app/groups' ); ?>" class="mobile-aside__collapse-link">
                 Группы
             </a>
-        </li>
+        </li>-->
     </ul>
 </li>

@@ -62,7 +62,7 @@ class Model_Team extends Model {
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
 
     }
 
@@ -89,4 +89,14 @@ class Model_Team extends Model {
 
     }
 
+    public function delete() {
+
+        $delete = Dao_Teams::delete()
+            ->where('id', '=', $this->id)
+            ->clearcache($this->id)
+            ->execute();
+
+        return $delete;
+
+    }
 }
