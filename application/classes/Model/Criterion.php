@@ -4,7 +4,7 @@
  * Class Model_Criterion
  * CRUD
  */
-class Model_Criteria extends Model {
+class Model_Criterion extends Model {
 
     public $id;
     public $event;
@@ -35,7 +35,7 @@ class Model_Criteria extends Model {
 
     private function get_($id) {
 
-        $select = Dao_Criterias::select()
+        $select = Dao_Criterions::select()
             ->where('id', '=', $id)
             ->limit(1)
             ->cached(Date::MINUTE * 5, $id)
@@ -49,19 +49,22 @@ class Model_Criteria extends Model {
 
 
     /**
-     * Saves Criteria to Database
+     * Saves Criterion to Database
      */
     public function save()
     {
 
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
 
-        $insert = Dao_Criterias::insert();
+        $insert = Dao_Criterions::insert();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
+        $insert->clearcache('event:' . $this->event);
+        $insert->clearcache($this->id);
+        
         $result = $insert->execute();
 
         return $this->get_($result);
@@ -70,19 +73,20 @@ class Model_Criteria extends Model {
 
 
     /**
-     * Updates Criteria data in database
+     * Updates Criterion data in database
      *
-     * @return Model_Criteria
+     * @return Model_Criterion
      */
     public function update()
     {
 
-        $insert = Dao_Criterias::update();
+        $insert = Dao_Criterions::update();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
+        $insert->clearcache('event:' . $this->event);
         $insert->clearcache($this->id);
         $insert->where('id', '=', $this->id);
 
@@ -94,15 +98,15 @@ class Model_Criteria extends Model {
 
 
     /**
-     * Delete Criteria data in database
+     * Delete Criterion data in database
      *
-     * @return Model_Criteria
+     * @return Model_Criterion
      */
     public function delete() {
-        $delete = Dao_Criterias::delete()
+        $delete = Dao_Criterions::delete()
             ->where('id', '=', $this->id)
-            ->clearcache($this->id)
             ->clearcache('event:' . $this->event)
+            ->clearcache($this->id)
             ->execute();
         return $delete;
     }

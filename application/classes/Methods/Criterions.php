@@ -1,6 +1,6 @@
 <?php
 
-class Methods_Criterias extends Model_Criteria
+class Methods_Criterions extends Model_Criterion
 {
     const UPDATE = "update";
     const DELETE = "delete";
@@ -14,9 +14,8 @@ class Methods_Criterias extends Model_Criteria
      */
     public static function getByEvent($id_event) {
 
-        $criterias = Dao_Criterias::select()
+        $criterias = Dao_Criterions::select()
             ->where('event', '=', $id_event)
-            ->clearcache('event:' . $id_event)
             ->cached(Date::HOUR, 'event:' . $id_event)
             ->order_by('id', 'ASC')
             ->execute();
@@ -28,7 +27,7 @@ class Methods_Criterias extends Model_Criteria
         $result = array();
 
         foreach($criterias as $criteria) {
-            $model = new Model_Criteria();
+            $model = new Model_Criterion();
             $model->id          = $criteria['id'];
             $model->event       = $criteria['event'];
             $model->name        = $criteria['name'];
