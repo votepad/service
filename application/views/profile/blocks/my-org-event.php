@@ -5,7 +5,7 @@
         <li class="col-xs-12 col-md-6 text-center">
             <a data-toggle="tabs" data-block="myOrganizations" data-search="myOrganizationsSearch" class="tabs__btn tabs__btn--active fl_n">
                 <? if ($isProfileOwner) : ?>Мои организации <? else : ?> Организации <? endif; ?>
-                <span id="myOrganizationsCounter" class="tabs__count">1</span>
+                <span id="myOrganizationsCounter" class="tabs__count"><?=count($organizations);     ?></span>
             </a>
         </li>
 
@@ -47,9 +47,9 @@
                                 <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$organization->name; ?></a>
                             </div>
                             <div class="item__info-additional">
-                                <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$isProfileOwner ? 'Основатель' : 'Сотрудник'; ?></a>
+                                <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$organization->isOwner($profile->id) ? 'Основатель' : 'Сотрудник'; ?></a>
                             </div>
-                            <? if (!$isProfileOwner) : ?>
+                            <? if ($isProfileOwner && !$organization->isOwner($user->id)) : ?>
                             <div class="item__info-controls clear_fix">
                                 <button data-id="organization->id" data-name="organization->name" class="btn btn_default deleteOrganization">Выйти из организации</button>
                             </div>

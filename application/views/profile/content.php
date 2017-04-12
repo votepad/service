@@ -8,10 +8,10 @@
         <div class="jumbotron_wrapper parallax-container">
 
             <div class="parallax jumbotron_cover">
-                <img id="user-cover-uploaded" src="/uploads/profile_brandings/<?=$profile->branding; ?>">
+                <img id="user-cover-uploaded" src="/uploads/profiles/branding/<?=$profile->branding; ?>">
             </div>
 
-            <? if ($isLogged && $user->id) :?>
+            <? if ($isLogged && $isProfileOwner) :?>
             <div class="jumbotron_wrapper_edit">
                 <a id="user-cover-edit" role="button" class="jumbotron_wrapper_edit-btn js-user-jumbotron-cover">
                         <i class="fa fa-camera jumbotron_wrapper_edit-icon" aria-hidden="true"></i>

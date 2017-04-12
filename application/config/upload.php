@@ -3,7 +3,7 @@
 return array(
 
     Model_Uploader::PROFILE_AVATAR => array(
-        'path' => 'uploads/profiles/',
+        'path' => 'uploads/profiles/avatar/',
         /**
          * Image sizes config
          * key - filename prefix_
@@ -21,7 +21,7 @@ return array(
     ),
 
     Model_Uploader::PROFILE_BRANDING => array(
-        'path' => 'uploads/profile_brandings/',
+        'path' => 'uploads/profiles/branding/',
         /**
          * Image sizes config
          * key - filename prefix_
@@ -38,7 +38,7 @@ return array(
     ),
 
     Model_Uploader::ORGANIZATION_BRANDING => array(
-        'path' => 'uploads/organization/brandings/',
+        'path' => 'uploads/organizations/branding/',
         /**
          * Image sizes config
          * key - filename prefix_
@@ -54,7 +54,7 @@ return array(
     ),
 
     Model_Uploader::ORGANIZATION_LOGO => array(
-        'path' => 'uploads/organization/logo/',
+        'path' => 'uploads/organizations/logo/',
         /**
          * Image sizes config
          * key - filename prefix_
