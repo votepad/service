@@ -1,18 +1,21 @@
-<!-- =============== PAGE STYLE ===============-->
-<link rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
+<div class="section__wrapper">
 
-<div class="jumbotron block">
+    <!-- =============== PAGE STYLE ===============-->
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
 
-    <!-- Jumbotron Wrapper -->
-    <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>
+    <div class="jumbotron block">
 
-    <!-- Jumbotron Navigation -->
-    <div class="jumbotron_nav">
-        <?=$jumbotron_navigation; ?>
+        <!-- Jumbotron Wrapper -->
+        <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>
+
+        <!-- Jumbotron Navigation -->
+        <div class="jumbotron_nav">
+            <?=$jumbotron_navigation; ?>
+        </div>
+
     </div>
 
+    <section class="section__content">
+
+    </section>
 </div>
-
-<section>
-
-</section>
