@@ -1,6 +1,6 @@
 <?php
 
-class Methods_Groups extends Model_Groups {
+class Methods_Groups extends Model_Group {
 
     public static function getAllGroups($id_event) {
 

@@ -10,6 +10,7 @@ class Model_Participant extends Model {
     public $event;
     public $name;
     public $photo;
+    public $about;
 
     public function __construct($id = null) {
 
@@ -59,9 +60,10 @@ class Model_Participant extends Model {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
+        $insert->clearcache('event:' . $this->event);
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
 
     }
 
@@ -80,11 +82,24 @@ class Model_Participant extends Model {
         }
 
         $insert->clearcache($this->id);
+        $insert->clearcache('event:' . $this->event);
         $insert->where('id', '=', $this->id);
 
         $insert->execute();
 
         return $this->get_($this->id);
+
+    }
+
+    public function delete() {
+
+        $delete = Dao_Participants::delete()
+            ->where('id', '=', $this->id)
+            ->clearcache($this->id)
+            ->clearcache('event:' . $this->event)
+            ->execute();
+
+        return $delete;
 
     }
 
