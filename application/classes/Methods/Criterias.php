@@ -14,7 +14,7 @@ class Methods_Criterias extends Model_Criteria
      */
     public static function getByEvent($id_event) {
 
-        $criterias = Dao_Criteria::select()
+        $criterias = Dao_Criterias::select()
             ->where('event', '=', $id_event)
             ->clearcache('event:' . $id_event)
             ->cached(Date::HOUR, 'event:' . $id_event)

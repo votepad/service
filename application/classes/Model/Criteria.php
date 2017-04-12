@@ -35,7 +35,7 @@ class Model_Criteria extends Model {
 
     private function get_($id) {
 
-        $select = Dao_Criteria::select()
+        $select = Dao_Criterias::select()
             ->where('id', '=', $id)
             ->limit(1)
             ->cached(Date::MINUTE * 5, $id)
@@ -56,7 +56,7 @@ class Model_Criteria extends Model {
 
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
 
-        $insert = Dao_Criteria::insert();
+        $insert = Dao_Criterias::insert();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
@@ -77,7 +77,7 @@ class Model_Criteria extends Model {
     public function update()
     {
 
-        $insert = Dao_Criteria::update();
+        $insert = Dao_Criterias::update();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
@@ -99,7 +99,7 @@ class Model_Criteria extends Model {
      * @return Model_Criteria
      */
     public function delete() {
-        $delete = Dao_Criteria::delete()
+        $delete = Dao_Criterias::delete()
             ->where('id', '=', $this->id)
             ->clearcache($this->id)
             ->clearcache('event:' . $this->event)
