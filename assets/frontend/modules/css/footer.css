@@ -85,13 +85,13 @@
 .footer__social-icon{
     width: 20px;
     height: 20px;
-    line-height: 20px;
-    font-size: 1.1em;
+    line-height: 20px !important;
+    font-size: 1.1em !important;
     color: #fcfcfc;
     text-align: center;
 }
 .footer__social-link:hover .footer__social-icon,
-.footer__social-link:focus ,footer__social-icon{
+.footer__social-link:focus .footer__social-icon{
     color: #fcfcfc;
 }
 
