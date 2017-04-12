@@ -58,7 +58,7 @@ $(document).ready(function() {
         stat_2 = checking_el_valid($('#newteam_description'), '');
         stat_3 = checking_el_valid($("#newteam_participants"), '');
 
-        if ( stat_1 == false || stat_2 == false || stat_3 == false) {
+        if ( !stat_1 || !stat_2 || !stat_3) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             },{
@@ -169,7 +169,7 @@ $(document).ready(function() {
             stat_2 = checking_el_valid($("#editteam_description"), ''),
             stat_3 = checking_el_valid($("#editteam_part"), '');
 
-        if ( stat_1 == false || stat_2 == false || stat_3 == false) {
+        if ( !stat_1 || !stat_2 || !stat_3) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             },{
