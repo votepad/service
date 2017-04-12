@@ -798,7 +798,6 @@ a, a:hover, a:focus{
     position: relative;
     padding: 0 15px;
     border-radius: 3px;
-    overflow: hidden;
 }
 .form_submit{
     display: block;
@@ -1019,6 +1018,8 @@ a, a:hover, a:focus{
     width: 100%;
 	word-break: break-all;
     position: relative;
+	font-size: .9em;
+	margin: 0 0 10px;
 }
 
 .card_content-text option{
