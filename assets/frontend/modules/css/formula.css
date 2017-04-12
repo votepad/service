@@ -1,7 +1,10 @@
 .formula {
     user-select: none;
 }
-
+.formula__print:not(:last-child):after{
+    content: '+';
+    margin: 5px;
+}
 .formula__print-math{
     font-size: .8em;
 }
