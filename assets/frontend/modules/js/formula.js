@@ -44,7 +44,7 @@ var formula = function(formula) {
             el.classList.add(name);
         });
 
-        el.innerHTML = html ? html : '';
+        el.innerHTML = html || '';
 
         return el;
     }
@@ -169,9 +169,9 @@ var formula = function(formula) {
      * Remove item from `formulaNodes.additionItems`
      * @private
      */
-    function addFormulaItem(event) {
-        var element = formulaNodes.additionItems[event.target.id];
-        formulaNodes.additionItems.splice(event.target.id, 1);
+    function addFormulaItem() {
+        var element = formulaNodes.additionItems[this.id];
+        formulaNodes.additionItems.splice(this.id, 1);
 
         var item = createFormulaItem(element);
         formulaNodes.list.appendChild(item);
@@ -183,14 +183,14 @@ var formula = function(formula) {
      * Add item to `formulaNodes.additionItems`
      * @private
      */
-    function removeFormulaItem(event) {
-        var li = createElement('li', 'formula__addition-item', event.target.dataset.name);
+    function removeFormulaItem() {
+        var li = createElement('li', 'formula__addition-item', this.dataset.name);
 
-        li.dataset.id = event.target.dataset.id;
+        li.dataset.id = this.dataset.id;
         li.addEventListener('click', addFormulaItem);
 
         formulaNodes.additionItems.push(li);
-        event.target.parentNode.remove();
+        this.parentNode.remove();
     }
 
 
@@ -203,11 +203,7 @@ var formula = function(formula) {
 
         getAdditionItems();
 
-        if ( formulaNodes.additionList.classList.contains('hide') ) {
-            formulaNodes.additionList.classList.remove('hide');
-        } else {
-            formulaNodes.additionList.classList.add('hide');
-        }
+        formulaNodes.additionList.classList.toggle('hide')
 
     }
 

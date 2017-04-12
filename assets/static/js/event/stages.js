@@ -2,14 +2,14 @@ $(document).ready(function() {
 
 
     formula.create(document.getElementById('formula_stage_1'), {
-        'mode': "print",
-        'allItems': document.getElementById('allCriterias').dataset.items,
-        'curItems': document.getElementById('Criterias_Stage1').dataset.items
+        mode: "print",
+        allItems: document.getElementById('allCriterias').dataset.items,
+        curItems: document.getElementById('Criterias_Stage1').dataset.items
     });
 
     var newStageFormula = formula.create(document.getElementById('formula_newstage'), {
-        'mode': "create",
-        'allItems': document.getElementById('allCriterias').dataset.items
+        mode: "create",
+        allItems: document.getElementById('allCriterias').dataset.items
     });
     
 

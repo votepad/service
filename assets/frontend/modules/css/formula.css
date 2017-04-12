@@ -9,7 +9,9 @@
     font-size: .8em;
 }
 
-.formula__print-math, .formula__print-name, .formula__print-coeff{
+.formula__print-math,
+.formula__print-name,
+.formula__print-coeff{
     padding: 5px;
 }
 
@@ -72,7 +74,8 @@
     top: 0px;
     font-weight: bold;
 }
-.formula__item:hover, .formula__item--selected{
+.formula__item:hover,
+.formula__item--selected{
     background: #f5f5f5;
 }
 
