@@ -63,3 +63,5 @@ var cookies = function () {
     }
 
 }();
+
+module.exports = cookies;

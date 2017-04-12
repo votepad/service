@@ -42,6 +42,16 @@ Class Model_User {
     public $phone;
 
     /**
+     * @var $avatar
+     */
+    public $avatar;
+
+    /**
+     * @var $branding
+     */
+    public $branding;
+
+    /**
      * @var $isConfirmed
      */
     public $isConfirmed;
@@ -103,9 +113,9 @@ Class Model_User {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
-        $id = $insert->execute();
+        $result = $insert->execute();
 
-        return $this->get_($id);
+        return $this->fill_by_row($result);
 
      }
 
@@ -116,7 +126,6 @@ Class Model_User {
      */
      public function update()
      {
-
         $insert = Dao_Users::update();
 
         foreach ($this as $fieldname => $value) {
@@ -126,9 +135,9 @@ Class Model_User {
         $insert->clearcache($this->id);
         $insert->where('id', '=', $this->id);
 
-        $id = $insert->execute();
+        $insert->execute();
 
-        return $this->get_($id);
+        return $this->get_($this->id);
 
      }
 

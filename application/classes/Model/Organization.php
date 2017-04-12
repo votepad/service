@@ -103,11 +103,6 @@ class Model_Organization extends Model
     public function save()
     {
 
-        Dao_UsersOrganizations::insert()
-            ->set('u_id', $this->owner)
-            ->set('o_id', $this->id)
-            ->execute();
-
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
 
         $insert = Dao_Organizations::insert();
@@ -116,9 +111,17 @@ class Model_Organization extends Model
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
-        $id = $insert->execute();
+        $result = $insert->execute();
 
-        return $this->get_($id);
+        $this->fill_by_row($result);
+
+        Dao_UsersOrganizations::insert()
+            ->set('u_id', $this->owner)
+            ->set('o_id', $this->id)
+            ->clearcache('User:' . $this->owner)
+            ->execute();
+
+        return $this;
 
     }
 
@@ -136,14 +139,15 @@ class Model_Organization extends Model
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
-        $insert->where('id', '=', $this->id);
         $insert->clearcache($this->id);
+        $insert->where('id', '=', $this->id);
 
-        $id = $insert->execute();
+        $insert->execute();
 
-        return $this->get_($id);
+        return $this->get_($this->id);
 
     }
+
 
     /**
      * @public

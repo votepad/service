@@ -1,5 +1,3 @@
-<script type="text/javascript" src="<?=$assets; ?>js/modules/ajax.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>js/modules/cookies.js"></script>
 
 <ul class="jumbotron_nav-list jumbotron_nav_org-list">
 
@@ -19,12 +17,12 @@
         </button>
     </li>
     <li id="cancelRequest" class="jumbotron_nav-item jumbotron_nav_org-item dropdown <? echo !$isSendRequest ? 'displaynone' : ''?>" data-toggle="dropdown" data-position="right" >
-        <div class="dropdown_btn">
+        <div class="dropdown__btn">
             Вы подали заявку
             <i class="fa fa-caret-down" aria-hidden="true"></i>
         </div>
-        <div class="jumbotron_nav_org-dropdownmenu dropdown_menu">
-            <a class="jumbotron_nav_org-dropdownitem dropdown_item" onclick="cancelRequest();">
+        <div class="jumbotron_nav_org-dropdownmenu dropdown__menu">
+            <a class="jumbotron_nav_org-dropdownitem dropdown__link" onclick="cancelRequest();">
                 Отменить заявку
             </a>
         </div>
@@ -33,9 +31,9 @@
     <script type="text/javascript">
 
         function sendRequest() {
-
+            
             ajaxData = {
-                url: '/organization/<?=$id; ?>/join',
+                url: '/organization/<?=$orgID; ?>/join',
                 success: function (response) {
 
                     response = JSON.parse(response);
@@ -55,14 +53,14 @@
                 }
             };
 
-            ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
 
         }
 
         function cancelRequest() {
 
             ajaxData = {
-                url: '/organization/<?=$id; ?>/member/reject/<?=$userID; ?>',
+                url: '/organization/<?=$orgID; ?>/member/reject/<?=$userID; ?>',
                 success: function(response) {
 
                     response = JSON.parse(response);
@@ -83,7 +81,7 @@
                 }
             };
 
-            ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
 
         }
 
@@ -93,12 +91,12 @@
 
     <? if($isLogged && $isMember && !$isOwner) : ?>
     <li class="jumbotron_nav-item jumbotron_nav_org-item dropdown" data-toggle="dropdown" data-position="right" >
-        <div role="button" class="dropdown_btn">
+        <div role="button" class="dropdown__btn">
             Вы состоите в организации
             <i class="fa fa-caret-down" aria-hidden="true"></i>
         </div>
-        <div class="jumbotron_nav_org-dropdownmenu dropdown_menu">
-            <a class="jumbotron_nav_org-dropdownitem dropdown_item" onclick="leaveOrganization();">
+        <div class="jumbotron_nav_org-dropdownmenu dropdown__menu">
+            <a class="jumbotron_nav_org-dropdownitem dropdown__link" onclick="leaveOrganization();">
                 Выйти из организации
             </a>
         </div>
@@ -109,7 +107,7 @@
         function leaveOrganization() {
 
             ajaxData = {
-                url: '/organization/<?=$id; ?>/member/remove/<?=$userID;?>',
+                url: '/organization/<?=$orgID; ?>/member/remove/<?=$userID;?>',
                 success: function(response) {
 
                     response = JSON.parse(response);
@@ -129,7 +127,7 @@
                 }
             };
 
-            ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
         }
 
     </script>

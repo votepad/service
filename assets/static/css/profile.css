@@ -1,66 +1,72 @@
-.jumbotron_profile, .jumbotron_profile > .jumbotron_wrapper, .jumbotron_profile > .jumbotron_wrapper > .parallax{
+.jumbotron_profile,
+.jumbotron_profile .jumbotron_wrapper,
+.jumbotron_profile .parallax{
     height: 220px;
     margin-bottom: 0;
 }
 
-.header_menu-btn-icon.right{
-    display: none;
-}
-
-.profile_info{
+/** user info  */
+.user-info{
     margin: -64px auto 20px auto;
 }
-.profile_info-avatar{
+.user-info__avatar {
     position: relative;
     border-radius: 50%;
-    height: 145px;
-    width: 145px;
+    max-height: 145px;
+    max-width: 145px;
+    overflow: hidden;
     margin: -85px auto 0 auto;
     background-color: #fff;
     box-shadow: inset 0 1.5px 3px 0 rgba(0,0,0,.15), 0 1.5px 3px 0 rgba(0,0,0,.15);
 }
-    .profile_info-avatar img{
-        border-radius: 50%;
-        margin: 5px;
-        height: 135px;
-        width: 135px;
-        z-index: 2;
-    }
+.user-info__avatar img{
+    height: 100%;
+    width: 100%;
+}
 
-.profile_info-description {
+.user-info__avatar--loading {
+    filter: blur(5px);
+}
+
+.user-info__branding--loading {
+    filter: blur(25px);
+}
+
+.user-info__description {
     margin-bottom: 0;
 }
-.profile_info-description > h1, .profile_info-description > h2, .profile_info-description > h3{
+.user-info__description > h1, .user-info__description > h2, .user-info__description > h3{
     color: #413a41;
     margin: 0 0 10px 0;
     font-weight: normal;
 }
-.profile_info-description > h1{
+.user-info__description > h1{
     font-size: 1.5em;
     opacity: .85;
 }
-.profile_info-description > h2{
+.user-info__description > h2{
     font-size: 1.1em;
 }
-.profile_info-description > h3{
+.user-info__description > h3{
     display: inline-block;
     font-size: 1em;
     opacity: .7;
 }
-.profile_info-description > h3:not(:last-child):after{
+.user-info__description > h3:not(:last-child):after{
     content: ','
 }
-.profile_info-edit{
+.user-info__edit-btn{
     position: absolute;
     top: 10px;
     right: 10px;
     padding: 5px;
 }
-    .profile_info-edit:hover, .profile_info-edit:focus{
-        background-color: rgba(0,141,167,.13);
-        border-radius: 50%;
-    }
-.profile_info-edit > .fa{
+.user-info__edit-btn:hover,
+.user-info__edit-btn:focus{
+    background-color: rgba(0,141,167,.13);
+    border-radius: 50%;
+}
+.user-info__edit-btn > .fa{
     height: 24px;
     width: 24px;
     text-align: center;
@@ -70,78 +76,53 @@
     text-shadow: 0 0 1px rgba(0,0,0,0.1);
 }
 
-
-
-.profile_statistic-item{
-    float: left;
-    width: 50%;
-    padding: 15px;
-}
-.profile_statistic-item:last-child{
-    border-left: 1px solid #d7d8db;
-}
-.profile_statistic-item-num{
-    font-size: 2em;
-    color: #008DA7;
-    vertical-align: middle;
-    padding: 0 5px;
-}
-
-
-
-
-
-
-.edituser_modal-avatarwrapper{
-    text-align: center;
-}
-.edituser_modal-avatar{
+.edit-user-info__avatar{
     border-radius: 50%;
     background-color: #fff;
     box-shadow: inset 0 1.5px 3px 0 rgba(0,0,0,.15), 0 1.5px 3px 0 rgba(0,0,0,.15);
 }
-.edituser_modal-avatar, .edituser_modal-avatar-edit{
+.edit-user-info__avatar,
+.edit-user-info__avatar-edit{
     line-height: 145px;
+    border-radius: 50%;
     height: 145px;
     width: 145px;
     margin: auto;
+    overflow: hidden;
 }
-.edituser_modal-avatar-edit{
+.edit-user-info__avatar-edit{
     display: none;
     background-color: rgba(0,0,0,.3);
     position: absolute;
-    border-radius: 50%;
 }
-    .edituser_modal-avatar:hover > .edituser_modal-avatar-edit{
+    .edit-user-info__avatar:hover > .edit-user-info__avatar-edit{
         display: block;
     }
 
-    .edituser_modal-avatar-edit > .fa{
+    .edit-user-info__avatar-edit > .fa{
         color: #f9f9f9;
         text-shadow: 0 0 3px rgba(0,0,0,0.7)
     }
 
-.edituser_modal-avatar img{
-    border-radius: 50%;
-    height: 135px;
-    width: 135px;
-    margin: 5px;
+.edit-user-info__avatar img{
+    height: 100%;
+    width: 100%;
 }
 
-.edituser_modal-name > .input-field{
+.edit-user-info__fio > .input-field{
     padding: 0;
 }
-.edituser_modal-block .input-field{
+
+.edit-user-info__input{
     margin-top: 2em;
 }
+
 @media (min-width: 680px) {
-    .edituser_modal-avatarwrapper{
-        width: 180px;
-    }
-    .edituser_modal-name{
+
+    .edit-user-info__fio{
         width: calc(100% - 180px);
     }
-    .edituser_modal-name > .input-field{
+    .edit-user-info__input{
         margin-top: 1.5em;
     }
 

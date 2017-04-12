@@ -7,7 +7,7 @@
 <link href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
 
-<script type="text/javascript" src="<?=$assets; ?>js/event/groups.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/event/groups.js"></script>
 
 <h3 class="page-header">Список групп</h3>
 

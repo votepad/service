@@ -72,6 +72,11 @@
 .jumbotron_nav{
 	border-top: 0;
 }
+
+img.jumbotron--loading {
+	filter: blur(16px);
+}
+
 .jumbotron_org-avatar{
 	position: absolute;
 	bottom: 20px;
@@ -187,69 +192,6 @@
 }
 
 
-/**
- * Setting Co-Workers
- */
- .tabs_content{
-	 padding: 0;
- }
-.coworker_row {
-	border-top: 1px solid #e7e8ec;
-	border-right: 1px solid #e7e8ec;
-	padding-top: 12px;
-	padding-bottom: 12px;
-	position: relative;
-}
-.coworker_row:first-child, .coworker_row:nth-child(2){
-    border-top: none;
-}
-.coworker_row:nth-child(2n){
-    border-right: none;
-}
-.coworker_photo_wrap{
-    float: left;
-	margin: 0 15px 0 0;
-    position: relative;
-	overflow: hidden;
-    width: 90px;
-    height: 90px;
-}
-.coworker_photo {
-    width: 90px;
-	height: 90px;
-    display: block;
-	overflow: hidden;
-}
-.coworker_photo_img {
-    width: 90px;
-    height: 90px;
-    border-radius: 50%;
-    background-color: #fafbfc;
-}
-.coworker_info{
-	padding: 5px 10px 0 0;
-	float: left;
-	overflow: hidden;
-}
-.coworker_field{
-	font-size: .9em;
-	margin-bottom: 9px;
-}
-.coworker_field-title{
-	font-weight: 700;
-}
-.coworker_field-contact span:not(:last-child):after{
-	content: ','
-}
-
-.coworker_controls{
-	margin: 11px 0 3px;
-	float: none;
-	text-align: left;
-	width: auto;
-}
-
-
 
 /**
  * Media - Tablet
@@ -322,30 +264,4 @@
 		margin-left: 0;
 	}
 
-	.tabs{
-		padding: 0;
-	}
-	.tabs_header .tab{
-		margin: 0;
-		width: 100%;
-		text-align: center;
-		padding: 10px 6px;
-		height: 38px
-	}
-	.tab_btn{
-		float: none;
-		width: 100%;
-		padding: 10px 6px;
-		margin: 0 auto;
-		border: 0;
-		border-radius: 0;
-	}
-
-	.coworker_row:nth-child(n){
-	    border-right: none;
-	}
-	.coworker_row:nth-child(2n){
-	    border-top: 1px solid #e7e8ec;
-
-	}
 }
