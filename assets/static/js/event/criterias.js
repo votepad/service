@@ -1,11 +1,9 @@
 $(document).ready(function() {
 
-    /*
-     *  Vars
+    /**
+     * Vars
      */
-    var
-        url = "",
-        edit = document.getElementById('edit'),
+    var edit = document.getElementById('edit'),
         save = document.getElementById('save'),
         table = document.getElementById('criterias'),
         idEvent = $('#id_event').val(),
@@ -22,25 +20,28 @@ $(document).ready(function() {
 
 
 
-    /*
-     *  Columns Settings
+    /**
+     * Columns Settings
      *
-     *  column_disabled - when users are not allowed to edit cells in table
-     *  column_edited - when users can edit cells in table
-    */
-
+     * column_disabled - when users are not allowed to edit cells in table
+     * column_edited - when users can edit cells in table
+     */
     column_disabled = [
         {
             data:'name',
             readOnly: true,
         },
         {
-            data:'minscore',
+            data:'description',
+            readOnly: true,
+        },
+        {
+            data:'min_score',
             className: 'text-center',
             readOnly: true,
         },
         {
-            data:'maxscore',
+            data:'max_score',
             className: 'text-center',
             readOnly: true,
         }
@@ -57,13 +58,24 @@ $(document).ready(function() {
             }
         },
         {
-            data:'minscore',
+            data:'description',
+            readOnly: false,
+            validator: function (value, callback) {
+                if ( /[^A-Za-z0-9А-Яа-я#№!&.,:;-_ ]/.test(value)) {
+                    callback(false);
+                } else {
+                    callback(true);
+                }
+            }
+        },
+        {
+            data:'min_score',
             className: 'text-center',
             readOnly: false,
             type: 'numeric',
         },
         {
-            data:'maxscore',
+            data:'max_score',
             className: 'text-center',
             readOnly: false,
             type: 'numeric',
@@ -71,63 +83,61 @@ $(document).ready(function() {
     ];
 
 
-setTimeout(function() {
-    /*
+
+    /**
      * Get data from DB
-    */
-    /*$.when(
+     */
+    $.when(
 
         $.ajax({
             url : '/criterias/get/' + idEvent,
             type: "POST",
-            success: function(data, response) {*/
-                var data = [];//[{"id":"0","name":"крит.1","minscore":"5","maxscore":"10"}]
-                hot_array = data;
-                get_array = data;
-                //hot_array = JSON.parse(data);
-                //get_array = JSON.parse(data);
+            success: function(data, response) {
+                if ( data == 'null' ){
+                    hot_array = [];
+                    get_array = [];
+                } else {
+                    get_array = JSON.parse(data);
+                    hot_array = JSON.parse(data);
+                }
                 hot.loadData(hot_array);
-    /*        },
+            },
             error: function(response) {
-                console.log("Something wrong");
+                console.log("Error while getting elements: " + response);
             },
         })
 
     ).then(function(){
-*/
+
         document.getElementById('preloader').remove();
         checking_on_empty_table('save');
         calculateSize();
+        edit.className = "pull-right displayblock";
 
-//    });
+    });
 
-
- }, 100);
-
-     /*
-      *  Handsontable settings
-     */
+     /**
+      * Handsontable settings
+      */
      hot_settings = {
          data: hot_array,
 		 rowHeaders: true,
 		 fillHandle: false,
-         rowHeights: 25,
-		 colHeaders: ['Название критерия', 'Минимальный балл', 'Максимальный балл'],
+		 colHeaders: ['Наименование', 'Описание', 'Минимальный балл', 'Максимальный балл'],
          columns: column_disabled,
      };
 
 
-    /*
-     *  Create Handsontable
-    */
+    /**
+     * Create Handsontable
+     */
     hot = new Handsontable(table, hot_settings);
 
 
 
-    /*
-     *  Edit criterias
-    */
-
+    /**
+     * Edit criterias
+     */
     Handsontable.Dom.addEvent(edit, 'click', function() {
 
         save.className = "pull-right displayblock";
@@ -143,9 +153,9 @@ setTimeout(function() {
     });
 
 
-    /*
-     *  Checking on empty name cell
-    */
+    /**
+     * Checking on empty name cell
+     */
     hot.addHook('afterValidate', function(isValid, value, row, prop, source){
         if ( prop != 'name' && hot.getDataAtCell(row, 0) === null ) {
             hot.setDataAtCell(row, 0, "");
@@ -155,16 +165,17 @@ setTimeout(function() {
 
 
 
-    /*
-     *  Save criterias
-    */
+    /**
+     * Save criterias
+     */
     Handsontable.Dom.addEvent(save, 'click', function(el) {
 
         hot.validateCells(function(valid){
 
             if ( valid == true ) {
-
-                $('#criterias').addClass('whirl');
+                output_array = [];
+                table.classList.add('whirl');
+                save.className = "displaynone";
 
                 hot.updateSettings({
                     minSpareRows: 0,
@@ -172,14 +183,31 @@ setTimeout(function() {
                 });
 
                 // delete last row if it's empty
-                if (hot.isEmptyRow(hot.countRows() - 1) && hot.countRows() != 1) {
+                if (hot.isEmptyRow(hot.countRows() - 1)) {
                     hot.alter('remove_row', hot.countRows() - 1);
                 }
 
-                /*
-                 *  Update Data via Ajax
-                */
-                if ( ! checking_on_empty_table('save') ) {
+
+                // when criterias NOT existed
+                if ( get_array.length == 0 ) {
+
+                    // when you don't add any Criterias
+                    if (hot_array.length == 0 ) {
+
+                        checking_on_empty_table('save');
+
+                    } else {
+
+                        // add to output_array only inserted new element
+                        for (var j = 0; j < hot_array.length; j++) {
+                            hot_array[j]['status'] = "insert";
+                            output_array.push(hot_array[j]);
+                        }
+
+                    }
+
+                // when criterias existed
+                } else {
 
                     for (var i = 0; i < get_array.length; i++) {
 
@@ -193,7 +221,7 @@ setTimeout(function() {
 
                             for (var j = 0; j < hot_array.length; j++) {
 
-                                // add to output_array only inserted only new element
+                                // add to output_array only inserted new element
                                 if ( hot_array[j]['id'] == null ) {
                                     if ( ! find_output_el (hot_array[j]) ) {
                                         hot_array[j]['status'] = "insert";
@@ -206,6 +234,8 @@ setTimeout(function() {
                                     if ( ! is_similar (get_array[i], hot_array[j]) ) {
                                         hot_array[j]['status'] = "update";
                                         output_array.push(hot_array[j]);
+                                    } else {
+                                        output_array.push(hot_array[j]);
                                     }
                                 }
 
@@ -215,47 +245,65 @@ setTimeout(function() {
 
                     }
 
+                }
+
+
+                if (output_array.length == 0 ) {
+
+                    table.classList.remove('whirl');
+                    edit.className = "pull-right displayblock";
+
+                } else {
+
                     dataToSave = JSON.stringify(output_array);
 
-
                     /**
-                     * Reloads page after success callback
+                     * Send information to DB
                      */
-                    $.when( $.ajax({
-                        url : '/criterias/add/' + idEvent,
+                    $.ajax({
+                        url: '/criterias/save/' + idEvent,
                         type: "POST",
                         data: {
                             list: dataToSave
                         },
-                        success: function(response) {
-
+                        success: function (response) {
                             // if true - success - save in DB
                             // else    - warning - don't save
-                            if (response == 'true') {
+                            if (response) {
                                 $.notify({
-                                	message: 'Инфомация о критериях успешно обновлена.'
-                                },{
-                                	type: 'success'
+                                    message: 'Инфомация о критериях успешно обновлена.'
+                                }, {
+                                    type: 'success'
                                 });
+
+                                get_array = JSON.parse(response);
+                                hot_array = JSON.parse(response);
+
+                                hot.loadData(hot_array);
+                                checking_on_empty_table("save");
+                                table.classList.remove('whirl');
                                 edit.className = "pull-right displayblock";
-                                save.className = "displaynone";
+
                             } else {
                                 $.notify({
-                                	message: 'Что-то пошло не так... Данные не сохранены.'
-                                },{
-                                	type: 'warning'
+                                    message: 'Что-то пошло не так... Данные не сохранены.'
+                                }, {
+                                    type: 'warning'
                                 });
                                 hot.updateSettings({
                                     minSpareRows: 1,
                                     columns: column_edited
                                 });
+
+                                save.className = "pull-right displayblock";
+
+                                table.classList.remove('whirl');
+                                calculateSize();
                             }
                         },
-                        error: function(response) {
+                        error: function (response) {
                             console.log("Something wrong");
-                        },
-                    })).then(function () {
-                        $('#criterias').wait(300).removeClass('whirl');
+                        }
                     });
                 }
 
@@ -274,15 +322,15 @@ setTimeout(function() {
     });
 
 
-
-    /*
-     *   Delete empty row
-    */
+    /**
+     * Remove empty row
+     */
     hot.addHook('afterChange', function(changes, source) {
 
         for (var i = 0; i < hot.countRows(); i++) {
 
-            if ( hot.isEmptyRow(i) || (hot.getDataAtCell(i, 0) == "" && hot.getDataAtCell(i, 1) == "" &&  hot.getDataAtCell(i, 2) == "") )
+            if ( hot.isEmptyRow(i) ||
+                (hot.getDataAtCell(i, 0) == "" && hot.getDataAtCell(i, 1) == "" &&  hot.getDataAtCell(i, 2) == "" && hot.getDataAtCell(i, 3) == "") )
             {
                 // add id of deleted element
                 if ( hot_array[i]['id'] != null ) {
@@ -296,18 +344,16 @@ setTimeout(function() {
 
 
 
-
-
-    /*
-     *  Find element in output_array
-     *  in   @element
-     *  return true || false
-    */
+    /**
+     * Find element in output_array
+     * @param element
+     * @returns {boolean}
+     */
     function find_output_el(element) {
 
         for (var i = 0; i < output_array.length; i++) {
             if (output_array[i]['status'] == "insert") {
-                if (element['name'] == output_array[i]['name'] && element['minscore'] == output_array[i]['minscore'] && element['maxscore'] == output_array[i]['maxscore'])
+                if (element['name'] == output_array[i]['name'] && element['description'] == output_array[i]['description'] && element['minscore'] == output_array[i]['minscore'] && element['maxscore'] == output_array[i]['maxscore'])
                 {
                     return true;
                 }
@@ -319,40 +365,36 @@ setTimeout(function() {
     }
 
 
-
-    /*
-     *  Compare two arrays
-     *  in   @array1, @array2
-     *  return true || false
-    */
+    /**
+     * Compare two arrays
+     * @param array1
+     * @param array2
+     * @returns {boolean}
+     */
     function is_similar (array1, array2) {
-
-        if (array1['name'] == array2['name'] && array1['minscore'] == array2['minscore'] && array1['maxscore'] == array2['maxscore'])
-        {
+        if (array1['name'] == array2['name'] && array1['desxription'] == array2['description'] &&
+            array1['minscore'] == array2['minscore'] && array1['maxscore'] == array2['maxscore']) {
             return true;
         }
-
         return false;
-
     }
 
 
 
-    /*
+    /**
      * Checking Table on existing one empty row
      * if empty row - hide table -> open info
      * if exist row - open table -> hide info
-    */
+     */
     function checking_on_empty_table(action) {
         if (hot.isEmptyRow(0) && action == "save" ) {
-            $('#criterias').removeClass('displayblock').addClass('displaynone');
+            table.classList.remove('displayblock');
+            table.classList.add('displaynone');
             $('#table_wrapper').append('<div id="no_criterias" class="text-center"><h4>Критерии ещё не созданы, для создания нажмите на иконку <i class="fa fa-edit" aria-hidden="true"></i></h4></div>');
-            edit.className = "pull-right displayblock";
-            save.className = "displaynone";
-            $('#criterias').removeClass('whirl');
             return true;
         } else {
-            $('#criterias').removeClass('displaynone').addClass('displayblock');
+            table.classList.remove('displaynone');
+            table.classList.add('displayblock');
             $('#no_criterias').remove();
             return false;
         }
@@ -360,24 +402,24 @@ setTimeout(function() {
 
 
 
-     /*
-      *  Calculate columns size on resize window
-     */
+     /**
+      * Calculate columns size on resize window
+      */
      Handsontable.Dom.addEvent(window, 'resize', calculateSize);
 
 
 
-     /*
-      *  Calculate columns size for table
-      *  versions: mobile (<680px),  table(<992px) and  desctop (>992px)
-     */
+     /**
+      * Calculate columns size for table
+      * versions: mobile (<680px),  table(<992px) and  desctop (>992px)
+      */
      function calculateSize() {
 
          // mobile settings
          if (window.innerWidth <= 680) {
              hot.updateSettings({
                  stretchH: 'none',
-                 colWidths: [200,190,190]
+                 colWidths: [150,150,50,50]
              });
 
              document.getElementById('criterias').style.overflowX = "auto";
@@ -399,13 +441,16 @@ setTimeout(function() {
                         width = width * 0.9 - 70;
 
                      if (index == 0)
-                         return width * 0.5;
+                         return width * 0.3;
 
                      if (index == 1)
-                         return width * 0.25;
+                         return width * 0.3;
 
                      if (index == 2)
-                         return width * 0.25;
+                         return width * 0.2;
+
+                     if (index == 3)
+                         return width * 0.2;
 
                  }
              });
