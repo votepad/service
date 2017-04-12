@@ -27,8 +27,7 @@ Route::set("ADD_TEAM", 'teams/add/<id_event>', array(
  * @params [INT] id_event - event identity
  * @params [INT] id_team - team identity
  */
-Route::set("DELETE_TEAM", "teams/delete/<id_event>/<id_team>", array(
-        'id_event' => $DIGIT,
+Route::set("DELETE_TEAM", "teams/delete/<id_team>", array(
         'id_team'  => $DIGIT
     ))
     ->defaults(array(

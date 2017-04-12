@@ -11,7 +11,7 @@ class Ajax extends Dispatch {
         $this->auto_render = false;
 
         if (!self::is_ajax()) {
-            throw new HTTP_Exception_403;
+            throw new HTTP_Exception_403();
         }
 
         parent::before();

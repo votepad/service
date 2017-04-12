@@ -98,7 +98,7 @@ $sectioncallback = function(Route $route, $params, Request $request){
             'criterias', 'stages', 'contests', 'result'
         ),
         'members' => array(
-            'judges', 'participants', 'teams', 'groups'
+            'judges', 'participants', 'teams', /*'groups'*/
         ),
     );
 

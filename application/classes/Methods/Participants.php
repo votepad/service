@@ -1,6 +1,6 @@
 <?php
 
-class Methods_Participants extends Model_Participants
+class Methods_Participants extends Model_Participant
 {
 
     const UPDATE = "update";
@@ -9,60 +9,39 @@ class Methods_Participants extends Model_Participants
     const SELECT = "select";
 
     /**
-     * @param $id
-     * @returns Model_Participants object
-     */
-    public static function getParticipant($id) {
-        return self::get($id);
-    }
-
-    /**
      * @param $id_event
+     *
+     * @return array result -- participants models
      */
-    public static function getParticipantsFromEvent($id_event) {
+    public static function getByEvent($id_event) {
 
-        $participant_ids = DB::select('id_participant')->from('Event_Participants')
-            ->where('id_event', '=', $id_event)
-            ->execute()
-            ->as_array();
+        $participants = Dao_Participants::select()
+            ->where('event', '=', $id_event)
+            ->cached(Date::HOUR, 'event:' . $id_event)
+            ->order_by('id', 'ASC')
+            ->execute();
+
+        if (!$participants) {
+            return array();
+        }
 
         $result = array();
 
-        foreach($participant_ids as $data) {
+        foreach($participants as $participant) {
 
-            foreach ($data as $id) {
+            $model = new Model_Participant();
+            $model->id    = $participant['id'];
+            $model->event = $participant['event'];
+            $model->name  = $participant['name'];
+            $model->about = $participant['about'];
+            $model->photo = $participant['photo'];
 
-                $participant = self::getParticipant($id);
+            array_push($result, $model);
 
-                if ($participant) {
-                    $result[] = $participant;
-                }
-            }
         };
 
         return $result;
 
-    }
-
-    /**
-     * Sets participant id to event entry
-     *
-     * @param $id_participant
-     * @param $id_event
-     */
-    public static function setParticipantEventEntry($id_event, $id_participant) {
-
-        try {
-
-            $query = DB::insert('Event_Participants', array('id_event', 'id_participant'))
-                ->values(array($id_event, $id_participant))
-                ->execute();
-
-        } catch (Exception $e) {
-
-            return false;
-
-        }
     }
 
     public static function getParticipantByFieldName($field, $value) {
