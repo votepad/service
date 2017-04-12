@@ -1,9 +1,9 @@
 <?php
 
 /**
- * Class Controller_Criterias_Ajax
+ * Class Controller_Criterions_Ajax
  */
-class Controller_Criterias_Ajax extends Ajax {
+class Controller_Criterions_Ajax extends Ajax {
 
     public function action_save()
     {
@@ -14,7 +14,7 @@ class Controller_Criterias_Ajax extends Ajax {
 
             foreach($decodedData as $criteria) {
 
-                $model              = new Model_Criteria(Arr::get($criteria, 'id'));
+                $model              = new Model_Criterion(Arr::get($criteria, 'id'));
                 $event              = $this->request->param('id_event');
                 $model->name        = Arr::get($criteria,'name','');
                 $model->description = Arr::get($criteria,'description','');
@@ -23,19 +23,19 @@ class Controller_Criterias_Ajax extends Ajax {
                 $status             = Arr::get($criteria, 'status');
 
                 switch ($status) {
-                    case Methods_Criterias::UPDATE:
+                    case Methods_Criterions::UPDATE:
                         $model = $model->update();
                         break;
-                    case Methods_Criterias::INSERT:
+                    case Methods_Criterions::INSERT:
                         $model->event = $event;
                         $model = $model->save();
                         break;
-                    case Methods_Criterias::DELETE:
+                    case Methods_Criterions::DELETE:
                         $model->delete();
                         break;
                 }
 
-                if ($status != Methods_Criterias::DELETE) {
+                if ($status != Methods_Criterions::DELETE) {
                     $response[] = array(
                         'id'            => $model->id,
                         'name'          => $model->name,
@@ -62,7 +62,7 @@ class Controller_Criterias_Ajax extends Ajax {
     public function action_get()
     {
         $id_event = $this->request->param('id_event');
-        $criterias = Methods_Criterias::getByEvent($id_event);
+        $criterias = Methods_Criterions::getByEvent($id_event);
         $arr = array();
         foreach($criterias as $criteria) {
             $arr[] = array(

@@ -8,9 +8,9 @@
  * @params [Int] id_event - Identify of event
  * @example http://votepad.ru/criterias/save/3
  */
-Route::set('SAVE_CRITERIAS', 'criterias/save/<id_event>', array('id_event' => $DIGIT))
+Route::set('SAVE_CRITERIONS', 'criterias/save/<id_event>', array('id_event' => $DIGIT))
     ->defaults(array(
-        'controller' => 'Criterias_Ajax',
+        'controller' => 'Criterions_Ajax',
         'action' => 'save'
     ));
 
@@ -20,8 +20,8 @@ Route::set('SAVE_CRITERIAS', 'criterias/save/<id_event>', array('id_event' => $D
  * @params [INT] id_event - identify of event
  * @example http://votepad.ru/criterias/get/3
  */
-Route::set('GET_CRITERIAS', 'criterias/get/<id_event>', array('id_event' => $DIGIT))
+Route::set('GET_CRITERIONS', 'criterias/get/<id_event>', array('id_event' => $DIGIT))
     ->defaults(array(
-        'controller' => 'Criterias_Ajax',
+        'controller' => 'Criterions_Ajax',
         'action' => 'get'
     ));

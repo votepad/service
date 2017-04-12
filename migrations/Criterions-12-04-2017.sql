@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1:3306
--- Время создания: Апр 12 2017 г., 12:28
+-- Время создания: Апр 12 2017 г., 19:14
 -- Версия сервера: 5.5.53
 -- Версия PHP: 5.6.29
 
@@ -23,10 +23,10 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Структура таблицы `criterias`
+-- Структура таблицы `Criterions`
 --
 
-CREATE TABLE `criterias` (
+CREATE TABLE `Criterions` (
   `id` int(11) NOT NULL,
   `event` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
@@ -41,9 +41,9 @@ CREATE TABLE `criterias` (
 --
 
 --
--- Индексы таблицы `criterias`
+-- Индексы таблицы `Criterions`
 --
-ALTER TABLE `criterias`
+ALTER TABLE `Criterions`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -51,9 +51,9 @@ ALTER TABLE `criterias`
 --
 
 --
--- AUTO_INCREMENT для таблицы `criterias`
+-- AUTO_INCREMENT для таблицы `Criterions`
 --
-ALTER TABLE `criterias`
+ALTER TABLE `Criterions`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
