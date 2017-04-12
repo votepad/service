@@ -1,56 +1,87 @@
-<?php defined('SYSPATH') or die('No direct script access.');
-/**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 16.04.2016
- * Time: 13:13
- */
+<?php
 
+/**
+ * Class Controller_Judges_Ajax
+ */
 class Controller_Judges_Ajax extends Ajax {
 
-    public function action_setScore()
+    public function action_save()
     {
-        /**
-         * Не впускать прямые Get запросы
-         */
+        $response = array();
 
-        if ( !parent::_is_ajax())
-            $this->request('/');
+        try {
 
-        $id_event       = Arr::get($_POST, 'id_event');
-        $id_stage       = Arr::get($_POST, 'id_stage');
-        $id_criteria    = Arr::get($_POST, 'id_criteria');
-        $id_participant = Arr::get($_POST, 'id_participant');
-        $id_judge       = Arr::get($_POST, 'id_judge');
-        $score          = Arr::get($_POST, 'score');
+            $decodedData = json_decode(Arr::get($_POST, 'list'), true);
 
-        Model_Score::set($id_event, $id_participant, $id_stage, $id_criteria, $id_judge, $score);
+            foreach($decodedData as $judge) {
 
-        return true;
-    }
+                $model = new Model_Judge(Arr::get($judge, 'id'));
+                $event = $this->request->param('id_event');
 
-    public function action_getCriteriaScore()
-    {
-        /**
-         * Не впускать прямые Get запросы
-         */
+                $model->name     = Arr::get($judge,'name','');
+                $model->password = Arr::get($judge,'password','');
 
-        if ( !parent::_is_ajax())
-            $this->request('/');
+                $status = Arr::get($judge, 'status');
 
-        $id_participant = Arr::get($_POST, 'id_participant');
-        $id_stage       = Arr::get($_POST, 'id_stage');
-        $id_judge       = Arr::get($_POST, 'id_judge');
+                switch ($status) {
+                    case Methods_Judges::UPDATE:
+                        $model = $model->update();
+                        break;
+                    case Methods_Judges::INSERT:
+                        $model->event = $event;
+                        $model = $model->save();
+                        break;
+                    case Methods_Judges::DELETE:
+                        $model->delete();
+                        break;
+                }
 
-        $result = Model_Score::getCriteriasWithScores($id_judge, $id_stage, $id_participant);
 
-        for($i = 0; $i < count($result); $i++)
-        {
-            $criteria = Model_Stages::getCriteria($result[$i]['id_criteria']);
+                if ($status != Methods_Judges::DELETE) {
+                    $response[] = array(
+                        'id' => $model->id,
+                        'name' => $model->name,
+                        'password' => $model->password,
+                        'status' => ''
+                    );
+                }
 
-            $ans[$i]['name'] = $criteria['name'];
-            $ans[$i]['score'] = $result[$i]['score'];
+
+            }
+
+        } catch (Exception $exception) {
+
+            $response = false;
+
         }
-        echo json_encode($ans);
+
+        usort($response, function($a, $b) {
+            return $a['id'] - $b['id'];
+        });
+
+        $this->response->body(@json_encode($response));
     }
+
+    public function action_get()
+    {
+        $id_event = $this->request->param('id_event');
+
+        $judges = Methods_Judges::getByEvent($id_event);
+
+        $arr = array();
+
+        foreach($judges as $judge) {
+            $arr[] = array(
+                'id'     => $judge->id,
+                'name'   => $judge->name,
+                'password'  => $judge->password ?: "",
+                'status' => ''
+            );
+        }
+        $this->response->body(@json_encode($arr));
+
+    }
+
+
+
 }

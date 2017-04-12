@@ -1,12 +1,8 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php
 
 /**
- * @author Khaydarov Murod
+ * Class Controller_Judges_Index
  */
-
-
 class Controller_Judges_Index extends Dispatch {
 
 }
-
-?>
