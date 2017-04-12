@@ -10,7 +10,7 @@
         <? endif; ?>
 
         <div class="user-info__avatar">
-            <img src="<?=$assets; ?>img/logo.jpg" alt="User Avatar">
+            <img src="/uploads/profiles/<?=$profile->avatar; ?>">
         </div>
 
         <div class="user-info__description row">
@@ -41,7 +41,7 @@
                                 <a class="edit-user-info__avatar-edit">
                                     <i class="fa fa-2x fa-camera" aria-hidden="true"></i>
                                 </a>
-                                <img src="<?=$assets; ?>img/logo.jpg" alt="User Avatar">
+                                <img src="/uploads/profiles/<?=$profile->avatar; ?>" id="user-avatar">
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-auto edit-user-info__fio">
@@ -94,6 +94,9 @@
                         </div>
                     </div>
                 </div>
+
+                <input type="text" name="avatar" value="<?=$profile->avatar; ?>" id="input-avatar" hidden>
+
                 <div class="modal-footer clear_fix">
                     <div class="col-xs-12">
                         <button type="button" class="btn btn_default col-xs-12 col-md-auto" data-dismiss="modal">Отмена</button>

@@ -65,3 +65,7 @@
   margin-left: -1em;
   color: rgb(252, 252, 252);
 }
+
+.icon-cancel:before {
+    content: '\e806';
+}

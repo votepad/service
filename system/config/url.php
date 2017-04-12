@@ -10,7 +10,7 @@ return array(
 		'192.168.0.103',
 		'192.168.10.2',
         'nwe',
-        'service',
+        'votepad.local'
 		// Set up your hostnames here
 		//
 		// Example:

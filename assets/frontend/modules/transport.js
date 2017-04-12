@@ -4,98 +4,76 @@
 
 var transport = (function(transport) {
 
-    /**
-     * @protected
-     *
-     * Native ajax method.
-     * @param {Object} data - Callbacks and data
-     */
-    transport.ajax = function (data) {
+    /** transport settings */
+    var settings_ = null;
 
-        if (!data || !data.url){
-            return;
-        }
-
-        var XMLHTTP          = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject("Microsoft.XMLHTTP"),
-            success_function = function(){};
-
-        data.async           = true;
-        data.type            = data.type || 'GET';
-        data.data            = data.data || '';
-        data['content-type'] = data['content-type'] || 'application/json; charset=utf-8';
-        success_function     = data.success || success_function ;
-
-        if (data.type == 'GET' && data.data) {
-            data.url = /\?/.test(data.url) ? data.url + '&' + data.data : data.url + '?' + data.data;
-        }
-
-        if (data.withCredentials) {
-            XMLHTTP.withCredentials = true;
-        }
-
-        if (data.beforeSend && typeof data.beforeSend == 'function') {
-            data.beforeSend.call();
-        }
-
-        XMLHTTP.open( data.type, data.url, data.async );
-        XMLHTTP.setRequestHeader("Content-type", data['content-type'] );
-        XMLHTTP.setRequestHeader("X-Requested-With", "XMLHttpRequest");
-        XMLHTTP.onreadystatechange = function() {
-            if (XMLHTTP.readyState == 4 && XMLHTTP.status == 200) {
-                success_function(XMLHTTP.responseText);
-            }
-        };
-
-        XMLHTTP.send(data.data);
-
-    };
+    /** input */
+    var input_  = null;
 
     /**
      * @protected
      *
      * Makes UI elements
      */
-    transport.prepare = function(input) {
-        
-        /**
-         * For handler clicked
-         */
-        nwe.uploader.core.settings.handler.addEventListener('click', function() {
+    var prepare_ = function() {
 
-            input.click();
+        input_ = vp.draw.node('INPUT', '', {
+            type : 'file'
+        });
 
-        }, false);
+        if (settings_.multiple) {
+
+            input_.multiple = true;
+
+        }
+
+        if (settings_.accept) {
+
+            input_.accept = settings_.accept;
+
+        }
+
+        input_.click();
 
         /**
          * When file is selected
          */
-        input.addEventListener('change', transport.fileSelected, false);
-
+        input_.addEventListener('change', fileSelected_, false);
     };
 
-    transport.fileSelected = function() {
+    var fileSelected_ = function() {
 
-        var input = this,
-            files = input.files,
+        var files = input_.files,
             filesLength = files.length,
-            formdData = new FormData(),
-            file,
-            i;
+            formdData = new FormData();
 
         formdData.append('files', files[0], files[0].name);
+        formdData.append('params', JSON.stringify(settings_.params));
 
-        nwe.uploader.transport.ajax({
-
-            url: nwe.uploader.core.settings.server,
+        vp.ajax.send({
+            url: settings_.url,
             type: "POST",
             data: formdData,
-            success: nwe.uploader.core.settings.success,
-            error: nwe.uploader.core.settings.error
-
+            beforeSend: settings_.beforeSend,
+            success: settings_.success,
+            error: settings_.error
         });
 
     };
 
+    transport.init = function (settings) {
+
+        settings_ = settings;
+
+        prepare_();
+
+    };
+
+    transport.getInput = function () {
+
+        return input_;
+
+    };
 
     return transport;
 

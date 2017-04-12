@@ -453,7 +453,8 @@ ul{
 /*
  * Section Size
 */
-.section__content{
+
+.section__content {
 	position: relative;
 	width: 80%;
 	margin: auto;
