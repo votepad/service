@@ -1,10 +1,10 @@
 $(document).ready(function() {
 
-    /*
+    /**
      *  Vars
      */
     var
-        url = "http://pronwe/assets/img/user",
+        pathToImg = window.location.pathname + "//" + window.location.host + "/uploads/participants/",
         edit = document.getElementById('edit'),
         save = document.getElementById('save'),
         table = document.getElementById('participants'),
@@ -22,13 +22,12 @@ $(document).ready(function() {
 
 
 
-    /*
+    /**
      *  Columns Settings
      *
      *  column_disabled - when users are not allowed to edit cells in table
      *  column_edited - when users can edit cells in table
-    */
-
+     */
     column_disabled = [
         {
             data:'photo',
@@ -45,7 +44,6 @@ $(document).ready(function() {
             readOnly: true,
         },
     ];
-
 
     column_edited = [
         {
@@ -68,7 +66,7 @@ $(document).ready(function() {
             data:'about',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я#№!.,:;-_ ]/.test(value) ) {
+                if ( /[^A-Za-z0-9А-Яа-я#№!&.,:;-_ ]/.test(value) ) {
                     callback(false);
                 } else {
                     callback(true);
@@ -79,25 +77,26 @@ $(document).ready(function() {
 
 
 
-    /*
-     * Get data from DB
-    */
+    /**
+     * Get Participants data from DB
+     */
     $.when(
 
         $.ajax({
             url : '/participants/get/' + idEvent,
             type: "POST",
-            success: function(data, response) {
-                get_array = JSON.parse(data);
-                hot_array = JSON.parse(data);
+            success: function(data) {
                 if ( data == 'null' ){
                     hot_array = [];
                     get_array = [];
+                } else {
+                    get_array = JSON.parse(data);
+                    hot_array = JSON.parse(data);
                 }
                 hot.loadData(hot_array);
             },
             error: function(response) {
-                console.log("Something wrong");
+                console.log("Error while getting elements: " + response);
             },
         })
 
@@ -113,9 +112,9 @@ $(document).ready(function() {
 
 
 
-     /*
+     /**
       *  Handsontable settings
-     */
+      */
      hot_settings = {
          data: hot_array,
 		 rowHeaders: true,
@@ -126,16 +125,16 @@ $(document).ready(function() {
      };
 
 
-    /*
+    /**
      *  Create Handsontable
-    */
+     */
     hot = new Handsontable(table, hot_settings);
 
 
 
-    /*
+    /**
      *  Edit participants
-    */
+     */
 
     Handsontable.Dom.addEvent(edit, 'click', function() {
 
@@ -153,9 +152,9 @@ $(document).ready(function() {
 
 
 
-    /*
+    /**
      *  Checking on empty FIO cell
-    */
+     */
     hot.addHook('afterValidate', function(isValid, value, row, prop, source){
         if ( prop != 'name' && hot.getDataAtCell(row, 1) === null ) {
             hot.setDataAtCell(row, 1, "");
@@ -164,16 +163,16 @@ $(document).ready(function() {
     });
 
 
-    /*
+    /**
      *  Save participants
-    */
+     */
     Handsontable.Dom.addEvent(save, 'click', function(el) {
-
+        output_array = [];
         hot.validateCells(function(valid){
 
             if ( valid == true ) {
 
-                $('#participants').addClass('whirl');
+                table.classList.add('whirl');
                 save.className = "displaynone";
 
                 hot.updateSettings({
@@ -186,11 +185,6 @@ $(document).ready(function() {
                     hot.alter('remove_row', hot.countRows() - 1);
                 }
 
-
-
-                /*
-                 *  Update Data via Ajax
-                */
 
                 // when participants NOT existed
                 if ( get_array.length == 0 ) {
@@ -238,6 +232,8 @@ $(document).ready(function() {
                                     if ( ! is_similar (get_array[i], hot_array[j]) ) {
                                         hot_array[j]['status'] = "update";
                                         output_array.push(hot_array[j]);
+                                    } else {
+                                        output_array.push(hot_array[j]);
                                     }
                                 }
 
@@ -246,49 +242,73 @@ $(document).ready(function() {
                         }
 
                     }
+
                 }
 
-                dataToSave = JSON.stringify(output_array);
+
+                if (output_array.length == 0 ) {
+
+                    table.classList.remove('whirl');
+                    edit.className = "pull-right displayblock";
+
+                } else {
+
+                    dataToSave = JSON.stringify(output_array);
 
 
-                /**
-                 *  Send information to DB
-                 */
-                $.ajax({
-                    url : '/participants/add/' + idEvent,
-                    type: "POST",
-                    data: {
-                        list: dataToSave
-                    },
-                    success: function(response) {
-                        console.log(response);
-                        // if true - success updating
-                        // else    - some problems
-                        if (response == 'true') {
-                            $.notify({
-                            	message: 'Инфомация об участниках успешно обновлена.'
-                            },{
-                            	type: 'success'
-                            });
-                            document.location.reload();
+                    /**
+                     *  Send information to DB
+                     */
+                    $.ajax({
+                        url : '/participants/save/' + idEvent,
+                        type: "POST",
+                        data: {
+                            list: dataToSave
+                        },
+                        success: function(response) {
+                            //console.log(response);
+                            // if true - success updating
+                            // else    - some problems
+                            if (response) {
+                                $.notify({
+                                    message: 'Инфомация об участниках успешно обновлена.'
+                                },{
+                                    type: 'success'
+                                });
 
-                        } else {
-                            $.notify({
-                            	message: 'Что-то пошло не так... Данные не сохранены.'
-                            },{
-                            	type: 'warning'
-                            });
-                            hot.updateSettings({
-                                minSpareRows: 1,
-                                columns: column_edited
-                            });
-                            save.className = "pull-right displayblock";
+                                get_array = JSON.parse(response);
+                                hot_array = JSON.parse(response);
+
+                                hot.loadData(hot_array);
+                                checking_on_empty_table("save");
+                                table.classList.remove('whirl');
+                                edit.className = "pull-right displayblock";
+
+                            } else {
+                                $.notify({
+                                    message: 'Что-то пошло не так... Данные не сохранены.'
+                                },{
+                                    type: 'warning'
+                                });
+                                hot.updateSettings({
+                                    minSpareRows: 1,
+                                    columns: column_edited
+                                });
+
+                                save.className = "pull-right displayblock";
+
+                                table.classList.remove('whirl');
+                                calculateSize();
+                            }
+                        },
+                        error: function(response) {
+                            console.log("Error while ajax sending");
                         }
-                    },
-                    error: function(response) {
-                        console.log("Something wrong");
-                    }
-                })
+                    });
+
+                }
+
+
 
             } else {
 
@@ -305,7 +325,9 @@ $(document).ready(function() {
     });
 
 
-
+    /**
+     * Remove empty rows
+     */
     hot.addHook('afterChange', function(changes, source) {
         
         for (var i = 0; i < hot.countRows(); i++) {
@@ -326,16 +348,12 @@ $(document).ready(function() {
     });
 
 
-
-
-
-    /*
-     *  Find element in output_array
-     *  in   @element
-     *  return true || false
-    */
+    /**
+     * Find element in output_array
+     * @param element
+     * @returns {boolean}
+     */
     function find_output_el(element) {
-
         for (var i = 0; i < output_array.length; i++) {
             if (output_array[i]['status'] == "insert") {
                 if (element['name'] == output_array[i]['name'] && element['photo'] == output_array[i]['photo'] && element['about'] == output_array[i]['about'])
@@ -344,43 +362,40 @@ $(document).ready(function() {
                 }
             }
         }
-
         return false;
-
     }
 
 
-
-    /*
-     *  Compare two arrays
-     *  in   @array1, @array2
-     *  return true || false
-    */
+    /**
+     * Compare two arrays
+     * @param array1
+     * @param array2
+     * @returns {boolean}
+     */
     function is_similar (array1, array2) {
-
-        if (array1['name'] == array2['name'] && array1['photo'] == array2['photo'] && array1['about'] == array2['about'])
-        {
+        if (array1['name'] == array2['name'] && array1['photo'] == array2['photo'] && array1['about'] == array2['about']) {
             return true;
         }
-
         return false;
-
     }
 
 
 
-    /*
+    /**
      * Checking Table on existing one empty row
+     *
      * if empty row - hide table -> open info
      * if exist row - open table -> hide info
-    */
+     */
     function checking_on_empty_table(action) {
         if (hot.isEmptyRow(0) && action == "save" ) {
-            $('#participants').removeClass('displayblock').addClass('displaynone');
+            table.classList.remove('displayblock');
+            table.classList.add('displaynone');
             $('#table_wrapper').append('<div id="no_participants" class="text-center"><h4>Участники ещё не созданы, для создания списка участников нажмите на иконку <i class="fa fa-edit" aria-hidden="true"></i></h4></div>');
             return true;
         } else {
-            $('#participants').removeClass('displaynone').addClass('displayblock');
+            table.classList.remove('displaynone');
+            table.classList.add('displayblock');
             $('#no_participants').remove();
             return false;
         }
@@ -388,17 +403,17 @@ $(document).ready(function() {
 
 
 
-     /*
-      *  Calculate columns size on resize window
-     */
+     /**
+      * Calculate columns size on resize window
+      */
      Handsontable.Dom.addEvent(window, 'resize', calculateSize);
 
 
 
-     /*
+     /**
       *  Calculate columns size for table
       *  versions: mobile (<680px),  table(<992px) and  desctop (>992px)
-     */
+      */
      function calculateSize() {
 
          // mobile settings
@@ -449,10 +464,9 @@ $(document).ready(function() {
      }
 
 
-    /*
+    /**
      *  Settings for image renderer
-    */
-
+     */
     function imageRenderer (instance, td, row, col, prop, value, cellProperties) {
 
         var img = document.createElement('IMG');
@@ -462,7 +476,7 @@ $(document).ready(function() {
         img.className = "table-photo-logo";
 
         if (value != null && value != "")
-            img.src = url + value;
+            img.src = pathToImg + value;
 
         td.appendChild(img);
 
