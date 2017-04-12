@@ -4,7 +4,7 @@
  * Class Model_Criterion
  * CRUD
  */
-class Model_Criterion extends Model {
+class Model_Criteria extends Model {
 
     public $id;
     public $event;
@@ -47,8 +47,9 @@ class Model_Criterion extends Model {
 
     }
 
+
     /**
-     * Saves User to Database
+     * Saves Criteria to Database
      */
     public function save()
     {
@@ -63,14 +64,15 @@ class Model_Criterion extends Model {
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
 
     }
 
+
     /**
-     * Updates Criterion data in database
+     * Updates Criteria data in database
      *
-     * @return Model_Criterion
+     * @return Model_Criteria
      */
     public function update()
     {
@@ -88,6 +90,21 @@ class Model_Criterion extends Model {
 
         return $this->get_($this->id);
 
+    }
+
+
+    /**
+     * Delete Criteria data in database
+     *
+     * @return Model_Criteria
+     */
+    public function delete() {
+        $delete = Dao_Criteria::delete()
+            ->where('id', '=', $this->id)
+            ->clearcache($this->id)
+            ->clearcache('event:' . $this->event)
+            ->execute();
+        return $delete;
     }
 
 }
