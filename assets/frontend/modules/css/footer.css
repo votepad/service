@@ -31,7 +31,7 @@
 
 .footer__brand,
 .footer__brand-icon {
-    font-size: 2em;
+    font-size: 2em !important;
     margin-bottom: 10px;
 }
 .footer__text {

@@ -18,7 +18,7 @@
             <span class="footer__text displayblock">результатов голосования</span>
         </div>
         <div class="footer__nav footer__nav--left fl_l">
-            <a href="#" class="footer__text footer__link">Мероприятия</a>
+            <a href="/#events" class="footer__text footer__link toEvents">Мероприятия</a>
             <a href="#" class="footer__text footer__link">Организации</a>
         </div>
     </div>
