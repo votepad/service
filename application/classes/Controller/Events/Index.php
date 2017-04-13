@@ -162,9 +162,21 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_stages()
     {
+
+        $stages = Methods_Stages::getByEvent($this->event->id);
+        $characters = array(
+            'participants' => Methods_Participants::getByEvent($this->event->id),
+            'teams'        => Methods_Teams::getAllTeams($this->event->id),
+            //'groups'       => Methods_Participants::getByEvent($this->event->id)
+        );
+        $criterions = Methods_Criterions::getJSON($this->event->id);
+
         $this->template->mainSection = View::factory('events/scenario/stages')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('organization', $this->organization)
+            ->set('stages', $stages)
+            ->set('characters', $characters)
+            ->set('criterions', $criterions);
 
         $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
             ->set('event', $this->event);
