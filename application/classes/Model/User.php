@@ -44,12 +44,12 @@ Class Model_User {
     /**
      * @var $avatar
      */
-    public $avatar;
+    public $avatar = 'no-avatar.png';
 
     /**
      * @var $branding
      */
-    public $branding;
+    public $branding = 'no-cover.png';
 
     /**
      * @var $isConfirmed
@@ -175,8 +175,10 @@ Class Model_User {
 
         $orgs = array();
 
-        foreach ($ids as $id => $value) {
-            array_push($orgs, new Model_Organization($id));
+        if (!empty($ids)) {
+            foreach ($ids as $id => $value) {
+                array_push($orgs, new Model_Organization($id));
+            }
         }
 
         return $orgs;

@@ -10,7 +10,7 @@
         <? endif; ?>
 
         <div class="user-info__avatar">
-            <img src="/uploads/profiles/<?=$profile->avatar; ?>">
+            <img src="/uploads/profiles/avatar/<?=$profile->avatar; ?>">
         </div>
 
         <div class="user-info__description row">
@@ -41,7 +41,7 @@
                                 <a class="edit-user-info__avatar-edit">
                                     <i class="fa fa-2x fa-camera" aria-hidden="true"></i>
                                 </a>
-                                <img src="/uploads/profiles/<?=$profile->avatar; ?>" id="user-avatar">
+                                <img src="/uploads/profiles/avatar/<?=$profile->avatar; ?>" id="user-avatar">
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-auto edit-user-info__fio">
