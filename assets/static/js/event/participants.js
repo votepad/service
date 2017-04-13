@@ -490,7 +490,7 @@ $(document).ready(function() {
         Handsontable.Dom.addEvent(img, 'click', function (e){
 
             if (!isEdited) {
-                $.notify({ message: 'Пожалейста, нажмите кнопку редактировать: <i class="fa fa-edit" aria-hidden="true"></i>' }, { type: 'warning' })
+                $.notify({ message: 'Пожалуйста, нажмите кнопку редактировать: <i class="fa fa-edit" aria-hidden="true"></i>' }, { type: 'warning' })
                 return;
             }
 
