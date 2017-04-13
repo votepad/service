@@ -357,7 +357,7 @@ $(document).ready(function () {
     var noorgs = document.createElement('div');
     noorgs.id = "noOrgs";
     noorgs.style = "padding: 20px;text-align: center;";
-    noorgs.innerHTML = "У Вас нет организаци. Вы можете <b><a href='/organization/new' class='underlinehover'>создать организацию</a></b>";
+    noorgs.innerHTML = "Организации не созданы.";
 
     var checkNumberOfOrgs = function () {
 
