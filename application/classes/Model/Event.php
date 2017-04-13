@@ -132,7 +132,7 @@ class Model_Event extends Model
     public function update()
     {
 
-        $insert = Dao_Users::update();
+        $insert = Dao_Events::update();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
