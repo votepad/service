@@ -8,10 +8,10 @@
  * @params [Int] id_event - Identify of event
  * @example http://pronwe.ru/participants/add/3
  */
-Route::set('ADD_PARTICIPANTS', 'participants/add/<id_event>', array('id_event' => $DIGIT))
+Route::set('SAVE_PARTICIPANTS', 'participants/save/<id_event>', array('id_event' => $DIGIT))
     ->defaults(array(
        'controller' => 'Participants_Ajax',
-        'action' => 'add'
+        'action' => 'save'
     ));
 
 /**

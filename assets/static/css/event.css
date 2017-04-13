@@ -135,15 +135,15 @@
 /**
 * Event ID Number
 */
-.eventID{
+.eventCode{
 	text-align: center;
 	margin-bottom: 50px;
 }
-.eventID h2{
+.eventCode h2{
 	margin-bottom: 30px;
 	display: block;
 }
-.eventID-item {
+.eventCode-item {
 	margin: 0 10px;
 	padding: 5px 10px;
 	font-size: 2em;

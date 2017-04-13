@@ -1,11 +1,9 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php
 
 /**
  * Class Controller_Judges_Index
  */
 class Controller_Judges_Index extends Dispatch {
-
-    
     public $template = 'judgepanel/main';
 
     /**
@@ -27,5 +25,3 @@ class Controller_Judges_Index extends Dispatch {
 
     
 }
-
-?>
