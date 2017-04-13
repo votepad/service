@@ -5,10 +5,10 @@
     <meta name="author" content="Votepad" />
     <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/favicon.png" />
 
-    <title>?=$title ?> | Votepad</title>
+    <title><?=$event->name; ?> | Votepad</title>
 
-    <meta name="description" content="?=$description; ?>" />
-    <meta name="keywords" content="?=$keywords; ?>" />
+    <meta name="description" content="<?=$event->description; ?>" />
+    <meta name="keywords" content="<? $arr = array('"','[',']'); echo str_replace($arr, '', $event->tags); ?>,votepad" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
     <!-- =============== VENDOR STYLES ===============-->
@@ -21,10 +21,15 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
+
+    <script type="text/javascript" src="<?=$assets; ?>vendor/moment/moment.min.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/moment/plugins/moment-timer.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>vendor/moment/locale/ru.js"></script>
+
     <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/landing.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>frontend/modules/css/footer.css?v=<?= filemtime("assets/frontend/modules/css/footer.css") ?>">
+
     <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js?v=<?= filemtime("assets/frontend/bundles/votepad.bundle.js") ?>"></script>
 
 </head>
@@ -38,7 +43,7 @@
             <i class="fa fa-bars" aria-hidden="true"></i>
         </div>
         <div class="header-landing__menu animated fl_l">
-            <a href="" class="header-landing__link">
+            <a href="<?=URL::site('event/' . $event->id); ?>" class="header-landing__link">
                 Главная
             </a>
             <!--<a role="button" class="header-landing__link toDescription">
@@ -73,12 +78,12 @@
 
         <div class="jumbotron-landing valign">
             <div class="container" style="z-index: 2">
-                <a href="" class="jumbotron-landing__title">Event name</a>
+                <a href="<?=URL::site('event/' . $event->id); ?>" class="jumbotron-landing__title"><?=$event->name; ?></a>
             </div>
             <div class="jumbotron-filter"></div>
 
             <div class="parallax">
-                <img id="" src="<?=$assets; ?>static/img/welcome/bg1.jpg">
+                <img id="" src="/uploads/events/branding/<?=$event->branding; ?>">
             </div>
 
         </div>
@@ -88,17 +93,16 @@
             <div class="col-xs-12 col-md-4 event-info__block event-info__block--border">
 
                 <i class="fa fa-clock-o event-info__icon text-brand" aria-hidden="true"></i>
-                <span id="time-counter" class="event-info__h1">Xthtp 5 lytq </span>
-                <span class="event-info__h2">17 декабря 19:00-21:00</span>
+                <span id="eventTimeBefore" class="event-info__h1">Xthtp 5 lytq </span>
+                <span id="eventTime" class="event-info__h2">17 декабря 19:00-21:00</span>
             </div>
             <div class="col-xs-12 col-md-4 event-info__block event-info__block--border">
                 <i class="fa fa-map-marker event-info__icon text-brand" aria-hidden="true"></i>
-                <span class="event-info__h1">Санкт-Петербург</span>
-                <span class="event-info__h2">ул. Ломоносова, 9</span>
+                <span class="event-info__h1"><?=$event->address; ?></span>
             </div>
             <div class="col-xs-12 col-md-4 event-info__block">
                 <i class="fa fa-flag event-info__icon text-brand" aria-hidden="true"></i>
-                <a href="" class="event-info__h1">Университет ИТМО</a>
+                <a href="<?=URL::site('organization/' . $organization->id); ?>" class="event-info__h1"><?=$organization->name; ?></a>
                 <span class="event-info__h2"></span>
             </div>
         </div>
@@ -121,13 +125,7 @@
 <footer class="footer">
     <div class="container">
         <div class="p-t-30 m-b-20 clear_fix">
-            <div class="footer__nav fl_r">
-                <div class="footer__social">
-                    <a href="//vk.com/votepad" class="footer__social-link vk"><i class="footer__social-icon fa fa-vk" aria-hidden="true"></i></a>
-                    <a href="//twitter.com/votepadevent" class="footer__social-link tw"><i class="footer__social-icon fa fa-twitter" aria-hidden="true"></i></a>
-                </div>
-            </div>
-            <div class="footer__logo fl_l">
+            <div class="footer__block fl_l">
                 <span class="footer__brand-icon icon-leadership">
                     <span class="footer__text path1 fl_l"></span>
                     <span class="path2 fl_l"></span>
@@ -136,9 +134,16 @@
                     <span class="footer__text path5 fl_l"></span>
                 </span>
 
-                <span class="footer__text footer__brand">Votepad</span>
+                <a href="<?=URL::base(); ?>" class="footer__text footer__brand">Votepad</a>
                 <span class="footer__text displayblock">Автоматизированный подсчёт</span>
                 <span class="footer__text displayblock">результатов голосования</span>
+            </div>
+            <div class="footer__block fl_r">
+                <div class="footer__social">
+                    <a href="//vk.com/votepad" class="footer__social-link vk"><i class="footer__social-icon fa fa-vk" aria-hidden="true"></i></a>
+                    <a href="//twitter.com/votepadevent" class="footer__social-link tw"><i class="footer__social-icon fa fa-twitter" aria-hidden="true"></i></a>
+                    <br><a href="mailto:team@votepad.ru" class="footer__email footer__text footer__link">votepad@ya.ru</a>
+                </div>
             </div>
         </div>
     </div>

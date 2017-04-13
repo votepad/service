@@ -21,4 +21,7 @@ $(document).ready(function () {
         $('body').animate({ scrollTop: $('#eventResult').offset().top }, 600);
     });
 
+
+    //eventTime
+
 });

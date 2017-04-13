@@ -52,7 +52,7 @@
 }
 
 .jumbotron-landing{
-    height: 350px;
+    height: 450px;
     position: relative;
     width: 100%;
 }
@@ -65,6 +65,7 @@
     bottom: 0;
     background: #000;
     opacity: .7;
+    z-index: 1;
 }
 .jumbotron-landing__title{
     display: inline-block;
@@ -117,6 +118,70 @@
 
 
 
+
+
+
+
+/* footer small */
+.footer {
+    display: block;
+    width: 100%;
+    margin-top: 50px;
+    background-color: #008DA7;
+}
+
+.footer__text {
+    color: #FCFCFC;
+    text-shadow: 0 0 3px rgba(0,0,0,0.5);
+}
+
+.footer__brand,
+.footer__brand-icon {
+    color: #FCFCFC;
+    font-size: 2em;
+    margin-bottom: 5px;
+}
+
+.footer__brand {
+    margin-left: 15px;
+    vertical-align: top;
+}
+
+.footer__social{
+    text-align: center;
+}
+.footer__social-link {
+    display: inline-block;
+    border-radius: 25px;
+    width: 30px;
+    height: 30px;
+    padding: 7px;
+    margin: 10px;
+    font-size: .9em;
+    color: #fcfcfc !important;
+}
+
+.footer__social-link.tw {
+    background: #55ACEE;
+}
+.footer__social-link.vk {
+    background: #5378A3;
+}
+
+.footer__social-link:hover,
+.footer__social-link:focus {
+    opacity: .85;
+}
+
+
+
+
+
+
+
+
+
+
 @media (max-width: 992px) {
     .event-info__block{
         padding: 0 10px;
@@ -155,8 +220,47 @@
         padding: 10px 0;
     }
 
-
+    .footer__block{
+        text-align: center;
+        margin: 10px 0;
+        width: 100%;
+    }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 .event-title{
@@ -457,26 +561,6 @@
     text-align: center;
     margin-right: 3px;
 }
-.fa-vk{
-    color: #45668e;
-}
-.fa-twitter{
-    color: #00aced;
-}
-.nwe-about_social:hover > span{
-    color: #0097A7;
-    border-bottom:1px dashed #0097A7;
-}
-
-
-
-
-
-
-
-
-
-
 
 
 
