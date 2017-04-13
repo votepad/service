@@ -1,12 +1,17 @@
 $(document).ready(function() {
 
 
-    /*formula.create(document.getElementById('formula_stage_1'), {
-        mode: "print",
-        allItems: document.getElementById('allCriterias').dataset.items,
-        curItems: document.getElementById('Criterias_Stage1').dataset.items
+    $('.formula-print').each(function () {
+
+        formula.create(document.getElementById(this.id), {
+            mode: "print",
+            allItems: document.getElementById('allCriterias').dataset.items,
+            curItems: this.dataset.items
+        });
+
     });
-*/
+
+
     var newStageFormula = formula.create(document.getElementById('formula_newstage'), {
         mode: "create",
         allItems: document.getElementById('allCriterias').dataset.items
@@ -16,13 +21,14 @@ $(document).ready(function() {
     /**
      * Vars
      */
-    var url = "",
-        card, id, name, description, part, team, group, formula_input, formula_area,
+    var urlImgPart = window.location.protocol + '//' + window.location.host + '/uploads/participants/',
+        urlImgTeam = window.location.protocol + '//' + window.location.host + '/uploads/teams/',
+        card, id, name, description, part, team, group,
         modal_name = document.getElementById('editstage_name'),
         modal_description = document.getElementById('editstage_description'),
         modal_members = document.getElementById('editstage_members'),
-        modal_formula_input = document.getElementById('editstage_formula'),
-        modal_formula_area = document.getElementById('editstage_formula_area');
+        parts_not_distributed = document.getElementById('newstage_participants').innerHTML,
+        teams_not_distributed = document.getElementById('newstage_teams').innerHTML;
 
 
 
@@ -63,11 +69,11 @@ $(document).ready(function() {
      */
     var select2Parts = $('#newstage_participants').select2({
         language: 'ru',
-        templateResult: render_image_for_select2
+        templateResult: renderPartImg
     }),
     select2Teams = $('#newstage_teams').select2({
         language: 'ru',
-        templateResult: render_image_for_select2
+        templateResult: renderTeamImg
     }),
     select2Groups = $("#newstage_groups").select2({
         language: 'ru',
@@ -129,10 +135,8 @@ $(document).ready(function() {
     $("#allParts").on("click", function () {
         if ( document.getElementById("allParts").checked == true) {
             select2Parts.val(select2Parts_val).trigger("change");
-            document.getElementById("newstage_participants").disabled = true;
         } else{
             select2Parts.val("").trigger("change");
-            document.getElementById("newstage_participants").disabled = false;
         }
     });
 
@@ -142,10 +146,8 @@ $(document).ready(function() {
     $("#allTeams").on("click", function () {
         if ( document.getElementById("allTeams").checked == true) {
             select2Teams.val(select2Teams_val).trigger("change");
-            document.getElementById("newstage_teams").disabled = true;
         } else{
             select2Teams.val("").trigger("change");
-            document.getElementById("newstage_teams").disabled = false;
         }
     });
 
@@ -155,10 +157,8 @@ $(document).ready(function() {
     $("#allGroups").on("click", function () {
         if ( document.getElementById("allGroups").checked == true) {
             select2Groups.val(select2Groups_val).trigger("change");
-            document.getElementById("newstage_groups").disabled = true;
         } else{
             select2Groups.val("").trigger("change");
-            document.getElementById("newstage_groups").disabled = false;
         }
     });
 
@@ -168,8 +168,7 @@ $(document).ready(function() {
      * Btn Submit newstage form including validation
      */
     $('#newstage').submit(function() {
-        var stat_1, stat_2, stat_3, stat_4,
-            formula_val = [];
+        var stat_1, stat_2, stat_3, stat_4;
 
         stat_1 = checking_el_valid($('#newstage_name'), '');
         stat_2 = checking_el_valid($('#newstage_description'), '');
@@ -208,26 +207,7 @@ $(document).ready(function() {
     $('body').on('blur', 'input[type="text"], textarea', function(){
         checking_el_valid($(this));
     });
-
-
-    /**
-     * On load Add hidden class on long text in card_content-text
-     */
-    $('.card').each(function () {
-        var first = $('.card_content-text:nth-child(1)', this),
-            second = $('.card_content-text:nth-child(2)', this),
-            third = $('.card_content-text:nth-child(3)', this);
-
-        if (first.height() > 64) {
-            first.addClass('card_height-4em').append('<div class="card_content-text-hidden"  title="Показать полностью"></div>');
-        }
-        if (second.height() > 48) {
-            second.addClass('card_height-3em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
-        }
-        if (third.height() > 64) {
-            third.addClass('card_height-4em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
-        }
-    });
+    
 
 
     /**
@@ -238,34 +218,36 @@ $(document).ready(function() {
         id = card.getAttribute('id');
         name = $.trim(document.getElementById('name_' + id).innerHTML);
         description = $.trim(document.getElementById('description_' + id).innerHTML);
-        part = $.trim(document.getElementById('participants_' + id).innerHTML);
-        team = $.trim(document.getElementById('teams_' + id).innerHTML);
-        group = $.trim(document.getElementById('groups_' + id).innerHTML);
-        formula_input = document.getElementById('formula_input_' + id).value;
-        formula_area = $.trim(document.getElementById('formula_area_' + id).innerHTML);
+        part = document.getElementById('participants_' + id) ? $.trim(document.getElementById('participants_' + id).innerHTML) : '';
+        team = document.getElementById('teams_' + id) ? $.trim(document.getElementById('teams_' + id).innerHTML) : '';
+        //group = $.trim(document.getElementById('groups_' + id).innerHTML);
 
         //  Fill modal information
         modal_name.value = name;
         modal_description.innerHTML = description;
         if ( part == "" && team == "" ) {
-            modal_members.innerHTML = group + groups_not_distributed;
+            //modal_members.innerHTML = group + groups_not_distributed;
         } else if ( part == "" && group == "" ) {
             modal_members.innerHTML = team + teams_not_distributed;
         } else {
             modal_members.innerHTML = part + parts_not_distributed;
         }
-        modal_formula_input.value = formula_input;
-        modal_formula_area.innerHTML = formula_area;
+
 
         // initialize select2
         if ( part == "" && team == "" ) {
             $("#editstage_members").select2({
                 language: 'ru'
             });
+        } else if ( part == "" && group == "" ) {
+            $("#editstage_members").select2({
+                language: 'ru',
+                templateResult: renderTeamImg
+            });
         } else {
             $("#editstage_members").select2({
                 language: 'ru',
-                templateResult: render_image_for_select2
+                templateResult: renderPartImg
             });
         }
 
@@ -291,8 +273,6 @@ $(document).ready(function() {
         modal_name.value = "";
         modal_description.innerHTML = "";
         modal_members.innerHTML = "";
-        modal_formula_input.value = "";
-        modal_formula_area.innerHTML = "";
         $("#editstage_members").select2("destroy");
     });
 
@@ -301,34 +281,25 @@ $(document).ready(function() {
      * Save Modification in Modal Form
      */
     $('#editstage_modal').submit(function(){
-        var form = $('#editstage_modal'),
-            stat_1 = checking_el_valid($('#editstage_name'),''),
+        var stat_1 = checking_el_valid($('#editstage_name'),''),
             stat_2 = checking_el_valid($('#editstage_description'),''),
             stat_3 = checking_el_valid($('#editstage_members'),''),
-            stat_4, formula_val = [];
+            stat_4;
 
-        /* add value to input for formula */
-        $('#editstage_formula_area .item').each(function(i){
-            var data = $(this)[0].dataset;
-            formula_val.push(data.val);
-        });
 
-        if (formula_val.length == 0) {
-            document.getElementById('editstage_formula_area').className = "dragable-inputarea invalid"
-            stat_4 = false;
+        if (true) {
+
         } else {
-            modal_formula_input.value = JSON.stringify(formula_val);
-            stat_4 = true;
+
         }
 
-        if ( stat_1 == true && stat_2 == true && stat_3 == true && stat_4 == true) {
-            form[0].submit();
-        } else {
+        if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             },{
                 type: 'danger'
             });
+            return false;
         }
     });
 
@@ -403,12 +374,22 @@ $(document).ready(function() {
     /**
      * Function for Rendering Image for select2 elements
      */
-    function render_image_for_select2 (el) {
+    function renderPartImg (el) {
         if (!el.id) {
             return el.text;
         }
         var $el = $(
-            '<span class="select2-results__withlogo"><img src="' + url + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
+            '<span class="select2-results__withlogo"><img src="' + urlImgPart + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
+        );
+        return $el;
+    }
+
+    function renderTeamImg (el) {
+        if (!el.id) {
+            return el.text;
+        }
+        var $el = $(
+            '<span class="select2-results__withlogo"><img src="' + urlImgTeam + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
         );
         return $el;
     }

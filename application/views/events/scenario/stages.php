@@ -59,10 +59,10 @@
                                 <input type="radio" id="team" name="partORteamORgroup" value="teams">
                                 <label for="team">команды</label>
                             </div>
-                            <div class="radio-block">
+                            <!--<div class="radio-block">
                                 <input type="radio" id="group" name="partORteamORgroup" value="groups">
                                 <label for="group">группы</label>
-                            </div>
+                            </div>-->
                             <div class="">
                                 <input type="checkbox" id="allParts">
                                 <label for="allParts">Все участники</label>
@@ -71,13 +71,14 @@
                                 <input type="checkbox" id="allTeams">
                                 <label for="allTeams">Все команды</label>
                             </div>
-                            <div class="displaynone">
+                            <!--<div class="displaynone">
                                 <input type="checkbox" id="allGroups">
                                 <label for="allGroups">Все группы</label>
-                            </div>
+                            </div>-->
                         </div>
                     </div>
                     <div class="row hidden">
+
                         <div id="show_participants" class="input-field">
                             <!-- Participants which are not distributed -->
                             <select name="participants[]" id="newstage_participants" multiple="" class="elements_in_stage">
@@ -89,6 +90,7 @@
                             </select>
                             <label for="newstage_participants">Выберите участников</label>
                         </div>
+
                         <div id="show_teams" class="input-field displaynone">
                             <!-- Teams which are not distributed -->
                             <select name="teams[]" id="newstage_teams" multiple="" class="elements_in_stage">
@@ -100,6 +102,7 @@
                             </select>
                             <label for="newstage_teams">Выберите команды</label>
                         </div>
+
                         <div id="show_groups" class="input-field displaynone">
                             <!-- Groups which are not distributed -->
                             <select name="groups[]" id="newstage_groups" multiple="" class="elements_in_stage">
@@ -111,6 +114,7 @@
                             </select>
                             <label for="newstage_groups">Выберите группы</label>
                         </div>
+
                     </div>
                 </div>
                 <div class="col-sm-12">
@@ -160,8 +164,8 @@
                             <div class="card_content-text">
                                 <i><u>Жюри оценивает:</u></i>
 
-                                <!-- Participants in stage, if they existed -->
                                 <? if ($stage->mode == Methods_Stages::CHARACTER_PARTICIPANTS): ?>
+                                    <!-- Participants in stage, if they existed -->
                                     <span id="participants_stage_<?= $stage->id ?>">
                                         <? foreach ($stage->characters as $participant): ?>
                                             <option value="<?= $participant->id ?>" data-logo="<?= $participant->photo ?>" selected="">
@@ -171,14 +175,14 @@
                                     </span>
                                 <? endif; ?>
 
-                                <!-- Teams in stage, if they existed -->
                                 <? if ($stage->mode == Methods_Stages::CHARACTER_TEAMS): ?>
+                                    <!-- Teams in stage, if they existed -->
                                     <span id="teams_stage_<?= $stage->id ?>">
-                                        <? foreach ($stage->characters as $team): ?>
-                                            <option value="<?= $team->id ?>" data-logo="<?= $team->logo ?>" selected="">
-                                                <?= $team->name ?>
-                                            </option>
-                                        <? endforeach; ?>
+                                            <? foreach ($stage->characters as $team): ?>
+                                                <option value="<?= $team->id ?>" data-logo="<?= $team->logo ?>" selected="">
+                                                    <?= $team->name ?>
+                                                </option>
+                                            <? endforeach; ?>
                                     </span>
                                 <? endif; ?>
 
@@ -192,11 +196,10 @@
 <!--                                        --><?// endforeach; ?>
 <!--                                    </span>-->
 <!--                                --><?// endif; ?>
-                            </div>
+                                </div>
                             <div class="card_content-text">
                                 <i><u>Формула:</u></i>
-                                <span class="hide" id="Criterias_Stage<?= $stage->id ?>" data-items='[]<?= $stage->formula ?>'></span>
-                                <div class="formula inlineblock" id="formula_stage_<?= $stage->id ?>"></div>
+                                <div class="formula formula-print inlineblock" id="formula_stage_<?= $stage->id ?>" data-items='<?= $stage->formula ?>'></div>
                             </div>
                         </div>
                     </div>
@@ -205,6 +208,7 @@
         </div>
 
         <input type="hidden" id="event_id" value="5">
+
 
         <!-- Modal - Update stage Info -->
         <form class="modal fade" id="editstage_modal" role="dialog" aria-labelledby="" method="post" action="">
@@ -240,17 +244,8 @@
                         </div>
                         <div class="row">
 
-                            <div class="input-field">
-                                <input id="editstage_formula" type="hidden" name="formula" value="">
+                            <div class="formula" id="" data-items=""> </div>
 
-                                <label for="editstage_formula_area" data-toggle="tooltip" data-placement="right" title="Перетащите требуемые элементы, расположеные ниже">Задайте формулу</label>
-                            </div>
-
-                            <div role="separator" class="divider"></div>
-
-                            <div id="">
-
-                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
