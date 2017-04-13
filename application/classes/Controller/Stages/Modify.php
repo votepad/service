@@ -56,25 +56,10 @@ class Controller_Stages_Modify extends Dispatch {
      */
     public function action_edit()
     {
+
         $name         = Arr::get($_POST, 'name');
         $description  = Arr::get($_POST, 'description');
-        $participants = Arr::get($_POST, 'participants');
-        $logo         = Arr::get($_POST, 'logo');
-        $id_team      = Arr::get($_POST, 'id_team');
 
-        $team = new Model_Team($id_team);
-
-        if (!$team) {
-            throw new HTTP_Exception_500();
-        }
-
-        $team->name        = $name;
-        $team->description = $description;
-        $team->logo        = $logo;
-
-        $team->update();
-
-        Methods_Teams::updateParticipants($id_team, $participants);
 
         $this->redirect($this->request->referrer());
 

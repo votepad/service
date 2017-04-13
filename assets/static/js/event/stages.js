@@ -24,6 +24,7 @@ $(document).ready(function() {
     var urlImgPart = window.location.protocol + '//' + window.location.host + '/uploads/participants/',
         urlImgTeam = window.location.protocol + '//' + window.location.host + '/uploads/teams/',
         card, id, name, description, part, team, group,
+        modal_form = document.forms.stageModal,
         modal_name = document.getElementById('editstage_name'),
         modal_description = document.getElementById('editstage_description'),
         modal_members = document.getElementById('editstage_members'),
@@ -168,7 +169,7 @@ $(document).ready(function() {
      * Btn Submit newstage form including validation
      */
     $('#newstage').submit(function() {
-        var stat_1, stat_2, stat_3, stat_4;
+/*        var stat_1, stat_2, stat_3, stat_4;
 
         stat_1 = checking_el_valid($('#newstage_name'), '');
         stat_2 = checking_el_valid($('#newstage_description'), '');
@@ -196,7 +197,7 @@ $(document).ready(function() {
             });
             return false;
         }
-
+*/
     });
 
 
@@ -223,6 +224,7 @@ $(document).ready(function() {
         //group = $.trim(document.getElementById('groups_' + id).innerHTML);
 
         //  Fill modal information
+        modal_form.setAttribute('action', '/stages/edit/' + card.dataset.id);
         modal_name.value = name;
         modal_description.innerHTML = description;
         if ( part == "" && team == "" ) {
@@ -299,7 +301,7 @@ $(document).ready(function() {
             },{
                 type: 'danger'
             });
-            return false;
+            //return false;
         }
     });
 

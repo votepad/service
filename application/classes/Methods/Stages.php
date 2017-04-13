@@ -65,11 +65,9 @@ class Methods_Stages extends  Model_Stage
         switch ($mode) {
             case self::CHARACTER_PARTICIPANTS:
                 $characters = Dao_Participants::select();
-                $model = new Model_Participant();
                 break;
             case self::CHARACTER_TEAMS:
                 $characters = Dao_Teams::select();
-                $model = new Model_Team();
                 break;
             /*case self::CHARACTER_GROUPS:
                 $characters = Dao_Groups::select();
@@ -89,6 +87,18 @@ class Methods_Stages extends  Model_Stage
         $result = array();
 
         foreach($characters as $character) {
+
+            switch ($mode) {
+                case self::CHARACTER_PARTICIPANTS:
+                    $model = new Model_Participant();
+                    break;
+                case self::CHARACTER_TEAMS:
+                    $model = new Model_Team();
+                    break;
+                /*case self::CHARACTER_GROUPS:
+                    $characters = Dao_Groups::select();
+                    break;*/
+             }
 
             foreach ($character as $fieldname => $value) {
                 if (property_exists($model, $fieldname)) $model->$fieldname = $value;

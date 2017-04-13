@@ -131,13 +131,13 @@
             </div>
         </form>
 
-
         <!-- Existed Stages -->
         <div class="row row-col">
             <div class="col-sm-12">
 
                 <? foreach ($stages as $stage): ?>
-                    <div class="card clear_fix" action="" id="stage_<?= $stage->id ?>">
+
+                    <div class="card clear_fix" data-id="<?= $stage->id ?>" id="stage_<?= $stage->id ?>">
                         <div class="card_title">
                             <div class="card_title-text" id="name_stage_<?= $stage->id ?>">
                                 <?= $stage->name ?>
@@ -211,7 +211,7 @@
 
 
         <!-- Modal - Update stage Info -->
-        <form class="modal fade" id="editstage_modal" role="dialog" aria-labelledby="" method="post" action="">
+        <form name="stageModal" class="modal fade" id="editstage_modal" role="dialog" aria-labelledby="" method="post" action="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -254,6 +254,7 @@
                     </div>
                 </div>
             </div>
+            <?= Form::hidden('csrf', Security::token()) ?>
         </form>
 
     </section>
