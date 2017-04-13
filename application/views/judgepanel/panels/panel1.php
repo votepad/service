@@ -23,7 +23,26 @@
                 <div id="LOL" class="stages_holder_stage_peoples-criteria-holder"> <!--Критерии для человека-->
 
                     <div class="stages_holder_stage_peoples_criteria_holder-criteria"> <!--Критерий-->
-                        <h1>КЕЕЕК</h1>
+
+                        <div class="pictures">
+                            <img class="lol" src="/assets/static/img/lol.jpg">
+                        </div>
+
+                        <div class="content-block">
+                            <h3 class="text-left">Название организации</h3>
+                            <h4 class="text-left"> Итоговый балл: 13 из 15</h4>
+                            <div>
+                                <div>
+                                    Для оценивания смахните вправо
+                                </div>
+                                <i class="fa fa-hand-o-right" aria-hidden="true"></i>
+                            </div>
+
+
+                        </div>
+
+
+
                     </div>
 
                     <div class="stages_holder_stage_peoples_criteria_holder-criteria"> <!--Критерий-->

@@ -128,6 +128,7 @@
     will-change: all;
     position: relative;
     display: block;
+    height: 130px;
     white-space: nowrap;
     background-color: lightcoral;
     letter-spacing: -0.3em;
@@ -146,4 +147,31 @@
 
 .stages_holder_stage_peoples_criteria_holder-criteria:last-of-type {
     margin: 0;
+}
+
+
+.pictures{
+    height: inherit;
+    float: left;
+}
+
+.lol{
+    margin: 20px 15px;
+    height: calc(130px - 40px);
+}
+
+.content-block{
+    padding: 20px;
+}
+
+h3{
+    font-style: italic;
+    font-weight: normal;
+    color: rgb(0, 0, 0);
+    margin: 0 0 5px 0;
+}
+
+h4{
+    color: rgb(0, 0, 0);
+    margin: 0 0 5px 0;
 }
