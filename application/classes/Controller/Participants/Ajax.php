@@ -18,7 +18,7 @@ class Controller_Participants_Ajax extends Ajax
 
                 $model->name  = Arr::get($participant,'name','');
                 $model->about = Arr::get($participant,'about','');
-                $model->photo = Arr::get($participant,'photo','');
+                $model->photo = Arr::get($participant,'photo','no-participant.png');
 
                 $status = Arr::get($participant, 'status');
 

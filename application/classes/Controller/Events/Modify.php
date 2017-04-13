@@ -51,6 +51,7 @@ class Controller_Events_Modify extends Dispatch
         $event->organization = $id_organization;
 
         $event = $event->save();
+
         $event->addAssistant($this->user->id);
 
         $this->redirect('event/' . $event->id . '/settings');

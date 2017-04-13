@@ -55,7 +55,7 @@
                         <div id="assistant_id<?= $user->id ?>" class="item col-xs-12 col-md-6">
 
                             <a class="item__img-wrap" href="">
-                                <img class="item__img" alt="Assistant" src="">
+                                <img class="item__img" alt="Assistant" src="/uploads/profiles/avatar/<?=$user->avatar; ?>">
                             </a>
 
                             <div class="item__info">

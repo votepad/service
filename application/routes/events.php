@@ -61,7 +61,9 @@ $actioncallback = function(Route $route, $params, Request $request){
     $allowedRoutes = array(
         'settings',
         'control',
-        'landing', 'news', 'results'
+        'landing',
+        'news',
+        'results'
     );
 
     if (!in_array($params['action'], $allowedRoutes)) {
