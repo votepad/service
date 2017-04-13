@@ -3,8 +3,8 @@ $(document).ready(function() {
     /**
      *  Vars
      */
-    var
-        pathToImg = window.location.pathname + "//" + window.location.host + "/uploads/participants/",
+    var isEdited = false,
+        pathToImg = window.location.protocol + "//" + window.location.host + "/uploads/participants/",
         edit = document.getElementById('edit'),
         save = document.getElementById('save'),
         table = document.getElementById('participants'),
@@ -147,7 +147,7 @@ $(document).ready(function() {
             minSpareRows: 1,
             columns: column_edited
         });
-
+        isEdited = true;
     });
 
 
@@ -174,6 +174,8 @@ $(document).ready(function() {
 
                 table.classList.add('whirl');
                 save.className = "displaynone";
+
+                isEdited = false;
 
                 hot.updateSettings({
                     minSpareRows: 0,
@@ -254,8 +256,7 @@ $(document).ready(function() {
                 } else {
 
                     dataToSave = JSON.stringify(output_array);
-
-
+                    
                     /**
                      *  Send information to DB
                      */
@@ -294,6 +295,8 @@ $(document).ready(function() {
                                     minSpareRows: 1,
                                     columns: column_edited
                                 });
+
+                                isEdited = true;
 
                                 save.className = "pull-right displayblock";
 
@@ -485,7 +488,53 @@ $(document).ready(function() {
         *   Change Image  -  update with ajax
         */
         Handsontable.Dom.addEvent(img, 'click', function (e){
-            console.log(col+ " " +row +" change image" );
+
+            if (!isEdited) {
+                $.notify({ message: 'Пожалуйста, нажмите кнопку редактировать: <i class="fa fa-edit" aria-hidden="true"></i>' }, { type: 'warning' })
+                return;
+            }
+
+            vp.transport.init({
+
+                url : '/transport/6',
+                multiple : false,
+                accept: '*',
+                beforeSend : function() {
+
+                    var fileReader = new FileReader(),
+                        input = vp.transport.getInput(),
+                        file = input.files[0];
+
+                    fileReader.readAsDataURL(file);
+
+                    fileReader.onload = function(event) {
+
+                        img.classList.add('jumbotron--loading');
+                        img.src = event.target.result;
+
+                    }
+
+                },
+                success : function(response) {
+
+                    var result = JSON.parse(response);
+                    if ( result.success ) {
+
+                        img.src = result.data.url;
+                        img.classList.remove('jumbotron--loading');
+
+                        hot.setDataAtCell(row, col, result.data.url.split('/')[2]);
+                    }
+
+                },
+                error : function() {
+
+                }
+
+
+            });
+
+
         });
 
         return td;
