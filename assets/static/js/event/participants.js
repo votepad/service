@@ -254,8 +254,7 @@ $(document).ready(function() {
                 } else {
 
                     dataToSave = JSON.stringify(output_array);
-
-
+                    
                     /**
                      *  Send information to DB
                      */
@@ -486,6 +485,47 @@ $(document).ready(function() {
         */
         Handsontable.Dom.addEvent(img, 'click', function (e){
             console.log(col+ " " +row +" change image" );
+
+            vp.transport.init({
+
+                url : '/transport/6',
+                multiple : false,
+                accept: '*',
+                beforeSend : function() {
+
+                    var fileReader = new FileReader(),
+                        input = vp.transport.getInput(),
+                        file = input.files[0];
+
+                    fileReader.readAsDataURL(file);
+
+                    fileReader.onload = function(event) {
+
+                        img.classList.add('jumbotron--loading');
+                        img.src = event.target.result;
+
+                    }
+
+                },
+                success : function(response) {
+
+                    var result = JSON.parse(response);
+                    if ( result.success ) {
+
+                        img.src = result.data.url;
+                        img.classList.remove('jumbotron--loading');
+
+                    }
+
+                },
+                error : function() {
+
+                }
+
+
+            });
+
+
         });
 
         return td;
