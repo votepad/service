@@ -50,13 +50,16 @@ var header = (function(header) {
         calculateHeaderMenuWidth();
         changeHeaderMenuItems();
         headerWrapper.style.opacity = "1";
+
+        window.onresize = function(event) {
+            calculateHeaderMenuWidth();
+            changeHeaderMenuItems();
+        };
+
     };
 
 
-    window.onresize = function(event) {
-        calculateHeaderMenuWidth();
-        changeHeaderMenuItems();
-    };
+
 
 
     /**
