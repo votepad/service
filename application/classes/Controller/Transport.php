@@ -18,7 +18,8 @@ class Controller_Transport extends Dispatch {
         Model_Uploader::PROFILE_AVATAR,
         Model_Uploader::PROFILE_BRANDING,
         Model_Uploader::ORGANIZATION_LOGO,
-        Model_Uploader::ORGANIZATION_BRANDING
+        Model_Uploader::ORGANIZATION_BRANDING,
+        Model_Uploader::EVENT_BRANDING
     );
 
     /** File transport module */

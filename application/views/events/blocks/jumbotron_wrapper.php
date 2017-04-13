@@ -1,9 +1,9 @@
 <div class="jumbotron_wrapper parallax-container">
     <div class="parallax">
-        <img id="" src="/uploads/events/<? ?>.jpg">
+        <img id="event-background-uploaded" src="/uploads/events/branding/<?=$event->branding; ?>?>.jpg">
     </div>
     <div class="jumbotron_wrapper-background"></div>
-    <div class="jumbotron_wrapper_edit">
+    <div class="jumbotron_wrapper_edit" data-pk="<?=$event->id; ?>">
         <a id="updateCover" role="button" class="jumbotron_wrapper_edit-btn">
             <i class="fa fa-camera jumbotron_wrapper_edit-icon" aria-hidden="true"></i>
             <span class="jumbotron_wrapper_edit-text">Обновить фото обложки</span>
@@ -20,3 +20,5 @@
         </div>
     </div>
 </div>
+
+<script src="<?=$assets;?>static/js/event/mainPage.js?v=<?= filemtime("assets/static/js/event/mainPage.js"); ?>"></script>
