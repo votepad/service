@@ -113,7 +113,7 @@ class Model_Organization extends Model
 
         $result = $insert->execute();
 
-        $this->fill_by_row($result);
+        $this->get_($result);
 
         Dao_UsersOrganizations::insert()
             ->set('u_id', $this->owner)
