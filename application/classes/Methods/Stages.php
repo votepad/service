@@ -3,9 +3,9 @@
 class Methods_Stages extends  Model_Stage
 {
 
-    const CHARACTER_PARTICIPANTS = 1;
-    const CHARACTER_TEAMS        = 2;
-    const CHARACTER_GROUPS       = 3;
+    const MEMBERS_PARTICIPANTS = 1;
+    const MEMBERS_TEAMS        = 2;
+    const MEMBERS_GROUPS       = 3;
 
     public static function getByEvent($event) {
 
@@ -28,7 +28,7 @@ class Methods_Stages extends  Model_Stage
                 if (property_exists($stage, $fieldname)) $stage->$fieldname = $value;
             }
 
-            $stage->characters = self::getCharacters($stage->id, $stage->mode);
+            $stage->members = self::getMembers($stage->id, $stage->mode);
 
             $stages[] = $stage;
 
@@ -38,69 +38,69 @@ class Methods_Stages extends  Model_Stage
 
     }
 
-    public static function saveCharacters($stage, $characters, $mode) {
+    public static function saveMembers($stage, $members) {
 
-        foreach ($characters as $character) {
-            Dao_StagesCharacters::insert()
+        foreach ($members as $member) {
+            Dao_StagesMembers::insert()
                 ->set('s_id', $stage)
-                ->set('c_id', $character)
+                ->set('m_id', $member)
                 ->execute();
         }
 
     }
 
 
-    public static function getCharacters($stage, $mode) {
+    public static function getMembers($stage, $mode) {
 
-        $characters_ids = Dao_StagesCharacters::select('c_id')
+        $members_ids = Dao_StagesMembers::select('m_id')
             ->where('s_id', '=', $stage)
-            ->execute('c_id');
+            ->execute('m_id');
 
-        if (!$characters_ids) {
+        if (!$members_ids) {
             return array();
         }
 
-        $characters_ids = array_keys($characters_ids);
+        $members_ids = array_keys($members_ids);
 
         switch ($mode) {
-            case self::CHARACTER_PARTICIPANTS:
-                $characters = Dao_Participants::select();
+            case self::MEMBERS_PARTICIPANTS:
+                $members = Dao_Participants::select();
                 break;
-            case self::CHARACTER_TEAMS:
-                $characters = Dao_Teams::select();
+            case self::MEMBERS_TEAMS:
+                $members = Dao_Teams::select();
                 break;
-            /*case self::CHARACTER_GROUPS:
-                $characters = Dao_Groups::select();
+            /*case self::MEMBERS_GROUPS:
+                $members = Dao_Groups::select();
                 break;*/
             default:
                 return array();
         }
 
-        $characters = $characters
-                        ->where('id', 'in', $characters_ids)
-                        ->execute();
+        $members = $members
+            ->where('id', 'in', $members_ids)
+            ->execute();
 
-        if (!$characters) {
+        if (!$members) {
             return array();
         }
 
         $result = array();
 
-        foreach($characters as $character) {
+        foreach($members as $member) {
 
             switch ($mode) {
-                case self::CHARACTER_PARTICIPANTS:
+                case self::MEMBERS_PARTICIPANTS:
                     $model = new Model_Participant();
                     break;
-                case self::CHARACTER_TEAMS:
+                case self::MEMBERS_TEAMS:
                     $model = new Model_Team();
                     break;
-                /*case self::CHARACTER_GROUPS:
-                    $characters = Dao_Groups::select();
+                /*case self::MEMBERS_GROUPS:
+                    $members = Dao_Groups::select();
                     break;*/
              }
 
-            foreach ($character as $fieldname => $value) {
+            foreach ($member as $fieldname => $value) {
                 if (property_exists($model, $fieldname)) $model->$fieldname = $value;
             }
 
@@ -112,9 +112,43 @@ class Methods_Stages extends  Model_Stage
 
     }
 
+    public static function updateMembers($stage, $members) {
+
+        $oldMembers = Dao_StagesMembers::select('m_id')
+            ->where('s_id', '=', $stage)
+            ->execute('m_id');
+
+        if (!$oldMembers) {
+            return array();
+        }
+
+        $oldMembers = array_keys($oldMembers);
+
+        $deleted = array_diff($oldMembers, $members);
+        $added   = array_diff($members, $oldMembers);
+
+        self::removeMembers($stage, $deleted);
+        self::saveMembers($stage, $added);
+
+
+    }
+
+    public static function removeMembers($stage, $members) {
+
+        if (empty($members)) {
+            return;
+        }
+
+        Dao_StagesMembers::delete()
+            ->where('s_id', '=', $stage)
+            ->where('m_id', 'in', $members)
+            ->execute();
+
+    }
+
     public static function removeDependencies($stage) {
 
-        Dao_StagesCharacters::delete()
+        Dao_StagesMembers::delete()
             ->where('s_id', '=', $stage)
             ->execute();
 

@@ -27,25 +27,25 @@ class Controller_Stages_Modify extends Dispatch {
         $stage->formula      = Arr::get($_POST, 'formula');
         $stage->event        = $id_event;
 
-        $characters = array();
+        $members = array();
         switch(Arr::get($_POST, 'partORteamORgroup')) {
             case 'participants':
-                $stage->mode = Methods_Stages::CHARACTER_PARTICIPANTS;
-                $characters =  Arr::get($_POST, 'participants');
+                $stage->mode = Methods_Stages::MEMBERS_PARTICIPANTS;
+                $members =  Arr::get($_POST, 'participants');
                 break;
             case 'teams':
-                $stage->mode = Methods_Stages::CHARACTER_TEAMS;
-                $characters =  Arr::get($_POST, 'teams');
+                $stage->mode = Methods_Stages::MEMBERS_TEAMS;
+                $members =  Arr::get($_POST, 'teams');
                 break;
             case 'groups':
-                $stage->mode = Methods_Stages::CHARACTER_GROUPS;
-                $characters =  Arr::get($_POST, 'groups');
+                $stage->mode = Methods_Stages::MEMBERS_GROUPS;
+                $members =  Arr::get($_POST, 'groups');
                 break;
 
         }
 
         $stage = $stage->save();
-        Methods_Stages::saveCharacters($stage->id, $characters, $stage->mode);
+        Methods_Stages::saveMembers($stage->id, $members);
 
         $this->redirect($referrer);
 
@@ -57,9 +57,19 @@ class Controller_Stages_Modify extends Dispatch {
     public function action_edit()
     {
 
-        $name         = Arr::get($_POST, 'name');
-        $description  = Arr::get($_POST, 'description');
+        $id           = Arr::get($_POST, 'stage_id');
+        $members      = Arr::get($_POST, 'members');
 
+        $stage = new Model_Stage($id);
+
+        if (!$stage->id) {
+            throw new HTTP_Exception_404();
+        }
+
+        $stage->name        = Arr::get($_POST, 'name', $stage->name);
+        $stage->description = Arr::get($_POST, 'name', $stage->description);
+
+        Methods_Stages::updateMembers($stage->id, $members);
 
         $this->redirect($this->request->referrer());
 

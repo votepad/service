@@ -82,7 +82,7 @@
                         <div id="show_participants" class="input-field">
                             <!-- Participants which are not distributed -->
                             <select name="participants[]" id="newstage_participants" multiple="" class="elements_in_stage">
-                                <? foreach ($characters['participants'] as $participant): ?>
+                                <? foreach ($members['participants'] as $participant): ?>
                                     <option value="<?= $participant->id ?>" data-logo="<?= $participant->photo ?>">
                                         <?= $participant->name ?>
                                     </option>
@@ -94,7 +94,7 @@
                         <div id="show_teams" class="input-field displaynone">
                             <!-- Teams which are not distributed -->
                             <select name="teams[]" id="newstage_teams" multiple="" class="elements_in_stage">
-                                <? foreach ($characters['teams'] as $team): ?>
+                                <? foreach ($members['teams'] as $team): ?>
                                     <option value="<?= $team->id ?>" data-logo="<?= $team->logo ?>">
                                         <?= $team->name ?>
                                     </option>
@@ -106,7 +106,7 @@
                         <div id="show_groups" class="input-field displaynone">
                             <!-- Groups which are not distributed -->
                             <select name="groups[]" id="newstage_groups" multiple="" class="elements_in_stage">
-<!--                                --><?// foreach ($characters['groups'] as $group): ?>
+<!--                                --><?// foreach ($members['groups'] as $group): ?>
 <!--                                    <option value="--><?//= $group->id ?><!--">-->
 <!--                                        --><?//= $group->name ?>
 <!--                                    </option>-->
@@ -166,10 +166,10 @@
                             <div class="card_content-text">
                                 <i><u>Жюри оценивает:</u></i>
 
-                                <? if ($stage->mode == Methods_Stages::CHARACTER_PARTICIPANTS): ?>
+                                <? if ($stage->mode == Methods_Stages::MEMBERS_PARTICIPANTS): ?>
                                     <!-- Participants in stage, if they existed -->
                                     <span id="participants_stage_<?= $stage->id ?>">
-                                        <? foreach ($stage->characters as $participant): ?>
+                                        <? foreach ($stage->members as $participant): ?>
                                             <option value="<?= $participant->id ?>" data-logo="<?= $participant->photo ?>" selected="">
                                                 <?= $participant->name ?>
                                             </option>
@@ -177,10 +177,10 @@
                                     </span>
                                 <? endif; ?>
 
-                                <? if ($stage->mode == Methods_Stages::CHARACTER_TEAMS): ?>
+                                <? if ($stage->mode == Methods_Stages::MEMBERS_TEAMS): ?>
                                     <!-- Teams in stage, if they existed -->
                                     <span id="teams_stage_<?= $stage->id ?>">
-                                            <? foreach ($stage->characters as $team): ?>
+                                            <? foreach ($stage->members as $team): ?>
                                                 <option value="<?= $team->id ?>" data-logo="<?= $team->logo ?>" selected="">
                                                     <?= $team->name ?>
                                                 </option>
@@ -189,9 +189,9 @@
                                 <? endif; ?>
 
                                 <!-- Groups in stage, if they existed -->
-<!--                                --><?// if ($stage->mode == Methods_Stages::CHARACTER_GROUPS): ?>
+<!--                                --><?// if ($stage->mode == Methods_Stages::MEMBERS_GROUPS): ?>
 <!--                                    <span id="groups_stage_--><?//= $stage->id ?><!--">-->
-<!--                                        --><?// foreach ($stage->characters as $team): ?>
+<!--                                        --><?// foreach ($stage->members as $team): ?>
 <!--                                            <option value="--><?//= $team->id ?><!--" data-logo="--><?//= $team->photo ?><!--" selected="">-->
 <!--                                                --><?//= $team->name ?>
 <!--                                            </option>-->
@@ -214,6 +214,7 @@
 
         <!-- Modal - Update stage Info -->
         <form class="modal fade" id="editstage_modal" role="dialog" method="post" action="">
+            <input type="hidden" id="editstage_id" name="stage_id">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -238,7 +239,7 @@
                         <div class="row">
                             <div class="input-field">
                                 <!-- Members = [parts || teams || groups] + not_distributed [parts || teams || groups] -->
-                                <select multiple id="editstage_members" name="members">
+                                <select multiple id="editstage_members" name="members[]">
 
                                 </select>
                                 <label for="editstage_members">Жюри будут оценивать</label>

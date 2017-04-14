@@ -27,6 +27,7 @@ $(document).ready(function() {
         card, id, name, description, part, team, group,
 
         modal_form          = document.getElementById('editstage_modal'),
+        modal_id            = document.getElementById('editstage_id'),
         modal_name          = document.getElementById('editstage_name'),
         modal_description   = document.getElementById('editstage_description'),
         modal_members       = document.getElementById('editstage_members'),
@@ -225,9 +226,9 @@ $(document).ready(function() {
 
         //  Fill modal information
         modal_form.setAttribute('action', '/stages/edit/' + card.dataset.id);
+        modal_id.value   = card.dataset.id;
         modal_name.value = name;
         modal_description.innerHTML = description;
-
 
         if ( part == null && group == null ) {
             modal_members.innerHTML = setEditedOption(all_teams, team);

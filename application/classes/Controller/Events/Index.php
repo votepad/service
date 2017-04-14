@@ -164,7 +164,7 @@ class Controller_Events_Index extends Dispatch
     {
 
         $stages = Methods_Stages::getByEvent($this->event->id);
-        $characters = array(
+        $members = array(
             'participants' => Methods_Participants::getByEvent($this->event->id),
             'teams'        => Methods_Teams::getAllTeams($this->event->id),
             //'groups'       => Methods_Participants::getByEvent($this->event->id)
@@ -175,7 +175,7 @@ class Controller_Events_Index extends Dispatch
             ->set('event', $this->event)
             ->set('organization', $this->organization)
             ->set('stages', $stages)
-            ->set('characters', $characters)
+            ->set('members', $members)
             ->set('criterions', $criterions);
 
         $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
