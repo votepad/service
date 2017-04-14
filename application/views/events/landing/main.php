@@ -93,8 +93,10 @@
             <div class="col-xs-12 col-md-4 event-info__block event-info__block--border">
 
                 <i class="fa fa-clock-o event-info__icon text-brand" aria-hidden="true"></i>
-                <span id="eventTimeBefore" class="event-info__h1">Xthtp 5 lytq </span>
-                <span id="eventTime" class="event-info__h2">17 декабря 19:00-21:00</span>
+                <input id="eventStartTime" type="hidden" value="<?=$event->dt_start; ?>">
+                <input id="eventEndTime" type="hidden" value="<?=$event->dt_end; ?>">
+                <span id="eventTimeCounter" class="event-info__h1"></span>
+                <span id="eventTime" class="event-info__h2"></span>
             </div>
             <div class="col-xs-12 col-md-4 event-info__block event-info__block--border">
                 <i class="fa fa-map-marker event-info__icon text-brand" aria-hidden="true"></i>
@@ -115,7 +117,91 @@
 
 
         <section id="eventResult" class="container">
-            <h1 class="text-brand m-t-50">Результаты мероприятия</h1>
+            <h1 class="text-brand text-center m-t-50 m-b-50">Результаты мероприятия</h1>
+
+            <div class="result">
+                <ul class="contest-header">
+                    <li class="contest-header__item active" data-toggle="tabs" data-block="contest_1">Contest 1</li>
+                    <li class="contest-header__item" data-toggle="tabs" data-block="contest_2">Contest 2</li>
+                </ul>
+                <div id="contest_1" class="contest-body">
+
+                    <ul class="stage-header">
+                        <li class="stage-header__item active" data-toggle="tabs" data-block="stage_1">Stage 1</li>
+                        <li class="stage-header__item" data-toggle="tabs" data-block="stage_2">Stage 2</li>
+                        <li class="stage-header__item" data-toggle="tabs" data-block="stage_3">Stage 3</li>
+                    </ul>
+
+                    <ul id="stage_1" class="stage-body">
+
+                        <li class="member col-xs-12 col-md-4 col-lg-3">
+                            <div class="member__area">
+                                <span class="member__name">name</span>
+                                <div class="member__logo">
+                                    <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
+                                    <div class="member__position">2</div>
+                                </div>
+                                <div class="member__rating-area">
+                                    <div data-pk="2" class="member__rating-bar" style="width:50%">
+                                        <span class="member__bar">10/20</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="member col-xs-12 col-md-4 col-lg-3">
+                            <div class="member__area">
+                                <span class="member__name">name</span>
+                                <div class="member__logo">
+                                    <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
+                                    <div class="member__position">2</div>
+                                </div>
+                                <div class="member__rating-area">
+                                    <div data-pk="2" class="member__rating-bar" style="width:50%">
+                                        <span class="member__bar">10/20</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="member col-xs-12 col-md-4 col-lg-3">
+                            <div class="member__area">
+                                <span class="member__name">name</span>
+                                <div class="member__logo">
+                                    <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
+                                    <div class="member__position">2</div>
+                                </div>
+                                <div class="member__rating-area">
+                                    <div data-pk="2" class="member__rating-bar" style="width:50%">
+                                        <span class="member__bar">10/20</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                        <li class="member col-xs-12 col-md-4 col-lg-3">
+                            <div class="member__area">
+                                <span class="member__name"> namenamenamenamenamenamename</span>
+                                <div class="member__logo">
+                                    <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
+                                    <div class="member__position">2</div>
+                                </div>
+                                <div class="member__rating-area">
+                                    <div data-pk="2" class="member__rating-bar" style="width:100%">
+                                        <span class="member__bar">10/20</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+
+                    </ul>
+
+                    <ul id="stage_2" class="stage-body hide">
+                        stage 2 - users
+                    </ul>
+                    <ul id="stage_3" class="stage-body hide">
+                        stage 3 - users
+                    </ul>
+                </div>
+            </div>
+
         </section>
 
     </div>
@@ -154,51 +240,6 @@
     <?= View::factory('globalblocks/auth_modal'); ?>
 <? endif; ?>
 
-
-
-        <!--<div class="row event-rating" style="margin-top: 0;">
-            <ul class="top_nav clearfix">
-                <a id="rating_people" class="valign col-xs-12 col-sm-6 active col-md-4" style="color: #0097A7; text-shadow: none">
-                    <span class="center">Приз зрительских симпатий</span>
-                </a>
-                <a id="rating_total" class="valign col-xs-12 col-sm-6 col-md-4" style="color: #0097A7; text-shadow: none">
-                    <span class="center">Итоговый</span>
-                </a>
-                <a id="rating_contest_1" class="valign col-xs-12 col-sm-6 col-md-4" style="color: #0097A7; text-shadow: none">
-                    <span class="center">Фристайл</span>
-                </a>
-                <a id="rating_contest_2" class="valign col-xs-12  col-sm-6 col-md-3" style="color: #0097A7; text-shadow: none">
-                    <span class="center">Разминка</span>
-                </a>
-                <a id="rating_contest_3" class="valign col-xs-12 col-sm-6 col-md-3" style="color: #0097A7; text-shadow: none">
-                    <span class="center">Капитанский конкурс</span>
-                </a>
-                <a id="rating_contest_4" class="valign col-xs-12 col-sm-6 col-md-3" style="color: #0097A7; text-shadow: none">
-                    <span class="center">Видео(Блог команды)</span>
-                </a>
-                <a id="rating_contest_5" class="valign col-xs-12 col-sm-6 col-md-3" style="color: #0097A7; text-shadow: none">
-                    <span class="center">СТЭМ</span>
-                </a>
-
-
-
-            </ul>
-
-            <!--  People rating
-            <div id="reset" class="reset" style="display: none;">
-                reset
-            </div>
-            <ul class="rating-list" id="rating_list_people" style="display:block; position: relative;"></ul>
-            <ul class="rating-list" id="rating_list_total" style="display:none; position: relative;"></ul>
-            <ul class="rating-list" id="rating_list_contest_1" style="display:none; position: relative;"></ul>
-            <ul class="rating-list" id="rating_list_contest_2" style="display:none; position: relative;"></ul>
-            <ul class="rating-list" id="rating_list_contest_3" style="display:none; position: relative;"></ul>
-            <ul class="rating-list" id="rating_list_contest_4" style="display:none; position: relative;"></ul>
-            <ul class="rating-list" id="rating_list_contest_5" style="display:none; position: relative;"></ul>
-
-
-        </div>
-        -->
-
 <body>
+
 </html>

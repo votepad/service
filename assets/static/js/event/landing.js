@@ -22,6 +22,44 @@ $(document).ready(function () {
     });
 
 
-    //eventTime
+
+    /** formate Dates */
+    var today = moment(),
+        start = moment($('#eventStartTime').val()),
+        end = moment($('#eventEndTime').val());
+
+    $('#eventTimeCounter').html(today.to(start));
+
+    if (start.year() === end.year() && start.month() === end.month() && start.date() === end.date()) {
+        $('#eventTime').html(start.format('D MMM YYYY с hh:mm') + " до " + end.format('hh:mm'));
+    } else if (start.year() === end.year() && start.month() === end.month() && start.date() !== end.date()) {
+        $('#eventTime').html(start.date() + "-" + end.date() + " " + start.format('MMM YYYY с hh:mm') + " до " + end.format('hh:mm'));
+    } else if (start.year() === end.year() && start.month() !== end.month() && start.date() === end.date() || start.year() === end.year() && start.month() !== end.month() && start.date() !== end.date()) {
+        $('#eventTime').html(start.format('D MMM') + " - " + end.format('D MMM YYYY') + " с " + start.format('hh:mm') + " до " + end.format('hh:mm'));
+    } else {
+        $('#eventTime').html(start.format('D MMM YYYY с hh:mm') + " - " + end.format('D MMM YYYY до hh:mm'));
+    }
+
+
+    /**  */
+    $('[data-toggle="tabs"]').click(function () {
+
+        var areas       = $(this).attr('data-block').split('_')[0],
+            openedID    = $(this).attr('data-block').split('_')[1];
+
+
+        $('.' + areas + '-header__item').each(function () {
+            $(this).removeClass('active');
+        });
+        $(this).addClass('active');
+
+        $('.' + areas + '-body').each(function () {
+            $(this).addClass('hide');
+        });
+        $('#' + $(this).attr('data-block')).removeClass('hide');
+
+
+        console.log();
+    })
 
 });

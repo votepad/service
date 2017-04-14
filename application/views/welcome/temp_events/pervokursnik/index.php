@@ -10,9 +10,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?=$assets; ?>css/app_v1.css" media="screen">
-    <link rel="stylesheet" href="<?=$assets; ?>css/temp_events.css" media="screen">
-    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>css/icons_fonts.css">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css" media="screen">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/temp_events.css" media="screen">
+    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>static/css/icons_fonts.css">
     <link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
     
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
