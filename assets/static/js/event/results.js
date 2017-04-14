@@ -28,6 +28,7 @@ $(document).ready(function() {
             $('#result_formula').parent().addClass('hide');
             $('.formula-print').parent().removeClass('hide');
         } else {
+            $('#result_formula').value = newContestFormula.toJSON();
             $('#result').submit();
         }
     });

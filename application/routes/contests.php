@@ -9,7 +9,7 @@ Route::set("ADD_CONTEST", 'contests/add/<id_event>', array(
         'action'     => 'add'
     ));
 
-Route::set("DELETE_CONTESTS", "stages/delete/<id_contest>", array(
+Route::set("DELETE_CONTESTS", "contests/delete/<id_contest>", array(
         'id_contest'  => $DIGIT
     ))
     ->defaults(array(

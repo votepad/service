@@ -209,10 +209,10 @@ $(document).ready(function() {
             customClass: "delete-block",
             animation: false,
             title: 'Вы уверены, что хотите удалить конкурс?',
-            text: "Удалив кjнкурс, Вы не сможете его восстановить!",
+            text: "Удалив конкурс, Вы не сможете его восстановить!",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Да, удалить клнкурс',
+            confirmButtonText: 'Да, удалить конкурс',
             cancelButtonText: 'Нет, отмена',
             confirmButtonClass: 'btn btn_primary',
             cancelButtonClass: 'btn btn_default',
@@ -220,7 +220,7 @@ $(document).ready(function() {
         }).then(function () {
 
             $.ajax({
-                url : '/contests/delete/' + eventPk + '/' + dataPk,
+                url : '/contests/delete/' + dataPk,
                 data : {},
                 success : function(callback) {
 

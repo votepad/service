@@ -24,7 +24,8 @@
         </h3>
 
 
-        <form class="form" id="result" method="POST" action="" >
+        <form class="form" id="result" method="POST" action="<?= URL::site('results/save/' . $event->id) ?>" >
+            <?= Form::hidden('result_id', $event->result->id) ?>
             <div class="form_heading">
                 Формула подсчета итогового результата
                 <a id="saveResult" class="form_heading-icon hide fl_r"><i class="fa fa-save" aria-hidden="true"></i></a>
@@ -34,14 +35,15 @@
                 <div class="col-xs-12 m-t-20 m-b-20">
                     <div class="row">
                         <i><u>Текущая формула:</u></i>
-                        <div id="result_formula_print" class="formula formula-print inlineblock"  data-items='[{"id":5, "name":"Name1", "coeff":"0.5"},{"id":6, "name":"Name2", "coeff":"0.4"}]'></div>
+                        <div id="result_formula_print" class="formula formula-print inlineblock"  data-items='<?= $event->result->formula ?:'[]' ?>'></div>
                     </div>
                     <div class="row hide">
-                        <span class="hide" id="allContests" data-items='[{"id":5, "name":"Name1"},{"id":6, "name":"Name2"}]'></span>
+                        <span class="hide" id="allContests" data-items='<?= $event->contestsJSON ?>'></span>
                         <div id="result_formula" class="formula"></div>
                     </div>
                 </div>
             </div>
+            <?= Form::hidden('csrf', Security::token()) ?>
         </form>
 
 

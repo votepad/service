@@ -79,6 +79,7 @@ require_once ('routes/criterions.php');
 require_once ('routes/ajax.php');
 require_once ('routes/stages.php');
 require_once ('routes/contests.php');
+require_once ('routes/results.php');
 
 // Route::set('Default', '<controller>(/<action>(/<id>))')
 //     ->defaults(array(

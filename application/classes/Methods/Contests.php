@@ -34,6 +34,27 @@ class Methods_Contests extends Model_Contest
 
     }
 
+
+    public static function getJSON($event) {
+
+        $contests = self::getByEvent($event);
+
+        $result = array();
+
+        foreach ($contests as $contest) {
+
+            $result[] = array(
+                'id' => $contest->id,
+                'name' => $contest->name
+            );
+
+        }
+
+        return json_encode($result);
+
+    }
+
+
     public static function saveJudges($contest, $judges) {
         foreach($judges as $judge) {
             Dao_ContestsJudges::insert()
@@ -96,6 +117,14 @@ class Methods_Contests extends Model_Contest
         Dao_ContestsJudges::delete()
             ->where('c_id', '=', $contest)
             ->where('j_id', 'in', $judges)
+            ->execute();
+
+    }
+
+    public static function removeDependencies($contest) {
+
+        Dao_ContestsJudges::delete()
+            ->where('c_id', '=', $contest)
             ->execute();
 
     }
