@@ -38,6 +38,26 @@ class Methods_Criterions extends Model_Criterion
         };
 
         return $result;
+
+    }
+
+    public static function getJSON($event) {
+
+        $criterions = self::getByEvent($event);
+
+        $result = array();
+
+        foreach ($criterions as $criterion) {
+
+            $result[] = array(
+                'id' => $criterion->id,
+                'name' => $criterion->name
+            );
+
+        }
+
+        return json_encode($result);
+
     }
 
 }

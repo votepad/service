@@ -1,12 +1,18 @@
 $(document).ready(function() {
 
 
-    formula.create(document.getElementById('formula_stage_1'), {
-        mode: "print",
-        allItems: document.getElementById('allCriterias').dataset.items,
-        curItems: document.getElementById('Criterias_Stage1').dataset.items
+    /** Printing Formula on existed stages */
+    $('.formula-print').each(function () {
+
+        formula.create(document.getElementById(this.id), {
+            mode: "print",
+            allItems: document.getElementById('allCriterias').dataset.items,
+            curItems: this.dataset.items
+        });
+
     });
 
+    /** Formula on creating new stage */
     var newStageFormula = formula.create(document.getElementById('formula_newstage'), {
         mode: "create",
         allItems: document.getElementById('allCriterias').dataset.items
@@ -16,13 +22,19 @@ $(document).ready(function() {
     /**
      * Vars
      */
-    var url = "",
-        card, id, name, description, part, team, group, formula_input, formula_area,
-        modal_name = document.getElementById('editstage_name'),
-        modal_description = document.getElementById('editstage_description'),
-        modal_members = document.getElementById('editstage_members'),
-        modal_formula_input = document.getElementById('editstage_formula'),
-        modal_formula_area = document.getElementById('editstage_formula_area');
+    var urlImgPart = window.location.protocol + '//' + window.location.host + '/uploads/participants/',
+        urlImgTeam = window.location.protocol + '//' + window.location.host + '/uploads/teams/',
+        card, id, name, description, part, team, group,
+
+        modal_form          = document.getElementById('editstage_modal'),
+        modal_id            = document.getElementById('editstage_id'),
+        modal_name          = document.getElementById('editstage_name'),
+        modal_description   = document.getElementById('editstage_description'),
+        modal_members       = document.getElementById('editstage_members'),
+
+        all_parts = getOptions(document.getElementById('newstage_participants')),
+        all_teams = getOptions(document.getElementById('newstage_teams'));
+        //all_groups = getOptions(document.getElementById('newstage_groups'));
 
 
 
@@ -63,18 +75,18 @@ $(document).ready(function() {
      */
     var select2Parts = $('#newstage_participants').select2({
         language: 'ru',
-        templateResult: render_image_for_select2
+        templateResult: renderPartImg
     }),
     select2Teams = $('#newstage_teams').select2({
         language: 'ru',
-        templateResult: render_image_for_select2
+        templateResult: renderTeamImg
     }),
-    select2Groups = $("#newstage_groups").select2({
-        language: 'ru',
-    }),
+    // select2Groups = $("#newstage_groups").select2({
+    //     language: 'ru',
+    // }),
     select2Parts_val = [],
-    select2Teams_val = [],
-    select2Groups_val = [];
+    select2Teams_val = [];
+    // select2Groups_val = [];
 
     $('#newstage_participants option').each(function(){
         select2Parts_val.push($(this).val());
@@ -97,7 +109,7 @@ $(document).ready(function() {
         $("#allTeams").parent().addClass("displaynone");
         $("#allGroups").parent().addClass("displaynone");
         select2Teams.val(null).trigger("change");
-        select2Groups.val(null).trigger("change");
+        //select2Groups.val(null).trigger("change");
     });
 
     $("#team").click(function(){
@@ -108,68 +120,56 @@ $(document).ready(function() {
         $("#allParts").parent().addClass("displaynone");
         $("#allGroups").parent().addClass("displaynone");
         select2Parts.val(null).trigger("change");
-        select2Groups.val(null).trigger("change");
+        //select2Groups.val(null).trigger("change");
     });
 
-    $("#group").click(function(){
-        $("#show_groups").removeClass("displaynone");
-        $("#show_participants").addClass("displaynone");
-        $("#show_teams").addClass("displaynone");
-        $("#allGroups").parent().removeClass("displaynone");
-        $("#allParts").parent().addClass("displaynone");
-        $("#allTeams").parent().addClass("displaynone");
-        select2Parts.val(null).trigger("change");
-        select2Teams.val(null).trigger("change");
-    });
+    // $("#group").click(function(){
+    //     $("#show_groups").removeClass("displaynone");
+    //     $("#show_participants").addClass("displaynone");
+    //     $("#show_teams").addClass("displaynone");
+    //     $("#allGroups").parent().removeClass("displaynone");
+    //     $("#allParts").parent().addClass("displaynone");
+    //     $("#allTeams").parent().addClass("displaynone");
+    //     select2Parts.val(null).trigger("change");
+    //     select2Teams.val(null).trigger("change");
+    // });
 
-
-    /**
-     * Select all parts
-     */
+    /** Select all parts  on new stage */
     $("#allParts").on("click", function () {
         if ( document.getElementById("allParts").checked == true) {
             select2Parts.val(select2Parts_val).trigger("change");
-            document.getElementById("newstage_participants").disabled = true;
         } else{
             select2Parts.val("").trigger("change");
-            document.getElementById("newstage_participants").disabled = false;
         }
     });
 
-    /**
-     * Select all teams
-     */
+    /** Select all teams on new stage */
     $("#allTeams").on("click", function () {
         if ( document.getElementById("allTeams").checked == true) {
             select2Teams.val(select2Teams_val).trigger("change");
-            document.getElementById("newstage_teams").disabled = true;
         } else{
             select2Teams.val("").trigger("change");
-            document.getElementById("newstage_teams").disabled = false;
         }
     });
 
-    /**
-     * Select all groups
-     */
-    $("#allGroups").on("click", function () {
-        if ( document.getElementById("allGroups").checked == true) {
-            select2Groups.val(select2Groups_val).trigger("change");
-            document.getElementById("newstage_groups").disabled = true;
-        } else{
-            select2Groups.val("").trigger("change");
-            document.getElementById("newstage_groups").disabled = false;
-        }
-    });
+    /** Select all groups on new stage */
+    // $("#allGroups").on("click", function () {
+    //     if ( document.getElementById("allGroups").checked == true) {
+    //         select2Groups.val(select2Groups_val).trigger("change");
+    //     } else{
+    //         select2Groups.val("").trigger("change");
+    //     }
+    // });
+
 
 
 
     /**
-     * Btn Submit newstage form including validation
+     * Submit new stage form including validation
      */
     $('#newstage').submit(function() {
-        var stat_1, stat_2, stat_3, stat_4,
-            formula_val = [];
+
+        var stat_1, stat_2, stat_3, stat_4;
 
         stat_1 = checking_el_valid($('#newstage_name'), '');
         stat_2 = checking_el_valid($('#newstage_description'), '');
@@ -179,17 +179,18 @@ $(document).ready(function() {
             stat_3 = false;
         } else {
             $('#formula_newstage').removeClass('formula--error');
+            stat_3 = true;
         }
 
         if ( ! $("#show_participants").hasClass("displaynone") ) {
             stat_4 = checking_el_valid($("#newstage_participants"), '');
         } else if ( ! $("#show_teams").hasClass("displaynone") ) {
             stat_4 = checking_el_valid($("#newstage_teams"), '');
-        } else {
+        } /*else {
             stat_4 = checking_el_valid($("#newstage_groups"), '');
-        }
+        }*/
 
-        if ( stat_1 == false || stat_2 == false || stat_3 == false || stat_4 == false ) {
+        if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             }, {
@@ -208,26 +209,7 @@ $(document).ready(function() {
     $('body').on('blur', 'input[type="text"], textarea', function(){
         checking_el_valid($(this));
     });
-
-
-    /**
-     * On load Add hidden class on long text in card_content-text
-     */
-    $('.card').each(function () {
-        var first = $('.card_content-text:nth-child(1)', this),
-            second = $('.card_content-text:nth-child(2)', this),
-            third = $('.card_content-text:nth-child(3)', this);
-
-        if (first.height() > 64) {
-            first.addClass('card_height-4em').append('<div class="card_content-text-hidden"  title="Показать полностью"></div>');
-        }
-        if (second.height() > 48) {
-            second.addClass('card_height-3em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
-        }
-        if (third.height() > 64) {
-            third.addClass('card_height-4em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
-        }
-    });
+    
 
 
     /**
@@ -238,42 +220,40 @@ $(document).ready(function() {
         id = card.getAttribute('id');
         name = $.trim(document.getElementById('name_' + id).innerHTML);
         description = $.trim(document.getElementById('description_' + id).innerHTML);
-        part = $.trim(document.getElementById('participants_' + id).innerHTML);
-        team = $.trim(document.getElementById('teams_' + id).innerHTML);
-        group = $.trim(document.getElementById('groups_' + id).innerHTML);
-        formula_input = document.getElementById('formula_input_' + id).value;
-        formula_area = $.trim(document.getElementById('formula_area_' + id).innerHTML);
+        part = getOptions(document.getElementById('participants_' + id));
+        team = getOptions(document.getElementById('teams_' + id));
+        group = getOptions(document.getElementById('groups_' + id));
 
         //  Fill modal information
+        modal_form.setAttribute('action', '/stages/edit/' + card.dataset.id);
+        modal_id.value   = card.dataset.id;
         modal_name.value = name;
         modal_description.innerHTML = description;
-        if ( part == "" && team == "" ) {
-            modal_members.innerHTML = group + groups_not_distributed;
-        } else if ( part == "" && group == "" ) {
-            modal_members.innerHTML = team + teams_not_distributed;
-        } else {
-            modal_members.innerHTML = part + parts_not_distributed;
-        }
-        modal_formula_input.value = formula_input;
-        modal_formula_area.innerHTML = formula_area;
 
-        // initialize select2
-        if ( part == "" && team == "" ) {
-            $("#editstage_members").select2({
-                language: 'ru'
-            });
-        } else {
+        if ( part == null && group == null ) {
+            modal_members.innerHTML = setEditedOption(all_teams, team);
             $("#editstage_members").select2({
                 language: 'ru',
-                templateResult: render_image_for_select2
+                templateResult: renderTeamImg
             });
+        } else if ( team == null && group == null ) {
+            modal_members.innerHTML = setEditedOption(all_parts, part);
+            $("#editstage_members").select2({
+                language: 'ru',
+                templateResult: renderPartImg
+            });
+        } else {
+            // modal_members.innerHTML = setEditedOption(all_groups, group);
+            // $("#editstage_members").select2({
+            //     language: 'ru'
+            // });
         }
+
 
         // initialize textarea_resize
         $(modal_description).on('init keyup focus', function(){
             textarea_resize($(this));
         });
-
 
         // initialize modal
         $("#editstage_modal").modal({
@@ -285,50 +265,37 @@ $(document).ready(function() {
 
 
     /**
-     * Cansel Edit in Modal Form
+     * Cancel Edit - close modal form
      */
     $('button[data-dismiss]').click(function(){
         modal_name.value = "";
         modal_description.innerHTML = "";
         modal_members.innerHTML = "";
-        modal_formula_input.value = "";
-        modal_formula_area.innerHTML = "";
         $("#editstage_members").select2("destroy");
     });
 
 
+
     /**
-     * Save Modification in Modal Form
+     * Update Stage
      */
     $('#editstage_modal').submit(function(){
-        var form = $('#editstage_modal'),
-            stat_1 = checking_el_valid($('#editstage_name'),''),
+        var stat_1 = checking_el_valid($('#editstage_name'),''),
             stat_2 = checking_el_valid($('#editstage_description'),''),
             stat_3 = checking_el_valid($('#editstage_members'),''),
-            stat_4, formula_val = [];
-
-        /* add value to input for formula */
-        $('#editstage_formula_area .item').each(function(i){
-            var data = $(this)[0].dataset;
-            formula_val.push(data.val);
-        });
-
-        if (formula_val.length == 0) {
-            document.getElementById('editstage_formula_area').className = "dragable-inputarea invalid"
-            stat_4 = false;
-        } else {
-            modal_formula_input.value = JSON.stringify(formula_val);
             stat_4 = true;
-        }
 
-        if ( stat_1 == true && stat_2 == true && stat_3 == true && stat_4 == true) {
-            form[0].submit();
-        } else {
+        /**
+         * TODO checking formula validation
+         */
+
+        if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             },{
                 type: 'danger'
             });
+            return false;
         }
     });
 
@@ -341,8 +308,7 @@ $(document).ready(function() {
         var activeAction = $(this).get(0),
             dataPk = activeAction.dataset.pk;
 
-        var stagePk = $('#stage_' + dataPk).get(0),
-            eventPk = $('#event_id').val();
+        var stagePk = $('#stage_' + dataPk).get(0);
 
         swal({
             customClass: "delete-block",
@@ -359,7 +325,7 @@ $(document).ready(function() {
         }).then(function () {
 
             $.ajax({
-                url : '/stages/delete/' + eventPk + '/' + dataPk,
+                url : '/stages/delete/' + dataPk,
                 data : {},
                 success : function(callback) {
 
@@ -400,22 +366,31 @@ $(document).ready(function() {
 
 
 
-    /**
-     * Function for Rendering Image for select2 elements
-     */
-    function render_image_for_select2 (el) {
+    /** Rendering Image for select2 Participant */
+    function renderPartImg (el) {
         if (!el.id) {
             return el.text;
         }
         var $el = $(
-            '<span class="select2-results__withlogo"><img src="' + url + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
+            '<span class="select2-results__withlogo"><img src="' + urlImgPart + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
+        );
+        return $el;
+    }
+
+    /** Rendering Image for select2 Teams */
+    function renderTeamImg (el) {
+        if (!el.id) {
+            return el.text;
+        }
+        var $el = $(
+            '<span class="select2-results__withlogo"><img src="' + urlImgTeam + el.element.dataset.logo + '" class="select2-results__logo" /> <span class="select2-results__text">' + el.text + '</span></span>'
         );
         return $el;
     }
 
 
     /**
-     * Function for Checking on Valid newstage Form
+     * Checking on Validation
      */
     function checking_el_valid($el, status) {
 
@@ -445,6 +420,49 @@ $(document).ready(function() {
             return true;
         }
 
+    }
+
+
+    /** get options from select2 */
+    function getOptions(element) {
+        if (element == null)
+            return null;
+
+        var arr = [], option;
+
+        for (var i = 0; i < element.childElementCount; i++) {
+            option = {
+                name: element.children[i].innerHTML,
+                value: element.children[i].value,
+                logo: element.children[i].dataset.logo,
+                selected: element.children[i].hasAttribute('selected')
+            };
+            arr.push(option);
+        }
+        return arr;
+    }
+
+
+    function setEditedOption(arr1,arr2) {
+        var out = "", outarr = [];
+
+        for (var i =0; i < arr1.length; i++) {
+            outarr.push(arr1[i]);
+            for (var j = 0; j < arr2.length; j++) {
+                if (arr1[i].value == arr2[j].value) {
+                    outarr.pop();
+                }
+            }
+        }
+        for (var i =0; i < outarr.length; i++) {
+            out += '<option value="' + outarr[i].value + '" data-logo="' + outarr[i].logo + '">' + outarr[i].name + '</option>';
+        }
+
+        for (var i =0; i < arr2.length; i++) {
+            out += '<option value="' + arr2[i].value + '" data-logo="' + arr2[i].logo + '" selected="">' + arr2[i].name + '</option>';
+        }
+
+        return out;
     }
 
 });

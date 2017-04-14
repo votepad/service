@@ -11,6 +11,7 @@ class Model_Stage extends Model {
     public $name;
     public $description;
     public $formula;
+    public $mode;
 
     public function __construct($id = null) {
 
@@ -62,7 +63,7 @@ class Model_Stage extends Model {
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
 
     }
 
@@ -86,6 +87,17 @@ class Model_Stage extends Model {
         $insert->execute();
 
         return $this->get_($this->id);
+
+    }
+
+    public function delete() {
+
+        $delete = Dao_Stages::delete()
+            ->where('id', '=', $this->id)
+            ->clearcache($this->id)
+            ->execute();
+
+        return $delete;
 
     }
 
