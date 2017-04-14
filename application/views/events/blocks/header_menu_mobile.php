@@ -41,23 +41,23 @@
     </a>
     <ul id="eventPattern" class="mobile-aside__collapse collapse">
         <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/app/result' ); ?>" class="mobile-aside__collapse-link">
-                Результат
+            <a href="<?=URL::site('event/' . $event->id . '/scenario/criterias' ); ?>" class="mobile-aside__collapse-link">
+                Критерии
             </a>
         </li>
         <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/app/contests' ); ?>" class="mobile-aside__collapse-link">
-                Конкурсы
-            </a>
-        </li>
-        <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/app/stages' ); ?>" class="mobile-aside__collapse-link">
+            <a href="<?=URL::site('event/' . $event->id . '/scenario/stages' ); ?>" class="mobile-aside__collapse-link">
                 Этапы
             </a>
         </li>
         <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/app/criterias' ); ?>" class="mobile-aside__collapse-link">
-                Критерии
+            <a href="<?=URL::site('event/' . $event->id . '/scenario/contests' ); ?>" class="mobile-aside__collapse-link">
+                Конкурсы
+            </a>
+        </li>
+        <li class="mobile-aside__collapse__item">
+            <a href="<?=URL::site('event/' . $event->id . '/scenario/result' ); ?>" class="mobile-aside__collapse-link">
+                Результат
             </a>
         </li>
     </ul>
@@ -70,22 +70,22 @@
     </a>
     <ul id="eventMembers" class="mobile-aside__collapse collapse">
         <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/app/judges' ); ?>" class="mobile-aside__collapse-link">
+            <a href="<?=URL::site('event/' . $event->id . '/members/judges' ); ?>" class="mobile-aside__collapse-link">
                 Члены жюри
             </a>
         </li>
         <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/app/participants' ); ?>" class="mobile-aside__collapse-link">
+            <a href="<?=URL::site('event/' . $event->id . '/members/participants' ); ?>" class="mobile-aside__collapse-link">
                 Участники
             </a>
         </li>
         <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/app/teams' ); ?>" class="mobile-aside__collapse-link">
+            <a href="<?=URL::site('event/' . $event->id . '/members/teams' ); ?>" class="mobile-aside__collapse-link">
                 Команды
             </a>
         </li>
         <!--<li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/app/groups' ); ?>" class="mobile-aside__collapse-link">
+            <a href="<?=URL::site('event/' . $event->id . '/members/groups' ); ?>" class="mobile-aside__collapse-link">
                 Группы
             </a>
         </li>-->

@@ -419,7 +419,7 @@ $(document).ready(function() {
          if (window.innerWidth <= 680) {
              hot.updateSettings({
                  stretchH: 'none',
-                 colWidths: [150,150,50,50]
+                 colWidths: [200,200,90,90]
              });
 
              document.getElementById('criterias').style.overflowX = "auto";

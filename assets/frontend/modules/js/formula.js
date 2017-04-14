@@ -139,7 +139,7 @@ var formula = function(formula) {
      * @private
      */
     function createFormulaItem(element) {
-        var item     = createElement('div', 'formula__item'),
+        var item     = createElement('li', 'formula__item'),
             close    = createElement('i', 'fa fa-times formula__item-icon'),
             input    = createElement('input', 'formula__item-input'),
             multiply = createElement('i', 'fa fa-circle formula__item-multiply'),

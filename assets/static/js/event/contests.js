@@ -207,10 +207,10 @@ $(document).ready(function() {
             customClass: "delete-block",
             animation: false,
             title: 'Вы уверены, что хотите удалить конкурс?',
-            text: "Удалив конкурс, Вы не сможете его восстановить!",
+            text: "Удалив кjнкурс, Вы не сможете его восстановить!",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Да, удалить конкурс',
+            confirmButtonText: 'Да, удалить клнкурс',
             cancelButtonText: 'Нет, отмена',
             confirmButtonClass: 'btn btn_primary',
             cancelButtonClass: 'btn btn_default',
@@ -218,7 +218,7 @@ $(document).ready(function() {
         }).then(function () {
 
             $.ajax({
-                url : '/contests/delete/' + dataPk,
+                url : '/contests/delete/' + eventPk + '/' + dataPk,
                 data : {},
                 success : function(callback) {
 
@@ -237,7 +237,7 @@ $(document).ready(function() {
                     })
                 },
                 error : function(callback) {
-                    console.log("Error has occured while deleting contest");
+                    console.log("Error has occured in deleting contest");
                     swal({
                         width: 300,
                         customClass: "delete-block",
@@ -258,9 +258,9 @@ $(document).ready(function() {
 
 
 
-    /**
-     * Checking validation
-     */
+    /*
+     *   Function for Checking on Valid newcontest Form
+    */
     function checking_el_valid($el, status) {
 
         var arr = new RegExp("[^a-zA-Zа-яА-Я0-9-_=№#%&*()«»!?,.;:@'\"\n ]");
