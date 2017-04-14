@@ -77,6 +77,7 @@ require_once ('routes/teams.php');
 require_once ('routes/groups.php');
 require_once ('routes/criterions.php');
 require_once ('routes/ajax.php');
+require_once ('routes/stages.php');
 
 // Route::set('Default', '<controller>(/<action>(/<id>))')
 //     ->defaults(array(
