@@ -25,6 +25,7 @@ $(document).ready(function() {
      */
     var url = "",
         card, id, name, description, judges,
+        modal_form = document.getElementById('editcontest_modal'),
         modal_name = document.getElementById('editcontest_name'),
         modal_description = document.getElementById('editcontest_description'),
         modal_judges = document.getElementById('editcontest_judges'),
@@ -93,7 +94,7 @@ $(document).ready(function() {
      */
     $('#newcontest').submit(function() {
 
-        var stat_1, stat_2, stat_3, stat_4;
+        var stat_1, stat_2, stat_3, stat_4 = true;
 
         stat_1 = checking_el_valid($('#newcontest_name'), '');
         stat_2 = checking_el_valid($("#newcontest_description"), '');
@@ -139,6 +140,7 @@ $(document).ready(function() {
 
 
         //  Fill modal information
+        modal_form.action = '/contests/edit/' + card.dataset.id;
         modal_name.value = name;
         modal_description.innerHTML = description;
         modal_judges.innerHTML = setEditedOption(all_judges, judges);
