@@ -38,7 +38,7 @@
 
             <? foreach ($organizations as $organization) : ?>
                 <? if ($organization->id) : ?>
-                    <div id="organization_organization-><?=$organization->id; ?>" class="item col-xs-12 col-md-6">
+                    <div id="organization_<?=$organization->id; ?>" class="item col-xs-12 col-md-6">
                         <a href="<?= URL::site( 'organization/' . $organization->id ); ?>" class="item__img-wrap">
                             <img class="item__img" alt="Org img" src="/uploads/organizations/logo/<?=$organization->logo; ?>">
                         </a>
@@ -47,7 +47,7 @@
                                 <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$organization->name; ?></a>
                             </div>
                             <div class="item__info-additional">
-                                <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$organization->isOwner($profile->id) ? 'Основатель' : 'Сотрудник'; ?></a>
+                                <span><?=$organization->isOwner($profile->id) ? 'Основатель' : 'Сотрудник'; ?></span>
                             </div>
                             <? if ($isProfileOwner && !$organization->isOwner($user->id)) : ?>
                                 <div class="item__info-controls clear_fix">
@@ -66,16 +66,16 @@
 
             <? foreach ($events as $event) : ?>
                 <? if ($event->id) : ?>
-                    <div id="event_event->id" class="item col-xs-12 col-md-6">
-                        <a href="<?= URL::site('event/' . $event->id) ?>" class="item__img-wrap">
+                    <div id="event_<?=$event->id; ?>" class="item col-xs-12 col-md-6">
+                        <a href="<?= URL::site('event/' . $event->id . '/settings') ?>" class="item__img-wrap">
                             <img class="item__img" alt="Event cover" src="">
                         </a>
                         <div class="item__info">
                             <div class="item__info-name">
-                                <a href="<?= URL::site('event/' . $event->id); ?>"><?= $event->name ?></a>
+                                <a href="<?= URL::site('event/' . $event->id . '/settings'); ?>"><?= $event->name ?></a>
                             </div>
                             <div class="item__info-additional">
-                                <a href=""><?= $event->isCreator($profile->id) ? 'Основатель' : 'Помогает в проведении' ?></a>
+                                <span><?= $event->isCreator($profile->id) ? 'Основатель' : 'Помогает в проведении' ?></span>
                             </div>
                             <? if ($isProfileOwner && !$event->isCreator($user->id)) : ?>
                                 <div class="item__info-controls clear_fix">

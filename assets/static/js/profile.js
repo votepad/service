@@ -322,16 +322,18 @@ $(document).ready(function () {
 
 
             ajaxData = {
-                url: '/event/'+eventID+'/member/remove/'+userID,
+                url: '/event/'+eventID+'/assistant/remove/'+userID,
                 beforeSend: function(callback) {
                     eventBlock.classList.add('whirl');
                 },
                 success: function(response) {
                     response = JSON.parse(response);
-                    if (response.code == '47') {
+                    console.log(response);
+                    if (response.code == '57') {
                         $.notify({ message: "Вы успешно вышли из мероприятия "+ name}, { type: "success" });
                         eventBlock.remove();
                         document.getElementById('myEventsCounter').innerHTML = parseInt(document.getElementById('myEventsCounter').innerHTML) - 1;
+                        checkNumberOfEvent();
                     } else {
                         $.notify({ message: "Что-то пошло не так... Попробуйте ещё раз"}, { type: "warning" });
                         eventBlock.classList.remove('whirl');

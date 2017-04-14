@@ -16,18 +16,9 @@ class Controller_Events_Ajax extends Ajax {
 
         $user = new Model_User($userId);
         $event  = new Model_Event($eventId);
-        $org = new Model_Organization($event->organization);
 
-        if (!$org->isMember($this->user->id)) {
+        $this->redis->sRem('votepad.events:' . $eventId . ':assistants.requests', $userId);
 
-            $response = new Model_Response_Auth('ACCESS_DENIED_ERROR', 'error');
-
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-
-        }
-
-        $this->redis->sRem('votepad.orgs:'. $org->id .':events:' . $event->id . ':assistants.requests', $userId);
 
         if (!$user->id) {
 
@@ -37,6 +28,7 @@ class Controller_Events_Ajax extends Ajax {
             return;
 
         }
+
         if (!$event->id) {
 
             $response = new Model_Response_Event('EVENT_DOES_NOT_EXIST_ERROR', 'error');
@@ -87,14 +79,14 @@ class Controller_Events_Ajax extends Ajax {
 
         }
 
-        if (!$event->isAssistant($user->id)) {
-
-            $response = new Model_Response_Event('USER_IS_NOT_ASSISTANT_ERROR', 'error');
-
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-
-        }
+//        if (!$event->isAssistant($user->id)) {
+//
+//            $response = new Model_Response_Event('USER_IS_NOT_ASSISTANT_ERROR', 'error');
+//
+//            $this->response->body(@json_encode($response->get_response()));
+//            return;
+//
+//        }
 
         $event->removeAssistant($user->id);
 
