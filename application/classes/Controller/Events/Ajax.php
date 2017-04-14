@@ -17,7 +17,7 @@ class Controller_Events_Ajax extends Ajax {
         $user = new Model_User($userId);
         $event  = new Model_Event($eventId);
 
-        $this->redis->sRem('votepad.events:' . $eventId . ':assistants.requests', $userId);
+        $this->redis->sRem('votepad.events:' . $event->id . ':assistants.requests', $user->id);
 
 
         if (!$user->id) {
