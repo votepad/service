@@ -131,6 +131,8 @@
             </div>
         </form>
 
+
+
         <!-- Existed Stages -->
         <div class="row row-col">
             <div class="col-sm-12">
@@ -203,15 +205,15 @@
                             </div>
                         </div>
                     </div>
+
                 <? endforeach; ?>
+
             </div>
         </div>
 
-        <input type="hidden" id="event_id" value="5">
-
 
         <!-- Modal - Update stage Info -->
-        <form name="stageModal" class="modal fade" id="editstage_modal" role="dialog" aria-labelledby="" method="post" action="">
+        <form class="modal fade" id="editstage_modal" role="dialog" method="post" action="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
