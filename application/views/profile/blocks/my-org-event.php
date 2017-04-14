@@ -12,7 +12,7 @@
         <li class="col-xs-12 col-md-6 text-center">
             <a data-toggle="tabs" data-block="myEvents" data-search="myEventsSearch" class="tabs__btn fl_n">
                 <? if ($isProfileOwner) : ?>Мои мероприятия <? else : ?> Мероприятия <? endif; ?>
-                <span id="myEventsCounter" class="tabs__count">1</span>
+                <span id="myEventsCounter" class="tabs__count"><?= count($events) ?></span>
             </a>
         </li>
 
@@ -50,9 +50,9 @@
                                 <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$organization->isOwner($profile->id) ? 'Основатель' : 'Сотрудник'; ?></a>
                             </div>
                             <? if ($isProfileOwner && !$organization->isOwner($user->id)) : ?>
-                            <div class="item__info-controls clear_fix">
-                                <button data-id="organization->id" data-name="organization->name" class="btn btn_default deleteOrganization">Выйти из организации</button>
-                            </div>
+                                <div class="item__info-controls clear_fix">
+                                    <button data-id="<?= $organization->id ?>" data-name="<?= $organization->name ?>" class="btn btn_default deleteOrganization">Выйти из организации</button>
+                                </div>
                             <? endif; ?>
                         </div>
                     </div>
@@ -64,25 +64,28 @@
 
         <div id="myEvents" class="tabs__block">
 
-            <div id="event_event->id" class="item col-xs-12 col-md-6">
-                <a href="" class="item__img-wrap">
-                    <img class="item__img" alt="Event cover" src="">
-                </a>
-                <div class="item__info">
-                    <div class="item__info-name">
-                        <a href="<?= URL::site(''); ?>">Event name</a>
+            <? foreach ($events as $event) : ?>
+                <? if ($event->id) : ?>
+                    <div id="event_event->id" class="item col-xs-12 col-md-6">
+                        <a href="<?= URL::site('event/' . $event->id) ?>" class="item__img-wrap">
+                            <img class="item__img" alt="Event cover" src="">
+                        </a>
+                        <div class="item__info">
+                            <div class="item__info-name">
+                                <a href="<?= URL::site('event/' . $event->id); ?>"><?= $event->name ?></a>
+                            </div>
+                            <div class="item__info-additional">
+                                <a href=""><?= $event->isCreator($profile->id) ? 'Основатель' : 'Помогает в проведении' ?></a>
+                            </div>
+                            <? if ($isProfileOwner && !$event->isCreator($user->id)) : ?>
+                                <div class="item__info-controls clear_fix">
+                                    <button data-id="<?= $event->id ?>" data-name="<?= $event->name ?>" class="btn btn_default deleteEvent">Покинуть мероприятия</button>
+                                </div>
+                            <? endif; ?>
+                        </div>
                     </div>
-                    <div class="item__info-additional">
-                        <a href="">Над мероприятием работают 5 организатор(ов)</a>
-                    </div>
-                    <? if ($isProfileOwner) : ?>
-                    <div class="item__info-controls clear_fix">
-                        <button data-id="event->id" data-name="event->name" class="btn btn_default deleteEvent">Покинуть мероприятия</button>
-                    </div>
-                    <? endif; ?>
-                </div>
-            </div>
-
+                <? endif; ?>
+            <? endforeach; ?>
         </div>
 
     </div>
