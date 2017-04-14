@@ -22,7 +22,7 @@
         <h3 class="page-header">Список команд</h3>
 
         <form method="POST" action="<?=URL::site('teams/add/' . $event->id); ?>" class="form form_collapse" id="newteam" enctype="multipart/form-data">
-            <div class="form_body">
+            <div class="form_body clear_fix">
                 <div class="col-xs-12 col-md-6">
                     <div class="row">
                         <div class="input-field">

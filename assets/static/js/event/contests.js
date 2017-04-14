@@ -1,20 +1,40 @@
 $(document).ready(function() {
 
-    /*
-     *  Vars
-    */
 
+    /** Printing Formula on existed stages */
+    $('.formula-print').each(function () {
+
+        formula.create(document.getElementById(this.id), {
+            mode: "print",
+            allItems: document.getElementById('allStages').dataset.items,
+            curItems: this.dataset.items
+        });
+
+    });
+
+    /** Formula on creating new stage */
+    var newContestFormula = formula.create(document.getElementById('newcontest_formula'), {
+        mode: "create",
+        allItems: document.getElementById('allStages').dataset.items
+    });
+
+
+
+    /**
+     * Vars
+     */
     var url = "",
         card, id, name, description, judges,
         modal_name = document.getElementById('editcontest_name'),
         modal_description = document.getElementById('editcontest_description'),
-        modal_judges = document.getElementById('editcontest_judges');
-        all_judges = document.getElementById('newcontest_judges').getElementsByTagName('option');
+        modal_judges = document.getElementById('editcontest_judges'),
+        all_judges = getOptions(document.getElementById('newcontest_judges'));
 
 
-    /*
-     *  Open newcontest form
-    */
+
+    /**
+     * Open newcontest form
+     */
     $('#newcontest').click(function() {
         $(this).addClass('open');
     });
@@ -24,25 +44,27 @@ $(document).ready(function() {
 
 
 
-    /*
-     *  Close newcontest form if inputs are empty
-    */
+    /**
+     * Close newcontest form if inputs are empty
+     */
     $('body').click(function(event) {
         if ( ! $(event.target).closest("#newcontest").is('#newcontest') && $('#newcontest_name').val() == "" && $('#newcontest_description').val() == ""
-                && $("#newcontest_judges").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0)
+                && $("#newcontest_judges").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#newcontest_formula .formula__list li").length == 0)
         {
             $('#newcontest').removeClass('open');
             checking_el_valid($('#newcontest_name'), 'valid');
             checking_el_valid($("#newcontest_description"), 'valid');
             checking_el_valid($("#newcontest_judges"), 'valid');
+            $('#newcontest_formula').removeClass('formula--error');
         }
     });
 
 
 
-    /*
-     *  Create select2 for newcontest form
-    */
+    /**
+     * Create select2 for newcontest form
+     */
     var $judges = $('#newcontest_judges').select2({
         language: 'ru',
     });
@@ -53,24 +75,22 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *  Select all judges
-    */
+    /**
+     * Select all judges
+     */
     $("#allJudges").on("click", function () {
         if ( document.getElementById("allJudges").checked == true) {
             $judges.val(judges_val).trigger("change");
-            document.getElementById("newcontest_judges").disabled = true;
         } else{
             $judges.val("").trigger("change");
-            document.getElementById("newcontest_judges").disabled = false;
         }
     });
 
 
-    /*
-     *   Btn Submit newcontest form
-     *   including validation via inputmask
-    */
+
+    /**
+     * Submit newcontest form
+     */
     $('#newcontest').submit(function() {
 
         var stat_1, stat_2, stat_3, stat_4;
@@ -79,13 +99,15 @@ $(document).ready(function() {
         stat_2 = checking_el_valid($("#newcontest_description"), '');
         stat_3 = checking_el_valid($("#newcontest_judges"), '');
 
-        if (true) {
-            //checking formula
+        if (newContestFormula.toJSON() == "[]") {
+            $('#newcontest_formula').addClass('formula--error');
+            stat_3 = false;
         } else {
-
+            $('#newcontest_formula').removeClass('formula--error');
+            stat_3 = true;
         }
 
-        if ( stat_1 == false || stat_2 == false || stat_3 == false || stat_4 == false ) {
+        if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             },{
@@ -96,50 +118,30 @@ $(document).ready(function() {
     });
 
 
-    /*
+    /**
      * On change Input Field
-    */
+     */
     $('body').on('blur', 'input[type="text"], textarea', function(){
         checking_el_valid($(this));
     });
 
 
-    /*
-     * On load Add hidden class on long text in card_content-text
-    */
-    $('.card').each(function () {
-        var first = $('.card_content-text:nth-child(1)', this),
-            second = $('.card_content-text:nth-child(2)', this),
-            third = $('.card_content-text:nth-child(3)', this);
 
-        if (first.height() > 64) {
-            first.addClass('card_height-4em').append('<div class="card_content-text-hidden"  title="Показать полностью"></div>');
-        }
-        if (second.height() > 48) {
-            second.addClass('card_height-3em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
-        }
-        if (third.height() > 64) {
-            third.addClass('card_height-4em').append('<div class="card_content-text-hidden" title="Показать полностью"></div>');
-        }
-    });
-
-
-    /*
-     *  Generate Modal Form for changing information about contest
-    */
+    /**
+     * Generate Modal Form for changing information about contest
+     */
     $('.edit').click(function(){
         card = this.closest('.card');
         id = card.getAttribute('id');
         name = $.trim(document.getElementById('name_' + id).innerHTML);
         description = $.trim(document.getElementById('description_' + id).innerHTML);
-        judges = document.getElementById('judges_' + id).getElementsByTagName('option');
+        judges = getOptions(document.getElementById('judges_' + id));
 
-        html_judges = check_free_judges(all_judges, judges);
 
         //  Fill modal information
         modal_name.value = name;
         modal_description.innerHTML = description;
-        modal_judges.innerHTML = html_judges;
+        modal_judges.innerHTML = setEditedOption(all_judges, judges);
 
         // initialize select2
         $("#editcontest_judges").select2({
@@ -160,9 +162,9 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *  Cansel Edit in Modal Form
-    */
+    /**
+     * Cancel Edit in Modal Form
+     */
     $('button[data-dismiss]').click(function(){
         modal_name.value = "";
         modal_description.innerHTML = "";
@@ -171,24 +173,17 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *   Save Modification in Modal Form
+    /**
+     * Update edited form
     */
     $('#editcontest_modal').submit(function(){
-        var form = $('#editcontest_modal'),
-            stat_1 = checking_el_valid($('#editcontest_name'),''),
+        var stat_1 = checking_el_valid($('#editcontest_name'),''),
             stat_2 = checking_el_valid($('#editcontest_description'),''),
             stat_3 = checking_el_valid($('#editcontest_judges'),''),
-            stat_4;
+            stat_4 = true;
 
 
-        if (true) {
-            // checking formula
-        } else {
-
-        }
-
-        if ( stat_1 == false || stat_2 == false || stat_3 == false || stat_4 == false) {
+        if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
             $.notify({
                 message: 'Пожалуйста, проверьте правильность введенных данных.'
             },{
@@ -199,25 +194,23 @@ $(document).ready(function() {
     });
 
 
-    /*
-     *  Delete contest
-    */
+
+    /**
+     * Delete contest
+     */
     $('.delete').click(function(){
         /** Information about action */
-        var activeAction = $(this).get(0),
-            dataPk = activeAction.dataset.pk;
-
-        var contestPk = $('#contest_' + dataPk).get(0),
-            eventPk = $('#event_id').val();
+        var dataPk = $(this).get(0).dataset.pk,
+            contestPk = $('#contest_' + dataPk).get(0);
 
         swal({
             customClass: "delete-block",
             animation: false,
             title: 'Вы уверены, что хотите удалить конкурс?',
-            text: "Удалив клнкурс, Вы не сможете его восстановить!",
+            text: "Удалив конкурс, Вы не сможете его восстановить!",
             type: 'warning',
             showCancelButton: true,
-            confirmButtonText: 'Да, удалить клнкурс',
+            confirmButtonText: 'Да, удалить конкурс',
             cancelButtonText: 'Нет, отмена',
             confirmButtonClass: 'btn btn_primary',
             cancelButtonClass: 'btn btn_default',
@@ -225,7 +218,7 @@ $(document).ready(function() {
         }).then(function () {
 
             $.ajax({
-                url : '/contests/delete/' + eventPk + '/' + dataPk,
+                url : '/contests/delete/' + dataPk,
                 data : {},
                 success : function(callback) {
 
@@ -244,7 +237,7 @@ $(document).ready(function() {
                     })
                 },
                 error : function(callback) {
-                    console.log("Error has occured in deleting contest");
+                    console.log("Error has occured while deleting contest");
                     swal({
                         width: 300,
                         customClass: "delete-block",
@@ -265,27 +258,9 @@ $(document).ready(function() {
 
 
 
-
-    /*
-     *    Function for Rendering Image for select2 elements
-    */
-    function check_free_judges (arr1, arr2) {
-        var string = "";
-        for (var i = 0; i < arr1.length; i++) {
-            for (var j = 0; j < arr2.length; j++) {
-                if (arr1[i].value == arr2[j].value) {
-                    arr1[i].setAttribute('selected', true);
-                }
-            }
-            string += arr1[i].outerHTML;
-        }
-        return string;
-    };
-
-
-    /*
-     *   Function for Checking on Valid newcontest Form
-    */
+    /**
+     * Checking validation
+     */
     function checking_el_valid($el, status) {
 
         var arr = new RegExp("[^a-zA-Zа-яА-Я0-9-_=№#%&*()«»!?,.;:@'\"\n ]");
@@ -314,6 +289,49 @@ $(document).ready(function() {
             return true;
         }
 
+    }
+
+
+    /** get options from select2 */
+    function getOptions(element) {
+        if (element == null)
+            return null;
+
+        var arr = [], option;
+
+        for (var i = 0; i < element.childElementCount; i++) {
+            option = {
+                name: element.children[i].innerHTML,
+                value: element.children[i].value,
+                logo: element.children[i].dataset.logo,
+                selected: element.children[i].hasAttribute('selected')
+            };
+            arr.push(option);
+        }
+        return arr;
+    }
+
+
+    function setEditedOption(arr1,arr2) {
+        var out = "", outarr = [];
+
+        for (var i =0; i < arr1.length; i++) {
+            outarr.push(arr1[i]);
+            for (var j = 0; j < arr2.length; j++) {
+                if (arr1[i].value == arr2[j].value) {
+                    outarr.pop();
+                }
+            }
+        }
+        for (var i =0; i < outarr.length; i++) {
+            out += '<option value="' + outarr[i].value + '" data-logo="' + outarr[i].logo + '">' + outarr[i].name + '</option>';
+        }
+
+        for (var i =0; i < arr2.length; i++) {
+            out += '<option value="' + arr2[i].value + '" data-logo="' + arr2[i].logo + '" selected="">' + arr2[i].name + '</option>';
+        }
+
+        return out;
     }
 
 });

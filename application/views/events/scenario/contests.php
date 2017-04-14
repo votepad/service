@@ -2,6 +2,7 @@
 
     <!-- =============== PAGE STYLE ===============-->
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
+    <link type="text/css" rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/formula.css" />
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css" />
 
 
@@ -17,6 +18,7 @@
 
     </div>
 
+
     <section class="section__content">
 
         <h3 class="page-header">
@@ -25,9 +27,10 @@
             <small>Создайте конкурсы. Конкурс - некое объединение этапов, на которых присутствуют выбранные представители жюри.</small>
         </h3>
 
+
         <!-- Create New contest -->
         <form method="POST" action="" class="form form_collapse" id="newcontest" enctype="multipart/form-data">
-            <div class="form_body">
+            <div class="form_body clear_fix">
                 <div class="col-sm-12 col-md-6">
                     <div class="row">
                         <div class="input-field">
@@ -63,6 +66,7 @@
                     </div>
 
                     <div class="row hidden">
+                        <span class="hide" id="allStages" data-items='[{"id":5, "name":"Name1"},{"id":6, "name":"Name2"}]'></span>
                         <div id="newcontest_formula" class="formula"></div>
                     </div>
                 </div>
@@ -74,12 +78,13 @@
             </div>
         </form>
 
+
+
         <!-- Existed contests -->
         <div class="row row-col">
             <div class="col-sm-12">
 
-                <!-- contest 1 -->
-                <div class="card clear_fix" action="" id="contest_1">
+                <div class="card clear_fix" id="contest_1">
                     <div class="card_title">
                         <div class="card_title-text" id="name_contest_1">
                             Название конкурса №1
@@ -112,7 +117,8 @@
                             </span>
                         </div>
                         <div class="card_content-text">
-                            <div class="formula"></div>
+                            <i><u>Формула:</u></i>
+                            <div class="formula formula-print inlineblock" id="formula_contest_1" data-items='[{"id":5, "name":"Name1", "coeff":"0.5"},{"id":6, "name":"Name2", "coeff":"0.4"}]'></div>
                         </div>
                     </div>
                 </div>
@@ -120,10 +126,10 @@
             </div>
         </div>
 
-        <input type="hidden" id="event_id" value="5">
+
 
         <!-- Modal - Update contest Info -->
-        <form class="modal fade" id="editcontest_modal" role="dialog" aria-labelledby="" method="post" action="">
+        <form class="modal fade" id="editcontest_modal" role="dialog" method="post" action="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -147,7 +153,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <select multiple id="editcontest_judges" name="members">
+                                <select multiple id="editcontest_judges" name="judges[]">
 
                                 </select>
                                 <label for="editcontest_judges">Жюри, которые будут оценивать этот конкурс</label>
@@ -171,6 +177,7 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/formula.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/contests.js"></script>
 
 </div>
