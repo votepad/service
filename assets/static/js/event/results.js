@@ -13,7 +13,7 @@ $(document).ready(function() {
     });
 
     /** Formula on creating new stage */
-    var newContestFormula = formula.create(document.getElementById('result_formula'), {
+    var resultFormula = formula.create(document.getElementById('result_formula'), {
         mode: "create",
         allItems: document.getElementById('allContests').dataset.items
     });
@@ -28,7 +28,6 @@ $(document).ready(function() {
             $('#result_formula').parent().addClass('hide');
             $('.formula-print').parent().removeClass('hide');
         } else {
-            $('#result_formula').value = newContestFormula.toJSON();
             $('#result').submit();
         }
     });
@@ -50,6 +49,7 @@ $(document).ready(function() {
             $('#result_formula').addClass('formula--error');
             return false;
         } else {
+            $('#result_formula').value = resultFormula.toJSON();
             $('#result_formula').removeClass('formula--error');
         }
     });

@@ -94,7 +94,7 @@ $(document).ready(function() {
      */
     $('#newcontest').submit(function() {
 
-        var stat_1, stat_2, stat_3, stat_4 = true;
+        var stat_1, stat_2, stat_3, stat_4;
 
         stat_1 = checking_el_valid($('#newcontest_name'), '');
         stat_2 = checking_el_valid($("#newcontest_description"), '');
@@ -102,10 +102,10 @@ $(document).ready(function() {
 
         if (newContestFormula.toJSON() == "[]") {
             $('#newcontest_formula').addClass('formula--error');
-            stat_3 = false;
+            stat_4 = false;
         } else {
             $('#newcontest_formula').removeClass('formula--error');
-            stat_3 = true;
+            stat_4 = true;
         }
 
         if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {

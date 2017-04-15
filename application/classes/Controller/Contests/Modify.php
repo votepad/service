@@ -34,7 +34,7 @@ class Controller_Contests_Modify extends Dispatch {
     }
 
     /**
-     * Change team information
+     * Change contest information
      */
     public function action_edit()
     {
