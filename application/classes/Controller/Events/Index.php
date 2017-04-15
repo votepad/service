@@ -280,6 +280,24 @@ class Controller_Events_Index extends Dispatch
     public function action_landing()
     {
         $this->template = View::factory('events/landing/main')
+            ->set('event', $this->event);
+
+        $this->template->mainSection = View::factory('events/landing/pages/main_content')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+    }
+
+    /**
+     * LANDING submodule
+     * Action is available for all users.
+     * Shows main information about event
+     */
+    public function action_results()
+    {
+        $this->template = View::factory('events/landing/main')
+            ->set('event', $this->event);
+
+        $this->template->mainSection = View::factory('events/landing/pages/results')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
     }

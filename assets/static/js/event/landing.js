@@ -17,10 +17,6 @@ $(document).ready(function () {
         $('body').animate({ scrollTop: $('#eventDescription').offset().top }, 600);
     });
 
-    $('.toResults').click(function () {
-        $('body').animate({ scrollTop: $('#eventResult').offset().top }, 600);
-    });
-
 
 
     /** formate Dates */

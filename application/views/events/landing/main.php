@@ -52,7 +52,7 @@
             <a href="" class="header-landing__link">
                 Новости
             </a>-->
-            <a role="button" class="header-landing__link toResults">
+            <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="header-landing__link">
                 Результаты
             </a>
         </div>
@@ -74,24 +74,7 @@
 
 <section>
 
-    <div class="section__wrapper">
-
-        <div class="jumbotron-landing valign">
-            <div class="container" style="z-index: 2">
-                <a href="<?=URL::site('event/' . $event->id); ?>" class="jumbotron-landing__title"><?=$event->name; ?></a>
-            </div>
-            <div class="jumbotron-filter"></div>
-
-            <div class="parallax">
-                <img id="" src="/uploads/events/branding/<?=$event->branding; ?>">
-            </div>
-
-        </div>
-
-
-        <?= View::factory('events/landing/pages/main_content', array('event' => $event, 'organization' => $organization)); ?>
-
-    </div>
+    <?=$mainSection; ?>
 
 </section>
 
