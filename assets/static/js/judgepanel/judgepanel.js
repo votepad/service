@@ -167,68 +167,6 @@ var slider = function(){
     window.addEventListener('resize', handlers.replaceCirclePosition, false);
 };
 
-//Навигация по этапам мероприятия
-
-var stage_nav = function () {
-
-    var stage = document.getElementById('stage_nav');
-
-    var elementsOfMenu = stage.children[0];
-
-    var elemActivity = elementsOfMenu.childElementCount;
-
-    var startX = null;
-
-    //Переменная для проверки события клика мышки на ползунок
-
-    var checkDownMouse = false;
-
-    var handlers = {
-
-        downMouse: function(event) {
-            if ( event.which > 1) {
-                return;
-            }
-
-            event = touchSupported(event);
-
-            startX = event.clientX;
-
-            checkDownMouse = true;
-        },
-
-        moveMouse: function (event) {
-            if ( event.which > 1 || !checkDownMouse ) {
-                return;
-            }
-
-            event.preventDefault();
-
-            event = touchSupported(event);
-
-            var finX = event.clientX;
-
-            stage.scrollLeft -= (finX - startX);
-
-            startX = finX;
-
-        },
-
-        upMouse: function (event) {
-            checkDownMouse = false;
-        }
-    };
-
-    stage.addEventListener('touchstart', handlers.downMouse, false);
-    stage.addEventListener('mousedown', handlers.downMouse, false);
-
-    stage.addEventListener('touchmove', handlers.moveMouse, false);
-    stage.addEventListener('mousemove', handlers.moveMouse, false);
-
-    document.addEventListener('mouseup', handlers.upMouse, false);
-};
-
-
 var stages_holder = function () {
 
     var stages = document.getElementsByClassName('stages_holder').item(0);
@@ -421,8 +359,6 @@ var functionForAnimate = {
 
 function init() {
     slider();
-    stage_nav();
+    //stage_nav();
     stages_holder();
 }
-
-document.addEventListener('DOMContentLoaded', init);

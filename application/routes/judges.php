@@ -1,5 +1,11 @@
 <?php defined('SYSPATH') or die('No direct pattern access.');
 
+Route::set('Judges_panel', 'judges')
+    ->defaults(array(
+        'controller' => 'Judges_Index',
+        'action'     => 'votingpanel'
+    ));
+
 /**
  * Add judges to event
  * Handles JSON object
