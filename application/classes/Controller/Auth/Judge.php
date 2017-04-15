@@ -26,8 +26,13 @@ class Controller_Auth_Judge extends Auth {
     public function action_auth()
     {
         $eventCode = (int) Arr::get($_POST, 'eventCode');
-        echo $eventCode;
-        exit;
+
+        if ($id = Model_Event::getEventByCode($eventCode)) {
+
+//            $this->redirect('judge') Redirect to to
+
+        }
+
     }
 
 }

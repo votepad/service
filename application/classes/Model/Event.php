@@ -6,7 +6,7 @@ class Model_Event extends Model
     /** Min and Max random value as event code */
     const MIN_RAND_VALUE = 100000;
     const MAX_RAND_VALUE = 999999;
-    const EVENTCODE_KEY  = 'votepad.event.codes';
+    const EVENTCODE_KEY  = 'event.codes';
 
     /**
      * @var $id [INT]
