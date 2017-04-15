@@ -189,7 +189,7 @@ $(document).ready(function () {
             },
             success: resetPasswordResponse,
             error: function() {
-                console.log('error ajax send');
+                //console.log('error ajax send');
                 $('#reset_password_form .modal-content').removeClass('whirl');
             }
         });
@@ -285,7 +285,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function(callback) {
-                    console.log(callback);
+                    //console.log(callback);
                     orgBlock.classList.remove('whirl');
                 }
             };
@@ -328,7 +328,7 @@ $(document).ready(function () {
                 },
                 success: function(response) {
                     response = JSON.parse(response);
-                    console.log(response);
+                    //console.log(response);
                     if (response.code == '57') {
                         $.notify({ message: "Вы успешно вышли из мероприятия "+ name}, { type: "success" });
                         eventBlock.remove();
@@ -341,7 +341,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function(callback) {
-                    console.log(callback);
+                    //console.log(callback);
                     eventBlock.classList.remove('whirl');
                 }
             };

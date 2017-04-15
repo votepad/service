@@ -68,7 +68,7 @@
                 <? if ($event->id) : ?>
                     <div id="event_<?=$event->id; ?>" class="item col-xs-12 col-md-6">
                         <a href="<?= URL::site('event/' . $event->id . '/settings') ?>" class="item__img-wrap">
-                            <img class="item__img" alt="Event cover" src="">
+                            <img class="item__img" alt="Event cover" src="<?=$assets; ?>static/img/no-event.png">
                         </a>
                         <div class="item__info">
                             <div class="item__info-name">
