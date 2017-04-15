@@ -2,6 +2,7 @@
 
     <!-- =============== PAGE STYLE ===============-->
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
+    <link type="text/css" rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/formula.css" />
 
 
     <div class="jumbotron block">
@@ -18,68 +19,37 @@
 
     <section class="section__content">
 
-        <h3 class="page-header"> Итоговая оценка <br>
-            <small>Задайте фрмулу, по которой будет подсчитываться итоговая оценка для действующих лиц.</small>
+        <h3 class="page-header"> Итоговый результат <br>
+            <small>У мероприятия может быть только один результат, который отобразиться на странице мероприптия.</small>
         </h3>
 
-        <!-- Participants Result -->
-        <form class="form form_collapse" id="participantResult" method="POST" action="" >
-            <div class="form_body">
-                <h4 class="p-l-20">Добавить результат учатсников</h4>
-                <div class="row hidden">
-                    <div id="participantResultFormula" class="formula"></div>
+
+        <form class="form" id="result" method="POST" action="<?= URL::site('results/save/' . $event->id) ?>" >
+            <?= Form::hidden('result_id', $event->result->id) ?>
+            <div class="form_heading">
+                Формула подсчета итогового результата
+                <a id="saveResult" class="form_heading-icon hide fl_r"><i class="fa fa-save" aria-hidden="true"></i></a>
+                <a id="editResult" class="form_heading-icon fl_r"><i class="fa fa-edit" aria-hidden="true"></i></a>
+            </div>
+            <div class="form_body clear_fix">
+                <div class="col-xs-12 m-t-20 m-b-20">
+                    <div class="row">
+                        <i><u>Текущая формула:</u></i>
+                        <div id="result_formula_print" class="formula formula-print inlineblock"  data-items='<?= $event->result->formula ?:'[]' ?>'></div>
+                    </div>
+                    <div class="row hide">
+                        <span class="hide" id="allContests" data-items='<?= $event->contestsJSON ?>'></span>
+                        <div id="result_formula" class="formula"></div>
+                    </div>
                 </div>
             </div>
-            <div class="form_submit hidden clear_fix">
-                <button type="button" class="btn btn_default col-sm-12 col-md-auto pull-left">
-                    Удалить результат
-                </button>
-                <button type="submit" class="btn btn_primary col-sm-12 col-md-auto pull-right">
-                    Сохранить
-                </button>
-            </div>
+            <?= Form::hidden('csrf', Security::token()) ?>
         </form>
 
-        <!-- Teams Result -->
-        <form class="form form_collapse" id="teamResult" method="POST" action="" >
-            <div class="form_body">
-                <h4 class="p-l-20">Добавить результат команд</h4>
-                <div class="row hidden">
-                    <div id="teamResultFormula" class="formula"></div>
-                </div>
-            </div>
-            <div class="form_submit hidden clear_fix">
-                <input type="hidden" id="event_id" value="5">
-                <button type="button" class="btn btn_default col-sm-12 col-md-auto pull-left">
-                    Удалить результат
-                </button>
-                <button type="submit" class="btn btn_primary col-sm-12 col-md-auto pull-right">
-                    Сохранить
-                </button>
-            </div>
-        </form>
-
-        <!-- Group Result -->
-        <form class="form form_collapse" id="groupResult" method="POST" action="" >
-            <div class="form_body">
-                <h4 class="p-l-20">Добавить результат групп</h4>
-                <div class="row hidden">
-                    <div id="groupResultFormula" class="formula"></div>
-                </div>
-            </div>
-            <div class="form_submit hidden clear_fix">
-                <input type="hidden" id="event_id" value="5">
-                <button type="button" class="btn btn_default col-sm-12 col-md-auto pull-left">
-                    Удалить результат
-                </button>
-                <button type="submit" class="btn btn_primary col-sm-12 col-md-auto pull-right">
-                    Сохранить
-                </button>
-            </div>
-        </form>
 
     </section>
 
     <!-- =============== PAGE SCRIPTS ===============-->
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/formula.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/results.js"></script>
 </div>

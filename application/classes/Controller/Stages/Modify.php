@@ -67,7 +67,8 @@ class Controller_Stages_Modify extends Dispatch {
         }
 
         $stage->name        = Arr::get($_POST, 'name', $stage->name);
-        $stage->description = Arr::get($_POST, 'name', $stage->description);
+        $stage->description = Arr::get($_POST, 'description', $stage->description);
+        $stage->update();
 
         Methods_Stages::updateMembers($stage->id, $members);
 

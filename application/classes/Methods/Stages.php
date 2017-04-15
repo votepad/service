@@ -38,6 +38,25 @@ class Methods_Stages extends  Model_Stage
 
     }
 
+    public static function getJSON($event) {
+
+        $stages = self::getByEvent($event);
+
+        $result = array();
+
+        foreach ($stages as $stage) {
+
+            $result[] = array(
+                'id' => $stage->id,
+                'name' => $stage->name
+            );
+
+        }
+
+        return json_encode($result);
+
+    }
+
     public static function saveMembers($stage, $members) {
 
         foreach ($members as $member) {

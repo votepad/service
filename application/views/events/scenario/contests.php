@@ -2,6 +2,7 @@
 
     <!-- =============== PAGE STYLE ===============-->
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
+    <link type="text/css" rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/formula.css" />
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css" />
 
 
@@ -17,6 +18,7 @@
 
     </div>
 
+
     <section class="section__content">
 
         <h3 class="page-header">
@@ -25,9 +27,10 @@
             <small>Создайте конкурсы. Конкурс - некое объединение этапов, на которых присутствуют выбранные представители жюри.</small>
         </h3>
 
+
         <!-- Create New contest -->
-        <form method="POST" action="" class="form form_collapse" id="newcontest" enctype="multipart/form-data">
-            <div class="form_body">
+        <form method="POST" action="<?= URL::site('contests/add/' . $event->id) ?>" class="form form_collapse" id="newcontest" enctype="multipart/form-data">
+            <div class="form_body clear_fix">
                 <div class="col-sm-12 col-md-6">
                     <div class="row">
                         <div class="input-field">
@@ -49,10 +52,11 @@
                         <div class="input-field">
                             <!-- ALl judges -->
                             <select name="judges[]" id="newcontest_judges" multiple="" class="elements_in_contest">
-                                <option value="1">Жюри 1</option>
-                                <option value="2">Жюри 2</option>
-                                <option value="5">Жюри 5</option>
-                                <option value="6">Жюри 6</option>
+                                <? foreach ($event->judges as $judge): ?>
+                                    <option value="<?= $judge->id ?>">
+                                        <?= $judge->name ?>
+                                    </option>
+                                <? endforeach; ?>
                             </select>
                             <label for="newcontest_judges">Выберите жюри, которые будут оценивать этот конкурс</label>
                         </div>
@@ -63,6 +67,7 @@
                     </div>
 
                     <div class="row hidden">
+                        <span class="hide" id="allStages" data-items='<?= $event->stagesJSON ?>'></span>
                         <div id="newcontest_formula" class="formula"></div>
                     </div>
                 </div>
@@ -72,58 +77,63 @@
                     Создать конкурс
                 </button>
             </div>
+            <?= Form::hidden('csrf', Security::token()); ?>
         </form>
+
+
 
         <!-- Existed contests -->
         <div class="row row-col">
             <div class="col-sm-12">
 
-                <!-- contest 1 -->
-                <div class="card clear_fix" action="" id="contest_1">
-                    <div class="card_title">
-                        <div class="card_title-text" id="name_contest_1">
-                            Название конкурса №1
-                        </div>
-                        <div class="card_title-dropdown">
-                            <div role="button" class="card_title-dropdown-icon">
-                                <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                <? foreach($event->contests as $contest): ?>
+                    <div class="card clear_fix" data-id="<?= $contest->id ?>" id="contest_<?= $contest->id ?>">
+                        <div class="card_title">
+                            <div class="card_title-text" id="name_contest_<?= $contest->id ?>">
+                                <?= $contest->name ?>
                             </div>
-                            <div class="card_title-dropdown-menu">
-                                <a class="card_title-dropdown-item edit">
-                                    Изменить информацию
-                                </a>
-                                <a class="card_title-dropdown-item delete" data-pk="1">
-                                    Удалить конкурс
-                                </a>
+                            <div class="card_title-dropdown">
+                                <div role="button" class="card_title-dropdown-icon">
+                                    <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
+                                </div>
+                                <div class="card_title-dropdown-menu">
+                                    <a class="card_title-dropdown-item edit">
+                                        Изменить информацию
+                                    </a>
+                                    <a class="card_title-dropdown-item delete" data-pk="<?= $contest->id ?>">
+                                        Удалить конкурс
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="card_content">
+                            <div class="card_content-text">
+                                <i><u>О конкурсе:</u></i>
+                                <span id="description_contest_<?= $contest->id ?>"><?= $contest->description ?></span>
+                            </div>
+                            <div class="card_content-text">
+                                <i><u>Жюри, которые будут оценивать этот конкурс:</u></i>
+                                <!-- Judges in contest -->
+                                <span id="judges_contest_<?= $contest->id ?>">
+                                    <? foreach($contest->judges as $judge): ?>
+                                        <option value="<?= $judge->id; ?>"><?= $judge->name; ?></option>
+                                    <? endforeach; ?>
+                                </span>
+                            </div>
+                            <div class="card_content-text">
+                                <i><u>Формула:</u></i>
+                                <div class="formula formula-print inlineblock" id="formula_contest_<?= $contest->id ?>" data-items='<?= $contest->formula ?>'></div>
                             </div>
                         </div>
                     </div>
-                    <div class="card_content">
-                        <div class="card_content-text">
-                            <i><u>О конкурсе:</u></i>
-                            <span id="description_contest_1">описание конкурса №1</span>
-                        </div>
-                        <div class="card_content-text">
-                            <i><u>Жюри, которые будут оценивать этот конкурс:</u></i>
-                            <!-- Judges in contest -->
-                            <span id="judges_contest_1">
-                                <option value="1">Жюри 1</option>
-                                <option value="2">Жюри 2</option>
-                            </span>
-                        </div>
-                        <div class="card_content-text">
-                            <div class="formula"></div>
-                        </div>
-                    </div>
-                </div>
-
+                <? endforeach; ?>
             </div>
         </div>
 
-        <input type="hidden" id="event_id" value="5">
+
 
         <!-- Modal - Update contest Info -->
-        <form class="modal fade" id="editcontest_modal" role="dialog" aria-labelledby="" method="post" action="">
+        <form class="modal fade" id="editcontest_modal" role="dialog" method="post" action="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -147,7 +157,7 @@
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <select multiple id="editcontest_judges" name="members">
+                                <select multiple id="editcontest_judges" name="judges[]">
 
                                 </select>
                                 <label for="editcontest_judges">Жюри, которые будут оценивать этот конкурс</label>
@@ -163,6 +173,7 @@
                     </div>
                 </div>
             </div>
+            <?= Form::hidden('csrf', Security::token()) ?>
         </form>
 
     </section>
@@ -171,6 +182,7 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/formula.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/contests.js"></script>
 
 </div>

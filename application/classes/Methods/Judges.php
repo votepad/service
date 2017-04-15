@@ -17,7 +17,6 @@ class Methods_Judges extends Model_Judge
 
         $judges = Dao_Judges::select()
             ->where('event', '=', $id_event)
-            ->cached(Date::HOUR, 'event:' . $id_event)
             ->order_by('id', 'ASC')
             ->execute();
 

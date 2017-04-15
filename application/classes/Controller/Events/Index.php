@@ -189,6 +189,12 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_contests()
     {
+
+        $this->event->judges = Methods_Judges::getByEvent($this->event->id);
+        $this->event->stagesJSON = Methods_Stages::getJSON($this->event->id);
+        $this->event->stages = Methods_Stages::getByEvent($this->event->id);
+        $this->event->contests = Methods_Contests::getByEvent($this->event->id);
+
         $this->template->mainSection = View::factory('events/scenario/contests')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
@@ -205,6 +211,10 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_result()
     {
+
+        $this->event->result = Methods_Results::getByEvent($this->event->id);
+        $this->event->contestsJSON = Methods_Contests::getJSON($this->event->id);
+
         $this->template->mainSection = View::factory('events/scenario/results')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
