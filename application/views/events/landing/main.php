@@ -124,6 +124,13 @@
                     <li class="contest-header__item active" data-toggle="tabs" data-block="contest_1">Contest 1</li>
                     <li class="contest-header__item" data-toggle="tabs" data-block="contest_2">Contest 2</li>
                 </ul>
+
+                <div class="contest-description">
+                    contest_description : lalalalalalalllallalalal and zksld sdadcbxziume cx jb asd,mx  kawjdvsdjk fvm,j chsdkj
+                    <br>
+                    Contest contains 3 stages.
+                </div>
+
                 <div id="contest_1" class="contest-body">
 
                     <ul class="stage-header">
