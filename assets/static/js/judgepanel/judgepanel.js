@@ -23,7 +23,7 @@ var touchSupported = function(e) {
 
 var stages_holder = function () {
 
-    var stages = document.getElementsByClassName('stages_holder').item(0);
+    var stages = document.getElementsByClassName('stages').item(0);
 
     //Переменная для запоминания левой позиции блока
 
@@ -59,7 +59,7 @@ var stages_holder = function () {
 
         downMouse: function (event) {
 
-            var currentElem = event.target.closest('.stages_holder_stage_peoples_criteria_holder-criteria');
+            var currentElem = event.target.closest('.criterion-block');
 
             if (event.which > 1 || !currentElem) {
                 return;
@@ -80,7 +80,7 @@ var stages_holder = function () {
 
         moveMouse: function (event) {
 
-            var currentElem = event.target.closest('.stages_holder_stage_peoples-criteria-holder');
+            var currentElem = event.target.closest('.criterions');
 
             if (event.which > 1 || !checkDownMouse || !currentElem) {
                 return;
@@ -102,7 +102,7 @@ var stages_holder = function () {
 
         upMouse: function (event) {
 
-            var currentElem = event.target.closest('.stages_holder_stage_peoples-criteria-holder');
+            var currentElem = event.target.closest('.criterions');
 
             if (event.which > 1 || !currentElem) {
                 console.log("ex");
@@ -168,7 +168,7 @@ var stages_holder = function () {
         replaceBlockPosition: function () {
 
 
-            sliderElem = document.getElementsByClassName('stages_holder_stage_peoples_criteria_holder-criteria');
+            sliderElem = document.getElementsByClassName('criterion-block');
             widthCurrentElem = sliderElem[0].getBoundingClientRect().width;
 
             sliderElem[0].dispatchEvent(eventor);
