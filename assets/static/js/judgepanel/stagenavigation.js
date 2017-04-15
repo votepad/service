@@ -8,15 +8,11 @@ var stagena = function () {
         CLASSES     = {
             tab: 'tabs__btn',
             tabActive: 'tabs__btn--active',
-            eventDefault: 'stage_nav_ul-li',
-            eventActive: 'stage_nav_ul-li--active',
-            headerTab: 'tabs__header',
-            headerStageUl: 'stage_nav-ul',
-            headerStage: 'stage_nav'
+            headerTab: 'tabs__header'
         },
 
-        NAMES       = {
-            stag: 'stage_nav'
+        ID       = {
+            stag: 'stages-nav'
         };
 
     var stage = null;
@@ -74,9 +70,8 @@ var stagena = function () {
         tab.innerText = nameEvent;
         tab.name = 0;
         tab.dataset.toggle = 'tabs';
-        tab.dataset.block = "qw" + s;
+        tab.dataset.block = "stage" + s;
         s += 1;
-        tab.classList.add(CLASSES.eventDefault);
         tab.classList.add(CLASSES.tab);
         tab.addEventListener('click', clicked);
 
@@ -101,7 +96,6 @@ var stagena = function () {
 
         if (isCheckedInd > -1 ){
             tabs[isCheckedInd].classList.toggle(CLASSES.tabActive);
-            tabs[isCheckedInd].classList.toggle(CLASSES.eventActive);
             tabs[isCheckedInd].name = 0;
 
             ToggleEvent.checked = false;
@@ -110,7 +104,6 @@ var stagena = function () {
         }
 
         tab.classList.toggle(CLASSES.tabActive);
-        tab.classList.toggle(CLASSES.eventActive);
 
         ToggleEvent.checked = !ToggleEvent.checked;
         tab.name = !tab.name;
@@ -120,9 +113,6 @@ var stagena = function () {
 
     var initMenu = function (namesOfEvents) {
 
-
-        stage.classList.add(CLASSES.headerStage);
-        stage.classList.add(CLASSES.headerStageUl);
         stage.classList.add(CLASSES.headerTab);
 
         for (i = 0; i < namesOfEvents.length; i++){
@@ -142,7 +132,7 @@ var stagena = function () {
     };
 
     var init = function (namesOfEvents) {
-        stage = document.getElementsByName(NAMES.stag)[0];
+        stage = document.getElementById(ID.stag);
 
         initMenu(namesOfEvents);
     };
