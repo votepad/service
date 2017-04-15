@@ -37,20 +37,20 @@
                     <div class="stages_holder_stage_peoples_criteria_holder-criteria"> <!--Критерий-->
                         <div class="content-block-crit">
 
-                                <div class="titleS m-l-10 m-t-10 text-left">МДаааааа Антон
+                                <div class="titleS m-l-20 m-t-20 m-r-10 text-left">МДаааааа Антон
                                     <i class="fl_r fa fa-hand-o-right" aria-hidden="true"></i>
                                 </div>
 
 
 
-                            <div class="Balls  m-l-10 m-t-10 m-b-5 m-l-10 text-left">
+                            <div class="Balls  m-l-20 m-t-10 m-b-5 text-left">
                                 Итоговый балл: из 15
                                 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                             </div>
 
 
 
-                            <div class="fl_l m-t-10 m-l-10">
+                            <div class="fl_l m-t-10 m-l-20">
                                 <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="1">1</span>
                                 <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="2">2</span>
                                 <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="3">3</span>
