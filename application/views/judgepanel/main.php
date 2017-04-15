@@ -22,6 +22,7 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/judgepanel.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/slidermodul.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/radioboxes.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/stagenavigation.js"></script>
 
@@ -52,7 +53,8 @@
 
 <script type="text/javascript">
     radioElem.init();
-    init();
+    new stages_holder();
+    new slider(['A', 'B']);
     stagena.init(['Деловая игра', 'Доклад участника']);
     vp.tabs.init();
 </script>
