@@ -96,7 +96,7 @@
                         </label>
                     </div>
                     <div class="col-xs-12">
-                        <button type="button" id="judgeSignIn" class="btn btn_primary col-xs-6 col-xs-offset-3">Войти</button>
+                        <button type="submit" id="judgeSignIn" class="btn btn_primary col-xs-6 col-xs-offset-3">Войти</button>
                     </div>
                     <?=Form::hidden('csrf', Security::token()); ?>
                 </form>
