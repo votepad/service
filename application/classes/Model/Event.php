@@ -199,6 +199,8 @@ class Model_Event extends Model
         return (bool) Dao_UsersEvents::select('u_id')
             ->where('u_id', '=', $id)
             ->where('e_id', '=', $this->id)
+            ->clearcache('EventUsers:' . $this->id)
+            ->clearcache('UserEvents:' . $id)
             ->limit(1)
             ->execute();
 

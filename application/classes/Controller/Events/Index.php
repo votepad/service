@@ -34,7 +34,6 @@ class Controller_Events_Index extends Dispatch
      */
     public function before()
     {
-
         parent::before();
 
         $id = $this->request->param('id');
@@ -72,6 +71,10 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_settings()
     {
+        if (!$this->event->isAssistant($this->user->id) || !self::isLogged()) {
+            $this->redirect('event/' . $this->event->id);
+        }
+
         $this->template->mainSection = View::factory('events/settings/content')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
