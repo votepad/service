@@ -45,13 +45,14 @@
 
                     <div class="stages_holder_stage_peoples_criteria_holder-criteria"> <!--Критерий-->
                         <div class="content-block-crit">
-                            <div class="m-l-10">
-                                <div class="titleS m-t-20 fl_l text-left">МДаааааа Антон</div>
-                                <i class="m-t-10 m-b-10 m-l-10 m-r-10 fl_r fa fa-hand-o-right" aria-hidden="true"></i>
-                            </div>
+
+                                <div class="titleS m-l-10 m-t-10 text-left">МДаааааа Антон
+                                    <i class="fl_r fa fa-hand-o-right" aria-hidden="true"></i>
+                                </div>
 
 
-                            <div class="Balls  m-t-10 m-b-5 m-l-10 fl_l text-left">
+
+                            <div class="Balls  m-l-10 m-t-10 m-b-5 m-l-10 text-left">
                                 Итоговый балл: из 15
                                 <i class="fa fa-graduation-cap" aria-hidden="true"></i>
                             </div>
@@ -59,18 +60,18 @@
 
 
                             <div class="fl_l m-t-10 m-l-10">
-                                <span name="vp-custom-radiobox" data-name="lol">1</span>
-                                <span name="vp-custom-radiobox" data-name="2">2</span>
-                                <span name="vp-custom-radiobox" data-name="3">3</span>
-                                <span name="vp-custom-radiobox" data-name="4">4</span>
-                                <span name="vp-custom-radiobox" data-name="5">5</span>
-                                <span name="vp-custom-radiobox" data-name="6">6</span>
-                                <span name="vp-custom-radiobox" data-name="1">1</span>
-                                <span name="vp-custom-radiobox" data-name="2">2</span>
-                                <span name="vp-custom-radiobox" data-name="3">3</span>
-                                <span name="vp-custom-radiobox" data-name="4">4</span>
-                                <span name="vp-custom-radiobox" data-name="5">5</span>
-                                <span name="vp-custom-radiobox" data-name="6">6</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="1">1</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="2">2</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="3">3</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="4">4</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="5">5</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="6">6</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="1">1</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="2">2</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="3">3</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="4">4</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="5">5</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="6">6</span>
                              </div>
 
 
@@ -118,10 +119,10 @@
 
 
                             <div class="fl_l m-t-10 m-l-10">
-                                <span name="vp-custom-radiobox" data-name="lol">1</span>
-                                <span name="vp-custom-radiobox" data-name="2">2</span>
-                                <span name="vp-custom-radiobox" data-name="3">3</span>
-                                <span name="vp-custom-radiobox" data-name="4">4</span>
+                                <span name="vp-custom-radiobox" data-name="scores_part_id" data-value="">1</span>
+                                <span name="vp-custom-radiobox" data-name="scores_part_id">2</span>
+                                <span name="vp-custom-radiobox" data-name="scores_part_id">3</span>
+                                <span name="vp-custom-radiobox" data-name="scores_part_id">4</span>
                                 <span name="vp-custom-radiobox" data-name="5">5</span>
                                 <span name="vp-custom-radiobox" data-name="6">6</span>
                                 <span name="vp-custom-radiobox" data-name="1">1</span>

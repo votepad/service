@@ -51,7 +51,7 @@
 </body>
 
 <script type="text/javascript">
-    radioboxe.init();
+    radioElem.init();
     init();
     stagena.init(['Деловая игра', 'Доклад участника']);
     vp.tabs.init();

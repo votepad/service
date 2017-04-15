@@ -99,12 +99,10 @@
 }
 
 .stage_nav_ul-li--active{
-    background-color: #008BA5;
+    background-color: #008DA7;
+    border: 1px solid #1F6E7D;
     color: rgb(255, 255, 255);
 }
-
-
-
 
 .stages_holder{
     overflow: hidden;
@@ -224,26 +222,26 @@
     letter-spacing: normal;
 }
 
-.vp-radiobox {
-    cursor: pointer;
-}
 
-.vp-radiobox__circle {
+.vp-radiobox {
     width: 35px;
     height: 35px;
-    background-color: #95a3ae;
+    border: 3px solid #cfcfcf;
+    background-color: #E7E7E7;
     border-radius: 50%;
     float: left;
     text-align: center;
     margin: 0 10px 20px 0;
-    line-height: 2.2em;
+    line-height: 1.9em;
     cursor: pointer;
     color: rgb(0, 0, 0);
     font-weight: bold;
+
 }
 
 .vp-radiobox--checked {
-    background-color: #008BA5;
+    background-color: #008DA7;
+    border: 3px solid #1F6E7D;
     color: rgb(255, 255, 255);
 }
 
@@ -271,7 +269,6 @@
 
     .Balls{
         font-size: 1.5em;
-        margin: 20px 0 5px 0;
     }
 
     .Smah{

@@ -195,6 +195,8 @@ var stages_holder = function () {
 
     var numberOfBlock = null;
 
+    var eventor = new Event("mouseup", {bubbles: true, cancelable: false});
+
 
     var handlers = {
 
@@ -218,6 +220,8 @@ var stages_holder = function () {
             startX = moveX = event.clientX;
 
             checkDownMouse = true;
+
+            console.log('down');
         },
 
         moveMouse: function (event) {
@@ -247,6 +251,7 @@ var stages_holder = function () {
             var currentElem = event.target.closest('.stages_holder_stage_peoples-criteria-holder');
 
             if (event.which > 1 || !currentElem) {
+                console.log("ex");
                 return;
             }
 
@@ -255,6 +260,14 @@ var stages_holder = function () {
             event = touchSupported(event);
 
             var finX = event.clientX;
+            var flag = true;
+            if (!finX) {
+                flag = !flag;
+                startX = document.documentElement.clientWidth / 20;
+                finX = document.documentElement.clientWidth / 10;
+            }
+            console.log(finX);
+
 
             //Перменные для анимации
 
@@ -286,27 +299,25 @@ var stages_holder = function () {
                 }
             }
 
-            if ( startAnimate != 0 && startAnimate < (currentElem.childElementCount - 1)  * (widthCurrentElem + 10) - 10 )
-                animate(functionForAnimate, currentElem, startAnimate, endAnimate);
+            if ( startAnimate != 0 && startAnimate < (currentElem.childElementCount - 1)  * (widthCurrentElem + 10) - 10 ) {
+                if (flag){
+                   animate(functionForAnimate, currentElem, startAnimate, endAnimate);
+                } else {
+                   currentElem.scrollLeft = startAnimate + endAnimate;
+                }
+            }
 
-            console.log(numberOfBlock);
+            console.log('ok');
             checkDownMouse = false;
         },
 
-        replaceBlockPosition: function (event) {
+        replaceBlockPosition: function () {
 
 
             sliderElem = document.getElementsByClassName('stages_holder_stage_peoples_criteria_holder-criteria');
+            widthCurrentElem = sliderElem[0].getBoundingClientRect().width;
 
-            widthCurrentElem = sliderElem[0].getBoundingClientRect();
-
-            console.log(sliderElem[0].getBoundingClientRect());
-
-            //widthCurrentElem = sliderElem.getBoundingClientRect();
-
-            console.log(Math.round(Math.abs(widthCurrentElem.left)/widthCurrentElem.width));
-
-            //currentElem.scrollLeft = (widthCurrentElem + 10) * numberOfBlock;
+            sliderElem[0].dispatchEvent(eventor);
         }
     };
 

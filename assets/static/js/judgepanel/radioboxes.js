@@ -1,10 +1,9 @@
-var radioboxe = function () {
+var radioboxes = function (radioboxes) {
 
     var ToggleEvent = new window.CustomEvent('toggle'),
 
         CLASSES     = {
             wrapper: 'vp-radiobox',
-            radiobox: 'vp-radiobox__circle',
             checked: 'vp-radiobox--checked',
             defaultRadiobox: 'vp-default-radiobox--hidden'
          },
@@ -12,31 +11,26 @@ var radioboxe = function () {
         NAMES       = {
             radiobox: 'vp-custom-radiobox',
             defaultInput: 'vp-custom-radiobox'
-        };
+        },
+
+
+        currentRadio = null,
+        currentInput = null;
 
 
     var prepareRadioBox = function (wrapper) {
 
         var input       = document.createElement('INPUT'),
-            radiobox    = document.createElement('SPAN'),
-            text        = document.createElement('SPAN');
             firstChild  = wrapper.firstChild;
 
-
-        text.innerText = wrapper.innerHTML;
-
-
-        input.type  = 'radiobox';
+        input.type  = 'radio';
         input.name  = wrapper.dataset.name || NAMES.defaultInput;
-        input.value = 1;
+        input.value = wrapper.dataset.value;
+        input.checked = false;
         input.classList.add(CLASSES.defaultRadiobox);
 
-        radiobox.classList.add(CLASSES.radiobox);
-        radiobox.appendChild(input);
-        radiobox.appendChild(text);
-
-        wrapper.innerText = " ";
         wrapper.classList.add(CLASSES.wrapper);
+        wrapper.appendChild(input);
         wrapper.addEventListener('click', clicked);
 
 
@@ -46,60 +40,65 @@ var radioboxe = function () {
             wrapper.classList.add(CLASSES.checked);
         }
 
-        if (firstChild){
-
-            wrapper.insertBefore(radiobox, firstChild);
-        } else {
-
-            wrapper.appendChild(radiobox);
-        }
-
     };
 
     var clicked = function () {
 
-        var wrapper     = this,
-            radiobox    = wrapper.querySelector('.' + CLASSES.radiobox),
-            radioboxes  = wrapper.parentNode.querySelectorAll('.' + CLASSES.radiobox),
-            input       = radiobox.querySelector('input'),
-            inputs      = wrapper.parentNode.querySelectorAll('input');
+        var wrapper = this,
+            input = wrapper.querySelector('input');
 
-        var isCheckedInd = -1;
+        if (currentRadio == wrapper){
+            currentRadio = null;
+            currentInput = null;
+        }
 
-        for (i = 0; i < inputs.length; i++) {
-            if (inputs[i].checked) {
-                isCheckedInd = i;
-                break;
+
+        if ( currentRadio != null ){
+            if ( currentInput.checked == true ) {
+                currentRadio.classList.toggle(CLASSES.checked);
+                currentInput.checked = false;
+
+                ToggleEvent.checked = false;
+
+                currentRadio.dispatchEvent(ToggleEvent);
             }
         }
 
-        if (isCheckedInd > -1 && radioboxes[isCheckedInd] != radiobox ){
-            radioboxes[isCheckedInd].classList.toggle(CLASSES.checked);
-            inputs[isCheckedInd].checked = false;
+        wrapper.classList.toggle(CLASSES.checked);
 
-            ToggleEvent.checked = inputs[isCheckedInd].checked;
-
-            radioboxes[isCheckedInd].dispatchEvent(ToggleEvent);
-        }
-
-        radiobox.classList.toggle(CLASSES.checked);
         input.checked = !input.checked;
 
         ToggleEvent.checked = input.checked;
 
-        radiobox.dispatchEvent(ToggleEvent);
+        wrapper.dispatchEvent(ToggleEvent);
+
+        currentRadio = wrapper;
+
+        currentInput = input;
     };
 
 
-    var init = function () {
-
-        var radioboxes = document.getElementsByName(NAMES.radiobox);
-
+    var initial = function () {
         Array.prototype.forEach.call(radioboxes, prepareRadioBox);
+    };
+
+    return{
+        initial: initial
+    };
+};
+
+var radioElem = function () {
+
+    var init = function () {
+        for (i = 1; i <= 2; i++) {
+            blok = new radioboxes(document.querySelectorAll('span[data-name=vp-radiobox-' + i + ']'));
+            blok.initial();
+        }
     };
 
     return{
         init: init
     };
+
 
 }();
