@@ -378,7 +378,7 @@ $(document).ready(function () {
     var noevent = document.createElement('div');
     noevent.id = "noEvent";
     noevent.style = "padding: 20px;text-align: center;";
-    noevent.innerHTML = "У Вас нет мероприятий. Вы можете создать мероприятие внутри организации.";
+    noevent.innerHTML = "Мероприятия не созданы.";
 
     var checkNumberOfEvent = function () {
 
