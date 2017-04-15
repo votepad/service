@@ -40,7 +40,7 @@
                 <? if ($organization->id) : ?>
                     <div id="organization_organization-><?=$organization->id; ?>" class="item col-xs-12 col-md-6">
                         <a href="<?= URL::site( 'organization/' . $organization->id ); ?>" class="item__img-wrap">
-                            <img class="item__img" alt="Org img" src="/uploads/organization/logo/<?=$organization->logo; ?>">
+                            <img class="item__img" alt="Org img" src="/uploads/organizations/logo/<?=$organization->logo; ?>">
                         </a>
                         <div class="item__info">
                             <div class="item__info-name">

@@ -35,6 +35,11 @@ class Model_Event extends Model
     public $description;
 
     /**
+     * @var $branding [Text] - path to cover
+     */
+    public $branding;
+
+    /**
      * @var $tags [JSON]
      */
     public $tags;
@@ -120,7 +125,7 @@ class Model_Event extends Model
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
 
     }
 
