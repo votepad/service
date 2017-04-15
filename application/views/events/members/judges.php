@@ -20,7 +20,7 @@
 
 
     <section class="section__content">
-        <div id="eventCode" data-id="456987" class="eventCode">
+        <div id="eventCode" data-id="<?=$event->code; ?>" class="eventCode">
             <h2>Код мероприятия</h2>
         </div>
 
