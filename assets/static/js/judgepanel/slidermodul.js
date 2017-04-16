@@ -98,7 +98,7 @@ var slider = function(letters) {
 
             var newLeft = event.pageX - bandCord.left - circleWidth;
 
-            console.log('kek', rightEdge);
+            //console.log('kek', rightEdge);
 
 
             // курсор ушёл вне слайдера

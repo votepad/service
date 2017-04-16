@@ -92,7 +92,7 @@ var stagena = function () {
             }
         }
 
-        console.log(isCheckedInd);
+        //console.log(isCheckedInd);
 
         if (isCheckedInd > -1 ){
             tabs[isCheckedInd].classList.toggle(CLASSES.tabActive);

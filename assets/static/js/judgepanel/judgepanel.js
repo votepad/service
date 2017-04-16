@@ -75,7 +75,7 @@ var stages_holder = function () {
 
             checkDownMouse = true;
 
-            console.log('down');
+            //console.log('down');
         },
 
         moveMouse: function (event) {
@@ -105,7 +105,7 @@ var stages_holder = function () {
             var currentElem = event.target.closest('.criterions');
 
             if (event.which > 1 || !currentElem) {
-                console.log("ex");
+                //console.log("ex");
                 return;
             }
 
@@ -120,7 +120,7 @@ var stages_holder = function () {
                 startX = document.documentElement.clientWidth / 20;
                 finX = document.documentElement.clientWidth / 10;
             }
-            console.log(finX);
+            //console.log(finX);
 
 
             //Перменные для анимации
@@ -161,7 +161,7 @@ var stages_holder = function () {
                 }
             }
 
-            console.log('ok');
+            //console.log('ok');
             checkDownMouse = false;
         },
 
@@ -217,6 +217,6 @@ var functionForAnimate = {
 
     draw: function(progress, elem, start, end) {
         elem.scrollLeft = start + progress * end;
-        //console.log(elem.scrollLeft);
+        ////console.log(elem.scrollLeft);
     }
 };
