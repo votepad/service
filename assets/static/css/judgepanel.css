@@ -6,6 +6,9 @@
     width: calc(100% - 200px);
     height: inherit;
 }
+.user-name--shown-xs{
+    display: none;
+}
 @media (max-width: 500px) {
     .header__scroll-bar{
         width: calc(100% - 60px);
