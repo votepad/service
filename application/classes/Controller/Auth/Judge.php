@@ -8,7 +8,7 @@ class Controller_Auth_Judge extends Auth {
     public function before()
     {
         // поля без CSRF
-        $exceptions = ['logout', 'resetPassword'];
+        $exceptions = ['logout'];
 
         if (!in_array($this->request->action(), $exceptions)) {
 
@@ -29,7 +29,7 @@ class Controller_Auth_Judge extends Auth {
 
         if ($id = Model_Event::getEventByCode($eventCode)) {
 
-//            $this->redirect('judge') Redirect to to
+//            $this->redirect('judge') Redirect to judge page
 
         }
 
