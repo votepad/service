@@ -23,33 +23,14 @@ var touchSupported = function(e) {
 
 var stages_holder = function () {
 
-    var stages = document.getElementsByClassName('stages').item(0);
-
-    //Переменная для запоминания левой позиции блока
-
-    var startX = null;
-
-    //Переменная для скролла блока
-
-    var moveX = null;
-
-    //Длина одного блока
-
-    var widthCurrentElem = null;
-
-    //Объект полосы блоков
-
-    var sliderElem = null;
-
-    //Переменная для проверки события клика мышки на ползунок
-
-    var checkDownMouse = false;
-
-    //Текущее кол-во блоков, которое было прокручено
-
-    var numberOfBlock = null;
-
-    var eventor = new Event("mouseup", {bubbles: true, cancelable: false});
+    var stages           = document.getElementsByClassName('stages').item(0),
+        startX           = null,
+        moveX            = null,
+        widthCurrentElem = null,
+        sliderElem       = null,
+        checkDownMouse   = false,
+        numberOfBlock    = null,
+        eventor          = new Event("mouseup", {bubbles: true, cancelable: false});
 
 
     var handlers = {
@@ -74,8 +55,6 @@ var stages_holder = function () {
             startX = moveX = event.clientX;
 
             checkDownMouse = true;
-
-            console.log('down');
         },
 
         moveMouse: function (event) {
@@ -105,7 +84,6 @@ var stages_holder = function () {
             var currentElem = event.target.closest('.criterions');
 
             if (event.which > 1 || !currentElem) {
-                console.log("ex");
                 return;
             }
 
@@ -113,27 +91,18 @@ var stages_holder = function () {
 
             event = touchSupported(event);
 
-            var finX = event.clientX;
-            var flag = true;
+            var finX              = event.clientX,
+                flag              = true,
+                startAnimate      = currentElem.scrollLeft,
+                endAnimate        = (widthCurrentElem + 10) * numberOfBlock - startAnimate,
+                widthFingerScroll = widthCurrentElem / 10;
+
             if (!finX) {
                 flag = !flag;
                 startX = document.documentElement.clientWidth / 20;
                 finX = document.documentElement.clientWidth / 10;
             }
-            console.log(finX);
 
-
-            //Перменные для анимации
-
-            var startAnimate = currentElem.scrollLeft;
-
-            var endAnimate = (widthCurrentElem + 10) * numberOfBlock - startAnimate;
-
-            //Длина участка траектории, при котором один блок сменяется на другой
-
-            var widthFingerScroll = widthCurrentElem / 10;
-
-            //Обработка нового положения, если скролл идет влево
 
             if (finX - startX > widthFingerScroll){
 
@@ -160,8 +129,6 @@ var stages_holder = function () {
                    currentElem.scrollLeft = startAnimate + endAnimate;
                 }
             }
-
-            console.log('ok');
             checkDownMouse = false;
         },
 
@@ -217,6 +184,5 @@ var functionForAnimate = {
 
     draw: function(progress, elem, start, end) {
         elem.scrollLeft = start + progress * end;
-        //console.log(elem.scrollLeft);
     }
 };

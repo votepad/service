@@ -2,28 +2,23 @@
 
 var stagena = function () {
 
-    var ToggleEvent = new window.CustomEvent('toggle'),
-        event       = new Event("click", {bubbles : true, cancelable : true}),
+    var ToggleEvent     = new window.CustomEvent('toggle'),
+        clickEvent      = new Event("click", {bubbles : true, cancelable : true}),
+        stage           = null,
+        startX          = null,
+        s               = 1,
+        checkDownMouse  = false,
 
-        CLASSES     = {
+        CLASSES         = {
             tab: 'tabs__btn',
             tabActive: 'tabs__btn--active',
             headerTab: 'tabs__header'
         },
 
-        ID       = {
+        ID              = {
             stag: 'stages-nav'
         };
 
-    var stage = null;
-
-    var startX = null;
-
-    var s = 1;
-
-    //Переменная для проверки события клика мышки на ползунок
-
-    var checkDownMouse = false;
 
     var handlers = {
 
@@ -120,7 +115,7 @@ var stagena = function () {
             stage.appendChild(prepareTab(namesOfEvents[i]));
         }
 
-        stage.firstChild.dispatchEvent(event);
+        stage.firstChild.dispatchEvent(clickEvent);
 
         stage.addEventListener('touchstart', handlers.downMouse, false);
         stage.addEventListener('mousedown', handlers.downMouse, false);

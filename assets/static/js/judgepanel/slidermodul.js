@@ -4,31 +4,19 @@ var slider = function(letters) {
 
     //Получение элементов ползунка
 
-    var sliderElem = document.getElementById('slider'),
-        letterElem = document.getElementById('letter'),
-        bandElem = document.getElementById('band'),
-        circleElem = document.getElementById('circle');
+    var sliderElem          = document.getElementById('slider'),
+        letterElem          = document.getElementById('letter'),
+        bandElem            = document.getElementById('band'),
+        circleElem          = document.getElementById('circle'),
+        bandCord            = bandElem.getBoundingClientRect(),
+        circleCord          = null,
+        circleWidth         = null,
+        proportionForResize = null,
+        checkDownMouse      = false,
+        rightEdge           = null;
 
-    circleElem.style.left = 0;
+    circleElem.style.left   = 0;
 
-    //Получение координат полосы прокрутки
-
-    var bandCord = bandElem.getBoundingClientRect();
-
-    //Переменные для обработки события прокрутки
-
-    var circleCord = null;
-    var circleWidth = null;
-
-    //Переменная для обработки события изменение окна
-
-    var proportionForResize = null;
-
-    //Переменная для проверки события клика мышки на ползунок
-
-    var checkDownMouse = false;
-
-    var rightEdge = null;
 
     var handlers = {
 
@@ -97,8 +85,6 @@ var slider = function(letters) {
             event = touchSupported(event);
 
             var newLeft = event.pageX - bandCord.left - circleWidth;
-
-            console.log('kek', rightEdge);
 
 
             // курсор ушёл вне слайдера
