@@ -3,12 +3,22 @@
     opacity:1 !important;
 }
 .header__scroll-bar{
-    width: 100%;
+    width: calc(100% - 200px);
     height: inherit;
 }
-@media (max-width: 992px) {
-    .header__scroll-bar {
-        width: calc(100% - 50px);
+.user-name--shown-xs{
+    display: none;
+}
+@media (max-width: 500px) {
+    .header__scroll-bar{
+        width: calc(100% - 60px);
+    }
+    .user-name--hidden-xs{
+        display: none;
+    }
+    .user-name--shown-xs{
+        display: block;
+        font-size: 1.5em;
     }
 }
 
