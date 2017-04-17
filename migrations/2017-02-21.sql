@@ -1,1 +1,0 @@
-ALTER TABLE `Organizations` ADD `description` varchar(300) DEFAULT NULL
