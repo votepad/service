@@ -43,4 +43,16 @@ class Methods_Judges extends Model_Judge
 
     }
 
+    public static function getJudge($id_event, $password) {
+
+        $judge = Dao_Judges::select()
+            ->where('event', '=', $id_event)
+            ->where('password', '=', $password)
+            ->limit(1)
+            ->execute();
+
+        return new Model_Judge($judge['id']);
+
+    }
+
 }
