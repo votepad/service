@@ -17,7 +17,6 @@ class Methods_Judges extends Model_Judge
 
         $judges = Dao_Judges::select()
             ->where('event', '=', $id_event)
-            ->cached(Date::HOUR, 'event:' . $id_event)
             ->order_by('id', 'ASC')
             ->execute();
 
@@ -40,6 +39,18 @@ class Methods_Judges extends Model_Judge
         };
 
         return $result;
+
+    }
+
+    public static function getJudge($id_event, $password) {
+
+        $judge = Dao_Judges::select()
+            ->where('event', '=', $id_event)
+            ->where('password', '=', $password)
+            ->limit(1)
+            ->execute();
+
+        return new Model_Judge($judge['id']);
 
     }
 

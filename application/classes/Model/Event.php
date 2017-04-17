@@ -3,6 +3,10 @@
 class Model_Event extends Model
 {
 
+    /** Min and Max random value as event code */
+    const MIN_RAND_VALUE = 100000;
+    const MAX_RAND_VALUE = 999999;
+    const EVENTCODE_KEY  = 'event.codes';
 
     /**
      * @var $id [INT]
@@ -45,11 +49,6 @@ class Model_Event extends Model
     public $tags;
 
     /**
-     * @var $cover [Text]
-     */
-    //public $cover;
-
-    /**
      * @var $address [String]
      */
     public $address;
@@ -69,6 +68,11 @@ class Model_Event extends Model
      * @var $is_published [Bool]
      */
     public $is_published = 0;
+
+    /**
+     * @var $eventCode - code for judges
+     */
+    public $code = null;
 
     /*
      * @var $dt_create [Date]
@@ -90,6 +94,7 @@ class Model_Event extends Model
         foreach ($db_selection as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $this->$fieldname = $value;
         }
+
 
         return $this;
 
@@ -199,6 +204,8 @@ class Model_Event extends Model
         return (bool) Dao_UsersEvents::select('u_id')
             ->where('u_id', '=', $id)
             ->where('e_id', '=', $this->id)
+            ->clearcache('EventUsers:' . $this->id)
+            ->clearcache('UserEvents:' . $id)
             ->limit(1)
             ->execute();
 
@@ -231,6 +238,29 @@ class Model_Event extends Model
             ->execute();
 
         return $event;
+
+    }
+
+    public function generateCodeForJudges($id_event) {
+
+        $redis = Dispatch::redisInstance();
+        $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
+
+        /** try until we find */
+        while ( $redis->hExists(self::EVENTCODE_KEY, $generatedCode) ) {
+            $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
+        }
+
+        $redis->hset(self::EVENTCODE_KEY, $generatedCode, $id_event);
+
+        return $generatedCode;
+
+    }
+
+    public static function getEventByCode($code) {
+
+        $redis = Dispatch::redisInstance();
+        return $redis->hget(self::EVENTCODE_KEY, $code);
 
     }
 

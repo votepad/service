@@ -10,7 +10,7 @@
     Управление
 </a>
 
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/scenario/result'); ?>">
+<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/scenario/criterias'); ?>">
     Сценарий
 </a>
 

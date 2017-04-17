@@ -478,8 +478,11 @@ $(document).ready(function() {
 
         img.className = "table-photo-logo";
 
-        if (value != null && value != "")
+        if (value != null && value != ""){
             img.src = pathToImg + value;
+        } else {
+            img.src = pathToImg + "no-participant.png";
+        }
 
         td.appendChild(img);
 
