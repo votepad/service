@@ -38,7 +38,7 @@ var stages_holder = function () {
         //При нажатии на кнопку, мы должны запомнить начальное положение блоков, а также проинициалировать переменную для скролла
         //Так же мы должны просчитать размер единичного блока
 
-        downMouse: function (event) {
+        mouseDown: function (event) {
 
             var currentElem = event.target.closest('.criterion-block');
 
@@ -57,7 +57,7 @@ var stages_holder = function () {
             checkDownMouse = true;
         },
 
-        moveMouse: function (event) {
+        mouseMove: function (event) {
 
             var currentElem = event.target.closest('.criterions');
 
@@ -79,7 +79,7 @@ var stages_holder = function () {
 
         },
 
-        upMouse: function (event) {
+        mouseUp: function (event) {
 
             var currentElem = event.target.closest('.criterions');
 
@@ -142,14 +142,14 @@ var stages_holder = function () {
         }
     };
 
-    stages.addEventListener('touchstart', handlers.downMouse, false);
-    stages.addEventListener('mousedown', handlers.downMouse, false);
+    stages.addEventListener('touchstart', handlers.mouseDown, false);
+    stages.addEventListener('mousedown', handlers.mouseDown, false);
 
-    stages.addEventListener('touchmove', handlers.moveMouse, false);
-    stages.addEventListener('mousemove', handlers.moveMouse, false);
+    stages.addEventListener('touchmove', handlers.mouseMove, false);
+    stages.addEventListener('mousemove', handlers.mouseMove, false);
 
-    stages.addEventListener('touchend', handlers.upMouse, false);
-    stages.addEventListener('mouseup', handlers.upMouse, false);
+    stages.addEventListener('touchend', handlers.mouseUp, false);
+    stages.addEventListener('mouseup', handlers.mouseUp, false);
 
     window.addEventListener('resize', handlers.replaceBlockPosition, false);
 };

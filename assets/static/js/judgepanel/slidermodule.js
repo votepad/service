@@ -37,7 +37,7 @@ var slider = function(letters) {
         },
 
 
-        downMouse: function (event) {
+        mouseDown: function (event) {
 
             if (event.which > 1) {
                 return;
@@ -74,7 +74,7 @@ var slider = function(letters) {
             checkDownMouse = true;
         },
 
-        moveMouse: function (event) {
+        mouseMove: function (event) {
 
             if (event.which > 1 || !checkDownMouse) {
                 return;
@@ -103,7 +103,7 @@ var slider = function(letters) {
             proportionForResize = newLeft / (bandCord.right - bandCord.left);
         },
 
-        upMouse: function (event) {
+        mouseUp: function (event) {
             checkDownMouse = false;
 
         },
@@ -117,13 +117,13 @@ var slider = function(letters) {
         }
     };
 
-    sliderElem.addEventListener('touchstart', handlers.downMouse, false);
-    sliderElem.addEventListener('mousedown', handlers.downMouse, false);
+    sliderElem.addEventListener('touchstart', handlers.mouseDown, false);
+    sliderElem.addEventListener('mousedown', handlers.mouseDown, false);
 
-    sliderElem.addEventListener('touchmove', handlers.moveMouse, false);
-    sliderElem.addEventListener('mousemove', handlers.moveMouse, false);
+    sliderElem.addEventListener('touchmove', handlers.mouseMove, false);
+    sliderElem.addEventListener('mousemove', handlers.mouseMove, false);
 
-    document.addEventListener('mouseup', handlers.upMouse, false);
+    document.addEventListener('mouseup', handlers.mouseUp, false);
 
     window.addEventListener('resize', handlers.replaceCirclePosition, false);
 };

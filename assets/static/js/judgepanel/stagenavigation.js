@@ -20,7 +20,7 @@ var stagena = function () {
 
     var handlers = {
 
-        downMouse: function(event) {
+        mouseDown: function(event) {
             if ( event.which > 1) {
                 return;
             }
@@ -32,7 +32,7 @@ var stagena = function () {
             checkDownMouse = true;
         },
 
-        moveMouse: function (event) {
+        mouseMove: function (event) {
             if ( event.which > 1 || !checkDownMouse ) {
                 return;
             }
@@ -49,7 +49,7 @@ var stagena = function () {
 
         },
 
-        upMouse: function (event) {
+        mouseUp: function (event) {
             checkDownMouse = false;
         }
     };
@@ -106,13 +106,13 @@ var stagena = function () {
 
         stage.firstChild.click();
 
-        stage.addEventListener('touchstart', handlers.downMouse, false);
-        stage.addEventListener('mousedown', handlers.downMouse, false);
+        stage.addEventListener('touchstart', handlers.mouseDown, false);
+        stage.addEventListener('mousedown', handlers.mouseDown, false);
 
-        stage.addEventListener('touchmove', handlers.moveMouse, false);
-        stage.addEventListener('mousemove', handlers.moveMouse, false);
+        stage.addEventListener('touchmove', handlers.mouseMove, false);
+        stage.addEventListener('mousemove', handlers.mouseMove, false);
 
-        document.addEventListener('mouseup', handlers.upMouse, false);
+        document.addEventListener('mouseup', handlers.mouseUp, false);
     };
 
     var init = function (namesOfEvents) {

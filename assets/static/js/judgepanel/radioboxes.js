@@ -44,7 +44,7 @@ var radioboxes = function (radioboxes) {
             input = wrapper.querySelector('input');
 
         if ( currentRadio != null ){
-            if (currentInput.value != input.value) {
+            if (currentInput != input) {
                 currentRadio.classList.remove(CLASSES.checked);
             }
         }
@@ -58,12 +58,11 @@ var radioboxes = function (radioboxes) {
 
 
     var initial = function () {
+        console.log(radioboxes);
         Array.prototype.forEach.call(radioboxes, prepareRadioBox);
     };
 
-    return{
-        initial: initial
-    };
+    initial();
 };
 
 var radioElem = function () {
@@ -71,15 +70,21 @@ var radioElem = function () {
     var init = function () {
 
         var radiboxes = document.getElementsByName('vp-custom-radiobox');
-        var radibox = new Set();
+        var radibox = {};
+
 
         for (i = 0; i < radiboxes.length; i++){
-            radibox.add(radiboxes[i].dataset.name);
-        }
+            if (radibox[radiboxes[i].dataset.name] == null) {
 
-        for (let dataName of radibox) {
-            blok = new radioboxes(document.querySelectorAll('span[data-name=' + dataName + ']'));
-            blok.initial();
+                radibox[radiboxes[i].dataset.name] = [];
+            }
+
+            radibox[radiboxes[i].dataset.name].push(radiboxes[i]);
+        }
+        
+        for (var dataName in radibox) {
+
+            blok = new radioboxes(radibox[dataName]);
         }
     };
 
