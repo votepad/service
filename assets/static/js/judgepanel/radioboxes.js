@@ -23,10 +23,10 @@ var radioboxes = function (radioboxes) {
         var input       = document.createElement('INPUT'),
             firstChild  = wrapper.firstChild;
 
-        input.type  = 'radio';
-        input.name  = wrapper.dataset.name || NAMES.defaultInput;
-        input.value = wrapper.dataset.value;
-        input.checked = false;
+        input.type      = 'radio';
+        input.name      = wrapper.dataset.name || NAMES.defaultInput;
+        input.value     = wrapper.dataset.value;
+        input.checked   = false;
         input.classList.add(CLASSES.defaultRadiobox);
 
         wrapper.classList.add(CLASSES.wrapper);
@@ -90,8 +90,16 @@ var radioboxes = function (radioboxes) {
 var radioElem = function () {
 
     var init = function () {
-        for (i = 1; i <= 2; i++) {
-            blok = new radioboxes(document.querySelectorAll('span[data-name=vp-radiobox-' + i + ']'));
+
+        var radiboxes = document.getElementsByName('vp-custom-radiobox');
+        var radibox = new Set();
+
+        for (i = 0; i < radiboxes.length; i++){
+            radibox.add(radiboxes[i].dataset.name);
+        }
+
+        for (let dataName of radibox) {
+            blok = new radioboxes(document.querySelectorAll('span[data-name=' + dataName + ']'));
             blok.initial();
         }
     };

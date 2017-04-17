@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/icons_fonts.css?v=<?= filemtime("assets/static/css/icons_fonts.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css?v=<?= filemtime("assets/static/css/app_v1.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/judgepanel.css?v=<?= filemtime("assets/static/css/judgepanel.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/radioboxes.css?v=<?= filemtime("assets/static/css/radioboxes.css") ?>">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>

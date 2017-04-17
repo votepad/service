@@ -98,12 +98,12 @@
                                 <i class="member-icon fa fa-question-circle" aria-hidden="true"></i>
                             </p>
                             <div class="scores-area">
-                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="1">1</span>
-                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="2">2</span>
-                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="3">3</span>
-                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="4">4</span>
-                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="5">5</span>
-                                <span name="vp-custom-radiobox" data-name="vp-radiobox-1" data-value="6">6</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="1">1</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="2">2</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="3">3</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="4">4</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="5">5</span>
+                                <span name="vp-custom-radiobox" data-name="vp-radiobox-2" data-value="6">6</span>
                             </div>
                         </div>
 
