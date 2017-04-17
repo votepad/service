@@ -1,13 +1,11 @@
 $(document).ready(function() {
 
     /**
-     *  Vars
+     * Vars
      */
-    var isEdited = false,
-        pathToImg = window.location.protocol + "//" + window.location.host + "/uploads/participants/",
-        edit = document.getElementById('edit'),
+    var edit = document.getElementById('edit'),
         save = document.getElementById('save'),
-        table = document.getElementById('participants'),
+        table = document.getElementById('criterias'),
         idEvent = $('#id_event').val(),
         get_array = [],
         hot_array = [],
@@ -23,39 +21,47 @@ $(document).ready(function() {
 
 
     /**
-     *  Columns Settings
+     * Columns Settings
      *
-     *  column_disabled - when users are not allowed to edit cells in table
-     *  column_edited - when users can edit cells in table
+     * column_disabled - when users are not allowed to edit cells in table
+     * column_edited - when users can edit cells in table
      */
     column_disabled = [
         {
-            data:'photo',
-            readOnly: true,
-            className: 'htCenter',
-            renderer: imageRenderer
-        },
-        {
             data:'name',
             readOnly: true,
         },
         {
-            data:'about',
+            data:'description',
             readOnly: true,
         },
+        {
+            data:'min_score',
+            className: 'text-center',
+            readOnly: true,
+        },
+        {
+            data:'max_score',
+            className: 'text-center',
+            readOnly: true,
+        }
     ];
+
 
     column_edited = [
         {
-            data:'photo',
-            editor: false,
-            renderer:imageRenderer
-        },
-        {
             data:'name',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "" ) {
+                if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "") callback(false);
+                else callback(true);
+            }
+        },
+        {
+            data:'description',
+            readOnly: false,
+            validator: function (value, callback) {
+                if ( /[^A-Za-z0-9А-Яа-я#№!&.,:;-_ ]/.test(value)) {
                     callback(false);
                 } else {
                     callback(true);
@@ -63,29 +69,30 @@ $(document).ready(function() {
             }
         },
         {
-            data:'about',
+            data:'min_score',
+            className: 'text-center',
             readOnly: false,
-            validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я#№!&.,:;-_ ]/.test(value) ) {
-                    callback(false);
-                } else {
-                    callback(true);
-                }
-            }
+            type: 'numeric',
+        },
+        {
+            data:'max_score',
+            className: 'text-center',
+            readOnly: false,
+            type: 'numeric',
         }
     ];
 
 
 
     /**
-     * Get Participants data from DB
+     * Get data from DB
      */
     $.when(
 
         $.ajax({
-            url : '/participants/get/' + idEvent,
+            url : '/criterias/get/' + idEvent,
             type: "POST",
-            success: function(data) {
+            success: function(data, response) {
                 if ( data == 'null' ){
                     hot_array = [];
                     get_array = [];
@@ -109,33 +116,28 @@ $(document).ready(function() {
 
     });
 
-
-
-
      /**
-      *  Handsontable settings
+      * Handsontable settings
       */
      hot_settings = {
          data: hot_array,
 		 rowHeaders: true,
 		 fillHandle: false,
-         rowHeights: 72,
-		 colHeaders: ['Фото', 'Фамилия Имя', 'Об участнике'],
+		 colHeaders: ['Наименование', 'Описание', 'Минимальный балл', 'Максимальный балл'],
          columns: column_disabled,
      };
 
 
     /**
-     *  Create Handsontable
+     * Create Handsontable
      */
     hot = new Handsontable(table, hot_settings);
 
 
 
     /**
-     *  Edit participants
+     * Edit criterias
      */
-
     Handsontable.Dom.addEvent(edit, 'click', function() {
 
         save.className = "pull-right displayblock";
@@ -147,35 +149,33 @@ $(document).ready(function() {
             minSpareRows: 1,
             columns: column_edited
         });
-        isEdited = true;
+
     });
 
 
-
     /**
-     *  Checking on empty FIO cell
+     * Checking on empty name cell
      */
     hot.addHook('afterValidate', function(isValid, value, row, prop, source){
-        if ( prop != 'name' && hot.getDataAtCell(row, 1) === null ) {
-            hot.setDataAtCell(row, 1, "");
+        if ( prop != 'name' && hot.getDataAtCell(row, 0) === null ) {
+            hot.setDataAtCell(row, 0, "");
         }
         return;
     });
 
 
+
     /**
-     *  Save participants
+     * Save criterias
      */
     Handsontable.Dom.addEvent(save, 'click', function(el) {
-        output_array = [];
+
         hot.validateCells(function(valid){
 
             if ( valid == true ) {
-
+                output_array = [];
                 table.classList.add('whirl');
                 save.className = "displaynone";
-
-                isEdited = false;
 
                 hot.updateSettings({
                     minSpareRows: 0,
@@ -183,15 +183,15 @@ $(document).ready(function() {
                 });
 
                 // delete last row if it's empty
-                if (hot.isEmptyRow(hot.countRows() - 1) ) {
+                if (hot.isEmptyRow(hot.countRows() - 1)) {
                     hot.alter('remove_row', hot.countRows() - 1);
                 }
 
 
-                // when participants NOT existed
+                // when criterias NOT existed
                 if ( get_array.length == 0 ) {
 
-                    // when you don't add any Participants
+                    // when you don't add any Criterias
                     if (hot_array.length == 0 ) {
 
                         checking_on_empty_table('save');
@@ -206,7 +206,7 @@ $(document).ready(function() {
 
                     }
 
-                // when participants existed
+                // when criterias existed
                 } else {
 
                     for (var i = 0; i < get_array.length; i++) {
@@ -256,24 +256,23 @@ $(document).ready(function() {
                 } else {
 
                     dataToSave = JSON.stringify(output_array);
-                    
+
                     /**
-                     *  Send information to DB
+                     * Send information to DB
                      */
                     $.ajax({
-                        url : '/participants/save/' + idEvent,
+                        url: '/criterias/save/' + idEvent,
                         type: "POST",
                         data: {
                             list: dataToSave
                         },
-                        success: function(response) {
-                            //console.log(response);
-                            // if true - success updating
-                            // else    - some problems
+                        success: function (response) {
+                            // if true - success - save in DB
+                            // else    - warning - don't save
                             if (response) {
                                 $.notify({
-                                    message: 'Инфомация об участниках успешно обновлена.'
-                                },{
+                                    message: 'Инфомация о критериях успешно обновлена.'
+                                }, {
                                     type: 'success'
                                 });
 
@@ -288,7 +287,7 @@ $(document).ready(function() {
                             } else {
                                 $.notify({
                                     message: 'Что-то пошло не так... Данные не сохранены.'
-                                },{
+                                }, {
                                     type: 'warning'
                                 });
                                 hot.updateSettings({
@@ -296,22 +295,17 @@ $(document).ready(function() {
                                     columns: column_edited
                                 });
 
-                                isEdited = true;
-
                                 save.className = "pull-right displayblock";
 
                                 table.classList.remove('whirl');
                                 calculateSize();
                             }
                         },
-                        error: function(response) {
-                            console.log("Error while ajax sending");
+                        error: function (response) {
+                            console.log("Something wrong");
                         }
                     });
-
                 }
-
-
 
             } else {
 
@@ -329,15 +323,14 @@ $(document).ready(function() {
 
 
     /**
-     * Remove empty rows
+     * Remove empty row
      */
     hot.addHook('afterChange', function(changes, source) {
-        
+
         for (var i = 0; i < hot.countRows(); i++) {
 
             if ( hot.isEmptyRow(i) ||
-                (hot.getDataAtCell(i, 1) == "" && hot.getDataAtCell(i, 2) == "") ||
-                (hot.getDataAtCell(i, 0) == null && hot.getDataAtCell(i, 1) == null && hot.getDataAtCell(i, 2) == null) )
+                (hot.getDataAtCell(i, 0) == "" && hot.getDataAtCell(i, 1) == "" &&  hot.getDataAtCell(i, 2) == "" && hot.getDataAtCell(i, 3) == "") )
             {
                 // add id of deleted element
                 if ( hot_array[i]['id'] != null ) {
@@ -345,10 +338,10 @@ $(document).ready(function() {
                 }
                 hot.alter('remove_row', i);
             }
-
         }
         return;
     });
+
 
 
     /**
@@ -357,15 +350,18 @@ $(document).ready(function() {
      * @returns {boolean}
      */
     function find_output_el(element) {
+
         for (var i = 0; i < output_array.length; i++) {
             if (output_array[i]['status'] == "insert") {
-                if (element['name'] == output_array[i]['name'] && element['photo'] == output_array[i]['photo'] && element['about'] == output_array[i]['about'])
+                if (element['name'] == output_array[i]['name'] && element['description'] == output_array[i]['description'] && element['minscore'] == output_array[i]['minscore'] && element['maxscore'] == output_array[i]['maxscore'])
                 {
                     return true;
                 }
             }
         }
+
         return false;
+
     }
 
 
@@ -376,7 +372,8 @@ $(document).ready(function() {
      * @returns {boolean}
      */
     function is_similar (array1, array2) {
-        if (array1['name'] == array2['name'] && array1['photo'] == array2['photo'] && array1['about'] == array2['about']) {
+        if (array1['name'] == array2['name'] && array1['desxription'] == array2['description'] &&
+            array1['minscore'] == array2['minscore'] && array1['maxscore'] == array2['maxscore']) {
             return true;
         }
         return false;
@@ -386,7 +383,6 @@ $(document).ready(function() {
 
     /**
      * Checking Table on existing one empty row
-     *
      * if empty row - hide table -> open info
      * if exist row - open table -> hide info
      */
@@ -394,12 +390,12 @@ $(document).ready(function() {
         if (hot.isEmptyRow(0) && action == "save" ) {
             table.classList.remove('displayblock');
             table.classList.add('displaynone');
-            $('#table_wrapper').append('<div id="no_participants" class="text-center"><h4>Участники ещё не созданы, для создания списка участников нажмите на иконку <i class="fa fa-edit" aria-hidden="true"></i></h4></div>');
+            $('#table_wrapper').append('<div id="no_criterias" class="text-center"><h4>Критерии ещё не созданы, для создания нажмите на иконку <i class="fa fa-edit" aria-hidden="true"></i></h4></div>');
             return true;
         } else {
             table.classList.remove('displaynone');
             table.classList.add('displayblock');
-            $('#no_participants').remove();
+            $('#no_criterias').remove();
             return false;
         }
     }
@@ -414,8 +410,8 @@ $(document).ready(function() {
 
 
      /**
-      *  Calculate columns size for table
-      *  versions: mobile (<680px),  table(<992px) and  desctop (>992px)
+      * Calculate columns size for table
+      * versions: mobile (<680px),  table(<992px) and  desctop (>992px)
       */
      function calculateSize() {
 
@@ -423,11 +419,11 @@ $(document).ready(function() {
          if (window.innerWidth <= 680) {
              hot.updateSettings({
                  stretchH: 'none',
-                 colWidths: [80,250,250]
+                 colWidths: [200,200,90,90]
              });
 
-             document.getElementById('participants').style.overflowX = "auto";
-             document.getElementById('participants').style.height = "inherit";
+             document.getElementById('criterias').style.overflowX = "auto";
+             document.getElementById('criterias').style.height = "inherit";
 
          } else {
 
@@ -437,110 +433,28 @@ $(document).ready(function() {
                      var width = parseInt(window.innerWidth);
 
                      // desctop width for columns
-                     // 0.8  (section.width = 80%)
-                     // 140  (60 - width of first column, 80 - width of second and last columns)
                      if (width > 992)
-                         width = width * 0.8 - 150;
+                         width = width * 0.8 - 70;
 
                      // tablet width for columns
                      else if (width <= 992 && width > 680)
-                        width = width * 0.9 - 150;
-
-                    else if (width < 680) {
-
-                    }
-
+                        width = width * 0.9 - 70;
 
                      if (index == 0)
-                         return 80;
+                         return width * 0.3;
 
                      if (index == 1)
-                         return width * 0.5;
+                         return width * 0.3;
 
                      if (index == 2)
-                         return width * 0.5;
+                         return width * 0.2;
 
+                     if (index == 3)
+                         return width * 0.2;
 
                  }
              });
          }
      }
-
-
-    /**
-     *  Settings for image renderer
-     */
-    function imageRenderer (instance, td, row, col, prop, value, cellProperties) {
-
-        var img = document.createElement('IMG');
-
-        Handsontable.Dom.empty(td);
-
-        img.className = "table-photo-logo";
-
-        if (value != null && value != ""){
-            img.src = pathToImg + value;
-        } else {
-            img.src = pathToImg + "no-participant.png";
-        }
-
-        td.appendChild(img);
-
-
-       /*
-        *   Change Image  -  update with ajax
-        */
-        Handsontable.Dom.addEvent(img, 'click', function (e){
-
-            if (!isEdited) {
-                $.notify({ message: 'Пожалуйста, нажмите кнопку редактировать: <i class="fa fa-edit" aria-hidden="true"></i>' }, { type: 'warning' })
-                return;
-            }
-
-            vp.transport.init({
-
-                url : '/transport/6',
-                multiple : false,
-                accept: '*',
-                beforeSend : function() {
-
-                    var fileReader = new FileReader(),
-                        input = vp.transport.getInput(),
-                        file = input.files[0];
-
-                    fileReader.readAsDataURL(file);
-
-                    fileReader.onload = function(event) {
-
-                        img.classList.add('jumbotron--loading');
-                        img.src = event.target.result;
-
-                    }
-
-                },
-                success : function(response) {
-
-                    var result = JSON.parse(response);
-                    if ( result.success ) {
-
-                        img.src = result.data.url;
-                        img.classList.remove('jumbotron--loading');
-
-                        hot.setDataAtCell(row, col, result.data.url.split('/')[2]);
-                    }
-
-                },
-                error : function() {
-
-                }
-
-
-            });
-
-
-        });
-
-        return td;
-    }
 
 });

@@ -2,6 +2,9 @@
 
     <!-- =============== PAGE STYLE ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/tabs.css?v=<?= filemtime("assets/frontend/modules/css/tabs.css") ?>">
+    <? if ($isLogged) : ?>
+    <link type="text/css" rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css?v=<?= filemtime("assets/vendor/sweetalert2/sweetalert2.min.css") ?>" />
+    <? endif; ?>
     <link rel="stylesheet" href="<?=$assets; ?>static/css/profile.css?v=<?= filemtime("assets/static/css/profile.css") ?>">
 
     <div class="jumbotron block jumbotron_profile">
@@ -28,7 +31,12 @@
 
         <?= View::factory('profile/blocks/reset_password') ?>
 
-        <?= View::factory('profile/blocks/my-org-event', array('isProfileOwner' => $isProfileOwner, 'profile' => $profile, 'organizations' => $profile->getOrganizations())) ?>
+        <?= View::factory('profile/blocks/my-org-event',
+            array('isProfileOwner' => $isProfileOwner,
+                  'profile'        => $profile,
+                  'organizations'  => $profile->getOrganizations(),
+                  'events'         => $profile->getEvents()
+            )) ?>
 
     </section>
 
@@ -38,6 +46,7 @@
     <? if ($isLogged) : ?>
         <input type="hidden" id="userID" data-id="<?=$user->id; ?>">
         <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
+        <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
         <script type="text/javascript" src="<?=$assets; ?>static/js/profile.js?v=<?= filemtime("assets/static/js/profile.js") ?>"></script>
     <? endif; ?>
     <script type="text/javascript">

@@ -62,7 +62,7 @@ class Model_Contest extends Model {
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
 
     }
 
@@ -86,6 +86,17 @@ class Model_Contest extends Model {
         $insert->execute();
 
         return $this->get_($this->id);
+
+    }
+
+    public function delete() {
+
+        $delete = Dao_Contests::delete()
+            ->where('id', '=', $this->id)
+            ->clearcache($this->id)
+            ->execute();
+
+        return $delete;
 
     }
 
