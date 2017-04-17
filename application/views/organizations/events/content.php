@@ -16,7 +16,7 @@
     </div>
 
     <section class="section__content">
-
+<!--        EVENTS -->
     </section>
 
 </div>

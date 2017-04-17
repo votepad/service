@@ -91,8 +91,11 @@ class Controller_Organizations_Index extends Dispatch
     public function action_show()
     {
 
+        $events = Methods_Organizations::getAllEvents($this->organization->id);
+
         $this->template->mainSection = View::factory('organizations/events/content')
-            ->set('organization', $this->organization);
+            ->set('organization', $this->organization)
+            ->set('events', $events);
 
         $this->template->mainSection->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
             ->set('isSendRequest', $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests'))
