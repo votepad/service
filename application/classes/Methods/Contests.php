@@ -129,4 +129,18 @@ class Methods_Contests extends Model_Contest
 
     }
 
+    public static function getStages($formula) {
+
+        $formula = json_decode($formula);
+
+        $stages = array();
+
+        foreach ($formula as $operand) {
+            $stages[] = new Model_Stage($operand->id);
+        }
+
+        return $stages;
+
+    }
+
 }
