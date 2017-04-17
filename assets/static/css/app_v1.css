@@ -75,7 +75,6 @@ ul{
     -moz-box-sizing: border-box;
     box-sizing: border-box;
 }
-
 /*
  *   Jumbotron Styles
 */
@@ -287,6 +286,7 @@ ul{
 /*
  * Section Size
 */
+
 .section__content {
 	position: relative;
 	width: 80%;

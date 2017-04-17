@@ -55,10 +55,7 @@ var header = (function(header) {
             calculateHeaderMenuWidth();
             changeHeaderMenuItems();
         };
-
     };
-
-
 
 
 
