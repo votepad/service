@@ -51,31 +51,43 @@
                         <table class="stage__table" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>Member</th>
-                                    <th class="no-sort">Judge 1</th>
-                                    <th class="no-sort">Judge 2</th>
-                                    <th class="no-sort">Judge 3</th>
-                                    <th class="no-sort">Judge 4</th>
-                                    <th>Score</th>
+                                    <th>
+                                        <? switch ($stage->mode) {
+                                            case 1:
+                                                echo "Участники";
+                                                break;
+                                            case 2:
+                                                echo "Команды";
+                                                break;
+                                            case 3:
+                                                echo "Группы";
+                                                break;
+                                        }
+                                        ?>
+                                    </th>
+
+                                    <? foreach ($contest->judges as $judge): ?>
+                                    <th class="no-sort">
+                                        <?= $judge->name; ?>
+                                    </th>
+                                    <? endforeach; ?>
+
+                                    <th>Балл</th>
                                 </tr>
                             </thead>
                         <tbody>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td>8</td>
-                            <td>13</td>
-                        </tr>
-                        <tr>
-                            <td>Tiger Nixon</td>
-                            <td>5</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td>8</td>
-                            <td>1385</td>
-                        </tr>
+                            <? foreach ($stage->member as $member): ?>
+                            <tr>
+
+                                <td class="text-center"><?= $member->name; ?></td>
+
+                                <? foreach ($contest->judges as $judge): ?>
+                                    <td class="text-center"><? echo rand(0,15) ?></td>
+                                <? endforeach; ?>
+
+                                <td class="text-center"><? echo rand(10,15) ?></td>
+                            </tr>
+                            <? endforeach; ?>
                         </tbody>
                     </table>
 
@@ -100,7 +112,6 @@
                 'searching': false,
                 'info': false,
                 'scrollX': true,
-                "order": [[ 5, "desc" ]],
                 columnDefs: [
                     { 'targets' : 'no-sort', 'orderable': false },
                 ]
