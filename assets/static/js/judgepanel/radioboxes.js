@@ -57,8 +57,7 @@ var radioboxes = function (radioboxes) {
     };
 
 
-    var initial = function () {
-        console.log(radioboxes);
+    var initial = function () { 
         Array.prototype.forEach.call(radioboxes, prepareRadioBox);
     };
 
