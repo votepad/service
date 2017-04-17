@@ -138,9 +138,10 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_control()
     {
-        $this->template->jumbotron_navigation = "";
+        $this->template->mainSection = View::factory('events/control/content')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
 
-        $this->template->mainSection = View::factory('events/control/main');
     }
 
 
