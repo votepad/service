@@ -331,6 +331,21 @@ class Controller_Events_Index extends Dispatch
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
+
+        $contests = Methods_Contests::getByEvent($this->event->id);
+
+        foreach ($contests as $key => $contest) {
+            $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
+
+            foreach ($contest->stages as $key2 => $stage) {
+                $contests[$key]->stages[$key2]->member = Methods_Stages::getMembers($stage->id, $stage->mode);
+            }
+
+        }
+
+        $this->event->contests = $contests;
+
+
         $this->template->mainSection = View::factory('events/landing/pages/results')
             ->set('event', $this->event)
             ->set('organization', $this->organization);

@@ -173,4 +173,18 @@ class Methods_Stages extends  Model_Stage
 
     }
 
+    public static function getCriterions($formula) {
+
+        $formula = json_decode($formula);
+
+        $criterion = array();
+
+        foreach ($formula as $operand) {
+            $criterion[] = new Model_Criterion($operand->id);
+        }
+
+        return $criterion;
+
+    }
+
 }

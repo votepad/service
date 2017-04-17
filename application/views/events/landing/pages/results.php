@@ -21,184 +21,70 @@
         </h1>
 
 
+        <? foreach ($event->contests as $i => $contest): ?>
         <!-- CONTEST START -->
-        <div id="contest_1" class="m-t-50 clear_fix">
-            <h2 class="text-brand">Contest 1</h2>
+        <div id="contest_<?= $i; ?>" class="m-t-50 clear_fix">
+            <h2 class="text-brand"><?= $contest->name; ?></h2>
             <div class="contest-description">
-                contest_description : lalalalalala lllallalalal and zksld sdadcb xziume cx jb asd,mx  kawjdvsdjk fvm,j chsdkj
+                <?= $contest->description; ?>
                 <br>
-                Contest contains 3 stages.
+                <?= $contest->name; ?>проходит в <?= count($contest->stages); ?> этапа.
             </div>
 
             <div class="contest-body">
 
                 <ul class="stage-header">
-                    <li class="stage-header__item active" data-toggle="tabs" data-btnGroup="stage_1" data-block="stage_1_1">Stage 1</li>
-                    <li class="stage-header__item" data-toggle="tabs" data-btnGroup="stage_1" data-block="stage_1_2">Stage 2</li>
-                    <li class="stage-header__item" data-toggle="tabs" data-btnGroup="stage_1" data-block="stage_1_3">Stage 3</li>
+
+                    <? foreach ($event->contests[$i]->stages as $j => $stage): ?>
+                        <li class="stage-header__item <? echo $j == 0 ? 'active' : '' ?>" data-toggle="tabs" data-btnGroup="stage_<?= $i; ?>" data-block="stage_<?= $i . '_' . $j; ?>"><?= $stage->name; ?></li>
+                    <? endforeach; ?>
+
                 </ul>
 
+
+                <? foreach ($event->contests[$i]->stages as $j => $stage): ?>
                 <!-- STAGE START -->
-                <ul id="stage_1_1" data-blockGroup="stage_1" class="stage-body">
+                <ul id="stage_<?= $i . '_' . $j; ?>" data-blockGroup="stage_<?= $i; ?>" class="stage-body <? echo $j != 0 ? 'hide' : '' ?>">
 
-                    <li class="member col-xs-12 col-md-4 col-lg-3">
-                        <div class="member__area">
-                            <span class="member__name">name</span>
-                            <div class="member__logo">
-                                <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                                <div class="member__position">2</div>
-                            </div>
-                            <div class="member__rating-area">
-                                <div data-pk="2" class="member__rating-bar" style="width:50%">
-                                    <span class="member__bar">10/20</span>
+                    <? foreach ($event->contests[$i]->stages[$j]->member as $k => $member): ?>
+
+                        <li class="member col-xs-12 col-md-4 col-lg-3">
+                            <div class="member__area">
+                                <span class="member__name"><?= $member->name; ?></span>
+                                <div class="member__logo">
+                                    <? switch ($stage->mode) {
+                                        case 1:
+                                            echo '<img src="' . URL::site('uploads/participants/' . $member->photo ) .'" alt="Participant Image" class="member__img">';
+                                            break;
+                                        case 2:
+                                            echo '<img src="' . URL::site('uploads/teams/' . $member->logo ) .'" alt="Team Logo" class="member__img">';
+                                            break;
+                                        case 3:
+                                            echo '<img src="' . URL::site('uploads/groups/' . $member->logo ) .'" alt="Group Logo" class="member__img">';
+                                            break;
+                                        }
+                                    ?>
+                                    <div class="member__position"><?= $k + 1; ?></div>
+                                </div>
+                                <div class="member__rating-area">
+                                    <div data-pk="2" class="member__rating-bar" style="width:50%">
+                                        <span class="member__bar">10/20</span>
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                    </li>
-                    <li class="member col-xs-12 col-md-4 col-lg-3">
-                        <div class="member__area">
-                            <span class="member__name">name</span>
-                            <div class="member__logo">
-                                <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                                <div class="member__position">2</div>
-                            </div>
-                            <div class="member__rating-area">
-                                <div data-pk="2" class="member__rating-bar" style="width:50%">
-                                    <span class="member__bar">10/20</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="member col-xs-12 col-md-4 col-lg-3">
-                        <div class="member__area">
-                            <span class="member__name">name</span>
-                            <div class="member__logo">
-                                <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                                <div class="member__position">2</div>
-                            </div>
-                            <div class="member__rating-area">
-                                <div data-pk="2" class="member__rating-bar" style="width:50%">
-                                    <span class="member__bar">10/20</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="member col-xs-12 col-md-4 col-lg-3">
-                        <div class="member__area">
-                            <span class="member__name"> namenamenamenamenamenamename</span>
-                            <div class="member__logo">
-                                <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                                <div class="member__position">2</div>
-                            </div>
-                            <div class="member__rating-area">
-                                <div data-pk="2" class="member__rating-bar" style="width:100%">
-                                    <span class="member__bar">10/20</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
+                        </li>
+
+                    <? endforeach;?>
+
                 </ul>
+
                 <!-- STAGE END -->
+                <? endforeach; ?>
 
-                <ul id="stage_1_2" data-blockGroup="stage_1" class="stage-body hide">
-                    stage 2 - users
-                </ul>
-                <ul id="stage_1_3" data-blockGroup="stage_1" class="stage-body hide">
-                    stage 3 - users
-                </ul>
             </div>
         </div>
         <!-- CONTEST END -->
-
-        <!-- CONTEST START -->
-        <div id="contest_2" class="m-t-50 clear_fix">
-            <h2 class="text-brand">Contest 2</h2>
-            <div class="contest-description">
-                contest_description : lalalalalala lllallalalal and zksld sdadcb xziume cx jb asd,mx  kawjdvsdjk fvm,j chsdkj
-                <br>
-                Contest contains 3 stages.
-            </div>
-
-            <div class="contest-body clear_fix">
-
-                <ul class="stage-header">
-                    <li class="stage-header__item active" data-toggle="tabs" data-btnGroup="stage_2" data-block="stage_2_1">Stage 1</li>
-                    <li class="stage-header__item" data-toggle="tabs" data-btnGroup="stage_2" data-block="stage_2_2">Stage 2</li>
-                    <li class="stage-header__item" data-toggle="tabs" data-btnGroup="stage_2" data-block="stage_2_3">Stage 3</li>
-                </ul>
-
-                <!-- STAGE START -->
-                <ul id="stage_2_1" data-blockGroup="stage_2" class="stage-body">
-
-                    <li class="member col-xs-12 col-md-4 col-lg-3">
-                        <div class="member__area">
-                            <span class="member__name">name</span>
-                            <div class="member__logo">
-                                <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                                <div class="member__position">2</div>
-                            </div>
-                            <div class="member__rating-area">
-                                <div data-pk="2" class="member__rating-bar" style="width:50%">
-                                    <span class="member__bar">10/20</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="member col-xs-12 col-md-4 col-lg-3">
-                        <div class="member__area">
-                            <span class="member__name">name</span>
-                            <div class="member__logo">
-                                <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                                <div class="member__position">2</div>
-                            </div>
-                            <div class="member__rating-area">
-                                <div data-pk="2" class="member__rating-bar" style="width:50%">
-                                    <span class="member__bar">10/20</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="member col-xs-12 col-md-4 col-lg-3">
-                        <div class="member__area">
-                            <span class="member__name">name</span>
-                            <div class="member__logo">
-                                <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                                <div class="member__position">2</div>
-                            </div>
-                            <div class="member__rating-area">
-                                <div data-pk="2" class="member__rating-bar" style="width:50%">
-                                    <span class="member__bar">10/20</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                    <li class="member col-xs-12 col-md-4 col-lg-3">
-                        <div class="member__area">
-                            <span class="member__name"> namenamenamenamenamenamename</span>
-                            <div class="member__logo">
-                                <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                                <div class="member__position">2</div>
-                            </div>
-                            <div class="member__rating-area">
-                                <div data-pk="2" class="member__rating-bar" style="width:100%">
-                                    <span class="member__bar">10/20</span>
-                                </div>
-                            </div>
-                        </div>
-                    </li>
-                </ul>
-                <!-- STAGE END -->
-
-                <ul id="stage_2_2" data-blockGroup="stage_2" class="stage-body hide">
-                    stage 2 - users
-                </ul>
-                <ul id="stage_2_3" data-blockGroup="stage_2" class="stage-body hide">
-                    stage 3 - users
-                </ul>
-            </div>
-        </div>
-        <!-- CONTEST END -->
-
+        <? endforeach; ?>
 
     </section>
 
