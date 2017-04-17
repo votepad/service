@@ -6,7 +6,7 @@
     Настройки
 </a>
 
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/control'); ?>">
+<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/control/scores'); ?>">
     Управление
 </a>
 

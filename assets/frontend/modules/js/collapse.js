@@ -25,7 +25,7 @@ var collapse = (function(collapse) {
 
 
     var toggle = function (event) {
-        var btn = event.target,
+        var btn = this,
             list = document.getElementById(btn.dataset.area);
 
         if (btn.dataset.opened == "false") {

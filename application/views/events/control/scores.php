@@ -24,12 +24,21 @@
     <section class="section__content">
 
         <div class="block m-t-30">
-            <div class="block_heading text-center">
+            <div class="block_heading block_default">
+                <h4>Поставить дополнительный балл</h4>
+            </div>
+            <div class="block_body">
+
+            </div>
+        </div>
+
+            <div class="block m-t-30">
+            <div class="block_heading block_default text-center">
                 <h4>Финальный результат</h4>
             </div>
             <div class="block_body">
 
-                <table class="stage__table table table-striped hover table-bordered" cellspacing="0" width="100%">
+                <table class="stage__table table table-striped table-hover table-bordered" cellspacing="0" width="100%">
                     <thead>
                     <tr>
                         <th>
@@ -98,7 +107,7 @@
                     <!-- STAGE START -->
                     <div id="stage_<?= $i . '_' . $j; ?>" data-blockGroup="stage_<?= $i; ?>" class="block_body <? echo $j != 0 ? 'hide' : '' ?>">
 
-                        <table class="stage__table table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table class="stage__table table table-striped table-hover table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th>

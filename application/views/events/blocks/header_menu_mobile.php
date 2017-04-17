@@ -40,7 +40,7 @@
             </a>
         </li>
         <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/control/scenario' ); ?>" class="mobile-aside__collapse-link">
+            <a href="<?=URL::site('event/' . $event->id . '/control/plan' ); ?>" class="mobile-aside__collapse-link">
                 План
             </a>
         </li>

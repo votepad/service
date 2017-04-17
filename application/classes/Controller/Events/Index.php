@@ -144,7 +144,7 @@ class Controller_Events_Index extends Dispatch
     {
         $this->event->contests = $this->getContests($this->event->id);
 
-        $this->template->mainSection = View::factory('events/control/content')
+        $this->template->mainSection = View::factory('events/control/scores')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
 
@@ -152,15 +152,15 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * CONTROL submodule
-     * action_scenario - block/unblock member, stage or contest
+     * action_plan - block/unblock member, stage or contest
      */
-    public function action_scenario()
+    public function action_plan()
     {
-        //$this->event->contests = $this->getContests($this->event->id);
+        $this->event->contests = $this->getContests($this->event->id);
 
-        $this->template->mainSection = "";/*View::factory('events/control/content')
+        $this->template->mainSection = View::factory('events/control/plan')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);*/
+            ->set('organization', $this->organization);
 
     }
 
