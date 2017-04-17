@@ -31,10 +31,8 @@ class Email {
 		}
 
 		// Load default configuration
-		($config === NULL) and $config = Kohana::$config;
-
-		$config = $config->load('email');
-
+		($config === NULL) and $config = Kohana::config('email');
+		
 		switch ($config['driver'])
 		{
 			case 'smtp':

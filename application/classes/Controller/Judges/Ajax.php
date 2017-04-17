@@ -73,7 +73,4 @@ class Controller_Judges_Ajax extends Ajax {
         $this->response->body(@json_encode($arr));
 
     }
-
-
-
 }
