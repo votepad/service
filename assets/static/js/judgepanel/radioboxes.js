@@ -81,7 +81,7 @@ var radioElem = function () {
 
             radibox[radiboxes[i].dataset.name].push(radiboxes[i]);
         }
-        
+
         for (var dataName in radibox) {
 
             blok = new radioboxes(radibox[dataName]);

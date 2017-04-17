@@ -184,6 +184,24 @@ Class Model_User {
         return $orgs;
     }
 
+    public function getEvents()
+    {
+        $ids = Dao_UsersEvents::select('e_id')
+            ->where('u_id', '=', $this->id)
+            ->cached(Date::MINUTE * 5, 'user:' . $this->id)
+            ->execute('e_id');
+
+        $events = array();
+
+        if (!empty($ids)) {
+            foreach ($ids as $id => $value) {
+                array_push($events, new Model_Event($id));
+            }
+        }
+
+        return $events;
+    }
+
     /**
      * @public
      *

@@ -189,7 +189,7 @@ $(document).ready(function () {
             },
             success: resetPasswordResponse,
             error: function() {
-                console.log('error ajax send');
+                //console.log('error ajax send');
                 $('#reset_password_form .modal-content').removeClass('whirl');
             }
         });
@@ -285,7 +285,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function(callback) {
-                    console.log(callback);
+                    //console.log(callback);
                     orgBlock.classList.remove('whirl');
                 }
             };
@@ -322,16 +322,18 @@ $(document).ready(function () {
 
 
             ajaxData = {
-                url: '/event/'+eventID+'/member/remove/'+userID,
+                url: '/event/'+eventID+'/assistant/remove/'+userID,
                 beforeSend: function(callback) {
                     eventBlock.classList.add('whirl');
                 },
                 success: function(response) {
                     response = JSON.parse(response);
-                    if (response.code == '47') {
+                    //console.log(response);
+                    if (response.code == '57') {
                         $.notify({ message: "Вы успешно вышли из мероприятия "+ name}, { type: "success" });
                         eventBlock.remove();
                         document.getElementById('myEventsCounter').innerHTML = parseInt(document.getElementById('myEventsCounter').innerHTML) - 1;
+                        checkNumberOfEvent();
                     } else {
                         $.notify({ message: "Что-то пошло не так... Попробуйте ещё раз"}, { type: "warning" });
                         eventBlock.classList.remove('whirl');
@@ -339,7 +341,7 @@ $(document).ready(function () {
                     }
                 },
                 error: function(callback) {
-                    console.log(callback);
+                    //console.log(callback);
                     eventBlock.classList.remove('whirl');
                 }
             };
@@ -376,7 +378,7 @@ $(document).ready(function () {
     var noevent = document.createElement('div');
     noevent.id = "noEvent";
     noevent.style = "padding: 20px;text-align: center;";
-    noevent.innerHTML = "У Вас нет мероприятий. Вы можете создать мероприятие внутри организации.";
+    noevent.innerHTML = "Мероприятия не созданы.";
 
     var checkNumberOfEvent = function () {
 

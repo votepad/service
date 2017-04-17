@@ -35,7 +35,7 @@ class Model_Criterion extends Model {
 
     private function get_($id) {
 
-        $select = Dao_Criteria::select()
+        $select = Dao_Criterions::select()
             ->where('id', '=', $id)
             ->limit(1)
             ->cached(Date::MINUTE * 5, $id)
@@ -47,25 +47,30 @@ class Model_Criterion extends Model {
 
     }
 
+
     /**
-     * Saves User to Database
+     * Saves Criterion to Database
      */
     public function save()
     {
 
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
 
-        $insert = Dao_Criteria::insert();
+        $insert = Dao_Criterions::insert();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
+        $insert->clearcache('event:' . $this->event);
+        $insert->clearcache($this->id);
+        
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
 
     }
+
 
     /**
      * Updates Criterion data in database
@@ -75,12 +80,13 @@ class Model_Criterion extends Model {
     public function update()
     {
 
-        $insert = Dao_Criteria::update();
+        $insert = Dao_Criterions::update();
 
         foreach ($this as $fieldname => $value) {
             if (property_exists($this, $fieldname)) $insert->set($fieldname, $value);
         }
 
+        $insert->clearcache('event:' . $this->event);
         $insert->clearcache($this->id);
         $insert->where('id', '=', $this->id);
 
@@ -88,6 +94,21 @@ class Model_Criterion extends Model {
 
         return $this->get_($this->id);
 
+    }
+
+
+    /**
+     * Delete Criterion data in database
+     *
+     * @return Model_Criterion
+     */
+    public function delete() {
+        $delete = Dao_Criterions::delete()
+            ->where('id', '=', $this->id)
+            ->clearcache('event:' . $this->event)
+            ->clearcache($this->id)
+            ->execute();
+        return $delete;
     }
 
 }

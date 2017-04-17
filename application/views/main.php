@@ -66,6 +66,8 @@
         vp.collapse.init();
     });
 
+    window.csrf = '<?= Security::token() ?>';
+
 </script>
 
 </html>

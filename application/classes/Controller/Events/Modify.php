@@ -32,7 +32,7 @@ class Controller_Events_Modify extends Dispatch
         $name              = Arr::get($_POST, 'name', '');
         $uri                = Arr::get($_POST, 'site', '');
         $description        = Arr::get($_POST, 'desc', '');
-        $keywords           = Arr::get($_POST, 'keywords', '');
+        $keywords           = Arr::get($_POST, 'keywords', array());
         $start              = Arr::get($_POST, 'start', '');
         $end                = Arr::get($_POST, 'end', '');
         $address            = Arr::get($_POST, 'address', '');
@@ -68,23 +68,15 @@ class Controller_Events_Modify extends Dispatch
 
         $id = $this->request->param('id');
 
-        $name               = Arr::get($_POST, 'name', '');
-        $uri                = Arr::get($_POST, 'site', '');
-        $description        = Arr::get($_POST, 'desc', '');
-        $keywords           = Arr::get($_POST, 'keywords', '');
-        $start              = Arr::get($_POST, 'start', '');
-        $end                = Arr::get($_POST, 'end', '');
-        $address            = Arr::get($_POST, 'address', '');
-
         $event = new Model_Event($id);
 
-        $event->name         = $name;
-        $event->uri          = $uri;
-        $event->description  = $description;
-        $event->tags         = json_encode($keywords);
-        $event->dt_start     = $start;
-        $event->dt_end       = $end;
-        $event->address      = $address;
+        $event->name               = Arr::get($_POST, 'name', $event->name);
+        $event->uri                = Arr::get($_POST, 'site', $event->uri);
+        $event->description        = Arr::get($_POST, 'desc', $event->description);
+        $event->tags           = json_encode(Arr::get($_POST, 'keywords', '[]'));
+        $event->dt_start              = Arr::get($_POST, 'start', $event->dt_start);
+        $event->dt_end                = Arr::get($_POST, 'end', $event->dt_end);
+        $event->address            = Arr::get($_POST, 'address', $event->address);
 
         $event = $event->update();
 

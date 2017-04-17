@@ -1,0 +1,160 @@
+.formula {
+    user-select: none;
+}
+.formula__print:not(:last-child):after{
+    content: '+';
+    margin: 5px;
+}
+.formula__print-math{
+    font-size: .8em;
+}
+
+.formula__print-math,
+.formula__print-name,
+.formula__print-coeff{
+    padding: 5px;
+}
+
+
+.formula__area{
+    position: relative;
+    display: block;
+    min-height: 2.2em;
+    user-select: none;
+    border-bottom: 1px solid #9e9e9e;
+    width: 100%;
+}
+.formula--error .formula__area{
+    border-bottom: 1px solid #F44336;
+    box-shadow: 0 1px 0 0 #F44336;
+}
+.formula--error .formula__label{
+    color: #F44336;
+}
+.formula__label{
+    color: #9e9e9e;
+    position: absolute;
+    width: 70%;
+    top: .3em;
+    cursor: text;
+    font-size: .8em;
+    letter-spacing: .01em;
+    transform: translateY(-140%);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+.formula__list{
+    display: inline-block;
+    float: left;
+}
+
+.formula__item{
+    position: relative;
+    color: #616161;
+    background-color: #FFF;
+    border: 1px solid #EAEAEA;
+    padding: 3px 5px;
+    border-radius: 3px;
+    font-size: .9em;
+    cursor: default;
+    float: left;
+    margin: 5px;
+}
+.formula__item:not(:last-child){
+    margin-right: 20px;
+}
+.formula__item:not(:last-child):after{
+    content: "+";
+    position: absolute;
+    right: -22px;
+    padding: 0px;
+    font-size: 1em;
+    margin: 5px;
+    top: 0px;
+    font-weight: bold;
+}
+.formula__item:hover,
+.formula__item--selected{
+    background: #f5f5f5;
+}
+
+.formula__item-name,
+.formula__item-icon,
+.formula__item-multiply {
+    float: left;
+    line-height: 20px;
+    margin: 0 3px;
+}
+
+.formula__item-name{
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    max-width: 150px;
+}
+.formula__item-icon{
+    color: #999;
+    cursor: pointer;
+    display: inline-block;
+    vertical-align: middle;
+    padding: 0 5px;
+    font-size: .7em;
+}
+.formula__item-input{
+    float: left;
+    text-align: center;
+    margin: 0 3px;
+    padding-left: 5px;
+    width: 50px;
+    border: 1px solid #d7d8db;
+    border-radius: 2px;
+}
+.formula__item-multiply{
+    font-size: .3em;
+}
+.formula__item-add{
+    display: inline-block;
+    position: relative;
+    cursor: pointer;
+    float: left;
+    color: #008da7;
+    border: 1px solid #EAEAEA;
+    border-radius: 50%;
+    font-size: .9em;
+    margin: 5px;
+}
+.formula__item-add .fa{
+    text-align: center;
+    line-height: 26px;
+    height: 26px;
+    width: 26px;
+}
+.formula__addition-list{
+    position: absolute;
+    z-index: 2;
+    left: 30px;
+    top: 0;
+    min-width: 100px;
+    max-width: 200px;
+    background-color: #FFF;
+    border: 1px solid #D0D0D0;
+    padding: 5px 0;
+    border-radius: 3px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, .175);
+}
+.formula__addition-item{
+    text-align: left;
+    display: block;
+    position: relative;
+    height: 25px;
+    line-height: 25px;
+    padding: 0 15px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    color: #413a41;
+}
+.formula__addition-item:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+}
