@@ -142,6 +142,8 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_control()
     {
+        $this->event->contests = $this->getContests($this->event->id);
+
         $this->template->mainSection = View::factory('events/control/content')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
@@ -337,7 +339,20 @@ class Controller_Events_Index extends Dispatch
             ->set('event', $this->event);
 
 
-        $contests = Methods_Contests::getByEvent($this->event->id);
+        $this->event->contests = $this->getContests($this->event->id);
+
+
+        $this->template->mainSection = View::factory('events/landing/pages/results')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+
+    }
+
+
+
+    private function getContests($id)
+    {
+        $contests = Methods_Contests::getByEvent($id);
 
         foreach ($contests as $key => $contest) {
             $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
@@ -348,13 +363,6 @@ class Controller_Events_Index extends Dispatch
 
         }
 
-        $this->event->contests = $contests;
-
-
-        $this->template->mainSection = View::factory('events/landing/pages/results')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
+        return $contests;
     }
-
-
 }

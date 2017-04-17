@@ -26,27 +26,40 @@
         </div>
 
 
-        <div class="block m-t-30">
+        <? foreach ($event->contests as $i => $contest): ?>
+            <!-- CONTEST START -->
+            <div class="block m-t-30">
+                <div class="block_heading text-center">
+                    <h4><?= $contest->name; ?></h4>
+                </div>
 
-            <div class="">
-                <a role="button" data-toogle="tags" data-block="stage_0" class="">Итоговый за этап</a>
-                <a role="button" data-toogle="tags" data-block="stage_1">этап 1</a>
-                <a role="button" data-toogle="tags" data-block="stage_2">этап 2</a>
-            </div>
 
-            <div id="stage_1" class="block_body">
-                <table id="example" class="display" cellspacing="0" width="100%">
-                    <thead>
-                        <tr>
-                            <th>Member</th>
-                            <th class="no-sort">Judge 1</th>
-                            <th class="no-sort">Judge 2</th>
-                            <th class="no-sort">Judge 3</th>
-                            <th class="no-sort">Judge 4</th>
-                            <th>Score</th>
-                        </tr>
-                    </thead>
-                    <tbody>
+                <ul class="stage-header clear_fix text-center">
+
+                    <? foreach ($event->contests[$i]->stages as $j => $stage): ?>
+
+                        <li class="stage-header__item <? echo $j == 0 ? 'active' : '' ?>" data-toggle="tabs" data-btnGroup="stage_<?= $i; ?>" data-block="stage_<?= $i . '_' . $j; ?>"><?= $stage->name; ?></li>
+
+                    <? endforeach; ?>
+
+                </ul>
+
+                <? foreach ($event->contests[$i]->stages as $j => $stage): ?>
+                    <!-- STAGE START -->
+                    <div id="stage_<?= $i . '_' . $j; ?>" data-blockGroup="stage_<?= $i; ?>" class="block_body <? echo $j != 0 ? 'hide' : '' ?>">
+
+                        <table class="stage__table" cellspacing="0" width="100%">
+                            <thead>
+                                <tr>
+                                    <th>Member</th>
+                                    <th class="no-sort">Judge 1</th>
+                                    <th class="no-sort">Judge 2</th>
+                                    <th class="no-sort">Judge 3</th>
+                                    <th class="no-sort">Judge 4</th>
+                                    <th>Score</th>
+                                </tr>
+                            </thead>
+                        <tbody>
                         <tr>
                             <td>Tiger Nixon</td>
                             <td>5</td>
@@ -63,23 +76,26 @@
                             <td>8</td>
                             <td>1385</td>
                         </tr>
-                    </tbody>
-                </table>
+                        </tbody>
+                    </table>
 
-            </div   >
-            <div id="stage_2" class="block_body">
-sda
+                    </div>
+                    <!-- STAGE END -->
+                <? endforeach; ?>
+
             </div>
-        </div>
+            <!-- CONTEST END -->
+        <? endforeach;?>
 
     </section>
 
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="<?= $assets; ?>static/js/event/control.js"></script>
 
     <script type="text/javascript">
         $(document).ready(function(){
-            $('#example').DataTable({
+            $('.stage__table').DataTable({
                 'paging': false,
                 'searching': false,
                 'info': false,
@@ -90,7 +106,5 @@ sda
                 ]
             });
         });
-
-        vp.tabs.init();
     </script>
 </div>
