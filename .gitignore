@@ -21,4 +21,4 @@ application/config/email.php
 
 /.env
 modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
-composer.lock
+#composer.lock
