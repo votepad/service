@@ -1,3 +1,25 @@
+.stage-header{
+    border-top: 1px solid #d7d8db;
+    border-bottom: 1px solid #d7d8db;
+}
+.stage-header__item{
+    color: #008DA7;
+    margin: 0 20px;
+    text-align: center;
+    min-width: 150px;
+    cursor: pointer;
+    padding: 10px 20px;
+    display: inline-block;
+}
+.stage-header__item.active{
+    margin-bottom: 1px;
+    box-shadow: 0 2px 0 0 #008DA7;
+}
+
+
+
+
+
 .row{
     margin: 0 -15px;
 }
