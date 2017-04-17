@@ -85,7 +85,7 @@ var slider = function(letters) {
             event = touchSupported(event);
 
             var newLeft = event.pageX - bandCord.left - circleWidth;
-
+            
 
             // курсор ушёл вне слайдера
             if (newLeft < 0) {
