@@ -1,8 +1,6 @@
 var radioboxes = function (radioboxes) {
 
-    var ToggleEvent = new window.CustomEvent('toggle'),
-
-        CLASSES     = {
+    var CLASSES     = {
             wrapper: 'vp-radiobox',
             checked: 'vp-radiobox--checked',
             defaultRadiobox: 'vp-default-radiobox--hidden'
@@ -13,15 +11,13 @@ var radioboxes = function (radioboxes) {
             defaultInput: 'vp-custom-radiobox'
         },
 
-
         currentRadio = null,
         currentInput = null;
 
 
     var prepareRadioBox = function (wrapper) {
 
-        var input       = document.createElement('INPUT'),
-            firstChild  = wrapper.firstChild;
+        var input       = document.createElement('INPUT');
 
         input.type      = 'radio';
         input.name      = wrapper.dataset.name || NAMES.defaultInput;
@@ -47,30 +43,13 @@ var radioboxes = function (radioboxes) {
         var wrapper = this,
             input = wrapper.querySelector('input');
 
-        if (currentRadio == wrapper){
-            currentRadio = null;
-            currentInput = null;
-        }
-
-
         if ( currentRadio != null ){
-            if ( currentInput.checked == true ) {
-                currentRadio.classList.toggle(CLASSES.checked);
-                currentInput.checked = false;
-
-                ToggleEvent.checked = false;
-
-                currentRadio.dispatchEvent(ToggleEvent);
+            if (currentInput.value != input.value) {
+                currentRadio.classList.remove(CLASSES.checked);
             }
         }
 
-        wrapper.classList.toggle(CLASSES.checked);
-
-        input.checked = !input.checked;
-
-        ToggleEvent.checked = input.checked;
-
-        wrapper.dispatchEvent(ToggleEvent);
+        wrapper.classList.add(CLASSES.checked);
 
         currentRadio = wrapper;
 
