@@ -16,7 +16,7 @@
     <div class="header__menu fl_r dropdown" data-toggle="dropdown">
         <a class="header__button header__button--hover dropdown__btn fl_r">
             <span class="user-name--hidden-xs">
-                <?=$user->name; ?>
+                <?= $user->name; ?>
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
             </span>
             <span class="user-name--shown-xs">

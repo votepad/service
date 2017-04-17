@@ -26,6 +26,7 @@
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/slidermodul.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/radioboxes.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/stagenavigation.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/scores.js"></script>
 
 
     <!-- modules -->
