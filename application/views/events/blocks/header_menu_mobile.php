@@ -29,11 +29,23 @@
 </li>
 
 <li class="mobile-aside__menu__item">
-    <a href="<?=URL::site('event/' . $event->id . '/control'); ?>" class="mobile-aside__menu-link">
+    <a role="button" class="mobile-aside__menu-link" data-toggle="collapse" data-area="eventControl" data-opened="false">
+        <i class="fa fa-dashboard" aria-hidden="true"></i>
         Управление
     </a>
+    <ul id="eventControl" class="mobile-aside__collapse collapse">
+        <li class="mobile-aside__collapse__item">
+            <a href="<?=URL::site('event/' . $event->id . '/control/scores' ); ?>" class="mobile-aside__collapse-link">
+                Результаты
+            </a>
+        </li>
+        <li class="mobile-aside__collapse__item">
+            <a href="<?=URL::site('event/' . $event->id . '/control/scenario' ); ?>" class="mobile-aside__collapse-link">
+                План
+            </a>
+        </li>
+    </ul>
 </li>
-
 <li class="mobile-aside__menu__item">
     <a role="button" class="mobile-aside__menu-link" data-toggle="collapse" data-area="eventPattern" data-opened="false">
         <i class="fa fa-cubes" aria-hidden="true"></i>

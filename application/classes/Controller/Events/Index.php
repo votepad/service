@@ -138,15 +138,29 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * CONTROL submodule
-     * action_control - administrate event
+     * action_scores - show all scores and edit them
      */
-    public function action_control()
+    public function action_scores()
     {
         $this->event->contests = $this->getContests($this->event->id);
 
         $this->template->mainSection = View::factory('events/control/content')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
+
+    }
+
+    /**
+     * CONTROL submodule
+     * action_scenario - block/unblock member, stage or contest
+     */
+    public function action_scenario()
+    {
+        //$this->event->contests = $this->getContests($this->event->id);
+
+        $this->template->mainSection = "";/*View::factory('events/control/content')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);*/
 
     }
 
