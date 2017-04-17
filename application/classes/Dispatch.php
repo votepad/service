@@ -119,11 +119,7 @@ class Dispatch extends Controller_Template
     {
         $session = Session::Instance();
 
-        if ( empty($session->get('uid')) ) {
-            return false;
-        } else {
-            return true;
-        }
+        return !empty($session->get('uid')) ||  !empty($session->get('j_id'));
 
     }
 

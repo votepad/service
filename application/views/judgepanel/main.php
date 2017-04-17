@@ -41,7 +41,7 @@
 <body>
 
 <header class="header">
-    <?=View::factory('judgepanel/blocks/header')?>
+    <?=View::factory('judgepanel/blocks/header', array('judge' => $judge))?>
 </header>
 
 <section class="section">
@@ -52,13 +52,5 @@
 
 
 </body>
-
-<script type="text/javascript">
-    radioElem.init();
-    new stages_holder();
-    new slider(['A', 'B']);
-    stagena.init(['Деловая игра', 'Доклад участника']);
-    vp.tabs.init();
-</script>
 
 </html>

@@ -698,7 +698,7 @@
                 "task",
                 "tool"
             ],
-            "time": "2017-04-10T12:45:12+00:00"
+            "time": "2017-04-10 12:45:12"
         },
         {
             "name": "phpoffice/phpexcel",
@@ -760,7 +760,7 @@
                 "xls",
                 "xlsx"
             ],
-            "time": "2016-09-29T20:13:14+00:00"
+            "time": "2016-09-29 20:13:14"
         },
         {
             "name": "phpunit/php-code-coverage",
