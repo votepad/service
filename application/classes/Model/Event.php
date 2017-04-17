@@ -45,11 +45,6 @@ class Model_Event extends Model
     public $tags;
 
     /**
-     * @var $cover [Text]
-     */
-    //public $cover;
-
-    /**
      * @var $address [String]
      */
     public $address;
