@@ -1,6 +1,6 @@
 <div class="jumbotron_wrapper parallax-container">
     <div class="parallax">
-        <img id="event-background-uploaded" src="/uploads/events/branding/<?=$event->branding; ?>?>.jpg">
+        <img id="event-background-uploaded" src="/uploads/events/branding/<?=$event->branding; ?>">
     </div>
     <div class="jumbotron_wrapper-background"></div>
     <div class="jumbotron_wrapper_edit" data-pk="<?=$event->id; ?>">

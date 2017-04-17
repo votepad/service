@@ -59,8 +59,6 @@ var header = (function(header) {
 
 
 
-
-
     /**
      * setActiveClassOnMenuItems - set Active class for btns
      */

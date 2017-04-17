@@ -389,6 +389,9 @@ small{
 .text-right{
 	text-align: right;
 }
+.text-brand{
+	color: #008DA7;
+}
 .page-header{
 	padding-bottom: 10px;
 	margin: 20px 0;
@@ -2562,10 +2565,10 @@ section:after, section:before,
 
 
 .hide{
-	display: none;
+	display: none !important;
 }
 .show {
-	display: block;
+	display: block !important;
 }
 
 
@@ -2589,3 +2592,28 @@ textarea::-webkit-input-placeholder { color:#BDBDBD; }
 textarea::-moz-placeholder { color:#BDBDBD; }
 textarea:-moz-placeholder { color:#BDBDBD; }
 textarea:-ms-input-placeholder { color:#BDBDBD; }
+
+.container {
+	display: block;
+	position: relative;
+	padding: 0 15px;
+	margin: 0 auto;
+	width: 100%;
+}
+@media (min-width: 768px) {
+	.container {
+		width: 750px;
+	}
+}
+
+@media (min-width: 992px) {
+	.container {
+		width: 970px;
+	}
+}
+
+@media (min-width: 1200px) {
+	.container {
+		width: 1170px;
+	}
+}
