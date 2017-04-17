@@ -34,7 +34,6 @@ class Controller_Events_Index extends Dispatch
      */
     public function before()
     {
-
         parent::before();
 
         $id = $this->request->param('id');
@@ -72,6 +71,10 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_settings()
     {
+        if (!$this->event->isAssistant($this->user->id) || !self::isLogged()) {
+            $this->redirect('event/' . $this->event->id);
+        }
+
         $this->template->mainSection = View::factory('events/settings/content')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
@@ -147,9 +150,12 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_criterias()
     {
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation');
+        $this->template->mainSection = View::factory('events/scenario/criterias')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
 
-        $this->template->mainSection = View::factory('events/pattern/criterias');
+        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
@@ -159,10 +165,24 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_stages()
     {
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('event', $this->event);
 
-        $this->template->mainSection = View::factory('events/pattern/stages');
+        $stages = Methods_Stages::getByEvent($this->event->id);
+        $members = array(
+            'participants' => Methods_Participants::getByEvent($this->event->id),
+            'teams'        => Methods_Teams::getAllTeams($this->event->id),
+            //'groups'       => Methods_Participants::getByEvent($this->event->id)
+        );
+        $criterions = Methods_Criterions::getJSON($this->event->id);
+
+        $this->template->mainSection = View::factory('events/scenario/stages')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization)
+            ->set('stages', $stages)
+            ->set('members', $members)
+            ->set('criterions', $criterions);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
@@ -172,10 +192,18 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_contests()
     {
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('event', $this->event);
 
-        $this->template->mainSection = View::factory('events/pattern/contests');
+        $this->event->judges = Methods_Judges::getByEvent($this->event->id);
+        $this->event->stagesJSON = Methods_Stages::getJSON($this->event->id);
+        $this->event->stages = Methods_Stages::getByEvent($this->event->id);
+        $this->event->contests = Methods_Contests::getByEvent($this->event->id);
+
+        $this->template->mainSection = View::factory('events/scenario/contests')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
@@ -186,10 +214,16 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_result()
     {
-        $this->template->jumbotron_navigation = View::factory('/events/pattern/jumbotron_navigation')
-            ->set('event', $this->event);
 
-        $this->template->mainSection = View::factory('events/pattern/results');
+        $this->event->result = Methods_Results::getByEvent($this->event->id);
+        $this->event->contestsJSON = Methods_Contests::getJSON($this->event->id);
+
+        $this->template->mainSection = View::factory('events/scenario/results')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+
+        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
+            ->set('event', $this->event);
     }
 
 
