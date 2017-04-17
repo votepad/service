@@ -84,20 +84,21 @@
                 <form class="modal-body" id="judge_form" action="<?=URL::site('sign/judge'); ?>" method="POST">
                     <h4>Вход для жюри</h4>
                     <div class="input-field label-with-icon col-xs-12">
-                        <input type="text" id="auth_eventnumber" name="eventNumber" placeholder="Код мероприятия" required="">
+                        <input type="text" id="auth_eventnumber" name="eventCode" placeholder="Код мероприятия" required="">
                         <label for="auth_eventnumber" class="icon-label">
                             <i class="fa fa-key" aria-hidden="true"></i>
                         </label>
                     </div>
                     <div class="input-field label-with-icon col-xs-12">
-                        <input type="password" id="auth_judgesecret" name="judgesecret" placeholder="Ваш пароль" required="">
+                        <input type="password" id="auth_judgesecret" name="judgeSecret" placeholder="Ваш пароль" required="">
                         <label for="auth_judgesecret" class="icon-label">
                             <i aria-hidden="true" class="fa fa-lock"></i>
                         </label>
                     </div>
                     <div class="col-xs-12">
-                        <button type="button" id="judgeSignIn" class="btn btn_primary col-xs-6 col-xs-offset-3">Войти</button>
+                        <button type="submit" id="judgeSignIn" class="btn btn_primary col-xs-6 col-xs-offset-3">Войти</button>
                     </div>
+                    <?=Form::hidden('csrf', Security::token()); ?>
                 </form>
             </div>
         </div>

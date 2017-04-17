@@ -176,14 +176,15 @@ $(document).ready(function () {
     /**
     * Sumbit Judges SignIn Form
     */
-    $('#judgeSignIn').click(function(){
+    $('#judge_form').submit(function(){
         if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
             notifyErrors('eventNumber');
+            return false;
         } else if ( $("#auth_judgesecret").val() == '' ) {
             $("#auth_judgesecret").addClass('invalid');
-        } else {
-            $('#judge_form')[0].submit();
+            return false;
         }
+        $("#auth_eventnumber").inputmask('remove');
     });
 
 

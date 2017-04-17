@@ -44,6 +44,10 @@ class Controller_Events_Index extends Dispatch
             $this->event = $event;
             $this->organization = new Model_Organization($event->organization);
 
+            if (!$event->code || !Model_Event::getEventByCode($event->code)) {
+                $this->event->code = $event->generateCodeForJudges($event->id);
+                $this->event->update();
+            }
 
             /**
              * Meta Dates
