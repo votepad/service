@@ -1,5 +1,6 @@
 $(document).ready(function () {
 
+
     $('.header-landing__menu-icon').click(function () {
        $('.header-landing__menu').addClass('fadeInDown').addClass('show');
        $('body').append('<div class="backdrop"></div>');
@@ -37,25 +38,30 @@ $(document).ready(function () {
     }
 
 
-    /**  */
+    /**
+     * Show/hide block and add/remove active class from btns
+     */
     $('[data-toggle="tabs"]').click(function () {
 
-        var areas       = $(this).attr('data-block').split('_')[0],
-            openedID    = $(this).attr('data-block').split('_')[1];
+        var areaGroup    = $(this).attr('data-btnGroup'),
+            block        = $(this).attr('data-block');
 
 
-        $('.' + areas + '-header__item').each(function () {
+        $('[data-btnGroup=' + areaGroup + ']').each(function () {
             $(this).removeClass('active');
         });
         $(this).addClass('active');
 
-        $('.' + areas + '-body').each(function () {
+        $('[data-blockGroup=' + areaGroup + ']').each(function () {
             $(this).addClass('hide');
         });
-        $('#' + $(this).attr('data-block')).removeClass('hide');
+        $('#' + block).removeClass('hide');
+
+    });
 
 
-        console.log();
-    })
+    /**
+     *
+     */
 
 });

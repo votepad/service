@@ -173,16 +173,12 @@
     padding: 15px 30px;
 }
 
-.contest-header,
 .stage-header{
     display: block;
     width: 100%;
     text-align: center;
 }
-.stage-header{
-    margin-top: 30px;
-}
-.contest-header__item,
+
 .stage-header__item{
     display: inline-block;
     cursor: pointer;
@@ -193,27 +189,14 @@
 }
 .contest-body,
 .stage-body{
-    display: block;
     width: 100%;
-    float: left;
     margin-top: 30px;
-}
-
-.contest-header__item{
-    font-size: 1.4em;
-    padding: 20px 50px;
-    margin: 0 10px;
-    color: #008DA7;
-}
-
-.contest-header__item.active{
-    box-shadow: inset 0 -3px 0 0 #008DA7;
 }
 
 .contest-description{
     font-size: 1.2em;
-    text-align: center;
-    margin: 15px 20px;
+    margin: 20px 0;
+    max-width: 600px;
     font-style: italic;
     color: #9e9e9e;
     letter-spacing: 0.05em;
@@ -311,7 +294,7 @@
     display:block;
     padding: 10px;
     background: #008DA7;
-    color:#ddd;
+    color:#fff;
     border-radius:4px;
     font-weight:bold;
     animation: progress 1.5s linear;
@@ -372,12 +355,6 @@
         width: 100%;
     }
 
-    .contest-header__item{
-        width: 100%;
-        font-size: 1.3em;
-        margin: 0;
-        padding: 20px;
-    }
     .stage-header__item{
         width: 100%;
         margin: 10px 0;
