@@ -20,7 +20,13 @@ class Controller_Judges_Index extends Dispatch {
      */
     public function action_votingpanel()
     {
-        $this->template->mainSection = View::factory('judgepanel/panels/panel1');
+
+        $id = $this->request->param('id');
+        $judge = new Model_Judge($id);
+
+        $this->template->mainSection = View::factory('judgepanel/panels/panel1')
+            ->set('judge', $judge);
+
     }
 
     

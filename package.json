@@ -27,8 +27,12 @@
     "eslint-loader": "^1.7.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "html-janitor": "^2.0.2",
+    "mongodb": "^2.2.25",
     "path": "^0.12.7",
+    "redis": "^2.7.1",
+    "sha.js": "^2.4.8",
     "stylelint-webpack-plugin": "^0.7.0",
-    "webpack": "^2.3.2"
+    "webpack": "^2.3.2",
+    "ws": "^2.2.3"
   }
 }
