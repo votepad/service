@@ -18,9 +18,8 @@ application/config/database.php
 application/config/redis.php
 application/config/session.php
 application/config/email.php
+application/config/url.php
 
 /.env
 modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
 #composer.lock
-
-system/config/url.php
