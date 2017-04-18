@@ -23,14 +23,59 @@
 
     <section class="section__content">
 
-        <div class="block m-t-30">
+        <form id="addScore" class="block m-t-30">
             <div class="block_heading block_default">
                 <h4>Поставить дополнительный балл</h4>
             </div>
-            <div class="block_body">
+            <div class="block_body clear_fix">
+
+                <div class="col-xs-6">
+                    <div class="input-field hide">
+
+                        <select name="contest" id="addScoreContest">
+                                <option></option>
+
+                            <? foreach ($event->contests as $i => $contest): ?>
+
+                                <option value="<?= $contest->id; ?>"><?= $contest->name; ?></option>
+
+                            <? endforeach; ?>
+
+                        </select>
+                        <label for="addScoreContest">Выберите конкурс</label>
+
+                        <input type="hidden" id="contests" value='<?=json_encode($event->contests) ?>'>
+                    </div>
+                </div>
+
+                <div class="col-xs-6">
+                    <div class="input-field hide">
+                        <select name="stage" id="addScoreStage">
+                            <option></option>
+
+                        </select>
+                        <label for="addScoreContest">Выберите этап</label>
+                    </div>
+                </div>
+                <div class="col-xs-6">
+                </div>
+
+                <div id="addScoreMember" class="col-xs-6 hide">
+
+                </div>
+
+                <div class="col-xs-6 hide">
+                    <div class="input-field">
+                        <input type="number" id="addScoreInput" name="score">
+                        <label for="addScoreInput">Введите дополнительный балл</label>
+                    </div>
+                    <div class="input-field">
+                        <buton role="button" class="btn btn_primary fl_r">Поставить</buton>
+                    </div>
+                </div>
 
             </div>
-        </div>
+        </form>
 
             <div class="block m-t-30">
             <div class="block_heading block_default text-center">
@@ -85,7 +130,7 @@
         </div>
 
 
-        <? foreach ($event->contests as $i => $contest): ?>
+        <? foreach ($event->contests as $contest): ?>
             <!-- CONTEST START -->
             <div class="block m-t-30">
                 <div class="block_heading text-center">
@@ -164,19 +209,9 @@
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 
+    <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/select2.min.js"></script>
+    <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
+
     <script type="text/javascript" src="<?= $assets; ?>static/js/event/control.js"></script>
 
-    <script type="text/javascript">
-        $(document).ready(function(){
-            $('.stage__table').DataTable({
-                'paging': false,
-                'searching': true,
-                'info': false,
-                'scrollX': true,
-                columnDefs: [
-                    { 'targets' : 'no-sort', 'orderable': false },
-                ]
-            });
-        });
-    </script>
 </div>
