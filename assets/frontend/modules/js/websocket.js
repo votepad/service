@@ -4,40 +4,64 @@ module.exports = function (properties) {
 
     var setWS = function (props) {
 
-        var protocol = 'ws' + (props.secure ? 's' : '') + '://',
-            host     = props.host || 'localhost',
-            path     = props.path ? '/' + props.path : '',
-            port     = props.port ? ':' + props.port : '',
-            url = protocol + host + port + path;
+        return new Promise(function (resolve, reject) {
 
-        console.log(url);
+            var protocol = 'ws' + (props.secure ? 's' : '') + '://',
+                host = props.host || 'localhost',
+                path = props.path ? '/' + props.path : '',
+                port = props.port ? ':' + props.port : '',
+                url = protocol + host + port + path;
 
-        ws = new WebSocket(url);
 
-        if (typeof props.open == 'function') {
+            ws = new WebSocket(url);
 
-            ws.onopen = props.open;
+            var handlers = {
 
-        }
+                opened: function (e) {
 
-        if (typeof props.message == 'function') {
 
-            ws.onmessage = props.message;
+                    if (typeof properties.open == 'function') {
+                        properties.open();
+                    }
 
-        }
+                    resolve();
 
-        if (typeof props.error == 'function') {
+                },
 
-            ws.onerror = props.error;
+                closed: function (e) {
 
-        }
+                    if (typeof properties.close == 'function') {
+                        properties.close();
+                    }
 
-        if (typeof props.close == 'function') {
+                    reject();
 
-            ws.onclose = props.close;
+                },
 
-        }
+                message: function (msg) {
 
+                    if (typeof properties.message == 'function') {
+                        properties.message(msg);
+                    }
+
+                },
+
+                error: function (e) {
+
+                    if (typeof properties.error == 'function') {
+                        properties.error(e);
+                    }
+
+                }
+
+            };
+
+            ws.onopen = handlers.opened;
+            ws.onmessage = handlers.message;
+            ws.onerror = handlers.error;
+            ws.onclose = handlers.closed;
+
+        });
     };
 
     var send = function (message) {
@@ -53,14 +77,52 @@ module.exports = function (properties) {
     };
 
     var status = function() {
+
         return ws.readyState;
+
     };
 
-    setWS(properties);
+    var reconnect = function (attempts) {
+
+        if (ws == null) {
+            return;
+        }
+
+        return new Promise( function (resolve, reject) {
+
+            setWS(properties)
+                .then(function () {
+                        resolve();
+                    },
+                    function () {
+
+                        if (attempts > 1) {
+
+                            return reconnect(attempts - 1)
+
+                        } else {
+
+                            reject();
+
+                        }
+
+                    });
+
+
+        })
+
+
+
+    };
+
+
+
+    setWS(properties).catch(function(){});
 
     return {
         send: send,
         close: close,
+        reconnect: reconnect,
         status: status
     };
 

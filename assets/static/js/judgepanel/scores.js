@@ -1,6 +1,7 @@
 var scores = function () {
 
-    var ws = null;
+    var ws = null,
+        STORAGE_KEY = 'votepad.scores.';
 
     var init = function () {
 
@@ -45,6 +46,12 @@ var scores = function () {
 
     };
 
+    var saveScore = function (data) {
+
+        vp.storage.set(STORAGE_KEY + data.judge, data);
+
+    };
+
     var sendScore = function (event) {
 
         if (ws.status() < 2) {
@@ -52,7 +59,8 @@ var scores = function () {
             return true;
         }
 
-        openWS();
+        ws.reconnect(1)
+            .then(function(){sendScore(event)}, function() {saveScore(event.value)});
 
     };
 

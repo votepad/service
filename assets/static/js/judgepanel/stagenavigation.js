@@ -1,6 +1,6 @@
 //Навигация по этапам мероприятия
 
-var stagena = function () {
+var stagenav = function () {
 
     var stage           = null,
         startX          = null,

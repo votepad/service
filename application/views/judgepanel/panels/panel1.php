@@ -11,9 +11,9 @@
 
         <? $stages = array() ?>
         <div class="stages">
-            <? foreach ($contest->stages as $st => $stage): ?>
+            <? foreach ($contest->stages as $key => $stage): ?>
                 <? $stages[] = $stage->name ?>
-                <div class="stage-block tabs__block <?= $st == 0 ? 'tabs__block--active' : '' ?>" id="stage<?= $st ?>">
+                <div class="stage-block tabs__block <?= !$key ? 'tabs__block--active' : '' ?>" id="stage<?= $key ?>">
 
                     <!-- Member -->
                     <? foreach($stage->members as $member): ?>
@@ -52,7 +52,7 @@
                                             </p>
                                             <div class="scores-area">
 
-                                                <? $uniqid = $contest->id . $stage->id . $criterion->id . $member->id ?>
+                                                <? $uniqid = $contest->id . '-' . $stage->id . '-' . $criterion->id . '-' . $member->id ?>
 
                                                 <? for ($i = $criterion->min_score; $i <= $criterion->max_score; $i++): ?>
                                                     <? $data = json_encode(array(
@@ -84,7 +84,7 @@
 
         </div>
         <script>
-            stagena.init(<?= json_encode($stages) ?>);
+            stagenav.init(<?= json_encode($stages) ?>);
         </script>
 
     <?// endforeach; ?>

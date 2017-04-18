@@ -48,7 +48,7 @@ class Controller_Auth_Judge extends Auth {
 
             $this->saveSessionData($hash, $auth->id(), $auth->get('j_id'));
 
-            $this->redirect('judge/' . $judge->id); // eventpage
+            $this->redirect('voting'); // eventpage
 
         } else {
             $this->redirect('welcome');

@@ -21,7 +21,7 @@ class Controller_Judges_Index extends Dispatch {
     public function action_votingpanel()
     {
 
-        $id = $this->request->param('id');
+        $id = $this->session->get('j_id');
         $judge = new Model_Judge($id);
 
         $event = new Model_Event($judge->event);
