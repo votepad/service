@@ -66,7 +66,7 @@ $(document).ready(function () {
             temp_obj = {
                 contestID: contestID,
                 stageID: parseInt(obj[i]['id']),
-                members: JSON.stringify(obj[i]['member'], obj[i]['id'])
+                members: JSON.stringify(obj[i]['members'], obj[i]['id'])
             };
             data1.push(temp_obj);
         }

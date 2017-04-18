@@ -24,8 +24,23 @@
 .editScore:hover{
     color: #413a41;
 }
-
-
+.label-status{
+    display: inline;
+    padding: 3px 5px;
+    font-size: .6em;
+    color: #fff;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: top;
+    border-radius: 10px;
+    margin-left: 5px;
+}
+.label-status--online{
+    background-color: #27c24c;
+}
+.label-status--offline{
+    background-color: #f05050;
+}
 
 .row{
     margin: 0 -15px;

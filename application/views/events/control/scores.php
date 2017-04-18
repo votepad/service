@@ -172,9 +172,6 @@
                                     case 2:
                                         echo "Команды";
                                         break;
-                                    case 3:
-                                        echo "Группы";
-                                        break;
                                 }
                                 ?>
                             </th>
@@ -189,7 +186,7 @@
                         </tr>
                         </thead>
                         <tbody>
-                        <? foreach ($event->contests[$contestKey]->stages[0]->member as $member): ?>
+                        <? foreach ($event->contests[$contestKey]->stages[0]->members as $member): ?>
                             <tr>
 
                                 <td class="text-center"><?= $member->name; ?></td>
@@ -250,7 +247,7 @@
                                 </tr>
                             </thead>
                         <tbody>
-                            <? foreach ($stage->member as $member): ?>
+                            <? foreach ($stage->members as $member): ?>
                             <tr>
 
                                 <td class="text-center"><?= $member->name; ?></td>
