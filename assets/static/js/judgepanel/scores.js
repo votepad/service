@@ -3,7 +3,7 @@ var scores = function () {
     var ws = null,
         STORAGE_KEY = 'votepad.scores.';
 
-    var init = function () {
+    var init = function (host, port) {
 
         var elems = document.querySelectorAll('.js-scores');
 
@@ -13,15 +13,15 @@ var scores = function () {
 
         });
 
-        openWS();
+        openWS(port, host);
 
     };
 
-    var openWS = function () {
+    var openWS = function (port, host) {
         ws = new vp.websocket({
-            host: 'localhost',
+            host: host || 'localhost',
             path: 'voting',
-            port: '8000',
+            port: port || 8000,
             open: wsHandlers.opened,
             close: wsHandlers.closed,
             message: wsHandlers.message
@@ -55,11 +55,11 @@ var scores = function () {
     var sendScore = function (event) {
 
         if (ws.status() < 2) {
-            ws.send(event.value);
+            ws.send(JSON.parse(event.value));
             return true;
         }
 
-        ws.reconnect(1)
+        ws.reconnect(10)
             .then(function(){sendScore(event)}, function() {saveScore(event.value)});
 
     };

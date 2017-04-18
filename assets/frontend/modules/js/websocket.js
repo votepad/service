@@ -66,7 +66,7 @@ module.exports = function (properties) {
 
     var send = function (message) {
 
-        ws.send(message);
+        ws.send(JSON.stringify(message));
 
     };
 

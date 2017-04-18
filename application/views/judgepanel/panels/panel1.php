@@ -56,12 +56,15 @@
 
                                                 <? for ($i = $criterion->min_score; $i <= $criterion->max_score; $i++): ?>
                                                     <? $data = json_encode(array(
-                                                        'contest'   => $contest->id,
-                                                        'stage'     => $stage->id,
-                                                        'criterion' => $criterion->id,
-                                                        'judge'     => $judge->id,
-                                                        'member'    => $member->id,
-                                                        'score'     => $i
+                                                        'event' => $event->id,
+                                                        'data'  => array(
+                                                            'contest'   => $contest->id,
+                                                            'stage'     => $stage->id,
+                                                            'criterion' => $criterion->id,
+                                                            'judge'     => $judge->id,
+                                                            'member'    => $member->id,
+                                                            'score'     => $i
+                                                        )
                                                     ))?>
                                                     <span name="vp-custom-radiobox-<?= $uniqid ?>" class="js-scores" data-name="vp-radiobox-<?= $uniqid ?>" data-value='<?= $data ?>'><?= $i ?></span>
                                                 <? endfor; ?>
