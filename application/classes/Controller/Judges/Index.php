@@ -44,7 +44,8 @@ class Controller_Judges_Index extends Dispatch {
         $this->template->judge = $judge;
         $this->template->event = $event;
         $this->template->mainSection = View::factory('judgepanel/panels/panel1')
-            ->set('event', $event);
+            ->set('event', $event)
+            ->set('judge', $judge);
 
     }
 

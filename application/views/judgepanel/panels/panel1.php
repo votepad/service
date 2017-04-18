@@ -52,14 +52,27 @@
                                             </p>
                                             <div class="scores-area">
 
+                                                <? $uniqid = $contest->id . $stage->id . $criterion->id . $member->id ?>
+
                                                 <? for ($i = $criterion->min_score; $i <= $criterion->max_score; $i++): ?>
-                                                    <span name="vp-custom-radiobox" data-name="vp-radiobox-<?= $criterion->id ?>" data-value="<?= $i ?>"><?= $i ?></span>
+                                                    <? $data = json_encode(array(
+                                                        'contest'   => $contest->id,
+                                                        'stage'     => $stage->id,
+                                                        'criterion' => $criterion->id,
+                                                        'judge'     => $judge->id,
+                                                        'member'    => $member->id,
+                                                        'score'     => $i
+                                                    ))?>
+                                                    <span name="vp-custom-radiobox-<?= $uniqid ?>" class="js-scores" data-name="vp-radiobox-<?= $uniqid ?>" data-value='<?= $data ?>'><?= $i ?></span>
                                                 <? endfor; ?>
 
                                              </div>
                                         </div>
 
                                     </div>
+                                    <script>
+                                        radioboxes('vp-custom-radiobox-<?= $uniqid ?>');
+                                    </script>
                                 <? endforeach; ?>
 
                             </div>
@@ -79,8 +92,8 @@
 </section>
 
 <script type="text/javascript">
-    radioElem.init();
     new stages_holder();
     new slider(['A', 'B']);
+    scores.init();
     vp.tabs.init();
 </script>

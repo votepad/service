@@ -2,27 +2,62 @@ var scores = function () {
 
     var ws = null;
 
-    var init = function (url) {
+    var init = function () {
 
-        ws = new WebSocket(url);
+        var elems = document.querySelectorAll('.js-scores');
 
-        ws.onclose = closed;
+        Array.prototype.forEach.call(elems, function (current) {
+
+            current.addEventListener('toggle', sendScore);
+
+        });
+
+        openWS();
 
     };
 
-    var send = function (data) {
+    var openWS = function () {
+        ws = new vp.websocket({
+            host: 'localhost',
+            path: 'voting',
+            port: '8000',
+            open: wsHandlers.opened,
+            close: wsHandlers.closed,
+            message: wsHandlers.message
+        });
+    };
 
-        ws.send(JSON.stringify(data));
+
+    var wsHandlers = {
+
+        opened: function () {
+            console.log('You`re online!');
+        },
+
+        closed: function () {
+            console.log('You`re offline :(');
+        },
+
+        message: function (message) {
+            console.log('You have a message: ');
+            console.log(message.data);
+        }
 
     };
 
-    var closed = function (e) {
-        console.log(e);
+    var sendScore = function (event) {
+
+        if (ws.status() < 2) {
+            ws.send(event.value);
+            return true;
+        }
+
+        openWS();
+
     };
 
     return {
-        init: init,
-        send: send
+        init: init
     };
 
 }();
