@@ -16,7 +16,14 @@
     box-shadow: 0 2px 0 0 #008DA7;
 }
 
-
+.editScore{
+    font-weight: bold;
+    border-bottom: dashed 1px #008da7;
+    color: #008da7;
+}
+.editScore:hover{
+    color: #413a41;
+}
 
 
 

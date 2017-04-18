@@ -373,6 +373,7 @@ class Controller_Events_Index extends Dispatch
 
             foreach ($contest->stages as $key2 => $stage) {
                 $contests[$key]->stages[$key2]->member = Methods_Stages::getMembers($stage->id, $stage->mode);
+                $contests[$key]->stages[$key2]->criterions = Methods_Stages::getCriterions($stage->formula);
             }
 
         }

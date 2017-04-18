@@ -17,27 +17,21 @@ $(document).ready(function () {
         $('[data-blockGroup=' + areaGroup + ']').each(function () {
             $(this).addClass('hide');
         });
+
         $('#' + block).removeClass('hide');
 
-        $('#' + block + ' .dataTables_scrollHeadInner').css('width','100%');
-        $('#' + block + ' .dataTable').css('width','100%');
-
     });
 
 
-    $(document).ready(function(){
-        $('.stage__table').DataTable({
-            'paging': false,
-            'searching': true,
-            'info': false,
-            'scrollX': true,
-            columnDefs: [
-                { 'targets' : 'no-sort', 'orderable': false },
-            ]
-        });
+    $('.stage__table').DataTable({
+        'paging': false,
+        'searching': true,
+        'info': false,
+        'scrollX': true,
+        columnDefs: [
+            { 'targets' : 'no-sort', 'orderable': false },
+        ]
     });
-
-
 
 
     var contests = JSON.parse($('#contests').val());
@@ -46,7 +40,7 @@ $(document).ready(function () {
     $('#addScoreContest').select2({
         language: 'ru'
     });
-    
+
     $('#addScoreContest').parent().removeClass('hide');
 
     var data = [], temp_contest, data1 = [], temp_stage;
@@ -140,5 +134,126 @@ $(document).ready(function () {
         }
 
     });
+
+
+    /**
+     * Edit Sxores Table Template
+     */
+    $('#editScoresTable').DataTable({
+        paging: false,
+        searching: false,
+        sorting:false,
+        info: false,
+        scrollX: true,
+        columnDefs: [
+            {
+                'targets' : 'no-sort',
+                'orderable': false,
+            },
+            {
+                "targets": [1],
+                className: "text-center score",
+            },
+            {
+                "targets": [2],
+                className: "editScoreCell",
+            }
+        ],
+        columns: [
+            { data: 'name' },
+            { data: 'score' },
+            { data: 'edit' }
+        ]
+
+    });
+
+
+    /**
+     * Open Modal Form With Criterions
+     * - create data dor editing score
+     */
+    $('.editScore').on('click', function () {
+        var contest     = $(this).data('contest'),
+            stage       = $(this).data('stage'),
+            member      = $(this).data('member'),
+            judge       = $(this).data('judge'),
+            criterions  = $(this).data('criterions'),
+            tablesData  = [], tempCrit;
+
+        /**
+         * TODO вывести балл, полученный membor конкретным жюри по всем критериям за этап
+         *
+         * вывеси в цикле ниже, где `score`: 5
+         */
+
+
+        for (var i = 0; i < criterions.length; i++) {
+            tempCrit = {
+                name: criterions[i]['name'],
+                score: 5,
+                edit: "<a role='button' class='openEditScoreArea edtScoreCell__btn' data-criterion='" + JSON.stringify(criterions[i]) + "' data-stage='" + stage + "' data-contest='" + contest + "' data-member='" + member + "' data-judge='" + judge + "'><i class='fa fa-edit'></i></a>" +
+                      "<a role='button' class='submitScore edtScoreCell__btn hide' data-criterion='" + JSON.stringify(criterions[i]) + "' data-stage='" + stage + "' data-contest='" + contest + "' data-member='" + member + "' data-judge='" + judge + "'><i class='fa fa-save'></i></a>"
+            };
+            tablesData.push(tempCrit)
+        }
+
+        $('#editScoresTable').dataTable().fnClearTable();
+        $('#editScoresTable').dataTable().fnAddData(tablesData);
+
+        $('#editScoresForm').modal('show');
+
+        $('.dataTables_scrollHeadInner').css('width','100%');
+        $('.dataTable').css('width','100%');
+    });
+
+
+    /**
+     * Open New Score Edit Area
+     */
+    $('#editScoresTable tbody').on( 'click', '.openEditScoreArea', function () {
+        var criterion   = $(this).data('criterion'),
+            tr          = $(this).parent().parent(),
+            scoreArea   = tr.children('.score'),
+            oldScore    = scoreArea.html();
+
+        scoreArea.html('<input class="inputScore" type="number" min="' + criterion['min_score'] + '" max="' + criterion['max_score'] + '" value="' + oldScore + '">');
+
+        console.log('oldScore', oldScore);
+
+        tr.children('.editScoreCell').children('.openEditScoreArea').addClass('hide');
+        tr.children('.editScoreCell').children('.submitScore').removeClass('hide');
+    } );
+
+
+    /**
+     * Submit Update New Score
+      */
+    $('#editScoresTable tbody').on( 'click', '.submitScore', function () {
+        var contest     = $(this).data('contest'),
+            stage       = $(this).data('stage'),
+            criterion   = $(this).data('criterion')['id'],
+            member      = $(this).data('member'),
+            judge       = $(this).data('judge'),
+            tr          = $(this).parent().parent(),
+            scoreArea   = tr.children('.score'),
+            newScore    = scoreArea.children().val();
+
+        console.log('newScore: ' + newScore, contest, stage, criterion, member, judge);
+
+
+        /**
+         * TODO Update Score data
+         */
+
+
+        tr.children('.editScoreCell').children('.openEditScoreArea').removeClass('hide');
+        tr.children('.editScoreCell').children('.submitScore').addClass('hide');
+
+    });
+
+
+
+    $('.dataTables_scrollHeadInner').css('width','100%');
+    $('.dataTable').css('width','100%');
 
 });
