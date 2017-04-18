@@ -326,6 +326,6 @@
 
     <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
-    <script type="text/javascript" src="<?= $assets; ?>static/js/event/control.js"></script>
+    <script type="text/javascript" src="<?= $assets; ?>static/js/event/control-scores.js"></script>
 
 </div>
