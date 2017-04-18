@@ -30,7 +30,7 @@ module.exports = function (port) {
                         if (!results.length) {
 
                             ws.send(JSON.stringify({status: "Access denied", success: 0}));
-                            ws.close();
+                            return;
 
                         }
 

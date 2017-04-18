@@ -2,14 +2,14 @@ module.exports = function (properties) {
 
     var ws = null;
 
-    var setWS = function (props) {
+    var setWS = function () {
 
         return new Promise(function (resolve, reject) {
 
-            var protocol = 'ws' + (props.secure ? 's' : '') + '://',
-                host = props.host || 'localhost',
-                path = props.path ? '/' + props.path : '',
-                port = props.port ? ':' + props.port : '',
+            var protocol = 'ws' + (properties.secure ? 's' : '') + '://',
+                host = properties.host || 'localhost',
+                path = properties.path ? '/' + properties.path : '',
+                port = properties.port ? ':' + properties.port : '',
                 url = protocol + host + port + path;
 
 
@@ -90,7 +90,7 @@ module.exports = function (properties) {
 
         return new Promise( function (resolve, reject) {
 
-            setWS(properties)
+            setWS()
                 .then(function () {
                         resolve();
                     },
@@ -117,7 +117,7 @@ module.exports = function (properties) {
 
 
 
-    setWS(properties).catch(function(){});
+    setWS().catch(console.log);
 
     return {
         send: send,
