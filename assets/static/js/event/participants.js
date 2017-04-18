@@ -526,7 +526,7 @@ $(document).ready(function() {
                         img.src = result.data.url;
                         img.classList.remove('jumbotron--loading');
 
-                        hot.setDataAtCell(row, col, result.data.url.split('/')[2]);
+                        hot.setDataAtCell(row, col, result.data.name);
                     }
 
                 },
