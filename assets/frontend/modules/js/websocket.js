@@ -85,31 +85,34 @@ module.exports = function (properties) {
     var reconnect = function (attempts) {
 
         if (ws == null) {
-            return;
+
+            return Promise.reject();
+
         }
 
         return new Promise( function (resolve, reject) {
 
             setWS()
                 .then(function () {
-                        resolve();
-                    },
-                    function () {
 
-                        if (attempts > 1) {
+                    resolve();
 
-                            return reconnect(attempts - 1)
+                },
+                function () {
 
-                        } else {
+                    if (attempts > 2) {
 
-                            reject();
+                        reconnect(attempts - 1).then(resolve, reject);
 
-                        }
+                    } else {
 
-                    });
+                        reject();
 
+                    }
 
-        })
+                });
+
+        });
 
 
 

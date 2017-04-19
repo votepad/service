@@ -84,8 +84,6 @@ var scores = function () {
 
     var saveScore = function (data) {
 
-        data = JSON.parse(data);
-
         var fields = data.data,
             key = fields.contest + '.' + fields.stage + '.' + fields.criterion + '.' + fields.judge + '.' + fields.member;
 
@@ -96,29 +94,39 @@ var scores = function () {
 
     var sendScore = function (event) {
 
+        var data = JSON.parse(event.value);
+
         if (ws.status() == 1) {
 
-            var data = JSON.parse(event.value);
             ws.send(data);
 
             return true;
         }
 
         judgeStatus.reconnect();
+
         ws.reconnect(5)
             .then(
                 function (){
-                    judgeStatus.online();
-                    sendScore(event);
-                },
+                        judgeStatus.online();
+                        sendScore(event);
+                    },
                 function () {
-                    saveScore(event.value)
-            });
+                    saveScore(data);
+            })
+
+    };
+
+    var reconnect = function () {
+
+        judgeStatus.reconnect();
+        ws.reconnect();
 
     };
 
     return {
-        init: init
+        init: init,
+        reconnect: reconnect
     };
 
 }();

@@ -27,7 +27,7 @@
 <!--            </span>-->
         </a>
         <div class="dropdown__menu dropdown__menu--right">
-            <a onclick="alert('TODO: reconnect to server')" class="dropdown__link">
+            <a onclick="scores.reconnect()" class="dropdown__link">
                 <i class="fa fa-refresh dropdown__icon" aria-hidden="true"></i>
                 Обновить страницу
             </a>
