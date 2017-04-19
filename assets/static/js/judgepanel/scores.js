@@ -67,10 +67,12 @@ var scores = function () {
         opened: function () {
             console.log('You`re online!');
             sendSavedScores(judge);
+            judgeStatus.online();
         },
 
         closed: function () {
             console.log('You`re offline :(');
+            judgeStatus.offline();
         },
 
         message: function (message) {
@@ -102,8 +104,16 @@ var scores = function () {
             return true;
         }
 
-        ws.reconnect(1)
-            .then(function (){sendScore(event)}, function () {saveScore(event.value)});
+        judgeStatus.reconnect();
+        ws.reconnect(5)
+            .then(
+                function (){
+                    judgeStatus.online();
+                    sendScore(event);
+                },
+                function () {
+                    saveScore(event.value)
+            });
 
     };
 

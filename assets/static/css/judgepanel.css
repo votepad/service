@@ -6,6 +6,32 @@
     width: calc(100% - 200px);
     height: inherit;
 }
+.status{
+    display: inline-block;
+    position: relative;
+    margin-right: 3px;
+    height: 8px;
+    width: 8px;
+    color: #fff;
+    border-radius: 50%;
+}
+.status--online{
+    background-color: #27c24c;
+}
+.status--offline{
+    background-color: #f05050;
+}
+.status--reconnect{
+    background-color: #FFD700;
+    animation: reconnect 1.7s infinite;
+}
+
+@keyframes reconnect {
+    0% {opacity: 1}
+    50% {opacity: 0.7}
+    100% {opacity: 1}
+}
+
 .user-name--shown-xs{
     display: none;
 }

@@ -113,7 +113,10 @@
 
     <script type="text/javascript">
         $( document ).ready(function() {
-            vp.tabs.init();
+            vp.tabs.init({
+                search: false,
+                counter: true
+            });
         });
     </script>
 
