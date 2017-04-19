@@ -36,7 +36,7 @@
 
                                 <? foreach ($contest->judges as $judge): ?>
 
-                                <p>
+                                <p style="line-height:1.5em">
                                     <?= $judge->name; ?>
                                     <span class="label-status label-status--online">Online</span>
 <!--                                    <span class="label-status label-status--offline">Offline</span> -->
@@ -95,18 +95,18 @@
                     <div class="m-t-20 col-xs-12 col-md-4">
                         <div class="block block_default">
                             <div class="block_heading">
-                                <h4>Запретить доступ к</h4>
+                                <h4>Закрыть доступ</h4>
                             </div>
                             <div class="block_body clear_fix">
                                 <p>
-                                <div class="switch">
-                                    <label><?=$contest->name;?> <input type="checkbox"  name="blockContest" value="<?=$contest->id;?>"> <span></span> </label>
+                                <div class="switch" style="line-height: 1.5em">
+                                    <label><?=$contest->name;?> <input type="checkbox" name="blockContest" value="<?=$contest->id;?>"> <span></span> </label>
                                 </div>
                                 </p>
                                 <? foreach ($contest->stages as $stage): ?>
                                     <p>
-                                        <div class="switch">
-                                            <label><?=$stage->name;?> <input type="checkbox"  name="blockStage" data-contest="<?= $contest->id; ?>" value="<?= $stage->id; ?>"> <span></span> </label>
+                                        <div class="switch" style="line-height: 1.5em">
+                                            <label><?=$stage->name;?> <input type="checkbox" name="blockStage" data-contest="<?= $contest->id; ?>" value="<?= $stage->id; ?>"> <span></span> </label>
                                         </div>
                                     </p>
                                 <? endforeach; ?>

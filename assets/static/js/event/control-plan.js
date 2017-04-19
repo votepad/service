@@ -87,6 +87,56 @@ $(document).ready(function () {
     });
 
 
+    /**
+     * Block Contest
+     */
+    $('[name="blockContest"]').change(function () {
+        var contest = $(this).val(),
+            status  = this.checked;
+
+        console.log(status, contest);
+
+        if (status) {
+            $.notify({
+                message: "Доступ к конкурсу закрыт"
+            },{
+                type: "success"
+            })
+        } else {
+            $.notify({
+                message: "Доступ к конкурсу открыт"
+            },{
+                type: "success"
+            })
+        }
+    });
+
+
+    /**
+     * Block Stage
+     */
+    $('[name="blockStage"]').change(function () {
+        var stage   = $(this).val(),
+            contest = $(this).data('contest'),
+            status  = this.checked;
+
+        console.log(status, contest, stage);
+
+        if (status) {
+            $.notify({
+                message: "Доступ к этапу закрыт, экспертное жюри не смогут оценить участников"
+            },{
+                type: "success"
+            })
+        } else {
+            $.notify({
+                message: "Доступ к этапу открыт, экспертное жюри могут оценивать участников"
+            },{
+                type: "success"
+            })
+        }
+
+    });
 
 
 });
