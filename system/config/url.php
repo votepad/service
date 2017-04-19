@@ -4,13 +4,6 @@ return array(
 
 	'trusted_hosts' => array(
 		'localhost',
-		'pronwe',
-		'pronwe.ru',
-		'pronwe.local',
-		'192.168.0.103',
-		'192.168.10.2',
-        'nwe',
-        'votepad.local'
 		// Set up your hostnames here
 		//
 		// Example:
