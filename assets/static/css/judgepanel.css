@@ -22,7 +22,14 @@
     background-color: #f05050;
 }
 .status--reconnect{
-    background-color: #FFD700
+    background-color: #FFD700;
+    animation: reconnect 1.7s infinite;
+}
+
+@keyframes reconnect {
+    0% {opacity: 1}
+    50% {opacity: 0.7}
+    100% {opacity: 1}
 }
 
 .user-name--shown-xs{
