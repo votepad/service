@@ -51,7 +51,10 @@
     <? endif; ?>
     <script type="text/javascript">
         $( document ).ready(function() {
-            vp.tabs.init();
+            vp.tabs.init({
+                search: true,
+                counter: true
+            });
         });
     </script>
 

@@ -20,5 +20,7 @@ votepad.header      = require('./modules/js/header');
 votepad.collapse    = require('./modules/js/collapse');
 votepad.cookies     = require('./modules/js/cookies');
 votepad.tabs        = require('./modules/js/tabs');
+votepad.websocket   = require('./modules/js/websocket');
+votepad.storage     = require('./modules/js/localstorage');
 
 module.exports = votepad;

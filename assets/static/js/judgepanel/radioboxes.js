@@ -1,19 +1,19 @@
-var radioboxes = function (radioboxes) {
+var radioboxes = function (name) {
 
-    var CLASSES     = {
+    var ToggleEvent = new CustomEvent('toggle');
+
+    var CLASSES = {
             wrapper: 'vp-radiobox',
             checked: 'vp-radiobox--checked',
             defaultRadiobox: 'vp-default-radiobox--hidden'
          },
 
-        NAMES       = {
+        NAMES = {
             radiobox: 'vp-custom-radiobox',
             defaultInput: 'vp-custom-radiobox'
         },
 
-        currentRadio = null,
-        currentInput = null;
-
+        currentRadio = null;
 
     var prepareRadioBox = function (wrapper) {
 
@@ -31,65 +31,37 @@ var radioboxes = function (radioboxes) {
 
 
         if (wrapper.dataset.checked) {
-            input.checked = true;
-
             wrapper.classList.add(CLASSES.checked);
+            input.checked = true;
+            currentRadio = wrapper;
         }
 
     };
 
     var clicked = function () {
 
-        var wrapper = this,
-            input = wrapper.querySelector('input');
+        var radio = this,
+            input = radio.querySelector('input');
 
-        if ( currentRadio != null ){
-            if (currentInput != input) {
-                currentRadio.classList.remove(CLASSES.checked);
-            }
-        }
+        if (currentRadio) currentRadio.classList.remove(CLASSES.checked);
+        currentRadio = radio;
+        currentRadio.classList.add(CLASSES.checked);
 
-        wrapper.classList.add(CLASSES.checked);
+        input.checked = true;
 
-        currentRadio = wrapper;
+        ToggleEvent.value = input.value;
+        radio.dispatchEvent(ToggleEvent);
 
-        currentInput = input;
     };
 
 
-    var initial = function () { 
-        Array.prototype.forEach.call(radioboxes, prepareRadioBox);
+    var init = function (name) {
+
+        var radios = document.getElementsByName(name);
+        Array.prototype.forEach.call(radios, prepareRadioBox);
+
     };
 
-    initial();
+    init(name)
+
 };
-
-var radioElem = function () {
-
-    var init = function () {
-
-        var radiboxes = document.getElementsByName('vp-custom-radiobox');
-        var radibox = {};
-
-
-        for (i = 0; i < radiboxes.length; i++){
-            if (radibox[radiboxes[i].dataset.name] == null) {
-
-                radibox[radiboxes[i].dataset.name] = [];
-            }
-
-            radibox[radiboxes[i].dataset.name].push(radiboxes[i]);
-        }
-
-        for (var dataName in radibox) {
-
-            blok = new radioboxes(radibox[dataName]);
-        }
-    };
-
-    return{
-        init: init
-    };
-
-
-}();

@@ -143,4 +143,29 @@ class Methods_Contests extends Model_Contest
 
     }
 
+    public static function getByJudge($judge) {
+
+        $selection = Dao_ContestsJudges::select('c_id')
+            ->where('j_id', '=', $judge)
+            ->execute('c_id');
+
+        if (!$selection) {
+            return array();
+        }
+
+        $selection = array_keys($selection);
+
+        $contests = array();
+
+        foreach ($selection as $id) {
+
+            $contests[] = new Model_Contest($id);
+
+        }
+
+        return $contests;
+
+
+    }
+
 }
