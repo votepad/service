@@ -1,9 +1,39 @@
 var scores = function () {
 
     var ws = null,
-        STORAGE_KEY = 'votepad.scores.';
+        STORAGE_KEY = 'votepad.scores.',
+        judge = null;
 
-    var init = function (host, port) {
+    var sendSavedScores = function () {
+
+        var keys    = vp.storage.get(STORAGE_KEY + judge),
+            newKeys;
+
+        if (!keys) {
+            return;
+        }
+
+        newKeys = keys.filter(function (key) {
+
+            var data = vp.storage.get(STORAGE_KEY + key);
+
+            if (data && ws.status() == 1) {
+
+                ws.send(data);
+                vp.storage.remove(STORAGE_KEY + key);
+                return false;
+
+            }
+
+            return true;
+
+        });
+
+        vp.storage.set(STORAGE_KEY + judge, newKeys);
+
+    };
+
+    var init = function (j_id, host, port) {
 
         var elems = document.querySelectorAll('.js-scores');
 
@@ -13,11 +43,13 @@ var scores = function () {
 
         });
 
+        judge = j_id;
         openWS(port, host);
 
     };
 
     var openWS = function (port, host) {
+
         ws = new vp.websocket({
             host: host || 'localhost',
             path: 'voting',
@@ -26,6 +58,7 @@ var scores = function () {
             close: wsHandlers.closed,
             message: wsHandlers.message
         });
+
     };
 
 
@@ -33,6 +66,7 @@ var scores = function () {
 
         opened: function () {
             console.log('You`re online!');
+            sendSavedScores(judge);
         },
 
         closed: function () {
@@ -48,19 +82,28 @@ var scores = function () {
 
     var saveScore = function (data) {
 
-        vp.storage.set(STORAGE_KEY + data.judge, data);
+        data = JSON.parse(data);
+
+        var fields = data.data,
+            key = fields.contest + '.' + fields.stage + '.' + fields.criterion + '.' + fields.judge + '.' + fields.member;
+
+        vp.storage.append(STORAGE_KEY + fields.judge, key);
+        vp.storage.set(STORAGE_KEY + key, data);
 
     };
 
     var sendScore = function (event) {
 
-        if (ws.status() < 2) {
-            ws.send(JSON.parse(event.value));
+        if (ws.status() == 1) {
+
+            var data = JSON.parse(event.value);
+            ws.send(data);
+
             return true;
         }
 
-        ws.reconnect(10)
-            .then(function(){sendScore(event)}, function() {saveScore(event.value)});
+        ws.reconnect(1)
+            .then(function (){sendScore(event)}, function () {saveScore(event.value)});
 
     };
 

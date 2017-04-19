@@ -97,6 +97,6 @@
 <script type="text/javascript">
     new stages_holder();
     new slider(['A', 'B']);
-    scores.init();
+    scores.init(<?= $judge->id ?>);
     vp.tabs.init();
 </script>
