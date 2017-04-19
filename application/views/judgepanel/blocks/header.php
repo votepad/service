@@ -16,15 +16,21 @@
     <div class="header__menu fl_r dropdown" data-toggle="dropdown">
         <a class="header__button header__button--hover dropdown__btn fl_r"  style="max-width:100%;">
             <span class="user-name--hidden-xs-">
-                <?= $judge->name; ?>5456454545645454564545456454545645454564545456454545645454564545456454
+                <span id="judgeStatus" class="status status--online"></span>
+
+                <?= $judge->name; ?>
                 <i class="fa fa-caret-down" aria-hidden="true"></i>
-                <span class="label">Online</span>
+
             </span>
 <!--            <span class="user-name--shown-xs">-->
 <!--                <i class="fa fa-user" aria-hidden="true"></i>-->
 <!--            </span>-->
         </a>
         <div class="dropdown__menu dropdown__menu--right">
+            <a onclick="alert('TODO: reconnect to server')" class="dropdown__link">
+                <i class="fa fa-refresh dropdown__icon" aria-hidden="true"></i>
+                Обновить страницу
+            </a>
             <a href="<?=URL::site(''); ?>" class="dropdown__link">
                 <i class="fa fa-sign-out dropdown__icon" aria-hidden="true"></i>
                 Выйти
@@ -33,3 +39,8 @@
     </div>
 
 </div>
+
+<script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/judgeStatus.js"></script>
+<script type="text/javascript">
+    judgeStatus.init('judgeStatus');
+</script>
