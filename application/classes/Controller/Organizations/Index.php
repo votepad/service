@@ -57,15 +57,10 @@ class Controller_Organizations_Index extends Dispatch
         $this->template->description = $this->organization->description;
 
         /** Header */
-        $data = array(
-            'organization' => $this->organization,
-            'isOwner' => $this->organization->isOwner($this->user ? $this->user->id : 0),
-            'isMember' => $this->organization->isMember($this->user ? $this->user->id : 0)
-        );
 
         $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', $data))
-            ->set('header_menu', View::factory('organizations/blocks/header_menu', $data));
+            ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', array('organization' => $this->organization)))
+            ->set('header_menu', View::factory('organizations/blocks/header_menu', array('organization' => $this->organization)));
 
     }
 
@@ -99,10 +94,7 @@ class Controller_Organizations_Index extends Dispatch
 
         $this->template->mainSection->jumbotron_navigation = View::factory('organizations/events/jumbotron_navigation')
             ->set('isSendRequest', $this->redis->sMembers('votepad.orgs:'.$this->organization->id.':join.requests'))
-            ->set('isOwner', $this->organization->isOwner($this->user ? $this->user->id : 0))
-            ->set('isMember', $this->organization->isMember($this->user ? $this->user->id : 0))
-            ->set('userID', $this->user ? $this->user->id : 0)
-            ->set('orgID', $this->organization->id);
+            ->set('organization', $this->organization);
 
     }
 

@@ -292,26 +292,25 @@ img.jumbotron--loading {
 	max-height: 5.5em;
 	-webkit-line-clamp: 5;
 }
-.event__actions{
-	position: relative;
-}
-.event__time{
-	position: absolute;
-	width: 100%;
-	left: 0;
-	top: 0;
-	text-align: center;
+.event__labels{
+	width: 70%;
+	user-select: none;
+	cursor: default;
 }
 .event__watches{
 	font-size: .8em;
 	color: #9e9e9e;
 	padding: 2px 0 1px 0;
+	margin-right: 8px;
+	user-select: none;
+	cursor: default;
 }
 .event__watches-counter{
-	margin-left: 5px
+	margin-left: 5px;
 }
 .event__dropdown{
 	margin-left: 5px;
+	z-index: 5;
 }
 .event__dropdown-btn{
 	color: #9e9e9e;
@@ -321,5 +320,5 @@ img.jumbotron--loading {
 }
 .event__dropdown-menu{
 	top: 100%;
-	left: -30px;
+	right: -30px;
 }

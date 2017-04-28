@@ -2560,9 +2560,25 @@ section:after, section:before,
 }
 
 
-
-
-
+.label{
+	display: inline-block;
+	padding: 3px 8px;
+	font-size: .7em;
+	text-align: center;
+	white-space: nowrap;
+	border-radius: 10px;
+	border: 1px solid transparent;
+	margin-right: 5px;
+	margin-bottom: 5px;
+}
+.label--brand{
+	border-color: #1F6E7D;
+	background: #008da7;
+	color: #fcfcfc;
+}
+.label--default{
+	border-color: #C9C9C9;
+}
 
 .hide{
 	display: none !important;

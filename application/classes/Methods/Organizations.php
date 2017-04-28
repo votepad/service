@@ -22,14 +22,17 @@ class Methods_Organizations extends Model_Organization {
 
         $select = Dao_Events::select('id')
             ->where('organization', '=', $id_organization)
-            ->cached('organization' . $id_organization . 'events', Date::MINUTE)
             ->execute();
 
         $events = array();
 
-        foreach ($select as $eventId) {
+        if ( $select ) {
 
-            $events[] = new Model_Event($eventId['id']);
+            foreach ($select as $eventId) {
+
+                $events[] = new Model_Event($eventId['id']);
+
+            }
 
         }
 
