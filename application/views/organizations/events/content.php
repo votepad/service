@@ -87,7 +87,7 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/moment/locale/ru.js"></script>
     <script>
         $('.event__time').each(function () {
-            this.innerHTML = moment(new Date(this.innerHTML)).format('ll');
+            $(this).html(moment(new Date($(this).html())).format('ll'))
         });
         if ( $('.event').length === 0) {
             $('.events').append(
