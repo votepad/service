@@ -6,7 +6,7 @@ var tabs = (function(tabs) {
         node_ = null,
         noresult = null;
 
-    var prepare_ = function () {
+    var prepare_ = function (options) {
 
         noresult = document.createElement('div');
         noresult.id = "noResult";
@@ -21,10 +21,10 @@ var tabs = (function(tabs) {
                 node_ = {
                     btn: tabsArray_[i],
                     block: document.getElementById(tabsArray_[i].dataset.block),
-                    search: document.getElementById(tabsArray_[i].dataset.search),
-                    input: document.getElementById(tabsArray_[i].dataset.search + "Input"),
-                    counter: document.getElementById(tabsArray_[i].dataset.block + "Counter"),
-                    search_elements: document.getElementById(tabsArray_[i].dataset.block).getElementsByClassName('item__info-name')
+                    search: options.search ? document.getElementById(tabsArray_[i].dataset.search) : null,
+                    input: options.search ? document.getElementById(tabsArray_[i].dataset.search + "Input") : null,
+                    counter: options.counter ? document.getElementById(tabsArray_[i].dataset.block + "Counter") : null,
+                    search_elements: options.search ? document.getElementById(tabsArray_[i].dataset.block).getElementsByClassName('item__info-name') : null
                 };
                 nodes_.push(node_);
 
@@ -43,8 +43,8 @@ var tabs = (function(tabs) {
 
 
 
-    tabs.init = function() {
-        prepare_();
+    tabs.init = function(options) {
+        prepare_(options);
     };
 
 

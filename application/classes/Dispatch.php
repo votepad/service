@@ -10,6 +10,7 @@ class Dispatch extends Controller_Template
 {
     const POST = 'POST';
     const GET  = 'GET';
+    const REDIS_SALTS_KEY = 'votepad:salts:';
 
     /** @var string - Path to template */
     public $template = '';
@@ -119,11 +120,7 @@ class Dispatch extends Controller_Template
     {
         $session = Session::Instance();
 
-        if ( empty($session->get('uid')) ) {
-            return false;
-        } else {
-            return true;
-        }
+        return !empty($session->get('uid')) ||  !empty($session->get('j_id'));
 
     }
 
@@ -208,6 +205,16 @@ class Dispatch extends Controller_Template
 
         $this->memcache = self::memcacheInstance();
         $this->redis    = self::redisInstance();
+
+        $this->setSaltsToRedis();
+
+    }
+
+    private function setSaltsToRedis() {
+
+        $this->redis->set(self::REDIS_SALTS_KEY . 'organizer', Controller_Auth_Organizer::AUTH_ORGANIZER_SALT);
+        $this->redis->set(self::REDIS_SALTS_KEY . 'judge', Controller_Auth_Judge::AUTH_JUDGE_SALT);
+
     }
 
     protected function makeHash($algo, $string) {

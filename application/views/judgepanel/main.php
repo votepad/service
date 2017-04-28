@@ -26,6 +26,7 @@
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/slidermodule.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/radioboxes.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/stagenavigation.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/judgepanel/scores.js"></script>
 
 
     <!-- modules -->
@@ -40,7 +41,7 @@
 <body>
 
 <header class="header">
-    <?=View::factory('judgepanel/blocks/header')?>
+    <?=View::factory('judgepanel/blocks/header', array('judge' => $judge))?>
 </header>
 
 <section class="section">
@@ -51,13 +52,5 @@
 
 
 </body>
-
-<script type="text/javascript">
-    radioElem.init();
-    new stages_holder();
-    new slider(['A', 'B']);
-    stagena.init(['Деловая игра', 'Доклад участника']);
-    vp.tabs.init();
-</script>
 
 </html>
