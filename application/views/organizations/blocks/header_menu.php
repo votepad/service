@@ -1,22 +1,21 @@
 <?
-
     $isOwner = $organization->isOwner(($user && $user->id) ? $user->id : 0);
     $isMember = $organization->isMember(($user && $user->id) ? $user->id : 0);
 ?>
 
 
-<a class="header__button header__button--hover" href="<?=URL::site('organization/' . $organization->id ); ?>">
+<a class="header__button header__button--hover <?= $action == 'show' ? 'header__button--active' : ''; ?>" href="<?=URL::site('organization/' . $organization->id ); ?>">
     <?=$organization->name; ?>
 </a>
 
 <? if($isLogged && $isMember && $isOwner): ?>
-<a class="header__button header__button--hover" href="<?=URL::site('organization/' . $organization->id . '/settings/main' ); ?>">
+<a class="header__button header__button--hover <?= ($action == 'main' || $action == 'team')? 'header__button--active' : ''; ?>" href="<?=URL::site('organization/' . $organization->id . '/settings/main' ); ?>">
     Настройки
 </a>
 <? endif; ?>
 
 <? if($isLogged && $isMember): ?>
-    <a class="header__button header__button--hover" href="<?=URL::site('organization/' . $organization->id . '/event/new'); ?>">
+    <a class="header__button header__button--hover <?= $action == 'new_event' ? 'header__button--active' : ''; ?>" href="<?=URL::site('organization/' . $organization->id . '/event/new'); ?>">
         Создать мероприятие
     </a>
 <? endif; ?>
