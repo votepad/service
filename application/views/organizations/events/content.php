@@ -18,7 +18,7 @@
     <section class="section__content">
 
         <?
-            $isMember = $organization->isMember($user ? $user->id : 0);
+            $isMember = $organization->isMember(($user && $user->id) ? $user->id : 0);
         ?>
 
         <div class="row-col events">

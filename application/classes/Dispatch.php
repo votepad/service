@@ -189,15 +189,11 @@ class Dispatch extends Controller_Template
             $uid = $this->session->get('uid') ?: (int) Cookie::get('uid');
             $user = new Model_User($uid);
 
-        } else {
-
-            $user = null;
+            $this->user = $user;
 
         }
 
-        View::set_global('user', $user);
-        $this->user = $user;
-
+        View::set_global('user', $this->user);
 
         View::set_global('isLogged', self::isLogged());
         View::set_global('canLogin', self::canLogin());

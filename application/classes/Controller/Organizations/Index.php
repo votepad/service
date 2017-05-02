@@ -106,7 +106,7 @@ class Controller_Organizations_Index extends Dispatch
     public function action_main()
     {
 
-        if (!$this->organization->isOwner($this->user ? $this->user->id : 0)) {
+        if (!$this->organization->isOwner($this->user->id ? $this->user->id : 0)) {
             throw new HTTP_Exception_403();
         }
 

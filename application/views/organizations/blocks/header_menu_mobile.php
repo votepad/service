@@ -1,6 +1,6 @@
 <?
-    $isOwner = $organization->isOwner($user ? $user->id : 0);
-    $isMember = $organization->isMember($user ? $user->id : 0);
+    $isOwner = $organization->isOwner(($user && $user->id) ? $user->id : 0);
+    $isMember = $organization->isMember(($user && $user->id) ? $user->id : 0);
 ?>
 
 <li class="mobile-aside__menu__item">
