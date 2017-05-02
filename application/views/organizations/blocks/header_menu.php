@@ -1,3 +1,10 @@
+<?
+
+    $isOwner = $organization->isOwner(($user && $user->id) ? $user->id : 0);
+    $isMember = $organization->isMember(($user && $user->id) ? $user->id : 0);
+?>
+
+
 <a class="header__button header__button--hover" href="<?=URL::site('organization/' . $organization->id ); ?>">
     <?=$organization->name; ?>
 </a>

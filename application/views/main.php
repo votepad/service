@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="author" content="Votepad" />
-    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/favicon.png" />
+    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>static/img/favicon.png" />
 
     <title><?=$title ?> | Votepad</title>
 

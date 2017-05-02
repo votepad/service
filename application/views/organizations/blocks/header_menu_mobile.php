@@ -1,3 +1,8 @@
+<?
+    $isOwner = $organization->isOwner(($user && $user->id) ? $user->id : 0);
+    $isMember = $organization->isMember(($user && $user->id) ? $user->id : 0);
+?>
+
 <li class="mobile-aside__menu__item">
     <a href="<?=URL::site('organization/' . $organization->id ); ?>" class="mobile-aside__menu-link">
         <?=$organization->name; ?>

@@ -1,3 +1,7 @@
+<?
+    $isOwner = $organization->isOwner(($user && $user->id) ? $user->id : 0);
+    $isMember = $organization->isMember(($user && $user->id) ? $user->id : 0);
+?>
 
 <ul class="jumbotron_nav-list jumbotron_nav_org-list">
 
@@ -33,7 +37,7 @@
         function sendRequest() {
             
             ajaxData = {
-                url: '/organization/<?=$orgID; ?>/join',
+                url: '/organization/<?=$organization->id; ?>/join',
                 success: function (response) {
 
                     response = JSON.parse(response);
@@ -60,7 +64,7 @@
         function cancelRequest() {
 
             ajaxData = {
-                url: '/organization/<?=$orgID; ?>/member/reject/<?=$userID; ?>',
+                url: '/organization/<?=$organization->id; ?>/member/reject/<?=$user->id; ?>',
                 success: function(response) {
 
                     response = JSON.parse(response);
@@ -107,7 +111,7 @@
         function leaveOrganization() {
 
             ajaxData = {
-                url: '/organization/<?=$orgID; ?>/member/remove/<?=$userID;?>',
+                url: '/organization/<?=$organization->id; ?>/member/remove/<?=$user->id;?>',
                 success: function(response) {
 
                     response = JSON.parse(response);
@@ -177,6 +181,5 @@
             type: type
         });
     }
-
 
 </script>

@@ -265,3 +265,60 @@ img.jumbotron--loading {
 	}
 
 }
+
+
+.event__img{
+	display: block;
+	background-size: cover;
+	height: 150px;
+	background-position: center center;
+	background-color: #008da7;
+}
+.event__wrapper{
+	padding: 10px;
+}
+.event__name{
+	display: block;
+	margin: 2px 0 10px 0;
+}
+.event__desc{
+	color: #9e9e9e;
+	margin: 10px 0;
+	display: -webkit-box;
+	overflow: hidden;
+	word-break: break-all;
+	text-overflow: ellipsis;
+	-webkit-box-orient: vertical;
+	max-height: 5.5em;
+	-webkit-line-clamp: 5;
+}
+.event__labels{
+	width: 70%;
+	user-select: none;
+	cursor: default;
+}
+.event__watches{
+	font-size: .8em;
+	color: #9e9e9e;
+	padding: 2px 0 1px 0;
+	margin-right: 8px;
+	user-select: none;
+	cursor: default;
+}
+.event__watches-counter{
+	margin-left: 5px;
+}
+.event__dropdown{
+	margin-left: 5px;
+	z-index: 5;
+}
+.event__dropdown-btn{
+	color: #9e9e9e;
+}
+.event__dropdown:hover .event__dropdown-btn{
+	color: #008da7;
+}
+.event__dropdown-menu{
+	top: 100%;
+	right: -30px;
+}
