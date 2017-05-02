@@ -1,22 +1,25 @@
-<ul class="jumbotron_nav-list">
-    <li class="col-sm-3 jumbotron_nav-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('event/' . $event->id . '/scenario/criterias'); ?>">
-            Критерии
-        </a>
-    </li>
-    <li class="col-sm-3 jumbotron_nav-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('event/' . $event->id . '/scenario/stages'); ?>">
-            Этапы
-        </a>
-    </li>
-    <li class="col-sm-3 jumbotron_nav-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('event/' . $event->id . '/scenario/contests'); ?>">
-            Конкурсы
-        </a>
-    </li>
-    <li class="col-sm-3 jumbotron_nav-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('event/' . $event->id . '/scenario/result'); ?>">
-            Результат
-        </a>
-    </li>
-</ul>
+<?
+    $active = Request::$current->action();
+
+    $btns = array(
+        'criterias' => array(
+            'uri' => URL::site('event/' . $id . '/scenario/criterias'),
+            'name' => "Критерии"
+        ),
+        'stages' => array(
+            'uri' => URL::site('event/' . $id . '/scenario/stages'),
+            'name' => "Этапы"
+        ),
+        'contests' => array(
+            'uri' => URL::site('event/' . $id . '/scenario/contests'),
+            'name' => "Конкурсы"
+        ),
+        'result' => array(
+            'uri' => URL::site('event/' . $id . '/scenario/result'),
+            'name' => "Результат"
+        )
+    );
+
+    echo View::factory('events/blocks/jumbotron_nav', array('active' => $active, 'btns' => $btns));
+
+?>

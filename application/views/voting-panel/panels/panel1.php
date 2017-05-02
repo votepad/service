@@ -1,5 +1,5 @@
 
-<?=View::factory('judgepanel/blocks/jumbotron_wrapper', array('event' => $event))?>
+
 
 
 <section class="section__content">

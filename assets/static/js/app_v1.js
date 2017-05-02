@@ -4,25 +4,6 @@
 
 $(document).ready(function(){
 
-    /*
-     *  Get Page Link and Add Class to Link
-    */
-    var address = window.location.pathname.split('/');
-    address =   '/' + address[1] + '/' + address[2] + '/' + address[3] + '/' + address[4];
-
-    $('.jumbotron_nav .jumbotron_nav-btn').each(function(){
-        var temp;
-        if ($(this).attr('href')) {
-            temp = $(this).attr('href').split('/');
-            temp = new RegExp(temp[1] + '/' + temp[2] + '/' + temp[3] + '/' + temp[4]);
-            if ( temp.test(address) ) {
-                $(this).addClass('active');
-            } else {
-                $(this).removeClass('active');
-            }
-        }
-
-    });
 
 
      /*

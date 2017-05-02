@@ -3,10 +3,10 @@
     $isMember = $organization->isMember(($user && $user->id) ? $user->id : 0);
 ?>
 
-<ul class="jumbotron_nav-list jumbotron_nav_org-list">
+<ul class="jumbotron__nav-list jumbotron__nav--org-list">
 
     <? if(! $isLogged) : ?>
-    <li class="jumbotron_nav-item jumbotron_nav_org-item">
+    <li class="jumbotron__nav-item jumbotron__nav--org-item">
         <button class="dropdown_btn" onclick="$.notify({message: 'Вы не авторизованы! Пожалуйста, <b>авторизуйтесь</b> или пройдите <b>регистрацию</b>.'},{timer: 3000, type: 'warning'});">
             Вступить в организацию
         </button>
@@ -15,18 +15,18 @@
 
 
     <? if($isLogged && !$isMember): ?>
-    <li id="sendRequest" class="jumbotron_nav-item jumbotron_nav_org-item <? echo $isSendRequest ? 'displaynone' : ''?>">
+    <li id="sendRequest" class="jumbotron__nav-item jumbotron__nav--org-item <? echo $isSendRequest ? 'displaynone' : ''?>">
         <button class="dropdown_btn" onclick="sendRequest();">
             Вступить в организацию
         </button>
     </li>
-    <li id="cancelRequest" class="jumbotron_nav-item jumbotron_nav_org-item dropdown <? echo !$isSendRequest ? 'displaynone' : ''?>" data-toggle="dropdown" data-position="right" >
+    <li id="cancelRequest" class="jumbotron__nav-item jumbotron__nav--org-item dropdown <? echo !$isSendRequest ? 'displaynone' : ''?>" data-toggle="dropdown" data-position="right" >
         <div class="dropdown__btn">
             Вы подали заявку
             <i class="fa fa-caret-down" aria-hidden="true"></i>
         </div>
-        <div class="jumbotron_nav_org-dropdownmenu dropdown__menu">
-            <a class="jumbotron_nav_org-dropdownitem dropdown__link" onclick="cancelRequest();">
+        <div class="jumbotron__nav_org-dropdownmenu dropdown__menu">
+            <a class="jumbotron__nav_org-dropdownitem dropdown__link" onclick="cancelRequest();">
                 Отменить заявку
             </a>
         </div>
@@ -94,13 +94,13 @@
 
 
     <? if($isLogged && $isMember && !$isOwner) : ?>
-    <li class="jumbotron_nav-item jumbotron_nav_org-item dropdown" data-toggle="dropdown" data-position="right" >
+    <li class="jumbotron__nav-item jumbotron__nav--org-item dropdown" data-toggle="dropdown" data-position="right" >
         <div role="button" class="dropdown__btn">
             Вы состоите в организации
             <i class="fa fa-caret-down" aria-hidden="true"></i>
         </div>
-        <div class="jumbotron_nav_org-dropdownmenu dropdown__menu">
-            <a class="jumbotron_nav_org-dropdownitem dropdown__link" onclick="leaveOrganization();">
+        <div class="jumbotron__nav_org-dropdownmenu dropdown__menu">
+            <a class="jumbotron__nav_org-dropdownitem dropdown__link" onclick="leaveOrganization();">
                 Выйти из организации
             </a>
         </div>
@@ -139,7 +139,7 @@
 
 
     <? if($isLogged && $isMember && $isOwner): ?>
-    <li class="jumbotron_nav-item jumbotron_nav_org-item">
+    <li class="jumbotron__nav-item jumbotron__nav--org-item">
         <div class="dropdown_btn" style="cursor: default">
             Вы основали эту организацию
         </div>

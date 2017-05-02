@@ -110,14 +110,8 @@ class Controller_Organizations_Index extends Dispatch
             throw new HTTP_Exception_403();
         }
 
-
         $this->template->mainSection = View::factory('organizations/settings/maininfo')
             ->set('organization', $this->organization);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
-            ->set('id', $this->organization->id);
-
-
 
     }
 
@@ -144,10 +138,6 @@ class Controller_Organizations_Index extends Dispatch
 
         $this->template->mainSection = View::factory('organizations/settings/coworkers')
             ->set('organization', $this->organization);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('organizations/settings/jumbotron_navigation')
-            ->set('id', $this->organization->id);
-
 
     }
 
