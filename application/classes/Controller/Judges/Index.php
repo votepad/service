@@ -4,7 +4,8 @@
  * Class Controller_Judges_Index
  */
 class Controller_Judges_Index extends Dispatch {
-    public $template = 'judgepanel/main';
+
+    public $template = 'voting-panel/main';
 
     /**
      * Function that calls before main action
@@ -43,9 +44,6 @@ class Controller_Judges_Index extends Dispatch {
 
         $this->template->judge = $judge;
         $this->template->event = $event;
-        $this->template->mainSection = View::factory('judgepanel/panels/panel1')
-            ->set('event', $event)
-            ->set('judge', $judge);
 
     }
 

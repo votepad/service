@@ -9,7 +9,7 @@
         <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>
 
         <!-- Jumbotron Navigation -->
-        <div class="jumbotron_nav">
+        <div class="jumbotron__nav">
             <?=$jumbotron_navigation; ?>
         </div>
 
@@ -23,7 +23,7 @@
 
         <div class="row">
             <form class="form" action="<?=URL::site('event/' . $event->id . '/settings/info/update'); ?>" method="POST" id="update_main_info">
-                <div class="form_body">
+                <div class="form_body clear_fix">
                     <div class="col-xs-12">
                         <div class="row row-col">
                             <div class="input-field col-xs-12 col-md-6">

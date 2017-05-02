@@ -11,7 +11,7 @@
         <?=View::factory('organizations/blocks/jumbotron_wrapper', array('organization' => $organization)); ?>
 
         <!-- Jumbotron Navigation -->
-        <div class="jumbotron_nav">
+        <div class="jumbotron__nav">
             <?=$jumbotron_navigation; ?>
         </div>
 

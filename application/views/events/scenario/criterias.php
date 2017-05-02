@@ -10,7 +10,7 @@
         <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>
 
         <!-- Jumbotron Navigation -->
-        <div class="jumbotron_nav">
+        <div class="jumbotron__nav">
             <?=$jumbotron_navigation; ?>
         </div>
 
