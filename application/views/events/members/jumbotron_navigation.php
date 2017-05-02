@@ -1,32 +1,21 @@
 <?
+    $active = Request::$current->action();
+
     $btns = array(
-        0 => array(
-            'uri' => URL::site('event/' . $event->id . '/members/judges'),
-            'name' => "Члены жюри",
-            'flag' => URL::site('event/' . $event->id . '/members/judges') == $_SERVER['REQUEST_URI'] ? 'active'  : ''
+        'judges' => array(
+            'uri' => URL::site('event/' . $id . '/members/judges'),
+            'name' => "Члены жюри"
         ),
-        1 => array(
-            'uri' => URL::site('event/' . $event->id . '/members/participants'),
-            'name' => "Участники",
-            'flag' => URL::site('event/' . $event->id . '/members/participants') == $_SERVER['REQUEST_URI'] ? 'active'  : ''
+        'participants' => array(
+            'uri' => URL::site('event/' . $id . '/members/participants'),
+            'name' => "Участники"
         ),
-        2 => array(
-            'uri' => URL::site('event/' . $event->id . '/members/teams'),
-            'name' => "Команды",
-            'flag' => URL::site('event/' . $event->id . '/members/teams') == $_SERVER['REQUEST_URI'] ? 'active'  : ''
+        'teams' => array(
+            'uri' => URL::site('event/' . $id . '/members/teams'),
+            'name' => "Команды"
         ),
     );
 
+    echo View::factory('events/blocks/jumbotron_nav', array('active' => $active, 'btns' => $btns));
+
 ?>
-
-<ul class="jumbotron__nav-list">
-
-    <? foreach ($btns as $btn) : ?>
-    <li class="col-sm-4 jumbotron__nav-item">
-        <a class="jumbotron__nav-btn <?=$btn['flag']; ?>" href="<?=$btn['uri']; ?>">
-            <?=$btn['name']; ?>
-        </a>
-    </li>
-    <? endforeach; ?>
-
-</ul>

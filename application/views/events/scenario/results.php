@@ -12,7 +12,7 @@
 
         <!-- Jumbotron Navigation -->
         <div class="jumbotron__nav">
-            <?=$jumbotron_navigation; ?>
+            <?=View::factory('events/scenario/jumbotron_navigation', array('id' => $event->id));; ?>
         </div>
 
     </div>
