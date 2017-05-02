@@ -64,7 +64,6 @@
 
     $( document ).ready(function() {
         vp.header.init();
-        vp.jumbotron.init();
         vp.collapse.init();
     });
 
