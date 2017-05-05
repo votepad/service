@@ -1,3 +1,46 @@
+$(document).ready(function () {
+
+
+
+    let headerMenuBtn = document.getElementById('openMobileMenu'),
+        headerBrand   = document.getElementsByClassName('header__brand')[0],
+        asideMenu     = document.getElementsByClassName('mobile-aside')[0],
+        backdrop      = document.createElement('div');
+
+    backdrop.className = "modal-backdrop in";
+
+    let toggleMobile = function() {
+        if ( ! headerMenuBtn.parentNode.classList.contains('header__menu-icon--open')) {
+            document.body.appendChild(backdrop);
+        } else {
+            document.body.classList.remove('modal-open');
+            document.getElementsByClassName('modal-backdrop')[0].remove()
+        }
+
+        headerMenuBtn.parentNode.classList.toggle('header__menu-icon--open');
+        headerBrand.classList.toggle('header__brand--active');
+        asideMenu.classList.toggle('mobile-aside--open');
+    };
+
+    headerMenuBtn.addEventListener('click', toggleMobile, false);
+    backdrop.addEventListener('click', toggleMobile, false);
+});
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 //Преобразование touch-нажатий в схожие с нажатием мышки событиями
 
 var touchSupported = function(e) {

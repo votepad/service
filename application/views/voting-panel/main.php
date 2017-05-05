@@ -36,7 +36,6 @@
 
     <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js"></script>
 
-
     <link rel="stylesheet" href="<?=$assets; ?>static/css/voting-panel.css?v=<?= filemtime("assets/static/css/voting-panel.css") ?>">
 
 </head>
