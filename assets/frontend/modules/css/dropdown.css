@@ -23,6 +23,7 @@
     border-radius: 3px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, .2);
     padding: 5px 0;
+    z-index: 5;
 
     /* Fade in effect */
     opacity: 0;

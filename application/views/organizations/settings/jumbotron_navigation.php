@@ -1,14 +1,17 @@
+<?
+    $active = Request::$current->action();
 
-<ul class="jumbotron_nav-list jumbotron_nav_org-list">
-    <li class="jumbotron_nav-item jumbotron_nav_org-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('organization/' . $id . '/settings/main'); ?>">
-            Об организации
-        </a>
-    </li>
-    <li class="jumbotron_nav-item jumbotron_nav_org-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('organization/' . $id . '/settings/team'); ?>">
-            Сотрудники
-        </a>
-    </li>
+    $btns = array(
+        'main' => array(
+            'uri' => URL::site('organization/' . $id . '/settings/main'),
+            'name' => "Об организации"
+        ),
+        'team' => array(
+            'uri' => URL::site('organization/' . $id . '/settings/team'),
+            'name' => "Сотрудники"
+        )
+    );
 
-</ul>
+    echo View::factory('organizations/blocks/jumbotron_nav', array('active' => $active, 'btns' => $btns));
+
+?>

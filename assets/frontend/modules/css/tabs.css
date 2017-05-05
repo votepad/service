@@ -147,7 +147,10 @@
         margin: 0 auto;
         border: 0;
         border-radius: 0;
-        border-bottom: 2px solid #008DA7;
+        border-bottom: 2px solid #cad2db;
+    }
+    .tabs__btn--active{
+        border-bottom: 2px solid #008da7;
     }
 
     .tabs__btn.btn{

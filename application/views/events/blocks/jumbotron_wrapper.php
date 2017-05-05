@@ -1,20 +1,20 @@
-<div class="jumbotron_wrapper parallax-container">
+<div class="jumbotron__wrapper">
     <div class="parallax">
         <img id="event-background-uploaded" src="/uploads/events/branding/<?=$event->branding; ?>">
     </div>
-    <div class="jumbotron_wrapper-background"></div>
-    <div class="jumbotron_wrapper_edit" data-pk="<?=$event->id; ?>">
-        <a id="updateCover" role="button" class="jumbotron_wrapper_edit-btn">
-            <i class="fa fa-camera jumbotron_wrapper_edit-icon" aria-hidden="true"></i>
-            <span class="jumbotron_wrapper_edit-text">Обновить фото обложки</span>
+    <div class="jumbotron__background"></div>
+    <div class="jumbotron__edit-block" data-pk="<?=$event->id; ?>">
+        <a id="updateCover" role="button" class="jumbotron__edit-btn">
+            <i class="fa fa-camera jumbotron__edit-icon" aria-hidden="true"></i>
+            <span class="jumbotron__edit-text">Обновить фото обложки</span>
         </a>
     </div>
-    <div class="jumbotron_wrapper_text valign">
+    <div class="jumbotron__text valign">
         <div class="center">
-                <span class="jumbotron_wrapper_text-eventname">
+                <span class="jumbotron__text-event-name">
                     <?=$event->name; ?>
                 </span>
-            <a href="<?=URL::site('organization/' . $organization->id); ?>" class="jumbotron_wrapper_text-orgname">
+            <a href="<?=URL::site('organization/' . $organization->id); ?>" class="jumbotron__text-org-name">
                 <?=$organization->name; ?>
             </a>
         </div>

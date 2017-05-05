@@ -42,7 +42,7 @@ $(document).ready( function() {
 
     };
 
-    $('.jumbotron_wrapper_edit').click( function () {
+    $('.jumbotron__edit-block').click( function () {
 
         var self = this,
             imgTag = $('#event-background-uploaded')[0];
