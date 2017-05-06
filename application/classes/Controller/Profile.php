@@ -27,7 +27,7 @@ class Controller_Profile extends Dispatch
         }
 
         $this->profile = $profile;
-        $this->isProfileOwner = !empty($this->session->get('uid')) && $this->session->get('uid') == $id;
+        $this->isProfileOwner = !$this->user && $this->user->id == $id;
 
         $this->template->title       = $profile->name. ' ' . $profile->surname;
         $this->template->description = "Просмотреть профиль " . $profile->name. ' ' . $profile->surname . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";

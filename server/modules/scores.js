@@ -11,11 +11,11 @@ module.exports = function (port) {
 
             var cookies = new Cookie(ws),
                 sha256 = new sha('sha256'),
-                secret = sha256.update(salt + cookies.get('sid') + 'organizer' + cookies.get('uid'), 'utf8').digest('hex');
+                secret = sha256.update(salt + cookies.get('sid') + 'organizer' + cookies.get('id'), 'utf8').digest('hex');
 
             if (secret == cookies.get('secret')) {
 
-                console.log('User ' + cookies.get('uid') + ' connected');
+                console.log('User ' + cookies.get('id') + ' connected');
 
                 ws.on('message', function (data) {
 
@@ -25,7 +25,7 @@ module.exports = function (port) {
                         event = query.event;
 
 
-                    MySQL.query('SELECT * FROM `Users_Events` WHERE `u_id` = ' + cookies.get('uid') + ' AND `e_id` = ' + event, function (err, results) {
+                    MySQL.query('SELECT * FROM `Users_Events` WHERE `u_id` = ' + cookies.get('id') + ' AND `e_id` = ' + event, function (err, results) {
 
                         if (!results.length) {
 

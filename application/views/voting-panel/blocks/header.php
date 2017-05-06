@@ -19,7 +19,7 @@
                 <i class="fa fa-refresh dropdown__icon" aria-hidden="true"></i>
                 Обновить страницу
             </a>
-            <a href="<?=URL::site(''); ?>" class="dropdown__link">
+            <a href="<?=URL::site('sign/judge/logout'); ?>" class="dropdown__link">
                 <i class="fa fa-sign-out dropdown__icon" aria-hidden="true"></i>
                 Выйти
             </a>

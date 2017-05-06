@@ -31,47 +31,53 @@ class Controller_Auth_Judge extends Auth {
         $eventCode = (int) Arr::get($_POST, 'eventCode');
         $judgeSecret  = Arr::get($_POST, 'judgeSecret');
 
-        if ($id = Model_Event::getEventByCode($eventCode)) {
+        if ($event = Model_Event::getEventByCode($eventCode)) {
 
-            $judge = Methods_Judges::getJudge($id, $judgeSecret);
+            $auth = new Model_Auth();
 
-            if ( !$judge ) {
-                $this->redirect('welcome');
+            if ( !$auth->login($event, $judgeSecret, self::AUTH_MODE) ) {
+                $this->redirect('/');
             }
 
-            $auth = $this->completeJudgeAuth($judge);
-            $hash = $this->makeHash('sha256', self::AUTH_JUDGE_SALT . $auth->id() . self::AUTH_MODE . $auth->get('uid'));
+            $session = Session::instance();
+            $sid = $session->id();
+            $id = $session->get('id');
+
+            $hash = $this->makeHash('sha256', self::AUTH_JUDGE_SALT . $sid . self::AUTH_MODE . $id);
 
             Cookie::set('secret', $hash, Date::DAY);
-            Cookie::set('a_mode', self::AUTH_MODE, Date::DAY);
-            Cookie::set('uid', $auth->get('uid'), Date::DAY);
-            Cookie::set('sid', $auth->id(), Date::DAY);
 
-            $this->saveSessionData($hash, $auth->id(), $auth->get('uid'));
+            $this->saveSessionData($hash, $sid, $id);
 
             $this->redirect('voting'); // eventpage
 
         } else {
-            $this->redirect('welcome');
+            $this->redirect('/');
         }
 
     }
 
-    private function completeJudgeAuth($judje) {
+    public function action_logout()
+    {
+        $auth = new Model_Auth();
+        $auth->logout(TRUE);
+        $this->clearCookie();
 
-        $session = Session::instance();
-        $session->set('uid', $judje->id);
-        $session->set('auth_mode', self::AUTH_MODE);
-        $session->set('j_name', $judje->name);
-        $session->set('j_event', $judje->event);
-
-        return $session;
+        $this->redirect('/');
 
     }
 
-    private function saveSessionData($hash, $sid, $j_id) {
+    private function clearCookie()
+    {
+        Cookie::delete('sid');
+        Cookie::delete('id');
+        Cookie::delete('secret');
+        Cookie::delete('a_mode');
+    }
 
-        $this->redis->set($hash, $sid . ':' . $j_id . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+    private function saveSessionData($hash, $sid, $id) {
+
+        $this->redis->set($hash, $sid . ':' . $id . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
 
     }
 

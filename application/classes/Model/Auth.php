@@ -19,34 +19,58 @@ class Model_Auth extends Model {
         $this->_session = Dispatch::sessionInstance($this->_session_driver);
     }
 
-    public function login($email, $password, $remember = false)
+    public function login($identifier, $password, $mode)
     {
-        $select = Dao_Users::select('*')
-            ->where('email', '=', $email)
-            ->where('password', '=', $password)
-            ->limit(1)
-            ->execute();
+
+        switch ($mode) {
+            case Controller_Auth_Organizer::AUTH_MODE:
+                $select = Dao_Users::select('*')
+                    ->where('email', '=', $identifier)
+                    ->where('password', '=', $password)
+                    ->limit(1)
+                    ->execute();
+                break;
+
+            case Controller_Auth_Judge::AUTH_MODE:
+                $select = Dao_Judges::select()
+                    ->where('event', '=', $identifier)
+                    ->where('password', '=', $password)
+                    ->limit(1)
+                    ->execute();
+
+        }
+
 
         if (Arr::get($select, 'id'))
         {
-            $this->complete($select);
+            $this->complete($select, $mode);
             return true;
         }
 
         return false;
     }
 
-    public function recoverById($id)
+    public function recoverById($id, $mode)
     {
-        $select = Dao_Users::select('*')
-            ->where('id', '=', $id)
-            ->limit(1)
-            ->execute();
-
+        switch ($mode) {
+            case Controller_Auth_Organizer::AUTH_MODE:
+                $select = Dao_Users::select('*')
+                    ->where('id', '=', $id)
+                    ->limit(1)
+                    ->execute();
+                break;
+            case Controller_Auth_Judge::AUTH_MODE:
+                $select = Dao_Judges::select('*')
+                    ->where('id', '=', $id)
+                    ->limit(1)
+                    ->execute();
+                break;
+        }
         if (Arr::get($select, 'id')) {
-            $this->complete($select);
+            $this->complete($select, $mode);
             return true;
         }
+
 
         return false;
     }
@@ -68,18 +92,21 @@ class Model_Auth extends Model {
         return false;
     }
 
-    private function complete($select) {
+    private function complete($select, $mode) {
 
-        $this->_session->set('uid', $select['id']);
-        $this->_session->set('auth_mode', Controller_Auth_Organizer::AUTH_MODE);
-        $this->_session->set('lastname', $select['lastname']);
+        $this->_session->set('id', $select['id']);
+        $this->_session->set('auth_mode', $mode);
         $this->_session->set('name', $select['name']);
-        $this->_session->set('email', $select['email']);
+
+        if ($mode == Controller_Auth_Organizer::AUTH_MODE) {
+            $this->_session->set('lastname', $select['lastname']);
+            $this->_session->set('email', $select['email']);
+        }
 
         $sessionId = $this->_session->id();
-        Cookie::set('uid', $select['id'], Date::DAY);
+        Cookie::set('id', $select['id'], Date::DAY);
         Cookie::set('sid', $sessionId, Date::DAY);
-        Cookie::set('a_mode', Controller_Auth_Organizer::AUTH_MODE, Date::DAY);
+        Cookie::set('a_mode', $mode, Date::DAY);
 
     }
 }

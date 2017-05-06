@@ -15,26 +15,26 @@ module.exports = function () {
 
     var check = function (cookies) {
 
-        var uid      = cookies.get('uid'),
+        var id      = cookies.get('id'),
             sid      = cookies.get('sid'),
             authMode = cookies.get('a_mode');
 
-        var secret = Crypto.createHash('sha256').update(salts[authMode] + sid + authMode + uid, 'utf8').digest('hex');
+        var secret = Crypto.createHash('sha256').update((salts[authMode] + sid + authMode + id).toString(), 'utf8').digest('hex');
 
         if (secret == cookies.get('secret'))        {
 
-            console.log('User ' + uid + ' had authorized as ' + authMode);
+            console.log('User ' + id + ' had authorized as ' + authMode);
 
             return {
                 success: true,
-                id: uid,
+                id: id,
                 access: authMode
             };
 
         } else {
 
             console.log('Someone tried to login, but secret is not correct.\n'+
-                        'id => ' + uid + '\n'+
+                        'id => ' + id + '\n'+
                         'mode => ' + authMode);
 
             return {
