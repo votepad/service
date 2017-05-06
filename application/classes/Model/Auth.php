@@ -71,6 +71,7 @@ class Model_Auth extends Model {
     private function complete($select) {
 
         $this->_session->set('uid', $select['id']);
+        $this->_session->set('auth_mode', Controller_Auth_Organizer::AUTH_MODE);
         $this->_session->set('lastname', $select['lastname']);
         $this->_session->set('name', $select['name']);
         $this->_session->set('email', $select['email']);
@@ -78,6 +79,7 @@ class Model_Auth extends Model {
         $sessionId = $this->_session->id();
         Cookie::set('uid', $select['id'], Date::DAY);
         Cookie::set('sid', $sessionId, Date::DAY);
+        Cookie::set('a_mode', Controller_Auth_Organizer::AUTH_MODE, Date::DAY);
 
     }
 }

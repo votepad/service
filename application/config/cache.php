@@ -7,7 +7,7 @@ return array
 		'compression'        => FALSE,              // Use Zlib compression (can cause issues with integers)
 		'servers'            => array(
 			'local' => array(
-				'host'             => 'localhost',  // Memcache Server
+				'host'             => '192.168.1.81',  // Memcache Server
 				'port'             => 11211,        // Memcache port number
 				'persistent'       => FALSE,        // Persistent connection
 				'weight'           => 1,

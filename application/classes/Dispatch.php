@@ -119,8 +119,7 @@ class Dispatch extends Controller_Template
     public static function isLogged()
     {
         $session = Session::Instance();
-
-        return !empty($session->get('uid')) ||  !empty($session->get('j_id'));
+        return !empty($session->get('uid')) && $session->get('auth_mode') == Controller_Auth_Organizer::AUTH_MODE;
 
     }
 
@@ -133,8 +132,9 @@ class Dispatch extends Controller_Template
         $secret = Cookie::get('secret', '');
         $uid = Cookie::get('uid', '');
         $sid = Cookie::get('sid', '');
+        $authMode = Cookie::get('a_mode', '');
 
-        if ($secret && $uid && $sid) {
+        if ($secret && $uid && $sid && $authMode == Controller_Auth_Organizer::AUTH_MODE) {
             return true;
         }
 
@@ -212,8 +212,8 @@ class Dispatch extends Controller_Template
 
     private function setSaltsToRedis() {
 
-        $this->redis->set(self::REDIS_SALTS_KEY . 'organizer', Controller_Auth_Organizer::AUTH_ORGANIZER_SALT);
-        $this->redis->set(self::REDIS_SALTS_KEY . 'judge', Controller_Auth_Judge::AUTH_JUDGE_SALT);
+        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Organizer::AUTH_MODE,Controller_Auth_Organizer::AUTH_ORGANIZER_SALT);
+        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Judge::AUTH_MODE, Controller_Auth_Judge::AUTH_JUDGE_SALT);
 
     }
 

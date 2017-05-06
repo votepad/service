@@ -32,11 +32,7 @@ class Controller_Welcome extends Dispatch
     public function action_index()
     {
         $canLogin = Dispatch::canLogin();
-
-        if ($canLogin) {
-            $userId = Cookie::get('uid');
-            $user = new Model_User($userId);
-        }
+        $authMode = Cookie::get('a_mode');
 
         $this->template->header = View::factory('globalblocks/header')
                 ->set('header_menu', View::factory('welcome/blocks/header_menu'))

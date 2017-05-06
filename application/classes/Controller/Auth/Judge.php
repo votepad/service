@@ -40,13 +40,14 @@ class Controller_Auth_Judge extends Auth {
             }
 
             $auth = $this->completeJudgeAuth($judge);
-            $hash = $this->makeHash('sha256', self::AUTH_JUDGE_SALT . $auth->id() . self::AUTH_MODE . $auth->get('j_id'));
+            $hash = $this->makeHash('sha256', self::AUTH_JUDGE_SALT . $auth->id() . self::AUTH_MODE . $auth->get('uid'));
 
             Cookie::set('secret', $hash, Date::DAY);
-            Cookie::set('j_id', $auth->get('j_id'), Date::DAY);
+            Cookie::set('a_mode', self::AUTH_MODE, Date::DAY);
+            Cookie::set('uid', $auth->get('uid'), Date::DAY);
             Cookie::set('sid', $auth->id(), Date::DAY);
 
-            $this->saveSessionData($hash, $auth->id(), $auth->get('j_id'));
+            $this->saveSessionData($hash, $auth->id(), $auth->get('uid'));
 
             $this->redirect('voting'); // eventpage
 
@@ -59,7 +60,8 @@ class Controller_Auth_Judge extends Auth {
     private function completeJudgeAuth($judje) {
 
         $session = Session::instance();
-        $session->set('j_id', $judje->id);
+        $session->set('uid', $judje->id);
+        $session->set('auth_mode', self::AUTH_MODE);
         $session->set('j_name', $judje->name);
         $session->set('j_event', $judje->event);
 

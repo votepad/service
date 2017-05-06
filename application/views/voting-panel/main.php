@@ -54,7 +54,7 @@
 
 <section class="section">
 
-<!--    --><?//=$mainSection; ?>
+<!--    --><?//=View::factory('voting-panel/panels/panel1', array('judge' => $judge, 'event' => $event)); ?>
 
 </section>
 
