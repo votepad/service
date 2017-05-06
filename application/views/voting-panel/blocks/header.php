@@ -76,5 +76,4 @@
 
 <script type="text/javascript">
     judgeStatus.init('judgeStatus');
-    vp.collapse.init();
 </script>
