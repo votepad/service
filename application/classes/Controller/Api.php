@@ -35,7 +35,7 @@ class Controller_Api extends Controller
             && in_array($this->method, $api_access[$this->token]['methods'])
             && $this->availableMethods[$this->method]) {
 
-            $this->callApiMethod($this->method, $this->params);
+            $this->callApiMethod($this->method, $this->params ?: $this->availableMethods[$this->method]['default_params']);
 
         } else {
 
@@ -55,7 +55,7 @@ class Controller_Api extends Controller
         if ($reflectionClass->hasMethod($method)) {
 
             $reflectionMethod = new ReflectionMethod($apiMethod, $method);
-            $response = $reflectionMethod->invoke($params);
+            $response = $reflectionMethod->invoke($apiMethod, $params);
 
             $responseData['success'] = 1;
             $responseData['data'] = $response;
@@ -73,8 +73,9 @@ class Controller_Api extends Controller
     private $availableMethods = array(
         'getAllEvents' => array(
             'default_params' => array(
-                'sort' => '0',
-                'sorting_field' => 'id'
+                'sort' => '1',
+                'sorting_field' => 'id',
+                'sorting_type' => 'DESC'
             )
         )
     );
