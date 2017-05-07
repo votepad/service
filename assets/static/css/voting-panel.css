@@ -130,6 +130,8 @@
 .stage__header{
     margin: 3vmin 0;
     text-align: center;
+    padding: 0 15px;
+    word-break: break-all;
 }
 .content__header{
     font-size: 6vmin;
@@ -144,6 +146,8 @@
     text-overflow: ellipsis;
     display: -webkit-box;
     -webkit-box-orient: vertical;
+    padding: 0 15px;
+    word-break: break-all;
 }
 .contest__description{
     font-size: 4vmin;
