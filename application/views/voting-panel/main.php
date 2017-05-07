@@ -39,6 +39,7 @@
     <script>
         $(document).ready(function () {
             vp.collapse.init();
+            voting.init();
         });
     </script>
     <link rel="stylesheet" href="<?=$assets; ?>static/css/voting-panel.css?v=<?= filemtime("assets/static/css/voting-panel.css") ?>">
@@ -52,7 +53,10 @@
 </div>
 
 <header class="header">
-    <?=View::factory('voting-panel/blocks/header', array('judge' => $judge))?>
+    <?=View::factory('voting-panel/blocks/header', array(
+        'event' => $event,
+        'judge' => $judge
+    ))?>
 </header>
 
 <div class="jumbotron jumbotron--voting-panel block">

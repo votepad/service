@@ -109,17 +109,15 @@
 
 
 
-.contests{
+.contest{
     display: block;
+    position: relative;
 }
 
 .content__stages,
 .stage__members{
     position: relative;
     margin-top: 5vmin;
-}
-.contest{
-    position: relative;
 }
 .stage{
     position: absolute;
@@ -160,7 +158,7 @@
     background-color: #fff;
     border-radius: 3px;
     box-shadow: 0 1px 0 0 #d7d8db, 0 0 0 1px #e3e4e8;
-    margin-bottom: 20px;
+    margin: 0 3px 20px 3px;
     border: 0;
     user-select: none;
 }
@@ -199,6 +197,14 @@
     font-size: 3.5vmin;
     margin: 0;
 }
+.member__addition-collapse-icon{
+    float: right;
+    transition: all .2s ease;
+}
+.member__header[data-opened="true"] .member__addition-collapse-icon {
+    transform: rotate(180deg);
+}
+
 
 .member__criterions{
     padding: 10px 15px;
@@ -231,9 +237,9 @@
 .criterion__submit,
 .stage__submit{
     width: 100%;
-    text-align: center;
+    text-align: right;
 }
-.criterion__submit-btn,
+.criterion__hide-btn,
 .stage__submit-btn{
     margin: 20px auto;
     color: #FFF;
@@ -243,10 +249,15 @@
     padding: 2vmin 3vmin;
     font-size: 4vmin;
 }
-.criterion__submit-btn:hover,
+.criterion__hide-btn:hover,
 .stage__submit-btn:hover{
     color: #FFF;
     background-color: #1F757D;
+}
+
+.stage__submit-btn[disabled] {
+    opacity:.5;
+    cursor: not-allowed;
 }
 
 .criterion__scores--invalid .score{

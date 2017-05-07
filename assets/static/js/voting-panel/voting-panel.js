@@ -1,13 +1,141 @@
-$(document).ready(function () {
+let voting = function (voting) {
 
-    let headerMenuBtn = document.getElementById('openMobileMenu'),
-        headerBrand   = document.getElementsByClassName('header__brand')[0],
-        asideMenu     = document.getElementsByClassName('mobile-aside')[0],
-        backdrop      = document.createElement('div');
+    let headerMenuBtn       = null,
+        headerBrand         = null,
+        asideMenu           = null,
+        stages              = null,
+        curHash             = null,
+        members             = null,
+        membersCriterions   = null,
+        collapseMemberBtn   = null,
+        scores              = null,
+        modalInfoHeading    = null,
+        modalInfoContent    = null,
+        modalOpenBtn        = null;
 
-    backdrop.className = "modal-backdrop in";
 
-    let toggleMobile = function() {
+    let backdrop      = document.createElement('div');
+        backdrop.className = "modal-backdrop in";
+
+
+
+    /**
+     * Prepare Header And Mobile Menu
+     * @private
+     */
+    let prepareHeader_ = function() {
+        headerMenuBtn = document.getElementById('openMobileMenu');
+        headerBrand   = document.getElementsByClassName('header__brand')[0];
+        asideMenu     = document.getElementsByClassName('mobile-aside')[0];
+
+        headerMenuBtn.addEventListener('click', toggleMobileMenu_, false);
+        backdrop.addEventListener('click', toggleMobileMenu_, false);
+    };
+
+
+    /**
+     * Prepare Members Block
+     * - count Total Score
+     * @private
+     */
+    let prepareMembers_ = function () {
+
+        members = document.getElementsByClassName('member');
+        
+        membersCriterions = document.getElementsByClassName('member__criterions--collapse');
+
+        collapseMemberBtn = document.getElementsByClassName('criterion__hide-btn');
+        
+        window.addEventListener('resize', updateCriterionsBlockHeight_);
+
+        let curScore      = null,
+            curInputScore = null;
+
+        for (let i = 0; i < members.length; i++) {
+            let curScore      = members[i].getElementsByClassName('member__total-score')[0],
+                curInputScore = members[i].getElementsByClassName('score__input');
+
+            collapseMemberBtn[i].addEventListener('click', closeMemberCollapse_);
+
+            for (let j = 0; j < curInputScore.length; j++) {
+                if ( curInputScore[j].hasAttribute('checked') ) {
+                    updateTotalScore_(curScore, "+" , curInputScore[j].value);
+                }
+
+            }
+
+        }
+
+    };
+
+    /**
+     * Prepare Scores Buttons
+     * @private
+     */
+    let prepareScores_ = function() {
+        scores = document.getElementsByClassName('score');
+
+        for (let i = 0; i < scores.length; i++) {
+            scores[i].addEventListener('click', setScore_)
+        }
+    };
+
+
+    /**
+     * Prepare Modal
+     * - working with jQuery
+     * @private
+     */
+    let prepareModal_ = function () {
+        modalInfoHeading = document.getElementById('modalInfoHeading');
+        modalInfoContent = document.getElementById('modalInfoContent');
+        modalOpenBtn     = document.getElementsByClassName('openModalInfo');
+
+        for (let i = 0; i < modalOpenBtn.length; i++) {
+            modalOpenBtn[i].addEventListener('click', openModal_)
+        }
+
+    };
+
+
+    /**
+     * Prepare Stages
+     * @private
+     */
+
+    let prepareStages_ = function () {
+
+        stages = document.getElementsByClassName('stage');
+        
+        curHash = window.location.hash;
+
+        let isOpened = false;
+
+        for (let i = 0; i < stages.length; i++) {
+            if (stages[i].dataset.hash === curHash) {
+                isOpened = true;
+                stages[i].classList.add('fadeInRight');
+            } else {
+                stages[i].classList.add('fadeOutLeft','hide');
+            }
+        }
+
+        if (!isOpened) {
+            stages[0].classList.remove('fadeOutLeft','hide');
+            stages[0].classList.add('fadeInRight');
+        }
+
+        window.addEventListener('hashchange', toggleStage_);
+
+    };
+
+
+
+    /**
+     * Toggle Mobile Menu - open / close on click
+     * @private
+     */
+    let toggleMobileMenu_ = function() {
         if ( ! headerMenuBtn.parentNode.classList.contains('header__menu-icon--open')) {
             document.body.appendChild(backdrop);
         } else {
@@ -20,74 +148,64 @@ $(document).ready(function () {
         asideMenu.classList.toggle('mobile-aside--open');
     };
 
-    headerMenuBtn.addEventListener('click', toggleMobile, false);
-    backdrop.addEventListener('click', toggleMobile, false);
-
-
-
-
 
     /**
      * Update Total Score for Member
+     * @param el - html Element
+     * @param operand - "+" / "-" 
+     * @param score
+     * @private
      */
-    let updateTotalScore = function (el, operand, score) {
+    let updateTotalScore_ = function (el, operand, score) {
         switch (operand) {
             case "+":
-                el.html(parseInt(el.html()) + parseInt(score));
+                el.innerHTML = parseInt(el.innerHTML) + parseInt(score);
                 break;
             case "-":
-                el.html(parseInt(el.html()) - parseInt(score));
+                el.innerHTML = parseInt(el.innerHTML) - parseInt(score);
                 break;
         }
     };
 
 
     /**
-     * Prepare Member
+     * Set Score On Click
+     * @private
      */
-    $('.member').each(function () {
-        let curScore = $('.member__total-score', this);
-        $('.score__input[checked]', this).each(function () {
-            updateTotalScore(curScore, "+" , $(this).val());
-        });
-    });
+    let setScore_ = function () {
+        let totalScore = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('member__total-score')[0],
+            tmpScoreEl = null,
+            tmpScore   = null;
 
+        if ( ! this.classList.contains('score--active') ) {
 
-    /**
-     * Set Score on Click
-     */
-    $('.score').click(function(){
-        let totalScore = $(this).closest('.member').find('.member__total-score');
+            tmpScoreEl = this.parentNode.getElementsByClassName('score--active')[0];
+            tmpScore = tmpScoreEl ? tmpScoreEl.children[1].value : 0;
 
-        if ( ! $(this).hasClass('score--active') ) {
-            let tmpScore = $(this).parent().children('.score--active').children('.score__input');
-            tmpScore = tmpScore.val() ? tmpScore.val() : 0;
-            
-            updateTotalScore(totalScore, "-" , tmpScore);
-            $(this).parent().children('.score--active').removeClass('score--active');
+            updateTotalScore_(totalScore, "-" , tmpScore);
+            tmpScoreEl ? tmpScoreEl.classList.remove('score--active') : '';
 
-            updateTotalScore(totalScore, "+" , $('.score__input', this).val());
-            $(this).addClass('score--active');
+            updateTotalScore_(totalScore, "+" , $('.score__input', this).val());
+            this.classList.add('score--active');
         }
 
-    });
+    };
 
 
     /**
      * Update Criterions Block Height on window resize
+     * @private
      */
-    let criterionsBlock = document.getElementsByClassName('member__criterions--collapse');
-    let updateCriterionsBlockHeight = function () {
+    let updateCriterionsBlockHeight_ = function () {
 
-        for (let i = 0; i < criterionsBlock.length; i++) {
+        for (let i = 0; i < membersCriterions.length; i++) {
 
-
-            if ( criterionsBlock[i].dataset.height !== undefined) {
-                if ( criterionsBlock[i].style.height === "0px" ) {
-                    criterionsBlock[i].removeAttribute('data-height');
+            if ( membersCriterions[i].dataset.height !== undefined) {
+                if ( membersCriterions[i].style.height === "0px" ) {
+                    membersCriterions[i].removeAttribute('data-height');
                 } else {
-                    criterionsBlock[i].dataset.height = criterionsBlock[i].children[0].clientHeight;
-                    criterionsBlock[i].style.height = criterionsBlock[i].children[0].clientHeight + "px";
+                    membersCriterions[i].dataset.height = membersCriterions[i].children[0].clientHeight;
+                    membersCriterions[i].style.height = membersCriterions[i].children[0].clientHeight + "px";
                     console.log();
                 }
             }
@@ -95,29 +213,139 @@ $(document).ready(function () {
 
     };
 
-    window.addEventListener('resize', updateCriterionsBlockHeight);
+
+
+    /**
+     * Next Stage
+     * - checking validation of Active Stage
+     * @private
+     */
+
+    let toggleStage_ = function (event) {
+
+        let oldHash      = event.oldURL.split('#')[1],
+            newHash      = event.newURL.split('#')[1],
+            oldHashInd   = null,
+            newHashInd   = null,
+            members      = null,
+            isStageValid = true;
+
+        for (let i = 0; i < stages.length; i++) {
+
+            if (stages[i].dataset.hash === "#" + oldHash)
+                oldHashInd = i;
+
+            if (stages[i].dataset.hash === "#" + newHash)
+                newHashInd = i;
+
+        }
+
+        if (oldHash === undefined || oldHash === '') {
+            oldHashInd = 0;
+            oldHash = '';
+        }
+        if (newHash === undefined || newHash === '') {
+            newHashInd = 0;
+            newHash = '';
+        }
+
+        if (curHash === oldHash || curHash === "#"+oldHash) {
+
+            members = stages[oldHashInd].getElementsByClassName('member');
+
+
+            for (let i = 0; i < members.length; i++) {
+                isStageValid ? isStageValid = isCriterionsValid_(members[i]) : isCriterionsValid_(members[i]);
+            }
+
+
+            if (!isStageValid) {
+                window.location.hash = oldHash === undefined ? '' : "#" + oldHash;
+                event.preventDefault();
+            } else {
+                curHash = newHash;
+
+                stages[oldHashInd].classList.remove('fadeInLeft', 'fadeInRight');
+                stages[newHashInd].classList.remove('fadeOutLeft', 'fadeOutRight', 'hide');
+                setTimeout(function () {
+                    stages[oldHashInd].classList.add('hide');
+                }, 400);
+
+                if (oldHashInd < newHashInd) {
+                    // move right
+                    stages[oldHashInd].classList.add('fadeOutLeft');
+                    stages[newHashInd].classList.add('fadeInRight');
+                } else {
+                    // move left
+                    stages[oldHashInd].classList.add('fadeOutRight');
+                    stages[newHashInd].classList.add('fadeInLeft');
+                }
+            }
+        }
+    };
+
+
+    /**
+     * Close Member Collapse
+     * @private
+     */
+    let closeMemberCollapse_ = function () {
+        let member = this.parentNode.parentNode.parentNode.parentNode;
+
+        if ( isCriterionsValid_(member) )
+            member.getElementsByClassName('member__header')[0].click()
+
+    };
+
+
+    /**
+     * Checking Criterions By Member
+     * @param member - html Element
+     * @returns {boolean}
+     * @private
+     */
+    let isCriterionsValid_ = function (member) {
+        let isMemberValid = true,
+            memberName    = member.getElementsByClassName('member__name')[0],
+            memberScores  = member.getElementsByClassName('criterion__scores');
+
+
+        for (let i = 0; i < memberScores.length; i++) {
+
+            if ( memberScores[i].querySelector('.score__input:checked') === null ) {
+                isMemberValid = false;
+                memberScores[i].classList.add('criterion__scores--invalid');
+            } else {
+                memberScores[i].classList.remove('criterion__scores--invalid');
+            }
+
+        }
+
+        isMemberValid ? memberName.classList.remove('member__name--invalid') : memberName.classList.add('member__name--invalid');
+
+        return isMemberValid;
+
+    };
 
 
     /**
      * Working with modal
      * - show full description of contest || stage || criterion
+     * @private
      */
-    let modalInfoHeading = $('#modalInfoHeading'),
-        modalInfoContent = $('#modalInfoContent');
-
-    $('.openModalInfo').click(function() {
-        let type    = $(this).data('type'),
-            text    = $(this).html(),
+    let openModal_ = function () {
+        let type    = this.dataset.type,
+            text    = this.innerHTML,
             heading = null,
             content = null;
 
         switch(type) {
             case "contest" :
-                heading = "Описание конкурса: " + $(this).parent().children('.content__header').html().toLowerCase();
+                heading = "Описание конкурса: " + this.parentNode.getElementsByClassName('content__header')[0].innerHTML.toLowerCase();
                 content = text;
                 break;
             case "stage" :
-                heading = "Описание этапа: " + $(this).parent().children('.stage__header').html().toLowerCase();
+                heading = "Описание этапа: " + this.parentNode.getElementsByClassName('stage__header')[0].innerHTML.toLowerCase();
                 content = text;
                 break;
             case "criterion":
@@ -126,171 +354,28 @@ $(document).ready(function () {
                 break;
         }
 
-        modalInfoHeading.html(heading);
-        modalInfoContent.html(content);
+        modalInfoHeading.innerHTML = heading;
+        modalInfoContent.innerHTML = content;
 
         $("#modalInfoBlock").modal();
 
-    });
-
-
-    /**
-     * Checking Criterions By member
-     * @param member
-     */
-    let isCriterionsValid = function (member, mod) {
-        let status = true,
-            name   = member.find('.member__name');
-
-        member.find('.criterion__scores').each(function () {
-
-            if ( $('.score__input:checked', this).val() === undefined ) {
-                status = false;
-                (mod !== "init") ? $(this).addClass('criterion__scores--invalid') : '';
-            } else {
-                $(this).removeClass('criterion__scores--invalid');
-            }
-
-        });
-
-        (mod !== "init") ? status ? name.removeClass('member__name--invalid') : name.addClass('member__name--invalid') : '';
-
-        return status;
-
     };
 
 
+    
+    voting.init = function () {
+        prepareHeader_();
+        prepareMembers_();
+        prepareScores_();
+        prepareModal_();
+        prepareStages_();
 
-    /**
-     * Submit Member Criterions On Click
-     * - checking Validation
-     * - close collapse
-     */
-    $('.criterion__submit-btn').click(function () {
-        let member = $(this).closest('.member');
-
-        if ( isCriterionsValid(member) ) {
-            member.children('.member__header').click();
-        }
-
-    });
-
-
-    /**
-     * Checking if Next stage is allowed
-     * TODO checking next stage by ID from `stageOriginId[curStageNum+1]`
-     */
-    let isStageAllowed = function (num) {
-        if (num == 2)
-            return false;
-
-        return true;
-    };
-
-
-    /**
-     * Checking if Next stage is DONE
-     */
-    let isStageDone = function (num, mod) {
-        let status = true;
-
-        $('[data-stagenumber="' + num + '"]').find('.member').each(function () {
-
-            status ? status = isCriterionsValid($(this), mod) : isCriterionsValid($(this), mod);
-
-        });
-
-        return status;
-    };
-
-
-
-    /**
-     * Prepare Stages
-     * - get origin stage ID
-     */
-    let stageOriginId = [],
-        curStage = null;
-
-    if (vp.cookies.get('cur_stage')) {
-        curStage = vp.cookies.get('cur_stage');
-        if ( isStageAllowed(curStage + 1) && isStageDone(curStage, "init") ) {
-            curStage = 0;
-        }
-    } else {
-        curStage = 1;
-        vp.cookies.set({
-            name: 'cur_stage',
-            value: 'current-stage~' + curStage ,
-            path: '/',
-            expires: 21600,
-        })
-    }
-
-    $('.stage').each(function () {
-        stageOriginId.push($(this).data('stageid'));
-
-        if ( parseInt($(this).data('stagenumber')) === parseInt(curStage)) {
-            $(this).addClass('fadeInRight');
-        } else {
-            $(this).addClass('fadeOutLeft hide');
-        }
-    });
-
-
-
-
-    /**
-     * Next Stage
-     */
-    let stageWaitingBlock = $('[data-stagenumber="0"]'),
-        contestWaitingBlock = $('[data-contestnumber="0"]');
-
-
-    $('.stage__submit-btn').click(function () {
-        let curStageEl       = $(this).closest('.stage'),
-            curStageNum      = parseInt(curStageEl.data('stagenumber')) === 0 ? parseInt(vp.cookies.get('cur_stage')) : parseInt(curStageEl.data('stagenumber')),
-            nextStageAllowed = isStageAllowed(curStageNum + 1),
-            stageValid       = isStageDone(curStageNum);
-
-        if (!stageValid) {
-            return;
-        }
-
-        if ( curStageEl.data('stagenumber') !== 0 ) {
-            curStageEl.toggleClass('fadeInRight fadeOutLeft');
-            addWithTimer(curStageEl, 'hide', 400);
-        }
-
-        if ( nextStageAllowed ) {
-            $('[data-stagenumber="' + curStageNum + 1 + '"]').toggleClass('fadeInRight fadeOutLeft hide');
-            vp.cookies.set({
-                name: 'cur_stage',
-                value: 'current-stage~' + parseInt(curStageNum + 1),
-                path: '/',
-                expires: 21600,
-            });
-            stageWaitingBlock.removeClass('fadeInRight');
-            addWithTimer(stageWaitingBlock, 'fadeOutLeft hide', 400);
-        } else {
-            stageWaitingBlock.removeClass('fadeOutLeft hide');
-            stageWaitingBlock.addClass('fadeInRight');
-        }
-        //$('body').animate({ scrollTop: 0 }, 600);
-    });
-
-
-    let addWithTimer = function (el, classnames, time) {
+        // remove Loader
         setTimeout(function () {
-            el.addClass(classnames);
-        }, time);
+            document.getElementsByClassName('loader')[0].remove();
+        }, 1000)
     };
-
-
-
-    setTimeout(function () {
-        $('.loader').remove();
-    },1000)
-
-
-});
+    
+    return voting;
+    
+}({});

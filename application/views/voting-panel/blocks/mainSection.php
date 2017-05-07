@@ -1,12 +1,16 @@
 <div class="container">
 
-    <ul class="contests">
+    <div class="contest">
 
-        <li class="contest animated fadeInDown">
+        <? if ($event->openedContest == null ) : ?>
 
-            <h3 class="content__header">contest name</h3>
+            <h3 class="text-center m-t-50">
+                На данный момент, все конкурсы не доступны.
+                <br><br>
+                Дождитесь начала конкурса и <a class="underlinehover text-brand tex" onclick="window.location.reload()">обновите страницу</a>.
+            </h3>
 
-            <a class="contest__description openModalInfo" data-type="contest">content description </a>
+        <? else: ?>
 
             <ul class="content__stages">
 
@@ -120,30 +124,70 @@
                                         <button role="button" class="criterion__submit-btn" data-collapseBtn="collapseBtn1" data-collapseArea="collapseBtn1">
                                             Подтвердить баллы
                                         </button>
+                                                <? endforeach; ?>
+
+                                            </ul>
+
+                                            <div class="criterion__submit">
+                                                <button role="button" class="criterion__hide-btn">
+                                                    Свернуть
+                                                </button>
+                                            </div>
+
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                        </li>
 
-                    </ul>
+                                </li>
 
-                    <div class="stage__submit">
-                        <button role="button" class="stage__submit-btn">
-                            Следующий этап
-                        </button>
-                    </div>
+                            <? endforeach; ?>
 
-                </li>
+                        </ul>
+
+                        <div class="stage__submit">
+
+                            <? if ($contest->id == $event->contestsIds[count($event->contestsIds) - 1]) : ?>
+
+                                <a href="<?=URL::site('event/' . $event->id);?>" class="stage__submit-btn" disabled>
+                                    Посмотреть результаты
+                                </a>
+
+                            <? elseif (count($contest->stages) == $stageKey + 1) :?>
+
+                                <?
+                                    $ind = 0;
+
+                                    foreach ($event->contestsIds as $key => $contestId) :
+                                        if ($contestId == $contest->id) :
+                                            $ind = $key;
+                                        endif;
+                                    endforeach;
+
+                                ?>
+
+                                <a href="<?=URL::site('voting/?contest=' . $event->contestsIds[$ind + 1]); ?>" class="stage__submit-btn">
+                                    Следующий конкурс
+                                </a>
+
+                            <? else: ?>
+
+                                <a href="#<?=Methods_Methods::getUriByTitle($contest->stages[$stageKey +1 ]->name);?>" class="stage__submit-btn">
+                                    Следующий этап
+                                </a>
+                            <? endif; ?>
+
+                        </div>
+
+                    </li>
+
+                <? endforeach; ?>
 
             </ul>
 
-        </li>
+        <? endif; ?>
 
-    </ul>
+    </div>
 
 </div>
-
-
 
 
 <div class="modal fade" id="modalInfoBlock" tabindex="-1" role="dialog">
@@ -159,114 +203,3 @@
         </div>
     </div>
 </div>
-
-
-
-
-
-
-
-
-
-
-<!--<section class="section__content">-->
-<!---->
-<!--    --><?// //foreach($event->contests as $contest): ?>
-<!--    --><?// $contest = $event->contests[0] ?>
-<!---->
-<!--        <div id="stages-nav"></div>-->
-<!---->
-<!--        --><?// $stages = array() ?>
-<!--        <div class="stages">-->
-<!--            --><?// foreach ($contest->stages as $key => $stage): ?>
-<!--                --><?// $stages[] = $stage->name ?>
-<!--                <div class="stage-block tabs__block --><?//= !$key ? 'tabs__block--active' : '' ?><!--" id="stage--><?//= $key ?><!--">-->
-<!---->
-
-<!--                    --><?// foreach($stage->members as $member): ?>
-<!--                        <div class="stage-block__member">-->
-<!---->
-
-<!--                            <div class="criterions">-->
-<!---->
-
-<!--                                <div class="criterion-block">-->
-<!--                                    <div class="criterion-block__image-wrapper">-->
-<!--                                        <img class="criterion-block__image" src="/uploads/participants/--><?//= $member->photo ?><!--">-->
-<!--                                    </div>-->
-<!---->
-<!--                                    <div class="criterion-block__content criterion-block__content--small">-->
-<!--                                        <p class="member-name">--><?//= $member->name ?><!--</p>-->
-<!--                                        <p class="member-text">Итоговый балл: <span class="member-text--brand">0</span> из 15</p>-->
-<!--                                        <p class="member-text--small">-->
-<!--                                            <i class="inlineblock">Для оценивания <br>смахните вправо</i>-->
-<!--                                            <i class="inlineblock fa fa-hand-o-right" aria-hidden="true"></i>-->
-<!--                                        </p>-->
-<!--                                    </div>-->
-<!--                                </div>-->
-<!---->
-
-<!--                                --><?// foreach($stage->criterions as $key => $criterion): ?>
-<!--                                    <div class="criterion-block">-->
-<!---->
-<!--                                        <div class="criterion-block__content">-->
-<!--                                            <p class="member-name">--><?//= $member->name ?>
-<!--                                                <small class="criterion-counter"><span class="member-text--brand">--><?//= $key+1 ?><!--</span>/--><?//= count($stage->criterions) ?><!--</small>-->
-<!--                                            </p>-->
-<!--                                            <p class="member-text">-->
-<!--                                                --><?//= $criterion->name ?>
-<!--                                                <i class="member-icon fa fa-question-circle" aria-hidden="true"></i>-->
-<!--                                            </p>-->
-<!--                                            <div class="scores-area">-->
-<!---->
-<!--                                                --><?// $uniqid = $contest->id . '-' . $stage->id . '-' . $criterion->id . '-' . $member->id ?>
-<!---->
-<!--                                                --><?// for ($i = $criterion->min_score; $i <= $criterion->max_score; $i++): ?>
-<!--                                                    --><?// $data = json_encode(array(
-//                                                        'event' => $event->id,
-//                                                        'data'  => array(
-//                                                            'contest'   => $contest->id,
-//                                                            'stage'     => $stage->id,
-//                                                            'criterion' => $criterion->id,
-//                                                            'judge'     => $judge->id,
-//                                                            'member'    => $member->id,
-//                                                            'score'     => $i
-//                                                        )
-//                                                    ))?>
-<!--                                                    <span name="vp-custom-radiobox-<//?= $uniqid ?>" class="js-scores" data-name="vp-radiobox---><?////= $uniqid ?><!--" data-value='--><?////= $data ?><!--'>--><?//=1// $i ?><!--</span>-->
-<!--                                                --><?// endfor; ?>
-<!---->
-<!--                                             </div>-->
-<!--                                        </div>-->
-<!---->
-<!--                                    </div>-->
-                                        <script>
-//                                            radioboxes('vp-custom-radiobox<?////= $uniqid ?>////');
-                                        </script>
-                                <?// endforeach; ?>
-<!---->
-<!--                            </div>-->
-<!--                        </div>-->
-<!--                    --><?// endforeach; ?>
-<!---->
-<!--                </div>-->
-<!--            --><?// endforeach; ?>
-<!---->
-<!--        </div>-->
-            <script>
-//                stagenav.init(<?//= json_encode($stages) ?>//);
-            </script>
-
-    <?// endforeach; ?>
-<!---->
-<!--</section>-->
-<!---->
-<script type="text/javascript">
-//    new stages_holder();
-//    //new slider(['A', 'B']);
-//    scores.init(<?////= $judge->id ?>////);
-//    vp.tabs.init({
-//        search: false,
-//        counter: false
-//    });
-</script>

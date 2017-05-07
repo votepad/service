@@ -27,20 +27,30 @@ class Controller_Judges_Index extends Dispatch {
 
         $event = new Model_Event($judge->event);
 
-        $contests = Methods_Contests::getByJudge($judge->id);
+        $contests    = Methods_Contests::getByJudge($judge->id);
+        $contestsIds = Methods_Contests::getByJudge($judge->id, true);
 
-        foreach ($contests as $key => $contest) {
-            $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
+        /**
+         * TODO проверка контеста открыт ли он (если ни один из контестов не открыт, то $openedContest = null)
+         */
+        $openedContest = $contests[0];// null;
 
-            foreach ($contest->stages as $key2 => $stage) {
-                $contests[$key]->stages[$key2]->members = Methods_Stages::getMembers($stage->id, $stage->mode);
-                $contests[$key]->stages[$key2]->criterions = Methods_Stages::getCriterions($stage->formula);
+        if ($openedContest != null) {
+
+            /**
+             * Get Info by opened contest
+             */
+            $openedContest->stages = Methods_Contests::getStages($openedContest->formula);
+
+            foreach ($openedContest->stages as $stageKey => $stage) {
+                $openedContest->stages[$stageKey]->members = Methods_Stages::getMembers($stage->id, $stage->mode);
+                $openedContest->stages[$stageKey]->criterions = Methods_Stages::getCriterions($stage->formula);
             }
 
         }
 
-        $event->contests = $contests;
-
+        $event->contestsIds = $contestsIds;
+        $event->openedContest = $openedContest;
 
         $this->template->judge = $judge;
         $this->template->event = $event;
