@@ -54,7 +54,7 @@
 
 <header class="header">
     <?=View::factory('voting-panel/blocks/header', array(
-        'event' => $event,
+        'contests' => $event->contests,
         'judge' => $judge
     ))?>
 </header>
