@@ -12,118 +12,93 @@
 
         <? else: ?>
 
+            <? $contest = $event->openedContest; ?>
+
+            <h3 class="content__header"><?= $contest->name; ?></h3>
+
+            <a class="contest__description openModalInfo" data-type="contest"><?= $contest->description; ?></a>
+
             <ul class="content__stages">
 
-                <li class="stage animated" data-stagenumber="0" data-stageid="0">
+                <? foreach ($contest->stages as $stageKey => $stage) : ?>
 
-                    <div>
-                        Waiting Next Stage
-                    </div>
+                    <li class="stage animated" data-hash="#<?= Methods_Methods::getUriByTitle($stage->name);?>">
 
-                    <div class="stage__submit">
-                        <button role="button" class="stage__submit-btn">
-                            Открыть этап
-                        </button>
-                    </div>
+                        <h4 class="stage__header"><?=$stage->name; ?></h4>
 
-                </li>
+                        <a class="stage__description openModalInfo" data-type="stage"><?=$stage->description; ?></a>
 
-                <li class="stage animated" data-stagenumber="1" data-stageid="1">
+                        <ul class="stage__members">
 
-                    <h4 class="stage__header">stage name</h4>
+                            <? foreach($stage->members as $memberKey => $member) : ?>
 
-                    <a class="stage__description openModalInfo" data-type="stage">stage description</a>
+                                <li class="member">
 
-                    <ul class="stage__members">
-
-                        <li class="member">
-                            <div role="button" class="member__header clear_fix" data-toggle="collapse" data-area="member1" data-opened="false">
-                                <img class="member__image" src="http://votepad/uploads/participants/no-participant.png" alt="Member Image">
-                                <div class="member__content">
-                                    <h4 class="member__name">Name5Name5Name5Name5Name5Name5Name5Name5Name5Name5</h4>
-                                    <p class="member__addition">Итоговый балл: <span class="text-brand member__total-score">0</span> из 15</p>
-                                </div>
-                            </div>
-                            <div id="member1" class="collapse member__criterions--collapse">
-                                <div class="member__criterions clear_fix">
-                                    <ul class="criterions">
-
-                                        <li class="criterion">
-
-                                            <p class="criterion__name">
-                                                Criterion Name
-                                                <i class="fa fa-question-circle openModalInfo criterion__description" aria-hidden="true" data-type="criterion">
-                                                    <span class="criterion__description-text">Long description about criterion</span>
-                                                </i>
+                                    <div role="button" class="member__header clear_fix" data-toggle="collapse" data-area="member_<?= $stageKey . '_' . $memberKey;?>" data-opened="false">
+                                        <img class="member__image" src="<?= URL::site($stage->mode == "1" ? '/uploads/participants/' . $member->photo : '/uploads/teams/' . $member->logo ); ?>" alt="Member Image">
+                                        <div class="member__content">
+                                            <h4 class="member__name"><?=$member->name?></h4>
+                                            <?
+                                                $totalMaxScore = 0;
+                                                foreach($stage->criterions as $criterion):
+                                                    $totalMaxScore += $criterion->max_score;
+                                                endforeach;
+                                            ?>
+                                            <p class="member__addition">Итоговый балл: <span class="text-brand member__total-score">0</span> из <?=$totalMaxScore; ?>
+                                                <i class="fa fa-angle-double-down member__addition-collapse-icon" aria-hidden="true"></i>
                                             </p>
+                                        </div>
+                                    </div>
+
+                                    <div id="member_<?= $stageKey . '_' . $memberKey; ?>" class="collapse member__criterions--collapse">
+
+                                        <div class="member__criterions clear_fix">
+
+                                            <ul class="criterions">
+
+                                                <? foreach ($stage->criterions as $criterionKey => $criterion) : ?>
+
+                                                    <li class="criterion">
+
+                                                        <p class="criterion__name">
+                                                            <?=$criterion->name; ?>
+                                                            <? if ($criterion->description != "") : ?>
+                                                                <i class="fa fa-question-circle openModalInfo criterion__description" aria-hidden="true" data-type="criterion">
+                                                                    <span class="criterion__description-text"><?=$criterion->description; ?></span>
+                                                                </i>
+                                                            <? endif; ?>
+                                                        </p>
 
 
-                                            <div class="criterion__scores">
-                                                <label for="1" class="score">
-                                                    <span class="score__text">1</span>
-                                                    <input id="1" name="1" type="radio" class="score__input" value="1">
-                                                </label>
-                                                <label for="2" class="score">
-                                                    <span class="score__text">2</span>
-                                                    <input id="2" name="1" type="radio" class="score__input" value="2">
-                                                </label>
-                                                <label for="3" class="score">
-                                                    <span class="score__text">3</span>
-                                                    <input id="3" name="1" type="radio" class="score__input" value="3">
-                                                </label>
-                                                <label for="4" class="score">
-                                                    <span class="score__text">4</span>
-                                                    <input id="4" name="1" type="radio" class="score__input" value="4">
-                                                </label>
-                                                <label for="5" class="score">
-                                                    <span class="score__text">5</span>
-                                                    <input id="5" name="1" type="radio" class="score__input" value="5">
-                                                </label>
-                                            </div>
+                                                        <div class="criterion__scores">
 
-                                        </li>
+                                                            <? $uniqid = $contest->id . '-' . $stage->id . '-' . $criterion->id . '-' . $member->id ?>
 
-                                        <li class="criterion">
+                                                                <? for ($i = $criterion->min_score; $i <= $criterion->max_score; $i++): ?>
 
-                                            <p class="criterion__name">
-                                                Criterion Name
-                                                <i class="fa fa-question-circle openModalInfo criterion__description" aria-hidden="true" data-type="criterion">
-                                                    <span class="criterion__description-text">Long description about criterion</span>
-                                                </i>
-                                            </p>
+                                                                    <? $data = json_encode(array(
+                                                                        'event' => $event->id,
+                                                                        'data'  => array(
+                                                                            'contest'   => $contest->id,
+                                                                            'stage'     => $stage->id,
+                                                                            'criterion' => $criterion->id,
+                                                                            'judge'     => $judge->id,
+                                                                            'member'    => $member->id,
+                                                                            'score'     => $i
+                                                                        )
+                                                                    ))?>
 
+                                                                <label for="<?= $uniqid . '-' . $i; ?>" class="score">
+                                                                    <span class="score__text"><?= $i; ?></span>
+                                                                    <input id="<?= $uniqid . '-' . $i; ?>" type="radio" class="score__input" name="<?= $uniqid ?>" value="<?= $i ?>" data-name="vp-radiobox-<?= $uniqid ?>" data-value="<?= $data ?>">
+                                                                </label>
 
-                                            <div class="criterion__scores">
-                                                <label for="11" class="score">
-                                                    <span class="score__text">1</span>
-                                                    <input id="11" name="2" type="radio" class="score__input" value="1">
-                                                </label>
-                                                <label for="21" class="score">
-                                                    <span class="score__text">2</span>
-                                                    <input id="21" name="2" type="radio" class="score__input" value="2">
-                                                </label>
-                                                <label for="31" class="score score--active">
-                                                    <span class="score__text">3</span>
-                                                    <input id="31" name="2" type="radio" class="score__input" value="3" checked>
-                                                </label>
-                                                <label for="41" class="score">
-                                                    <span class="score__text">4</span>
-                                                    <input id="41" name="2" type="radio" class="score__input" value="4">
-                                                </label>
-                                                <label for="51" class="score">
-                                                    <span class="score__text">5</span>
-                                                    <input id="51" name="2" type="radio" class="score__input" value="5">
-                                                </label>
-                                            </div>
+                                                            <? endfor; ?>
 
-                                        </li>
+                                                        </div>
 
-                                    </ul>
+                                                    </li>
 
-                                    <div class="criterion__submit">
-                                        <button role="button" class="criterion__submit-btn" data-collapseBtn="collapseBtn1" data-collapseArea="collapseBtn1">
-                                            Подтвердить баллы
-                                        </button>
                                                 <? endforeach; ?>
 
                                             </ul>
@@ -173,6 +148,7 @@
                                 <a href="#<?=Methods_Methods::getUriByTitle($contest->stages[$stageKey +1 ]->name);?>" class="stage__submit-btn">
                                     Следующий этап
                                 </a>
+
                             <? endif; ?>
 
                         </div>
