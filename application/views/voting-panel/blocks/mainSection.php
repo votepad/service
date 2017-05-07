@@ -45,7 +45,7 @@
                                                 endforeach;
                                             ?>
                                             <p class="member__addition">Итоговый балл: <span class="text-brand member__total-score">0</span> из <?=$totalMaxScore; ?>
-                                                <i class="fa fa-angle-double-down member__addition-collapse-icon" aria-hidden="true"></i>
+                                                <i class="fa fa-chevron-down member__addition-collapse-icon" aria-hidden="true"></i>
                                             </p>
                                         </div>
                                     </div>
