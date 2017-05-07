@@ -119,14 +119,14 @@
                         </ul>
 
                         <div class="stage__submit">
-                            <? echo Debug::vars($contest->id,$event->contestsIds[count($event->contestsIds) - 1])?>
-                            <? if ($contest->id == $event->contestsIds[count($event->contestsIds) - 1]) : ?>
 
-                                <a href="<?=URL::site('event/' . $event->id);?>" class="stage__submit-btn nextStageLinkBtn" disabled>
-                                    Посмотреть результаты
+                            <? if (count($contest->stages) > 1 && count($contest->stages) != $stageKey + 1) : ?>
+
+                                <a href="#<?=Methods_Methods::getUriByTitle($contest->stages[$stageKey +1 ]->name);?>" class="stage__submit-btn">
+                                    Следующий этап
                                 </a>
 
-                            <? elseif (count($contest->stages) == $stageKey + 1) :?>
+                            <? elseif (count($contest->stages) == $stageKey + 1 && $contest->id != $event->contestsIds[count($event->contestsIds) - 1]) :?>
 
                                 <?
                                     $ind = 0;
@@ -145,8 +145,8 @@
 
                             <? else: ?>
 
-                                <a href="#<?=Methods_Methods::getUriByTitle($contest->stages[$stageKey +1 ]->name);?>" class="stage__submit-btn">
-                                    Следующий этап
+                                <a href="<?=URL::site('event/' . $event->id);?>" class="stage__submit-btn nextStageLinkBtn" disabled>
+                                    Посмотреть результаты
                                 </a>
 
                             <? endif; ?>
@@ -165,7 +165,7 @@
 
 </div>
 
-<? echo Debug::vars($event)?>
+
 <div class="modal fade" id="modalInfoBlock" tabindex="-1" role="dialog">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
