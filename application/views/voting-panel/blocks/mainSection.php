@@ -122,7 +122,7 @@
 
                             <? if ($contest->id == $event->contestsIds[count($event->contestsIds) - 1]) : ?>
 
-                                <a href="<?=URL::site('event/' . $event->id);?>" class="stage__submit-btn" disabled>
+                                <a href="<?=URL::site('event/' . $event->id);?>" class="stage__submit-btn nextStageLinkBtn" disabled>
                                     Посмотреть результаты
                                 </a>
 
@@ -139,7 +139,7 @@
 
                                 ?>
 
-                                <a href="<?=URL::site('voting/?contest=' . $event->contestsIds[$ind + 1]); ?>" class="stage__submit-btn">
+                                <a href="<?=URL::site('voting/?contest=' . $event->contestsIds[$ind + 1]); ?>" class="stage__submit-btn nextStageLinkBtn">
                                     Следующий конкурс
                                 </a>
 

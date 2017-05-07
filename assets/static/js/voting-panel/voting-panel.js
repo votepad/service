@@ -125,6 +125,11 @@ let voting = function (voting) {
             stages[0].classList.add('fadeInRight');
         }
 
+        let nextStageLinkBtn = document.getElementsByClassName('nextStageLinkBtn');
+        for(let i = 0; i < nextStageLinkBtn.length; i++) {
+            nextStageLinkBtn[i].addEventListener('click', nextStageOnClick_);
+        }
+
         window.addEventListener('hashchange', toggleStage_);
 
     };
@@ -220,6 +225,21 @@ let voting = function (voting) {
      * - checking validation of Active Stage
      * @private
      */
+    let nextStageOnClick_ = function (e) {
+
+        members = this.parentNode.parentNode.getElementsByClassName('member');
+
+        let isStageValid = true;
+
+        for (let i = 0; i < members.length; i++) {
+            isStageValid ? isStageValid = isCriterionsValid_(members[i]) : isCriterionsValid_(members[i]);
+        }
+
+        if (!isStageValid) {
+            e.preventDefault()
+        }
+
+    };
 
     let toggleStage_ = function (event) {
 
@@ -253,11 +273,9 @@ let voting = function (voting) {
 
             members = stages[oldHashInd].getElementsByClassName('member');
 
-
             for (let i = 0; i < members.length; i++) {
                 isStageValid ? isStageValid = isCriterionsValid_(members[i]) : isCriterionsValid_(members[i]);
             }
-
 
             if (!isStageValid) {
                 window.location.hash = oldHash === undefined ? '' : "#" + oldHash;
