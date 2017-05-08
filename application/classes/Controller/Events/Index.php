@@ -136,13 +136,30 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * CONTROL submodule
-     * action_control - administrate event
+     * action_scores - show all scores and edit them
      */
-    public function action_control()
+    public function action_scores()
     {
-        $this->template->jumbotron_navigation = "";
+        $this->event->contests = $this->getContests($this->event->id);
 
-        $this->template->mainSection = View::factory('events/control/main');
+        $this->template->mainSection = View::factory('events/control/scores')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+
+    }
+
+    /**
+     * CONTROL submodule
+     * action_plan - block/unblock member, stage or contest
+     */
+    public function action_plan()
+    {
+        $this->event->contests = $this->getContests($this->event->id);
+
+        $this->template->mainSection = View::factory('events/control/plan')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+
     }
 
 
@@ -328,24 +345,31 @@ class Controller_Events_Index extends Dispatch
             ->set('event', $this->event);
 
 
-        $contests = Methods_Contests::getByEvent($this->event->id);
-
-        foreach ($contests as $key => $contest) {
-            $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
-
-            foreach ($contest->stages as $key2 => $stage) {
-                $contests[$key]->stages[$key2]->member = Methods_Stages::getMembers($stage->id, $stage->mode);
-            }
-
-        }
-
-        $this->event->contests = $contests;
+        $this->event->contests = $this->getContests($this->event->id);
 
 
         $this->template->mainSection = View::factory('events/landing/pages/results')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
+
     }
 
 
+
+    private function getContests($id)
+    {
+        $contests = Methods_Contests::getByEvent($id);
+
+        foreach ($contests as $key => $contest) {
+            $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
+
+            foreach ($contest->stages as $key2 => $stage) {
+                $contests[$key]->stages[$key2]->members = Methods_Stages::getMembers($stage->id, $stage->mode);
+                $contests[$key]->stages[$key2]->criterions = Methods_Stages::getCriterions($stage->formula);
+            }
+
+        }
+
+        return $contests;
+    }
 }

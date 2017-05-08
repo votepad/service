@@ -137,6 +137,9 @@
     .jumbotron{
         height: 260px;
     }
+    .jumbotron__nav{
+        display: none;
+    }
     .jumbotron__edit-block{
         left: 0;
         top: 10px;

@@ -60,7 +60,6 @@ $actioncallback = function(Route $route, $params, Request $request){
 
     $allowedRoutes = array(
         'settings',
-        'control',
         'landing',
         'news',
         'results'
@@ -102,6 +101,9 @@ $sectioncallback = function(Route $route, $params, Request $request){
         'members' => array(
             'judges', 'participants', 'teams', /*'groups'*/
         ),
+        'control' => array(
+            'scores', 'plan'
+        )
     );
 
     if (!isset($params['section']) || !in_array($params['action'], $allowedRoutes[$params['section']])) {
@@ -113,7 +115,7 @@ $sectioncallback = function(Route $route, $params, Request $request){
 Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>(/<action>)',
     array(
         'id' => $DIGIT,
-        'section' => 'settings|scenario|members',
+        'section' => 'settings|scenario|members|control',
         'action' => $STRING
     ))
     ->filter($sectioncallback)

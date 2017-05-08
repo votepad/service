@@ -35,7 +35,7 @@
     </a>
     <ul id="eventControl" class="mobile-aside__collapse collapse">
         <li class="mobile-aside__collapse__item">
-            <a href="<?=URL::site('event/' . $event->id . '/control/results'); ?>" class="mobile-aside__collapse-link <?= $action == 'results' ? 'mobile-aside__collapse-link--active' : ''; ?>">
+            <a href="<?=URL::site('event/' . $event->id . '/control/scores'); ?>" class="mobile-aside__collapse-link <?= $action == 'scores' ? 'mobile-aside__collapse-link--active' : ''; ?>">
                 Результаты
             </a>
         </li>
@@ -46,7 +46,6 @@
         </li>
     </ul>
 </li>
-
 <li class="mobile-aside__menu-item <?= ($action == 'scenario' || $section == 'scenario') ? 'mobile-aside__menu-item--active' : ''; ?>">
     <a role="button" data-toggle="collapse" data-area="eventPattern" data-opened="false" class="mobile-aside__menu-link <?= ($action == 'scenario' || $section == 'scenario') ? 'mobile-aside__menu-link--active' : ''; ?>">
         <i class="fa fa-cubes" aria-hidden="true"></i>
