@@ -4,7 +4,7 @@
 
     <meta charset="UTF-8">
     <meta name="author" content="Votepad" />
-    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/static//favicon.png" />
+    <link type="image/x-icon" rel="shortcut icon" href="<?=$assets; ?>img/static/favicon.png" />
 
     <title>Панель оценивания | Votepad</title>
 
