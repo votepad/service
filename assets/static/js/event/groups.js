@@ -85,10 +85,11 @@ $(document).ready(function() {
         if ( stat_1 == true && stat_2 == true && stat_3 == true) {
             form[0].submit();
         } else {
-            $.notify({
-                message: 'Пожалуйста, проверьте правильность введенных данных.'
-            },{
-                type: 'danger'
+            vp.notification.notify({
+                type: 'alert',
+                status: 'danger',
+                message: 'Пожалуйста, проверьте правильность введенных данных.',
+                time: 3
             });
         }
     });
@@ -196,10 +197,11 @@ $(document).ready(function() {
         if ( stat_1 == true && stat_2 == true && stat_3 == true) {
             form[0].submit();
         } else {
-            $.notify({
-                message: 'Пожалуйста, проверьте правильность введенных данных.'
-            },{
-                type: 'danger'
+            vp.notification.notify({
+                type: 'alert',
+                status: 'danger',
+                message: 'Пожалуйста, проверьте правильность введенных данных.',
+                time: 3
             });
         }
     });

@@ -51,7 +51,7 @@ $(document).ready(function () {
     $('input[type="email"]').blur(function(){
         if ( ! /\S+@\S+\.\S+/.test($(this).val()) ) {
             if ($(this).val() != '') {
-                notifyErrors('email');
+                notify('Вы неправильно ввели email. Попробуйте ввести снова!','danger');
                 $(this).addClass('invalid');
             }
         } else {
@@ -85,7 +85,7 @@ $(document).ready(function () {
      */
     $('#userSignIn').click(function(){
         if ($('#auth_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#auth_email').val()) ) {
-            notifyErrors('email');
+            notify('Вы неправильно ввели email. Попробуйте ввести снова!','danger');
             $('#auth_email').addClass('invalid');
         } else if ( $("#auth_password").val() == '' ) {
             $('#auth_password').addClass('invalid');
@@ -136,7 +136,7 @@ $(document).ready(function () {
     */
     $('#resetPassword').click(function(){
         if ($('#forget_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#forget_email').val()) ) {
-            notifyErrors('email');
+            notify('Вы неправильно ввели email. Попробуйте ввести снова!','danger');
             $('#forget_email').addClass('invalid');
         } else {
             $('#toUserSignIn').click();
@@ -178,7 +178,7 @@ $(document).ready(function () {
     */
     $('#judge_form').submit(function(){
         if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
-            notifyErrors('eventNumber');
+            notify('Вы ввели неправильный номер мероприятия. Попробуйте ввести снова','danger');
             return false;
         } else if ( $("#auth_judgesecret").val() == '' ) {
             $("#auth_judgesecret").addClass('invalid');
@@ -204,7 +204,7 @@ $(document).ready(function () {
             $('#registr_name').removeClass('invalid');
         } else {
             $('#registr_name').addClass('invalid');
-            notifyErrors('regName');
+            notify('Вы не указали имя','danger');
             isvalid = false;
         }
 
@@ -214,7 +214,7 @@ $(document).ready(function () {
             $('#registr_email').removeClass('invalid');
         } else {
             isvalid = false;
-            notifyErrors('email');
+            notify('Вы неправильно ввели email. Попробуйте ввести снова!','danger');
             $('#registr_email').addClass('invalid');
         }
 
@@ -227,9 +227,9 @@ $(document).ready(function () {
             $('#registr_password').addClass('invalid');
 
             if ($('#registr_password').val() == "") {
-                notifyErrors('emptyPassword');
+                notify('Вы не указали парлоль', 'danger');
             } else {
-                notifyErrors('errorPassword');
+                notify('Вы используете запрещенные символы для пароля','danger');
             }
         }
 
@@ -267,36 +267,32 @@ $(document).ready(function () {
                 id          = parseInt(response.id);
 
             if (id) {
+                
                 window.location.replace(protocol + '//' + host + '/user/' + id);
+                
             } else {
-                $.notify({
-                        message: 'Произошла ошибка'
-                    },
-                    {
-                        type: 'danger'
-                    });
+
+                vp.notification.notify({
+                    type: 'alert',
+                    status: 'danger',
+                    message: 'Произошла ошибка, попробуйте снова',
+                    time: 3
+                });
+                
             }
 
             return;
 
         }
-
-        var message;
-
+        
         switch (parseInt(response.code)) {
-            case 30: message = 'Пожалуйста, заполните все поля';
-            break;
-            case 20: message = 'Пользователь с таким email уже зарегистрирован';
-            break;
-            default: message = 'Произошла ошибка. Попробуйте снова';
+            case 30:
+                notify('Пожалуйста, заполните все поля','danger');
+                break;
+            case 20:
+                notify('Пользователь с таким email уже зарегистрирован','danger');
+                break;
         }
-
-        $.notify({
-            message: message
-        },
-        {
-            type: 'danger'
-        });
 
         removePreLoader();
     }
@@ -314,36 +310,32 @@ $(document).ready(function () {
                 id          = parseInt(response.id);
 
             if (id) {
+                
                 window.location.replace(protocol + '//' + host + '/user/' + id);
+                
             } else {
-                $.notify({
-                    message: 'Произошла ошибка'
-                },
-                {
-                    type: 'danger'
+                
+                vp.notification.notify({
+                    type: 'alert',
+                    status: 'danger',
+                    message: 'Произошла ошибка, попробуйте снова',
+                    time: 3
                 });
+                
             }
 
             return;
 
         }
 
-        var message;
-
         switch (parseInt(response.code)) {
-            case 30: message = 'Пожалуйста, заполните все поля';
-            break;
-            case 13: message = 'Неверно введен email или пароль';
-            break;
-            default: message = 'Произошла ошибка. Попробуйте снова';
+            case 30:
+                notify('Пожалуйста, заполните все поля','danger');
+                break;
+            case 13:
+                notify('Неверно введен email или пароль','danger');
+                break;
         }
-
-        $.notify({
-            message: message
-        },
-        {
-            type: 'danger'
-        });
 
         removePreLoader();
     }
@@ -366,25 +358,17 @@ $(document).ready(function () {
             return;
         }
 
-        var message;
-
         switch (parseInt(response.code)) {
-            case 30: message = 'Пожалуйста, заполните все поля';
+            case 30:
+                notify('Пожалуйста, заполните все поля','danger');
                 break;
-            case 60: message = 'Мы не смогли отправить письмо с инструкциями на вашу почту :(';
+            case 60:
+                notify('Мы не смогли отправить письмо с инструкциями на вашу почту :(','danger');
                 break;
-            case 15: message = 'Пользователь с таким email не найден';
+            case 15:
+                notify('Пользователь с таким email не найден','danger');
                 break;
-            default: message = 'Произошла ошибка. Попробуйте снова';
         }
-
-        $.notify({
-                message: message
-            },
-            {
-                type: 'danger'
-            });
-
 
     };
 
@@ -392,33 +376,15 @@ $(document).ready(function () {
     /**
     * Notify Frontend Fields
     */
-    function notifyErrors(field) {
-
-        var message;
-
-        switch (field) {
-
-            case 'email': message = 'Вы неправильно ввели email. Попробуйте ввести снова!'
-            break;
-            case 'emptyPassword': message = 'Вы не указали парлоль';
-            break;
-            case 'errorPassword': message = 'Вы используете запрещенные символы для пароля!';
-            break;
-            case 'regName': message = 'Вы не ввели имя!';
-            break;
-            case 'eventNumber': message = 'Вы ввели неправильный номер мероприятия. Попробуйте ввести снова!';
-            break;
-            default: message = 'Произошла ошибка. Попробуйте снова';
-        }
-
-        $.notify({
-            message: message
-        },
-        {
-            type: 'danger'
+    function notify(message, status) {
+        
+        vp.notification.notify({
+            type: 'alert',
+            status: status,
+            message: message,
+            time: 3
         });
-
-
+        
     }
 
     function removePreLoader() {

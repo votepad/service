@@ -191,11 +191,14 @@ $(document).ready(function() {
         }*/
 
         if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
-            $.notify({
-                message: 'Пожалуйста, проверьте правильность введенных данных.'
-            }, {
-                type: 'danger'
+
+            vp.notification.notify({
+                type: 'alert',
+                status: 'danger',
+                message: 'Пожалуйста, проверьте правильность введенных данных.',
+                time: 3
             });
+
             return false;
         }
 
@@ -290,10 +293,11 @@ $(document).ready(function() {
          */
 
         if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
-            $.notify({
-                message: 'Пожалуйста, проверьте правильность введенных данных.'
-            },{
-                type: 'danger'
+            vp.notification.notify({
+                type: 'alert',
+                status: 'danger',
+                message: 'Пожалуйста, проверьте правильность введенных данных.',
+                time: 3
             });
             return false;
         }

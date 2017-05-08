@@ -104,10 +104,11 @@
                                 return;
                             }
 
-                            $.notify({
-                                message: 'Организация удалена!'
-                            },{
-                                type: 'success'
+                            vp.notification.notify({
+                                type: 'alert',
+                                status: 'success',
+                                message: 'Организация удалена!',
+                                time: 3
                             });
 
                             var host        = window.location.host,

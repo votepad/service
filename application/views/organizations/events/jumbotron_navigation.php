@@ -7,7 +7,7 @@
 
     <? if(! $isLogged) : ?>
     <li class="jumbotron__nav-item jumbotron__nav--org-item">
-        <button class="dropdown_btn" onclick="$.notify({message: 'Вы не авторизованы! Пожалуйста, <b>авторизуйтесь</b> или пройдите <b>регистрацию</b>.'},{timer: 3000, type: 'warning'});">
+        <button class="dropdown_btn" onclick="vp.notification.notify({ type: 'alert', status: 'warning', message: 'Вы не авторизованы! Пожалуйста, <b>авторизуйтесь</b> или пройдите <b>регистрацию</b>.', time: 3});">
             Вступить в организацию
         </button>
     </li>
@@ -43,16 +43,31 @@
                     response = JSON.parse(response);
 
                     if (response.code == '43') {
-                        notify('successRespond');
+                        vp.notification.notify({
+                            type: 'alert',
+                            status: 'success',
+                            message: 'Ваша заявка подана!',
+                            time: 3
+                        });
                         document.getElementById('sendRequest').classList.add('displaynone');
                         document.getElementById('cancelRequest').classList.remove('displaynone');
                     } else {
-                        notify('error');
-                        return;
+                        vp.notification.notify({
+                            type: 'alert',
+                            status: 'warning',
+                            message: 'Произошла ошибка. Попробуйте снова',
+                            time: 3
+                        });
+
                     }
                 },
                 error: function (callback) {
-                    notify('error');
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'warning',
+                        message: 'Произошла ошибка. Попробуйте снова',
+                        time: 3
+                    });
                     console.log(callback);
                 }
             };
@@ -70,17 +85,31 @@
                     response = JSON.parse(response);
 
                     if (response.code == '48') {
-                        notify("successCancel");
+                        vp.notification.notify({
+                            type: 'alert',
+                            status: 'success',
+                            message: 'Вы учпешно отменили заявку',
+                            time: 3
+                        });
                         document.getElementById('sendRequest').classList.remove('displaynone');
                         document.getElementById('cancelRequest').classList.add('displaynone');
                     } else {
-                        notify("error");
-                        return;
+                        vp.notification.notify({
+                            type: 'alert',
+                            status: 'warning',
+                            message: 'Произошла ошибка. Попробуйте снова',
+                            time: 3
+                        });
                     }
 
                 },
                 error: function(callback) {
-                    notify("error");
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'warning',
+                        message: 'Произошла ошибка. Попробуйте снова',
+                        time: 3
+                    });
                     console.log(callback);
                 }
             };
@@ -117,16 +146,31 @@
                     response = JSON.parse(response);
 
                     if (response.code == '47') {
-                        notify("successLeave");
+                        vp.notification.notify({
+                            type: 'alert',
+                            status: 'success',
+                            message: 'Вы покинули организацию!',
+                            time: 3
+                        });
                         window.location.reload();
                     } else {
-                        notify("error");
+                        vp.notification.notify({
+                            type: 'alert',
+                            status: 'warning',
+                            message: 'Произошла ошибка. Попробуйте снова',
+                            time: 3
+                        });
                         return;
                     }
 
                 },
                 error: function(callback) {
-                    notify("error");
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'warning',
+                        message: 'Произошла ошибка. Попробуйте снова',
+                        time: 3
+                    });
                     console.log(callback);
                 }
             };
@@ -147,39 +191,3 @@
     <? endif; ?>
 
 </ul>
-
-
-<script type="text/javascript">
-
-    /**
-     * Notify Frontend Fields
-     */
-    function notify(field) {
-
-        switch (field) {
-
-            case "successRespond":
-                message = 'Ваша заявка подана!';
-                type = 'success';
-                break;
-            case "successCancel":
-                message = 'Вы успешно отменили заявку!';
-                type = 'success';
-                break;
-            case "successLeave":
-                message = 'Вы покинули организацию!';
-                type = 'success';
-                break;
-            default:
-                message = 'Произошла ошибка. Попробуйте снова';
-                type = 'warning';
-        }
-
-        $.notify({
-            message: message
-        }, {
-            type: type
-        });
-    }
-
-</script>

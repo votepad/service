@@ -22,7 +22,12 @@ $(document).ready(function() {
     /** save formula */
     $('#saveResult').click(function () {
         if ( $("#result_formula .formula__list li").length == 0 ) {
-            $.notify({ message: "Формула не изменилась.<br>Для изменение создайте формулу."},{ type: 'warning'});
+            vp.notification.notify({
+                type: 'alert',
+                status: 'warning',
+                message: 'Формула не изменилась.<br>Для изменение создайте формулу.',
+                time: 3
+            });
             $('#saveResult').addClass('hide');
             $('#editResult').removeClass('hide');
             $('#result_formula').parent().addClass('hide');
@@ -45,7 +50,12 @@ $(document).ready(function() {
     /* Upadete formula */
     $('#result').submit(function () {
         if ( $("#result_formula .formula__list li").length == 0 ) {
-            $.notify({ message: "Пожалуйста, введите формулу."},{ type: 'danger'});
+            vp.notification.notify({
+                type: 'alert',
+                status: 'danger',
+                message: 'Пожалуйста, введите формулу.',
+                time: 3
+            });
             $('#result_formula').addClass('formula--error');
             return false;
         } else {

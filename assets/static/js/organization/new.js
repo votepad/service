@@ -46,11 +46,14 @@ $(document).ready(function() {
     $('#btnnext').click(function () {
 
         if ( !isStepDone(translateX) ) {
-            $.notify({
-                message: 'Проверьте правильность введенных данных!'
-            },{
-                type: 'danger'
+
+            vp.notification.notify({
+                type: 'alert',
+                status: 'danger',
+                message: 'Проверьте правильность введенных данных',
+                time: 3
             });
+
             return;
         }
 
@@ -80,21 +83,28 @@ $(document).ready(function() {
          $('.form_neworg input, textarea').each(function(){
              id = $(this).attr('id');
              if (isFormInvalid == false) {
-                 isFormInvalid = isElementInvalid($(this), 'submit')
+                 isFormInvalid = isElementInvalid($(this), 'submit');
 
                  if (isFormInvalid == true) {
+
                      if ( $(this).attr('id') == "confirmrools" ) {
-                         $.notify({
-                             message: 'Вы не согласились с правилами, пожалуйста, прочитайте и согласитесь'
-                         },{
-                             type: 'danger'
+
+                         vp.notification.notify({
+                             type: 'alert',
+                             status: 'danger',
+                             message: 'Вы не согласились с правилами, пожалуйста, прочитайте и согласитесь',
+                             time: 3
                          });
+
                      } else {
-                         $.notify({
-                             message: 'У вас ошибка при вводе "' + $('#' + id + ' + label').text().toLowerCase() + '"'
-                         },{
-                             type: 'danger'
+
+                         vp.notification.notify({
+                             type: 'alert',
+                             status: 'danger',
+                             message: 'У вас ошибка при вводе "' + $('#' + id + ' + label').text().toLowerCase() + '"',
+                             time: 3
                          });
+
                      }
                  }
              }
@@ -306,11 +316,14 @@ $(document).ready(function() {
                 }
                 else {
                     if ( ! $this.parent().children('span').hasClass('error-block') ) {
-                        $.notify({
-                            message: 'К сожалению, такой адрес организации занят. Пожалуйста, придумайте другой адрес'
-                        },{
-                            type: 'danger'
+
+                        vp.notification.notify({
+                            type: 'alert',
+                            status: 'danger',
+                            message: 'К сожалению, такой адрес организации занят. Пожалуйста, придумайте другой адрес',
+                            time: 3
                         });
+
                     }
                     isElementInvalid($this, "invalid");
                 }

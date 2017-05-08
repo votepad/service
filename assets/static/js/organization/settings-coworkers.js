@@ -45,7 +45,7 @@ $(document).ready(function(){
 
     function copy() {
         selectText('copyText');
-        notify("successCopy");
+        notify('Ссылка скопирована','success');
     }
 
     function selectText(containerid) {
@@ -93,18 +93,17 @@ $(document).ready(function(){
                  success: function(response) {
                      response = JSON.parse(response);
                      if (response.code == '47') {
-                         notify("successDelete");
+                         notify('Сотрудник успешно удалён','success');
                          coworker_block.remove();
                          document.getElementById('countCowerkers').innerHTML = parseInt(document.getElementById('countCowerkers').innerHTML) - 1;
                      } else {
-                         notify("errorDelete");
+                         notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
                          removeWhirl(coworker_block);
-                         return;
                      }
                  },
                  error: function(callback) {
                      console.log(callback);
-                     notify("errorDelete");
+                     notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
                      removeWhirl(coworker_block);
                  }
              };
@@ -135,18 +134,18 @@ $(document).ready(function(){
              success: function(response) {
                  response = JSON.parse(response);
                  if (response.code == '46') {
-                     notify("successAccept");
+                     notify('Заявка принята!','success');
                      event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
                      removeWhirl(coworker_block);
                  } else {
-                     notify("errorAccept");
+                     notify('Произошла ошибка, попробуйте снова','danger');
                      removeWhirl(coworker_block);
                      return;
                  }
              },
              error: function(callback) {
                  console.log(callback);
-                 notify("errorAccept");
+                 notify('Произошла ошибка, попробуйте снова','danger');
                  removeWhirl(coworker_block);
              }
          };
@@ -175,18 +174,18 @@ $(document).ready(function(){
             success: function(response) {
                 response = JSON.parse(response);
                 if (response.code == '48') {
-                    notify("successCansel");
+                    notify('Заявка отклонкна!','success');
                     event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка отклонена</div>';
                     removeWhirl(coworker_block);
                 } else {
-                    notify("errorCansel");
+                    notify('Произошла ошибка, попробуйте снова','danger');
                     removeWhirl(coworker_block);
                     return;
                 }
             },
             error: function(callback) {
                 console.log(callback);
-                notify("errorCansel");
+                notify('Произошла ошибка, попробуйте снова','danger');
                 removeWhirl(coworker_block);
             }
         };
@@ -213,41 +212,13 @@ $(document).ready(function(){
     /**
      * Notify Frontend Fields
      */
-    function notify(field) {
+    function notify(message, status) {
 
-        switch (field) {
-
-            case "successDelete":
-                message = 'Сотрудник успешно удалён!';
-                type = 'success'
-                break;
-            case "errorDelete":
-                message = 'Во время удаления возникла ошибка. Попробуйте ещё раз.';
-                type = 'danger'
-                break;
-            case "successAccept":
-                message = 'Заявка принята!';
-                type = 'success'
-                break;
-            case "successCansel":
-                message = 'Заявка отклонкна!';
-                type = 'success'
-                break;
-            case "successCopy":
-                message = 'Ссылка скопирована';
-                type = 'success'
-                break;
-
-            default:
-                message = 'Произошла ошибка. Попробуйте снова';
-                type = 'warning'
-        }
-
-        $.notify({
-            message: message
-        },
-        {
-            type: type
+        vp.notification.notify({
+            type: 'alert',
+            status: status,
+            message: message,
+            time: 3
         });
 
     }

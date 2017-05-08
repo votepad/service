@@ -44,7 +44,7 @@ function invite(event) {
 
 function copy() {
     selectText('copyText');
-    notify("successCopy");
+    notify('Ссылка скопирована','success');
 }
 
 function selectText(containerid) {
@@ -95,18 +95,18 @@ function removeCoworker(event) {
             success: function(response) {
                 response = JSON.parse(response);
                 if (response.code == '57') {
-                    notify("successDelete");
+                    notify('Помощник успешно удалён!','success');
                     assistant_block.remove();
                     document.getElementById('countAssistans').innerHTML = parseInt(document.getElementById('countAssistans').innerHTML) - 1;
                 } else {
-                    notify("errorDelete");
+                    notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
                     removeWhirl(assistant_block);
                     return;
                 }
             },
             error: function(callback) {
                 console.log(callback);
-                notify("errorDelete");
+                notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
                 removeWhirl(assistant_block);
             }
         };
@@ -137,19 +137,19 @@ function addAssistant(event) {
         success: function(response) {
             response = JSON.parse(response);
             if (response.code == '56') {
-                notify("successAccept");
+                notify('Заявка принята!','success');
                 event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
                 removeWhirl(assistant_block);
                 assistant_block.remove();
             } else {
-                notify("errorAccept");
+                notify('Произошла ошибка. Попробуйте снова','warning');
                 removeWhirl(assistant_block);
                 return;
             }
         },
         error: function(callback) {
             console.log(callback);
-            notify("errorAccept");
+            notify('Произошла ошибка. Попробуйте снова','warning');
             removeWhirl(assistant_block);
         }
     };
@@ -178,18 +178,18 @@ function rejectAssistant(event) {
         success: function(response) {
             response = JSON.parse(response);
             if (response.code == '58') {
-                notify("successCansel");
+                notify('Заявка отклонкна!','success');
                 event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка отклонена</div>';
                 removeWhirl(assistant_block);
             } else {
-                notify("errorCansel");
+                notify('Произошла ошибка. Попробуйте снова','warning');
                 removeWhirl(assistant_block);
                 return;
             }
         },
         error: function(callback) {
             console.log(callback);
-            notify("errorCansel");
+            notify('Произошла ошибка. Попробуйте снова','warning');
             removeWhirl(assistant_block);
         }
     };
@@ -216,36 +216,13 @@ function removeWhirl(block) {
 /**
  * Notify Frontend Fields
  */
-function notify(field) {
+function notify(message,status) {
 
-    switch (field) {
-
-        case "successDelete":
-            message = 'Помощник успешно удалён!';
-            type = 'success';
-            break;
-        case "errorDelete":
-            message = 'Во время удаления возникла ошибка. Попробуйте ещё раз.';
-            type = 'danger';
-            break;
-        case "successAccept":
-            message = 'Заявка принята!';
-            type = 'success';
-            break;
-        case "successCansel":
-            message = 'Заявка отклонкна!';
-            type = 'success';
-            break;
-        case "successCopy":
-            message = 'Ссылка скопирована';
-            type = 'success';
-            break;
-
-        default:
-            message = 'Произошла ошибка. Попробуйте снова';
-            type = 'warning';
-    }
-
-    $.notify({ message: message }, { type: type });
+    vp.notification.notify({
+        type: 'alert',
+        status: status,
+        message: message,
+        time: 3
+    });
 
 }

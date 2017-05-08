@@ -142,10 +142,12 @@ $(document).ready(function() {
         hot.validateCells(function(valid){
 
             if ( password_is_same() ){
-                $.notify({
-                    message: 'Пороли у предстовителей жюри должны быть разными!'
-                },{
-                    type: 'danger'
+
+                vp.notification.notify({
+                    type: 'alert',
+                    status: 'danger',
+                    message: 'Пороли у предстовителей жюри должны быть разными!',
+                    time: 3
                 });
 
             } else if ( valid == true) {
@@ -248,10 +250,11 @@ $(document).ready(function() {
                             // if true - success updating
                             // else    - some problems
                             if (response) {
-                                $.notify({
-                                    message: 'Инфомация о представителях жюри успешно обновлена.'
-                                },{
-                                    type: 'success'
+                                vp.notification.notify({
+                                    type: 'alert',
+                                    status: 'success',
+                                    message: 'Инфомация о представителях жюри успешно обновлена.',
+                                    time: 3
                                 });
 
                                 get_array = JSON.parse(response);
@@ -263,10 +266,11 @@ $(document).ready(function() {
                                 edit.className = "pull-right displayblock";
 
                             } else {
-                                $.notify({
-                                    message: 'Что-то пошло не так... Данные не сохранены.'
-                                },{
-                                    type: 'warning'
+                                vp.notification.notify({
+                                    type: 'alert',
+                                    status: 'warning',
+                                    message: 'Что-то пошло не так... Данные не сохранены.',
+                                    time: 3
                                 });
                                 hot.updateSettings({
                                     minSpareRows: 1,
@@ -288,10 +292,11 @@ $(document).ready(function() {
 
             } else {
 
-                $.notify({
-                    message: 'Пожалуйста, проверьте правильность введенных данных.'
-                },{
-                    type: 'danger'
+                vp.notification.notify({
+                    type: 'alert',
+                    status: 'danger',
+                    message: 'Пожалуйста, проверьте правильность введенных данных.',
+                    time: 3
                 });
 
             }
