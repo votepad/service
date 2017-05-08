@@ -161,6 +161,7 @@ class Controller_Auth_Organizer extends Auth {
         Cookie::delete('sid');
         Cookie::delete('id');
         Cookie::delete('secret');
+        Cookie::delete('a_mode');
     }
 
     /**
