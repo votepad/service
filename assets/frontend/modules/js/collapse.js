@@ -12,9 +12,9 @@ var collapse = (function(collapse) {
 
             for (var i = 0; i < nodes.length; i++) {
 
-                nodes[i].addEventListener('click', toggle, false);
+                nodes[i].addEventListener('click', collapse.toggle, false);
                 
-                if(nodes[i].dataset.opened == "true") {
+                if(nodes[i].dataset.opened === "true") {
                     openCollapse(nodes[i], document.getElementById(nodes[i].dataset.area));
                 }
 
@@ -24,11 +24,11 @@ var collapse = (function(collapse) {
     };
 
 
-    var toggle = function (event) {
+    collapse.toggle = function () {
         var btn = this,
             list = document.getElementById(btn.dataset.area);
 
-        if (btn.dataset.opened == "false") {
+        if (btn.dataset.opened === "false") {
             openCollapse(btn,list);
         } else {
             hideCollapse(btn,list);
