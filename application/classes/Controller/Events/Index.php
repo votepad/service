@@ -300,12 +300,15 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_landing()
     {
+        $parcipants = Methods_Participants::getByEvent($this->event->id);
+
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
-        $this->template->mainSection = View::factory('events/landing/pages/main_content')
+        $this->template->mainSection = View::factory('events/landing/pages/content')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('organization', $this->organization)
+            ->set('participants', $parcipants);
     }
 
     /**
