@@ -46,8 +46,8 @@
                             <div class="item__info-name">
                                 <a href="<?= URL::site( 'organization/' . $organization->id ); ?>"><?=$organization->name; ?></a>
                             </div>
-                            <div class="item__info-additional">
-                                <span><?=$organization->isOwner($profile->id) ? 'Основатель' : 'Сотрудник'; ?></span>
+                            <div class="item__info-additional" style="font-size: 1em">
+                                <span class="label label--brand"><?=$organization->isOwner($profile->id) ? 'Основатель' : 'Сотрудник'; ?></span>
                             </div>
                             <? if ($isProfileOwner && !$organization->isOwner($user->id)) : ?>
                                 <div class="item__info-controls clear_fix">
@@ -74,8 +74,12 @@
                             <div class="item__info-name">
                                 <a href="<?= URL::site('event/' . $event->id . '/settings'); ?>"><?= $event->name ?></a>
                             </div>
-                            <div class="item__info-additional">
-                                <span><?= $event->isCreator($profile->id) ? 'Основатель' : 'Помогает в проведении' ?></span>
+                            <div class="item__info-additional" style="font-size: 1em;">
+                                <span  class="label label--brand"><?= $event->isCreator($profile->id) ? 'Основатель' : 'Помогает в проведении' ?></span>
+                                <span class="label label--default event__time"><?=$event->dt_start; ?></span>
+                                <? if ($isProfileOwner) : ?>
+                                    <span class="label label--brand"><? echo $event->is_published ? 'опубликовано' : 'черновик'?></span>
+                                <? endif; ?>
                             </div>
                             <? if ($isProfileOwner && !$event->isCreator($user->id)) : ?>
                                 <div class="item__info-controls clear_fix">
@@ -90,3 +94,11 @@
 
     </div>
 </div>
+
+<script type="text/javascript" src="<?=$assets; ?>vendor/moment/moment.min.js"></script>
+<script type="text/javascript" src="<?=$assets; ?>vendor/moment/locale/ru.js"></script>
+<script>
+    $('.event__time').each(function () {
+        $(this).html(moment(new Date($(this).html())).format('ll'))
+    });
+</script>

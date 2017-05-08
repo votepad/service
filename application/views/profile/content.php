@@ -8,17 +8,16 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/profile.css?v=<?= filemtime("assets/static/css/profile.css") ?>">
 
     <div class="jumbotron block jumbotron_profile">
-        <div class="jumbotron_wrapper parallax-container">
+        <div class="jumbotron__wrapper parallax-container">
 
-            <div class="parallax jumbotron_cover">
+            <div class="parallax">
                 <img id="user-cover-uploaded" src="/uploads/profiles/branding/<?=$profile->branding; ?>">
             </div>
-
             <? if ($isLogged && $isProfileOwner) :?>
-            <div class="jumbotron_wrapper_edit">
-                <a id="user-cover-edit" role="button" class="jumbotron_wrapper_edit-btn js-user-jumbotron-cover">
-                        <i class="fa fa-camera jumbotron_wrapper_edit-icon" aria-hidden="true"></i>
-                    <span class="jumbotron_wrapper_edit-text">Обновить фото шапки</span>
+            <div class="jumbotron__edit-block">
+                <a id="user-cover-edit" role="button" class="jumbotron__edit-btn js-user-jumbotron-cover">
+                    <i class="fa fa-camera jumbotron__edit-icon" aria-hidden="true"></i>
+                    <span class="jumbotron__edit-text">Обновить фото шапки</span>
                 </a>
             </div>
             <? endif; ?>
@@ -51,7 +50,10 @@
     <? endif; ?>
     <script type="text/javascript">
         $( document ).ready(function() {
-            vp.tabs.init();
+            vp.tabs.init({
+                search: true,
+                counter: true
+            });
         });
     </script>
 

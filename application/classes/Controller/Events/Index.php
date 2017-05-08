@@ -60,9 +60,15 @@ class Controller_Events_Index extends Dispatch
             /**
              * Header
              */
+            $data = array(
+                'event'     => $this->event,
+                'action'    => $this->request->action(),
+                'section'=> $this->request->param('section')
+            );
+
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('events/blocks/header_menu',array('event' => $this->event)))
-                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',array('event' => $this->event)));
+                ->set('header_menu', View::factory('events/blocks/header_menu',$data))
+                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',$data));
 
         }
 
@@ -83,8 +89,6 @@ class Controller_Events_Index extends Dispatch
             ->set('event', $this->event)
             ->set('organization', $this->organization);
 
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation')
-            ->set('event', $this->event);
     }
 
 
@@ -97,9 +101,6 @@ class Controller_Events_Index extends Dispatch
         $this->template->mainSection = View::factory('events/settings/info')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation')
-            ->set('event', $this->event);
 
     }
 
@@ -129,9 +130,6 @@ class Controller_Events_Index extends Dispatch
             ->set('organization', $this->organization)
             ->set('requests', $requests)
             ->set('invite_link', $this->event->getInviteLink());
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/settings/jumbotron_navigation')
-            ->set('event', $this->event);
 
     }
 
@@ -174,9 +172,6 @@ class Controller_Events_Index extends Dispatch
         $this->template->mainSection = View::factory('events/scenario/criterias')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
-            ->set('event', $this->event);
     }
 
 
@@ -202,8 +197,6 @@ class Controller_Events_Index extends Dispatch
             ->set('members', $members)
             ->set('criterions', $criterions);
 
-        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
-            ->set('event', $this->event);
     }
 
 
@@ -223,8 +216,6 @@ class Controller_Events_Index extends Dispatch
             ->set('event', $this->event)
             ->set('organization', $this->organization);
 
-        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
-            ->set('event', $this->event);
     }
 
 
@@ -243,8 +234,6 @@ class Controller_Events_Index extends Dispatch
             ->set('event', $this->event)
             ->set('organization', $this->organization);
 
-        $this->template->mainSection->jumbotron_navigation = View::factory('/events/scenario/jumbotron_navigation')
-            ->set('event', $this->event);
     }
 
 
@@ -334,12 +323,15 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_landing()
     {
+        $parcipants = Methods_Participants::getByEvent($this->event->id);
+
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
-        $this->template->mainSection = View::factory('events/landing/pages/main_content')
+        $this->template->mainSection = View::factory('events/landing/pages/content')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('organization', $this->organization)
+            ->set('participants', $parcipants);
     }
 
     /**

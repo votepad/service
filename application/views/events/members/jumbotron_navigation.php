@@ -1,22 +1,21 @@
-<ul class="jumbotron_nav-list">
-    <li class="col-sm-4 jumbotron_nav-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('event/' . $event->id . '/members/judges'); ?>">
-            Члены жюри
-        </a>
-    </li>
-	<li class="col-sm-4 jumbotron_nav-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('event/' . $event->id . '/members/participants'); ?>">
-            Участники
-        </a>
-    </li>
-    <li class="col-sm-4 jumbotron_nav-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('event/' . $event->id . '/members/teams'); ?>">
-            Команды
-        </a>
-    </li>
-    <!--<li class="col-sm-3 jumbotron_nav-item">
-        <a class="jumbotron_nav-btn" href="<?=URL::site('event/' . $event->id . '/members/groups'); ?>">
-            Группы
-        </a>
-    </li>-->
-</ul>
+<?
+    $active = Request::$current->action();
+
+    $btns = array(
+        'judges' => array(
+            'uri' => URL::site('event/' . $id . '/members/judges'),
+            'name' => "Члены жюри"
+        ),
+        'participants' => array(
+            'uri' => URL::site('event/' . $id . '/members/participants'),
+            'name' => "Участники"
+        ),
+        'teams' => array(
+            'uri' => URL::site('event/' . $id . '/members/teams'),
+            'name' => "Команды"
+        ),
+    );
+
+    echo View::factory('events/blocks/jumbotron_nav', array('active' => $active, 'btns' => $btns));
+
+?>

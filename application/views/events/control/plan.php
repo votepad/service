@@ -11,7 +11,7 @@
         <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>
 
         <!-- Jumbotron Navigation -->
-        <div class="jumbotron_nav">
+        <div class="jumbotron__nav">
             <?=View::factory('events/control/jumbotron_navigation', array('id' => $event->id)); ?>
         </div>
 

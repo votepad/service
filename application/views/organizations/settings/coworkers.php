@@ -12,8 +12,8 @@
         <?=View::factory('organizations/blocks/jumbotron_wrapper', array('organization' => $organization)); ?>
 
         <!-- Jumbotron Navigation -->
-        <div class="jumbotron_nav">
-            <?=$jumbotron_navigation; ?>
+        <div class="jumbotron__nav">
+            <?=View::factory('organizations/settings/jumbotron_navigation', array('id' => $organization->id)); ?>
         </div>
 
     </div>
@@ -113,7 +113,10 @@
 
     <script type="text/javascript">
         $( document ).ready(function() {
-            vp.tabs.init();
+            vp.tabs.init({
+                search: false,
+                counter: true
+            });
         });
     </script>
 

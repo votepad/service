@@ -18,4 +18,26 @@ class Methods_Organizations extends Model_Organization {
 
     }
 
+    public static function getAllEvents($id_organization) {
+
+        $select = Dao_Events::select('id')
+            ->where('organization', '=', $id_organization)
+            ->execute();
+
+        $events = array();
+
+        if ( $select ) {
+
+            foreach ($select as $eventId) {
+
+                $events[] = new Model_Event($eventId['id']);
+
+            }
+
+        }
+
+        return $events;
+
+    }
+
 }

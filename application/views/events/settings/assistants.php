@@ -11,8 +11,8 @@
         <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>
 
         <!-- Jumbotron Navigation -->
-        <div class="jumbotron_nav">
-            <?=$jumbotron_navigation; ?>
+        <div class="jumbotron__nav">
+            <?=View::factory('events/settings/jumbotron_navigation', array('id' => $event->id));; ?>
         </div>
 
     </div>
@@ -118,6 +118,9 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/settings-assistants.js"></script>
     <script>
-        vp.tabs.init();
+        vp.tabs.init({
+            search: false,
+            counter: true
+        });
     </script>
 </div>

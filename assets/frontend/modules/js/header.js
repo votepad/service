@@ -7,14 +7,7 @@ var header = (function(header) {
         headerMenuRight = null,
         headerMenuItems = [],
         headerMobile    = null,
-        headerLinks     = null,
-        mobileLinks     = null,
-        mobileCollapseLinks = null,
-
-        address = window.location.pathname.split('/'),
-        address3 = '/' + address[1] + '/' + address[2] + '/' + address[3],
-        address4 = address3 + '/' + address[4],
-        btnHref, i, item,
+        i, item,
         headerMenuRightWidth = null;
 
     var backdrop = document.createElement('div');
@@ -28,9 +21,6 @@ var header = (function(header) {
         headerMenu = document.getElementsByClassName('header__menu')[0];
         headerMenuRight = document.getElementsByClassName('header__menu')[1];
         headerMobile = document.getElementsByClassName('mobile-aside')[0];
-        headerLinks = document.getElementsByClassName('header__button');
-        mobileLinks = document.getElementsByClassName('mobile-aside__menu-link');
-        mobileCollapseLinks = document.getElementsByClassName('mobile-aside__collapse-link');
 
         headerMenuRightWidth = headerMenuRight.clientWidth + 1;
         headerMenuRight.style.width = headerMenuRight.clientWidth + 1 + "px";
@@ -45,7 +35,6 @@ var header = (function(header) {
         headerMenuIcon.addEventListener('click', openMobileMenu, false);
         backdrop.addEventListener('click', closeMobileMenu, false);
 
-        setActiveClassOnMenuItems();
         createHeaderMenuItems();
         calculateHeaderMenuWidth();
         changeHeaderMenuItems();
@@ -55,50 +44,6 @@ var header = (function(header) {
             calculateHeaderMenuWidth();
             changeHeaderMenuItems();
         };
-    };
-
-
-
-    /**
-     * setActiveClassOnMenuItems - set Active class for btns
-     */
-    var setActiveClassOnMenuItems = function () {
-
-        for (i = 0; i < headerLinks.length; i++) {
-            if (headerLinks[i].href) {
-                btnHref = headerLinks[i].getAttribute('href').split('/');
-                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3]);
-
-                if ( btnHref.test(address3) ) {
-                    headerLinks[i].classList.add('header__button--active');
-                }
-            }
-        }
-
-        for (i = 0; i < mobileLinks.length; i++) {
-            if (mobileLinks[i].href) {
-                btnHref = mobileLinks[i].getAttribute('href').split('/');
-                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
-
-                if (btnHref.test(address4)) {
-                    mobileLinks[i].parentNode.classList.add('mobile-aside__menu__item--active');
-                    mobileLinks[i].classList.add('mobile-aside__menu-link--active');
-                }
-            }
-        }
-
-        for (i = 0; i < mobileCollapseLinks.length; i++) {
-            if (mobileCollapseLinks[i].href) {
-                btnHref = mobileCollapseLinks[i].getAttribute('href').split('/');
-                btnHref = new RegExp(btnHref[1] + '/' + btnHref[2] + '/' + btnHref[3] + '/' + btnHref[4]);
-                
-                if (btnHref.test(address4)) {
-                    mobileCollapseLinks[i].parentNode.parentNode.parentNode.classList.add('mobile-aside__menu__item--active');
-                    mobileCollapseLinks[i].classList.add('mobile-aside__collapse-link--active');
-                }
-            }
-        }
-
     };
 
 
