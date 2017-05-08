@@ -127,7 +127,6 @@ class Controller_Auth_Organizer extends Auth {
         $id    = Cookie::get('id');
         $sid    = Cookie::get('sid');
         $secret = Cookie::get('secret');
-        $secret = Cookie::get('a_mode');
 
         $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
 
