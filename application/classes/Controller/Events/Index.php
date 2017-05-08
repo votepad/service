@@ -60,9 +60,15 @@ class Controller_Events_Index extends Dispatch
             /**
              * Header
              */
+            $data = array(
+                'event'     => $this->event,
+                'action'    => $this->request->action(),
+                'section'=> $this->request->param('section')
+            );
+
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('events/blocks/header_menu',array('event' => $this->event)))
-                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',array('event' => $this->event)));
+                ->set('header_menu', View::factory('events/blocks/header_menu',$data))
+                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',$data));
 
         }
 
