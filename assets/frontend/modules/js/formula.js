@@ -322,7 +322,6 @@ var formula = function(formula) {
         for (i = 0; i < formulaNodes.list.childElementCount; i++) {
             out = {
                 "id": formulaNodes.list.children[i].dataset.id,
-                "name":formulaNodes.list.children[i].children[3].innerHTML,
                 "coeff":formulaNodes.list.children[i].children[1].value
 
             };
