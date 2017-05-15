@@ -34,15 +34,15 @@ $(document).ready(function () {
     /**
      * EventNumver inputmask
      */
-    $("#auth_eventnumber").inputmask({
-        mask: "9 9 9   9 9 9",
-        onincomplete: function(){
-            $("#auth_eventnumber").addClass('invalid');
-        },
-        oncomplete: function() {
-            $("#auth_eventnumber").removeClass('invalid');
-        }
-    });
+    // $("#auth_eventnumber").inputmask({
+    //     mask: "9 9 9   9 9 9",
+    //     onincomplete: function(){
+    //         $("#auth_eventnumber").addClass('invalid');
+    //     },
+    //     oncomplete: function() {
+    //         $("#auth_eventnumber").removeClass('invalid');
+    //     }
+    // });
 
 
     /**
@@ -377,7 +377,7 @@ $(document).ready(function () {
     * Notify Frontend Fields
     */
     function notify(message, status) {
-        
+
         vp.notification.notify({
             type: 'alert',
             status: status,

@@ -2,19 +2,19 @@
     <?=$event->name; ?>
 </a>
 
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/settings'); ?>">
+<a class="header__button header__button--hover <?= ($action == 'settings' || $section == 'settings') ? 'header__button--active' : ''; ?>" href="<?=URL::site('event/' . $event->id . '/settings'); ?>">
     Настройки
 </a>
 
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/control'); ?>">
+<a class="header__button header__button--hover <?= ($action == 'scores' || $section == 'control') ? 'header__button--active' : ''; ?>" href="<?=URL::site('event/' . $event->id . '/control/scores'); ?>">
     Управление
 </a>
 
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/scenario/criterias'); ?>">
+<a class="header__button header__button--hover <?= ($action == 'criterias' || $section == 'scenario') ? 'header__button--active' : ''; ?>" href="<?=URL::site('event/' . $event->id . '/scenario/criterias'); ?>">
     Сценарий
 </a>
 
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id . '/members/judges'); ?>">
+<a class="header__button header__button--hover <?= ($action == 'judges' || $section == 'members') ? 'header__button--active' : ''; ?>" href="<?=URL::site('event/' . $event->id . '/members/judges'); ?>">
     Действующие лица
 </a>
 

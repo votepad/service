@@ -60,9 +60,15 @@ class Controller_Events_Index extends Dispatch
             /**
              * Header
              */
+            $data = array(
+                'event'     => $this->event,
+                'action'    => $this->request->action(),
+                'section'=> $this->request->param('section')
+            );
+
             $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('events/blocks/header_menu',array('event' => $this->event)))
-                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',array('event' => $this->event)));
+                ->set('header_menu', View::factory('events/blocks/header_menu',$data))
+                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',$data));
 
         }
 
@@ -130,13 +136,30 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * CONTROL submodule
-     * action_control - administrate event
+     * action_scores - show all scores and edit them
      */
-    public function action_control()
+    public function action_scores()
     {
-        $this->template->jumbotron_navigation = "";
+        $this->event->contests = $this->getContests($this->event->id);
 
-        $this->template->mainSection = View::factory('events/control/main');
+        $this->template->mainSection = View::factory('events/control/scores')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+
+    }
+
+    /**
+     * CONTROL submodule
+     * action_plan - block/unblock member, stage or contest
+     */
+    public function action_plan()
+    {
+        $this->event->contests = $this->getContests($this->event->id);
+
+        $this->template->mainSection = View::factory('events/control/plan')
+            ->set('event', $this->event)
+            ->set('organization', $this->organization);
+
     }
 
 
@@ -300,12 +323,15 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_landing()
     {
+        $parcipants = Methods_Participants::getByEvent($this->event->id);
+
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
-        $this->template->mainSection = View::factory('events/landing/pages/main_content')
+        $this->template->mainSection = View::factory('events/landing/pages/content')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('organization', $this->organization)
+            ->set('participants', $parcipants);
     }
 
     /**
@@ -319,24 +345,31 @@ class Controller_Events_Index extends Dispatch
             ->set('event', $this->event);
 
 
-        $contests = Methods_Contests::getByEvent($this->event->id);
-
-        foreach ($contests as $key => $contest) {
-            $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
-
-            foreach ($contest->stages as $key2 => $stage) {
-                $contests[$key]->stages[$key2]->member = Methods_Stages::getMembers($stage->id, $stage->mode);
-            }
-
-        }
-
-        $this->event->contests = $contests;
+        $this->event->contests = $this->getContests($this->event->id);
 
 
         $this->template->mainSection = View::factory('events/landing/pages/results')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
+
     }
 
 
+
+    private function getContests($id)
+    {
+        $contests = Methods_Contests::getByEvent($id);
+
+        foreach ($contests as $key => $contest) {
+            $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
+
+            foreach ($contest->stages as $key2 => $stage) {
+                $contests[$key]->stages[$key2]->members = Methods_Stages::getMembers($stage->id, $stage->mode);
+                $contests[$key]->stages[$key2]->criterions = Methods_Stages::getCriterions($stage->formula);
+            }
+
+        }
+
+        return $contests;
+    }
 }

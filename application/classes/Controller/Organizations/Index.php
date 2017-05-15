@@ -57,10 +57,13 @@ class Controller_Organizations_Index extends Dispatch
         $this->template->description = $this->organization->description;
 
         /** Header */
-
+        $data = array(
+            'organization'  => $this->organization,
+            'action'        => $this->request->action()
+        );
         $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', array('organization' => $this->organization)))
-            ->set('header_menu', View::factory('organizations/blocks/header_menu', array('organization' => $this->organization)));
+            ->set('header_menu_mobile', View::factory('organizations/blocks/header_menu_mobile', $data))
+            ->set('header_menu', View::factory('organizations/blocks/header_menu', $data));
 
     }
 

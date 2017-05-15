@@ -143,7 +143,7 @@ class Methods_Contests extends Model_Contest
 
     }
 
-    public static function getByJudge($judge) {
+    public static function getByJudge($judge, $getOnlyIds = false) {
 
         $selection = Dao_ContestsJudges::select('c_id')
             ->where('j_id', '=', $judge)
@@ -154,6 +154,10 @@ class Methods_Contests extends Model_Contest
         }
 
         $selection = array_keys($selection);
+
+        if ($getOnlyIds) {
+            return $selection;
+        }
 
         $contests = array();
 

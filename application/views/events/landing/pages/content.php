@@ -13,8 +13,6 @@
     </div>
 
 
-
-
     <div class="event-info clear_fix">
         <div class="col-xs-12 col-md-4 event-info__block event-info__block--border">
 
@@ -50,11 +48,12 @@
         </h1>
         <ul id="stage_1" class="col-xs-12">
 
+            <? foreach ($participants as $participant) : ?>
             <li class="member col-xs-12 col-md-4 col-lg-3">
                 <div class="member__area">
-                    <span class="member__name">name</span>
+                    <span class="member__name"><?=$participant->name; ?></span>
                     <div class="member__logo">
-                        <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
+                        <img src="/uploads/profiles/avatar/<?=$participant->photo ?: 'no-avatar.png'; ?>" alt="" class="member__img">
                         <div class="member__position">2</div>
                     </div>
                     <div class="member__rating-area">
@@ -64,49 +63,8 @@
                     </div>
                 </div>
             </li>
-            <li class="member col-xs-12 col-md-4 col-lg-3">
-                <div class="member__area">
-                    <span class="member__name">name</span>
-                    <div class="member__logo">
-                        <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                        <div class="member__position">2</div>
-                    </div>
-                    <div class="member__rating-area">
-                        <div data-pk="2" class="member__rating-bar" style="width:50%">
-                            <span class="member__bar">10/20</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="member col-xs-12 col-md-4 col-lg-3">
-                <div class="member__area">
-                    <span class="member__name">name</span>
-                    <div class="member__logo">
-                        <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                        <div class="member__position">2</div>
-                    </div>
-                    <div class="member__rating-area">
-                        <div data-pk="2" class="member__rating-bar" style="width:50%">
-                            <span class="member__bar">10/20</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
-            <li class="member col-xs-12 col-md-4 col-lg-3">
-                <div class="member__area">
-                    <span class="member__name"> namenamenamenamenamenamename</span>
-                    <div class="member__logo">
-                        <img src="/uploads/profiles/avatar/no-avatar.png" alt="" class="member__img">
-                        <div class="member__position">2</div>
-                    </div>
-                    <div class="member__rating-area">
-                        <div data-pk="2" class="member__rating-bar" style="width:100%">
-                            <span class="member__bar">10/20</span>
-                        </div>
-                    </div>
-                </div>
-            </li>
-
+            <? endforeach; ?>
+            
         </ul>
 
         <div class="m-t-50 col-xs-12 text-center">
