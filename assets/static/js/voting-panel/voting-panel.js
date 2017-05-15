@@ -1,188 +1,399 @@
-//Преобразование touch-нажатий в схожие с нажатием мышки событиями
+let voting = function (voting) {
 
-var touchSupported = function(e) {
-
-    if (e.changedTouches)
-        var touch = e.changedTouches[0];
-    else
-        return e;
-
-    e.pageX = touch.pageX;
-    e.pageY = touch.pageY;
-
-    e.clientX = touch.clientX;
-    e.clientY = touch.clientY;
-
-    e.screenX = touch.screenX;
-    e.screenY = touch.screenY;
-
-    e.target = touch.target;
-
-    return e;
-};
-
-var stages_holder = function () {
-
-    var stages           = document.getElementsByClassName('stages').item(0),
-        startX           = null,
-        moveX            = null,
-        widthCurrentElem = null,
-        sliderElem       = null,
-        checkDownMouse   = false,
-        numberOfBlock    = null,
-        eventor          = new Event("mouseup", {bubbles: true, cancelable: false});
+    let headerMenuBtn       = null,
+        headerBrand         = null,
+        asideMenu           = null,
+        stages              = null,
+        curHash             = null,
+        members             = null,
+        membersCriterions   = null,
+        collapseMemberBtn   = null,
+        scores              = null,
+        modalInfoHeading    = null,
+        modalInfoContent    = null,
+        modalOpenBtn        = null;
 
 
-    var handlers = {
-
-        //При нажатии на кнопку, мы должны запомнить начальное положение блоков, а также проинициалировать переменную для скролла
-        //Так же мы должны просчитать размер единичного блока
-
-        mouseDown: function (event) {
-
-            var currentElem = event.target.closest('.criterion-block');
-
-            if (event.which > 1 || !currentElem) {
-                return;
-            }
-
-            sliderElem = currentElem;
-
-            widthCurrentElem = currentElem.getBoundingClientRect().width;
-
-            event = touchSupported(event);
-
-            startX = moveX = event.clientX;
-
-            checkDownMouse = true;
-        },
-
-        mouseMove: function (event) {
-
-            var currentElem = event.target.closest('.criterions');
-
-            if (event.which > 1 || !checkDownMouse || !currentElem) {
-                return;
-            }
-
-            sliderElem = currentElem;
-
-            event.preventDefault();
-
-            event = touchSupported(event);
-
-            var finX = event.clientX;
-
-            currentElem.scrollLeft -= (finX - moveX);
-
-            moveX = finX;
-
-        },
-
-        mouseUp: function (event) {
-
-            var currentElem = event.target.closest('.criterions');
-
-            if (event.which > 1 || !currentElem) {
-                return;
-            }
-
-            sliderElem = currentElem;
-
-            event = touchSupported(event);
-
-            var finX              = event.clientX,
-                flag              = true,
-                startAnimate      = currentElem.scrollLeft,
-                endAnimate        = (widthCurrentElem + 10) * numberOfBlock - startAnimate,
-                widthFingerScroll = widthCurrentElem / 10;
-
-            if (!finX) {
-                flag = !flag;
-                startX = document.documentElement.clientWidth / 20;
-                finX = document.documentElement.clientWidth / 10;
-            }
+    let backdrop      = document.createElement('div');
+        backdrop.className = "modal-backdrop in";
 
 
-            if (finX - startX > widthFingerScroll){
 
-                numberOfBlock = Math.floor((startAnimate - finX + startX) / widthCurrentElem);
+    /**
+     * Prepare Header And Mobile Menu
+     * @private
+     */
+    let prepareHeader_ = function() {
+        headerMenuBtn = document.getElementById('openMobileMenu');
+        headerBrand   = document.getElementsByClassName('header__brand')[0];
+        asideMenu     = document.getElementsByClassName('mobile-aside')[0];
 
-                endAnimate = (widthCurrentElem + 10) * numberOfBlock - startAnimate;
-            }
-            else{
+        headerMenuBtn.addEventListener('click', toggleMobileMenu_, false);
+        backdrop.addEventListener('click', toggleMobileMenu_, false);
+    };
 
-                //Обработка нового положения, если скролл идет вправо
 
-                if ( finX - startX < (-1)*widthFingerScroll){
+    /**
+     * Prepare Members Block
+     * - count Total Score
+     * @private
+     */
+    let prepareMembers_ = function () {
 
-                    numberOfBlock = Math.ceil((startAnimate - finX + startX) / widthCurrentElem);
+        members = document.getElementsByClassName('member');
+        
+        membersCriterions = document.getElementsByClassName('member__criterions--collapse');
 
-                    endAnimate = (widthCurrentElem + 10) * numberOfBlock - startAnimate;
+        collapseMemberBtn = document.getElementsByClassName('criterion__hide-btn');
+        
+        window.addEventListener('resize', updateCriterionsBlockHeight_);
+
+        let curScore      = null,
+            curInputScore = null;
+
+        for (let i = 0; i < members.length; i++) {
+            let curScore      = members[i].getElementsByClassName('member__total-score')[0],
+                curInputScore = members[i].getElementsByClassName('score__input');
+
+            collapseMemberBtn[i].addEventListener('click', closeMemberCollapse_);
+
+            for (let j = 0; j < curInputScore.length; j++) {
+                if ( curInputScore[j].hasAttribute('checked') ) {
+                    updateTotalScore_(curScore, "+" , curInputScore[j].value);
                 }
+
             }
 
-            if ( startAnimate != 0 && startAnimate < (currentElem.childElementCount - 1)  * (widthCurrentElem + 10) - 10 ) {
-                if (flag){
-                   animate(functionForAnimate, currentElem, startAnimate, endAnimate);
-                } else {
-                   currentElem.scrollLeft = startAnimate + endAnimate;
-                }
-            }
-            checkDownMouse = false;
-        },
+        }
 
-        replaceBlockPosition: function () {
+    };
 
+    /**
+     * Prepare Scores Buttons
+     * @private
+     */
+    let prepareScores_ = function() {
+        scores = document.getElementsByClassName('score');
 
-            sliderElem = document.getElementsByClassName('criterion-block');
-            widthCurrentElem = sliderElem[0].getBoundingClientRect().width;
-
-            sliderElem[0].dispatchEvent(eventor);
+        for (let i = 0; i < scores.length; i++) {
+            scores[i].addEventListener('click', setScore_)
         }
     };
 
-    stages.addEventListener('touchstart', handlers.mouseDown, false);
-    stages.addEventListener('mousedown', handlers.mouseDown, false);
 
-    stages.addEventListener('touchmove', handlers.mouseMove, false);
-    stages.addEventListener('mousemove', handlers.mouseMove, false);
+    /**
+     * Prepare Modal
+     * - working with jQuery
+     * @private
+     */
+    let prepareModal_ = function () {
+        modalInfoHeading = document.getElementById('modalInfoHeading');
+        modalInfoContent = document.getElementById('modalInfoContent');
+        modalOpenBtn     = document.getElementsByClassName('openModalInfo');
 
-    stages.addEventListener('touchend', handlers.mouseUp, false);
-    stages.addEventListener('mouseup', handlers.mouseUp, false);
-
-    window.addEventListener('resize', handlers.replaceBlockPosition, false);
-};
-
-
-var animate = function (options, elem, startan, end) {
-
-    var start = performance.now();
-
-    requestAnimationFrame(function animate(time) {
-        // timeFraction от 0 до 1
-        var timeFraction = (time - start) / options.duration;
-        if (timeFraction > 1) timeFraction = 1;
-
-        // текущее состояние анимации
-        var progress = options.timing(timeFraction);
-
-        options.draw(progress, elem, startan, end);
-
-        if (timeFraction < 1) {
-            requestAnimationFrame(animate);
+        for (let i = 0; i < modalOpenBtn.length; i++) {
+            modalOpenBtn[i].addEventListener('click', openModal_)
         }
 
-    });
-};
+    };
 
-var functionForAnimate = {
-    duration: 200,
-    timing: function(timeFraction) {
-        return timeFraction;
-    },
 
-    draw: function(progress, elem, start, end) {
-        elem.scrollLeft = start + progress * end;
-    }
-};
+    /**
+     * Prepare Stages
+     * @private
+     */
+
+    let prepareStages_ = function () {
+
+        stages = document.getElementsByClassName('stage');
+        
+        curHash = window.location.hash;
+
+        let isOpened = false;
+
+        for (let i = 0; i < stages.length; i++) {
+            if (stages[i].dataset.hash === curHash) {
+                isOpened = true;
+                stages[i].classList.add('fadeInRight');
+            } else {
+                stages[i].classList.add('fadeOutLeft','hide');
+            }
+        }
+
+        if (!isOpened) {
+            stages[0].classList.remove('fadeOutLeft','hide');
+            stages[0].classList.add('fadeInRight');
+        }
+
+        let nextStageLinkBtn = document.getElementsByClassName('nextStageLinkBtn');
+        for(let i = 0; i < nextStageLinkBtn.length; i++) {
+            nextStageLinkBtn[i].addEventListener('click', nextStageOnClick_);
+        }
+
+        window.addEventListener('hashchange', toggleStage_);
+
+    };
+
+
+
+    /**
+     * Toggle Mobile Menu - open / close on click
+     * @private
+     */
+    let toggleMobileMenu_ = function() {
+        if ( ! headerMenuBtn.parentNode.classList.contains('header__menu-icon--open')) {
+            document.body.appendChild(backdrop);
+        } else {
+            document.body.classList.remove('modal-open');
+            document.getElementsByClassName('modal-backdrop')[0].remove()
+        }
+
+        headerMenuBtn.parentNode.classList.toggle('header__menu-icon--open');
+        headerBrand.classList.toggle('header__brand--active');
+        asideMenu.classList.toggle('mobile-aside--open');
+    };
+
+
+    /**
+     * Update Total Score for Member
+     * @param el - html Element
+     * @param operand - "+" / "-" 
+     * @param score
+     * @private
+     */
+    let updateTotalScore_ = function (el, operand, score) {
+        switch (operand) {
+            case "+":
+                el.innerHTML = parseInt(el.innerHTML) + parseInt(score);
+                break;
+            case "-":
+                el.innerHTML = parseInt(el.innerHTML) - parseInt(score);
+                break;
+        }
+    };
+
+
+    /**
+     * Set Score On Click
+     * @private
+     */
+    let setScore_ = function () {
+        let totalScore = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('member__total-score')[0],
+            tmpScoreEl = null,
+            tmpScore   = null;
+
+        if ( ! this.classList.contains('score--active') ) {
+
+            tmpScoreEl = this.parentNode.getElementsByClassName('score--active')[0];
+            tmpScore = tmpScoreEl ? tmpScoreEl.children[1].value : 0;
+
+            updateTotalScore_(totalScore, "-" , tmpScore);
+            tmpScoreEl ? tmpScoreEl.classList.remove('score--active') : '';
+
+            updateTotalScore_(totalScore, "+" , $('.score__input', this).val());
+            this.classList.add('score--active');
+        }
+
+    };
+
+
+    /**
+     * Update Criterions Block Height on window resize
+     * @private
+     */
+    let updateCriterionsBlockHeight_ = function () {
+
+        for (let i = 0; i < membersCriterions.length; i++) {
+
+            if ( membersCriterions[i].dataset.height !== undefined) {
+                if ( membersCriterions[i].style.height === "0px" ) {
+                    membersCriterions[i].removeAttribute('data-height');
+                } else {
+                    membersCriterions[i].dataset.height = membersCriterions[i].children[0].clientHeight;
+                    membersCriterions[i].style.height = membersCriterions[i].children[0].clientHeight + "px";
+                    console.log();
+                }
+            }
+        }
+
+    };
+
+
+
+    /**
+     * Next Stage
+     * - checking validation of Active Stage
+     * @private
+     */
+    let nextStageOnClick_ = function (e) {
+
+        members = this.parentNode.parentNode.getElementsByClassName('member');
+
+        let isStageValid = true;
+
+        for (let i = 0; i < members.length; i++) {
+            isStageValid ? isStageValid = isCriterionsValid_(members[i]) : isCriterionsValid_(members[i]);
+        }
+
+        if (!isStageValid) {
+            e.preventDefault()
+        }
+
+    };
+
+    let toggleStage_ = function (event) {
+
+        let oldHash      = event.oldURL.split('#')[1],
+            newHash      = event.newURL.split('#')[1],
+            oldHashInd   = null,
+            newHashInd   = null,
+            members      = null,
+            isStageValid = true;
+
+        for (let i = 0; i < stages.length; i++) {
+
+            if (stages[i].dataset.hash === "#" + oldHash)
+                oldHashInd = i;
+
+            if (stages[i].dataset.hash === "#" + newHash)
+                newHashInd = i;
+
+        }
+
+        if (oldHash === undefined || oldHash === '') {
+            oldHashInd = 0;
+            oldHash = '';
+        }
+        if (newHash === undefined || newHash === '') {
+            newHashInd = 0;
+            newHash = '';
+        }
+
+        if (curHash === oldHash || curHash === "#"+oldHash) {
+
+            members = stages[oldHashInd].getElementsByClassName('member');
+
+            for (let i = 0; i < members.length; i++) {
+                isStageValid ? isStageValid = isCriterionsValid_(members[i]) : isCriterionsValid_(members[i]);
+            }
+
+            if (!isStageValid) {
+                window.location.hash = oldHash === undefined ? '' : "#" + oldHash;
+                event.preventDefault();
+            } else {
+                curHash = newHash;
+
+                stages[oldHashInd].classList.remove('fadeInLeft', 'fadeInRight');
+                stages[newHashInd].classList.remove('fadeOutLeft', 'fadeOutRight', 'hide');
+                setTimeout(function () {
+                    stages[oldHashInd].classList.add('hide');
+                }, 400);
+
+                if (oldHashInd < newHashInd) {
+                    // move right
+                    stages[oldHashInd].classList.add('fadeOutLeft');
+                    stages[newHashInd].classList.add('fadeInRight');
+                } else {
+                    // move left
+                    stages[oldHashInd].classList.add('fadeOutRight');
+                    stages[newHashInd].classList.add('fadeInLeft');
+                }
+            }
+        }
+    };
+
+
+    /**
+     * Close Member Collapse
+     * @private
+     */
+    let closeMemberCollapse_ = function () {
+        let member = this.parentNode.parentNode.parentNode.parentNode;
+
+        if ( isCriterionsValid_(member) )
+            member.getElementsByClassName('member__header')[0].click()
+
+    };
+
+
+    /**
+     * Checking Criterions By Member
+     * @param member - html Element
+     * @returns {boolean}
+     * @private
+     */
+    let isCriterionsValid_ = function (member) {
+        let isMemberValid = true,
+            memberName    = member.getElementsByClassName('member__name')[0],
+            memberScores  = member.getElementsByClassName('criterion__scores');
+
+
+        for (let i = 0; i < memberScores.length; i++) {
+
+            if ( memberScores[i].querySelector('.score__input:checked') === null ) {
+                isMemberValid = false;
+                memberScores[i].classList.add('criterion__scores--invalid');
+            } else {
+                memberScores[i].classList.remove('criterion__scores--invalid');
+            }
+
+        }
+
+        isMemberValid ? memberName.classList.remove('member__name--invalid') : memberName.classList.add('member__name--invalid');
+
+        return isMemberValid;
+
+    };
+
+
+    /**
+     * Working with modal
+     * - show full description of contest || stage || criterion
+     * @private
+     */
+    let openModal_ = function () {
+        let type    = this.dataset.type,
+            text    = this.innerHTML,
+            heading = null,
+            content = null;
+
+        switch(type) {
+            case "contest" :
+                heading = "Описание конкурса: " + this.parentNode.getElementsByClassName('content__header')[0].innerHTML.toLowerCase();
+                content = text;
+                break;
+            case "stage" :
+                heading = "Описание этапа: " + this.parentNode.getElementsByClassName('stage__header')[0].innerHTML.toLowerCase();
+                content = text;
+                break;
+            case "criterion":
+                heading = "Описание критерия";
+                content = text;
+                break;
+        }
+
+        modalInfoHeading.innerHTML = heading;
+        modalInfoContent.innerHTML = content;
+
+        $("#modalInfoBlock").modal();
+
+    };
+
+
+    
+    voting.init = function () {
+        prepareHeader_();
+        prepareMembers_();
+        prepareScores_();
+        prepareModal_();
+        prepareStages_();
+
+        // remove Loader
+        setTimeout(function () {
+            document.getElementsByClassName('loader')[0].remove();
+        }, 1000)
+    };
+    
+    return voting;
+    
+}({});

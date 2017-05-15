@@ -352,6 +352,7 @@ a, a:hover, a:focus{
 
     .block_default > .block_heading{
         color: #413a41;
+		border-color: #d7d8db;
     }
 
     .block_default .block_footer {
