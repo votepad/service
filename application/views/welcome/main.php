@@ -22,7 +22,6 @@
 
     <!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/icons_fonts.css">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css">
@@ -30,7 +29,6 @@
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/welcome.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
 
