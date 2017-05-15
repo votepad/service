@@ -186,6 +186,9 @@ small{
 .text-brand{
 	color: #008DA7;
 }
+.text--default{
+	color: #413a41;
+}
 .page-header{
 	padding-bottom: 10px;
 	margin: 20px 0;

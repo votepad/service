@@ -198,27 +198,28 @@ $(document).ready(function() {
             id = card.getAttribute('id'),
             part = $.trim(document.getElementById('participants_' + id).innerHTML);
 
-        swal({
-            customClass: "delete-block",
-            animation: false,
-            title: 'Вы уверены, что хотите удалить команду?',
-            text: "Удалив команду, Вы не сможете её восстановить!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Да, удалить команду',
-            cancelButtonText: 'Нет, отмена',
-            confirmButtonClass: 'btn btn_primary',
-            cancelButtonClass: 'btn btn_default',
-            buttonsStyling: false
-        }).then(function () {
 
-            $.ajax({
-                url : protocol + '//' + hostname + '/teams/delete/' + dataPk,
-                data : {},
-                success : function(callback) {
+        vp.notification.notify({
+            type: 'confirm',
+            size: "large",
+            showCancelButton: true,
+            confirmText: "Да, удалить команду",
+            cancelText: "Нет, отмена",
+            message: '<h3 class="text--default">Вы уверены, что хотите удалить команду?</h3>' +
+            '<p>Удалив команду, Вы не сможете её восстановить!</p>',
+            onConfirm: removeTeam
+        });
+
+
+        function removeTeam() {
+
+            var ajaxData = {
+                url: protocol + '//' + hostname + '/teams/delete/' + dataPk,
+                data: {},
+                success: function (callback) {
 
                     $("#newteam_participants").select2("destroy");
-                    $("#newteam_participants").html(part.replace(new RegExp('selected','g'),'') + parts_not_distributed);
+                    $("#newteam_participants").html(part.replace(new RegExp('selected', 'g'), '') + parts_not_distributed);
                     $("#newteam_participants").select2({
                         language: 'ru',
                         templateResult: render_image_for_select2
@@ -226,36 +227,28 @@ $(document).ready(function() {
 
                     teamPk.remove();
 
-                    swal({
-                        width: 300,
-                        customClass: "delete-block",
-                        animation: false,
-                        title: 'Удалено!',
-                        text: 'Команда была удалена.',
-                        type: 'success',
-                        confirmButtonText: 'Готово',
-                        confirmButtonClass: 'btn btn_primary',
-                        buttonsStyling: false
-                    })
-
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'success',
+                        message: 'Команда успешно удалена',
+                        time: 3
+                    });
                 },
-                error : function(callback) {
+                error: function (callback) {
                     console.log("Error has occured in deleting team");
-                    swal({
-                        width: 300,
-                        customClass: "delete-block",
-                        animation: false,
-                        title: 'Ошибка!',
-                        text: 'Во время удаления произошла ошибка, попробуйте удалить команду снова.',
-                        type: 'error',
-                        confirmButtonText: 'Закрыть',
-                        confirmButtonClass: 'btn btn_primary',
-                        buttonsStyling: false
-                    })
-                }
-            })
 
-        });
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'warning',
+                        message: 'Во время удаления произошла ошибка, попробуйте удалить команду снова',
+                        time: 3
+                    });
+                }
+            };
+
+            vp.ajax.send(ajaxData);
+
+        }
 
     });
 

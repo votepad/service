@@ -29,13 +29,13 @@ for (var i = 0; i < cancelBtns.length; i++) {
 function invite(event) {
     link = event.target.dataset.href;
 
-    swal({
-        html:   '<p>Сообщите ссылку людям, которые смогут стать вашими помощниками мероприятия!</p>' +
-        '<p id="copyText" style="cursor:copy; margin:20px auto; font-size:.8em; text-decoration:underline; word-wrap:break-word; color:#008DA7">' + link + '</p>'+
-        '<p>Не забудьте подтвердить их в "Новых заявках"</p>',
-        confirmButtonText: 'Готово',
-        confirmButtonClass: 'btn btn_primary',
-        buttonsStyling: false
+    vp.notification.notify({
+        type: 'confirm',
+        size: "large",
+        confirmText: "Готово",
+        message: '<h3 class="text--default">Сообщите ссылку людям, которые смогут стать вашими помощниками мероприятия!</h3>' +
+        '<p id="copyText" style="cursor:copy; margin:20px auto; text-decoration:underline; word-wrap:break-word; color:#008DA7">' + link + '</p>'+
+        '<p>Не забудьте подтвердить их в "Новых заявках"</p>'
     });
 
     document.getElementById('copyText').addEventListener('click', copy, false);
@@ -51,11 +51,13 @@ function selectText(containerid) {
     if (document.selection) {
         var range = document.body.createTextRange();
         range.moveToElementText(document.getElementById(containerid));
+        range.select().removeAllRanges();
         range.select().createTextRange();
         document.execCommand("Copy");
     } else if (window.getSelection) {
         var range = document.createRange();
         range.selectNode(document.getElementById(containerid));
+        window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand("Copy");
     }
@@ -72,15 +74,16 @@ function removeCoworker(event) {
     id = event.target.dataset.id;
     name = event.target.dataset.name;
 
-    swal({
-        text: "Вы уверены, что хотите исключить " + name + " из организации?",
+    vp.notification.notify({
+        type: 'confirm',
+        size: "large",
         showCancelButton: true,
-        confirmButtonText: 'Исключить',
-        cancelButtonText: 'Отмена',
-        confirmButtonClass: 'btn btn_primary',
-        cancelButtonClass: 'btn btn_default',
-        buttonsStyling: false
-    }).then(function () {
+        confirmText: "Исключить",
+        message: '<h3 class="text--default">Вы уверены, что хотите исключить ' + name + ' из организации?</h3>',
+        onConfirm: removeAssistant
+    });
+
+    function removeAssistant() {
 
         assistant_block = document.getElementById('assistant_id'+id);
 
@@ -113,7 +116,7 @@ function removeCoworker(event) {
 
         vp.ajax.send(ajaxData);
 
-    });
+    }
 
 }
 
@@ -140,7 +143,6 @@ function addAssistant(event) {
                 notify('Заявка принята!','success');
                 event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
                 removeWhirl(assistant_block);
-                assistant_block.remove();
             } else {
                 notify('Произошла ошибка. Попробуйте снова','warning');
                 removeWhirl(assistant_block);

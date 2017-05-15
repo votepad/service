@@ -74,7 +74,6 @@ require_once ('routes/events.php');
 require_once ('routes/participants.php');
 require_once ('routes/judges.php');
 require_once ('routes/teams.php');
-require_once ('routes/groups.php');
 require_once ('routes/criterions.php');
 require_once ('routes/ajax.php');
 require_once ('routes/judges.php');

@@ -207,56 +207,47 @@ $(document).ready(function() {
         var dataPk = $(this).get(0).dataset.pk,
             contestPk = $('#contest_' + dataPk).get(0);
 
-        swal({
-            customClass: "delete-block",
-            animation: false,
-            title: 'Вы уверены, что хотите удалить конкурс?',
-            text: "Удалив конкурс, Вы не сможете его восстановить!",
-            type: 'warning',
+        vp.notification.notify({
+            type: 'confirm',
+            size: "large",
             showCancelButton: true,
-            confirmButtonText: 'Да, удалить конкурс',
-            cancelButtonText: 'Нет, отмена',
-            confirmButtonClass: 'btn btn_primary',
-            cancelButtonClass: 'btn btn_default',
-            buttonsStyling: false
-        }).then(function () {
+            confirmText: "Да, удалить конкурс",
+            cancelText: "Нет, отмена",
+            message: '<h3 class="text--default">Вы уверены, что хотите удалить конкурс?</h3>' +
+                     '<p>Удалив конкурс, Вы не сможете его восстановить!</p>',
+            onConfirm: removeContest
+        });
 
-            $.ajax({
-                url : '/contests/delete/' + dataPk,
-                data : {},
-                success : function(callback) {
+        function removeContest() {
+
+            var ajaxData = {
+                url: '/contests/delete/' + dataPk,
+                success: function (callback) {
 
                     contestPk.remove();
 
-                    swal({
-                        width: 300,
-                        customClass: "delete-block",
-                        animation: false,
-                        title: 'Удалено!',
-                        text: 'Конкурс был удален.',
-                        type: 'success',
-                        confirmButtonText: 'Готово',
-                        confirmButtonClass: 'btn btn_primary',
-                        buttonsStyling: false
-                    })
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'success',
+                        message: 'Конкурс успешно удален',
+                        time: 3
+                    });
                 },
-                error : function(callback) {
+                error: function (callback) {
                     console.log("Error has occured in deleting contest");
-                    swal({
-                        width: 300,
-                        customClass: "delete-block",
-                        animation: false,
-                        title: 'Ошибка!',
-                        text: 'Во время удаления произошла ошибка, попробуйте удалить конкурс снова.',
-                        type: 'error',
-                        confirmButtonText: 'Закрыть',
-                        confirmButtonClass: 'btn btn_primary',
-                        buttonsStyling: false
-                    })
-                }
-            })
 
-        });
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'warning',
+                        message: 'Во время удаления произошла ошибка, попробуйте удалить конкурс снова',
+                        time: 3
+                    });
+                }
+            };
+
+            vp.ajax.send(ajaxData);
+
+        }
 
     });
 

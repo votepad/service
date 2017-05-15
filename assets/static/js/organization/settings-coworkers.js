@@ -30,13 +30,13 @@ $(document).ready(function(){
     function invite(event) {
         link = event.target.dataset.href;
 
-        swal({
-            html:   '<p>Сообщите вашим коллегам ссылку, по которой они смогу вступить в организацию!</p>' +
-                    '<p id="copyText" style="cursor:copy; margin:20px auto; font-size:.8em; text-decoration:underline; color:#008DA7">' + link + '</p>'+
-                    '<p>Не забудьте подтвердить их в "Новых заявках"</p>',
-            confirmButtonText: 'Готово',
-            confirmButtonClass: 'btn btn_primary',
-            buttonsStyling: false
+        vp.notification.notify({
+            type: 'confirm',
+            size: "large",
+            confirmText: "Готово",
+            message: '<h3 class="text--default">Сообщите вашим коллегам ссылку, по которой они смогу вступить в организацию!</h3>' +
+            '<p id="copyText" style="cursor:copy; margin:20px auto; font-size:.8em; text-decoration:underline; color:#008DA7">' + link + '</p>'+
+            '<p>Не забудьте подтвердить их в "Новых заявках"</p>'
         });
 
         document.getElementById('copyText').addEventListener('click', copy, false);
@@ -52,11 +52,13 @@ $(document).ready(function(){
         if (document.selection) {
             var range = document.body.createTextRange();
             range.moveToElementText(document.getElementById(containerid));
+            range.select().removeAllRanges();
             range.select().createTextRange();
             document.execCommand("Copy");
         } else if (window.getSelection) {
             var range = document.createRange();
             range.selectNode(document.getElementById(containerid));
+            window.getSelection().removeAllRanges();
             window.getSelection().addRange(range);
             document.execCommand("Copy");
         }
@@ -73,44 +75,47 @@ $(document).ready(function(){
         id = event.target.dataset.id;
         name = event.target.dataset.name;
 
-        swal({
-            text: "Вы уверены, что хотите исключить " + name + " из организации?",
+        vp.notification.notify({
+            type: 'confirm',
+            size: "large",
             showCancelButton: true,
-            confirmButtonText: 'Исключить',
-            cancelButtonText: 'Отмена',
-            confirmButtonClass: 'btn btn_primary',
-            cancelButtonClass: 'btn btn_default',
-            buttonsStyling: false
-        }).then(function () {
+            confirmText: "Исключить",
+            message: '<h3 class="text--default">Вы уверены, что хотите исключить ' + name + ' из организации?</h3>',
+            onConfirm: removeMember
+        });
+
+
+        function removeMember() {
 
             coworker_block = document.getElementById('coworker_id'+id);
 
-             ajaxData = {
-                 url: '/organization/'+orgId+'/member/remove/'+id,
-                 beforeSend: function(callback) {
-                     addWhirl(coworker_block);
-                 },
-                 success: function(response) {
-                     response = JSON.parse(response);
-                     if (response.code == '47') {
-                         notify('Сотрудник успешно удалён','success');
-                         coworker_block.remove();
-                         document.getElementById('countCowerkers').innerHTML = parseInt(document.getElementById('countCowerkers').innerHTML) - 1;
-                     } else {
-                         notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
-                         removeWhirl(coworker_block);
-                     }
-                 },
-                 error: function(callback) {
-                     console.log(callback);
-                     notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
-                     removeWhirl(coworker_block);
-                 }
-             };
+            ajaxData = {
+                url: '/organization/'+orgId+'/member/remove/'+id,
+                beforeSend: function(callback) {
+                    addWhirl(coworker_block);
+                },
+                success: function(response) {
+                    response = JSON.parse(response);
+                    if (response.code == '47') {
+                        notify('Сотрудник успешно удалён','success');
+                        coworker_block.remove();
+                        document.getElementById('countCowerkers').innerHTML = parseInt(document.getElementById('countCowerkers').innerHTML) - 1;
+                    } else {
+                        notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
+                        removeWhirl(coworker_block);
+                    }
+                },
+                error: function(callback) {
+                    console.log(callback);
+                    notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
+                    removeWhirl(coworker_block);
+                }
+            };
 
-             vp.ajax.send(ajaxData);
+            vp.ajax.send(ajaxData);
 
-         });
+
+        }
 
     }
 

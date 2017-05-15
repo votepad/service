@@ -314,56 +314,49 @@ $(document).ready(function() {
 
         var stagePk = $('#stage_' + dataPk).get(0);
 
-        swal({
-            customClass: "delete-block",
-            animation: false,
-            title: 'Вы уверены, что хотите удалить этап?',
-            text: "Удалив этап, Вы не сможете его восстановить!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Да, удалить этап',
-            cancelButtonText: 'Нет, отмена',
-            confirmButtonClass: 'btn btn_primary',
-            cancelButtonClass: 'btn btn_default',
-            buttonsStyling: false
-        }).then(function () {
 
-            $.ajax({
+        vp.notification.notify({
+            type: 'confirm',
+            size: "large",
+            showCancelButton: true,
+            confirmText: "Да, удалить этап",
+            cancelText: "Нет, отмена",
+            message: '<h3 class="text--default">Вы уверены, что хотите удалить этап?</h3>' +
+            '<p>Удалив этап, Вы не сможете его восстановить!</p>',
+            onConfirm: removeStage
+        });
+
+
+        function removeStage() {
+
+            var ajaxData = {
                 url : '/stages/delete/' + dataPk,
-                data : {},
                 success : function(callback) {
 
                     stagePk.remove();
 
-                    swal({
-                        width: 300,
-                        customClass: "delete-block",
-                        animation: false,
-                        title: 'Удалено!',
-                        text: 'Этап был удален.',
-                        type: 'success',
-                        confirmButtonText: 'Готово',
-                        confirmButtonClass: 'btn btn_primary',
-                        buttonsStyling: false
-                    })
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'success',
+                        message: 'Этап успешно удален',
+                        time: 3
+                    });
                 },
                 error : function(callback) {
                     console.log("Error has occured in deleting stage");
-                    swal({
-                        width: 300,
-                        customClass: "delete-block",
-                        animation: false,
-                        title: 'Ошибка!',
-                        text: 'Во время удаления произошла ошибка, попробуйте удалить этап снова.',
-                        type: 'error',
-                        confirmButtonText: 'Закрыть',
-                        confirmButtonClass: 'btn btn_primary',
-                        buttonsStyling: false
-                    })
-                }
-            })
 
-        });
+                    vp.notification.notify({
+                        type: 'alert',
+                        status: 'warning',
+                        message: 'Во время удаления произошла ошибка, попробуйте удалить этап снова',
+                        time: 3
+                    });
+                }
+            };
+
+            vp.ajax.send(ajaxData);
+
+        }
 
     });
 

@@ -99,7 +99,7 @@
 
                                     <div class="item__info-controls clear_fix">
                                         <button data-id="<?= $user->id ?>" class="btn btn_primary acceptbtn">Принять заявку</button>
-                                        <button data-id="<?= $user->id ?>" class="btn btn_text cancelbtn">Отклонить</button>
+                                        <button data-id="<?= $user->id ?>" class="btn btn_default cancelbtn">Отклонить</button>
                                     </div>
 
                                 </div>

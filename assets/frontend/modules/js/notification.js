@@ -45,11 +45,12 @@ module.exports = (function (notification) {
      *  settings = {
      *      type        - notification type (reserved types: alert, confirm, prompt). Just add class 'cdx-notification-'+type
      *      size        - width of notification block (small || large)
+     *      status      - success || danger || warming
      *      message     - notification message
-     *      confirmBtn  - show Confirm button (true/false)
-     *      cancelBtn   - show Cancel button (true/false)
+     *      showCancelButton - show Cancel button (true/false)
      *      confirmText - confirm button text (default - 'Ok')
      *      cancelText  - cancel button text (default - 'Cancel'). Only for confirm and prompt types
+     *      onConfirm   - function that call by confirmBtn
      *      confirm     - function-handler for ok button click
      *      cancel      - function-handler for cancel button click. Only for confirm and prompt types
      *      time        - time (in seconds) after which notification will close (default - 5s)
@@ -111,13 +112,12 @@ module.exports = (function (notification) {
             if (!(settings && settings.message)) {
 
                 console.log('Can\'t create notification. Message is missed');
-                // vp.core.log('Can\'t create notification. Message is missed');
                 return;
 
             }
 
             settings.type = settings.type || 'alert';
-            settings.time = settings.time*1000 || 10000;
+            settings.time = settings.time*1000 || 5000;
 
             var wrapper     = vp.draw.node('DIV', 'notification'),
                 message     = vp.draw.node('DIV', 'notification__message'),
@@ -127,11 +127,6 @@ module.exports = (function (notification) {
                 backdropBl  = vp.draw.node('DIV', 'notification__backdrop');
 
             message.innerHTML       = settings.message;
-            confirmBtn.textContent  = settings.confirmText || 'ОК';
-            cancelBtn.textContent   = settings.cancelText || 'Отмена';
-
-            confirmBtn.addEventListener('click', confirmHandler);
-            cancelBtn.addEventListener('click', cancelHandler);
 
             if (settings.size) {
 
@@ -145,37 +140,56 @@ module.exports = (function (notification) {
 
             }
 
-            wrapper.appendChild(message);
+            if (settings.type) {
 
-            if (settings.type === 'prompt') {
-
-                wrapper.appendChild(input);
+                wrapper.classList.add('notification--' + settings.type);
 
             }
 
+            wrapper.appendChild(message);
+
             if (settings.type === 'prompt' || settings.type === 'confirm') {
+
+                confirmBtn.textContent = settings.confirmText || 'ОК';
+                cancelBtn.textContent = settings.cancelText || 'Отмена';
 
                 backdrop = document.body.appendChild(backdropBl);
                 backdrop.addEventListener('click', cancelHandler);
 
+
+                if (settings.type === 'prompt') {
+
+                    wrapper.appendChild(input);
+
+                }
+
                 wrapper.appendChild(confirmBtn);
-                wrapper.appendChild(cancelBtn);
+
+
+                if (settings.onConfirm)
+                    confirmBtn.addEventListener('click', settings.onConfirm);
+
+
+                confirmBtn.addEventListener('click', confirmHandler);
+                cancelBtn.addEventListener('click', cancelHandler);
+
+                if (settings.showCancelButton)
+                    wrapper.appendChild(cancelBtn);
 
             }
-
-            wrapper.classList.add('notification--' + settings.type);
-
-            notification = wrapper;
-            type         = settings.type;
-            confirm      = settings.confirm;
-            cancel       = settings.cancel;
-            inputField   = input;
 
             if (settings.type !== 'prompt' && settings.type !== 'confirm') {
 
                 window.setTimeout(close, settings.time);
 
             }
+
+
+            notification = wrapper;
+            type = settings.type;
+            confirm = settings.confirm;
+            cancel = settings.cancel;
+            inputField = input;
 
         }
 
