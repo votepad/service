@@ -6,7 +6,6 @@ module.exports = function () {
      *  - event
      *  - member
      *  - judge
-     *  - result
      *  - contest
      *  - stage
      *  - criterion
@@ -18,6 +17,9 @@ module.exports = function () {
      */
     var update = function (data) {
 
+        data.stage    = data.contest + '-' + data.stage;
+        data.criterion = data.stage + '-' + data.criterion;
+
         Mongo.connect(config.Mongo.url, function (err, db) {
 
             var collection = db.collection('event' + data.event);
@@ -25,23 +27,30 @@ module.exports = function () {
             var cursor = collection.findOne({
                 member: data.member,
                 'scores.judge': data.judge
-            },{'scores.judge.$': 1});
-
-            cursor.then(function (result) {
-
+            },{'scores.judge.$': 1})
+                .then(function (result) {
                 if (!result) {
 
-                    var payload = {
-                        judge: data.judge,
-                        criterions: {[data.criterion]: data.score.criterion},
-                        stages: {[data.stage]: data.score.stage * data.score.criterion},
-                        contests: {[data.contest]: data.score.contest * data.score.criterion},
-                        results: {[data.result]: data.score.result * data.score.criterion}
-                    };
+                    collection.findOne({member: data.member}).then(
+                        function(result) {
 
-                    collection.updateOne({member: data.member}, {$push: {scores: payload}}, function (err, result) {
-                        db.close();
-                    });
+                            var payload = {
+                                judge: data.judge,
+                                criterions: {[data.criterion]: data.score.criterion},
+                                stages: {[data.stage]: data.score.stage * data.score.criterion},
+                                contests: {[data.contest]: data.score.contest * data.score.criterion},
+                                result: data.score.result * data.score.criterion
+                            };
+
+                            if (result) {
+                                collection.updateOne({member: data.member}, {$push: {scores: payload}}, function (err, result) {
+                                    db.close();
+                                });
+                            } else {
+                                collection.insertOne({member: data.member, scores: [payload]}).then(function(){db.close()});
+                            }
+
+                        });
 
                 } else {
 
@@ -51,8 +60,7 @@ module.exports = function () {
                     scores.criterions[data.criterion] = data.score.criterion;
                     scores.stages[data.stage] += (data.score.criterion - old) * data.score.stage;
                     scores.contests[data.contest] += (data.score.criterion - old) * data.score.contest;
-                    scores.results[data.result] += (data.score.criterion - old) * data.score.result;
-
+                    scores.result += (data.score.criterion - old) * data.score.result;
 
                     var payload = {
                         $set: {'scores.$': scores}

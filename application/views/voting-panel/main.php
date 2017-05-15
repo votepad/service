@@ -25,7 +25,7 @@
     <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/slidermodule.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/radioboxes.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/stagenavigation.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/scores.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/voting.js"></script>
 
 
     <!-- modules -->
@@ -46,34 +46,37 @@
 
 </head>
 
-<body>
+    <body>
 
-<div class="loader">
-    <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-brand"></i>
-</div>
+        <div class="loader">
+            <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-brand"></i>
+        </div>
 
-<header class="header">
-    <?=View::factory('voting-panel/blocks/header', array(
-        'contests' => $event->contests,
-        'judge' => $judge
-    ))?>
-</header>
+        <header class="header">
+            <?=View::factory('voting-panel/blocks/header', array(
+                'contests' => $event->contests,
+                'judge' => $judge
+            ))?>
+        </header>
 
-<div class="jumbotron jumbotron--voting-panel block">
-    <?=View::factory('voting-panel/blocks/jumbotron', array('event' => $event))?>
-</div>
+        <div class="jumbotron jumbotron--voting-panel block">
+            <?=View::factory('voting-panel/blocks/jumbotron', array('event' => $event))?>
+        </div>
 
+        <section class="section">
 
-<section class="section">
+            <?=View::factory('voting-panel/blocks/mainSection',
+                array(
+                    'event' => $event,
+                    'judge' => $judge
+                ))?>
 
-    <?=View::factory('voting-panel/blocks/mainSection',
-        array(
-            'event' => $event,
-            'judge' => $judge
-        ))?>
+        </section>
 
-</section>
+        <script>
+            wsvoting.init(<?= $judge->id ?>, 'votepad.my');
+        </script>
 
-</body>
+    </body>
 
 </html>

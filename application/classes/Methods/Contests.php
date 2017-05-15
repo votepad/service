@@ -134,9 +134,8 @@ class Methods_Contests extends Model_Contest
         $formula = json_decode($formula);
 
         $stages = array();
-
-        foreach ($formula as $operand) {
-            $stages[] = new Model_Stage($operand->id);
+        foreach ($formula as $id => $coef) {
+            $stages[] = new Model_Stage($id);
         }
 
         return $stages;

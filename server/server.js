@@ -34,13 +34,40 @@ var wss = new WebSocket.Server({
 wss.on('connection', function (ws) {
 
     var user = auth.check(new Cookie(ws));
-    var permissions = auth.permissions(user.id, user.mode);
 
-    console.log(user);
-    permissions.then(console.log);
+    if (user.success) {
+
+        var permissions = auth.permissions(user.id, user.mode);
+
+        ws.on('message', function (data) {
+            permissions.then(function (perms) {
+
+                console.log(data);
+                try {
+                    data = JSON.parse(data);
+                } catch (e) {console.log(e)}
+
+                if (!(perms.events.indexOf(parseInt(data.event)) + 1)) {
+                    ws.send(JSON.stringify({status: 'error', message: 'Access denied', code: 403}));
+                    return;
+                }
+
+                if (perms.mode == 'judge' && !(perms.contests.indexOf(parseInt(data.contest)) + 1)) {
+                    ws.send(JSON.stringify({status: 'error', message: 'Access denied', code: 403}));
+                    return;
+                }
+
+                scores.update(data);
+
+            });
+        });
+
+    } else {
+        ws.send(JSON.stringify({status: 'error', message: 'Access denied', code: 403}));
+        ws.close()
+    }
+
 
 });
-
-scores.get({event: 1, member: 1, stages: true}).then(function(result){console.log(result.members[1])}).catch(console.log);
 
 console.log('Ready');

@@ -21,7 +21,6 @@
             <ul class="content__stages">
 
                 <? foreach ($contest->stages as $stageKey => $stage) : ?>
-
                     <li class="stage animated" data-hash="#<?= Methods_Methods::getUriByTitle($stage->name);?>">
 
                         <h4 class="stage__header"><?=$stage->name; ?></h4>
@@ -74,23 +73,30 @@
 
                                                             <? $uniqid = $contest->id . '-' . $stage->id . '-' . $criterion->id . '-' . $member->id ?>
 
-                                                                <? for ($i = $criterion->min_score; $i <= $criterion->max_score; $i++): ?>
+                                                            <? for ($i = $criterion->min_score; $i <= $criterion->max_score; $i++): ?>
 
-                                                                    <? $data = json_encode(array(
+                                                                <?
+                                                                    $data = json_encode(array(
                                                                         'event' => $event->id,
-                                                                        'data'  => array(
-                                                                            'contest'   => $contest->id,
-                                                                            'stage'     => $stage->id,
-                                                                            'criterion' => $criterion->id,
-                                                                            'judge'     => $judge->id,
-                                                                            'member'    => $member->id,
-                                                                            'score'     => $i
-                                                                        )
-                                                                    ))?>
+                                                                        'contest'   => $contest->id,
+                                                                        'stage'     => $stage->id,
+                                                                        'criterion' => $criterion->id,
+                                                                        'judge'     => $judge->id,
+                                                                        'member'    => $member->id,
+                                                                        'score'     => array(
+                                                                                'criterion' => $i,
+                                                                                'stage' => json_decode($stage->formula, true)[$criterion->id],
+                                                                                'contest' => json_decode($contest->formula, true)[$stage->id] * json_decode($stage->formula, true)[$criterion->id],
+                                                                                'result' => json_decode($contest->formula, true)[$stage->id] * json_decode($stage->formula, true)[$criterion->id]
+                                                                            )
+
+                                                                    ));
+
+                                                                ?>
 
                                                                 <label for="<?= $uniqid . '-' . $i; ?>" class="score">
                                                                     <span class="score__text"><?= $i; ?></span>
-                                                                    <input id="<?= $uniqid . '-' . $i; ?>" type="radio" class="score__input" name="<?= $uniqid ?>" value="<?= $i ?>" data-name="vp-radiobox-<?= $uniqid ?>" data-value="<?= $data ?>">
+                                                                    <input id="<?= $uniqid . '-' . $i; ?>" type="radio" class="score__input js-scores" name="<?= $uniqid ?>" value="<?= $i ?>" data-value='<?= $data ?>'>
                                                                 </label>
 
                                                             <? endfor; ?>

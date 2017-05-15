@@ -27,7 +27,7 @@ class Controller_Judges_Index extends Dispatch {
 
         $event = new Model_Event($judge->event);
 
-        $contests    = Methods_Contests::getByJudge($judge->id);
+        $contests = Methods_Contests::getByJudge($judge->id);
 
         foreach ($contests as $key => $contest) {
             $contest->stages = Methods_Contests::getStages($contest->formula);
