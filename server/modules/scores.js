@@ -1,99 +1,214 @@
-module.exports = function (port) {
+module.exports = function () {
 
-    var wss = new WebSocket.Server({
-        port: port || 8002,
-        path: '/scores'
-    });
+    /**
+     *
+     * @param data:
+     *  - event
+     *  - member
+     *  - judge
+     *  - result
+     *  - contest
+     *  - stage
+     *  - criterion
+     *  - score:
+     *      - criterion - member score for criterion
+     *      - stage - stage coefficient
+     *      - contest - contest coefficient
+     *      - result - result coefficient
+     */
+    var update = function (data) {
 
-    var connected = function (ws) {
+        Mongo.connect(config.Mongo.url, function (err, db) {
 
-        redis.get('votepad:salts:organizer', function (err, salt) {
+            var collection = db.collection('event' + data.event);
 
-            var cookies = new Cookie(ws),
-                sha256 = new sha('sha256'),
-                secret = sha256.update(salt + cookies.get('sid') + 'organizer' + cookies.get('id'), 'utf8').digest('hex');
+            var cursor = collection.findOne({
+                member: data.member,
+                'scores.judge': data.judge
+            },{'scores.judge.$': 1});
 
-            if (secret == cookies.get('secret')) {
+            cursor.then(function (result) {
 
-                console.log('User ' + cookies.get('id') + ' connected');
+                if (!result) {
 
-                ws.on('message', function (data) {
+                    var payload = {
+                        judge: data.judge,
+                        criterions: {[data.criterion]: data.score.criterion},
+                        stages: {[data.stage]: data.score.stage * data.score.criterion},
+                        contests: {[data.contest]: data.score.contest * data.score.criterion},
+                        results: {[data.result]: data.score.result * data.score.criterion}
+                    };
 
-                    data = JSON.parse(data);
-                    var action = data.action,
-                        query = data.query,
-                        event = query.event;
-
-
-                    MySQL.query('SELECT * FROM `Users_Events` WHERE `u_id` = ' + cookies.get('id') + ' AND `e_id` = ' + event, function (err, results) {
-
-                        if (!results.length) {
-
-                            ws.send(JSON.stringify({status: "Access denied", success: 0}));
-                            return;
-
-                        }
-
-                        Mongo.connect(config.Mongo.url, function (err, db) {
-
-                            var collection = db.collection(event);
-
-                            switch (action) {
-
-                                case 'find':
-                                    collection.find(query.fields, function (err, result) {
-
-                                        result.toArray(function (err, docs) {
-
-                                            ws.send(JSON.stringify({
-                                                status: "Success search",
-                                                success: 1,
-                                                result: docs
-                                            }));
-
-
-                                            db.close();
-
-                                        });
-
-                                    });
-                                    break;
-
-                                case 'update':
-                                    collection.findOneAndUpdate(query.fields, {$set: query.update}, function (err, result) {
-
-                                        if (result.ok) {
-                                            console.log('Data was updated');
-                                            ws.send(JSON.stringify({status: "Success update", success: 1}));
-                                        } else {
-                                            ws.send(JSON.stringify({status: "Error while update", success: 0}));
-                                        }
-
-                                        db.close();
-
-                                    });
-                                    break;
-                            }
-                        });
+                    collection.updateOne({member: data.member}, {$push: {scores: payload}}, function (err, result) {
+                        db.close();
                     });
-                });
+
+                } else {
+
+                    var scores = result.scores[0],
+                        old = scores.criterions[data.criterion] || 0;
+
+                    scores.criterions[data.criterion] = data.score.criterion;
+                    scores.stages[data.stage] += (data.score.criterion - old) * data.score.stage;
+                    scores.contests[data.contest] += (data.score.criterion - old) * data.score.contest;
+                    scores.results[data.result] += (data.score.criterion - old) * data.score.result;
 
 
-            } else {
+                    var payload = {
+                        $set: {'scores.$': scores}
+                    };
 
-                console.log('Someone tried to connect, but cookies aren`t correct');
-                ws.send('{"status": "Access denied", "success": 0}');
-                ws.close();
+                    collection.updateOne({
+                        member: data.member,
+                        'scores.judge': data.judge
+                    }, payload, function (err, result) {db.close();})
 
-            }
+                }
+
+            });
 
         });
 
+    };
+
+    var get = function (query) {
+
+        var result = {success: false},
+            filter = {},
+            references = [];
+
+        if (!query.event) {
+            result['error'] = 'Event id is required';
+            return Promise.reject(result);
+        }
+
+        if (query.members instanceof Array && query.members.length) {
+            filter.members = {$in: query.members}
+        }
+
+        return Mongo.connect(config.Mongo.url).then(function (db) {
+
+            var collection = db.collection('event' + query.event);
+
+            return collection.find(filter).toArray().then(function(members) {
+
+                    result.members = {};
+
+                    members.forEach(function(current){
+
+                        var member = {
+                            criterions: {},
+                            stages: {},
+                            contests: {},
+                            results: {}
+                        };
+
+                        current.scores.forEach(function(scores) {
+                            console.log(scores);
+                            if (query.criterions) {
+
+                                if (query.criterions instanceof Array) {
+                                    query.criterions.forEach(function (id) {
+                                        member.criterions[id] = member.criterions[id] || 0;
+                                        member.criterions[id] += scores.criterions[id];
+                                    })
+                                } else {
+                                    Object.keys(scores.criterions).forEach(function (id) {
+                                        member.criterions[id] = member.criterions[id] || 0;
+                                        member.criterions[id] += scores.criterions[id];
+                                    })
+                                }
+
+                            }
+
+                            if (query.stages) {
+
+                                if (query.stages instanceof Array) {
+                                    query.stages.forEach(function (id) {
+                                        member.stages[id] = member.stages[id] || 0;
+                                        member.stages[id] += scores.stages[id];
+                                    })
+                                } else {
+                                    Object.keys(scores.stages).forEach(function (id) {
+                                        member.stages[id] = member.stages[id] || 0;
+                                        console.log(id);
+                                        member.stages[id] += scores.stages[id];
+                                    })
+                                }
+
+                            }
+
+                            if (query.contests) {
+
+                                if (query.contests instanceof Array) {
+                                    query.contests.forEach(function (id) {
+                                        member.contests[id] += scores.contests[id];
+                                    })
+                                } else {
+                                    Object.keys(scores.contests).forEach(function (id) {
+                                        member.contests[id] += scores.contests[id];
+                                    })
+                                }
+
+                            }
+
+                            if (query.results) {
+
+                                if (query.results instanceof Array) {
+                                    query.results.forEach(function (id) {
+                                        member.results[id] += scores.results[id];
+                                    })
+                                } else {
+                                    Object.keys(scores.results).forEach(function (id) {
+                                        member.results[id] += scores.results[id];
+                                    })
+                                }
+
+                            }
+
+                            result.members[current.member] = member;
+                        });
+                    });
+
+                    db.close();
+                    return result;
+
+                })
+            });
 
     };
 
+    var getItemsFromFormula = function (table, ids, prop) {
 
-    wss.on('connection', connected);
+        return new Promise(function(resolve, reject) {
 
-};
+            var result = [];
 
+            MySQL.query('SELECT `id`, `formula` FROM ? WHERE `id` IN (?)', [table, ids.join(',')], function (err, results) {
+
+                Array.prototype.forEach.call(results, function (current) {
+
+                    var formulas = JSON.parse(current['formula']),
+                        ans = ({id: result.id, [prop]: []});
+
+                    formulas.forEach(function(formula) {
+                        ans[prop].push(formula.id);
+                    });
+
+                    result.push(ans);
+
+                });
+
+                resolve(result);
+
+            })
+        });
+
+    };
+
+    return {
+        update: update,
+        get: get
+    };
+
+}();

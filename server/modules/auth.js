@@ -28,7 +28,7 @@ module.exports = function () {
             return {
                 success: true,
                 id: id,
-                access: authMode
+                mode: authMode
             };
 
         } else {
@@ -45,8 +45,69 @@ module.exports = function () {
 
     };
 
+    var permissions = function (id, mode) {
+
+        return permissions_[mode](id).then(function(answer) {answer.mode = mode; return answer});
+
+    };
+
+    var permissions_ = {
+
+        judge: function (id) {
+
+                return new Promise(function(resolve, reject) {
+
+                    var answer = {};
+
+                    MySQL.query('SELECT `event` FROM `Judges` WHERE `id` = ?', [id], function (err, results) {
+
+                        answer.events = [];
+                        answer.events.push(results[0].event);
+
+                    }).on('end', function () {
+
+                        MySQL.query('SELECT `c_id` FROM `Contests_Judges` WHERE `j_id` = ?', [id], function (err, results) {
+
+                            answer.contests = [];
+
+                            Array.prototype.forEach.call(results, function (current) {
+                                answer.contests.push(current['c_id']);
+                            });
+
+                        }).on('end', function(){resolve(answer)});
+
+                    });
+
+                });
+
+        },
+
+        organizer: function (id) {
+
+            return new Promise(function(resolve, reject) {
+
+                var answer = {};
+
+                MySQL.query('SELECT `e_id` FROM `Users_Events` WHERE `u_id` = ?', [id], function (err, results) {
+
+                        answer.events = [];
+
+                        Array.prototype.forEach.call(results, function (current) {
+                            answer.events.push(current['e_id']);
+                        });
+
+                }).on('end', function(){resolve(answer)});
+
+            });
+
+        }
+
+
+    };
+
     return {
-        check: check
+        check: check,
+        permissions: permissions
     };
 
 }();
