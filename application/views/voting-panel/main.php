@@ -74,7 +74,7 @@
         </section>
 
         <script>
-            wsvoting.init(<?= $judge->id ?>, 'votepad.my');
+            wsvoting.init(<?= $judge->id ?>, <?= $_SERVER['HTTP_HOST'] ?>);
         </script>
 
     </body>
