@@ -57,7 +57,7 @@ wss.on('connection', function (ws) {
                     return;
                 }
 
-                scores.update(data);
+                scores.update(data).catch(console.log);
 
             });
         });
