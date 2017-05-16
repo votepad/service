@@ -17,7 +17,7 @@ module.exports = function () {
 
         var id      = cookies.get('id'),
             sid      = cookies.get('sid'),
-            authMode = cookies.get('a_mode');
+            authMode = cookies.get('mode');
 
         var secret = Crypto.createHash('sha256').update((salts[authMode] + sid + authMode + id).toString(), 'utf8').digest('hex');
 

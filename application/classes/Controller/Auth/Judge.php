@@ -72,7 +72,7 @@ class Controller_Auth_Judge extends Auth {
         Cookie::delete('sid');
         Cookie::delete('id');
         Cookie::delete('secret');
-        Cookie::delete('a_mode');
+        Cookie::delete('mode');
     }
 
     private function saveSessionData($hash, $sid, $id) {

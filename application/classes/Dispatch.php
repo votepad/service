@@ -119,7 +119,7 @@ class Dispatch extends Controller_Template
     public static function isLogged()
     {
         $session = Session::Instance();
-        return !empty($session->get('id')) && $session->get('auth_mode') == Controller_Auth_Organizer::AUTH_MODE;
+        return !empty($session->get('id')) && $session->get('mode') == Controller_Auth_Organizer::AUTH_MODE;
 
     }
 
@@ -132,7 +132,7 @@ class Dispatch extends Controller_Template
         $secret   = Cookie::get('secret', '');
         $id       = Cookie::get('id', '');
         $sid      = Cookie::get('sid', '');
-        $authMode = Cookie::get('a_mode', '');
+        $authMode = Cookie::get('mode', '');
 
         if ($secret && $id && $sid && $authMode == Controller_Auth_Organizer::AUTH_MODE) {
             return true;
