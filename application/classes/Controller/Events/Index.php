@@ -153,9 +153,6 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_scores()
     {
-        if (!$this->event->isAssistant($this->user->id) || !self::isLogged()) {
-            $this->redirect('event/' . $this->event->id);
-        }
 
         $this->event->contests = $this->getContests($this->event->id);
 
@@ -171,9 +168,6 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_plan()
     {
-        if (!$this->event->isAssistant($this->user->id) || !self::isLogged()) {
-            $this->redirect('event/' . $this->event->id);
-        }
 
         $this->event->contests = $this->getContests($this->event->id);
 
@@ -190,10 +184,6 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_criterias()
     {
-        if (!$this->event->isAssistant($this->user->id) || !self::isLogged()) {
-            $this->redirect('event/' . $this->event->id);
-        }
-
         $this->template->mainSection = View::factory('events/scenario/criterias')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
