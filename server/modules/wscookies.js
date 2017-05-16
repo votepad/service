@@ -6,7 +6,7 @@ module.exports = function (ws) {
 
         if (!cookies) return undefined;
 
-        var match = cookies.match(new RegExp(name+'=([^;]*)'));
+        var match = cookies.match(new RegExp('\\b'+name+'=([^;]*)'));
 
         return match ? decodeURIComponent(match[1]).split('~')[1] : undefined;
 
