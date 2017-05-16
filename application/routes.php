@@ -12,6 +12,12 @@ Route::set('Welcome_Page', '')
     ))
     ->cache();
 
+Route::set('API', 'access_token/<token>/method/<method_name>')
+    ->defaults(array(
+        'controller' => 'Api',
+        'action' => 'Dispatcher'
+    ));
+
 /** Authentification */
 Route::set('AUTH', 'sign/<mode>(/<additional>)', array('additional' => 'logout|reset'))
     ->filter(function ($route, $params, $request) {
