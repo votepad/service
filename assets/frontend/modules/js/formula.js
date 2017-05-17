@@ -49,6 +49,7 @@ var formula = function(formula) {
         this.allItems = parseItems_(options.allItems);
         this.curItems = parseItems_(options.curItems);
         this.toJSON   = toJSON_;
+        this.destroy  = destroy_;
 
         switch(this.mode) {
 
@@ -58,6 +59,11 @@ var formula = function(formula) {
 
             case modes.CREATE:
                 create_(this);
+                break;
+
+            case modes.EDIT:
+                create_(this);
+                update_(this);
                 break;
 
             default:
@@ -172,8 +178,8 @@ var formula = function(formula) {
      * Remove item from `formulaNodes.additionItems`
      * @private
      */
-    function addFormulaItem_() {
-        var element = formulaNodes.additionItems[this.id];
+    function addFormulaItem_(el) {
+        var element = el.nodeType === 1 ? el : formulaNodes.additionItems[this.id];
         formulaNodes.additionItems.splice(this.id, 1);
 
         var item = createFormulaItem_(element);
@@ -255,6 +261,26 @@ var formula = function(formula) {
     }
 
 
+
+    function update_(formula) {
+
+        for (var i = 0; i < formula.curItems.length; i++) {
+
+            for (var j = 0; j < formulaNodes.additionItems.length; j++) {
+
+                if (formula.curItems[i]["id"] === formulaNodes.additionItems[j].dataset.id) {
+                    addFormulaItem_(formulaNodes.additionItems[j]);
+                }
+
+            }
+
+        }
+
+
+    }
+
+
+
     /**
      * Print formula
      * @param formula
@@ -300,8 +326,18 @@ var formula = function(formula) {
         }
 
         input.value = JSON.stringify(arr);
+
+        return input.value !== "{}";
     }
 
+    /**
+     * Destroy Formula 
+     * @private
+     */
+    function destroy_() {
+        formula = null;
+    }
+    
 
     /**
      * Create function instance
@@ -314,6 +350,7 @@ var formula = function(formula) {
         return new formula(el, options);
 
     };
+
 
 
     // Export

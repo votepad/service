@@ -34,14 +34,14 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="row">
                         <div class="input-field">
-                            <input id="newstage_name" type="text" name="name" autocomplete="off">
-                            <label for="newstage_name">Введите название нового этапа</label>
+                            <input id="new_name" type="text" name="name" autocomplete="off">
+                            <label for="new_name">Введите название нового этапа</label>
                         </div>
                     </div>
                     <div class="row hidden">
                         <div class="input-field">
-                            <textarea id="newstage_description" name="description"></textarea>
-                            <label for="newstage_description">Расскажите об этапе</label>
+                            <textarea id="new_description" name="description"></textarea>
+                            <label for="new_description">Расскажите об этапе</label>
                         </div>
                     </div>
                 </div>
@@ -79,45 +79,33 @@
 
                         <div id="show_participants" class="input-field">
                             <!-- Participants which are not distributed -->
-                            <select name="participants[]" id="newstage_participants" multiple="" class="elements_in_stage">
+                            <select name="participants[]" id="new_participants" multiple="" class="elements_in_stage">
                                 <? foreach ($members['participants'] as $participant): ?>
                                     <option value="<?= $participant->id ?>" data-logo="<?= $participant->photo ?>">
                                         <?= $participant->name ?>
                                     </option>
                                 <? endforeach; ?>
                             </select>
-                            <label for="newstage_participants">Выберите участников</label>
+                            <label for="new_participants">Выберите участников</label>
                         </div>
 
                         <div id="show_teams" class="input-field displaynone">
                             <!-- Teams which are not distributed -->
-                            <select name="teams[]" id="newstage_teams" multiple="" class="elements_in_stage">
+                            <select name="teams[]" id="new_teams" multiple="" class="elements_in_stage">
                                 <? foreach ($members['teams'] as $team): ?>
                                     <option value="<?= $team->id ?>" data-logo="<?= $team->logo ?>">
                                         <?= $team->name ?>
                                     </option>
                                 <? endforeach; ?>
                             </select>
-                            <label for="newstage_teams">Выберите команды</label>
-                        </div>
-
-                        <div id="show_groups" class="input-field displaynone">
-                            <!-- Groups which are not distributed -->
-                            <select name="groups[]" id="newstage_groups" multiple="" class="elements_in_stage">
-<!--                                --><?// foreach ($members['groups'] as $group): ?>
-<!--                                    <option value="--><?//= $group->id ?><!--">-->
-<!--                                        --><?//= $group->name ?>
-<!--                                    </option>-->
-<!--                                --><?// endforeach; ?>
-                            </select>
-                            <label for="newstage_groups">Выберите группы</label>
+                            <label for="new_teams">Выберите команды</label>
                         </div>
 
                     </div>
                 </div>
                 <div class="col-sm-12">
                     <div class="row hidden">
-                        <div class="formula" id="formula_newstage"> </div>
+                        <div class="formula" id="new_formula"> </div>
                     </div>
                 </div>
             </div>
@@ -139,7 +127,7 @@
 
                     <div class="card clear_fix" data-id="<?= $stage->id ?>" id="stage_<?= $stage->id ?>">
                         <div class="card_title">
-                            <div class="card_title-text" id="name_stage_<?= $stage->id ?>">
+                            <div class="card_title-text" id="name_<?= $stage->id ?>">
                                 <?= $stage->name ?>
                             </div>
                             <div class="card_title-dropdown">
@@ -159,14 +147,14 @@
                         <div class="card_content">
                             <div class="card_content-text">
                                 <i><u>Об этапе:</u></i>
-                                <span id="description_stage_<?= $stage->id ?>"><?= $stage->description ?></span>
+                                <span id="description_<?= $stage->id ?>"><?= $stage->description ?></span>
                             </div>
                             <div class="card_content-text">
                                 <i><u>Жюри оценивает:</u></i>
 
                                 <? if ($stage->mode == Methods_Stages::MEMBERS_PARTICIPANTS): ?>
                                     <!-- Participants in stage, if they existed -->
-                                    <span id="participants_stage_<?= $stage->id ?>">
+                                    <span id="participants_<?= $stage->id ?>">
                                         <? foreach ($stage->members as $participant): ?>
                                             <option value="<?= $participant->id ?>" data-logo="<?= $participant->photo ?>" selected="">
                                                 <?= $participant->name ?>
@@ -177,7 +165,7 @@
 
                                 <? if ($stage->mode == Methods_Stages::MEMBERS_TEAMS): ?>
                                     <!-- Teams in stage, if they existed -->
-                                    <span id="teams_stage_<?= $stage->id ?>">
+                                    <span id="teams_<?= $stage->id ?>">
                                             <? foreach ($stage->members as $team): ?>
                                                 <option value="<?= $team->id ?>" data-logo="<?= $team->logo ?>" selected="">
                                                     <?= $team->name ?>
@@ -189,7 +177,7 @@
                             </div>
                             <div class="card_content-text">
                                 <i><u>Формула:</u></i>
-                                <div class="formula formula-print inlineblock" id="formula_stage_<?= $stage->id ?>" data-items='<?= $stage->formula ?>'></div>
+                                <div class="formula formula-print inlineblock" id="formula_<?= $stage->id ?>" data-items='<?= $stage->formula ?>'></div>
                             </div>
                         </div>
                     </div>
@@ -201,8 +189,8 @@
 
 
         <!-- Modal - Update stage Info -->
-        <form class="modal fade" id="editstage_modal" role="dialog" method="post" action="">
-            <input type="hidden" id="editstage_id" name="stage_id">
+        <form class="modal fade" id="edit_modal" role="dialog" method="post" action="">
+            <input type="hidden" id="edit_id" name="stage_id">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -214,28 +202,28 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="input-field">
-                                <input type="text" id="editstage_name" name="name" value="">
-                                <label for="editstage_name" class="active">Название этапа</label>
+                                <input type="text" id="edit_name" name="name" value="">
+                                <label for="edit_name" class="active">Название этапа</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <textarea id="editstage_description" name="description"></textarea>
-                                <label for="editstage_description" class="active">Описание этапа</label>
+                                <textarea id="edit_description" name="description"></textarea>
+                                <label for="edit_description" class="active">Описание этапа</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <!-- Members = [parts || teams || groups] + not_distributed [parts || teams || groups] -->
-                                <select multiple id="editstage_members" name="members[]">
+                                <!-- Members = [parts || teams] + not_distributed [parts || teams] -->
+                                <select multiple id="edit_members" name="members[]">
 
                                 </select>
-                                <label for="editstage_members">Жюри будут оценивать</label>
+                                <label for="edit_members">Жюри будут оценивать</label>
                             </div>
                         </div>
                         <div class="row">
 
-                            <div class="formula" id="" data-items=""> </div>
+                            <div class="formula" id="edit_formula"> </div>
 
                         </div>
                     </div>
@@ -253,9 +241,8 @@
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/sortable/Sortable.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/formula.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/stages.js"></script>
 
-    <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/formula.js"></script>
 
 </div>
