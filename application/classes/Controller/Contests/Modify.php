@@ -24,6 +24,7 @@ class Controller_Contests_Modify extends Dispatch {
         $contest = new Model_Contest();
         $contest->name         = Arr::get($_POST, 'name');
         $contest->description  = Arr::get($_POST, 'description');
+        $contest->mode         = Arr::get($_POST, 'new_mode');
         $contest->formula      = Arr::get($_POST, 'formula');
         $contest->event        = $id_event;
         $contest = $contest->save();
@@ -50,6 +51,8 @@ class Controller_Contests_Modify extends Dispatch {
 
         $contest->name        = Arr::get($_POST, 'name', $contest->name);
         $contest->description = Arr::get($_POST, 'description', $contest->description);
+        $contest->mode        = Arr::get($_POST, 'edit_mode');
+        $contest->formula     = Arr::get($_POST, 'formula', $contest->formula);
         $contest->update();
 
         Methods_Contests::updateJudges($contest->id, $judges);

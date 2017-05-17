@@ -185,8 +185,7 @@ class Controller_Events_Index extends Dispatch
         $stages = Methods_Stages::getByEvent($this->event->id);
         $members = array(
             'participants' => Methods_Participants::getByEvent($this->event->id),
-            'teams'        => Methods_Teams::getAllTeams($this->event->id),
-            //'groups'       => Methods_Participants::getByEvent($this->event->id)
+            'teams'        => Methods_Teams::getAllTeams($this->event->id)
         );
         $criterions = Methods_Criterions::getJSON($this->event->id);
 

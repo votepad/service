@@ -32,41 +32,53 @@
                 <div class="col-sm-12 col-md-6">
                     <div class="row">
                         <div class="input-field">
-                            <input id="newcontest_name" type="text" name="name" autocomplete="off">
-                            <label for="newcontest_name">Введите название нового конкурса</label>
+                            <input id="new_name" type="text" name="name" autocomplete="off">
+                            <label for="new_name">Введите название нового конкурса</label>
+                        </div>
+                    </div>
+                    <div class="row hidden">
+                        <div class="input-field">
+                            <textarea id="new_description" name="description"></textarea>
+                            <label for="new_description">Расскажите о конкурсе</label>
                         </div>
                     </div>
                 </div>
                 <div class="col-sm-12 col-md-6">
                     <div class="row hidden">
-                        <div class="input-field">
-                            <textarea id="newcontest_description" name="description"></textarea>
-                            <label for="newcontest_description">Расскажите о конкурсе</label>
+                        <div class="radio-field clear_fix">
+                            <label class="radio-label">Жюри будут оценивать</label>
+                            <div class="radio-block">
+                                <input id="new_part" type="radio" name="new_mode" checked="" value="1">
+                                <label for="new_part">участников</label>
+                            </div>
+                            <div class="radio-block">
+                                <input id="new_team" type="radio" name="new_mode" value="2">
+                                <label for="new_team">команды</label>
+                            </div>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12">
                     <div class="row hidden">
                         <div class="input-field">
                             <!-- ALl judges -->
-                            <select name="judges[]" id="newcontest_judges" multiple="" class="elements_in_contest">
+                            <select name="judges[]" id="new_judges" multiple="" class="elements_in_contest">
                                 <? foreach ($event->judges as $judge): ?>
                                     <option value="<?= $judge->id ?>">
                                         <?= $judge->name ?>
                                     </option>
                                 <? endforeach; ?>
                             </select>
-                            <label for="newcontest_judges">Выберите жюри, которые будут оценивать этот конкурс</label>
+                            <label for="new_judges">Выберите жюри, которые будут оценивать этот конкурс</label>
                         </div>
                         <p>
                             <input type="checkbox" id="allJudges">
                             <label for="allJudges">Все жюри</label>
                         </p>
                     </div>
-
+                </div>
+                <div class="col-sm-12">
                     <div class="row hidden">
                         <span class="hide" id="allStages" data-items='<?= $event->stagesJSON ?>'></span>
-                        <div id="newcontest_formula" class="formula"></div>
+                        <div id="new_formula" class="formula"></div>
                     </div>
                 </div>
             </div>
@@ -87,7 +99,7 @@
                 <? foreach($event->contests as $contest): ?>
                     <div class="card clear_fix" data-id="<?= $contest->id ?>" id="contest_<?= $contest->id ?>">
                         <div class="card_title">
-                            <div class="card_title-text" id="name_contest_<?= $contest->id ?>">
+                            <div class="card_title-text" id="name_<?= $contest->id ?>">
                                 <?= $contest->name ?>
                             </div>
                             <div class="card_title-dropdown">
@@ -107,12 +119,13 @@
                         <div class="card_content">
                             <div class="card_content-text">
                                 <i><u>О конкурсе:</u></i>
-                                <span id="description_contest_<?= $contest->id ?>"><?= $contest->description ?></span>
+                                <span id="description_<?= $contest->id ?>"><?= $contest->description ?></span>
                             </div>
+                            <span id="mode_<?= $contest->id ?>" class="hide"><?=$contest->mode?></span>
                             <div class="card_content-text">
                                 <i><u>Жюри, которые будут оценивать этот конкурс:</u></i>
                                 <!-- Judges in contest -->
-                                <span id="judges_contest_<?= $contest->id ?>">
+                                <span id="judges_<?= $contest->id ?>">
                                     <? foreach($contest->judges as $judge): ?>
                                         <option value="<?= $judge->id; ?>"><?= $judge->name; ?></option>
                                     <? endforeach; ?>
@@ -120,7 +133,7 @@
                             </div>
                             <div class="card_content-text">
                                 <i><u>Формула:</u></i>
-                                <div class="formula formula-print inlineblock" id="formula_contest_<?= $contest->id ?>" data-items='<?= $contest->formula ?>'></div>
+                                <div class="formula formula-print inlineblock" id="formula_<?= $contest->id ?>" data-items='<?= $contest->formula ?>'></div>
                             </div>
                         </div>
                     </div>
@@ -131,7 +144,7 @@
 
 
         <!-- Modal - Update contest Info -->
-        <form class="modal fade" id="editcontest_modal" role="dialog" method="post" action="">
+        <form class="modal fade" id="edit_modal" role="dialog" method="post" action="">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -143,26 +156,41 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="input-field">
-                                <input type="text" id="editcontest_name" name="name" value="">
-                                <label for="editcontest_name" class="active">Название конкурса</label>
+                                <input type="text" id="edit_name" name="name" value="">
+                                <label for="edit_name" class="active">Название конкурса</label>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <textarea id="editcontest_description" name="description"></textarea>
-                                <label for="editcontest_description" class="active">Описание конкурса</label>
+                                <textarea id="edit_description" name="description"></textarea>
+                                <label for="edit_description" class="active">Описание конкурса</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="radio-field clear_fix">
+                                <label class="radio-label">Жюри будут оценивать</label>
+                                <div class="radio-block">
+                                    <input id="edit_part" class="edit_mode" type="radio" name="edit_mode" value="1">
+                                    <label for="edit_part">участников</label>
+                                </div>
+                                <div class="radio-block">
+                                    <input id="edit_team" class="edit_mode" type="radio" name="edit_mode" value="2">
+                                    <label for="edit_team">команды</label>
+                                </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="input-field">
-                                <select multiple id="editcontest_judges" name="judges[]">
+                                <select multiple id="edit_judges" name="judges[]">
 
                                 </select>
-                                <label for="editcontest_judges">Жюри, которые будут оценивать этот конкурс</label>
+                                <label for="edit_judges">Жюри, которые будут оценивать этот конкурс</label>
                             </div>
                         </div>
                         <div class="row">
-                            <!-- formula -->
+
+                            <div class="formula" id="edit_formula"> </div>
+
                         </div>
                     </div>
                     <div class="modal-footer">
