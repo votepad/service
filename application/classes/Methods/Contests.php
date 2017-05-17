@@ -27,22 +27,22 @@ class Methods_Contests extends Model_Contest
 
             $formula = array();
 
-            foreach (json_decode($contest->formula) as $stageID => $coeff) :
+            foreach (json_decode($contest->formula) as $stageID => $coeff) {
 
                 $stage = new Model_Stage($stageID);
 
-                if ($stage->id) :
+                if ($stage->id) {
 
                     $formula[] = array(
-                        "id"    => $stageID,
-                        "name"  => $stage->name,
+                        "id" => $stageID,
+                        "name" => $stage->name,
                         "coeff" => $coeff,
-                        "type"  => $stage->mode
+                        "type" => $stage->mode
                     );
 
-                endif;
+                }
 
-            endforeach;
+            }
 
             $contest->formula = json_encode($formula);
             $contest->judges = self::getJudges($contest->id);

@@ -23,22 +23,21 @@ class Methods_Results extends  Model_Result
 
         $formula = array();
 
-        foreach (json_decode($result->formula) as $contestID => $coeff) :
+        foreach (json_decode($result->formula) as $contestID => $coeff) {
 
             $contest = new Model_Contest($contestID);
 
-            if ($contest->id) :
+            if ($contest->id) {
 
                 $formula[] = array(
-                    "id"    => $contestID,
-                    "name"  => $contest->name,
+                    "id" => $contestID,
+                    "name" => $contest->name,
                     "coeff" => $coeff,
-                     "mode" => $contest->mode
+                    "mode" => $contest->mode
                 );
+            }
 
-            endif;
-
-        endforeach;
+        }
 
         $result->formula = json_encode($formula);
 

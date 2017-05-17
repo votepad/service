@@ -31,21 +31,21 @@ class Methods_Stages extends  Model_Stage
 
             $formula = array();
 
-            foreach (json_decode($stage->formula) as $criterionID => $coeff) :
+            foreach (json_decode($stage->formula) as $criterionID => $coeff) {
 
                 $criterion = new Model_Criterion($criterionID);
 
-                if ($criterion->id) :
+                if ($criterion->id) {
 
                     $formula[] = array(
-                        "id"    => $criterionID,
-                        "name"  => $criterion->name,
+                        "id" => $criterionID,
+                        "name" => $criterion->name,
                         "coeff" => $coeff
                     );
 
-                endif;
+                }
 
-            endforeach;
+            }
 
             $stage->formula = json_encode($formula);
             $stage->members = self::getMembers($stage->id, $stage->mode);
