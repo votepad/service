@@ -32,7 +32,7 @@ $(document).ready(function(){
 
         vp.notification.notify({
             type: 'confirm',
-            size: "large",
+            size: 'large',
             confirmText: "Готово",
             message: '<h3 class="text--default">Сообщите вашим коллегам ссылку, по которой они смогу вступить в организацию!</h3>' +
             '<p id="copyText" style="cursor:copy; margin:20px auto; font-size:.8em; text-decoration:underline; color:#008DA7">' + link + '</p>'+
@@ -77,11 +77,11 @@ $(document).ready(function(){
 
         vp.notification.notify({
             type: 'confirm',
-            size: "large",
+            size: 'large',
             showCancelButton: true,
             confirmText: "Исключить",
             message: '<h3 class="text--default">Вы уверены, что хотите исключить ' + name + ' из организации?</h3>',
-            onConfirm: removeMember
+            confirm: removeMember
         });
 
 
@@ -220,8 +220,7 @@ $(document).ready(function(){
     function notify(message, status) {
 
         vp.notification.notify({
-            type: 'alert',
-            status: status,
+            type: status,
             message: message,
             time: 3
         });

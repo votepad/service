@@ -79,8 +79,7 @@ $(document).ready(function () {
                 $('#edituser_newpassword2').addClass('invalid');
 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Вы используете запрещенные символы',
                     time: 3
                 });
@@ -91,8 +90,7 @@ $(document).ready(function () {
                 $('#edituser_newpassword2').addClass('invalid')
 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Вы не ввели новый пароль',
                     time: 3
                 });
@@ -103,8 +101,7 @@ $(document).ready(function () {
                 $('#edituser_newpassword2').addClass('invalid')
 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Пароли не совпадают',
                     time: 3
                 });
@@ -118,8 +115,7 @@ $(document).ready(function () {
             $('#edituser_newpassword2').addClass('invalid');
 
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Вы не указали старый пароль',
                 time: 3
             });
@@ -166,8 +162,7 @@ $(document).ready(function () {
             $('#reset_password1').addClass('invalid');
 
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Вы используете запрещенные символы',
                 time: 3
             });
@@ -179,8 +174,7 @@ $(document).ready(function () {
             $('#reset_password').addClass('invalid');
 
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Вы не ввели новый пароль',
                 time: 3
             });
@@ -192,8 +186,7 @@ $(document).ready(function () {
             $('#reset_password1').addClass('invalid');
 
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Пароли не совпадают',
                 time: 3
             });
@@ -226,8 +219,7 @@ $(document).ready(function () {
         if (response.status == 'success') {
 
             vp.notification.notify({
-                type: 'alert',
-                status: 'success',
+                type: 'success',
                 message: 'Пароль успешно изменен',
                 time: 3
             });
@@ -238,8 +230,7 @@ $(document).ready(function () {
         } else {
 
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Ошибка при смене пароля. Попробуйте ещё раз.',
                 time: 3
             });
@@ -296,8 +287,7 @@ $(document).ready(function () {
                     if (response.code == '47') {
 
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'success',
+                            type: 'success',
                             message: 'Вы успешно вышли из организации ' + name,
                             time: 3
                         });
@@ -308,8 +298,7 @@ $(document).ready(function () {
                     } else {
 
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'warning',
+                            type: 'warning',
                             message: 'Что-то пошло не так... Попробуйте ещё раз',
                             time: 3
                         });
@@ -366,8 +355,7 @@ $(document).ready(function () {
                     if (response.code == '57') {
 
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'success',
+                            type: 'success',
                             message: 'Вы успешно вышли из мероприятия ' + name,
                             time: 3
                         });
@@ -378,8 +366,7 @@ $(document).ready(function () {
                     } else {
 
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'warning',
+                            type: 'warning',
                             message: 'Что-то пошло не так... Попробуйте ещё раз',
                             time: 3
                         });

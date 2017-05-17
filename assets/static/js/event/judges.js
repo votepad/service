@@ -144,8 +144,7 @@ $(document).ready(function() {
             if ( password_is_same() ){
 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Пороли у предстовителей жюри должны быть разными!',
                     time: 3
                 });
@@ -251,8 +250,7 @@ $(document).ready(function() {
                             // else    - some problems
                             if (response) {
                                 vp.notification.notify({
-                                    type: 'alert',
-                                    status: 'success',
+                                    type: 'success',
                                     message: 'Инфомация о представителях жюри успешно обновлена.',
                                     time: 3
                                 });
@@ -267,8 +265,7 @@ $(document).ready(function() {
 
                             } else {
                                 vp.notification.notify({
-                                    type: 'alert',
-                                    status: 'warning',
+                                    type: 'warning',
                                     message: 'Что-то пошло не так... Данные не сохранены.',
                                     time: 3
                                 });
@@ -293,8 +290,7 @@ $(document).ready(function() {
             } else {
 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Пожалуйста, проверьте правильность введенных данных.',
                     time: 3
                 });

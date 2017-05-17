@@ -31,7 +31,7 @@ function invite(event) {
 
     vp.notification.notify({
         type: 'confirm',
-        size: "large",
+        size: 'large',
         confirmText: "Готово",
         message: '<h3 class="text--default">Сообщите ссылку людям, которые смогут стать вашими помощниками мероприятия!</h3>' +
         '<p id="copyText" style="cursor:copy; margin:20px auto; text-decoration:underline; word-wrap:break-word; color:#008DA7">' + link + '</p>'+
@@ -76,11 +76,11 @@ function removeCoworker(event) {
 
     vp.notification.notify({
         type: 'confirm',
-        size: "large",
+        size: 'large',
         showCancelButton: true,
         confirmText: "Исключить",
         message: '<h3 class="text--default">Вы уверены, что хотите исключить ' + name + ' из организации?</h3>',
-        onConfirm: removeAssistant
+        confirm: removeAssistant
     });
 
     function removeAssistant() {
@@ -221,8 +221,7 @@ function removeWhirl(block) {
 function notify(message,status) {
 
     vp.notification.notify({
-        type: 'alert',
-        status: status,
+        type: status,
         message: message,
         time: 3
     });

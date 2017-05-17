@@ -100,8 +100,7 @@ $(document).ready(function(){
                     if ( ! $this.parent().children('span').hasClass('error-block') ) {
 
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'success',
+                            type: 'success',
                             message: 'К сожалению, такой адрес организации занят. Пожалуйста, придумайте другой адрес',
                             time: 3
                         });

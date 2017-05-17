@@ -23,8 +23,7 @@ $(document).ready(function() {
     $('#saveResult').click(function () {
         if ( $("#result_formula .formula__list li").length == 0 ) {
             vp.notification.notify({
-                type: 'alert',
-                status: 'warning',
+                type: 'warning',
                 message: 'Формула не изменилась.<br>Для изменение создайте формулу.',
                 time: 3
             });
@@ -51,8 +50,7 @@ $(document).ready(function() {
     $('#result').submit(function () {
         if ( $("#result_formula .formula__list li").length == 0 ) {
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'warning',
                 message: 'Пожалуйста, введите формулу.',
                 time: 3
             });

@@ -271,8 +271,7 @@ $(document).ready(function() {
                             // else    - warning - don't save
                             if (response) {
                                 vp.notification.notify({
-                                    type: 'alert',
-                                    status: 'success',
+                                    type: 'success',
                                     message: 'Инфомация о критериях успешно обновлена.',
                                     time: 3
                                 });
@@ -287,8 +286,7 @@ $(document).ready(function() {
 
                             } else {
                                 vp.notification.notify({
-                                    type: 'alert',
-                                    status: 'warning',
+                                    type: 'warning',
                                     message: 'Что-то пошло не так... Данные не сохранены.',
                                     time: 3
                                 });
@@ -312,8 +310,7 @@ $(document).ready(function() {
             } else {
 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Пожалуйста, проверьте правильность введенных данных.',
                     time: 3
                 });

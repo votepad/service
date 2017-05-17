@@ -48,8 +48,7 @@ $(document).ready(function() {
         if ( !isStepDone(translateX) ) {
 
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Проверьте правильность введенных данных',
                 time: 3
             });
@@ -90,8 +89,7 @@ $(document).ready(function() {
                      if ( $(this).attr('id') == "confirmrools" ) {
 
                          vp.notification.notify({
-                             type: 'alert',
-                             status: 'danger',
+                             type: 'danger',
                              message: 'Вы не согласились с правилами, пожалуйста, прочитайте и согласитесь',
                              time: 3
                          });
@@ -99,8 +97,7 @@ $(document).ready(function() {
                      } else {
 
                          vp.notification.notify({
-                             type: 'alert',
-                             status: 'danger',
+                             type: 'danger',
                              message: 'У вас ошибка при вводе "' + $('#' + id + ' + label').text().toLowerCase() + '"',
                              time: 3
                          });
@@ -318,8 +315,7 @@ $(document).ready(function() {
                     if ( ! $this.parent().children('span').hasClass('error-block') ) {
 
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'danger',
+                            type: 'danger',
                             message: 'К сожалению, такой адрес организации занят. Пожалуйста, придумайте другой адрес',
                             time: 3
                         });

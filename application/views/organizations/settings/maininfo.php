@@ -81,12 +81,12 @@
 
                 vp.notification.notify({
                     type: 'confirm',
-                    size: "large",
+                    size: 'large',
                     showCancelButton: true,
                     confirmText: "Да, удалить организацию",
                     cancelText: "Нет, отмена",
                     message: '<h3 class="text--default">Вы уверены что хотите удалить организацию?</h3>',
-                    onConfirm: removeOrganization
+                    confirm: removeOrganization
                 });
 
                 function removeOrganization() {
@@ -105,8 +105,7 @@
                             }
 
                             vp.notification.notify({
-                                type: 'alert',
-                                status: 'success',
+                                type: 'success',
                                 message: 'Организация удалена!',
                                 time: 3
                             });

@@ -193,8 +193,7 @@ $(document).ready(function() {
         if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
 
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Пожалуйста, проверьте правильность введенных данных.',
                 time: 3
             });
@@ -294,8 +293,7 @@ $(document).ready(function() {
 
         if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Пожалуйста, проверьте правильность введенных данных.',
                 time: 3
             });
@@ -317,13 +315,13 @@ $(document).ready(function() {
 
         vp.notification.notify({
             type: 'confirm',
-            size: "large",
+            size: 'large',
             showCancelButton: true,
             confirmText: "Да, удалить этап",
             cancelText: "Нет, отмена",
             message: '<h3 class="text--default">Вы уверены, что хотите удалить этап?</h3>' +
             '<p>Удалив этап, Вы не сможете его восстановить!</p>',
-            onConfirm: removeStage
+            confirm: removeStage
         });
 
 
@@ -336,8 +334,7 @@ $(document).ready(function() {
                     stagePk.remove();
 
                     vp.notification.notify({
-                        type: 'alert',
-                        status: 'success',
+                        type: 'success',
                         message: 'Этап успешно удален',
                         time: 3
                     });
@@ -346,8 +343,7 @@ $(document).ready(function() {
                     console.log("Error has occured in deleting stage");
 
                     vp.notification.notify({
-                        type: 'alert',
-                        status: 'warning',
+                        type: 'warning',
                         message: 'Во время удаления произошла ошибка, попробуйте удалить этап снова',
                         time: 3
                     });

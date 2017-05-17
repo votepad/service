@@ -110,8 +110,7 @@ $(document).ready(function() {
 
         if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Пожалуйста, проверьте правильность введенных данных.',
                 time: 3
             });
@@ -188,8 +187,7 @@ $(document).ready(function() {
 
         if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Пожалуйста, проверьте правильность введенных данных.',
                 time: 3
             });
@@ -215,7 +213,7 @@ $(document).ready(function() {
             cancelText: "Нет, отмена",
             message: '<h3 class="text--default">Вы уверены, что хотите удалить конкурс?</h3>' +
                      '<p>Удалив конкурс, Вы не сможете его восстановить!</p>',
-            onConfirm: removeContest
+            confirm: removeContest
         });
 
         function removeContest() {
@@ -227,8 +225,7 @@ $(document).ready(function() {
                     contestPk.remove();
 
                     vp.notification.notify({
-                        type: 'alert',
-                        status: 'success',
+                        type: 'success',
                         message: 'Конкурс успешно удален',
                         time: 3
                     });
@@ -237,8 +234,7 @@ $(document).ready(function() {
                     console.log("Error has occured in deleting contest");
 
                     vp.notification.notify({
-                        type: 'alert',
-                        status: 'warning',
+                        type: 'warning',
                         message: 'Во время удаления произошла ошибка, попробуйте удалить конкурс снова',
                         time: 3
                     });

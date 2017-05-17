@@ -56,8 +56,7 @@ $(document).ready(function() {
 
 		if ( !isStepDone(translateX) ) {
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Проверьте правильность введенных данных!',
                 time: 3
             });
@@ -96,15 +95,13 @@ $(document).ready(function() {
 				 if (isFormInvalid == true) {
 					 if ( $(this).attr('id') == "confirmrools" ) {
                          vp.notification.notify({
-                             type: 'alert',
-                             status: 'danger',
+                             type: 'danger',
                              message: 'Вы не согласились с правилами, пожалуйста, прочитайте и согласитесь',
                              time: 3
                          });
 					 } else {
                          vp.notification.notify({
-                             type: 'alert',
-                             status: 'danger',
+                             type: 'danger',
                              message: 'У вас ошибка при вводе "' + $('#' + id + ' + label').text().toLowerCase() + '"',
                              time: 3
                          });
@@ -327,8 +324,7 @@ $(document).ready(function() {
                     else {
                         if ( ! $(this).parent().children('span').hasClass('error-block') ) {
                             vp.notification.notify({
-                                type: 'alert',
-                                status: 'danger',
+                                type: 'danger',
                                 message: 'К сожалению, такой адрес мероприятия занят. Пожалуйста, введите другой',
                                 time: 3
                             });

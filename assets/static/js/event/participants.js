@@ -272,8 +272,7 @@ $(document).ready(function() {
                             // else    - some problems
                             if (response) {
                                 vp.notification.notify({
-                                    type: 'alert',
-                                    status: 'success',
+                                    type: 'success',
                                     message: 'Инфомация об участниках успешно обновлена.',
                                     time: 3
                                 });
@@ -288,8 +287,7 @@ $(document).ready(function() {
 
                             } else {
                                 vp.notification.notify({
-                                    type: 'alert',
-                                    status: 'warning',
+                                    type: 'warning',
                                     message: 'Что-то пошло не так... Данные не сохранены.',
                                     time: 3
                                 });
@@ -316,8 +314,7 @@ $(document).ready(function() {
             } else {
 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Пожалуйста, проверьте правильность введенных данных.',
                     time: 3
                 });
@@ -494,8 +491,7 @@ $(document).ready(function() {
 
             if (!isEdited) {
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'warning',
+                    type: 'warning',
                     message: 'Пожалуйста, нажмите кнопку редактировать: <i class="fa fa-edit" aria-hidden="true"></i>',
                     time: 3
                 });

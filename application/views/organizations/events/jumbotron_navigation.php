@@ -7,7 +7,7 @@
 
     <? if(! $isLogged) : ?>
     <li class="jumbotron__nav-item jumbotron__nav--org-item">
-        <button class="dropdown_btn" onclick="vp.notification.notify({ type: 'alert', status: 'warning', message: 'Вы не авторизованы! Пожалуйста, <b>авторизуйтесь</b> или пройдите <b>регистрацию</b>.', time: 3});">
+        <button class="dropdown_btn" onclick="vp.notification.notify({ type: 'warning', message: 'Вы не авторизованы! Пожалуйста, <b>авторизуйтесь</b> или пройдите <b>регистрацию</b>.', time: 3});">
             Вступить в организацию
         </button>
     </li>
@@ -44,8 +44,7 @@
 
                     if (response.code == '43') {
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'success',
+                            type: 'success',
                             message: 'Ваша заявка подана!',
                             time: 3
                         });
@@ -53,8 +52,7 @@
                         document.getElementById('cancelRequest').classList.remove('displaynone');
                     } else {
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'warning',
+                            type: 'warning',
                             message: 'Произошла ошибка. Попробуйте снова',
                             time: 3
                         });
@@ -63,8 +61,7 @@
                 },
                 error: function (callback) {
                     vp.notification.notify({
-                        type: 'alert',
-                        status: 'warning',
+                        type: 'warning',
                         message: 'Произошла ошибка. Попробуйте снова',
                         time: 3
                     });
@@ -86,8 +83,7 @@
 
                     if (response.code == '48') {
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'success',
+                            type: 'success',
                             message: 'Вы учпешно отменили заявку',
                             time: 3
                         });
@@ -95,8 +91,7 @@
                         document.getElementById('cancelRequest').classList.add('displaynone');
                     } else {
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'warning',
+                            type: 'warning',
                             message: 'Произошла ошибка. Попробуйте снова',
                             time: 3
                         });
@@ -105,8 +100,7 @@
                 },
                 error: function(callback) {
                     vp.notification.notify({
-                        type: 'alert',
-                        status: 'warning',
+                        type: 'warning',
                         message: 'Произошла ошибка. Попробуйте снова',
                         time: 3
                     });
@@ -147,16 +141,14 @@
 
                     if (response.code == '47') {
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'success',
+                            type: 'success',
                             message: 'Вы покинули организацию!',
                             time: 3
                         });
                         window.location.reload();
                     } else {
                         vp.notification.notify({
-                            type: 'alert',
-                            status: 'warning',
+                            type: 'warning',
                             message: 'Произошла ошибка. Попробуйте снова',
                             time: 3
                         });
@@ -166,8 +158,7 @@
                 },
                 error: function(callback) {
                     vp.notification.notify({
-                        type: 'alert',
-                        status: 'warning',
+                        type: 'warning',
                         message: 'Произошла ошибка. Попробуйте снова',
                         time: 3
                     });

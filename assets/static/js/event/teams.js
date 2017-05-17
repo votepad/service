@@ -60,8 +60,7 @@ $(document).ready(function() {
 
         if ( !stat_1 || !stat_2 || !stat_3) {
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Пожалуйста, проверьте правильность введенных данных.',
                 time: 3
             });
@@ -172,8 +171,7 @@ $(document).ready(function() {
 
         if ( !stat_1 || !stat_2 || !stat_3) {
             vp.notification.notify({
-                type: 'alert',
-                status: 'danger',
+                type: 'danger',
                 message: 'Пожалуйста, проверьте правильность введенных данных.',
                 time: 3
             });
@@ -201,13 +199,13 @@ $(document).ready(function() {
 
         vp.notification.notify({
             type: 'confirm',
-            size: "large",
+            size: 'large',
             showCancelButton: true,
             confirmText: "Да, удалить команду",
             cancelText: "Нет, отмена",
             message: '<h3 class="text--default">Вы уверены, что хотите удалить команду?</h3>' +
             '<p>Удалив команду, Вы не сможете её восстановить!</p>',
-            onConfirm: removeTeam
+            confirm: removeTeam
         });
 
 

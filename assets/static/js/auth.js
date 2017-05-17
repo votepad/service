@@ -273,8 +273,7 @@ $(document).ready(function () {
             } else {
 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Произошла ошибка, попробуйте снова',
                     time: 3
                 });
@@ -316,8 +315,7 @@ $(document).ready(function () {
             } else {
                 
                 vp.notification.notify({
-                    type: 'alert',
-                    status: 'danger',
+                    type: 'danger',
                     message: 'Произошла ошибка, попробуйте снова',
                     time: 3
                 });
@@ -348,13 +346,11 @@ $(document).ready(function () {
         response = JSON.parse(response);
 
         if (response.status == 'success') {
-            $.notify({
-                    message: 'Мы отправили письмо с инструкциями на вашу почту'
-                },
-                {
-                    type: 'success'
-                });
-
+            vp.notification.notify({
+                type: 'success',
+                message: 'Мы отправили письмо с инструкциями на вашу почту',
+                time: 3
+            });
             return;
         }
 
@@ -379,8 +375,7 @@ $(document).ready(function () {
     function notify(message, status) {
 
         vp.notification.notify({
-            type: 'alert',
-            status: status,
+            type: status,
             message: message,
             time: 3
         });
