@@ -24,10 +24,21 @@ class Methods_Stages extends  Model_Stage
             $stage = new Model_Stage();
 
             if (empty($row['id'])) continue;
+
             foreach ($row as $fieldname => $value) {
                 if (property_exists($stage, $fieldname)) $stage->$fieldname = $value;
             }
 
+            $formula = '[';
+
+            foreach (json_decode($stage->formula) as $criterionID => $coeff) :
+
+                $criterion = new Model_Criterion($criterionID);
+                $formula .= '{"id":"' . $criterionID . '","name":"' . $criterion->name . '","coeff":"' . $coeff . '"},';
+
+            endforeach;
+
+            $stage->formula = substr($formula, 0, -1) . ']';
             $stage->members = self::getMembers($stage->id, $stage->mode);
 
             $stages[] = $stage;

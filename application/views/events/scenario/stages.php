@@ -186,17 +186,7 @@
                                     </span>
                                 <? endif; ?>
 
-                                <!-- Groups in stage, if they existed -->
-<!--                                --><?// if ($stage->mode == Methods_Stages::MEMBERS_GROUPS): ?>
-<!--                                    <span id="groups_stage_--><?//= $stage->id ?><!--">-->
-<!--                                        --><?// foreach ($stage->members as $team): ?>
-<!--                                            <option value="--><?//= $team->id ?><!--" data-logo="--><?//= $team->photo ?><!--" selected="">-->
-<!--                                                --><?//= $team->name ?>
-<!--                                            </option>-->
-<!--                                        --><?// endforeach; ?>
-<!--                                    </span>-->
-<!--                                --><?// endif; ?>
-                                </div>
+                            </div>
                             <div class="card_content-text">
                                 <i><u>Формула:</u></i>
                                 <div class="formula formula-print inlineblock" id="formula_stage_<?= $stage->id ?>" data-items='<?= $stage->formula ?>'></div>
