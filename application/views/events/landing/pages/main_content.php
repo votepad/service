@@ -4,8 +4,8 @@
         <div class="col-xs-12 col-md-4 event-info__block event-info__block--border">
 
             <i class="fa fa-clock-o event-info__icon text-brand" aria-hidden="true"></i>
-            <input id="eventStartTime" type="hidden" value="<?=$event->dt_start; ?>">
-            <input id="eventEndTime" type="hidden" value="<?=$event->dt_end; ?>">
+            <span id="eventStartTime" data-value="<?=$event->dt_start; ?>"></span>
+            <span id="eventEndTime" data-value="<?=$event->dt_end; ?>"></span>
             <span id="eventTimeCounter" class="event-info__h1"></span>
             <span id="eventTime" class="event-info__h2"></span>
         </div>

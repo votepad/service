@@ -17,13 +17,12 @@ $(document).ready(function () {
     $('.toDescription').click(function () {
         $('body').animate({ scrollTop: $('#eventDescription').offset().top }, 600);
     });
-
-
+    
 
     /** formate Dates */
     var today = moment(),
-        start = moment($('#eventStartTime').val()),
-        end = moment($('#eventEndTime').val());
+        start = moment($('#eventStartTime').data("value")),
+        end = moment($('#eventEndTime').data('value'));
 
     $('#eventTimeCounter').html(today.to(start));
 
