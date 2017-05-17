@@ -98,11 +98,13 @@ $(document).ready(function(){
                 }
                 else {
                     if ( ! $this.parent().children('span').hasClass('error-block') ) {
-                        $.notify({
-                            message: 'К сожалению, такой адрес организации занят. Пожалуйста, придумайте другой адрес'
-                        },{
-                            type: 'danger'
+
+                        vp.notification.notify({
+                            type: 'success',
+                            message: 'К сожалению, такой адрес организации занят. Пожалуйста, придумайте другой адрес',
+                            time: 3
                         });
+
                     }
                     isElementInvalid($this, "invalid");
                 }

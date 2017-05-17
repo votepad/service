@@ -1,7 +1,6 @@
 <div class="section__wrapper">
 
     <!-- =============== PAGE STYLE ===============-->
-    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/tabs.css?v=<?= filemtime("assets/frontend/modules/css/tabs.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/org.css?v=<?= filemtime("assets/static/css/org.css") ?>">
 
@@ -108,7 +107,6 @@
 
 
     <!-- =============== PAGE SCRIPTS ===============-->
-    <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/organization/settings-coworkers.js"></script>
 
     <script type="text/javascript">

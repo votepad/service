@@ -12,10 +12,8 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css" media="screen">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/temp_events.css" media="screen">
     <link rel="stylesheet" type="text/css" href="<?=$assets; ?>static/css/icons_fonts.css">
-    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
     
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
 
 </head>
 <body>

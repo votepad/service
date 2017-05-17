@@ -312,38 +312,6 @@ $.fn.extend({
 })(jQuery);
 
 
-
-
-
-
-
-/*
- *  Bootstrap Notify Defaults Settings
- *
- *  simple example: $.notify$.notify( { message: 'Error' },{ type: 'danger' });
-*/
-
-$.notifyDefaults({
-    template:   '<div data-notify="container" class="col-xs-10 col-sm-6 col-md-4 col-lg-3 alert alert-{0}" role="alert">' +
-            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="font-size:20px;">×</button>' +
-    		'<span data-notify="icon"></span> ' +
-    		'<span data-notify="title">{1}</span> ' +
-    		'<span data-notify="message">{2}</span>' +
-    		'<div class="progress" data-notify="progressbar">' +
-                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-            '</div>' +
-    		'<a href="{3}" target="{4}" data-notify="url"></a>' +
-        '</div>',
-    offset: {
-        x: 20,
-        y: 60,
-    },
-	delay: 2000,
-});
-
-
-
-
 /*
 **  Parallax Scripts
 */
