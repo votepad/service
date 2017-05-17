@@ -380,6 +380,7 @@ class Controller_Events_Index extends Dispatch
 
         foreach ($contests as $contestKey => $contest) {
             $contests[$contestKey]->stages = Methods_Contests::getStages($contest->formula);
+
             /**
              * TODO сделать подсчёт max_score с коэфицентами от формул
              */
@@ -387,6 +388,7 @@ class Controller_Events_Index extends Dispatch
 
             foreach ($contest->stages as $stageKey => $stage) {
                 $criterions = Methods_Stages::getCriterions($stage->formula);
+                $members = Methods_Stages::getMembers($stage->id, $stage->mode);
                 $stage_max_score = 0;
 
                 foreach ($criterions as $criterionKey => $criterion) {
@@ -395,6 +397,7 @@ class Controller_Events_Index extends Dispatch
                 }
 
                 $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
+                $contests[$contestKey]->stages[$stageKey]->members = $members;
                 $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
             }
 
