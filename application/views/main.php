@@ -19,7 +19,6 @@
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
 
 
@@ -29,6 +28,7 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/footer.css?v=<?= filemtime("assets/frontend/modules/css/footer.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/dropdown.css?v=<?= filemtime("assets/frontend/modules/css/dropdown.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css?v=<?= filemtime("assets/frontend/modules/css/collapse.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/notification.css?v=<?= filemtime("assets/frontend/modules/css/notification.css") ?>">
 
     <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js?v=<?= filemtime("assets/frontend/bundles/votepad.bundle.js") ?>"></script>
 
@@ -65,6 +65,7 @@
     $( document ).ready(function() {
         vp.header.init();
         vp.collapse.init();
+        vp.notification.createHolder();
     });
 
     window.csrf = '<?= Security::token() ?>';

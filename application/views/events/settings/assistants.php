@@ -3,7 +3,6 @@
     <!-- =============== PAGE STYLE ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/tabs.css?v=<?= filemtime("assets/frontend/modules/css/tabs.css") ?>">
-    <link rel="stylesheet" type="text/css" href="<?=$assets ?>vendor/sweetalert2/sweetalert2.css">
 
     <div class="jumbotron block">
 
@@ -99,7 +98,7 @@
 
                                     <div class="item__info-controls clear_fix">
                                         <button data-id="<?= $user->id ?>" class="btn btn_primary acceptbtn">Принять заявку</button>
-                                        <button data-id="<?= $user->id ?>" class="btn btn_text cancelbtn">Отклонить</button>
+                                        <button data-id="<?= $user->id ?>" class="btn btn_default cancelbtn">Отклонить</button>
                                     </div>
 
                                 </div>
@@ -115,7 +114,6 @@
     </section>
 
     <!-- =============== PAGE SCRIPTS ===============-->
-    <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/settings-assistants.js"></script>
     <script>
         vp.tabs.init({
