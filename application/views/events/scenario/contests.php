@@ -36,8 +36,6 @@
                             <label for="new_name">Введите название нового конкурса</label>
                         </div>
                     </div>
-                </div>
-                <div class="col-sm-12 col-md-6">
                     <div class="row hidden">
                         <div class="input-field">
                             <textarea id="new_description" name="description"></textarea>
@@ -45,7 +43,20 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-sm-12">
+                <div class="col-sm-12 col-md-6">
+                    <div class="row hidden">
+                        <div class="radio-field clear_fix">
+                            <label class="radio-label">Жюри будут оценивать</label>
+                            <div class="radio-block">
+                                <input id="new_part" type="radio" name="new_mode" checked="" value="1">
+                                <label for="new_part">участников</label>
+                            </div>
+                            <div class="radio-block">
+                                <input id="new_team" type="radio" name="new_mode" value="2">
+                                <label for="new_team">команды</label>
+                            </div>
+                        </div>
+                    </div>
                     <div class="row hidden">
                         <div class="input-field">
                             <!-- ALl judges -->
@@ -63,7 +74,8 @@
                             <label for="allJudges">Все жюри</label>
                         </p>
                     </div>
-
+                </div>
+                <div class="col-sm-12">
                     <div class="row hidden">
                         <span class="hide" id="allStages" data-items='<?= $event->stagesJSON ?>'></span>
                         <div id="new_formula" class="formula"></div>
@@ -109,6 +121,7 @@
                                 <i><u>О конкурсе:</u></i>
                                 <span id="description_<?= $contest->id ?>"><?= $contest->description ?></span>
                             </div>
+                            <span id="mode_<?= $contest->id ?>" class="hide"><?=$contest->mode?></span>
                             <div class="card_content-text">
                                 <i><u>Жюри, которые будут оценивать этот конкурс:</u></i>
                                 <!-- Judges in contest -->
@@ -151,6 +164,19 @@
                             <div class="input-field">
                                 <textarea id="edit_description" name="description"></textarea>
                                 <label for="edit_description" class="active">Описание конкурса</label>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="radio-field clear_fix">
+                                <label class="radio-label">Жюри будут оценивать</label>
+                                <div class="radio-block">
+                                    <input id="edit_part" class="edit_mode" type="radio" name="edit_mode" value="1">
+                                    <label for="edit_part">участников</label>
+                                </div>
+                                <div class="radio-block">
+                                    <input id="edit_team" class="edit_mode" type="radio" name="edit_mode" value="2">
+                                    <label for="edit_team">команды</label>
+                                </div>
                             </div>
                         </div>
                         <div class="row">

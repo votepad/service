@@ -27,7 +27,7 @@ $(document).ready(function() {
     $('#result').submit(function () {
         if ( !resultFormula.toJSON() ) {
             vp.notification.notify({
-                type: 'warning',
+                type: 'danger',
                 message: 'Пожалуйста, введите формулу.',
                 time: 3
             });

@@ -28,7 +28,7 @@ class Methods_Results extends  Model_Result
             $contest = new Model_Contest($contestID);
 
             if ($contest->id) :
-                $formula .= '{"id":"' . $contestID  . '","name":"' . $contest->name . '","coeff":"' . $coeff . '"},';
+                $formula .= '{"id":"' . $contestID  . '","name":"' . $contest->name . '","coeff":"' . $coeff . '","mode":"' . $contest->mode . '"},';
             endif;
 
         endforeach;

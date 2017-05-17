@@ -57,10 +57,6 @@
                                 <input type="radio" id="team" name="partORteamORgroup" value="teams">
                                 <label for="team">команды</label>
                             </div>
-                            <!--<div class="radio-block">
-                                <input type="radio" id="group" name="partORteamORgroup" value="groups">
-                                <label for="group">группы</label>
-                            </div>-->
                             <div class="">
                                 <input type="checkbox" id="allParts">
                                 <label for="allParts">Все участники</label>
@@ -69,10 +65,6 @@
                                 <input type="checkbox" id="allTeams">
                                 <label for="allTeams">Все команды</label>
                             </div>
-                            <!--<div class="displaynone">
-                                <input type="checkbox" id="allGroups">
-                                <label for="allGroups">Все группы</label>
-                            </div>-->
                         </div>
                     </div>
                     <div class="row hidden">

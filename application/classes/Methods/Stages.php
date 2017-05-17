@@ -63,7 +63,8 @@ class Methods_Stages extends  Model_Stage
 
             $result[] = array(
                 'id' => $stage->id,
-                'name' => $stage->name
+                'name' => $stage->name,
+                'type' => $stage->mode
             );
 
         }

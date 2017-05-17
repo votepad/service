@@ -32,7 +32,7 @@ class Methods_Contests extends Model_Contest
                 $stage = new Model_Stage($stageID);
 
                 if ($stage->id) :
-                    $formula .= '{"id":"' . $stageID  . '","name":"' . $stage->name . '","coeff":"' . $coeff . '"},';
+                    $formula .= '{"id":"' . $stageID  . '","name":"' . $stage->name . '","coeff":"' . $coeff . '","type":"' . $stage->mode . '"},';
                 endif;
 
             endforeach;
@@ -63,7 +63,7 @@ class Methods_Contests extends Model_Contest
 
             $result[] = array(
                 'id' => $contest->id,
-                'name' => $contest->name
+                'name' => $contest->name,
             );
 
         }
