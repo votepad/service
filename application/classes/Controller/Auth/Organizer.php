@@ -35,10 +35,10 @@ class Controller_Auth_Organizer extends Auth {
 
         if ( isset($_POST['recover']) ) {
 
-            $uid = $this->recover();
+            $id = $this->recover();
 
             // Если сессия была уничтожена или хэш не совпал
-            if (!$uid) {
+            if (!$id) {
                 $this->clearCookie();
 
                 $response = new Model_Response_Auth('RECOVER_ERROR', 'error');
@@ -48,7 +48,7 @@ class Controller_Auth_Organizer extends Auth {
 
             }
 
-            $response = new Model_Response_Auth('RECOVER_SUCCESS', 'success', array('id' => $uid));
+            $response = new Model_Response_Auth('RECOVER_SUCCESS', 'success', array('id' => $id));
             $this->response->body(@json_encode($response->get_response()));
             return;
 
@@ -66,7 +66,6 @@ class Controller_Auth_Organizer extends Auth {
 
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
-        $remember   = false;
 
         if ( empty($email) || empty($password)) {
 
@@ -81,7 +80,7 @@ class Controller_Auth_Organizer extends Auth {
 
         $user = new Model_Auth();
 
-        if (!$user->login($email, $password, $remember)) {
+        if (!$user->login($email, $password, self::AUTH_MODE)) {
 
             $this->makeAttempt();
 
@@ -94,16 +93,16 @@ class Controller_Auth_Organizer extends Auth {
 
         $session = Session::instance();
         $sid = $session->id();
-        $uid = $session->get('uid');
+        $id = $session->get('id');
 
-        $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $uid);
+        $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
 
         Cookie::set('secret', $hash, Date::DAY);
 
-        $this->saveSessionData($hash, $sid, $uid);
+        $this->saveSessionData($hash, $sid, $id);
 
 
-        $response = new Model_Response_Auth('LOGIN_SUCCESS', 'success', array('id' => $uid));
+        $response = new Model_Response_Auth('LOGIN_SUCCESS', 'success', array('id' => $id));
         $this->response->body(@json_encode($response->get_response()));
 
     }
@@ -125,33 +124,33 @@ class Controller_Auth_Organizer extends Auth {
      */
     private function recover()
     {
-        $uid    = Cookie::get('uid');
+        $id    = Cookie::get('id');
         $sid    = Cookie::get('sid');
         $secret = Cookie::get('secret');
 
-        $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $uid);
+        $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
 
         if ($this->redis->get($hash) && $hash == $secret) {
 
             // Создаем новую сессию
             $auth = new Model_Auth();
-            $auth->recoverById($uid);
+            $auth->recoverById($id, self::AUTH_MODE);
 
             $sid = $this->session->id();
-            $uid = $this->session->get('uid');
+            $id = $this->session->get('id');
 
             $this->redis->delete($hash);
 
             // генерируем новый хэш c новый session id
-            $newHash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $uid);
+            $newHash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
 
             // меняем хэш в куки
             Cookie::set('secret', $newHash, Date::DAY);
 
             // сохраняем в редис
-            $this->saveSessionData($newHash, $sid, $uid);
+            $this->saveSessionData($newHash, $sid, $id);
 
-            return $uid;
+            return $id;
         }
 
         return NULL;
@@ -160,8 +159,9 @@ class Controller_Auth_Organizer extends Auth {
     private function clearCookie()
     {
         Cookie::delete('sid');
-        Cookie::delete('uid');
+        Cookie::delete('id');
         Cookie::delete('secret');
+        Cookie::delete('mode');
     }
 
     /**
@@ -169,11 +169,11 @@ class Controller_Auth_Organizer extends Auth {
      *
      * @param $hash - secret code
      * @param $sid - session id
-     * @param $uid - user id
+     * @param $id - user id
      */
-    private function saveSessionData($hash, $sid, $uid)
+    private function saveSessionData($hash, $sid, $id)
     {
-        $this->redis->set($hash, $sid . ':' . $uid . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+        $this->redis->set($hash, $sid . ':' . $id . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
     }
 
     public function action_reset() {

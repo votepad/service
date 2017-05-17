@@ -22,12 +22,12 @@ class Controller_Judges_Index extends Dispatch {
     public function action_votingpanel()
     {
 
-        $id = $this->session->get('j_id');
+        $id = $this->session->get('id');
         $judge = new Model_Judge($id);
 
         $event = new Model_Event($judge->event);
 
-        $contests    = Methods_Contests::getByJudge($judge->id);
+        $contests = Methods_Contests::getByJudge($judge->id);
 
         foreach ($contests as $key => $contest) {
             $contest->stages = Methods_Contests::getStages($contest->formula);

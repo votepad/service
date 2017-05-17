@@ -106,7 +106,6 @@ let voting = function (voting) {
     let prepareStages_ = function () {
 
         stages = document.getElementsByClassName('stage');
-        
         curHash = window.location.hash;
 
         let isOpened = false;
@@ -211,7 +210,6 @@ let voting = function (voting) {
                 } else {
                     membersCriterions[i].dataset.height = membersCriterions[i].children[0].clientHeight;
                     membersCriterions[i].style.height = membersCriterions[i].children[0].clientHeight + "px";
-                    console.log();
                 }
             }
         }

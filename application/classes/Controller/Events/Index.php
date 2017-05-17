@@ -185,8 +185,7 @@ class Controller_Events_Index extends Dispatch
         $stages = Methods_Stages::getByEvent($this->event->id);
         $members = array(
             'participants' => Methods_Participants::getByEvent($this->event->id),
-            'teams'        => Methods_Teams::getAllTeams($this->event->id),
-            //'groups'       => Methods_Participants::getByEvent($this->event->id)
+            'teams'        => Methods_Teams::getAllTeams($this->event->id)
         );
         $criterions = Methods_Criterions::getJSON($this->event->id);
 
@@ -293,27 +292,6 @@ class Controller_Events_Index extends Dispatch
 
     }
 
-
-    /**
-     * MEMBERS submodule
-     * action_groups - action that open page where users can edit information about groups
-     */
-//    public function action_groups()
-//    {
-//        //$teams = Methods_Teams::getAllTeams($this->event->id);
-//        //$participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
-//        //$groups = Methods_Groups::getAllGroups($this->event->id);
-//
-//        $this->template->mainSection = View::factory('events/members/groups')
-//            ->set('event', $this->event)
-//            ->set('organization', $this->organization);
-//            //->set('teams', $teams)
-//            //->set('participants', $participants)
-//            //->set('groups', $groups);
-//
-//        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-//            ->set('event', $this->event);
-//    }
 
 
     /**

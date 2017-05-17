@@ -24,10 +24,30 @@ class Methods_Stages extends  Model_Stage
             $stage = new Model_Stage();
 
             if (empty($row['id'])) continue;
+
             foreach ($row as $fieldname => $value) {
                 if (property_exists($stage, $fieldname)) $stage->$fieldname = $value;
             }
 
+            $formula = array();
+
+            foreach (json_decode($stage->formula) as $criterionID => $coeff) {
+
+                $criterion = new Model_Criterion($criterionID);
+
+                if ($criterion->id) {
+
+                    $formula[] = array(
+                        "id" => $criterionID,
+                        "name" => $criterion->name,
+                        "coeff" => $coeff
+                    );
+
+                }
+
+            }
+
+            $stage->formula = json_encode($formula);
             $stage->members = self::getMembers($stage->id, $stage->mode);
 
             $stages[] = $stage;
@@ -48,7 +68,8 @@ class Methods_Stages extends  Model_Stage
 
             $result[] = array(
                 'id' => $stage->id,
-                'name' => $stage->name
+                'name' => $stage->name,
+                'type' => $stage->mode
             );
 
         }
@@ -184,8 +205,8 @@ class Methods_Stages extends  Model_Stage
 
         $criterion = array();
 
-        foreach ($formula as $operand) {
-            $criterion[] = new Model_Criterion($operand->id);
+        foreach ($formula as $id => $coef) {
+            $criterion[] = new Model_Criterion($id);
         }
 
         return $criterion;

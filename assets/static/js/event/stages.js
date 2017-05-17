@@ -6,14 +6,13 @@ $(document).ready(function() {
 
         formula.create(document.getElementById(this.id), {
             mode: "print",
-            allItems: document.getElementById('allCriterias').dataset.items,
             curItems: this.dataset.items
         });
 
     });
 
     /** Formula on creating new stage */
-    var newStageFormula = formula.create(document.getElementById('formula_newstage'), {
+    var newStageFormula = formula.create(document.getElementById('new_formula'), {
         mode: "create",
         allItems: document.getElementById('allCriterias').dataset.items
     });
@@ -24,119 +23,98 @@ $(document).ready(function() {
      */
     var urlImgPart = window.location.protocol + '//' + window.location.host + '/uploads/participants/',
         urlImgTeam = window.location.protocol + '//' + window.location.host + '/uploads/teams/',
-        card, id, name, description, part, team, group,
+        card, id, name, description, part, team, formulaItems,
 
-        modal_form          = document.getElementById('editstage_modal'),
-        modal_id            = document.getElementById('editstage_id'),
-        modal_name          = document.getElementById('editstage_name'),
-        modal_description   = document.getElementById('editstage_description'),
-        modal_members       = document.getElementById('editstage_members'),
+        modal_form          = document.getElementById('edit_modal'),
+        modal_id            = document.getElementById('edit_id'),
+        modal_name          = document.getElementById('edit_name'),
+        modal_description   = document.getElementById('edit_description'),
+        modal_members       = document.getElementById('edit_members'),
+        modal_formula       = document.getElementById('edit_formula'),
+        edit_formula        = null,
 
-        all_parts = getOptions(document.getElementById('newstage_participants')),
-        all_teams = getOptions(document.getElementById('newstage_teams'));
-        //all_groups = getOptions(document.getElementById('newstage_groups'));
+        all_parts = getOptions(document.getElementById('new_participants')),
+        all_teams = getOptions(document.getElementById('new_teams'));
 
 
 
     /**
-     * Open newstage form
+     * Open new form
      */
     $('#newstage').click(function() {
         $(this).addClass('open');
     });
-    $('#newstage_name').focus(function() {
+    $('#new_name').focus(function() {
         $('#newstage').addClass('open');
     });
 
 
 
     /**
-     * Close newstage form if inputs are empty
+     * Close new form if inputs are empty
      */
     $('body').click(function(event) {
-        if ( ! $(event.target).closest("#newstage").is('#newstage') && $('#newstage_name').val() == "" && $('#newstage_description').val() == ""
-                && $("#newstage_participants").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#newstage_team").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#newstage_groups").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
-                && $("#newstage_formula_area li").length == 0)
+        if ( ! $(event.target).closest("#newstage").is('#newstage') && $('#new_name').val() == "" && $('#new_description').val() == ""
+                && $("#new_participants").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#new_team").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#new_groups").closest('.input-field').find('.select2-selection__rendered .select2-selection__choice').length == 0
+                && $("#new_formula_area li").length == 0)
         {
             $('#newstage').removeClass('open');
-            checking_el_valid($('#newstage_name'), 'valid');
-            checking_el_valid($('#newstage_description'), 'valid');
-            checking_el_valid($("#newstage_participants"), 'valid');
-            checking_el_valid($("#newstage_team"), 'valid');
-            checking_el_valid($("#newstage_groups"), 'valid');
+            checking_el_valid($('#new_name'), 'valid');
+            checking_el_valid($('#new_description'), 'valid');
+            checking_el_valid($("#new_participants"), 'valid');
+            checking_el_valid($("#new_team"), 'valid');
+            checking_el_valid($("#new_groups"), 'valid');
         }
     });
 
 
     /**
-     * Create select2 for newstage form
+     * Create select2 for new form
      */
-    var select2Parts = $('#newstage_participants').select2({
+    var select2Parts = $('#new_participants').select2({
         language: 'ru',
         templateResult: renderPartImg
     }),
-    select2Teams = $('#newstage_teams').select2({
+    select2Teams = $('#new_teams').select2({
         language: 'ru',
         templateResult: renderTeamImg
     }),
-    // select2Groups = $("#newstage_groups").select2({
-    //     language: 'ru',
-    // }),
+
     select2Parts_val = [],
     select2Teams_val = [];
-    // select2Groups_val = [];
 
-    $('#newstage_participants option').each(function(){
+    $('#new_participants option').each(function(){
         select2Parts_val.push($(this).val());
     });
-    $('#newstage_teams option').each(function(){
+    $('#new_teams option').each(function(){
         select2Teams_val.push($(this).val());
     });
-    $('#newstage_groups option').each(function(){
-        select2Groups_val.push($(this).val());
-    });
+
 
     /**
-     * change stage members in newstage form
+     * change stage members in new form
      */
     $("#part").click(function(){
         $("#show_participants").removeClass("displaynone");
         $("#show_teams").addClass("displaynone");
-        $("#show_groups").addClass("displaynone");
         $("#allParts").parent().removeClass("displaynone");
         $("#allTeams").parent().addClass("displaynone");
-        $("#allGroups").parent().addClass("displaynone");
         select2Teams.val(null).trigger("change");
-        //select2Groups.val(null).trigger("change");
     });
 
     $("#team").click(function(){
         $("#show_teams").removeClass("displaynone");
         $("#show_participants").addClass("displaynone");
-        $("#show_groups").addClass("displaynone");
         $("#allTeams").parent().removeClass("displaynone");
         $("#allParts").parent().addClass("displaynone");
-        $("#allGroups").parent().addClass("displaynone");
         select2Parts.val(null).trigger("change");
-        //select2Groups.val(null).trigger("change");
     });
-
-    // $("#group").click(function(){
-    //     $("#show_groups").removeClass("displaynone");
-    //     $("#show_participants").addClass("displaynone");
-    //     $("#show_teams").addClass("displaynone");
-    //     $("#allGroups").parent().removeClass("displaynone");
-    //     $("#allParts").parent().addClass("displaynone");
-    //     $("#allTeams").parent().addClass("displaynone");
-    //     select2Parts.val(null).trigger("change");
-    //     select2Teams.val(null).trigger("change");
-    // });
 
     /** Select all parts  on new stage */
     $("#allParts").on("click", function () {
-        if ( document.getElementById("allParts").checked == true) {
+        if ( document.getElementById("allParts").checked === true) {
             select2Parts.val(select2Parts_val).trigger("change");
         } else{
             select2Parts.val("").trigger("change");
@@ -145,23 +123,12 @@ $(document).ready(function() {
 
     /** Select all teams on new stage */
     $("#allTeams").on("click", function () {
-        if ( document.getElementById("allTeams").checked == true) {
+        if ( document.getElementById("allTeams").checked === true) {
             select2Teams.val(select2Teams_val).trigger("change");
         } else{
             select2Teams.val("").trigger("change");
         }
     });
-
-    /** Select all groups on new stage */
-    // $("#allGroups").on("click", function () {
-    //     if ( document.getElementById("allGroups").checked == true) {
-    //         select2Groups.val(select2Groups_val).trigger("change");
-    //     } else{
-    //         select2Groups.val("").trigger("change");
-    //     }
-    // });
-
-
 
 
     /**
@@ -169,33 +136,32 @@ $(document).ready(function() {
      */
     $('#newstage').submit(function() {
 
-        var stat_1, stat_2, stat_3, stat_4;
+        var stat_1, stat_3, stat_4;
 
-        stat_1 = checking_el_valid($('#newstage_name'), '');
-        stat_2 = checking_el_valid($('#newstage_description'), '');
+        stat_1 = checking_el_valid($('#new_name'), '');
 
-        if (newStageFormula.toJSON() == "[]") {
-            $('#formula_newstage').addClass('formula--error');
-            stat_3 = false;
-        } else {
-            $('#formula_newstage').removeClass('formula--error');
+        if (newStageFormula.toJSON()) {
+            $('#new_formula').removeClass('formula--error');
             stat_3 = true;
+        } else {
+            $('#new_formula').addClass('formula--error');
+            stat_3 = false;
         }
 
         if ( ! $("#show_participants").hasClass("displaynone") ) {
-            stat_4 = checking_el_valid($("#newstage_participants"), '');
+            stat_4 = checking_el_valid($("#new_participants"), '');
         } else if ( ! $("#show_teams").hasClass("displaynone") ) {
-            stat_4 = checking_el_valid($("#newstage_teams"), '');
-        } /*else {
-            stat_4 = checking_el_valid($("#newstage_groups"), '');
-        }*/
+            stat_4 = checking_el_valid($("#new_teams"), '');
+        }
 
-        if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
-            $.notify({
-                message: 'Пожалуйста, проверьте правильность введенных данных.'
-            }, {
-                type: 'danger'
+        if ( !stat_1 || !stat_3 || !stat_4 ) {
+
+            vp.notification.notify({
+                type: 'danger',
+                message: 'Пожалуйста, проверьте правильность введенных данных.',
+                time: 3
             });
+
             return false;
         }
 
@@ -206,7 +172,7 @@ $(document).ready(function() {
     /**
      * On change Input Field
      */
-    $('body').on('blur', 'input[type="text"], textarea', function(){
+    $('body').on('blur', 'input[type="text"]', function(){
         checking_el_valid($(this));
     });
     
@@ -217,12 +183,12 @@ $(document).ready(function() {
      */
     $('.edit').click(function(){
         card = this.closest('.card');
-        id = card.getAttribute('id');
+        id = card.getAttribute('data-id');
         name = $.trim(document.getElementById('name_' + id).innerHTML);
         description = $.trim(document.getElementById('description_' + id).innerHTML);
         part = getOptions(document.getElementById('participants_' + id));
         team = getOptions(document.getElementById('teams_' + id));
-        group = getOptions(document.getElementById('groups_' + id));
+        formulaItems = document.getElementById('formula_' + id).dataset.items;
 
         //  Fill modal information
         modal_form.setAttribute('action', '/stages/edit/' + card.dataset.id);
@@ -230,33 +196,33 @@ $(document).ready(function() {
         modal_name.value = name;
         modal_description.innerHTML = description;
 
-        if ( part == null && group == null ) {
+        if ( part === null  ) {
             modal_members.innerHTML = setEditedOption(all_teams, team);
-            $("#editstage_members").select2({
+            $("#edit_members").select2({
                 language: 'ru',
                 templateResult: renderTeamImg
             });
-        } else if ( team == null && group == null ) {
+        } else {
             modal_members.innerHTML = setEditedOption(all_parts, part);
-            $("#editstage_members").select2({
+            $("#edit_members").select2({
                 language: 'ru',
                 templateResult: renderPartImg
             });
-        } else {
-            // modal_members.innerHTML = setEditedOption(all_groups, group);
-            // $("#editstage_members").select2({
-            //     language: 'ru'
-            // });
         }
-
 
         // initialize textarea_resize
         $(modal_description).on('init keyup focus', function(){
             textarea_resize($(this));
         });
 
+        edit_formula = formula.create(modal_formula, {
+            mode: "edit",
+            allItems: document.getElementById('allCriterias').dataset.items,
+            curItems: formulaItems
+        });
+
         // initialize modal
-        $("#editstage_modal").modal({
+        $("#edit_modal").modal({
             backdrop: 'static',
             keyboard: false
         });
@@ -271,7 +237,9 @@ $(document).ready(function() {
         modal_name.value = "";
         modal_description.innerHTML = "";
         modal_members.innerHTML = "";
-        $("#editstage_members").select2("destroy");
+        edit_formula.destroy();
+        edit_formula = null;
+        $("#edit_members").select2("destroy");
     });
 
 
@@ -279,21 +247,24 @@ $(document).ready(function() {
     /**
      * Update Stage
      */
-    $('#editstage_modal').submit(function(){
-        var stat_1 = checking_el_valid($('#editstage_name'),''),
-            stat_2 = checking_el_valid($('#editstage_description'),''),
-            stat_3 = checking_el_valid($('#editstage_members'),''),
-            stat_4 = true;
+    $('#edit_modal').submit(function(){
+        var stat_1 = checking_el_valid($('#edit_name'),''),
+            stat_3 = checking_el_valid($('#edit_members'),''),
+            stat_4 = null;
 
-        /**
-         * TODO checking formula validation
-         */
+        if (edit_formula.toJSON()) {
+            modal_formula.classList.remove('formula--error');
+            stat_4 = false;
+        } else {
+            modal_formula.classList.add('formula--error');
+            stat_4 = false;
+        }
 
-        if ( !stat_1 || !stat_2 || !stat_3 || !stat_4 ) {
-            $.notify({
-                message: 'Пожалуйста, проверьте правильность введенных данных.'
-            },{
-                type: 'danger'
+        if ( !stat_1 || !stat_3 || !stat_4 ) {
+            vp.notification.notify({
+                type: 'danger',
+                message: 'Пожалуйста, проверьте правильность введенных данных.',
+                time: 3
             });
             return false;
         }
@@ -310,56 +281,47 @@ $(document).ready(function() {
 
         var stagePk = $('#stage_' + dataPk).get(0);
 
-        swal({
-            customClass: "delete-block",
-            animation: false,
-            title: 'Вы уверены, что хотите удалить этап?',
-            text: "Удалив этап, Вы не сможете его восстановить!",
-            type: 'warning',
-            showCancelButton: true,
-            confirmButtonText: 'Да, удалить этап',
-            cancelButtonText: 'Нет, отмена',
-            confirmButtonClass: 'btn btn_primary',
-            cancelButtonClass: 'btn btn_default',
-            buttonsStyling: false
-        }).then(function () {
 
-            $.ajax({
+        vp.notification.notify({
+            type: 'confirm',
+            size: 'large',
+            showCancelButton: true,
+            confirmText: "Да, удалить этап",
+            cancelText: "Нет, отмена",
+            message: '<h3 class="text--default">Вы уверены, что хотите удалить этап?</h3>' +
+            '<p>Удалив этап, Вы не сможете его восстановить!</p>',
+            confirm: removeStage
+        });
+
+
+        function removeStage() {
+
+            var ajaxData = {
                 url : '/stages/delete/' + dataPk,
-                data : {},
                 success : function(callback) {
 
                     stagePk.remove();
 
-                    swal({
-                        width: 300,
-                        customClass: "delete-block",
-                        animation: false,
-                        title: 'Удалено!',
-                        text: 'Этап был удален.',
+                    vp.notification.notify({
                         type: 'success',
-                        confirmButtonText: 'Готово',
-                        confirmButtonClass: 'btn btn_primary',
-                        buttonsStyling: false
-                    })
+                        message: 'Этап успешно удален',
+                        time: 3
+                    });
                 },
                 error : function(callback) {
                     console.log("Error has occured in deleting stage");
-                    swal({
-                        width: 300,
-                        customClass: "delete-block",
-                        animation: false,
-                        title: 'Ошибка!',
-                        text: 'Во время удаления произошла ошибка, попробуйте удалить этап снова.',
-                        type: 'error',
-                        confirmButtonText: 'Закрыть',
-                        confirmButtonClass: 'btn btn_primary',
-                        buttonsStyling: false
-                    })
-                }
-            })
 
-        });
+                    vp.notification.notify({
+                        type: 'warning',
+                        message: 'Во время удаления произошла ошибка, попробуйте удалить этап снова',
+                        time: 3
+                    });
+                }
+            };
+
+            vp.ajax.send(ajaxData);
+
+        }
 
     });
 

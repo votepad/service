@@ -78,7 +78,14 @@
 .formula__item--selected{
     background: #f5f5f5;
 }
-
+.formula__item--error, .formula__item--error:hover{
+    box-shadow: 0 0 0 2px #F44336;
+    border-color: rgba(244, 67, 48, 0.12);
+    background: rgba(244, 67, 48, 0.12);
+}
+.formula__item--error .formula__item-icon{
+    color: #F44336
+}
 .formula__item-name,
 .formula__item-icon,
 .formula__item-multiply {
