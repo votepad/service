@@ -8,6 +8,36 @@ class Methods_Teams extends Model_Team
     const INSERT = "insert";
     const SELECT = "select";
 
+    public static function getByEvent($id_event) {
+
+        $teams = Dao_Teams::select()
+            ->where('event', '=', $id_event)
+            ->order_by('id', 'ASC')
+            ->execute();
+
+        if (!$teams) {
+            return array();
+        }
+
+        $result = array();
+
+        foreach($teams as $team) {
+
+            $model = new Model_Team();
+            $model->id          = $team['id'];
+            $model->event       = $team['event'];
+            $model->name        = $team['name'];
+            $model->description = $team['description'];
+            $model->logo        = $team['logo'];
+
+            array_push($result, $model);
+
+        };
+
+        return $result;
+
+    }
+
 
     public static function addParticipant($participant, $team)
     {

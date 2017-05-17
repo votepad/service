@@ -18,6 +18,7 @@ votepad.draw        = require('./modules/draw');
 votepad.ajax        = require('./modules/js/ajax');
 votepad.header      = require('./modules/js/header');
 votepad.collapse    = require('./modules/js/collapse');
+votepad.parallax    = require('./modules/js/parallax');
 votepad.cookies     = require('./modules/js/cookies');
 votepad.tabs        = require('./modules/js/tabs');
 votepad.websocket   = require('./modules/js/websocket');

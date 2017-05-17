@@ -323,15 +323,15 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_landing()
     {
-        $parcipants = Methods_Participants::getByEvent($this->event->id);
+        $this->event->members = $this->getMembers($this->event->id);
+        $this->event->result_max_score = $this->getResultMaxScore($this->event->id);
 
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
-        $this->template->mainSection = View::factory('events/landing/pages/content')
+        $this->template->mainSection = View::factory('events/landing/pages/main_content')
             ->set('event', $this->event)
-            ->set('organization', $this->organization)
-            ->set('participants', $parcipants);
+            ->set('organization', $this->organization);
     }
 
     /**
@@ -344,9 +344,8 @@ class Controller_Events_Index extends Dispatch
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
-
         $this->event->contests = $this->getContests($this->event->id);
-
+        $this->event->members = $this->getMembers($this->event->id);
 
         $this->template->mainSection = View::factory('events/landing/pages/results')
             ->set('event', $this->event)
@@ -354,22 +353,92 @@ class Controller_Events_Index extends Dispatch
 
     }
 
+    /**
+     * Get All Members (teams and participants)
+     * @param $id - id_event
+     * @return array
+     */
+    private function getMembers($id)
+    {
+        $members = array();
+
+        $members['teams'] = Methods_Teams::getByEvent($id);
+        $members['participants'] = Methods_Participants::getByEvent($id);
+
+        return $members;
+    }
 
 
+    /**
+     * Get All Contests with Stages with Criterions
+     * @param $id - id_event
+     * @return array
+     */
     private function getContests($id)
     {
         $contests = Methods_Contests::getByEvent($id);
 
-        foreach ($contests as $key => $contest) {
-            $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
+        foreach ($contests as $contestKey => $contest) {
+            $contests[$contestKey]->stages = Methods_Contests::getStages($contest->formula);
+            /**
+             * TODO сделать подсчёт max_score с коэфицентами от формул
+             */
+            $contest_max_score = 0;
 
-            foreach ($contest->stages as $key2 => $stage) {
-                $contests[$key]->stages[$key2]->members = Methods_Stages::getMembers($stage->id, $stage->mode);
-                $contests[$key]->stages[$key2]->criterions = Methods_Stages::getCriterions($stage->formula);
+            foreach ($contest->stages as $stageKey => $stage) {
+                $criterions = Methods_Stages::getCriterions($stage->formula);
+                $stage_max_score = 0;
+
+                foreach ($criterions as $criterionKey => $criterion) {
+                    $stage_max_score += $criterion->max_score;
+                    $contest_max_score += $criterion->max_score;
+                }
+
+                $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
+                $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
             }
+
+            $contests[$contestKey]->max_score = $contest_max_score;
 
         }
 
         return $contests;
     }
+
+
+    /**
+     * Get Result Max Score (participants and teams)
+     * @param $id - id_event
+     * @return array
+     */
+    private function getResultMaxScore($id)
+    {
+        $max_score = array();
+        $max_score["teams"] = 0;
+        $max_score["participants"] = 0;
+
+        $contests = Methods_Contests::getByEvent($id);
+
+        foreach ($contests as $contestKey => $contest) {
+            $stages = Methods_Contests::getStages($contest->formula);
+
+            foreach ($stages as $stageKey => $stage) {
+                $criterions = Methods_Stages::getCriterions($stage->formula);
+
+                foreach ($criterions as $criterionKey => $criterion) {
+                    /**
+                     * TODO сделать подсчёт max_score с коэфицентами от формул
+                     */
+                    if ($stage->mode == 1) {
+                        $max_score["participants"] += $criterion->max_score;
+                    } else {
+                        $max_score["teams"] += $criterion->max_score;
+                    }
+                }
+            }
+        }
+
+        return $max_score;
+    }
+
 }
