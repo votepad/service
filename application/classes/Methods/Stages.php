@@ -38,7 +38,11 @@ class Methods_Stages extends  Model_Stage
 
             endforeach;
 
-            $stage->formula = substr($formula, 0, -1) . ']';
+            $stage->formula = substr($formula, 0, -1);
+
+            if (strlen($stage->formula) != 0)
+                $stage->formula .= ']';
+
             $stage->members = self::getMembers($stage->id, $stage->mode);
 
             $stages[] = $stage;

@@ -20,9 +20,27 @@ class Methods_Contests extends Model_Contest
             $contest = new Model_Contest();
 
             if (empty($row['id'])) continue;
+
             foreach ($row as $fieldname => $value) {
                 if (property_exists($contest, $fieldname)) $contest->$fieldname = $value;
             }
+
+            $formula = '[';
+
+            foreach (json_decode($contest->formula) as $stageID => $coeff) :
+
+                $stage = new Model_Stage($stageID);
+
+                if ($stage->id) :
+                    $formula .= '{"id":"' . $stageID  . '","name":"' . $stage->name . '","coeff":"' . $coeff . '"},';
+                endif;
+
+            endforeach;
+
+            $contest->formula = substr($formula, 0, -1);
+
+            if (strlen($contest->formula) != 0)
+                $contest->formula .= ']';
 
             $contest->judges = self::getJudges($contest->id);
 

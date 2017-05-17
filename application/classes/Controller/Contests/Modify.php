@@ -50,6 +50,7 @@ class Controller_Contests_Modify extends Dispatch {
 
         $contest->name        = Arr::get($_POST, 'name', $contest->name);
         $contest->description = Arr::get($_POST, 'description', $contest->description);
+        $contest->formula     = Arr::get($_POST, 'formula', $contest->formula);
         $contest->update();
 
         Methods_Contests::updateJudges($contest->id, $judges);

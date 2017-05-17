@@ -238,7 +238,7 @@ $(document).ready(function() {
         modal_description.innerHTML = "";
         modal_members.innerHTML = "";
         edit_formula.destroy();
-        console.log(edit_formula);
+        edit_formula = null;
         $("#edit_members").select2("destroy");
     });
 
@@ -253,7 +253,7 @@ $(document).ready(function() {
             stat_4 = null;
 
         if (edit_formula.toJSON()) {
-            modal_formula.classList.remova('formula--error');
+            modal_formula.classList.remove('formula--error');
             stat_4 = false;
         } else {
             modal_formula.classList.add('formula--error');

@@ -335,7 +335,7 @@ var formula = function(formula) {
      * @private
      */
     function destroy_() {
-        formula = null;
+        this.el.innerHTML = "";
     }
     
 
