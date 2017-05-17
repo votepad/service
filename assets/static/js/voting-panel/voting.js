@@ -1,4 +1,4 @@
-var scores = function () {
+var wsvoting = function () {
 
     var ws = null,
         STORAGE_KEY = 'votepad.scores.',
@@ -23,7 +23,7 @@ var scores = function () {
                 vp.storage.remove(STORAGE_KEY + key);
                 return false;
 
-            }
+            };
 
             return true;
 
@@ -39,7 +39,7 @@ var scores = function () {
 
         Array.prototype.forEach.call(elems, function (current) {
 
-            current.addEventListener('toggle', sendScore);
+            current.addEventListener('click', sendScore);
 
         });
 
@@ -84,7 +84,7 @@ var scores = function () {
 
     var saveScore = function (data) {
 
-        var fields = data.data,
+        var fields = data,
             key = fields.contest + '.' + fields.stage + '.' + fields.criterion + '.' + fields.judge + '.' + fields.member;
 
         vp.storage.append(STORAGE_KEY + fields.judge, key);
@@ -94,7 +94,7 @@ var scores = function () {
 
     var sendScore = function (event) {
 
-        var data = JSON.parse(event.value);
+        var data = JSON.parse(event.target.dataset.value);
 
         if (ws.status() == 1) {
 

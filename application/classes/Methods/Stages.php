@@ -179,8 +179,8 @@ class Methods_Stages extends  Model_Stage
 
         $criterion = array();
 
-        foreach ($formula as $operand) {
-            $criterion[] = new Model_Criterion($operand->id);
+        foreach ($formula as $id => $coef) {
+            $criterion[] = new Model_Criterion($id);
         }
 
         return $criterion;

@@ -317,20 +317,14 @@ var formula = function(formula) {
 
 
     function toJSON() {
-        var arr = [], out, i;
+        var arr = {}, out, i;
 
         for (i = 0; i < formulaNodes.list.childElementCount; i++) {
-            out = {
-                "id": formulaNodes.list.children[i].dataset.id,
-                "name":formulaNodes.list.children[i].children[3].innerHTML,
-                "coeff":formulaNodes.list.children[i].children[1].value
-
-            };
-            arr.push(out);
+            arr[formulaNodes.list.children[i].dataset.id] = formulaNodes.list.children[i].children[1].value;
         }
 
         input.value = JSON.stringify(arr);
-    }
+    };
 
 
     /**
