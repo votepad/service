@@ -9,7 +9,7 @@
         <? if(count($event->contests) == 0): ?>
 
             <h2 class="text-brand m-t-50 text-center text--default">
-                К сожалению, организатор не создал сценарий.
+                На данный момент актуальные результаты отсутствуют.
             </h2>
 
         <? else: ?>

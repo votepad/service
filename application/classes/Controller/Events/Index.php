@@ -140,7 +140,7 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_scores()
     {
-        $this->event->contests = $this->getContests($this->event->id);
+        $this->event->contests = $this->getContests($this->event->id, true);
 
         $this->template->mainSection = View::factory('events/control/scores')
             ->set('event', $this->event)
@@ -154,7 +154,7 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_plan()
     {
-        $this->event->contests = $this->getContests($this->event->id);
+        $this->event->contests = $this->getContests($this->event->id, true);
 
         $this->template->mainSection = View::factory('events/control/plan')
             ->set('event', $this->event)
@@ -181,12 +181,8 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_stages()
     {
-
         $stages = Methods_Stages::getByEvent($this->event->id);
-        $members = array(
-            'participants' => Methods_Participants::getByEvent($this->event->id),
-            'teams'        => Methods_Teams::getAllTeams($this->event->id)
-        );
+        $members = $this->getMembers($this->event->id);
         $criterions = Methods_Criterions::getJSON($this->event->id);
 
         $this->template->mainSection = View::factory('events/scenario/stages')
@@ -352,31 +348,38 @@ class Controller_Events_Index extends Dispatch
      * @param $id - id_event
      * @return array
      */
-    private function getContests($id)
+    private function getContests($id, $with_members = false)
     {
         $contests = Methods_Contests::getByEvent($id);
 
         foreach ($contests as $contestKey => $contest) {
-            $contests[$contestKey]->stages = Methods_Contests::getStages($contest->formula);
-
-            /**
-             * TODO сделать подсчёт max_score с коэфицентами от формул
-             */
             $contest_max_score = 0;
+            $stages_coeff = json_decode($contest->formula, true);
 
             foreach ($contest->stages as $stageKey => $stage) {
-                $criterions = Methods_Stages::getCriterions($stage->formula);
-                $members = Methods_Stages::getMembers($stage->id, $stage->mode);
-                $stage_max_score = 0;
 
-                foreach ($criterions as $criterionKey => $criterion) {
-                    $stage_max_score += $criterion->max_score;
-                    $contest_max_score += $criterion->max_score;
+                if ($stage->id) {
+
+                    $criterions = Methods_Stages::getCriterions($stage->formula);
+
+                    if ($with_members)
+                        $members = Methods_Stages::getMembers($stage->id, $stage->mode);
+
+                    $stage_max_score = 0;
+                    $crit_coeff = json_decode($stage->formula, true);
+
+                    foreach ($criterions as $criterionKey => $criterion) {
+                        $stage_max_score += $criterion->max_score * $crit_coeff[$criterion->id];
+                        $contest_max_score += $criterion->max_score * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
+                    }
+
+                    $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
+                    $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
+
+                    if ($with_members)
+                        $contests[$contestKey]->stages[$stageKey]->members = $members;
+
                 }
-
-                $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
-                $contests[$contestKey]->stages[$stageKey]->members = $members;
-                $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
             }
 
             $contests[$contestKey]->max_score = $contest_max_score;
@@ -401,19 +404,22 @@ class Controller_Events_Index extends Dispatch
         $contests = Methods_Contests::getByEvent($id);
 
         foreach ($contests as $contestKey => $contest) {
-            $stages = Methods_Contests::getStages($contest->formula);
 
-            foreach ($stages as $stageKey => $stage) {
-                $criterions = Methods_Stages::getCriterions($stage->formula);
+            $stages_coeff = json_decode($contest->formula, true);
 
-                foreach ($criterions as $criterionKey => $criterion) {
-                    /**
-                     * TODO сделать подсчёт max_score с коэфицентами от формул
-                     */
-                    if ($stage->mode == 1) {
-                        $max_score["participants"] += $criterion->max_score;
-                    } else {
-                        $max_score["teams"] += $criterion->max_score;
+            foreach ($contest->stages as $stageKey => $stage) {
+
+                if ($stage->id) {
+
+                    $criterions = Methods_Stages::getCriterions($stage->formula);
+                    $crit_coeff = json_decode($stage->formula, true);
+
+                    foreach ($criterions as $criterionKey => $criterion) {
+                        if ($stage->mode == 1) {
+                            $max_score["participants"] += $criterion->max_score  * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
+                        } else {
+                            $max_score["teams"] += $criterion->max_score  * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
+                        }
                     }
                 }
             }

@@ -12,7 +12,6 @@ class Model_Contest extends Model {
     public $description;
     public $mode;
     public $formula;
-    public $mode;
 
     public function __construct($id = null) {
 
