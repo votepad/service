@@ -29,20 +29,25 @@ class Methods_Stages extends  Model_Stage
                 if (property_exists($stage, $fieldname)) $stage->$fieldname = $value;
             }
 
-            $formula = '[';
+            $formula = array();
 
             foreach (json_decode($stage->formula) as $criterionID => $coeff) :
 
                 $criterion = new Model_Criterion($criterionID);
-                $formula .= '{"id":"' . $criterionID . '","name":"' . $criterion->name . '","coeff":"' . $coeff . '"},';
+
+                if ($criterion->id) :
+
+                    $formula[] = array(
+                        "id"    => $criterionID,
+                        "name"  => $criterion->name,
+                        "coeff" => $coeff
+                    );
+
+                endif;
 
             endforeach;
 
-            $stage->formula = substr($formula, 0, -1);
-
-            if (strlen($stage->formula) != 0)
-                $stage->formula .= ']';
-
+            $stage->formula = json_encode($formula);
             $stage->members = self::getMembers($stage->id, $stage->mode);
 
             $stages[] = $stage;
