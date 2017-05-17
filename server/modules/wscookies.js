@@ -1,10 +1,12 @@
-module.exports = function(ws) {
+module.exports = function (ws) {
 
     var cookies = ws.upgradeReq.headers.cookie;
 
     var get = function (name) {
 
-        var match = cookies.match(RegExp(name+"=([^;]*)"));
+        if (!cookies) return undefined;
+
+        var match = cookies.match(new RegExp('\\b'+name+'=([^;]*)'));
 
         return match ? decodeURIComponent(match[1]).split('~')[1] : undefined;
 
@@ -14,6 +16,6 @@ module.exports = function(ws) {
 
     return {
         get: get
-    }
+    };
 
 };

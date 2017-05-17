@@ -168,7 +168,7 @@ $(document).ready(function () {
         $('#user_form_notlogged').removeClass('displaynone');
         $('#registr_btn').removeClass('displaynone');
         vp.cookies.remove('sid');
-        vp.cookies.remove('uid');
+        vp.cookies.remove('id');
         vp.cookies.remove('secret');
     });
 
