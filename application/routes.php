@@ -12,6 +12,12 @@ Route::set('Welcome_Page', '')
     ))
     ->cache();
 
+Route::set('API', 'access_token/<token>/method/<method_name>')
+    ->defaults(array(
+        'controller' => 'Api',
+        'action' => 'Dispatcher'
+    ));
+
 /** Authentification */
 Route::set('AUTH', 'sign/<mode>(/<additional>)', array('additional' => 'logout|reset'))
     ->filter(function ($route, $params, $request) {
@@ -74,7 +80,6 @@ require_once ('routes/events.php');
 require_once ('routes/participants.php');
 require_once ('routes/judges.php');
 require_once ('routes/teams.php');
-require_once ('routes/groups.php');
 require_once ('routes/criterions.php');
 require_once ('routes/ajax.php');
 require_once ('routes/judges.php');

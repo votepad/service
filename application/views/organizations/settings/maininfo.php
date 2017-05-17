@@ -1,7 +1,6 @@
 <div class="section__wrapper">
 
     <!-- =============== PAGE STYLE ===============-->
-    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.css">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/org.css?v=<?= filemtime("assets/static/css/org.css") ?>">
 
 
@@ -69,7 +68,6 @@
 
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/organization/settings-maininfo.js"></script>
     <script>
         $(document).ready(function() {
@@ -81,15 +79,17 @@
             */
             $('#remove_organization').click(function(){
 
-                swal({
-                    text: "Вы уверены что хотите удалить организацию?",
+                vp.notification.notify({
+                    type: 'confirm',
+                    size: 'large',
                     showCancelButton: true,
-                    confirmButtonText: 'Удалить!',
-                    cancelButtonText: 'Отмена!',
-                    confirmButtonClass: 'btn btn_primary',
-                    cancelButtonClass: 'btn btn_default',
-                    buttonsStyling: false
-                }).then(function () {
+                    confirmText: "Да, удалить организацию",
+                    cancelText: "Нет, отмена",
+                    message: '<h3 class="text--default">Вы уверены что хотите удалить организацию?</h3>',
+                    confirm: removeOrganization
+                });
+
+                function removeOrganization() {
 
                     var ajaxData = {
                         url: '/organization/<?=$organization->id;?>/delete',
@@ -104,10 +104,10 @@
                                 return;
                             }
 
-                            $.notify({
-                                message: 'Организация удалена!'
-                            },{
-                                type: 'success'
+                            vp.notification.notify({
+                                type: 'success',
+                                message: 'Организация удалена!',
+                                time: 3
                             });
 
                             var host        = window.location.host,
@@ -124,7 +124,7 @@
 
                     vp.ajax.send(ajaxData);
 
-                })
+                }
 
 
              });

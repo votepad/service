@@ -19,7 +19,6 @@
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap-notify/bootstrap-notify.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/voting-panel.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/slidermodule.js"></script>
@@ -34,12 +33,14 @@
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/jumbotron.css?v=<?= filemtime("assets/frontend/modules/css/jumbotron.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/dropdown.css?v=<?= filemtime("assets/frontend/modules/css/dropdown.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css?v=<?= filemtime("assets/frontend/modules/css/collapse.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/notification.css?v=<?= filemtime("assets/frontend/modules/css/notification.css") ?>">
 
     <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js"></script>
     <script>
         $(document).ready(function () {
             vp.collapse.init();
             voting.init();
+            vp.notification.createHolder();
         });
     </script>
     <link rel="stylesheet" href="<?=$assets; ?>static/css/voting-panel.css?v=<?= filemtime("assets/static/css/voting-panel.css") ?>">

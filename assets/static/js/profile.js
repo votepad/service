@@ -76,30 +76,36 @@ $(document).ready(function () {
             {
                 $('#edituser_oldpassword').addClass('invalid');
                 $('#edituser_newpassword').addClass('invalid');
-                $('#edituser_newpassword2').addClass('invalid')
-                $.notify({
-                    message: 'Вы используете запрещенные символы!'
-                },{
-                    type: 'danger'
+                $('#edituser_newpassword2').addClass('invalid');
+
+                vp.notification.notify({
+                    type: 'danger',
+                    message: 'Вы используете запрещенные символы',
+                    time: 3
                 });
+
                 return false;
             } else if ($('#edituser_newpassword').val() == "") {
                 $('#edituser_newpassword').addClass('invalid');
                 $('#edituser_newpassword2').addClass('invalid')
-                $.notify({
-                    message: 'Вы не ввели новый пароль!'
-                },{
-                    type: 'danger'
+
+                vp.notification.notify({
+                    type: 'danger',
+                    message: 'Вы не ввели новый пароль',
+                    time: 3
                 });
+
                 return false;
             } else if ($('#edituser_newpassword').val() != $('#edituser_newpassword2').val()) {
                 $('#edituser_newpassword').addClass('invalid');
                 $('#edituser_newpassword2').addClass('invalid')
-                $.notify({
-                    message: 'Пароли не совпадают!'
-                },{
-                    type: 'danger'
+
+                vp.notification.notify({
+                    type: 'danger',
+                    message: 'Пароли не совпадают',
+                    time: 3
                 });
+
                 return false;
             }
 
@@ -107,11 +113,13 @@ $(document).ready(function () {
             $('#edituser_oldpassword').addClass('invalid');
             $('#edituser_newpassword').addClass('invalid');
             $('#edituser_newpassword2').addClass('invalid');
-            $.notify({
-                message: 'Вы не указали старый пароль!'
-            },{
-                type: 'danger'
+
+            vp.notification.notify({
+                type: 'danger',
+                message: 'Вы не указали старый пароль',
+                time: 3
             });
+
             return false;
         }
     });
@@ -152,31 +160,37 @@ $(document).ready(function () {
 
             $('#reset_password').addClass('invalid');
             $('#reset_password1').addClass('invalid');
-            $.notify({
-                message: 'Вы используете запрещенные символы!'
-            },{
-                type: 'danger'
+
+            vp.notification.notify({
+                type: 'danger',
+                message: 'Вы используете запрещенные символы',
+                time: 3
             });
+
             return false;
 
         } else if ( $('#reset_password').val() == "" ) {
 
             $('#reset_password').addClass('invalid');
-            $.notify({
-                message: 'Вы не ввели новый пароль!'
-            },{
-                type: 'danger'
+
+            vp.notification.notify({
+                type: 'danger',
+                message: 'Вы не ввели новый пароль',
+                time: 3
             });
+
             return false;
 
         } else if ($('#reset_password').val() != $('#reset_password1').val()) {
             $('#reset_password').addClass('invalid');
             $('#reset_password1').addClass('invalid');
-            $.notify({
-                message: 'Пароли не совпадают!'
-            },{
-                type: 'danger'
+
+            vp.notification.notify({
+                type: 'danger',
+                message: 'Пароли не совпадают',
+                time: 3
             });
+
             return false;
         }
 
@@ -204,25 +218,22 @@ $(document).ready(function () {
 
         if (response.status == 'success') {
 
-            $.notify({
-                message: 'Пароль успешно изменен!'
-            },
-            {
-                type: 'success'
-            })
+            vp.notification.notify({
+                type: 'success',
+                message: 'Пароль успешно изменен',
+                time: 3
+            });
 
             $('#cancelReset').click();
             $('#auth_modal').modal('show');
 
         } else {
 
-            $.notify({
-                message: 'Ошибка при смене пароля. Попробуйте ещё раз!'
-            },
-            {
-                type: 'danger'
-            })
-
+            vp.notification.notify({
+                type: 'danger',
+                message: 'Ошибка при смене пароля. Попробуйте ещё раз.',
+                time: 3
+            });
 
         }
 
@@ -274,14 +285,26 @@ $(document).ready(function () {
                 success: function(response) {
                     response = JSON.parse(response);
                     if (response.code == '47') {
-                        $.notify({ message: "Вы успешно вышли из организации "+ name}, { type: "success" });
+
+                        vp.notification.notify({
+                            type: 'success',
+                            message: 'Вы успешно вышли из организации ' + name,
+                            time: 3
+                        });
+
                         orgBlock.remove();
                         document.getElementById('myOrganizationsCounter').innerHTML = parseInt(document.getElementById('myOrganizationsCounter').innerHTML) - 1;
                         checkNumberOfOrgs();
                     } else {
-                        $.notify({ message: "Что-то пошло не так... Попробуйте ещё раз"}, { type: "warning" });
+
+                        vp.notification.notify({
+                            type: 'warning',
+                            message: 'Что-то пошло не так... Попробуйте ещё раз',
+                            time: 3
+                        });
+
                         orgBlock.classList.remove('whirl');
-                        return;
+
                     }
                 },
                 error: function(callback) {
@@ -330,12 +353,24 @@ $(document).ready(function () {
                     response = JSON.parse(response);
                     //console.log(response);
                     if (response.code == '57') {
-                        $.notify({ message: "Вы успешно вышли из мероприятия "+ name}, { type: "success" });
+
+                        vp.notification.notify({
+                            type: 'success',
+                            message: 'Вы успешно вышли из мероприятия ' + name,
+                            time: 3
+                        });
+
                         eventBlock.remove();
                         document.getElementById('myEventsCounter').innerHTML = parseInt(document.getElementById('myEventsCounter').innerHTML) - 1;
                         checkNumberOfEvent();
                     } else {
-                        $.notify({ message: "Что-то пошло не так... Попробуйте ещё раз"}, { type: "warning" });
+
+                        vp.notification.notify({
+                            type: 'warning',
+                            message: 'Что-то пошло не так... Попробуйте ещё раз',
+                            time: 3
+                        });
+
                         eventBlock.classList.remove('whirl');
                         return;
                     }

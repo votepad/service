@@ -3,8 +3,6 @@
     <!-- =============== PAGE STYLE ===============-->
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/formula.css" />
-    <link type="text/css" rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css" />
-
 
     <div class="jumbotron block">
 
@@ -181,7 +179,6 @@
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>frontend/modules/js/formula.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/contests.js"></script>
 
