@@ -25,72 +25,85 @@
 <!--    <section id="eventDescription" class="container"></section>-->
 
 
-    <section id="eventResult" class="container">
-        <h1 class="text-brand m-t-50 m-b-50">
-            Результаты мероприятия
-            <br>
-            <small><a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="underlinehover">Подробный рейтинг</a></small>
-        </h1>
+        <section id="eventResult" class="container">
+            <h1 class="text-brand m-t-50 m-b-50">
+                Результаты мероприятия
+                <br>
+                <small><a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="underlinehover">Подробный рейтинг</a></small>
+            </h1>
+
+            <? if($event->contestsCount == 0) : ?>
+
+                <h2 class="text-brand m-t-50 text-center text--default">
+                    На данный момент актуальные результаты отсутствуют.
+                </h2>
+
+            <? else: ?>
+                <? if (count($event->members["participants"]) > 0 && $event->result_max_score["participants"] > 0) : ?>
+
+                    <? if (count($event->members["teams"]) > 0 && $event->result_max_score["teams"] > 0) : ?>
+
+                        <h2 class="text-center m-b-30">Результаты участников</h2>
+
+                    <? endif;?>
+
+                    <ul class="members">
+
+                        <? foreach ($event->members["participants"] as $memberKey => $member):
+
+                            $data = array(
+                                'member'    => $member,
+                                'memberKey' => $memberKey,
+                                'mode'      => "participants",
+                                'max_score' => $event->result_max_score["participants"]
+                            );
+
+                            echo View::factory('events/landing/blocks/member', $data);
+
+                        endforeach; ?>
+
+                    </ul>
+
+                <? endif;?>
 
 
-        <? if (count($event->members["participants"]) > 0 && $event->result_max_score["participants"] > 0) : ?>
+                <? if (count($event->members["teams"]) > 0 && $event->result_max_score["teams"] > 0) : ?>
 
-            <? if (count($event->members["teams"]) > 0 && $event->result_max_score["teams"] > 0) : ?>
+                    <? if (count($event->members["participants"]) > 0 && $event->result_max_score["participants"] > 0) : ?>
 
-                <h2 class="text-center m-b-30">Результаты участников</h2>
+                        <h2 class="text-center m-b-30">Результаты команд</h2>
 
-            <? endif;?>
+                    <? endif;?>
 
-            <ul class="members">
+                    <ul class="members">
 
-                <? foreach ($event->members["participants"] as $memberKey => $member):
+                        <? foreach ($event->members["teams"] as $memberKey => $member):
 
-                    $data = array(
-                        'member'    => $member,
-                        'memberKey' => $memberKey,
-                        'mode'      => "participants",
-                        'max_score' => $event->result_max_score["participants"]
-                    );
+                            $data = array(
+                                'member'    => $member,
+                                'memberKey' => $memberKey,
+                                'mode'      => "teams",
+                                'max_score' => $event->result_max_score["teams"]
+                            );
 
-                    echo View::factory('events/landing/blocks/member', $data);
+                            echo View::factory('events/landing/blocks/member', $data);
 
-                endforeach; ?>
+                        endforeach; ?>
 
-            </ul>
+                    </ul>
 
-        <? endif;?>
+                <? endif;?>
 
+                <div class="col-xs-12 text-center">
 
-        <? if (count($event->members["teams"]) > 0 && $event->result_max_score["teams"] > 0) : ?>
+                    <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="btn btn_primary btn-result">Подробный рейтинг</a>
 
-            <? if (count($event->members["participants"]) > 0 && $event->result_max_score["participants"] > 0) : ?>
+                </div>
 
-                <h2 class="text-center m-b-30">Результаты команд</h2>
+            <? endif; ?>
 
-            <? endif;?>
-
-            <ul class="members">
-
-                <? foreach ($event->members["teams"] as $memberKey => $member):
-
-                    $data = array(
-                        'member'    => $member,
-                        'memberKey' => $memberKey,
-                        'mode'      => "teams",
-                        'max_score' => $event->result_max_score["teams"]
-                    );
-
-                    echo View::factory('events/landing/blocks/member', $data);
-
-                endforeach; ?>
-
-            </ul>
-
-        <? endif;?>
+        </section>
 
 
-        <div class="col-xs-12 text-center">
-            <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="btn btn_primary btn-result">Подробный рейтинг</a>
-        </div>
-    </section>
+
 </div>
