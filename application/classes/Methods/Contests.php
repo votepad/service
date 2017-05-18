@@ -26,11 +26,11 @@ class Methods_Contests extends Model_Contest
             }
 
             $formula = array();
-
+            $stages = array();
             foreach (json_decode($contest->formula) as $stageID => $coeff) {
 
                 $stage = new Model_Stage($stageID);
-
+                $stages[] = $stage;
                 if ($stage->id) {
 
                     $formula[] = array(
@@ -44,6 +44,7 @@ class Methods_Contests extends Model_Contest
 
             }
 
+            $contest->stages = $stages;
             $contest->formula = json_encode($formula);
             $contest->judges = self::getJudges($contest->id);
 

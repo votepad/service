@@ -96,11 +96,11 @@ $(document).ready(function() {
      * Submit new form
      */
     $('#newcontest').submit(function() {
-        $(this).addClass('whirl');
-        event.preventDefault();
         var stat_1 = false,
             stat_3 = false,
             stat_4 = false;
+
+        $(this).addClass('whirl');
 
         stat_1 = checking_el_valid($('#new_name'), '');
         stat_3 = checking_el_valid($("#new_judges"), '');
@@ -122,7 +122,6 @@ $(document).ready(function() {
             $(this).removeClass('whirl');
             return false;
         }
-        return false;
     });
 
 

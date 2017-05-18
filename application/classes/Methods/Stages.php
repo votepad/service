@@ -89,7 +89,12 @@ class Methods_Stages extends  Model_Stage
 
     }
 
-
+    /**
+     * Get Members By Stage Id
+     * @param $stage - stage_id
+     * @param $mode - 1 || 2 => (participants || teams)
+     * @return array
+     */
     public static function getMembers($stage, $mode) {
 
         $members_ids = Dao_StagesMembers::select('m_id')

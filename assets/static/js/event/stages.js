@@ -254,7 +254,7 @@ $(document).ready(function() {
 
         if (edit_formula.toJSON()) {
             modal_formula.classList.remove('formula--error');
-            stat_4 = false;
+            stat_4 = true;
         } else {
             modal_formula.classList.add('formula--error');
             stat_4 = false;
