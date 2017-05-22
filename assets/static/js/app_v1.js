@@ -72,7 +72,7 @@ $(document).ready(function(){
      if ( $(this).val() == "") {
         if ( ! $(this).next('label').hasClass('icon-label') ) {
             $(this).next('label').addClass('active');
-            var max_len = parseInt($(this).attr('length'));
+            var max_len = parseInt($(this).attr('maxlength'));
 
             $(this).closest('.input-field').find(".counter").empty().append("0/" + max_len);
         }
@@ -92,29 +92,7 @@ $(document).ready(function(){
     $('input, textarea').keyup(function() {
 
      var cur_len = $(this).val().length,
-         max_len = parseInt($(this).attr('length')),
-         orgsite_len;
-
-     if( $(this).hasClass('vp_site') ) {
-
-         if ( $(this).hasClass('vp_site-event') ) {
-
-             orgsite_len = $(this).attr('data-orgwebsite').length + 1;
-
-             if ( cur_len >= orgsite_len ) {
-                 cur_len = cur_len - orgsite_len - 18; // http://votepad.ru/ORG_NAME/
-             }
-
-         } else {
-
-             if ( cur_len >= 18 ) {
-                 cur_len = cur_len - 18; // http://votepad.ru/
-             }
-
-         }
-
-         max_len = max_len -  18; // http://votepad.ru/
-     }
+         max_len = parseInt($(this).attr('maxlength'));
 
      $(this).closest('.input-field').find(".counter").empty().append(cur_len + "/" + max_len);
 
@@ -415,7 +393,7 @@ $(window).on('load', function(){
 
         }
 
-        if ($(this).attr('length') ) {
+        if ($(this).attr('maxlength') ) {
 
             $(this).closest('.input-field').append('<span class="counter" style="right:15px; top:-10px"></span>');
         }

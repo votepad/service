@@ -1,7 +1,7 @@
 <div class="section__wrapper">
 
-    <!-- =============== PAGE STYLES ===============-->
-    <link rel="stylesheet" type="text/css" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
+    <!-- =============== PAGE STYLE ===============-->
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/new-org-event.css?v=<?= filemtime("assets/static/css/new-org-event.css") ?>">
 
     <section class="section__content m-t-100">
 
@@ -11,79 +11,62 @@
             <small>Заполните основную информацию о мероприятие, чтобы его было проще найти в поисковых системах и на сайте!</small>
         </h3>
 
-        <form id="form_newevent" method="POST" action="<?=URL::site('event/add'); ?>" class="form form_newevent">
+        <form id="newSubstance" method="POST" action="<?=URL::site('event/add'); ?>" class="form">
 
-            <div class="form__body form_newevent_body">
-                <div class="form_newevent_body-wrapper">
-
-                    <div id="step1" class="row col-xs-4 form_newevent_body-wrapper-item">
-                        <div class="input-field col-xs-12">
-                            <input type="text" id="name" name="name" length="100" placeholder="Например: Мисс ИТМО">
-                            <label for="name">Название мероприятия</label>
-                            <span class="help-block">Название будет отображено на странице с результатами мероприятия.</span>
-                        </div>
-                        <div class="input-field col-xs-12">
-                            <input type="text" id="site" name="site" class="vp_site vp_site-org" length="38" data-orgwebsite="" placeholder="Например: http://votepad.ru/miss2017">
-                            <label for="site">Страница мероприятия</label>
-                            <span class="help-block">По этому адресу будет доступна страница в системе votepad.</span>
-                        </div>
+            <div class="form__body">
+                <div class="form__wrapper">
+                    <div class="input-field col-xs-12">
+                        <input type="text" id="name" name="name" maxlength="100" data-percent="25" data-section="1" data-valid="false">
+                        <label for="name">Название мероприятия</label>
+                        <span class="help-block">Название будет отображено на странице с результатами мероприятия.</span>
                     </div>
-
-                    <div id="step2" class="row col-xs-4 form_newevent_body-wrapper-item">
-                        <div class="input-field col-xs-12">
-                            <textarea id="desc" name="desc" length="300" tabindex="-1" placeholder="Расскажите о мероприятии"></textarea>
-                            <label for="desc">Описание мероприятия</label>
-                            <span class="help-block">Напишите основную информацию о мероприятии. По этой информации Ваше мероприятие будет проще найти через поиск.</span>
-                        </div>
-                        <div class="input-field col-xs-12">
-                            <style>
-                                .select2-dropdown {
-                                    display: none !important;
-                                }
-                            </style>
-                            <select id="keywords" name="keywords[]" multiple="multiple" tabindex="-1"></select>
-                            <label for="keywords" style="padding-left: 15px">Хэш-теги меропрития</label>
-                        </div>
+                    <div class="input-field col-xs-12 vp-site">
+                        <input type="text" id="uri" name="uri" class="vp-site__input" maxlength="20" placeholder="..." data-percent="20" data-section="1" data-valid="false" data-check="/event/check/">
+                        <label for="uri">Страница мероприятия</label>
+                        <span class="vp-site__placeholder">http://votepad.ru/</span>
+                        <span class="help-block">По этому адресу будет доступна страница в системе votepad.</span>
                     </div>
+                </div>
 
-                    <div id="step3" class="row col-xs-4 form_newevent_body-wrapper-item">
-                        <div class="input-field col-md-5 col-xs-12">
-                            <input type="datetime-local" id="start" name="start" tabindex="-1" placeholder=" ">
-                            <label for="start" class="active">Дата начала</label>
-                        </div>
-                        <div class="input-field col-md-5 col-md-offset-2 col-xs-12">
-                            <input type="datetime-local" id="end" name="end" tabindex="-1" placeholder=" ">
-                            <label for="end" class="active">Дата завершения</label>
-                        </div>
-                        <div class="input-field col-xs-12">
-                            <input type="text" id="address" name="address" length="200" tabindex="-1" placeholder="Наприсер: Кронверкский пр. 49">
-                            <label for="address">Адрес</label>
-                            <span class="help-block">Укажите, где будет проходить мероприятие. Эта информация отразится на странице мероприятия.</span>
-                        </div>
-                        <div class="col-xs-12">
-                            <input type="checkbox" id="confirmrools" name="confirmrools" tabindex="-1">
-                            <label for="confirmrools">
-                                Мною прочитаны <a href="#/modal_rools" class="underlinehover" style="color:#008DA7" tabindex="-1">правила публикации мероприятия</a>
-                            </label>
-                        </div>
+                <div class="form__wrapper">
+                    <div class="input-field col-xs-12">
+                        <textarea id="desc" name="desc" maxlength="300" tabindex="-1" data-percent="20" data-section="2" data-valid="false"></textarea>
+                        <label for="desc">Описание мероприятия</label>
+                        <span class="help-block">Напишите основную информацию о мероприятии. По этой информации Ваше мероприятие будет проще найти через поиск.</span>
+                    </div>
+                </div>
+
+                <div class="form__wrapper">
+                    <div class="input-field col-md-5 col-xs-12">
+                        <input type="datetime-local" id="start" name="start" tabindex="-1" data-percent="10" data-section="3" data-valid="false">
+                        <label for="start" class="active">Дата начала</label>
+                    </div>
+                    <div class="input-field col-md-5 col-md-offset-2 col-xs-12">
+                        <input type="datetime-local" id="end" name="end" tabindex="-1" data-percent="10" data-section="3" data-valid="false">
+                        <label for="end" class="active">Дата завершения</label>
+                    </div>
+                    <div class="input-field col-xs-12">
+                        <input type="text" id="address" name="address" maxlength="200" tabindex="-1" data-percent="15" data-section="3" data-valid="false">
+                        <label for="address">Адрес</label>
+                        <span class="help-block">Укажите, где будет проходить мероприятие. Эта информация отразится на странице мероприятия.</span>
                     </div>
                 </div>
             </div>
 
-            <div class="form_newevent_progress">
-                <div class="form_newevent_progress-wrapper"></div>
+            <div class="progress__wrapper">
+                <span id="progress" class="progress__width"></span>
             </div>
 
             <div class="form__footer clearfix">
-                <button id="btnprevious" type="button" class="btn btn_hollow displaynone">
+                <button id="btnPrev" type="button" class="btn btn_hollow hide">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     Назад
                 </button>
-                <button id="btnnext" type="button" class="btn btn_hollow pull-right">
+                <button id="btnNext" type="button" class="btn btn_hollow fl_r">
                     Продолжить
                     <i class="fa fa-arrow-right" aria-hidden="true"></i>
                 </button>
-                <button id="btnsubmit" type="submit" class="btn btn_primary pull-right displaynone">
+                <button id="btnSubmit" type="submit" class="btn btn_primary fl_r hide">
                     Опубликовать
                     <i class="fa fa-check" aria-hidden="true" style="font-size: 1.05em;"></i>
                 </button>
@@ -94,8 +77,11 @@
     </section>
 
     <!-- =============== PAGE SCRIPTS ===============-->
-    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/event/new.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/new-org-event.js"></script>
+
+    <script>
+        newOrgEvent.init(3);
+    </script>
 
 </div>

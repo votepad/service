@@ -16,12 +16,12 @@
             <div class="form__body">
                 <div class="form__wrapper">
                     <div class="input-field col-xs-12">
-                        <input type="text" id="name" name="name" length="60" placeholder="Университет ИТМО" data-percent="30" data-section="1" data-valid="false">
+                        <input type="text" id="name" name="name" maxlength="60" data-percent="30" data-section="1" data-valid="false">
                         <label for="name">Название организации</label>
                         <span class="help-block">Название увидят на странице организации, где будут показаны все Ваши мероприятия.</span>
                     </div>
                     <div class="input-field col-xs-12 vp-site">
-                        <input class="vp-site__input" type="text" id="uri" name="uri" length="20" placeholder="ifmo" data-percent="25" data-section="1" data-valid="false" data-check="/organization/checkwebsite/">
+                        <input class="vp-site__input" type="text" id="uri" name="uri" maxlength="20" placeholder="..." data-percent="25" data-section="1" data-valid="false" data-check="/organization/checkwebsite/">
                         <label for="uri">Сайт организации</label>
                         <span class="vp-site__placeholder">http://votepad.ru/</span>
                         <span class="help-block">По этому адресу будет доступен личный кабинет организации и видны все мероприятия, проводимые организацией.</span>
@@ -29,12 +29,12 @@
                 </div>
                 <div class="form__wrapper">
                     <div class="input-field col-xs-12">
-                        <textarea id="description" name="description" length="300" tabindex="-1" placeholder="Санкт-Петербургский национальный исследовательский университет информационных технологий, механики и оптики" data-percent="25" data-section="2" data-valid="false"></textarea>
+                        <textarea id="description" name="description" maxlength="300" tabindex="-1" data-percent="25" data-section="2" data-valid="false"></textarea>
                         <label for="description">Описание организации</label>
                         <span class="help-block">Напишите основную информацию об организации. По этой информации Вашу организацию можно будет найти через поиск.</span>
                     </div>
                     <div class="input-field col-xs-12">
-                        <input type="text" id="site" name="site" tabindex="-1" placeholder="http://www.ifmo.ru/" data-percent="20" data-section="2" data-valid="false">
+                        <input type="text" id="site" name="site" tabindex="-1" placeholder="http://site.ru/" data-percent="20" data-section="2" data-valid="false">
                         <label for="site">Официальный сайт организации</label>
                         <span class="help-block">Ссылка на официальный сайт или официальную группу в социальной сети.</span>
                     </div>
@@ -59,6 +59,7 @@
             </div>
         </form>
     </section>
+
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>static/js/new-org-event.js"></script>
 

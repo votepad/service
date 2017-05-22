@@ -46,7 +46,7 @@ class Model_Event extends Model
     /**
      * @var $tags [JSON]
      */
-    public $tags;
+    public $tags = "[]";
 
     /**
      * @var $address [String]

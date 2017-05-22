@@ -108,12 +108,12 @@ class Controller_Events_Ajax extends Ajax {
     {
         $uri = $this->request->param('website');
 
-        $info = Model_Event::getByFieldName('uri', $uri);
+        $result = Model_Event::getByFieldName('uri', $uri);
 
-        if (empty($info)) {
-            echo "false";
-        } else {
+        if ($result['id']) {
             echo "true";
+        } else {
+            echo "false";
         }
 
     }

@@ -11,6 +11,7 @@ var newOrgEvent = function (newOrgEvent) {
         progress        = null,
         checkURI        = null;
 
+    var allowedSymbols = new RegExp("[^a-z0-9]");
 
     var prepare_ = function (number) {
         sectionsNumber  = number;
@@ -106,6 +107,24 @@ var newOrgEvent = function (newOrgEvent) {
                 }
             }
             updateProgress_();
+        } else {
+            this.value = this.value.toLowerCase().trim().replace(/ /g,'');
+
+            if (allowedSymbols.test(this.value)) {
+
+                vp.notification.notify({
+                    type: 'danger',
+                    message: 'Вы используете запрещенные символы, в сайте могут быть латинские буква a-z и цифры 0-9',
+                    time: 3
+                });
+
+                this.classList.add('invalid');
+
+                if (this.dataset.valid === "true") {
+                    this.dataset.valid = "false";
+                    progress -= parseInt(this.dataset.percent);
+                }
+            }
         }
     };
 
@@ -158,36 +177,38 @@ var newOrgEvent = function (newOrgEvent) {
 
     var checkURI_ = function () {
 
-        var ajaxData = {
-            url: this.dataset.check + this.value,
-            type: 'POST',
-            success: function (is_invalid) {
-                if ( is_invalid === "true") {
+        var value = this.value,
+            ajaxData = {
+                url: this.dataset.check + value ,
+                type: 'POST',
+                success: function (is_invalid) {
 
-                    vp.notification.notify({
-                        type: 'danger',
-                        message: 'К сожалению, такой адрес занят. Пожалуйста, придумайте другой.',
-                        time: 3
-                    });
+                    if ( is_invalid == "true") {
 
-                    checkURI.classList.add('invalid');
-                    if (checkURI.dataset.valid === "true") {
-                        checkURI.dataset.valid = "false";
-                        progress -= parseInt(checkURI.dataset.percent);
+                        vp.notification.notify({
+                            type: 'danger',
+                            message: 'К сожалению, такой адрес занят, придумайте другой',
+                            time: 3
+                        });
+
+                        checkURI.classList.add('invalid');
+                        if (checkURI.dataset.valid === "true") {
+                            checkURI.dataset.valid = "false";
+                            progress -= parseInt(checkURI.dataset.percent);
+                        }
+                    } else {
+                        checkURI.classList.remove('invalid');
+                        if (checkURI.dataset.valid === "false") {
+                            checkURI.dataset.valid = "true";
+                            progress += parseInt(checkURI.dataset.percent);
+                        }
                     }
-                } else {
-                    checkURI.classList.remove('invalid');
-                    if (checkURI.dataset.valid === "false") {
-                        checkURI.dataset.valid = "true";
-                        progress += parseInt(checkURI.dataset.percent);
-                    }
+                    updateProgress_();
+                },
+                error: function (callback) {
+                    console.log('Ajax error on checking website', callback);
                 }
-                updateProgress_();
-            },
-            error: function (callback) {
-                console.log('Ajax error on checking website', callback);
-            }
-        };
+            };
 
         vp.ajax.send(ajaxData);
     };
