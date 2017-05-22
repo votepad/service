@@ -70,15 +70,12 @@ $(document).ready(function(){
     $('input, textarea').on('focus', function() {
 
      if ( $(this).val() == "") {
-       if ( ! $(this).next('label').hasClass('icon-label') ) {
-           $(this).next('label').addClass('active');
-           var max_len = parseInt($(this).attr('length'));
+        if ( ! $(this).next('label').hasClass('icon-label') ) {
+            $(this).next('label').addClass('active');
+            var max_len = parseInt($(this).attr('length'));
 
-           if ( $(this).hasClass('vp_site'))
-               max_len = max_len - 18; // http://votepad.ru/
-
-           $(this).closest('.input-field').find(".counter").append("0/" + max_len);
-       }
+            $(this).closest('.input-field').find(".counter").empty().append("0/" + max_len);
+        }
      }
 
     });

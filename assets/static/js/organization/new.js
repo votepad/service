@@ -299,31 +299,7 @@ $(document).ready(function() {
             /*
             **  Checking organization website in DB
             */
-            $.when(
-                $.ajax({
-                    url: url + '/organization/checkwebsite/' + website,
-                    type: "POST",
-                    data: {
-                        website: website
-                    }
-                })
-            ).then(function( data) {
-                if ( data == "false") {
-                    isElementInvalid($this, "valid");
-                }
-                else {
-                    if ( ! $this.parent().children('span').hasClass('error-block') ) {
 
-                        vp.notification.notify({
-                            type: 'danger',
-                            message: 'К сожалению, такой адрес организации занят. Пожалуйста, придумайте другой адрес',
-                            time: 3
-                        });
-
-                    }
-                    isElementInvalid($this, "invalid");
-                }
-            });
         },
         onincomplete: function(){
             $("#org_site").closest('.input-field').find('.counter').text('');

@@ -88,12 +88,10 @@ class Model_Organization extends Model
         $select = Dao_Organizations::select()
             ->where('id', '=', $id)
             ->limit(1)
-            ->cached(Date::MINUTE * 5, $id)
+            ->cached(Date::MINUTE * 5, 'org:' . $id)
             ->execute();
 
-        $this->fill_by_row($select);
-
-        return $this;
+        return $this->fill_by_row($select);
 
     }
 
@@ -156,15 +154,16 @@ class Model_Organization extends Model
      *
      * @param $field
      * @param $value
+     * @return Dao_Organizations
      */
     public static function getByFieldName($field, $value)
     {
-
-        $id = Dao_Organizations::select('id')
+        $organization = Dao_Organizations::select()
                     ->where($field, '=', $value)
+                    ->limit(1)
                     ->execute();
 
-        return new self($id);
+        return $organization;
 
     }
 
@@ -247,7 +246,7 @@ class Model_Organization extends Model
 
         $ids = Dao_UsersOrganizations::select('u_id')
             ->where('o_id', '=', $this->id)
-            ->cached(Date::MINUTE * 5, 'org:' . $this->id)
+            ->cached(Date::MINUTE * 5, 'UserOrg:' . $this->id)
             ->execute('u_id');
 
         $team = array();

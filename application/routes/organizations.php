@@ -142,7 +142,7 @@ Route::set('CHECK_ORGANIZATION_EMAIL', 'organization/checkemail/<email>',
  * checks website existance
  *
  * @property $website - organization identifier (use without nwe.ru afterfix)
- * @example http://pronwe.ru/organization/checkwebsite/ifmo
+ * @example http://votepad.ru/organization/checkwebsite/ifmo
  *
  * @returns Boolean json encoded response
  */

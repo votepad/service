@@ -30,7 +30,7 @@
 
         <!-- Create New Stage -->
         <form method="POST" action="<?= URL::site('stages/add/' . $event->id) ?>" class="form form_collapse" id="newstage" enctype="multipart/form-data">
-            <div class="form_body clear_fix">
+            <div class="form__body clear_fix">
                 <div class="col-sm-12 col-md-6">
                     <div class="row">
                         <div class="input-field">
@@ -102,7 +102,7 @@
                 </div>
             </div>
             <?= Form::hidden('csrf', Security::token()) ?>
-            <div class="form_submit hidden clear_fix">
+            <div class="form__footer hidden clear_fix">
                 <button type="submit" class="btn btn_primary col-sm-12 col-md-auto pull-right">
                     Создать этап
                 </button>

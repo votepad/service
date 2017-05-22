@@ -13,7 +13,7 @@
 
         <form id="form_newevent" method="POST" action="<?=URL::site('event/add'); ?>" class="form form_newevent">
 
-            <div class="form_body form_newevent_body">
+            <div class="form__body form_newevent_body">
                 <div class="form_newevent_body-wrapper">
 
                     <div id="step1" class="row col-xs-4 form_newevent_body-wrapper-item">
@@ -74,7 +74,7 @@
                 <div class="form_newevent_progress-wrapper"></div>
             </div>
 
-            <div class="form_submit clearfix">
+            <div class="form__footer clearfix">
                 <button id="btnprevious" type="button" class="btn btn_hollow displaynone">
                     <i class="fa fa-arrow-left" aria-hidden="true"></i>
                     Назад

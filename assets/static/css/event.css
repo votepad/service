@@ -66,10 +66,10 @@
 /*
  *  Form Collapse Style
 */
-.form_collapse .form_body{
+.form_collapse .form__body{
 	height: 44px;
 }
-	.form_collapse.open .form_body{
+	.form_collapse.open .form__body{
 		height: auto;
 	}
 
