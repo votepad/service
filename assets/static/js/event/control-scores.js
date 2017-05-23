@@ -34,7 +34,7 @@ $(document).ready(function () {
     });
 
 
-    var contests = JSON.parse($('#contests').val());
+    // var contests = JSON.parse($('#contests').val());
 
 
     $('#addScoreContest').select2({
@@ -43,15 +43,15 @@ $(document).ready(function () {
 
     $('#addScoreContest').parent().removeClass('hide');
 
-    var data = [], temp_contest, data1 = [], temp_stage;
+    // var data = [], temp_contest, data1 = [], temp_stage;
 
-    for(var i = 0; i < contests.length; i++) {
-        temp_contest = {
-            contestID: contests[i]['id'],
-            stages: getStagesJson(contests[i]['stages'], contests[i]['id'])
-        };
-        data.push(temp_contest);
-    }
+    // for(var i = 0; i < contests.length; i++) {
+    //     temp_contest = {
+    //         contestID: contests[i]['id'],
+    //         stages: getStagesJson(contests[i]['stages'], contests[i]['id'])
+    //     };
+    //     data.push(temp_contest);
+    // }
 
 
     function getStagesJson(obj, contestID) {
@@ -173,20 +173,20 @@ $(document).ready(function () {
      * - create data dor editing score
      */
     $('.editScore').on('click', function () {
-        var contest     = $(this).data('contest'),
-            stage       = $(this).data('stage'),
-            member      = $(this).data('member'),
-            judge       = $(this).data('judge'),
-            criterions  = $(this).data('criterions'),
-            scores      = $(this).data('scores') || {},
+
+        console.log();
+
+        var info        = $(this).data('info'),
+            scores      = $(this).data('scores') || '{}',
             tablesData  = [], tempCrit;
 
-        for (var i = 0; i < criterions.length; i++) {
+        for (var i = 0; i < info.criterions.length; i++) {
+            scores[info.criterions[i]['id']] = scores[info.criterions[i]['id']] || 0;
             tempCrit = {
-                name: criterions[i]['name'],
-                score: scores[criterions[i]['id']] || 0,
-                edit: "<a role='button' class='openEditScoreArea edtScoreCell__btn' data-criterion='" + JSON.stringify(criterions[i]) + "' data-stage='" + stage + "' data-contest='" + contest + "' data-member='" + member + "' data-judge='" + judge + "'><i class='fa fa-edit'></i></a>" +
-                      "<a role='button' class='submitScore edtScoreCell__btn hide' data-criterion='" + JSON.stringify(criterions[i]) + "' data-stage='" + stage + "' data-contest='" + contest + "' data-member='" + member + "' data-judge='" + judge + "'><i class='fa fa-save'></i></a>"
+                name: info.criterions[i]['name'],
+                score: scores[info.criterions[i]['id']],
+                edit: "<a role='button' class='openEditScoreArea edtScoreCell__btn' data-criterion='" + JSON.stringify(info.criterions[i]) + "'><i class='fa fa-edit'></i></a>" +
+                      "<a role='button' class='submitScore edtScoreCell__btn hide' data-info='" + JSON.stringify(info) + "'><i class='fa fa-save'></i></a>"
             };
             tablesData.push(tempCrit)
         }
@@ -208,11 +208,9 @@ $(document).ready(function () {
         var criterion   = $(this).data('criterion'),
             tr          = $(this).parent().parent(),
             scoreArea   = tr.children('.score'),
-            oldScore    = scoreArea.html();
+            score       = scoreArea.html();
 
-        scoreArea.html('<input class="inputScore" type="number" min="' + criterion['min_score'] + '" max="' + criterion['max_score'] + '" value="' + oldScore + '">');
-
-        console.log('oldScore', oldScore);
+        scoreArea.html('<input class="inputScore" type="number" min="' + criterion['min_score'] + '" max="' + criterion['max_score'] + '" value="' + score + '" data-criterion="' + criterion['id'] + '">');
 
         tr.children('.editScoreCell').children('.openEditScoreArea').addClass('hide');
         tr.children('.editScoreCell').children('.submitScore').removeClass('hide');
@@ -223,23 +221,34 @@ $(document).ready(function () {
      * Submit Update New Score
       */
     $('#editScoresTable tbody').on( 'click', '.submitScore', function () {
-        var contest     = $(this).data('contest'),
-            stage       = $(this).data('stage'),
-            criterion   = $(this).data('criterion')['id'],
-            member      = $(this).data('member'),
-            judge       = $(this).data('judge'),
-            tr          = $(this).parent().parent(),
-            scoreArea   = tr.children('.score'),
-            newScore    = scoreArea.children().val();
+        var info      = $(this).data('info'),
+            tr        = $(this).parent().parent(),
+            input     = tr.children('.score').children(),
+            criterion = input.data('criterion'),
+            newScore  = input.val();
 
-        console.log('newScore: ' + newScore, contest, stage, criterion, member, judge);
+        var score = {
+            'member': info.member,
+            'judge': info.judge,
+            'contest': info.contest.id,
+            'stage': info.stage.id,
+            'criterion': criterion,
+            'score' : {
+                'criterion': newScore,
+                'stage': parseFloat(info.stage.formula[criterion] * newScore),
+                'contest': parseFloat(info.contest.formula[info.stage.id] * info.stage.formula[criterion] * newScore)
+            }
+        };
+
+        console.info(score);
+
 
 
         /**
          * TODO Update Score data
          */
 
-
+        tr.children('.score').html(newScore);
         tr.children('.editScoreCell').children('.openEditScoreArea').removeClass('hide');
         tr.children('.editScoreCell').children('.submitScore').addClass('hide');
 

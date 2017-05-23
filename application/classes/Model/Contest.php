@@ -3,6 +3,7 @@
 /**
  * Class Model_Contest
  * CRUD
+ * @property  origin_formula
  */
 class Model_Contest extends Model {
 
