@@ -14,13 +14,13 @@
 .input-field textarea{
     box-shadow: none !important;
 }
-.progress__wrapper{
+.progress-wrapper{
     position: relative;
     height: 5px;
     background-color: transparent;
     z-index: 0;
 }
-.progress__width{
+.progress-wrapper__width{
     position: absolute;
     height: inherit;
     transition: 1s;

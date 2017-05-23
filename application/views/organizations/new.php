@@ -41,8 +41,8 @@
                 </div>
             </div>
 
-            <div class="progress__wrapper">
-                <span id="progress" class="progress__width"></span>
+            <div class="progress-wrapper">
+                <span id="progress" class="progress-wrapper__width"></span>
             </div>
 
             <div class="form__footer clearfix">

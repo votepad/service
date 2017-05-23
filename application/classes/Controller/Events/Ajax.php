@@ -110,7 +110,7 @@ class Controller_Events_Ajax extends Ajax {
 
         $result = Model_Event::getByFieldName('uri', $uri);
 
-        if ($result['id']) {
+        if (Arr::get($result,'id')) {
             echo "true";
         } else {
             echo "false";
