@@ -141,6 +141,7 @@ class Controller_Events_Index extends Dispatch
     public function action_scores()
     {
         $this->event->contests = $this->getContests($this->event->id, true);
+        $this->event->members = $this->getMembers($this->event->id);
 
         $this->template->mainSection = View::factory('events/control/scores')
             ->set('event', $this->event)

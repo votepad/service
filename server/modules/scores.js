@@ -1,5 +1,7 @@
 module.exports = function () {
 
+    var manager = require('./manager');
+
     /**
      *
      * @param data:
@@ -16,6 +18,9 @@ module.exports = function () {
      *      - result - result coefficient
      */
     var update = function (data) {
+
+        console.log('Received data:');
+        console.log(data);
 
         data.stage    = data.contest + '-' + data.stage;
         data.criterion = data.stage + '-' + data.criterion;
@@ -53,6 +58,27 @@ module.exports = function () {
                                         result: data.score.result * data.score.criterion
                                     };
 
+                                    var update = {
+                                        member: data.member,
+                                        judge: data.judge,
+                                        contest: data.contest,
+                                        result: data.result,
+                                        stage: data.stage,
+                                        criterion: data.criterion,
+                                        scores: {
+                                            criterion: payload.criterions[data.criterion],
+                                            stage: payload.stages[data.stage],
+                                            contest: payload.contests[data.contest],
+                                            result: payload.result
+                                        },
+                                        total: {
+                                            criterion: total.criterions[data.criterion],
+                                            stage: total.stages[data.stage],
+                                            contest: total.contests[data.contest],
+                                            result: total.result,
+                                        }
+                                    };
+
                                     if (result) {
 
                                         result.total.criterions[data.criterion] = result.total.criterions[data.criterion] || 0;
@@ -65,11 +91,25 @@ module.exports = function () {
                                         result.total.contests[data.contest] += total.contests[data.contest];
                                         result.total.result += total.result;
 
+                                        update.total =  {
+                                            criterion: result.total.criterions[data.criterion],
+                                            stage: result.total.stages[data.stage],
+                                            contest: result.total.contests[data.contest],
+                                            result: result.total.result,
+                                        };
+
+                                        manager.update('event', 'orgs', [data.event], update);
+
                                         return collection.updateOne({member: data.member}, {$push: {scores: payload}, $set: {total: result.total}}, function (err, result) {
                                             db.close();
                                         });
 
+
                                     } else {
+
+
+                                        manager.update('event', 'orgs', [data.event], update);
+
                                         return collection.insertOne({member: data.member, scores: [payload], total: total}).then(function(){db.close()});
                                     }
 
@@ -97,6 +137,27 @@ module.exports = function () {
                             result.total.stages[data.stage] += (data.score.criterion - old) * data.score.stage;
                             result.total.contests[data.contest] += (data.score.criterion - old) * data.score.contest;
                             result.total.result += (data.score.criterion - old) * data.score.result;
+
+                            manager.update('event', 'orgs', [data.event], {
+                                member: data.member,
+                                judge: data.judge,
+                                contest: data.contest,
+                                result: data.result,
+                                stage: data.stage,
+                                criterion: data.criterion,
+                                scores: {
+                                    criterion: scores.criterions[data.criterion],
+                                    stage: scores.stages[data.stage],
+                                    contest: scores.contests[data.contest],
+                                    result: scores.result,
+                                },
+                                total: {
+                                    criterion: result.total.criterions[data.criterion],
+                                    stage: result.total.stages[data.stage],
+                                    contest: result.total.contests[data.contest],
+                                    result: result.total.result,
+                                }
+                            });
 
                             var payload = {
                                 $set: {'scores.$': scores, total: result.total}

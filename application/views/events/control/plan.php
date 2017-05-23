@@ -3,6 +3,7 @@
     <!-- =============== PAGE STYLE ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v<?= filemtime("assets/static/css/event.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/event-control.css">
+    <script src="<?= $assets ?>static/js/event/control-plan-updates.js"></script>
 
 
     <div class="jumbotron block">
@@ -36,11 +37,10 @@
 
                                 <? foreach ($contest->judges as $judge): ?>
 
-                                <p style="line-height:1.5em">
-                                    <?= $judge->name; ?>
-                                    <span class="label-status label-status--online">Online</span>
-<!--                                    <span class="label-status label-status--offline">Offline</span> -->
-                                </p>
+                                    <p style="line-height:1.5em">
+                                        <?= $judge->name; ?>
+                                        <span  id="judge-<?= $judge->id ?>"  class="label-status label-status--offline" data-status="Offline"></span>
+                                    </p>
 
                                 <? endforeach; ?>
 

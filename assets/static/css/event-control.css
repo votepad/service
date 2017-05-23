@@ -35,6 +35,12 @@
     border-radius: 10px;
     margin-left: 5px;
 }
+
+.label-status:before {
+    content: attr(data-status);
+    vertical-align: top;
+}
+
 .label-status--online{
     background-color: #27c24c;
 }

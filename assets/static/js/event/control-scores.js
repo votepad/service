@@ -137,7 +137,7 @@ $(document).ready(function () {
 
 
     /**
-     * Edit Sxores Table Template
+     * Edit Scores Table Template
      */
     $('#editScoresTable').DataTable({
         paging: false,
@@ -178,19 +178,13 @@ $(document).ready(function () {
             member      = $(this).data('member'),
             judge       = $(this).data('judge'),
             criterions  = $(this).data('criterions'),
+            scores      = $(this).data('scores') || {},
             tablesData  = [], tempCrit;
-
-        /**
-         * TODO вывести балл, полученный membor конкретным жюри по всем критериям за этап
-         *
-         * вывеси в цикле ниже, где `score`: 5
-         */
-
 
         for (var i = 0; i < criterions.length; i++) {
             tempCrit = {
                 name: criterions[i]['name'],
-                score: 5,
+                score: scores[criterions[i]['id']] || 0,
                 edit: "<a role='button' class='openEditScoreArea edtScoreCell__btn' data-criterion='" + JSON.stringify(criterions[i]) + "' data-stage='" + stage + "' data-contest='" + contest + "' data-member='" + member + "' data-judge='" + judge + "'><i class='fa fa-edit'></i></a>" +
                       "<a role='button' class='submitScore edtScoreCell__btn hide' data-criterion='" + JSON.stringify(criterions[i]) + "' data-stage='" + stage + "' data-contest='" + contest + "' data-member='" + member + "' data-judge='" + judge + "'><i class='fa fa-save'></i></a>"
             };

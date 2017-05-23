@@ -21,9 +21,7 @@
     <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/voting-panel.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/slidermodule.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/radioboxes.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/stagenavigation.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/manager.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/voting.js"></script>
 
 
@@ -76,6 +74,7 @@
 
         <script>
             wsvoting.init(<?= $judge->id ?>, '<?= $_SERVER['HTTP_HOST'] ?>');
+            manager.init();
         </script>
 
     </body>

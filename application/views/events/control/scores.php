@@ -3,6 +3,8 @@
     <!-- =============== PAGE STYLE ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/event-control.css">
+    <script src="<?=$assets; ?>static/js/event/control-scores-updates.js"></script>
+    <script src="<?=$assets; ?>static/js/event/control-wsvoting.js"></script>
 
 
     <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
@@ -69,7 +71,7 @@
                         <label for="addScoreInput">Введите дополнительный балл</label>
                     </div>
                     <div class="input-field">
-                        <buton role="button" class="btn btn_primary fl_r">Поставить</buton>
+                        <buton role="button" class="btn btn_primary fl_r" id="addScoreButton">Поставить</buton>
                     </div>
                 </div>
 
@@ -100,38 +102,38 @@
                             ?>
                         </th>
 
-                        <? //foreach ($contest->judges as $stageKeyudge): ?>
+                        <? foreach ($event->contests as $contest): ?>
                             <th class="no-sort">
-                             Конкурс
+                             <?= $contest->name ?>
                             </th>
-                        <? //endforeach; ?>
+                        <? endforeach; ?>
 
                         <th>Балл</th>
                     </tr>
                     </thead>
-                    <tbody>
-                    <? //foreach ($stage->member as $member): ?>
-                        <tr>
+                    <tbody id="total-results">
+                    <? foreach ($event->members['participants'] as $member): ?>
+                        <tr id="member-<?= $member->id ?>">
 
-                            <td class="text-center">Участник 1<?//= $member->name; ?></td>
+                            <td class="text-center"><?= $member->name; ?></td>
 
-                            <? //foreach ($contest->judges as $stageKeyudge): ?>
-                                <td class="text-center">
+                            <? foreach ($event->contests as $contest): ?>
+                                <td class="text-center" id="contest-<?= $contest->id ?>">
                                     <!--
                                         TODO вывести балл, полученный membor за КОНКРЕТНЫЙ конкурс, ВСЕМИ жюри
                                         -->
-                                    <? echo rand(0,15) ?>
+                                    <? echo 0?>
                                 </td>
-                            <? //endforeach; ?>
+                            <? endforeach; ?>
 
-                            <td class="text-center">
+                            <td class="text-center" id="final-result">
                                 <!--
                                         TODO вывести балл, полученный membor за ВСЕ конкурсы, ВСЕМИ жюри - то есть финальный результат
                                         -->
-                                <? echo rand(10,15) ?>
+                                <? echo 0 ?>
                             </td>
                         </tr>
-                    <? //endforeach; ?>
+                    <? endforeach; ?>
                     </tbody>
                 </table>
 
@@ -149,17 +151,17 @@
 
                 <ul class="stage-header clear_fix text-center">
 
-                        <li class="stage-header__item active" data-toggle="tabs" data-btnGroup="stage_<?= $contestKey; ?>" data-block="stage_<?= $contestKey . '_sum'; ?>">Итого</li>
+                        <li class="stage-header__item active" data-toggle="tabs" data-btnGroup="stage_<?= $contest->id; ?>" data-block="stage_<?= $contest->id . '_sum'; ?>">Итого</li>
                     <? foreach ($event->contests[$contestKey]->stages as $stageKey => $stage): ?>
 
-                        <li class="stage-header__item" data-toggle="tabs" data-btnGroup="stage_<?= $contestKey; ?>" data-block="stage_<?= $contestKey . '_' . $stageKey; ?>"><?= $stage->name; ?></li>
+                        <li class="stage-header__item" data-toggle="tabs" data-btnGroup="stage_<?= $contest->id; ?>" data-block="stage-<?= $contest->id . '-' . $stage->id; ?>"><?= $stage->name; ?></li>
 
                     <? endforeach; ?>
 
                 </ul>
 
                 <!-- STAGE SUM BLOCK START -->
-                <div id="stage_<?= $contestKey . '_sum'; ?>" data-blockGroup="stage_<?= $contestKey; ?>" class="block_body">
+                <div id="stage_<?= $contest->id . '_sum'; ?>" data-blockGroup="stage_<?= $contest->id; ?>" class="block_body">
 
                     <table class="stage__table table table-striped table-hover table-bordered" cellspacing="0" width="100%">
                         <thead>
@@ -187,25 +189,25 @@
                         </thead>
                         <tbody>
                         <? foreach ($event->contests[$contestKey]->stages[0]->members as $member): ?>
-                            <tr>
+                            <tr id="member-<?= $member->id ?>">
 
                                 <td class="text-center"><?= $member->name; ?></td>
 
                                 <? foreach ($contest->judges as $judge): ?>
-                                    <td class="text-center">
+                                    <td class="text-center" id="judge-score-<?= $judge->id ?>">
                                         <!--
                                             TODO вывести балл, полученный membor КОНКРЕТНЫМ жюри по всем критериям за ВСЕ этпы
                                             -->
-                                        <? echo rand(10,25) ?>
+                                        <? echo 0 ?>
                                     </td>
                                 <? endforeach; ?>
 
-                                <td class="text-center">
+                                <td class="text-center" id="contest-total-<?= $contest->id ?>">
                                     <!--
                                         TODO вывести балл, полученный membor ВСЕМИ жюри по всем критериям за ВСЕ этпы
                                         -->
 
-                                    <? echo rand(50,55) ?>
+                                    <? echo 0 ?>
                                 </td>
                             </tr>
                         <? endforeach; ?>
@@ -215,9 +217,9 @@
                 </div>
                 <!-- STAGE SUM BLOCK END -->
 
-                <? foreach ($event->contests[$contestKey]->stages as $stageKey => $stage): ?>
+                <? foreach ($contest->stages as $stageKey => $stage): ?>
                     <!-- STAGE START -->
-                    <div id="stage_<?= $contestKey . '_' . $stageKey; ?>" data-blockGroup="stage_<?= $contestKey; ?>" class="block_body hide">
+                    <div id="stage-<?= $contest->id . '-' . $stage->id; ?>" data-blockGroup="stage_<?= $contest->id; ?>" class="block_body hide">
 
                         <table class="stage__table table table-striped table-hover table-bordered" cellspacing="0" width="100%">
                             <thead>
@@ -248,27 +250,27 @@
                             </thead>
                         <tbody>
                             <? foreach ($stage->members as $member): ?>
-                            <tr>
+                            <tr id="member-<?= $member->id ?>">
 
                                 <td class="text-center"><?= $member->name; ?></td>
 
                                 <? foreach ($contest->judges as $judge): ?>
                                     <td class="text-center">
-                                        <a role="button" class="editScore" data-contest="<?= $contest->id; ?>" data-stage="<?= $stage->id; ?>" data-member="<?= $member->id; ?>" data-judge="<?= $judge->id; ?>" data-criterions='<?= json_encode($stage->criterions); ?>'>
+                                        <a role="button" id="judge-score-<?= $judge->id ?>" class="editScore" data-contest="<?= $contest->id; ?>" data-stage="<?= $stage->id; ?>" data-member="<?= $member->id; ?>" data-judge="<?= $judge->id; ?>" data-criterions='<?= json_encode($stage->criterions); ?>'>
                                             <!--
                                             TODO вывести балл, полученный membor КОНКРЕТНЫМ жюри по всем критериям за этап
                                             -->
 
-                                            8
+                                            0
                                         </a>
                                     </td>
                                 <? endforeach; ?>
 
-                                <td class="text-center">
+                                <td class="text-center" id="stage-total-<?= $stage->id ?>">
                                     <!--
                                         TODO вывести балл, полученный membor ВСЕМИ жюри по всем критериям за этап
                                         -->
-                                    <? echo rand(10,15) ?>
+                                    <? echo 0 ?>
                                 </td>
                             </tr>
                             <? endforeach; ?>
@@ -316,7 +318,9 @@
         </div>
 
     </section>
-
+    <script>
+        wsvoting.init(0, '<?= $_SERVER['HTTP_HOST'] ?>');
+    </script>
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
