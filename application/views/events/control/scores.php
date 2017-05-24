@@ -170,6 +170,10 @@
                 <!-- STAGE SUM BLOCK START -->
                 <div id="stage_<?= $contest->id . '_sum'; ?>" data-blockGroup="stage_<?= $contest->id; ?>" class="block_body">
 
+                    <span class="label label--warning js-check-publish" data-contest="<?=$contest->id; ?>" data-isallpublish="false">
+                        <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> не все баллы опубликованы
+                    </span>
+
                     <table class="stage__table table table-striped table-hover table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -236,6 +240,8 @@
 
                     <!-- STAGE START -->
                     <div id="stage-<?= $contest->id . '-' . $stage->id; ?>" data-blockGroup="stage_<?= $contest->id; ?>" class="block_body hide">
+
+                        <a role="button" class="btn btn_default js-publish-scores" data-stage="<?=$stage->id; ?>" data-contest="<?=$contest->id; ?>" data-publish="false">Опубликовать</a>
 
                         <table class="stage__table table table-striped table-hover table-bordered" cellspacing="0" width="100%">
 
@@ -368,6 +374,7 @@
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
+    <script type="text/javascript" src="https://cdn.datatables.net/buttons/1.3.1/js/dataTables.buttons.min.js"></script>
 
     <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
