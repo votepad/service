@@ -16,6 +16,13 @@
     box-shadow: 0 2px 0 0 #008DA7;
 }
 
+@media (max-width: 680px){
+    .stage-header__item{
+        margin: 0;
+        width: 100%;
+    }
+}
+
 .editScore{
     font-weight: bold;
     border-bottom: dashed 1px #008da7;
@@ -368,4 +375,30 @@ input[type="search"]::-webkit-search-decoration {
 }
 .glyphicon-sort-by-attributes-alt:before {
     content: "\e156";
+}
+
+.js-publish-scores,
+.js-check-publish{
+    position: absolute;
+    right: 15px;
+}
+.js-check-publish{
+    margin-top: 5px;
+}
+.js-publish-scores:after{
+    height: 16px;
+    width: 16px;
+    top: 6px;
+    left: calc(50% - 8px);
+    margin:0;
+}
+
+@media (max-width: 680px) {
+    .js-publish-scores,
+    .js-check-publish{
+        position: relative;
+        float: right;
+        right: 0;
+        margin-bottom: 10px;
+    }
 }

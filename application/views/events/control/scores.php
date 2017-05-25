@@ -3,11 +3,8 @@
     <!-- =============== PAGE STYLE ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/event-control.css">
-    <script src="<?=$assets; ?>static/js/event/control-scores-updates.js"></script>
-    <script src="<?=$assets; ?>static/js/event/control-wsvoting.js"></script>
 
-
-    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+    <link rel="stylesheet" href="<?=$assets; ?>vendor/datatables/css/dataTables.bootstrap.min.css">
 
 
     <div class="jumbotron block">
@@ -170,6 +167,14 @@
                 <!-- STAGE SUM BLOCK START -->
                 <div id="stage_<?= $contest->id . '_sum'; ?>" data-blockGroup="stage_<?= $contest->id; ?>" class="block_body">
 
+                    <span class="label <?= $contest->is_publish ? 'label--brand': 'label--warning '; ?> js-check-publish" data-contest="<?=$contest->id; ?>" data-isallpublish="<?= $contest->is_publish ? 'true' : 'false'; ?>">
+                        <? if ($contest->is_publish) : ?>
+                            <i class="fa fa-check" aria-hidden="true"></i> все баллы опубликованы
+                        <? else: ?>
+                            <i class="fa fa-exclamation-triangle" aria-hidden="true"></i> не все баллы опубликованы
+                        <? endif; ?>
+                    </span>
+
                     <table class="stage__table table table-striped table-hover table-bordered" cellspacing="0" width="100%">
                         <thead>
                             <tr>
@@ -236,6 +241,14 @@
 
                     <!-- STAGE START -->
                     <div id="stage-<?= $contest->id . '-' . $stage->id; ?>" data-blockGroup="stage_<?= $contest->id; ?>" class="block_body hide">
+
+                        <a role="button" class="btn <?= $stage->is_publish  ? 'btn_primary' : 'btn_default' ?> js-publish-scores" data-stage="<?=$stage->id; ?>" data-contest="<?=$contest->id; ?>" data-publish="<?= $stage->is_publish ? 'true' : 'false'; ?>">
+                            <? if ($stage->is_publish): ?>
+                                Опубиковано
+                            <? else: ?>
+                                Опубликовать
+                            <? endif; ?>
+                        </a>
 
                         <table class="stage__table table table-striped table-hover table-bordered" cellspacing="0" width="100%">
 
@@ -361,18 +374,21 @@
                 </div>
             </div>
         </div>
-
+        <input type="hidden" id="eventID" value="<?=$event->id;?>">
+        <input type="hidden" id="organizationID" value="<?=$event->organization; ?>">
     </section>
     <script>
         wsvoting.init(0, '<?= $_SERVER['HTTP_HOST'] ?>');
         updates.init('<?= $_SERVER['HTTP_HOST'] ?>');
     </script>
-    <!-- =============== PAGE SCRIPTS ===============-->
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" src="https://cdn.datatables.net/1.10.13/js/dataTables.bootstrap.min.js"></script>
 
+    <!-- =============== PAGE SCRIPTS ===============-->
+    <script type="text/javascript" src="<?= $assets; ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" src="<?= $assets; ?>vendor/datatables/js/dataTables.bootstrap.min.js"></script>
     <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
+    <script src="<?=$assets; ?>static/js/event/control-scores-updates.js"></script>
+    <script src="<?=$assets; ?>static/js/event/control-wsvoting.js"></script>
     <script type="text/javascript" src="<?= $assets; ?>static/js/event/control-scores.js"></script>
 
 </div>

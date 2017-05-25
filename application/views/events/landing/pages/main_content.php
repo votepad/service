@@ -51,10 +51,15 @@
 
                         <? foreach ($event->members["participants"] as $memberKey => $member):
 
+                            $score = 2; // TODO get score for event
+
+                            // TODO вычесть из `score` баллы за те конкурсы, которые не опубликованы
+
                             $data = array(
                                 'member'    => $member,
                                 'memberKey' => $memberKey,
                                 'mode'      => "participants",
+                                'score'     => $score,
                                 'max_score' => $event->result_max_score["participants"]
                             );
 

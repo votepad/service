@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+
+    var eventID = $('#eventID').val(),
+        organizationID = $('#organizationID').val();
+
     /**
      * Show/hide block and add/remove active class from btns
      */
@@ -7,7 +11,6 @@ $(document).ready(function () {
 
         var areaGroup    = $(this).attr('data-btnGroup'),
             block        = $(this).attr('data-block');
-
 
         $('[data-btnGroup=' + areaGroup + ']').each(function () {
             $(this).removeClass('active');
@@ -20,8 +23,14 @@ $(document).ready(function () {
 
         $('#' + block).removeClass('hide');
 
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+
     });
 
+
+    var shareScore_ = function () {
+        console.log(this)
+    };
 
     $('.stage__table').DataTable({
         'paging': false,
@@ -32,6 +41,89 @@ $(document).ready(function () {
             { 'targets' : 'no-sort', 'orderable': false },
         ]
     });
+
+    $('.js-check-publish').click(function () {
+
+    });
+
+
+    var checkContestResultStatus = function (contest) {
+        var stagesStatusBtn = $('.js-publish-scores[data-contest="' + contest + '"]'),
+            contestStatusBtn = $('.js-check-publish[data-contest="' + contest + '"]'),
+            isAllPublish = true;
+
+        for (var i = 0; i < stagesStatusBtn.length; i++) {
+            if (stagesStatusBtn[i].dataset.publish === 'false')
+                isAllPublish = false;
+        }
+
+        if (isAllPublish) {
+            contestStatusBtn[0].dataset.isallpublish = true;
+            contestStatusBtn[0].classList.remove('label--warning');
+            contestStatusBtn[0].classList.add('label--brand');
+            contestStatusBtn[0].innerHTML = '<i class="fa fa-check" aria-hidden="true"></i> все баллы опубликованы';
+        } else {
+            contestStatusBtn[0].dataset.isallpublish = false;
+            contestStatusBtn[0].classList.add('label--warning');
+            contestStatusBtn[0].classList.remove('label--brand');
+            contestStatusBtn[0].innerHTML = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> не все баллы опубликованы';
+        }
+    };
+
+
+
+    $('.js-publish-scores').click(function () {
+        var action = null,
+            btnText = null,
+            formData = new FormData(),
+            button = $(this);
+
+        button.addClass('whirl');
+
+        formData.append('stage', button.attr('data-stage'));
+        formData.append('contest', button.attr('data-contest'));
+        formData.append('event', eventID);
+        formData.append('organization', organizationID);
+
+        if (button.attr('data-publish') === "true") {
+            action = "unpublish";
+            btnText = "Опубликовать";
+            button.attr('data-publish', false);
+        } else {
+            action = "publish";
+            btnText = "Опубиковано";
+            button.attr('data-publish', true);
+        }
+
+        var ajaxData = {
+            url: '/event/result/' + action,
+            data: formData,
+            type: 'POST',
+            success: function (response) {
+
+                response = JSON.parse(response);
+
+                vp.notification.notify({
+                    'type': response.status,
+                    'message': response.message,
+                    'time': 3
+                });
+
+                button.removeClass('whirl');
+                button.html(btnText);
+                button.toggleClass('btn_default btn_primary');
+                checkContestResultStatus(button.attr('data-contest'));
+            },
+            error: function () {
+                console.info('Ajax error on updating result publish');
+                button.removeClass('whirl');
+            }
+        };
+
+        vp.ajax.send(ajaxData);
+
+    });
+
 
 
     // var contests = JSON.parse($('#contests').val());
@@ -173,8 +265,6 @@ $(document).ready(function () {
      * - create data dor editing score
      */
     $('.editScore').on('click', function () {
-
-        console.log();
 
         var info        = $(this).data('info'),
             scores      = $(this).data('scores') || '{}',
