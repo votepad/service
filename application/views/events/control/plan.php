@@ -121,6 +121,9 @@
 
     </section>
 
+    <script>
+        updates.init('<?= $_SERVER['HTTP_HOST'] ?>');
+    </script>
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?= $assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>

@@ -74,7 +74,7 @@
 
         <script>
             wsvoting.init(<?= $judge->id ?>, '<?= $_SERVER['HTTP_HOST'] ?>');
-            manager.init();
+            manager.init('<?= $_SERVER['HTTP_HOST'] ?>');
         </script>
 
     </body>
