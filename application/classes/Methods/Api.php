@@ -22,4 +22,20 @@ Class Methods_Api extends Model
         $selection = $selection->execute();
         return $selection;
     }
+
+    public function getResults($params)
+    {
+        $mongo = Dispatch::MongoConnection();
+
+        $collectionString = 'event' . $params['id_event'];
+        $collection = $mongo->votepad->$collectionString;
+
+        $cursor = $collection->find();
+
+        foreach ( $cursor as $id => $value ) {
+
+            echo Debug::vars($value);
+
+        }
+    }
 }

@@ -77,6 +77,9 @@ class Controller_Api extends Controller
                 'sorting_field' => 'id',
                 'sorting_type' => 'DESC'
             )
+        ),
+        'getResults' => array(
+            'default_params' => array()
         )
     );
 }

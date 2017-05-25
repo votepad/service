@@ -8,7 +8,8 @@ return array
             'getOrganizations',
             'getOrganizaion',
             'getAllEvents',
-            'getEvent'
+            'getEvent',
+            'getResults'
         )
     )
 );
