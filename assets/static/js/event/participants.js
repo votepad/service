@@ -65,13 +65,7 @@ $(document).ready(function() {
         {
             data:'about',
             readOnly: false,
-            validator: function (value, callback) {
-                if ( value == "" ) {
-                    callback(false);
-                } else {
-                    callback(true);
-                }
-            }
+            
         }
     ];
 

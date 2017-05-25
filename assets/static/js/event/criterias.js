@@ -60,13 +60,7 @@ $(document).ready(function() {
         {
             data:'description',
             readOnly: false,
-            validator: function (value, callback) {
-                if ( value == "") {
-                    callback(false);
-                } else {
-                    callback(true);
-                }
-            }
+
         },
         {
             data:'min_score',
