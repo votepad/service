@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+
+    var eventID = $('#eventID').val(),
+        organizationID = $('#organizationID').val();
+
     /**
      * Show/hide block and add/remove active class from btns
      */
@@ -57,7 +61,7 @@ $(document).ready(function () {
             contestStatusBtn[0].dataset.isallpublish = true;
             contestStatusBtn[0].classList.remove('label--warning');
             contestStatusBtn[0].classList.add('label--brand');
-            contestStatusBtn[0].innerHTML = '<i class="fa fa-check" aria-hidden="true"></i> опубликовано';
+            contestStatusBtn[0].innerHTML = '<i class="fa fa-check" aria-hidden="true"></i> все баллы опубликованы';
         } else {
             contestStatusBtn[0].dataset.isallpublish = false;
             contestStatusBtn[0].classList.add('label--warning');
@@ -78,6 +82,8 @@ $(document).ready(function () {
 
         formData.append('stage', button.attr('data-stage'));
         formData.append('contest', button.attr('data-contest'));
+        formData.append('event', eventID);
+        formData.append('organization', organizationID);
 
         if (button.attr('data-publish') === "true") {
             action = "unpublish";
@@ -90,10 +96,19 @@ $(document).ready(function () {
         }
 
         var ajaxData = {
-            url: '/result/' + action,
+            url: '/event/result/' + action,
             data: formData,
-            method: 'POST',
-            success: function (responce) {
+            type: 'POST',
+            success: function (response) {
+
+                response = JSON.parse(response);
+
+                vp.notification.notify({
+                    'type': response.status,
+                    'message': response.message,
+                    'time': 3
+                });
+
                 button.removeClass('whirl');
                 button.html(btnText);
                 button.toggleClass('btn_default btn_primary');
@@ -105,17 +120,7 @@ $(document).ready(function () {
             }
         };
 
-
-        //vp.ajax.send(ajaxData);
-
-        /*
-        * TODO опубликовать / снять с публикации "результат-контест-стедж"
-        */
-
-        setTimeout(function () {
-            ajaxData.success();
-        },500);
-        
+        vp.ajax.send(ajaxData);
 
     });
 
