@@ -46,7 +46,7 @@ class Model_Event extends Model
     /**
      * @var $tags [JSON]
      */
-    public $tags;
+    public $tags = "[]";
 
     /**
      * @var $address [String]
@@ -227,7 +227,7 @@ class Model_Event extends Model
      * Get Element By Field Name - for simple request
      * @param $field
      * @param $value
-     * @return Model_Event
+     * @return Dao_Events
      */
     public static function getByFieldName($field, $value)
     {

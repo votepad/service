@@ -428,12 +428,12 @@ a, a:hover, a:focus{
 	border-bottom: 1px solid #e7e8ec;
 }
 
-.form_body{
+.form__body{
     position: relative;
     padding: 0 15px;
     border-radius: 3px;
 }
-.form_submit{
+.form__footer{
     display: block;
     background-color: #fafbfc;
     border-top: 1px solid #e7e8ec;

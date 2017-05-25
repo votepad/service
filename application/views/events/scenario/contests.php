@@ -28,7 +28,7 @@
 
         <!-- Create New contest -->
         <form method="POST" action="<?= URL::site('contests/add/' . $event->id) ?>" class="form form_collapse" id="newcontest" enctype="multipart/form-data">
-            <div class="form_body clear_fix">
+            <div class="form__body clear_fix">
                 <div class="col-sm-12 col-md-6">
                     <div class="row">
                         <div class="input-field">
@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form_submit hidden clear_fix">
+            <div class="form__footer hidden clear_fix">
                 <button type="submit" class="btn btn_primary col-sm-12 col-md-auto pull-right">
                     Создать конкурс
                 </button>
