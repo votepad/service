@@ -294,7 +294,7 @@
                                                     );
                                                 ?>
 
-                                                <a role="button" class="editScore" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode(array('1'=>3, '3'=>4))?>'>
+                                                <a id="judge-score-<?= $judge->id; ?>" role="button" class="editScore" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode(array('1'=>3, '3'=>4))?>'>
                                                     <!--
                                                     TODO вывести балл, полученный membor КОНКРЕТНЫМ жюри по всем критериям за этап
                                                     data-scores="{1:5, 3:3, id_criteria:score}"
