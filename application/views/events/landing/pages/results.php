@@ -61,10 +61,15 @@
 
                                 foreach ($event->members[$mode] as $memberKey => $member):
 
+                                    $score = 2; // TODO get score for contest
+
+                                    // TODO вычесть из `score` баллы за те этапы, которые не опубликованы
+
                                     $data = array(
                                         'member'    => $member,
                                         'memberKey' => $memberKey,
                                         'mode'      => $mode,
+                                        'score'     => $contest->is_publish ? $score : 0,
                                         'max_score' => $contest->max_score
                                     );
 
@@ -86,10 +91,14 @@
 
                                         <? foreach ($event->members[$mode] as $memberKey => $member):
 
+
+                                            $score = 2; // TODO get score for stage
+
                                             $data = array(
                                                 'member'    => $member,
                                                 'memberKey' => $memberKey,
                                                 'mode'      => $mode,
+                                                'score'     => $stage->is_publish ? $score : 0,
                                                 'max_score' => $stage->max_score
                                             );
 

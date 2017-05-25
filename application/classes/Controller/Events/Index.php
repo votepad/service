@@ -316,7 +316,7 @@ class Controller_Events_Index extends Dispatch
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
-        $this->event->contests = $this->getContests($this->event->id);
+        $this->event->contests = $this->getContests($this->event->id, false, true);
         $this->event->members = $this->getMembers($this->event->id);
 
         $this->template->mainSection = View::factory('events/landing/pages/results')
