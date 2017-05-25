@@ -49,7 +49,7 @@ $(document).ready( function() {
     $('#jumbotron__edit-btn').click( function () {
 
         var self = this,
-            imgTag = $('#jumbotron__branding');
+            imgTag = $('#jumbotron__branding')[0];
 
         vp.transport.init({
             url : '/transport/4',
@@ -68,7 +68,7 @@ $(document).ready( function() {
     $('.jumbotron__logo-edit').click( function () {
 
         var self = this,
-            imgTag = $('#jumbotron__logo-branding');
+            imgTag = $('#jumbotron__logo-branding')[0];
 
         vp.transport.init({
             url : '/transport/3',
