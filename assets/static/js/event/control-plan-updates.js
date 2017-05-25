@@ -27,10 +27,10 @@ var updates = function () {
     };
 
 
-    var init = function () {
+    var init = function (host) {
 
         ws = new vp.websocket({
-            host: 'votepad.my',
+            host: host,
             port: 8001,
             path: 'management',
             message: updatesHandler,
@@ -43,6 +43,8 @@ var updates = function () {
     };
 
 
-    init();
+    return {
+        init: init
+    };
 
 }();
