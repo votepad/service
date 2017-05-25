@@ -52,7 +52,6 @@ voting.on('connection', function (ws) {
                 manager.update('judge', 'orgs', perms.events, {id: user.id, status: 1});
 
                 ws.on('close', function () {
-                    console.log(ws.readyState);
                     manager.update('judge', 'orgs', perms.events, {id: user.id, status: 0});
                 })
 
