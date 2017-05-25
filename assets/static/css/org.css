@@ -199,7 +199,17 @@ img.jumbotron--loading {
 
 }
 
-
+.events{
+	display: flex;
+	align-items: flex-end;
+	flex-flow: row wrap;
+	justify-content: space-around;
+	margin-bottom: 50px;
+}
+.event{
+	width: 300px;
+	margin: 0 20px 40px 20px;
+}
 .event__img{
 	display: block;
 	background-size: cover;
