@@ -279,17 +279,18 @@
 
                                                 <?
                                                     $data = array(
-                                                        'member' => $member->id,
-                                                        'judge' => $judge->id,
-                                                        'contest' => array(
-                                                            'id' => $contest->id,
-                                                            'formula' => json_decode($contest->origin_formula),
-                                                        ),
-                                                        'stage' => array(
-                                                            'id' => $stage->id,
-                                                            'formula' => json_decode($stage->formula),
-                                                        ),
-                                                        'criterions' => $stage->criterions
+                                                            'event' => $event->id,
+                                                            'member' => $member->id,
+                                                            'judge' => $judge->id,
+                                                            'contest' => array(
+                                                                'id' => $contest->id,
+                                                                'formula' => json_decode($contest->origin_formula),
+                                                            ),
+                                                            'stage' => array(
+                                                                'id' => $stage->id,
+                                                                'formula' => json_decode($stage->formula),
+                                                            ),
+                                                            'criterions' => $stage->criterions
                                                     );
                                                 ?>
 

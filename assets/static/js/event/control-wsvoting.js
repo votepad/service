@@ -35,14 +35,6 @@ var wsvoting = function () {
 
     var init = function (j_id, host, port) {
 
-        var elems = document.querySelectorAll('.js-scores');
-
-        Array.prototype.forEach.call(elems, function (current) {
-
-            current.addEventListener('click', sendScore);
-
-        });
-
         judge = j_id;
         openWS(port, host);
 
@@ -67,12 +59,10 @@ var wsvoting = function () {
         opened: function () {
             console.log('You`re online!');
             sendSavedScores(judge);
-            judgeStatus.online();
         },
 
         closed: function () {
             console.log('You`re offline :(');
-            judgeStatus.offline();
         },
 
         message: function (message) {
@@ -101,12 +91,9 @@ var wsvoting = function () {
             return true;
         }
 
-        judgeStatus.reconnect();
-
         ws.reconnect(5)
             .then(
                 function (){
-                    judgeStatus.online();
                     sendScore(event);
                 },
                 function () {
@@ -124,7 +111,8 @@ var wsvoting = function () {
 
     return {
         init: init,
-        reconnect: reconnect
+        reconnect: reconnect,
+        send: sendScore
     };
 
 }();

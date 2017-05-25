@@ -24,8 +24,8 @@ global.MySQL.on('error', function (err) {
 
 
 var auth = require('./modules/auth');
-var scores = require('./modules/scores');
 var manager = require('./modules/manager');
+var queries = require('./modules/queries');
 
 var voting = new WebSocket.Server({
     port: 8000,
@@ -79,7 +79,7 @@ voting.on('connection', function (ws) {
                         return;
                     }
 
-                    scores.update(data).catch(console.log);
+                    queries.push(data);
 
             });
         });

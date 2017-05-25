@@ -228,6 +228,7 @@ $(document).ready(function () {
             newScore  = input.val();
 
         var score = {
+            'event': info.event,
             'member': info.member,
             'judge': info.judge,
             'contest': info.contest.id,
@@ -235,18 +236,15 @@ $(document).ready(function () {
             'criterion': criterion,
             'score' : {
                 'criterion': newScore,
-                'stage': parseFloat(info.stage.formula[criterion] * newScore),
-                'contest': parseFloat(info.contest.formula[info.stage.id] * info.stage.formula[criterion] * newScore)
+                'stage': parseFloat(info.stage.formula[criterion]),
+                'contest': parseFloat(info.contest.formula[info.stage.id] * info.stage.formula[criterion]),
+                'result': 1
             }
         };
 
         console.info(score);
 
-
-
-        /**
-         * TODO Update Score data
-         */
+        wsvoting.send(score);
 
         tr.children('.score').html(newScore);
         tr.children('.editScoreCell').children('.openEditScoreArea').removeClass('hide');
