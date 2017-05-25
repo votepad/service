@@ -53,7 +53,7 @@ $(document).ready(function() {
             data:'name',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "") callback(false);
+                if ( value == "") callback(false);
                 else callback(true);
             }
         },
@@ -61,7 +61,7 @@ $(document).ready(function() {
             data:'description',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я#№!&.,:;-_ ]/.test(value)) {
+                if ( value == "") {
                     callback(false);
                 } else {
                     callback(true);
