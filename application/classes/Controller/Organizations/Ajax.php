@@ -38,7 +38,7 @@ class Controller_Organizations_Ajax extends Ajax
 
         $result = Model_Organization::getByFieldName('uri', $uri);
 
-        if ($result->id) {
+        if (Arr::get($result,'id')) {
             echo "true";
         } else {
             echo "false";

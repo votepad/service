@@ -29,10 +29,9 @@ class Controller_Events_Modify extends Dispatch
 
         }
 
-        $name              = Arr::get($_POST, 'name', '');
-        $uri                = Arr::get($_POST, 'site', '');
+        $name               = Arr::get($_POST, 'name', '');
+        $uri                = Arr::get($_POST, 'uri', '');
         $description        = Arr::get($_POST, 'desc', '');
-        $keywords           = Arr::get($_POST, 'keywords', array());
         $start              = Arr::get($_POST, 'start', '');
         $end                = Arr::get($_POST, 'end', '');
         $address            = Arr::get($_POST, 'address', '');
@@ -44,7 +43,6 @@ class Controller_Events_Modify extends Dispatch
         $event->creator      = $this->user->id;
         $event->uri          = $uri;
         $event->description  = $description;
-        $event->tags         = json_encode($keywords);
         $event->dt_start     = $start;
         $event->dt_end       = $end;
         $event->address      = $address;

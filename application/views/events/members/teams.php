@@ -21,7 +21,7 @@
         <h3 class="page-header">Список команд</h3>
 
         <form method="POST" action="<?=URL::site('teams/add/' . $event->id); ?>" class="form form_collapse" id="newteam" enctype="multipart/form-data">
-            <div class="form_body clear_fix">
+            <div class="form__body clear_fix">
                 <div class="col-xs-12 col-md-6">
                     <div class="row">
                         <div class="input-field">
@@ -49,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form_submit hidden clear_fix">
+            <div class="form__footer hidden clear_fix">
                 <label class="btn btn_default btn_labeled col-xs-12 col-sm-auto" for="newteam_logo">
                     <span class="btn_label">
                         <i class="fa fa-paperclip" aria-hidden="true"></i>
