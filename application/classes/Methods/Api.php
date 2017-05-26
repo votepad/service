@@ -32,10 +32,110 @@ Class Methods_Api extends Model
 
         $cursor = $collection->find();
 
+        $result = [];
+
         foreach ( $cursor as $id => $value ) {
 
-            echo Debug::vars($value);
+            if (isset($params['contests']) && $params['contests']) {
+
+                $result[] = $this->getMemberContestResult($value);
+
+            } else if (isset($params['stages']) && $params['stages']) {
+
+                $result[] = $this->getMemberStageResult($value);
+
+            }
 
         }
+
+        return $result;
+    }
+
+    /**
+     * @param $collectionData
+     * @return array [
+     *                  'memberId' => $id,
+     *                  'total' => $total'
+     *              ]
+     */
+    public function getMemberTotal($collectionData)
+    {
+        $members = [];
+
+        $members['id'] = $collectionData['member'];
+        $members['total'] = $collectionData['total']['result'];
+
+        return $members;
+
+    }
+
+    /**
+     * @param $collectionData
+     * @return array [
+     *                  'memberId' => $id,
+     *                  'contests' => [
+     *                                  0 => [
+     *                                      'id' -> contest id,
+     *                                      'total' -> score
+     *                                  ]
+     *                                  .......
+     *                              ]
+     *               ]
+     */
+    public function getMemberContestResult($collectionData)
+    {
+        $member = [];
+        $member['id'] = $collectionData['member'];
+
+        foreach ($collectionData['total']['contests'] as $key => $value) {
+            $member['contest'] = array(
+                ['id' => $key,
+                'total' => $value]
+            );
+        }
+
+        return $member;
+    }
+
+    /**
+     * @param $collectionData
+     * @return array [
+     *                  'memberId' => $id,
+     *                  'contests' => [
+     *                           0 => [
+     *                               'id' -> contest id,
+     *                                'stages' => [
+     *                                      0 => [
+     *                                          'id' -> stage id
+     *                                          'total' -> score
+     *                                      ]
+     *                                 ]
+     *                          ]
+     *                      .......
+     *                 ]
+     *              ]
+     *
+     */
+    public function getMemberStageResult($collectionData)
+    {
+        $member = [];
+
+        $member['id'] = $collectionData['member'];
+
+        foreach ($collectionData['total']['stages'] as $key => $value) {
+
+            list($contest, $stage) = explode('-', $key);
+
+            $member['contest'] = array(
+                ['id' => $contest,
+                'stages' => array([
+                    'id' => $stage,
+                    'total' => $value
+                ])]
+            );
+
+        }
+        
+        return $member;
     }
 }
