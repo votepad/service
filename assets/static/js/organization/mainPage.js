@@ -46,10 +46,10 @@ $(document).ready( function() {
 
     };
 
-    $('#jumbotron_org-cover-edit').click( function () {
+    $('#jumbotron__edit-btn').click( function () {
 
         var self = this,
-            imgTag = $('#org-background-uploaded')[0];
+            imgTag = $('#jumbotron__branding')[0];
 
         vp.transport.init({
             url : '/transport/4',
@@ -65,10 +65,10 @@ $(document).ready( function() {
 
     });
 
-    $('.jumbotron_org-avatar-edit').click( function () {
+    $('.jumbotron__logo-edit').click( function () {
 
         var self = this,
-            imgTag = $('#jumbotron_org-avatar-uploaded')[0];
+            imgTag = $('#jumbotron__logo-branding')[0];
 
         vp.transport.init({
             url : '/transport/3',

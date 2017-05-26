@@ -34,11 +34,28 @@ class Controller_Welcome extends Dispatch
         $canLogin = Dispatch::canLogin();
         $authMode = Cookie::get('mode');
 
+        $select = Dao_Events::select('id')
+            ->order_by('id', 'DESC')
+            ->execute();
+
+        $events = array();
+
+        if ( $select ) {
+
+            foreach ($select as $eventId) {
+
+                $events[] = new Model_Event($eventId['id']);
+
+            }
+
+        }
+
         $this->template->header = View::factory('globalblocks/header')
                 ->set('header_menu', View::factory('welcome/blocks/header_menu'))
                 ->set('header_menu_mobile', View::factory('welcome/blocks/header_menu_mobile'));
 
-        $this->template->section = View::factory('welcome/landing');
+        $this->template->section = View::factory('welcome/landing')
+                ->set('events', $events);
 
     }
 

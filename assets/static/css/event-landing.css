@@ -104,9 +104,6 @@
 .event-info__h1,
 .event-info__h2 {
     display: block;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    overflow: hidden;
 }
 .event-info__h1{
     font-size: 1.5em;
@@ -182,10 +179,6 @@
 .stage-header__item{
     display: inline-block;
     cursor: pointer;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
-    max-width: 300px;
 }
 .contest-body{
     width: 100%;
