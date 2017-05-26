@@ -44,6 +44,10 @@ Class Methods_Api extends Model
 
                 $result[] = $this->getMemberStageResult($value);
 
+            } else {
+
+                $result[] = $this->getMemberTotal($value);
+
             }
 
         }
@@ -62,7 +66,7 @@ Class Methods_Api extends Model
     {
         $members = [];
 
-        $members['id'] = $collectionData['member'];
+        $members['memberId'] = $collectionData['member'];
         $members['total'] = $collectionData['total']['result'];
 
         return $members;
@@ -85,10 +89,10 @@ Class Methods_Api extends Model
     public function getMemberContestResult($collectionData)
     {
         $member = [];
-        $member['id'] = $collectionData['member'];
+        $member['memberId'] = $collectionData['member'];
 
         foreach ($collectionData['total']['contests'] as $key => $value) {
-            $member['contest'] = array(
+            $member['contests'] = array(
                 ['id' => $key,
                 'total' => $value]
             );
@@ -120,13 +124,13 @@ Class Methods_Api extends Model
     {
         $member = [];
 
-        $member['id'] = $collectionData['member'];
+        $member['memberId'] = $collectionData['member'];
 
         foreach ($collectionData['total']['stages'] as $key => $value) {
 
             list($contest, $stage) = explode('-', $key);
 
-            $member['contest'] = array(
+            $member['contests'] = array(
                 ['id' => $contest,
                 'stages' => array([
                     'id' => $stage,
