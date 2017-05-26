@@ -22,6 +22,7 @@ class Methods_Organizations extends Model_Organization {
 
         $select = Dao_Events::select('id')
             ->where('organization', '=', $id_organization)
+            ->order_by('id', 'DESC')
             ->execute();
 
         $events = array();

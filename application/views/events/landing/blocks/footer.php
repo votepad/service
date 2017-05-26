@@ -1,4 +1,4 @@
-<div class="container">
+<div class="footer__container container">
     <div class="p-t-30 m-b-20 clear_fix">
         <div class="footer__block fl_l">
                 <span class="footer__brand-icon icon-leadership">

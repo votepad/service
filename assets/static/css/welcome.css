@@ -397,6 +397,9 @@ section{
         font-size: 1.2em;
         width: 100%;
     }
+    .section-3 > .container > .container-button{
+        font-size: 1.2em;
+    }
     .container-header{
         font-size: 1.8em;
     }
