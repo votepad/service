@@ -25,7 +25,7 @@ class Controller_Api extends Controller
 
         $this->token = $this->request->param('token');
         $this->method =  $this->request->param('method_name');
-        $this->params = $_GET;
+        $this->params = $this->request->query();
 
         if (!$this->token || !$this->method ) {
             die('Access denied');
@@ -46,7 +46,6 @@ class Controller_Api extends Controller
     }
 
     private function callApiMethod($method, $params) {
-
         $responseData['success'] = 0;
 
         $apiMethod = new Methods_Api();

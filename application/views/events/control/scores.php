@@ -120,18 +120,22 @@
 
                                 <? foreach ($event->contests as $contest): ?>
                                     <td class="text-center" id="contest-<?= $contest->id ?>">
-                                        <!--
-                                            TODO вывести балл, полученный membor за КОНКРЕТНЫЙ конкурс, ВСЕМИ жюри
-                                            -->
-                                        <? echo 0?>
+                                        <? if(!empty($event->scores[$member->id]['overall'][$contest->id])): ?>
+                                            <?= $event->scores[$member->id]['overall'][$contest->id]['total'] ?>
+                                        <? else: ?>
+                                            0
+                                        <? endif; ?>
                                     </td>
                                 <? endforeach; ?>
 
                                 <td class="text-center" id="final-result">
-                                    <!--
-                                            TODO вывести балл, полученный membor за ВСЕ конкурсы, ВСЕМИ жюри - то есть финальный результат
-                                            -->
-                                    <? echo 0 ?>
+
+                                    <? if(!empty($event->scores[$member->id]['overall'])): ?>
+                                        <?= $event->scores[$member->id]['overall']['total'] ?>
+                                    <? else: ?>
+                                        0
+                                    <? endif; ?>
+
                                 </td>
                             </tr>
                         <? endforeach; ?>
@@ -211,20 +215,25 @@
                                     <? foreach ($contest->judges as $judge): ?>
 
                                     <td class="text-center" id="judge-score-<?= $judge->id ?>">
-                                        <!--
-                                            TODO вывести балл, полученный membor КОНКРЕТНЫМ жюри по всем критериям за ВСЕ этпы
-                                            -->
-                                        <? echo 0 ?>
+
+                                        <? if (!empty($event->scores[$member->id]['judges'][$judge->id][$contest->id])): ?>
+                                            <?= $event->scores[$member->id]['judges'][$judge->id][$contest->id]['total'] ?>
+                                        <? else: ?>
+                                            0
+                                        <? endif; ?>
+
                                     </td>
 
                                     <? endforeach; ?>
 
                                     <td class="text-center" id="contest-total-<?= $contest->id ?>">
-                                        <!--
-                                            TODO вывести балл, полученный membor ВСЕМИ жюри по всем критериям за ВСЕ этпы
-                                            -->
 
-                                        <? echo 0 ?>
+                                        <? if (!empty($event->scores[$member->id]['overall'])): ?>
+                                            <?= $event->scores[$member->id]['overall']['total'] ?>
+                                        <? else: ?>
+                                            0
+                                        <? endif; ?>
+
                                     </td>
 
                                 </tr>
@@ -305,25 +314,49 @@
                                                             ),
                                                             'criterions' => $stage->criterions
                                                     );
+
+                                                    $criterionsScores = array();
+                                                    $stageScore = null;
+
+                                                    if (!empty($event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id])) {
+                                                        $stageScore = $event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id];
+                                                    }
+
+                                                    foreach ($stage->criterions as $criterion) {
+                                                        if (!$stageScore || empty($stageScore[$criterion->id])) {
+                                                            $criterionsScores[$criterion->id] = 0;
+                                                        } else {
+                                                            $criterionsScores[$criterion->id] = $stageScore[$criterion->id];
+                                                        }
+                                                    }
+
                                                 ?>
 
-                                                <a id="judge-score-<?= $judge->id; ?>" role="button" class="editScore" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode(array('1'=>3, '3'=>4))?>'>
+                                                <a id="judge-score-<?= $judge->id; ?>" role="button" class="editScore" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
                                                     <!--
                                                     TODO вывести балл, полученный membor КОНКРЕТНЫМ жюри по всем критериям за этап
                                                     data-scores="{1:5, 3:3, id_criteria:score}"
                                                     -->
 
-                                                    0
+                                                    <? $isStageScoreExists = !empty($event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id])?>
+                                                    <? if ($isStageScoreExists): ?>
+                                                        <?= $event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id]['total'] ?>
+                                                    <? else: ?>
+                                                        0
+                                                    <? endif; ?>
                                                 </a>
                                             </td>
 
                                         <? endforeach; ?>
 
                                         <td class="text-center" id="stage-total-<?= $stage->id ?>">
-                                            <!--
-                                                TODO вывести балл, полученный membor ВСЕМИ жюри по всем критериям за этап
-                                                -->
-                                            <? echo 0 ?>
+
+                                            <? $isStageScoreExists = !empty($event->scores[$member->id]['overall'][$contest->id][$stage->id])?>
+                                            <? if ($isStageScoreExists): ?>
+                                                <?= $event->scores[$member->id]['overall'][$contest->id][$stage->id]['total'] ?>
+                                            <? else: ?>
+                                                0
+                                            <? endif; ?>
 
                                         </td>
 
@@ -377,10 +410,6 @@
         <input type="hidden" id="eventID" value="<?=$event->id;?>">
         <input type="hidden" id="organizationID" value="<?=$event->organization; ?>">
     </section>
-    <script>
-        wsvoting.init(0, '<?= $_SERVER['HTTP_HOST'] ?>');
-        updates.init('<?= $_SERVER['HTTP_HOST'] ?>');
-    </script>
 
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="<?= $assets; ?>vendor/datatables/js/jquery.dataTables.min.js"></script>
@@ -390,5 +419,10 @@
     <script src="<?=$assets; ?>static/js/event/control-scores-updates.js"></script>
     <script src="<?=$assets; ?>static/js/event/control-wsvoting.js"></script>
     <script type="text/javascript" src="<?= $assets; ?>static/js/event/control-scores.js"></script>
+
+    <script>
+        wsvoting.init(0, '<?= $_SERVER['HTTP_HOST'] ?>');
+        updates.init('<?= $_SERVER['HTTP_HOST'] ?>');
+    </script>
 
 </div>
