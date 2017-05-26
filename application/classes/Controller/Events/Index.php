@@ -503,6 +503,10 @@ class Controller_Events_Index extends Dispatch
                     }
                 }
             }
+
+            $max_score['participants'] *= count($contest->judges);
+            $max_score['teams'] *= count($contest->judges);
+
         }
 
         return $max_score;
