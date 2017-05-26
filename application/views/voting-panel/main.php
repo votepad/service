@@ -47,9 +47,9 @@
 
     <body>
 
-        <!--<div class="loader">
+        <div class="loader">
             <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-brand"></i>
-        </div>-->
+        </div>
 
         <header class="header">
             <?=View::factory('voting-panel/blocks/header', array(
