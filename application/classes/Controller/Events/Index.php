@@ -44,6 +44,22 @@ class Controller_Events_Index extends Dispatch
             $this->event = $event;
             $this->organization = new Model_Organization($event->organization);
 
+            $action = $this->request->action();
+
+            switch ($action) {
+                case 'result':
+                case 'landing':
+                    break;
+                default:
+
+                    /** do not allow */
+                    if (!self::isLogged() || !$this->event->isAssistant($this->user->id)) {
+                        $this->redirect('event/' . $this->event->id);
+                    }
+
+                    break;
+            }
+
             if (!$event->code || !Model_Event::getEventByCode($event->code)) {
                 $this->event->code = $event->generateCodeForJudges($event->id);
                 $this->event->update();
@@ -81,9 +97,6 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_settings()
     {
-        if (!$this->event->isAssistant($this->user->id) || !self::isLogged()) {
-            $this->redirect('event/' . $this->event->id);
-        }
 
         $this->template->mainSection = View::factory('events/settings/content')
             ->set('event', $this->event)
@@ -142,6 +155,19 @@ class Controller_Events_Index extends Dispatch
     {
         $this->event->contests = $this->getContests($this->event->id, true, true);
         $this->event->members = $this->getMembers($this->event->id);
+        $api = Kohana::$config->load('api');
+
+        $token = array_keys(get_object_vars($api))[0];
+
+        $scores = Request::factory('/access_token/' . $token . '/method/getResults?')
+            ->query('id_event', $this->event->id)
+            ->query('criterions', true)
+            ->query('judges', true)
+            ->method(Request::GET)
+            ->execute()->body();
+
+        $scores = json_decode($scores, true);
+        $this->event->scores = $scores['data'];
 
         $this->template->mainSection = View::factory('events/control/scores')
             ->set('event', $this->event)
