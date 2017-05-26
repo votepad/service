@@ -62,5 +62,17 @@ class Model_Response_Event extends  Model_Response_Abstract
         'message' => 'User is creator of this event'
     );
 
+    protected $_PUBLISH_RESULTS_SUCCESS = array(
+        'type' => 'result',
+        'code' => '511',
+        'message' => 'Результаты опубликованы'
+    );
+
+    protected $_UNPUBLISH_RESULTS_SUCCESS = array(
+        'type' => 'result',
+        'code' => '512',
+        'message' => 'Результаты скрыты'
+    );
+
 
 }

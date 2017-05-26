@@ -25,6 +25,8 @@ class Methods_Contests extends Model_Contest
                 if (property_exists($contest, $fieldname)) $contest->$fieldname = $value;
             }
 
+            $contest->origin_formula = $contest->formula;
+
             $formula = array();
             $stages = array();
             foreach (json_decode($contest->formula) as $stageID => $coeff) {
