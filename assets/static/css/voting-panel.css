@@ -240,12 +240,8 @@
 
 .criterion__submit,
 .stage__submit{
-    width: 100%;
-    text-align: right;
-}
-.criterion__hide-btn,
-.stage__submit-btn{
-    margin: 20px auto;
+    float: right;
+    margin: 10px auto;
     color: #FFF;
     background-color: #008DA7;
     border-color: #1F757D;
@@ -259,7 +255,7 @@
     background-color: #1F757D;
 }
 
-.stage__submit-btn[disabled] {
+.stage__submit[disabled] {
     opacity:.5;
     cursor: not-allowed;
 }
@@ -396,7 +392,6 @@
 .criterions,
 .criterion-block{
     vertical-align: top;
-    min-height: 190px;
 }
 
 .criterion-block:last-of-type {

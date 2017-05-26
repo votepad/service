@@ -144,3 +144,12 @@ Route::set('ASSISTANTSS_ACTIONS', 'event/<id>/assistant/<method>/<userId>', arra
         'controller' => 'Events_Ajax',
         'action'     => 'assistant'
     ));
+
+Route::set('PUBLISH_RESULT', 'event/result/<method>',
+    array(
+        'method' => 'publish|unpublish'
+    ))
+    ->defaults(array(
+        'controller' => 'Events_Ajax',
+        'action'     => 'result'
+    ));

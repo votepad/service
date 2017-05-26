@@ -19,6 +19,7 @@ application/config/redis.php
 application/config/session.php
 application/config/email.php
 application/config/url.php
+application/config/mongo.php
 
 /.env
 modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/

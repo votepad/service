@@ -20,10 +20,34 @@ class Methods_Contests extends Model_Contest
             $contest = new Model_Contest();
 
             if (empty($row['id'])) continue;
+
             foreach ($row as $fieldname => $value) {
                 if (property_exists($contest, $fieldname)) $contest->$fieldname = $value;
             }
 
+            $contest->origin_formula = $contest->formula;
+
+            $formula = array();
+            $stages = array();
+            foreach (json_decode($contest->formula) as $stageID => $coeff) {
+
+                $stage = new Model_Stage($stageID);
+                $stages[] = $stage;
+                if ($stage->id) {
+
+                    $formula[] = array(
+                        "id" => $stageID,
+                        "name" => $stage->name,
+                        "coeff" => $coeff,
+                        "type" => $stage->mode
+                    );
+
+                }
+
+            }
+
+            $contest->stages = $stages;
+            $contest->formula = json_encode($formula);
             $contest->judges = self::getJudges($contest->id);
 
             $contests[] = $contest;
@@ -45,7 +69,7 @@ class Methods_Contests extends Model_Contest
 
             $result[] = array(
                 'id' => $contest->id,
-                'name' => $contest->name
+                'name' => $contest->name,
             );
 
         }
@@ -134,9 +158,8 @@ class Methods_Contests extends Model_Contest
         $formula = json_decode($formula);
 
         $stages = array();
-
-        foreach ($formula as $operand) {
-            $stages[] = new Model_Stage($operand->id);
+        foreach ($formula as $id => $coef) {
+            $stages[] = new Model_Stage($id);
         }
 
         return $stages;

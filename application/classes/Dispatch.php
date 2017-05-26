@@ -24,6 +24,9 @@ class Dispatch extends Controller_Template
     /** @var $redis - Redis instance */
     protected $redis;
 
+    /** @var $mongo - Mongo instance */
+    protected $mongo;
+
     /** @var  $session - Session singleton instance */
     protected $session;
 
@@ -119,8 +122,7 @@ class Dispatch extends Controller_Template
     public static function isLogged()
     {
         $session = Session::Instance();
-
-        return !empty($session->get('uid')) ||  !empty($session->get('j_id'));
+        return !empty($session->get('id')) && $session->get('mode') == Controller_Auth_Organizer::AUTH_MODE;
 
     }
 
@@ -130,11 +132,12 @@ class Dispatch extends Controller_Template
      */
     public static function hadLogged()
     {
-        $secret = Cookie::get('secret', '');
-        $uid = Cookie::get('uid', '');
-        $sid = Cookie::get('sid', '');
+        $secret   = Cookie::get('secret', '');
+        $id       = Cookie::get('id', '');
+        $sid      = Cookie::get('sid', '');
+        $authMode = Cookie::get('mode', '');
 
-        if ($secret && $uid && $sid) {
+        if ($secret && $id && $sid && $authMode == Controller_Auth_Organizer::AUTH_MODE) {
             return true;
         }
 
@@ -172,6 +175,18 @@ class Dispatch extends Controller_Template
         return $redis;
     }
 
+    public static function MongoConnection()
+    {
+
+        $mongoConfiguration = Kohana::$config->load('mongo');
+        $connectionURL = "mongodb://" . $mongoConfiguration['default']['hostname'];
+        $connectionOptions = $mongoConfiguration['default']['options'];
+
+        $mongo = new MongoClient($connectionURL);
+
+        return $mongo;
+    }
+
     public static function memcacheInstance()
     {
         return Cache::instance('memcache');
@@ -186,8 +201,8 @@ class Dispatch extends Controller_Template
     {
         if (self::canLogin()) {
 
-            $uid = $this->session->get('uid') ?: (int) Cookie::get('uid');
-            $user = new Model_User($uid);
+            $id = $this->session->get('id') ?: (int) Cookie::get('id');
+            $user = new Model_User($id);
 
             $this->user = $user;
 
@@ -205,15 +220,16 @@ class Dispatch extends Controller_Template
 
         $this->memcache = self::memcacheInstance();
         $this->redis    = self::redisInstance();
-
+        $this->mongo    = self::MongoConnection();
+        
         $this->setSaltsToRedis();
 
     }
 
     private function setSaltsToRedis() {
 
-        $this->redis->set(self::REDIS_SALTS_KEY . 'organizer', Controller_Auth_Organizer::AUTH_ORGANIZER_SALT);
-        $this->redis->set(self::REDIS_SALTS_KEY . 'judge', Controller_Auth_Judge::AUTH_JUDGE_SALT);
+        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Organizer::AUTH_MODE,Controller_Auth_Organizer::AUTH_ORGANIZER_SALT);
+        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Judge::AUTH_MODE, Controller_Auth_Judge::AUTH_JUDGE_SALT);
 
     }
 

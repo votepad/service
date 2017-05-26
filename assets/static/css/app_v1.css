@@ -186,6 +186,9 @@ small{
 .text-brand{
 	color: #008DA7;
 }
+.text--default{
+	color: #413a41;
+}
 .page-header{
 	padding-bottom: 10px;
 	margin: 20px 0;
@@ -425,12 +428,12 @@ a, a:hover, a:focus{
 	border-bottom: 1px solid #e7e8ec;
 }
 
-.form_body{
+.form__body{
     position: relative;
     padding: 0 15px;
     border-radius: 3px;
 }
-.form_submit{
+.form__footer{
     display: block;
     background-color: #fafbfc;
     border-top: 1px solid #e7e8ec;
@@ -1062,13 +1065,7 @@ body.modal-open .header{
 	font-size: 14px;
 	outline: 0;
 	border-radius: 3px;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
 	user-select: none;
-	-webkit-appearance: none;
-	-webkit-transition: all .2s;
-	-o-transition: all .2s;
 	transition: all .2s;
 }
 label.btn{
@@ -1099,6 +1096,9 @@ label.btn{
 	color: #FFF;
 	background-color: #008DA7;
 	border-color: #E0E0E0;
+}
+.btn--round{
+	border-radius: 30px;
 }
 
 .btn_default:hover, .btn_default:active{
@@ -2374,7 +2374,10 @@ section:after, section:before,
 .label--default{
 	border-color: #C9C9C9;
 }
-
+.label--warning{
+	border-color: #BFA930;
+	background: #FFD700;
+}
 .hide{
 	display: none !important;
 }

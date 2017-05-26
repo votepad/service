@@ -28,10 +28,10 @@
             <?= Form::hidden('result_id', $event->result->id) ?>
             <div class="form_heading">
                 Формула подсчета итогового результата
-                <a id="saveResult" class="form_heading-icon hide fl_r"><i class="fa fa-save" aria-hidden="true"></i></a>
+                <button id="saveResult" type="submit" class="form_heading-icon hide fl_r"><i class="fa fa-save" aria-hidden="true"></i></button>
                 <a id="editResult" class="form_heading-icon fl_r"><i class="fa fa-edit" aria-hidden="true"></i></a>
             </div>
-            <div class="form_body clear_fix">
+            <div class="form__body clear_fix">
                 <div class="col-xs-12 m-t-20 m-b-20">
                     <div class="row">
                         <i><u>Текущая формула:</u></i>

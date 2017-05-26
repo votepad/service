@@ -121,7 +121,7 @@
                     <div class="form_heading">
                         Simple Form Template
                     </div>
-                    <div class="form_body">
+                    <div class="form__body">
                         <div class="col-xs-6">
                             <div class="row">
                                 <div class="input-field">
@@ -138,7 +138,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form_submit clear_fix">
+                    <div class="form__footer clear_fix">
                         <button class="btn btn_default col-xs-12 col-md-5">
                             Cancel
                         </button>
@@ -151,14 +151,14 @@
             <div class="col-xs-12 col-md-6">
 <blockquote><xmp><form class="form">
     <div class="form_heading"> ... </div>
-    <div class="form_body">
+    <div class="form__body">
         <div class="col-xs-12">
             <div class="row">
                 input's elements  ...
             </div>
         </div>
     </div>
-    <div class="form_submit clear_fix">
+    <div class="form__footer clear_fix">
         <button class="btn btn_primary col-.."> Save </button>
     </div>
 </form></xmp></blockquote>

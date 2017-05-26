@@ -21,6 +21,26 @@ class Methods_Results extends  Model_Result
             if (property_exists($result, $fieldname)) $result->$fieldname = $value;
         }
 
+        $formula = array();
+
+        foreach (json_decode($result->formula) as $contestID => $coeff) {
+
+            $contest = new Model_Contest($contestID);
+
+            if ($contest->id) {
+
+                $formula[] = array(
+                    "id" => $contestID,
+                    "name" => $contest->name,
+                    "coeff" => $coeff,
+                    "mode" => $contest->mode
+                );
+            }
+
+        }
+
+        $result->formula = json_encode($formula);
+
         return $result;
 
     }

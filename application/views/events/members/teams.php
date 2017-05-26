@@ -2,7 +2,6 @@
 
     <!-- =============== PAGE STYLE ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
-    <link type="text/css" rel="stylesheet" href="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.css?v=<?= filemtime("assets/vendor/sweetalert2/sweetalert2.min.css") ?>" />
 
 
     <div class="jumbotron block">
@@ -22,7 +21,7 @@
         <h3 class="page-header">Список команд</h3>
 
         <form method="POST" action="<?=URL::site('teams/add/' . $event->id); ?>" class="form form_collapse" id="newteam" enctype="multipart/form-data">
-            <div class="form_body clear_fix">
+            <div class="form__body clear_fix">
                 <div class="col-xs-12 col-md-6">
                     <div class="row">
                         <div class="input-field">
@@ -50,7 +49,7 @@
                     </div>
                 </div>
             </div>
-            <div class="form_submit hidden clear_fix">
+            <div class="form__footer hidden clear_fix">
                 <label class="btn btn_default btn_labeled col-xs-12 col-sm-auto" for="newteam_logo">
                     <span class="btn_label">
                         <i class="fa fa-paperclip" aria-hidden="true"></i>
@@ -170,7 +169,6 @@
     <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/select2.min.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>vendor/select2/dist/js/i18n/ru.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/sweetalert2/sweetalert2.min.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/event/teams.js"></script>
 
 </div>

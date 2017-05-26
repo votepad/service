@@ -44,7 +44,7 @@ let voting = function (voting) {
         
         membersCriterions = document.getElementsByClassName('member__criterions--collapse');
 
-        collapseMemberBtn = document.getElementsByClassName('criterion__hide-btn');
+        collapseMemberBtn = document.getElementsByClassName('criterion__submit');
         
         window.addEventListener('resize', updateCriterionsBlockHeight_);
 
@@ -106,7 +106,6 @@ let voting = function (voting) {
     let prepareStages_ = function () {
 
         stages = document.getElementsByClassName('stage');
-        
         curHash = window.location.hash;
 
         let isOpened = false;
@@ -125,9 +124,9 @@ let voting = function (voting) {
             stages[0].classList.add('fadeInRight');
         }
 
-        let nextStageLinkBtn = document.getElementsByClassName('nextStageLinkBtn');
-        for(let i = 0; i < nextStageLinkBtn.length; i++) {
-            nextStageLinkBtn[i].addEventListener('click', nextStageOnClick_);
+        let nextContestLinkBtn = document.getElementsByClassName('nextContestLinkBtn');
+        for(let i = 0; i < nextContestLinkBtn.length; i++) {
+            nextContestLinkBtn[i].addEventListener('click', nextLinkOnClick_);
         }
 
         window.addEventListener('hashchange', toggleStage_);
@@ -211,7 +210,6 @@ let voting = function (voting) {
                 } else {
                     membersCriterions[i].dataset.height = membersCriterions[i].children[0].clientHeight;
                     membersCriterions[i].style.height = membersCriterions[i].children[0].clientHeight + "px";
-                    console.log();
                 }
             }
         }
@@ -225,9 +223,9 @@ let voting = function (voting) {
      * - checking validation of Active Stage
      * @private
      */
-    let nextStageOnClick_ = function (e) {
+    let nextLinkOnClick_ = function (e) {
 
-        members = this.parentNode.parentNode.getElementsByClassName('member');
+        members = this.parentNode.getElementsByClassName('member');
 
         let isStageValid = true;
 
@@ -236,8 +234,13 @@ let voting = function (voting) {
         }
 
         if (!isStageValid) {
-            e.preventDefault()
+            e.preventDefault();
+            vp.notification.notify({
+                'type': 'danger',
+                'message': 'Пожалуйста, проставьте баллы всем участникам'
+            });
         }
+
 
     };
 
@@ -278,8 +281,12 @@ let voting = function (voting) {
             }
 
             if (!isStageValid) {
-                window.location.hash = oldHash === undefined ? '' : "#" + oldHash;
                 event.preventDefault();
+                window.location.hash = oldHash === undefined ? '' : "#" + oldHash;
+                vp.notification.notify({
+                    'type': 'danger',
+                    'message': 'Пожалуйста, проставьте баллы всем участникам'
+                });
             } else {
                 curHash = newHash;
 
@@ -311,8 +318,12 @@ let voting = function (voting) {
         let member = this.parentNode.parentNode.parentNode.parentNode;
 
         if ( isCriterionsValid_(member) )
-            member.getElementsByClassName('member__header')[0].click()
-
+            member.getElementsByClassName('member__header')[0].click();
+        else
+            vp.notification.notify({
+                'type': 'danger',
+                'message': 'Пожалуйста, проставьте баллы участнику'
+            });
     };
 
 

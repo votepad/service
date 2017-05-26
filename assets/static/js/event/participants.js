@@ -271,10 +271,10 @@ $(document).ready(function() {
                             // if true - success updating
                             // else    - some problems
                             if (response) {
-                                $.notify({
-                                    message: 'Инфомация об участниках успешно обновлена.'
-                                },{
-                                    type: 'success'
+                                vp.notification.notify({
+                                    type: 'success',
+                                    message: 'Инфомация об участниках успешно обновлена.',
+                                    time: 3
                                 });
 
                                 get_array = JSON.parse(response);
@@ -286,10 +286,10 @@ $(document).ready(function() {
                                 edit.className = "pull-right displayblock";
 
                             } else {
-                                $.notify({
-                                    message: 'Что-то пошло не так... Данные не сохранены.'
-                                },{
-                                    type: 'warning'
+                                vp.notification.notify({
+                                    type: 'warning',
+                                    message: 'Что-то пошло не так... Данные не сохранены.',
+                                    time: 3
                                 });
                                 hot.updateSettings({
                                     minSpareRows: 1,
@@ -311,16 +311,13 @@ $(document).ready(function() {
 
                 }
 
-
-
             } else {
 
-                $.notify({
-                	message: 'Пожалуйста, проверьте правильность введенных данных.'
-                },{
-                	type: 'danger'
+                vp.notification.notify({
+                    type: 'danger',
+                    message: 'Пожалуйста, проверьте правильность введенных данных.',
+                    time: 3
                 });
-
             }
 
         });
@@ -493,7 +490,11 @@ $(document).ready(function() {
         Handsontable.Dom.addEvent(img, 'click', function (e){
 
             if (!isEdited) {
-                $.notify({ message: 'Пожалуйста, нажмите кнопку редактировать: <i class="fa fa-edit" aria-hidden="true"></i>' }, { type: 'warning' })
+                vp.notification.notify({
+                    type: 'warning',
+                    message: 'Пожалуйста, нажмите кнопку редактировать: <i class="fa fa-edit" aria-hidden="true"></i>',
+                    time: 3
+                });
                 return;
             }
 

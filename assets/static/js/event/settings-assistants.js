@@ -29,13 +29,13 @@ for (var i = 0; i < cancelBtns.length; i++) {
 function invite(event) {
     link = event.target.dataset.href;
 
-    swal({
-        html:   '<p>Сообщите ссылку людям, которые смогут стать вашими помощниками мероприятия!</p>' +
-        '<p id="copyText" style="cursor:copy; margin:20px auto; font-size:.8em; text-decoration:underline; word-wrap:break-word; color:#008DA7">' + link + '</p>'+
-        '<p>Не забудьте подтвердить их в "Новых заявках"</p>',
-        confirmButtonText: 'Готово',
-        confirmButtonClass: 'btn btn_primary',
-        buttonsStyling: false
+    vp.notification.notify({
+        type: 'confirm',
+        size: 'large',
+        confirmText: "Готово",
+        message: '<h3 class="text--default">Сообщите ссылку людям, которые смогут стать вашими помощниками мероприятия!</h3>' +
+        '<p id="copyText" style="cursor:copy; margin:20px auto; text-decoration:underline; word-wrap:break-word; color:#008DA7">' + link + '</p>'+
+        '<p>Не забудьте подтвердить их в "Новых заявках"</p>'
     });
 
     document.getElementById('copyText').addEventListener('click', copy, false);
@@ -44,18 +44,20 @@ function invite(event) {
 
 function copy() {
     selectText('copyText');
-    notify("successCopy");
+    notify('Ссылка скопирована','success');
 }
 
 function selectText(containerid) {
     if (document.selection) {
         var range = document.body.createTextRange();
         range.moveToElementText(document.getElementById(containerid));
+        range.select().removeAllRanges();
         range.select().createTextRange();
         document.execCommand("Copy");
     } else if (window.getSelection) {
         var range = document.createRange();
         range.selectNode(document.getElementById(containerid));
+        window.getSelection().removeAllRanges();
         window.getSelection().addRange(range);
         document.execCommand("Copy");
     }
@@ -72,15 +74,16 @@ function removeCoworker(event) {
     id = event.target.dataset.id;
     name = event.target.dataset.name;
 
-    swal({
-        text: "Вы уверены, что хотите исключить " + name + " из организации?",
+    vp.notification.notify({
+        type: 'confirm',
+        size: 'large',
         showCancelButton: true,
-        confirmButtonText: 'Исключить',
-        cancelButtonText: 'Отмена',
-        confirmButtonClass: 'btn btn_primary',
-        cancelButtonClass: 'btn btn_default',
-        buttonsStyling: false
-    }).then(function () {
+        confirmText: "Исключить",
+        message: '<h3 class="text--default">Вы уверены, что хотите исключить ' + name + ' из организации?</h3>',
+        confirm: removeAssistant
+    });
+
+    function removeAssistant() {
 
         assistant_block = document.getElementById('assistant_id'+id);
 
@@ -95,25 +98,25 @@ function removeCoworker(event) {
             success: function(response) {
                 response = JSON.parse(response);
                 if (response.code == '57') {
-                    notify("successDelete");
+                    notify('Помощник успешно удалён!','success');
                     assistant_block.remove();
                     document.getElementById('countAssistans').innerHTML = parseInt(document.getElementById('countAssistans').innerHTML) - 1;
                 } else {
-                    notify("errorDelete");
+                    notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
                     removeWhirl(assistant_block);
                     return;
                 }
             },
             error: function(callback) {
                 console.log(callback);
-                notify("errorDelete");
+                notify('Во время удаления возникла ошибка. Попробуйте ещё раз.','danger');
                 removeWhirl(assistant_block);
             }
         };
 
         vp.ajax.send(ajaxData);
 
-    });
+    }
 
 }
 
@@ -137,19 +140,18 @@ function addAssistant(event) {
         success: function(response) {
             response = JSON.parse(response);
             if (response.code == '56') {
-                notify("successAccept");
+                notify('Заявка принята!','success');
                 event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка принята</div>';
                 removeWhirl(assistant_block);
-                assistant_block.remove();
             } else {
-                notify("errorAccept");
+                notify('Произошла ошибка. Попробуйте снова','warning');
                 removeWhirl(assistant_block);
                 return;
             }
         },
         error: function(callback) {
             console.log(callback);
-            notify("errorAccept");
+            notify('Произошла ошибка. Попробуйте снова','warning');
             removeWhirl(assistant_block);
         }
     };
@@ -178,18 +180,18 @@ function rejectAssistant(event) {
         success: function(response) {
             response = JSON.parse(response);
             if (response.code == '58') {
-                notify("successCansel");
+                notify('Заявка отклонкна!','success');
                 event.target.parentElement.innerHTML = '<div class="coworker_field" style="color:#008DA7">Заявка отклонена</div>';
                 removeWhirl(assistant_block);
             } else {
-                notify("errorCansel");
+                notify('Произошла ошибка. Попробуйте снова','warning');
                 removeWhirl(assistant_block);
                 return;
             }
         },
         error: function(callback) {
             console.log(callback);
-            notify("errorCansel");
+            notify('Произошла ошибка. Попробуйте снова','warning');
             removeWhirl(assistant_block);
         }
     };
@@ -216,36 +218,12 @@ function removeWhirl(block) {
 /**
  * Notify Frontend Fields
  */
-function notify(field) {
+function notify(message,status) {
 
-    switch (field) {
-
-        case "successDelete":
-            message = 'Помощник успешно удалён!';
-            type = 'success';
-            break;
-        case "errorDelete":
-            message = 'Во время удаления возникла ошибка. Попробуйте ещё раз.';
-            type = 'danger';
-            break;
-        case "successAccept":
-            message = 'Заявка принята!';
-            type = 'success';
-            break;
-        case "successCansel":
-            message = 'Заявка отклонкна!';
-            type = 'success';
-            break;
-        case "successCopy":
-            message = 'Ссылка скопирована';
-            type = 'success';
-            break;
-
-        default:
-            message = 'Произошла ошибка. Попробуйте снова';
-            type = 'warning';
-    }
-
-    $.notify({ message: message }, { type: type });
+    vp.notification.notify({
+        type: status,
+        message: message,
+        time: 3
+    });
 
 }

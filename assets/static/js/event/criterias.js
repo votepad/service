@@ -270,10 +270,10 @@ $(document).ready(function() {
                             // if true - success - save in DB
                             // else    - warning - don't save
                             if (response) {
-                                $.notify({
-                                    message: 'Инфомация о критериях успешно обновлена.'
-                                }, {
-                                    type: 'success'
+                                vp.notification.notify({
+                                    type: 'success',
+                                    message: 'Инфомация о критериях успешно обновлена.',
+                                    time: 3
                                 });
 
                                 get_array = JSON.parse(response);
@@ -285,10 +285,10 @@ $(document).ready(function() {
                                 edit.className = "pull-right displayblock";
 
                             } else {
-                                $.notify({
-                                    message: 'Что-то пошло не так... Данные не сохранены.'
-                                }, {
-                                    type: 'warning'
+                                vp.notification.notify({
+                                    type: 'warning',
+                                    message: 'Что-то пошло не так... Данные не сохранены.',
+                                    time: 3
                                 });
                                 hot.updateSettings({
                                     minSpareRows: 1,
@@ -309,10 +309,10 @@ $(document).ready(function() {
 
             } else {
 
-                $.notify({
-                	message: 'Пожалуйста, проверьте правильность введенных данных.'
-                },{
-                	type: 'danger'
+                vp.notification.notify({
+                    type: 'danger',
+                    message: 'Пожалуйста, проверьте правильность введенных данных.',
+                    time: 3
                 });
 
             }

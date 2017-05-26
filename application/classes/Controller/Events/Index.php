@@ -153,8 +153,8 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_scores()
     {
-
-        $this->event->contests = $this->getContests($this->event->id);
+        $this->event->contests = $this->getContests($this->event->id, true, true);
+        $this->event->members = $this->getMembers($this->event->id);
 
         $this->template->mainSection = View::factory('events/control/scores')
             ->set('event', $this->event)
@@ -168,8 +168,7 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_plan()
     {
-
-        $this->event->contests = $this->getContests($this->event->id);
+        $this->event->contests = $this->getContests($this->event->id, true);
 
         $this->template->mainSection = View::factory('events/control/plan')
             ->set('event', $this->event)
@@ -197,11 +196,7 @@ class Controller_Events_Index extends Dispatch
     public function action_stages()
     {
         $stages = Methods_Stages::getByEvent($this->event->id);
-        $members = array(
-            'participants' => Methods_Participants::getByEvent($this->event->id),
-            'teams'        => Methods_Teams::getAllTeams($this->event->id),
-            //'groups'       => Methods_Participants::getByEvent($this->event->id)
-        );
+        $members = $this->getMembers($this->event->id);
         $criterions = Methods_Criterions::getJSON($this->event->id);
 
         $this->template->mainSection = View::factory('events/scenario/stages')
@@ -220,7 +215,6 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_contests()
     {
-
         $this->event->judges = Methods_Judges::getByEvent($this->event->id);
         $this->event->stagesJSON = Methods_Stages::getJSON($this->event->id);
         $this->event->stages = Methods_Stages::getByEvent($this->event->id);
@@ -229,7 +223,6 @@ class Controller_Events_Index extends Dispatch
         $this->template->mainSection = View::factory('events/scenario/contests')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
-
     }
 
 
@@ -240,14 +233,12 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_result()
     {
-
         $this->event->result = Methods_Results::getByEvent($this->event->id);
         $this->event->contestsJSON = Methods_Contests::getJSON($this->event->id);
 
         $this->template->mainSection = View::factory('events/scenario/results')
             ->set('event', $this->event)
             ->set('organization', $this->organization);
-
     }
 
 
@@ -308,27 +299,6 @@ class Controller_Events_Index extends Dispatch
     }
 
 
-    /**
-     * MEMBERS submodule
-     * action_groups - action that open page where users can edit information about groups
-     */
-//    public function action_groups()
-//    {
-//        //$teams = Methods_Teams::getAllTeams($this->event->id);
-//        //$participants = Methods_Participants::getParticipantsFromEvent($this->event->id);
-//        //$groups = Methods_Groups::getAllGroups($this->event->id);
-//
-//        $this->template->mainSection = View::factory('events/members/groups')
-//            ->set('event', $this->event)
-//            ->set('organization', $this->organization);
-//            //->set('teams', $teams)
-//            //->set('participants', $participants)
-//            //->set('groups', $groups);
-//
-//        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-//            ->set('event', $this->event);
-//    }
-
 
     /**
      * LANDING submodule
@@ -337,15 +307,16 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_landing()
     {
-        $parcipants = Methods_Participants::getByEvent($this->event->id);
+        $this->event->members = $this->getMembers($this->event->id);
+        $this->event->contestsCount = count($this->getContests($this->event->id));
+        $this->event->result_max_score = $this->getResultMaxScore($this->event->id);
 
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
-        $this->template->mainSection = View::factory('events/landing/pages/content')
+        $this->template->mainSection = View::factory('events/landing/pages/main_content')
             ->set('event', $this->event)
-            ->set('organization', $this->organization)
-            ->set('participants', $parcipants);
+            ->set('organization', $this->organization);
     }
 
     /**
@@ -358,9 +329,8 @@ class Controller_Events_Index extends Dispatch
         $this->template = View::factory('events/landing/main')
             ->set('event', $this->event);
 
-
-        $this->event->contests = $this->getContests($this->event->id);
-
+        $this->event->contests = $this->getContests($this->event->id, false, true);
+        $this->event->members = $this->getMembers($this->event->id);
 
         $this->template->mainSection = View::factory('events/landing/pages/results')
             ->set('event', $this->event)
@@ -368,22 +338,130 @@ class Controller_Events_Index extends Dispatch
 
     }
 
+    /**
+     * Get All Members (teams and participants)
+     * @param $id - id_event
+     * @return array
+     */
+    private function getMembers($id)
+    {
+        $members = array();
+
+        $members['teams'] = Methods_Teams::getByEvent($id);
+        $members['participants'] = Methods_Participants::getByEvent($id);
+
+        return $members;
+    }
 
 
-    private function getContests($id)
+    /**
+     * Get All Contests with Stages with Criterions
+     * @param $id - id_event
+     * @return array
+     */
+    private function getContests($id, $with_members = false, $with_publish_result = false)
     {
         $contests = Methods_Contests::getByEvent($id);
 
-        foreach ($contests as $key => $contest) {
-            $contests[$key]->stages = Methods_Contests::getStages($contest->formula);
+        if ($with_publish_result) {
+            $get_result = $this->redis->sMembers('votepad.orgs:' . $this->organization->id . ':events:' . $this->event->id . ':result.publish');
+            $arr_result = array();
+            foreach ($get_result as $result) {
+                list($contest, $stage) = split('-', $result);
+                $arr_result[$contest][$stage] = true;
+            }
+        }
 
-            foreach ($contest->stages as $key2 => $stage) {
-                $contests[$key]->stages[$key2]->members = Methods_Stages::getMembers($stage->id, $stage->mode);
-                $contests[$key]->stages[$key2]->criterions = Methods_Stages::getCriterions($stage->formula);
+        foreach ($contests as $contestKey => $contest) {
+            $contest_max_score = 0;
+            $stages_coeff = json_decode($contest->formula, true);
+
+            foreach ($contest->stages as $stageKey => $stage) {
+
+                if ($stage->id) {
+
+                    $criterions = Methods_Stages::getCriterions($stage->formula);
+
+                    if ($with_members)
+                        $members = Methods_Stages::getMembers($stage->id, $stage->mode);
+
+                    $stage_max_score = 0;
+                    $crit_coeff = json_decode($stage->formula, true);
+
+                    foreach ($criterions as $criterionKey => $criterion) {
+                        $stage_max_score += $criterion->max_score * $crit_coeff[$criterion->id];
+                        $contest_max_score += $criterion->max_score * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
+                    }
+
+                    $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
+                    $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
+
+                    if ($with_members) {
+                        $contests[$contestKey]->stages[$stageKey]->members = $members;
+                    }
+
+                    if ($with_publish_result) {
+                        if (Arr::get($arr_result, $contest->id) && Arr::get($arr_result[$contest->id], $stage->id)) {
+                            $contests[$contestKey]->stages[$stageKey]->is_publish = $arr_result[$contest->id][$stage->id];
+                        } else {
+                            $contests[$contestKey]->stages[$stageKey]->is_publish = false;
+                        }
+                    }
+
+                }
             }
 
+            $contests[$contestKey]->max_score = $contest_max_score;
+
+            if ($with_publish_result) {
+                if (Arr::get($arr_result, $contest->id)) {
+                    $contests[$contestKey]->is_publish = count($contest->stages) == count($arr_result[$contest->id]);
+                } else {
+                    $contests[$contestKey]->is_publish = false;
+                }
+            }
         }
 
         return $contests;
     }
+
+
+    /**
+     * Get Result Max Score (participants and teams)
+     * @param $id - id_event
+     * @return array
+     */
+    private function getResultMaxScore($id)
+    {
+        $max_score = array();
+        $max_score["teams"] = 0;
+        $max_score["participants"] = 0;
+
+        $contests = Methods_Contests::getByEvent($id);
+
+        foreach ($contests as $contestKey => $contest) {
+
+            $stages_coeff = json_decode($contest->formula, true);
+
+            foreach ($contest->stages as $stageKey => $stage) {
+
+                if ($stage->id) {
+
+                    $criterions = Methods_Stages::getCriterions($stage->formula);
+                    $crit_coeff = json_decode($stage->formula, true);
+
+                    foreach ($criterions as $criterionKey => $criterion) {
+                        if ($stage->mode == 1) {
+                            $max_score["participants"] += $criterion->max_score  * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
+                        } else {
+                            $max_score["teams"] += $criterion->max_score  * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
+                        }
+                    }
+                }
+            }
+        }
+
+        return $max_score;
+    }
+
 }

@@ -70,15 +70,12 @@ $(document).ready(function(){
     $('input, textarea').on('focus', function() {
 
      if ( $(this).val() == "") {
-       if ( ! $(this).next('label').hasClass('icon-label') ) {
-           $(this).next('label').addClass('active');
-           var max_len = parseInt($(this).attr('length'));
+        if ( ! $(this).next('label').hasClass('icon-label') ) {
+            $(this).next('label').addClass('active');
+            var max_len = parseInt($(this).attr('maxlength'));
 
-           if ( $(this).hasClass('vp_site'))
-               max_len = max_len - 18; // http://votepad.ru/
-
-           $(this).closest('.input-field').find(".counter").append("0/" + max_len);
-       }
+            $(this).closest('.input-field').find(".counter").empty().append("0/" + max_len);
+        }
      }
 
     });
@@ -95,29 +92,7 @@ $(document).ready(function(){
     $('input, textarea').keyup(function() {
 
      var cur_len = $(this).val().length,
-         max_len = parseInt($(this).attr('length')),
-         orgsite_len;
-
-     if( $(this).hasClass('vp_site') ) {
-
-         if ( $(this).hasClass('vp_site-event') ) {
-
-             orgsite_len = $(this).attr('data-orgwebsite').length + 1;
-
-             if ( cur_len >= orgsite_len ) {
-                 cur_len = cur_len - orgsite_len - 18; // http://votepad.ru/ORG_NAME/
-             }
-
-         } else {
-
-             if ( cur_len >= 18 ) {
-                 cur_len = cur_len - 18; // http://votepad.ru/
-             }
-
-         }
-
-         max_len = max_len -  18; // http://votepad.ru/
-     }
+         max_len = parseInt($(this).attr('maxlength'));
 
      $(this).closest('.input-field').find(".counter").empty().append(cur_len + "/" + max_len);
 
@@ -312,38 +287,6 @@ $.fn.extend({
 })(jQuery);
 
 
-
-
-
-
-
-/*
- *  Bootstrap Notify Defaults Settings
- *
- *  simple example: $.notify$.notify( { message: 'Error' },{ type: 'danger' });
-*/
-
-$.notifyDefaults({
-    template:   '<div data-notify="container" class="col-xs-10 col-sm-6 col-md-4 col-lg-3 alert alert-{0}" role="alert">' +
-            '<button type="button" aria-hidden="true" class="close" data-notify="dismiss" style="font-size:20px;">×</button>' +
-    		'<span data-notify="icon"></span> ' +
-    		'<span data-notify="title">{1}</span> ' +
-    		'<span data-notify="message">{2}</span>' +
-    		'<div class="progress" data-notify="progressbar">' +
-                '<div class="progress-bar progress-bar-{0}" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;"></div>' +
-            '</div>' +
-    		'<a href="{3}" target="{4}" data-notify="url"></a>' +
-        '</div>',
-    offset: {
-        x: 20,
-        y: 60,
-    },
-	delay: 2000,
-});
-
-
-
-
 /*
 **  Parallax Scripts
 */
@@ -450,7 +393,7 @@ $(window).on('load', function(){
 
         }
 
-        if ($(this).attr('length') ) {
+        if ($(this).attr('maxlength') ) {
 
             $(this).closest('.input-field').append('<span class="counter" style="right:15px; top:-10px"></span>');
         }

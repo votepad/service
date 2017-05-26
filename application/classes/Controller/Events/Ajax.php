@@ -17,8 +17,7 @@ class Controller_Events_Ajax extends Ajax {
         $user = new Model_User($userId);
         $event  = new Model_Event($eventId);
 
-        $this->redis->sRem('votepad.events:' . $event->id . ':assistants.requests', $user->id);
-
+        $this->redis->sRem('votepad.orgs:' . $event->organization . ':events:' . $event->id . ':assistants.requests', $user->id);
 
         if (!$user->id) {
 
@@ -105,18 +104,51 @@ class Controller_Events_Ajax extends Ajax {
         return;
 
     }
+
     public function action_checkwebsite()
     {
         $uri = $this->request->param('website');
 
-        $info = Model_Event::getByFieldName('uri', $uri);
+        $result = Model_Event::getByFieldName('uri', $uri);
 
-        if (empty($info)) {
-            echo "false";
-        } else {
+        if (Arr::get($result,'id')) {
             echo "true";
+        } else {
+            echo "false";
         }
 
+    }
+
+    public function action_result()
+    {
+        $method  = $this->request->param('method');
+        $contest = Arr::get($_POST, 'contest');
+        $stage   = Arr::get($_POST, 'stage');
+        $event   = Arr::get($_POST, 'event');
+        $organization   = Arr::get($_POST, 'organization');
+        $unique = $contest . '-' . $stage;
+
+        switch ($method) {
+            case 'publish': $this->publish_result($unique, $event, $organization); break;
+            case 'unpublish': $this->unpublish_result($unique, $event, $organization); break;
+        }
+
+    }
+
+    private function publish_result($unique, $event, $organization)
+    {
+        $this->redis->sAdd('votepad.orgs:' . $organization . ':events:' . $event . ':result.publish', $unique);
+
+        $response = new Model_Response_Event('PUBLISH_RESULTS_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+    private function unpublish_result($unique, $event, $organization)
+    {
+        $this->redis->sRem('votepad.orgs:' . $organization . ':events:' . $event . ':result.publish', $unique);
+
+        $response = new Model_Response_Event('UNPUBLISH_RESULTS_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
     }
 
 }

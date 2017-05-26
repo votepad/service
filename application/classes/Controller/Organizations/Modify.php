@@ -29,10 +29,10 @@ class Controller_Organizations_Modify extends Dispatch
 
         if ($this->request->method() == Request::POST) {
 
-            $name           = Arr::get($_POST, 'org_name', '');
-            $description    = Arr::get($_POST, 'org_description', '');
-            $uri            = Arr::get($_POST, 'org_site');
-            $website        = Arr::get($_POST, 'official_org_site', '');
+            $name           = Arr::get($_POST, 'name', '');
+            $description    = Arr::get($_POST, 'description', '');
+            $uri            = Arr::get($_POST, 'uri');
+            $website        = Arr::get($_POST, 'site', '');
 
 
             $organization = new Model_Organization();
