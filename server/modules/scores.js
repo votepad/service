@@ -45,14 +45,14 @@ module.exports = function () {
 
                                     var payload = {
                                         judge: data.judge,
-                                        criterions: {[data.criterion]: parseInt(data.score.criterion)},
+                                        criterions: {[data.criterion]: parseFloat(data.score.criterion)},
                                         stages: {[data.stage]: data.score.stage * data.score.criterion},
                                         contests: {[data.contest]: data.score.contest * data.score.criterion},
                                         result: data.score.result * data.score.criterion
                                     };
 
                                     var total = {
-                                        criterions: {[data.criterion]: parseInt(data.score.criterion)},
+                                        criterions: {[data.criterion]: parseFloat(data.score.criterion)},
                                         stages: {[data.stage]: data.score.stage * data.score.criterion},
                                         contests: {[data.contest]: data.score.contest * data.score.criterion},
                                         result: data.score.result * data.score.criterion
@@ -128,7 +128,7 @@ module.exports = function () {
                             result.total.contests[data.contest] = result.total.contests[data.contest] || 0;
                             result.total.result  = result.total.result || 0;
 
-                            scores.criterions[data.criterion] = parseInt(data.score.criterion);
+                            scores.criterions[data.criterion] = parseFloat(data.score.criterion);
                             scores.stages[data.stage]        += (data.score.criterion - old) * data.score.stage;
                             scores.contests[data.contest]    += (data.score.criterion - old) * data.score.contest;
                             scores.result                    += (data.score.criterion - old) * data.score.result;
