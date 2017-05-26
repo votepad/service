@@ -437,6 +437,8 @@ class Controller_Events_Index extends Dispatch
                         $contest_max_score += $criterion->max_score * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
                     }
 
+                    $stage_max_score *= count($contest->judges);
+
                     $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
                     $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
 
@@ -455,7 +457,7 @@ class Controller_Events_Index extends Dispatch
                 }
             }
 
-            $contests[$contestKey]->max_score = $contest_max_score;
+            $contests[$contestKey]->max_score = $contest_max_score*count($contests[$contestKey]->judges);
 
             if ($with_publish_result) {
                 if (Arr::get($arr_result, $contest->id)) {
