@@ -104,6 +104,7 @@ class Controller_Events_Ajax extends Ajax {
         return;
 
     }
+
     public function action_checkwebsite()
     {
         $uri = $this->request->param('website');
@@ -116,6 +117,38 @@ class Controller_Events_Ajax extends Ajax {
             echo "false";
         }
 
+    }
+
+    public function action_result()
+    {
+        $method  = $this->request->param('method');
+        $contest = Arr::get($_POST, 'contest');
+        $stage   = Arr::get($_POST, 'stage');
+        $event   = Arr::get($_POST, 'event');
+        $organization   = Arr::get($_POST, 'organization');
+        $unique = $contest . '-' . $stage;
+
+        switch ($method) {
+            case 'publish': $this->publish_result($unique, $event, $organization); break;
+            case 'unpublish': $this->unpublish_result($unique, $event, $organization); break;
+        }
+
+    }
+
+    private function publish_result($unique, $event, $organization)
+    {
+        $this->redis->sAdd('votepad.orgs:' . $organization . ':events:' . $event . ':result.publish', $unique);
+
+        $response = new Model_Response_Event('PUBLISH_RESULTS_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+    private function unpublish_result($unique, $event, $organization)
+    {
+        $this->redis->sRem('votepad.orgs:' . $organization . ':events:' . $event . ':result.publish', $unique);
+
+        $response = new Model_Response_Event('UNPUBLISH_RESULTS_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
     }
 
 }

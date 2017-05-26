@@ -109,11 +109,9 @@
 
                                             </ul>
 
-                                            <div class="criterion__submit">
-                                                <button role="button" class="criterion__hide-btn">
-                                                    Свернуть
-                                                </button>
-                                            </div>
+                                            <button role="button" class="criterion__submit">
+                                                Свернуть
+                                            </button>
 
                                         </div>
                                     </div>
@@ -124,40 +122,36 @@
 
                         </ul>
 
-                        <div class="stage__submit">
+                        <? if (count($contest->stages) > 1 && count($contest->stages) != $stageKey + 1) : ?>
 
-                            <? if (count($contest->stages) > 1 && count($contest->stages) != $stageKey + 1) : ?>
+                            <a href="#<?=Methods_Methods::getUriByTitle($contest->stages[$stageKey +1 ]->name);?>" class="stage__submit">
+                                Следующий этап
+                            </a>
 
-                                <a href="#<?=Methods_Methods::getUriByTitle($contest->stages[$stageKey +1 ]->name);?>" class="stage__submit-btn">
-                                    Следующий этап
-                                </a>
+                        <? elseif (count($contest->stages) == $stageKey + 1 && $contest->id != $event->contestsIds[count($event->contestsIds) - 1]) :?>
 
-                            <? elseif (count($contest->stages) == $stageKey + 1 && $contest->id != $event->contestsIds[count($event->contestsIds) - 1]) :?>
+                            <?
+                                $ind = 0;
 
-                                <?
-                                    $ind = 0;
+                                foreach ($event->contestsIds as $key => $contestId) :
+                                    if ($contestId == $contest->id) :
+                                        $ind = $key;
+                                    endif;
+                                endforeach;
 
-                                    foreach ($event->contestsIds as $key => $contestId) :
-                                        if ($contestId == $contest->id) :
-                                            $ind = $key;
-                                        endif;
-                                    endforeach;
+                            ?>
 
-                                ?>
+                            <a href="<?=URL::site('voting/?contest=' . $event->contestsIds[$ind + 1]); ?>" class="stage__submit nextContestLinkBtn">
+                                Следующий конкурс
+                            </a>
 
-                                <a href="<?=URL::site('voting/?contest=' . $event->contestsIds[$ind + 1]); ?>" class="stage__submit-btn nextStageLinkBtn">
-                                    Следующий конкурс
-                                </a>
+                        <? else: ?>
 
-                            <? else: ?>
+                            <a href="<?=URL::site('event/' . $event->id);?>" class="stage__submit nextContestLinkBtn">
+                                Посмотреть результаты
+                            </a>
 
-                                <a href="<?=URL::site('event/' . $event->id);?>" class="stage__submit-btn nextStageLinkBtn" disabled>
-                                    Посмотреть результаты
-                                </a>
-
-                            <? endif; ?>
-
-                        </div>
+                        <? endif; ?>
 
                     </li>
 

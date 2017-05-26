@@ -1,5 +1,9 @@
 $(document).ready(function () {
 
+
+    var eventID = $('#eventID').val(),
+        organizationID = $('#organizationID').val();
+
     /**
      * Show/hide block and add/remove active class from btns
      */
@@ -7,7 +11,6 @@ $(document).ready(function () {
 
         var areaGroup    = $(this).attr('data-btnGroup'),
             block        = $(this).attr('data-block');
-
 
         $('[data-btnGroup=' + areaGroup + ']').each(function () {
             $(this).removeClass('active');
@@ -20,8 +23,14 @@ $(document).ready(function () {
 
         $('#' + block).removeClass('hide');
 
+        $.fn.dataTable.tables( {visible: true, api: true} ).columns.adjust();
+
     });
 
+
+    var shareScore_ = function () {
+        console.log(this)
+    };
 
     $('.stage__table').DataTable({
         'paging': false,
@@ -33,8 +42,91 @@ $(document).ready(function () {
         ]
     });
 
+    $('.js-check-publish').click(function () {
 
-    var contests = JSON.parse($('#contests').val());
+    });
+
+
+    var checkContestResultStatus = function (contest) {
+        var stagesStatusBtn = $('.js-publish-scores[data-contest="' + contest + '"]'),
+            contestStatusBtn = $('.js-check-publish[data-contest="' + contest + '"]'),
+            isAllPublish = true;
+
+        for (var i = 0; i < stagesStatusBtn.length; i++) {
+            if (stagesStatusBtn[i].dataset.publish === 'false')
+                isAllPublish = false;
+        }
+
+        if (isAllPublish) {
+            contestStatusBtn[0].dataset.isallpublish = true;
+            contestStatusBtn[0].classList.remove('label--warning');
+            contestStatusBtn[0].classList.add('label--brand');
+            contestStatusBtn[0].innerHTML = '<i class="fa fa-check" aria-hidden="true"></i> все баллы опубликованы';
+        } else {
+            contestStatusBtn[0].dataset.isallpublish = false;
+            contestStatusBtn[0].classList.add('label--warning');
+            contestStatusBtn[0].classList.remove('label--brand');
+            contestStatusBtn[0].innerHTML = '<i class="fa fa-exclamation-triangle" aria-hidden="true"></i> не все баллы опубликованы';
+        }
+    };
+
+
+
+    $('.js-publish-scores').click(function () {
+        var action = null,
+            btnText = null,
+            formData = new FormData(),
+            button = $(this);
+
+        button.addClass('whirl');
+
+        formData.append('stage', button.attr('data-stage'));
+        formData.append('contest', button.attr('data-contest'));
+        formData.append('event', eventID);
+        formData.append('organization', organizationID);
+
+        if (button.attr('data-publish') === "true") {
+            action = "unpublish";
+            btnText = "Опубликовать";
+            button.attr('data-publish', false);
+        } else {
+            action = "publish";
+            btnText = "Опубиковано";
+            button.attr('data-publish', true);
+        }
+
+        var ajaxData = {
+            url: '/event/result/' + action,
+            data: formData,
+            type: 'POST',
+            success: function (response) {
+
+                response = JSON.parse(response);
+
+                vp.notification.notify({
+                    'type': response.status,
+                    'message': response.message,
+                    'time': 3
+                });
+
+                button.removeClass('whirl');
+                button.html(btnText);
+                button.toggleClass('btn_default btn_primary');
+                checkContestResultStatus(button.attr('data-contest'));
+            },
+            error: function () {
+                console.info('Ajax error on updating result publish');
+                button.removeClass('whirl');
+            }
+        };
+
+        vp.ajax.send(ajaxData);
+
+    });
+
+
+
+    // var contests = JSON.parse($('#contests').val());
 
 
     $('#addScoreContest').select2({
@@ -43,15 +135,15 @@ $(document).ready(function () {
 
     $('#addScoreContest').parent().removeClass('hide');
 
-    var data = [], temp_contest, data1 = [], temp_stage;
+    // var data = [], temp_contest, data1 = [], temp_stage;
 
-    for(var i = 0; i < contests.length; i++) {
-        temp_contest = {
-            contestID: contests[i]['id'],
-            stages: getStagesJson(contests[i]['stages'], contests[i]['id'])
-        };
-        data.push(temp_contest);
-    }
+    // for(var i = 0; i < contests.length; i++) {
+    //     temp_contest = {
+    //         contestID: contests[i]['id'],
+    //         stages: getStagesJson(contests[i]['stages'], contests[i]['id'])
+    //     };
+    //     data.push(temp_contest);
+    // }
 
 
     function getStagesJson(obj, contestID) {
@@ -137,7 +229,7 @@ $(document).ready(function () {
 
 
     /**
-     * Edit Sxores Table Template
+     * Edit Scores Table Template
      */
     $('#editScoresTable').DataTable({
         paging: false,
@@ -173,26 +265,18 @@ $(document).ready(function () {
      * - create data dor editing score
      */
     $('.editScore').on('click', function () {
-        var contest     = $(this).data('contest'),
-            stage       = $(this).data('stage'),
-            member      = $(this).data('member'),
-            judge       = $(this).data('judge'),
-            criterions  = $(this).data('criterions'),
+
+        var info        = $(this).data('info'),
+            scores      = $(this).data('scores') || '{}',
             tablesData  = [], tempCrit;
 
-        /**
-         * TODO вывести балл, полученный membor конкретным жюри по всем критериям за этап
-         *
-         * вывеси в цикле ниже, где `score`: 5
-         */
-
-
-        for (var i = 0; i < criterions.length; i++) {
+        for (var i = 0; i < info.criterions.length; i++) {
+            scores[info.criterions[i]['id']] = scores[info.criterions[i]['id']] || 0;
             tempCrit = {
-                name: criterions[i]['name'],
-                score: 5,
-                edit: "<a role='button' class='openEditScoreArea edtScoreCell__btn' data-criterion='" + JSON.stringify(criterions[i]) + "' data-stage='" + stage + "' data-contest='" + contest + "' data-member='" + member + "' data-judge='" + judge + "'><i class='fa fa-edit'></i></a>" +
-                      "<a role='button' class='submitScore edtScoreCell__btn hide' data-criterion='" + JSON.stringify(criterions[i]) + "' data-stage='" + stage + "' data-contest='" + contest + "' data-member='" + member + "' data-judge='" + judge + "'><i class='fa fa-save'></i></a>"
+                name: info.criterions[i]['name'],
+                score: scores[info.criterions[i]['id']],
+                edit: "<a role='button' class='openEditScoreArea edtScoreCell__btn' data-criterion='" + JSON.stringify(info.criterions[i]) + "'><i class='fa fa-edit'></i></a>" +
+                      "<a role='button' class='submitScore edtScoreCell__btn hide' data-info='" + JSON.stringify(info) + "'><i class='fa fa-save'></i></a>"
             };
             tablesData.push(tempCrit)
         }
@@ -214,11 +298,9 @@ $(document).ready(function () {
         var criterion   = $(this).data('criterion'),
             tr          = $(this).parent().parent(),
             scoreArea   = tr.children('.score'),
-            oldScore    = scoreArea.html();
+            score       = scoreArea.html();
 
-        scoreArea.html('<input class="inputScore" type="number" min="' + criterion['min_score'] + '" max="' + criterion['max_score'] + '" value="' + oldScore + '">');
-
-        console.log('oldScore', oldScore);
+        scoreArea.html('<input class="inputScore" type="number" min="' + criterion['min_score'] + '" max="' + criterion['max_score'] + '" value="' + score + '" data-criterion="' + criterion['id'] + '">');
 
         tr.children('.editScoreCell').children('.openEditScoreArea').addClass('hide');
         tr.children('.editScoreCell').children('.submitScore').removeClass('hide');
@@ -229,23 +311,32 @@ $(document).ready(function () {
      * Submit Update New Score
       */
     $('#editScoresTable tbody').on( 'click', '.submitScore', function () {
-        var contest     = $(this).data('contest'),
-            stage       = $(this).data('stage'),
-            criterion   = $(this).data('criterion')['id'],
-            member      = $(this).data('member'),
-            judge       = $(this).data('judge'),
-            tr          = $(this).parent().parent(),
-            scoreArea   = tr.children('.score'),
-            newScore    = scoreArea.children().val();
+        var info      = $(this).data('info'),
+            tr        = $(this).parent().parent(),
+            input     = tr.children('.score').children(),
+            criterion = input.data('criterion'),
+            newScore  = input.val();
 
-        console.log('newScore: ' + newScore, contest, stage, criterion, member, judge);
+        var score = {
+            'event': info.event,
+            'member': info.member,
+            'judge': info.judge,
+            'contest': info.contest.id,
+            'stage': info.stage.id,
+            'criterion': criterion,
+            'score' : {
+                'criterion': newScore,
+                'stage': parseFloat(info.stage.formula[criterion]),
+                'contest': parseFloat(info.contest.formula[info.stage.id] * info.stage.formula[criterion]),
+                'result': 1
+            }
+        };
 
+        console.info(score);
 
-        /**
-         * TODO Update Score data
-         */
+        wsvoting.send(score);
 
-
+        tr.children('.score').html(newScore);
         tr.children('.editScoreCell').children('.openEditScoreArea').removeClass('hide');
         tr.children('.editScoreCell').children('.submitScore').addClass('hide');
 
