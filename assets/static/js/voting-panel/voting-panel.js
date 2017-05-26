@@ -400,9 +400,9 @@ let voting = function (voting) {
         prepareStages_();
 
         // remove Loader
-        setTimeout(function () {
+        //setTimeout(function () {
             document.getElementsByClassName('loader')[0].remove();
-        }, 1000)
+        //}, 1000)
     };
     
     return voting;
