@@ -78,11 +78,11 @@
                                     // TODO вычесть из `score` баллы за те этапы, которые не опубликованы
 
                                     $data = array(
-                                        'member'    => $member,
-                                        'memberKey' => $memberKey,
-                                        'mode'      => $mode,
-                                        'score'     => $contest->is_publish ? $score : 0,
-                                        'max_score' => $contest->max_score
+                                        'member'          => $member,
+                                        'member_position' => 0,
+                                        'mode'            => $mode,
+                                        'score'           => $contest->is_publish ? $score : 0,
+                                        'max_score'       => $contest->max_score
                                     );
 
                                     array_push($sorted_members, $data);
@@ -92,10 +92,15 @@
                                 usort($sorted_members, "comparator");
 
 
-                                foreach ($sorted_members as $member) {
+                                foreach ($sorted_members as $member_position => $member) {
+
                                     if ($contest->max_score > 0) {
+
+                                        $member["member_position"] = $member_position;
                                         echo View::factory('events/landing/blocks/member', $member);
+
                                     }
+
                                 }
 
                                 ?>
@@ -120,11 +125,11 @@
                                                 }
 
                                                 $data = array(
-                                                    'member'    => $member,
-                                                    'memberKey' => $memberKey,
-                                                    'mode'      => $mode,
-                                                    'score'     => $stage->is_publish ? $score : 0,
-                                                    'max_score' => $stage->max_score
+                                                    'member'          => $member,
+                                                    'member_position' => 0,
+                                                    'mode'            => $mode,
+                                                    'score'           => $stage->is_publish ? $score : 0,
+                                                    'max_score'       => $stage->max_score
                                                 );
 
                                                 array_push($sorted_members, $data);
@@ -134,10 +139,15 @@
                                             usort($sorted_members, "comparator");
 
 
-                                            foreach ($sorted_members as $member) {
+                                            foreach ($sorted_members as $member_position => $member) {
+
                                                 if ($stage->max_score > 0) {
+
+                                                    $member["member_position"] = $member_position;
                                                     echo View::factory('events/landing/blocks/member', $member);
+
                                                 }
+
                                             }
 
                                         ?>
