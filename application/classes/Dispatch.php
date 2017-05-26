@@ -24,6 +24,9 @@ class Dispatch extends Controller_Template
     /** @var $redis - Redis instance */
     protected $redis;
 
+    /** @var $mongo - Mongo instance */
+    protected $mongo;
+
     /** @var  $session - Session singleton instance */
     protected $session;
 
@@ -172,6 +175,18 @@ class Dispatch extends Controller_Template
         return $redis;
     }
 
+    public static function MongoConnection()
+    {
+
+        $mongoConfiguration = Kohana::$config->load('mongo');
+        $connectionURL = "mongodb://" . $mongoConfiguration['default']['hostname'];
+        $connectionOptions = $mongoConfiguration['default']['options'];
+
+        $mongo = new MongoClient($connectionURL);
+
+        return $mongo;
+    }
+
     public static function memcacheInstance()
     {
         return Cache::instance('memcache');
@@ -205,7 +220,8 @@ class Dispatch extends Controller_Template
 
         $this->memcache = self::memcacheInstance();
         $this->redis    = self::redisInstance();
-
+        $this->mongo    = self::MongoConnection();
+        
         $this->setSaltsToRedis();
 
     }
