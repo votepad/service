@@ -369,9 +369,6 @@
 .criterions{
     display: block;
     position: relative;
-    overflow: hidden;
-    will-change: all;
-    white-space: nowrap;
     letter-spacing: -0.3em;
 }
 
