@@ -394,15 +394,15 @@ let voting = function (voting) {
     
     voting.init = function () {
         prepareHeader_();
-        // prepareMembers_();
-        // prepareScores_();
-        // prepareModal_();
-        // prepareStages_();
+        prepareMembers_();
+        prepareScores_();
+        prepareModal_();
+        prepareStages_();
 
         // remove Loader
-        setTimeout(function () {
-            document.getElementsByClassName('loader')[0].remove();
-        }, 1000)
+        // setTimeout(function () {
+        //     document.getElementsByClassName('loader')[0].remove();
+        // }, 1000)
     };
     
     return voting;
