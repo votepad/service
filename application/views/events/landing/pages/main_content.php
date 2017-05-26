@@ -70,7 +70,7 @@ function comparator($a, $b) {
 
                         $sorted_members = array();
 
-                        foreach ($event->members["participants"] as $memberKey => $member) {
+                        foreach ($event->members["participants"] as $member) {
 
                             if (!empty($event->scores[$member->id]['overall']['total']) && $is_publish) {
                                 $score = $event->scores[$member->id]['overall']['total'];
@@ -80,11 +80,11 @@ function comparator($a, $b) {
 
 
                             $data = array(
-                                'member'    => $member,
-                                'memberKey' => $memberKey,
-                                'mode'      => "participants",
-                                'score'     => $score,
-                                'max_score' => $event->result_max_score["participants"]
+                                'member'          => $member,
+                                'mode'            => "participants",
+                                'score'           => $score,
+                                'member_position' => 0,
+                                'max_score'       => $event->result_max_score["participants"]
                             );
 
                             array_push($sorted_members, $data);
@@ -93,9 +93,11 @@ function comparator($a, $b) {
 
                         usort($sorted_members, "comparator");
 
+                        foreach ($sorted_members as $member_position => $member) {
 
-                        foreach ($sorted_members as $member) {
+                            $member["member_position"] = $member_position;
                             echo View::factory('events/landing/blocks/member', $member);
+
                         }
 
                         ?>

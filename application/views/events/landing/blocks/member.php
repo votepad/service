@@ -13,7 +13,7 @@
                 break;
         }?>
 
-        <div class="member__position"><?= $memberKey + 1; ?></div>
+        <div class="member__position"><?= $member_position + 1; ?></div>
 
     </div>
 
