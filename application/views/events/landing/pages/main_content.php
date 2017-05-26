@@ -73,7 +73,7 @@ function comparator($a, $b) {
                         foreach ($event->members["participants"] as $member) {
 
                             if (!empty($event->scores[$member->id]['overall']['total']) && $is_publish) {
-                                $score = $event->scores[$member->id]['overall']['total'];
+                                $score = floatval($event->scores[$member->id]['overall']['total']);
                             } else {
                                 $score = 0;
                             }

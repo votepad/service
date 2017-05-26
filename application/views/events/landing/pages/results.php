@@ -70,7 +70,7 @@
                                 foreach ($event->members[$mode] as $memberKey => $member) {
 
                                     if (!empty($event->scores[$member->id]['overall'][$contest->id])) {
-                                        $score = $event->scores[$member->id]['overall'][$contest->id]['total'];
+                                        $score = floatval($event->scores[$member->id]['overall'][$contest->id]['total']);
                                     } else {
                                         $score = 0;
                                     }
@@ -119,7 +119,7 @@
                                             foreach ($event->members[$mode] as $memberKey => $member) {
 
                                                 if (!empty($event->scores[$member->id]['overall'][$contest->id][$stage->id])) {
-                                                    $score = $event->scores[$member->id]['overall'][$contest->id][$stage->id];
+                                                    $score = floatval($event->scores[$member->id]['overall'][$contest->id][$stage->id]);
                                                 } else {
                                                     $score = 0;
                                                 }
