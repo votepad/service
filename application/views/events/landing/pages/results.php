@@ -1,3 +1,9 @@
+<?
+    function comparator($a, $b) {
+        return ($b["score"] - $a["score"]);
+    }
+?>
+
 <div class="section__wrapper">
 
     <section id="eventResult" class="container">
@@ -59,9 +65,15 @@
                                         break;
                                 }
 
-                                foreach ($event->members[$mode] as $memberKey => $member):
+                                $sorted_members = array();
 
-                                    $score = 2; // TODO get score for contest
+                                foreach ($event->members[$mode] as $memberKey => $member) {
+
+                                    if (!empty($event->scores[$member->id]['overall'][$contest->id])) {
+                                        $score = $event->scores[$member->id]['overall'][$contest->id]['total'];
+                                    } else {
+                                        $score = 0;
+                                    }
 
                                     // TODO вычесть из `score` баллы за те этапы, которые не опубликованы
 
@@ -73,13 +85,20 @@
                                         'max_score' => $contest->max_score
                                     );
 
-                                    if ($contest->max_score > 0) :
+                                    array_push($sorted_members, $data);
 
-                                        echo View::factory('events/landing/blocks/member', $data);
+                                }
 
-                                    endif;
+                                usort($sorted_members, "comparator");
 
-                                endforeach;?>
+
+                                foreach ($sorted_members as $member) {
+                                    if ($contest->max_score > 0) {
+                                        echo View::factory('events/landing/blocks/member', $member);
+                                    }
+                                }
+
+                                ?>
 
                             </ul>
 
@@ -89,26 +108,39 @@
 
                                     <ul id="stage_<?= $contestKey . '_' . $stageKey; ?>" data-blockGroup="stage_<?= $contestKey; ?>" class="members hide">
 
-                                        <? foreach ($event->members[$mode] as $memberKey => $member):
+                                        <?
+                                            $sorted_members = array();
+
+                                            foreach ($event->members[$mode] as $memberKey => $member) {
+
+                                                if (!empty($event->scores[$member->id]['overall'][$contest->id][$stage->id])) {
+                                                    $score = $event->scores[$member->id]['overall'][$contest->id][$stage->id];
+                                                } else {
+                                                    $score = 0;
+                                                }
+
+                                                $data = array(
+                                                    'member'    => $member,
+                                                    'memberKey' => $memberKey,
+                                                    'mode'      => $mode,
+                                                    'score'     => $stage->is_publish ? $score : 0,
+                                                    'max_score' => $stage->max_score
+                                                );
+
+                                                array_push($sorted_members, $data);
+
+                                            }
+
+                                            usort($sorted_members, "comparator");
 
 
-                                            $score = 2; // TODO get score for stage
+                                            foreach ($sorted_members as $member) {
+                                                if ($stage->max_score > 0) {
+                                                    echo View::factory('events/landing/blocks/member', $member);
+                                                }
+                                            }
 
-                                            $data = array(
-                                                'member'    => $member,
-                                                'memberKey' => $memberKey,
-                                                'mode'      => $mode,
-                                                'score'     => $stage->is_publish ? $score : 0,
-                                                'max_score' => $stage->max_score
-                                            );
-
-                                            if ($stage->max_score > 0) :
-
-                                                echo View::factory('events/landing/blocks/member', $data);
-
-                                            endif;
-
-                                        endforeach;?>
+                                        ?>
 
                                     </ul>
 

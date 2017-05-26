@@ -47,7 +47,7 @@ class Controller_Events_Index extends Dispatch
             $action = $this->request->action();
 
             switch ($action) {
-                case 'result':
+                case 'results':
                 case 'landing':
                     break;
                 default:
@@ -344,6 +344,19 @@ class Controller_Events_Index extends Dispatch
 
         $this->event->contests = $this->getContests($this->event->id, false, true);
         $this->event->members = $this->getMembers($this->event->id);
+
+        $api = Kohana::$config->load('api');
+        $token = array_keys(get_object_vars($api))[0];
+
+        $scores = Request::factory('/access_token/' . $token . '/method/getResults?')
+            ->query('id_event', $this->event->id)
+            ->query('stages', true)
+            ->method(Request::GET)
+            ->execute()->body();
+
+        $scores = json_decode($scores, true);
+        $this->event->scores = $scores['data'];
+
 
         $this->template->mainSection = View::factory('events/landing/pages/results')
             ->set('event', $this->event)
