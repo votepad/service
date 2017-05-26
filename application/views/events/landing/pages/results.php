@@ -81,7 +81,7 @@
                                         'member'    => $member,
                                         'memberKey' => $memberKey,
                                         'mode'      => $mode,
-                                        'score'     => $score,
+                                        'score'     => $contest->is_publish ? $score : 0,
                                         'max_score' => $contest->max_score
                                     );
 

@@ -1,3 +1,9 @@
+<?
+function comparator($a, $b) {
+    return ($b["score"] - $a["score"]);
+}
+?>
+
 <div class="section__wrapper">
 
     <div class="event-info clear_fix">
@@ -49,11 +55,29 @@
 
                     <ul class="members">
 
-                        <? foreach ($event->members["participants"] as $memberKey => $member):
 
-                            $score = 2; // TODO get score for event
+                        <?
+                        // TODO убрать говнокод
+                        $is_publish = true;
+                        foreach ($event->contests as $contest) {
+                            foreach ($contest->stages as $stage) {
 
-                            // TODO вычесть из `score` баллы за те конкурсы, которые не опубликованы
+                                if ($is_publish)
+                                    $is_publish = $stage->is_publish;
+
+                            }
+                        }
+
+                        $sorted_members = array();
+
+                        foreach ($event->members["participants"] as $memberKey => $member) {
+
+                            if (!empty($event->scores[$member->id]['overall']['total']) && $is_publish) {
+                                $score = $event->scores[$member->id]['overall']['total'];
+                            } else {
+                                $score = 0;
+                            }
+
 
                             $data = array(
                                 'member'    => $member,
@@ -63,9 +87,18 @@
                                 'max_score' => $event->result_max_score["participants"]
                             );
 
-                            echo View::factory('events/landing/blocks/member', $data);
+                            array_push($sorted_members, $data);
 
-                        endforeach; ?>
+                        }
+
+                        usort($sorted_members, "comparator");
+
+
+                        foreach ($sorted_members as $member) {
+                            echo View::factory('events/landing/blocks/member', $member);
+                        }
+
+                        ?>
 
                     </ul>
 
