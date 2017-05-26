@@ -42,7 +42,7 @@ $(document).ready(function() {
 			data:'name',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9А-Яа-я ]/.test(value) || value == "") {
+                if ( value == "") {
 					callback(false);
                 } else {
 					callback(true);
@@ -53,7 +53,7 @@ $(document).ready(function() {
 			data:'password',
             readOnly: false,
             validator: function (value, callback) {
-                if ( /[^A-Za-z0-9]/.test(value) || value == "" ) {
+                if ( /[^A-Za-z0-9-!_@#%^,.;:'"()+=]/.test(value) || value == "" ) {
 					callback(false);
                 } else {
 					callback(true);

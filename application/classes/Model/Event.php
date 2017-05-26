@@ -41,7 +41,7 @@ class Model_Event extends Model
     /**
      * @var $branding [Text] - path to cover
      */
-    public $branding;
+    public $branding = "no-cover.png";
 
     /**
      * @var $tags [JSON]

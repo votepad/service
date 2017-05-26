@@ -253,6 +253,7 @@ img.jumbotron--loading {
 }
 .event__dropdown{
 	margin-left: 5px;
+	margin-top: 2px;
 	z-index: 5;
 }
 .event__dropdown-btn{
