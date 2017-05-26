@@ -180,8 +180,7 @@ let voting = function (voting) {
         let totalScore = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('member__total-score')[0],
             tmpScoreEl = null,
             tmpScore   = null;
-        alert(this);
-        alert(this.classList.contains('score--active'));
+
         if ( ! this.classList.contains('score--active') ) {
 
             tmpScoreEl = this.parentNode.getElementsByClassName('score--active')[0];
@@ -395,10 +394,10 @@ let voting = function (voting) {
     
     voting.init = function () {
         prepareHeader_();
-        prepareMembers_();
-        prepareScores_();
-        prepareModal_();
-        prepareStages_();
+        // prepareMembers_();
+        // prepareScores_();
+        // prepareModal_();
+        // prepareStages_();
 
         // remove Loader
         //setTimeout(function () {
