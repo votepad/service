@@ -22,6 +22,10 @@ class Controller_Judges_Index extends Dispatch {
     public function action_votingpanel()
     {
 
+        $api = Kohana::$config->load('api');
+
+        $token = array_keys(get_object_vars($api))[0];
+
         $id = $this->session->get('id');
         $judge = new Model_Judge($id);
 
@@ -53,6 +57,18 @@ class Controller_Judges_Index extends Dispatch {
         $event->contests      = $contests;
         $event->contestsIds   = $contestsIds;
         $event->openedContest = $openedContest;
+
+
+        $scores = Request::factory('/access_token/' . $token . '/method/getResults?')
+            ->query('id_event', $event->id)
+            ->query('criterions', true)
+            ->query('judges', true)
+            ->method(Request::GET)
+            ->execute()->body();
+
+        $scores = json_decode($scores, true);
+        $scores = $scores['data'];
+        $event->scores = $scores;
 
         $this->template->judge = $judge;
         $this->template->event = $event;

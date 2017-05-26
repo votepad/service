@@ -42,6 +42,7 @@
                                                 foreach($stage->criterions as $criterion):
                                                     $totalMaxScore += $criterion->max_score;
                                                 endforeach;
+
                                             ?>
                                             <p class="member__addition">Итоговый балл: <span class="text-brand member__total-score">0</span> из <?=$totalMaxScore; ?>
                                                 <i class="fa fa-chevron-down member__addition-collapse-icon" aria-hidden="true"></i>
@@ -92,11 +93,23 @@
 
                                                                     ));
 
+                                                                    if (!empty($event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id][$criterion->id])) {
+                                                                        $crScore = $event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id][$criterion->id];
+                                                                    } else {
+                                                                        $crScore = 0;
+                                                                    }
+
                                                                 ?>
 
-                                                                <label for="<?= $uniqid . '-' . $i; ?>" class="score">
+                                                                <label for="<?= $uniqid . '-' . $i; ?>" class="score <?= $i == $crScore ? 'score--active': ''; ?>">
                                                                     <span class="score__text"><?= $i; ?></span>
-                                                                    <input id="<?= $uniqid . '-' . $i; ?>" type="radio" class="score__input js-scores" name="<?= $uniqid ?>" value="<?= $i ?>" data-value='<?= $data ?>'>
+                                                                    <input id="<?= $uniqid . '-' . $i; ?>"
+                                                                           type="radio"
+                                                                           class="score__input js-scores"
+                                                                           name="<?= $uniqid ?>"
+                                                                           value="<?= $i ?>"
+                                                                           data-value='<?= $data ?>'
+                                                                            <?= $i == $crScore ? 'checked="true"': ''; ?>">
                                                                 </label>
 
                                                             <? endfor; ?>
