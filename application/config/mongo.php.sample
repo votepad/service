@@ -4,7 +4,7 @@ return array
 (
 	'default' => array
 	(
-		'hostname' => 'mongodb',
+		'hostname' => 'localhost',
 		'port' => '27017',
 		'options' => array(
 		    'username' => '',

@@ -135,7 +135,7 @@ Class Methods_Api extends Model
             );
 
         }
-        
+
         return $member;
     }
 }
