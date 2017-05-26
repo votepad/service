@@ -34,7 +34,8 @@
             </a>
         </div>
         <? else : ?>
-        <a class="header__button header__button--hover" data-toggle="modal" data-target="#registr_modal">
+            <!--data-toggle="modal" data-target="#registr_modal"-->
+        <a class="header__button header__button--hover" onclick="vp.notification.notify({type:'warning', message:'К сожалению, регистрация пока не доступна'})">
             Регистрация
         </a>
         <a class="header__button header__button--hover header__button--hollow" data-toggle="modal" data-target="#auth_modal">
@@ -76,7 +77,8 @@
             </li>
 
             <li class="mobile-aside__menu__item mobile-aside--show">
-                <a class="mobile-aside__menu-link" data-toggle="modal" data-target="#registr_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()">
+<!--                data-toggle="modal" data-target="#registr_modal" onclick="document.getElementsByClassName('modal-backdrop')[0].click()"-->
+                <a class="mobile-aside__menu-link" onclick="vp.notification.notify({type:'warning', message:'К сожалению, регистрация пока не доступна'})">
                     Регистрация
                 </a>
             </li>

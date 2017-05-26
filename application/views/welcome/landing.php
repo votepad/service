@@ -95,7 +95,8 @@
         <p class="container-text">
             4. Опубликуйте результаты.
         </p>
-        <a type="button" class="btn btn_primary container-button link_uppercase" style="padding: 15px" data-toggle="modal" data-target="#registr_modal">зарегистрироваться</a>
+<!--        data-toggle="modal" data-target="#registr_modal"-->
+        <a type="button" class="btn btn_primary container-button link_uppercase" onclick="vp.notification.notify({type:'warning', message:'К сожалению, регистрация пока не доступна'})">зарегистрироваться</a>
     </div>
 </div>
 <div class="section section-4 clear_fix">
