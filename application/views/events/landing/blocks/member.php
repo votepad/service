@@ -19,9 +19,9 @@
 
     <div class="member__rating-area">
 
-        <div class="member__rating-bar" style="width: <?= $score / $max_score * 100; ?>%">
+        <div class="member__rating-bar" style="width: <?= str_replace(',','.',$score / $max_score * 100); ?>%">
 
-            <span class="member__bar"><?= $score . '/' . $max_score; ?></span>
+            <span class="member__bar"><?= str_replace(',','.',$score . '/' . $max_score); ?></span>
 
         </div>
 
