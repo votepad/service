@@ -7,22 +7,22 @@
  * @copyright Votepad Team 2017
  */
 
-var votepad = ( function (votepad) {
+require('./modules/css/main');
+
+module.exports = ( function (votepad) {
+
+    votepad.transport    = require('./modules/transport');
+    votepad.draw         = require('./modules/draw');
+    votepad.ajax         = require('./modules/js/ajax');
+    votepad.header       = require('./modules/js/header');
+    votepad.collapse     = require('./modules/js/collapse');
+    votepad.cookies      = require('./modules/js/cookies');
+    votepad.parallax     = require('./modules/js/parallax');
+    votepad.tabs         = require('./modules/js/tabs');
+    votepad.websocket    = require('./modules/js/websocket');
+    votepad.storage      = require('./modules/js/localstorage');
+    votepad.notification = require('./modules/js/notification');
 
     return votepad;
 
 })({});
-
-votepad.transport    = require('./modules/transport');
-votepad.draw         = require('./modules/draw');
-votepad.ajax         = require('./modules/js/ajax');
-votepad.header       = require('./modules/js/header');
-votepad.collapse     = require('./modules/js/collapse');
-votepad.cookies      = require('./modules/js/cookies');
-votepad.parallax     = require('./modules/js/parallax');
-votepad.tabs         = require('./modules/js/tabs');
-votepad.websocket    = require('./modules/js/websocket');
-votepad.storage      = require('./modules/js/localstorage');
-votepad.notification = require('./modules/js/notification');
-
-module.exports = votepad;

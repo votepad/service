@@ -59,7 +59,7 @@ module.exports = (function (notification) {
     notification.notify = function (constructorSettings) {
 
         /** Private vars and methods */
-        var notification = null,
+        var notify       = null,
             cancel       = null,
             type         = null,
             confirm      = null,
@@ -170,7 +170,7 @@ module.exports = (function (notification) {
             }
 
 
-            notification = wrapper;
+            notify = wrapper;
             type = settings.type;
             confirm = settings.confirm;
             cancel = settings.cancel;
@@ -181,28 +181,29 @@ module.exports = (function (notification) {
 
         function send() {
 
-            holder.appendChild(notification);
+            holder.appendChild(notify);
             inputField.focus();
 
             if (type === 'prompt' || type === 'confirm') {
 
-                notification.classList.add('notification--animation-in');
+                notify.classList.add('notification--animation-in');
 
                 window.setTimeout(function () {
 
-                    notification.classList.remove('notification--animation-in');
+                    notify.classList.remove('notification--animation-in');
 
                 }, 400);
 
             } else {
 
-                notification.classList.add('notification--animation-in-down');
+                notify.classList.add('notification--animation-in-down');
 
                 window.setTimeout(function () {
 
-                    notification.classList.remove('notification--animation-in-down');
+                    notify.classList.remove('notification--animation-in-down');
 
                 }, 400);
+
             }
 
             addToQueue({type: type, close: close});
@@ -214,20 +215,22 @@ module.exports = (function (notification) {
 
             if (type === 'prompt' || type === 'confirm') {
 
-                notification.classList.add('notification--animation-out');
+                notify.classList.add('notification--animation-out');
 
             } else {
 
-                notification.classList.add('notification--animation-in-up');
+                notify.classList.add('notification--animation-in-up');
 
             }
 
             window.setTimeout(function () {
 
-                notification.remove();
+                notify.remove();
 
                 if (backdrop) {
+
                     backdrop.remove();
+
                 }
 
             }, 400);
@@ -250,7 +253,7 @@ module.exports = (function (notification) {
 
     };
 
-    
+
     notification.clear = function () {
 
         holder  = null;

@@ -17,7 +17,7 @@
  * @return JSON Object {id: coeff, id2: coeff2}
  */
 
-var formula = function(formula) {
+module.exports = (function(formula) {
 
     var modes = {
             PRINT: "print",
@@ -413,4 +413,4 @@ var formula = function(formula) {
     formula.version = '0.0.2';
     return formula;
 
-}();
+})({});

@@ -2,7 +2,7 @@
  * @author Khaydarov Murod
  */
 
-var core = (function (core) {
+module.exports = (function (core) {
 
     core.settings = {
 
@@ -25,5 +25,3 @@ var core = (function (core) {
 
 
 })({});
-
-module.exports = core;
