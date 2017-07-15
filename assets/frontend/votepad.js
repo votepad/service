@@ -11,6 +11,7 @@ require('./modules/css/main');
 
 module.exports = ( function (votepad) {
 
+    votepad.core         = require('./modules/core');
     votepad.transport    = require('./modules/transport');
     votepad.draw         = require('./modules/draw');
     votepad.ajax         = require('./modules/js/ajax');

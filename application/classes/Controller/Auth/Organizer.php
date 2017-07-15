@@ -28,39 +28,56 @@ class Controller_Auth_Organizer extends Auth {
 
     public function action_auth()
     {
-
         if (!$this->request->is_ajax()) {
             return;
         }
 
         if ( isset($_POST['recover']) ) {
+            $recover = Arr::get($_POST, 'recover', '');
 
-            $id = $this->recover();
+            if ( $recover != 'logout' ) {
 
-            // Если сессия была уничтожена или хэш не совпал
-            if (!$id) {
-                $this->clearCookie();
+                $password = Arr::get($_POST, 'password', '');
 
-                $response = new Model_Response_Auth('RECOVER_ERROR', 'error');
+                if (empty($password)) {
+                    $response = new Model_Response_Form('EMPTY_FIELD_ERROR', 'error');
+                    $this->response->body(@json_encode($response->get_response()));
+                    return;
+                }
+
+                $id = $this->recover();
+
+                // Если сессия была уничтожена или хэш не совпал
+                if (!$id) {
+                    $this->clearCookie();
+
+                    $response = new Model_Response_Auth('RECOVER_ERROR', 'error', array('$id' => $id));
+                    $this->response->body(@json_encode($response->get_response()));
+                    return;
+                }
+
+
+                if ( !Model_Auth::checkPasswordById($id, $password, self::AUTH_MODE) ) {
+                    $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error', array('$id' => $id));
+                    $this->response->body(@json_encode($response->get_response()));
+                    return;
+                }
+
+                $response = new Model_Response_Auth('RECOVER_SUCCESS', 'success', array('id' => $id));
                 $this->response->body(@json_encode($response->get_response()));
                 return;
 
 
+            } else {
+
+                $this->clearCookie();
+                $this->session->destroy();
+
+                $response = new Model_Response_Auth('LOGOUT_SUCCESS', 'success');
+                $this->response->body(@json_encode($response->get_response()));
+                return;
+
             }
-
-            $response = new Model_Response_Auth('RECOVER_SUCCESS', 'success', array('id' => $id));
-            $this->response->body(@json_encode($response->get_response()));
-            return;
-
-
-        } else if ( isset($_POST['logout'])) {
-
-            $this->clearCookie();
-            $this->session->destroy();
-
-            $response = new Model_Response_Auth('LOGOUT_SUCCESS', 'success');
-            $this->response->body(@json_encode($response->get_response()));
-            return;
 
         }
 
@@ -83,7 +100,6 @@ class Controller_Auth_Organizer extends Auth {
         if (!$user->login($email, $password, self::AUTH_MODE)) {
 
             $this->makeAttempt();
-
 
             $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));

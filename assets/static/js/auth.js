@@ -1,389 +1,262 @@
-$(document).ready(function () {
-    /**
-     * Keyup Submit
-     */
-    $('body').on('keyup','#user_form_notlogged', function(event){
-        if (event.keyCode == 13)
-            $('#userSignIn').click();
-    });
-    $('body').on('keyup','#judge_form', function(event){
-        if (event.keyCode == 13)
-            $('#judgeSignIn').click();
-    });
-    $('body').on('keyup','#registr_form', function(event){
-        if (event.keyCode == 13)
-            $('#registr').click();
-    });
+var auth = (function (auth) {
 
+    var corePrefix      = "VP auth",
+        host            = window.location.host,
+        protocol        = window.location.protocol,
+        pathname        = window.location.pathname,
+        signIn          = null,
+        signInLogged    = null,
+        forget          = null,
+        judge           = null,
+        reset           = null,
+        registr         = null;
 
-    /**
-     * UserName in Regestr Form
-     */
-    $("#registr_name").inputmask({
-        mask: 'a{1,20}',
-        definitions: {
-          'a': {
-            validator: "[a-zA-Zа-яА-Я]",
-          }
-        },
-        showMaskOnHover: false,
-        showMaskOnFocus: true,
-    });
+    function prepare_() {
+        signIn        = document.getElementById('signin');
+        signInLogged  = document.getElementById('signinLogged');
+        judge         = document.getElementById('judge');
+        forget        = document.getElementById('forget'); // TODO submit
+        reset         = document.getElementById('reset');  // TODO submit
+        registr       = document.getElementById('registr');
 
-
-    /**
-     * EventNumver inputmask
-     */
-    // $("#auth_eventnumber").inputmask({
-    //     mask: "9 9 9   9 9 9",
-    //     onincomplete: function(){
-    //         $("#auth_eventnumber").addClass('invalid');
-    //     },
-    //     oncomplete: function() {
-    //         $("#auth_eventnumber").removeClass('invalid');
-    //     }
-    // });
-
-
-    /**
-     * Validate Email Field
-     */
-    $('input[type="email"]').blur(function(){
-        if ( ! /\S+@\S+\.\S+/.test($(this).val()) ) {
-            if ($(this).val() != '') {
-                notify('Вы неправильно ввели email. Попробуйте ввести снова!','danger');
-                $(this).addClass('invalid');
-            }
-        } else {
-            $(this).removeClass('invalid');
+        if (!signIn || !forget || !judge) {
+            vp.core.log('Missed SignIn OR Forget OR Jude forms', 'error', corePrefix);
+            return;
         }
-    });
 
-
-    /**
-     * Change User, Jusge SignIn, Reset forms
-     */
-    $('#toJudgeForm').click(function(){
-        $('.auth-modal .modal-wrapper').addClass('up');
-    });
-    $('#toUserForm').click(function(){
-        $('.auth-modal .modal-wrapper').removeClass('up');
-    });
-    $('#resetPasword').click(function () {
-        $('#user_form_notlogged').addClass('displaynone');
-        $('#user_form_forgot').removeClass('displaynone');
-    });
-    $('#toUserSignIn').click(function () {
-        $('#user_form_notlogged').removeClass('displaynone');
-        $('#user_form_forgot').addClass('displaynone');
-    });
-
-
-
-    /**
-     * Sumbit NOT Logged User SignIn Form
-     */
-    $('#userSignIn').click(function(){
-        if ($('#auth_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#auth_email').val()) ) {
-            notify('Вы неправильно ввели email. Попробуйте ввести снова!','danger');
-            $('#auth_email').addClass('invalid');
-        } else if ( $("#auth_password").val() == '' ) {
-            $('#auth_password').addClass('invalid');
-        } else {
-
-            var ajaxData = {
-                url: '/sign/organizer',
-                type: 'POST',
-                data: new FormData($('#user_form_notlogged')[0]),
-                beforeSend: function() {
-                    $('#user_form_notlogged').parent('.modal-wrapper').addClass('whirl');
-                },
-                success: authResponse,
-                error: function() {
-                    removePreLoader();
-                }
-            };
-
-            vp.ajax.send(ajaxData);
+        if (reset) {
+            openResetForm_();
+            return;
         }
-    });
+
+        if (signInLogged) signInLogged.addEventListener('submit', submitSignInLogged_);
+        if (registr) registr.addEventListener('submit', submitRegistr_);
+
+        signIn.addEventListener('submit', submitSignIn_);
+        judge.addEventListener('submit', submitJudge_);
+    }
+
 
     /**
-     * Submit Logged User SignIn form
+     * Open Reset Password Form
+     * @private
      */
-    $('#userRecover').click(function(){
+    function openResetForm_() {
+        var cancelReset = document.getElementById('cancelReset');
+    }
+
+
+    /**
+     * Submit Sign In Form
+     * @private
+     */
+    function submitSignIn_(event) {
+        event.preventDefault();
 
         var ajaxData = {
             url: '/sign/organizer',
             type: 'POST',
-            data: new FormData($('#user_form_logged')[0]),
-            beforeSend: function() {
-                $('#user_form_logged').parent('.modal-wrapper').addClass('whirl');
+            data: new FormData(signIn),
+            beforeSend: function(){
+                signIn.classList.add('loading');
             },
-            success: authResponse,
-            error: function() {
-                removePreLoader()
+            success: function(response) {
+                response = JSON.parse(response);
+                signIn.classList.remove('loading');
+
+                vp.core.log(response.message, response.status, corePrefix);
+
+                if (parseInt(response.code) === 14) {
+                    window.location.replace(protocol + '//' + host + '/user/' + response.id);
+                    return;
+                }
+
+                vp.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+            },
+            error: function(callbacks) {
+                vp.core.log('ajax error occur on signIn form','error',corePrefix ,callbacks);
+                signIn.classList.add('loading');
             }
         };
 
         vp.ajax.send(ajaxData);
-
-    });
-
-
-    /**
-    * Submit Forgot Password Form
-    */
-    $('#resetPassword').click(function(){
-        if ($('#forget_email').val() == '' || ! /\S+@\S+\.\S+/.test($('#forget_email').val()) ) {
-            notify('Вы неправильно ввели email. Попробуйте ввести снова!','danger');
-            $('#forget_email').addClass('invalid');
-        } else {
-            $('#toUserSignIn').click();
-            var ajaxData = {
-                url: '/sign/organizer/reset',
-                type: 'POST',
-                data: new FormData($('#user_form_forgot')[0]),
-                beforeSend: function() {
-                    $('#user_form_forgot').parent('.modal-wrapper').addClass('whirl');
-                },
-                success: resetResponse,
-                error: function() {
-                    removePreLoader()
-                }
-            };
-
-            vp.ajax.send(ajaxData);
-        }
-    });
-
-
-    /**
-    * Logout Logged User
-    * - clear cookie
-    * - remove Logged User SignIn Form
-    */
-    $('#logout').click(function(){
-        $('#user_form_logged').remove();
-        $('#user_form_notlogged').removeClass('displaynone');
-        $('#registr_btn').removeClass('displaynone');
-        vp.cookies.remove('sid');
-        vp.cookies.remove('id');
-        vp.cookies.remove('secret');
-    });
-
-
-    /**
-    * Sumbit Judges SignIn Form
-    */
-    $('#judge_form').submit(function(){
-        if ( $("#auth_eventnumber").inputmask('unmaskedvalue').length != 6 ) {
-            notify('Вы ввели неправильный номер мероприятия. Попробуйте ввести снова','danger');
-            return false;
-        } else if ( $("#auth_judgesecret").val() == '' ) {
-            $("#auth_judgesecret").addClass('invalid');
-            return false;
-        }
-        $("#auth_eventnumber").inputmask('remove');
-    });
-
-
-    /**
-    * Submit Registration Form
-    */
-    var allowedSymbols = new RegExp("[^a-zA-Zа-яА-Я0-9-№#%&*()!?,.;:@ ]");
-    var allowedPassSymbols = new RegExp("[^a-zA-Z0-9№#%&*()/!?,.;:@]");
-
-    $('#registr').click(function(){
-        var form = $('#registr_form'),
-            isvalid = true;
-
-
-        // checking name
-        if ( isvalid && ! allowedSymbols.test($('#registr_name').val()) && $('#registr_name').val() != "") {
-            $('#registr_name').removeClass('invalid');
-        } else {
-            $('#registr_name').addClass('invalid');
-            notify('Вы не указали имя','danger');
-            isvalid = false;
-        }
-
-
-        // checking email
-        if ( isvalid && $('#registr_email').val() != '' && /\S+@\S+\.\S+/.test($('#registr_email').val()) ) {
-            $('#registr_email').removeClass('invalid');
-        } else {
-            isvalid = false;
-            notify('Вы неправильно ввели email. Попробуйте ввести снова!','danger');
-            $('#registr_email').addClass('invalid');
-        }
-
-
-        // checking type = password
-        if (isvalid && ! allowedPassSymbols.test($('#registr_password').val()) && $('#registr_password').val() != "" ) {
-            $('#registr_password').removeClass('invalid');
-        } else {
-            isvalid = false;
-            $('#registr_password').addClass('invalid');
-
-            if ($('#registr_password').val() == "") {
-                notify('Вы не указали парлоль', 'danger');
-            } else {
-                notify('Вы используете запрещенные символы для пароля','danger');
-            }
-        }
-
-
-        if ( isvalid == true ) {
-
-            var ajaxData = {
-                url: '/signup',
-                type: 'POST',
-                data: new FormData(form[0]),
-                beforeSend: function(){
-                    $('#registr_form').parent('.modal-wrapper').addClass('whirl');
-                },
-                success: signupResponse,
-                error: function() {
-                    removePreLoader();
-                }
-            };
-
-            vp.ajax.send(ajaxData);
-
-        }
-
-    });
-
-
-    function signupResponse(response) {
-
-        response = JSON.parse(response);
-
-        if (response.status == 'success') {
-
-            var host        = window.location.host,
-                protocol    = window.location.protocol,
-                id          = parseInt(response.id);
-
-            if (id) {
-                
-                window.location.replace(protocol + '//' + host + '/user/' + id);
-                
-            } else {
-
-                vp.notification.notify({
-                    type: 'danger',
-                    message: 'Произошла ошибка, попробуйте снова',
-                    time: 3
-                });
-                
-            }
-
-            return;
-
-        }
-        
-        switch (parseInt(response.code)) {
-            case 30:
-                notify('Пожалуйста, заполните все поля','danger');
-                break;
-            case 20:
-                notify('Пользователь с таким email уже зарегистрирован','danger');
-                break;
-        }
-
-        removePreLoader();
     }
 
+    /**
+     * Submit Sign In Logged Form
+     * @private
+     */
+    function submitSignInLogged_(event) {
+        event.preventDefault();
 
+        var ajaxData = {
+            url: '/sign/organizer',
+            type: 'POST',
+            data: new FormData(signInLogged),
+            beforeSend: function(){
+                signInLogged.classList.add('loading');
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                signInLogged.classList.remove('loading');
 
-    function authResponse(response) {
+                vp.core.log(response.message, response.status, corePrefix);
 
-        response = JSON.parse(response);
+                if (parseInt(response.code) === 10) {
+                    window.location.reload();
+                    return;
+                }
 
-        if (response.status == 'success') {
+                if (parseInt(response.code) === 11) {
+                    window.location.replace(protocol + '//' + host + '/user/' + response.id);
+                    return;
+                }
 
-            var host        = window.location.host,
-                protocol    = window.location.protocol,
-                id          = parseInt(response.id);
+                if (parseInt(response.code) === 12) {
+                    window.location = protocol + '//' + host;
+                    return;
+                }
 
-            if (id) {
-                
-                window.location.replace(protocol + '//' + host + '/user/' + id);
-                
-            } else {
-                
                 vp.notification.notify({
-                    type: 'danger',
-                    message: 'Произошла ошибка, попробуйте снова',
-                    time: 3
+                    type: response.status,
+                    message: response.message
                 });
-                
+            },
+            error: function(callbacks) {
+                vp.core.log('ajax error occur on SignInLogged form','error',corePrefix ,callbacks);
+                signInLogged.classList.add('loading');
             }
+        };
 
-            return;
-
-        }
-
-        switch (parseInt(response.code)) {
-            case 30:
-                notify('Пожалуйста, заполните все поля','danger');
-                break;
-            case 13:
-                notify('Неверно введен email или пароль','danger');
-                break;
-        }
-
-        removePreLoader();
+        vp.ajax.send(ajaxData);
     }
 
+    /**
+     * Submit Judge Form
+     * @private
+     */
+    function submitJudge_(event) {
+        event.preventDefault();
 
-    var resetResponse = function (response) {
+        var ajaxData = {
+            url: '/sign/judge',
+            type: 'POST',
+            data: new FormData(judge),
+            beforeSend: function(){
+                judge.classList.add('loading');
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                judge.classList.remove('loading');
 
-        removePreLoader();
+                vp.core.log(response.message, response.status, corePrefix);
 
-        response = JSON.parse(response);
+                if (parseInt(response.code) === 10) {
+                    window.location.reload();
+                    return;
+                }
 
-        if (response.status == 'success') {
-            vp.notification.notify({
-                type: 'success',
-                message: 'Мы отправили письмо с инструкциями на вашу почту',
-                time: 3
-            });
-            return;
-        }
+                if (parseInt(response.code) === 14) {
+                    window.location.replace(protocol + '//' + host + '/voting');
+                    return;
+                }
 
-        switch (parseInt(response.code)) {
-            case 30:
-                notify('Пожалуйста, заполните все поля','danger');
-                break;
-            case 60:
-                notify('Мы не смогли отправить письмо с инструкциями на вашу почту :(','danger');
-                break;
-            case 15:
-                notify('Пользователь с таким email не найден','danger');
-                break;
-        }
+                vp.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+            },
+            error: function(callbacks) {
+                vp.core.log('ajax error occur on judge form','error',corePrefix ,callbacks);
+                judge.classList.add('loading');
+            }
+        };
 
+        vp.ajax.send(ajaxData);
+    }
+
+    /**
+     * Submit Registr Form
+     * @private
+     */
+    function submitRegistr_(event) {
+        event.preventDefault();
+
+        var ajaxData = {
+            url: '/signup',
+            type: 'POST',
+            data: new FormData(registr),
+            beforeSend: function(){
+                registr.classList.add('loading');
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                registr.classList.remove('loading');
+
+                vp.core.log(response.message, response.status, corePrefix);
+
+                if (parseInt(response.code) === 21) {
+                    window.location.replace(protocol + '//' + host + '/user/' + response.id);
+                    return;
+                }
+
+                vp.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+            },
+            error: function(callbacks) {
+                vp.core.log('ajax error occur on registr form','error',corePrefix ,callbacks);
+                registr.classList.add('loading');
+            }
+        };
+
+        vp.ajax.send(ajaxData);
+    }
+
+    auth.logout = function() {
+
+        var recover = document.getElementById('recover');
+        if (!recover) window.location.reload();
+
+        recover.value = 'logout';
+        document.getElementById('recoverSubmit').click();
+    };
+
+    /**
+     * Open Sign In Form
+     */
+    auth.toSignIn = function () {
+        signIn.classList.remove('hide');
+        forget.classList.add('hide');
+        judge.classList.add('hide');
+    };
+
+    /**
+     * Open Forget Form
+     */
+    auth.toForget = function () {
+        signIn.classList.add('hide');
+        forget.classList.remove('hide');
+    };
+
+    /**
+     * Open Judge Form
+     */
+    auth.toJudge = function () {
+        signIn.classList.add('hide');
+        forget.classList.add('hide');
+        judge.classList.remove('hide');
     };
 
 
-    /**
-    * Notify Frontend Fields
-    */
-    function notify(message, status) {
+    auth.init = function () {
+        prepare_();
+    };
 
-        vp.notification.notify({
-            type: status,
-            message: message,
-            time: 3
-        });
-        
-    }
+    return auth;
 
-    function removePreLoader() {
-        $('body').find('.whirl').removeClass('whirl');
-    }
-
-});
+})({});

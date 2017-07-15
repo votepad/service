@@ -1,18 +1,3 @@
-@font-face {
-	font-family: "Exo2";
-    src: url("../fonts/Exo2-Medium.ttf");
-}
-
-    section{
-        width:100%!important;
-        font-family: MyriadProRegular;
-        letter-spacing: 0.01em;
-        /*background-image: url(<?=$assets; ?>/img/ProNWE_logo.png);*/
-        background-position: right bottom;
-        background-size: 200px;
-        background-repeat: no-repeat;
-        background-attachment: fixed;
-    }
     .navleft,.header{
         display: none!important;
     }
@@ -314,12 +299,6 @@
         }
     }
 
-
-    footer{
-        margin-top: 0px;
-        background-color: inherit;
-        border-top: 1px solid #;
-    }
 
     .nwe-about{
         margin: 20px 20px 40px 20px;

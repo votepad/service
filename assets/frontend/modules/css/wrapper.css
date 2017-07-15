@@ -14,12 +14,17 @@
     margin-top: 50px;
 }
 
+.container,
 .section__content{
     position: relative;
-    padding: 20px;
+    padding: 0 15px;
+    margin: 0 auto;
 }
+
 .section__content--unwrap{
     padding: 0;
+    width: 100%;
+    margin: 0;
 }
 
 .section__cover{
@@ -105,6 +110,26 @@
         display: none;
     }
 }
+
+@media (min-width: 768px) {
+    .container,
+    .section__content {
+        width: 750px;
+    }
+}
+@media (min-width: 992px) {
+    .container,
+    .section__content {
+        width: 970px;
+    }
+}
+@media (min-width: 1200px) {
+    .container,
+    .section__content {
+        width: 1170px;
+    }
+}
+
 
 .section__content:after,
 .section__content:before{

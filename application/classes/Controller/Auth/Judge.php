@@ -28,32 +28,40 @@ class Controller_Auth_Judge extends Auth {
 
     public function action_auth()
     {
+        if (!$this->request->is_ajax()) {
+            return;
+        }
         $eventCode = (int) Arr::get($_POST, 'eventCode');
         $judgeSecret  = Arr::get($_POST, 'judgeSecret');
 
-        if ($event = Model_Event::getEventByCode($eventCode)) {
+        $event = Model_Event::getEventByCode($eventCode);
 
-            $auth = new Model_Auth();
-
-            if ( !$auth->login($event, $judgeSecret, self::AUTH_MODE) ) {
-                $this->redirect('/');
-            }
-
-            $session = Session::instance();
-            $sid = $session->id();
-            $id = $session->get('id');
-
-            $hash = $this->makeHash('sha256', self::AUTH_JUDGE_SALT . $sid . self::AUTH_MODE . $id);
-
-            Cookie::set('secret', $hash, Date::DAY);
-
-            $this->saveSessionData($hash, $sid, $id);
-
-            $this->redirect('voting'); // eventpage
-
-        } else {
-            $this->redirect('/');
+        if (!$event) {
+            $response = new Model_Response_Auth('INVALID_EVENT_CODE_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
         }
+
+        $auth = new Model_Auth();
+
+        if ( !$auth->login($event, $judgeSecret, self::AUTH_MODE) ) {
+            $response = new Model_Response_Auth('INVALID_JUDGE_SECRET_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $session = Session::instance();
+        $sid = $session->id();
+        $id = $session->get('id');
+
+        $hash = $this->makeHash('sha256', self::AUTH_JUDGE_SALT . $sid . self::AUTH_MODE . $id);
+
+        Cookie::set('secret', $hash, Date::DAY);
+
+        $this->saveSessionData($hash, $sid, $id);
+
+        $response = new Model_Response_Auth('LOGIN_SUCCESS', 'success', array('id' => $id));
+        $this->response->body(@json_encode($response->get_response()));
 
     }
 

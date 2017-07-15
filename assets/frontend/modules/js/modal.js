@@ -28,7 +28,7 @@ module.exports = (function (modal) {
      *      header   - STRING
      *      body     - body HTML
      *      footer   - footer HTML ( for close include data attribute: `data-close="modal"`)
-     *      onclose: - destroy || hide
+     *      onclose: - remove || hide
      *  }
      */
     modal.create = function (settings) {
@@ -37,6 +37,7 @@ module.exports = (function (modal) {
 
         var modalWrapper = vp.draw.node(settings.node, 'modal', {id: settings.id, 'tabindex': '-1'}),
             content      = vp.draw.node('DIV', 'modal__content'),
+            wrapper      = vp.draw.node('DIV', 'modal__wrapper'),
             header       = vp.draw.node('DIV', 'modal__header'),
             headerTitle  = vp.draw.node('H4', 'modal__title'),
             closeHeadBtn = vp.draw.node('BUTTON', 'modal__title-close', {'data-close':'modal'}),
@@ -53,10 +54,11 @@ module.exports = (function (modal) {
 
         body.innerHTML = settings.body;
 
+        content.appendChild(wrapper);
         content.appendChild(header);
         content.appendChild(body);
 
-        if (settings.footer !== undefined) {
+        if (settings.footer) {
 
             footer.innerHTML = settings.footer;
 
@@ -64,8 +66,8 @@ module.exports = (function (modal) {
 
             for(var i = 0; i < closeBtns.length; i++) {
 
-                if (onclose === 'destroy')
-                    closeBtns[i].addEventListener('click', modal.destroy);
+                if (onclose === 'remove')
+                    closeBtns[i].addEventListener('click', modal.remove);
                 else
                     closeBtns[i].addEventListener('click', modal.hide);
 
@@ -95,13 +97,13 @@ module.exports = (function (modal) {
 
         } else {
 
-            if (this.dataset.area !== undefined) {
+            if (this.dataset.area) {
 
                 block = document.getElementById(this.dataset.area);
 
             } else {
 
-                vp.core.log('Can not catch `data-area`', 'error', 'RAIsoft: modal module');
+                vp.core.log('Can not catch `data-area`', 'error', 'VP: modal module');
                 return;
 
             }
@@ -141,7 +143,18 @@ module.exports = (function (modal) {
 
         } else {
 
-            block = document.getElementsByClassName('modal--opened')[0];
+            block = document.getElementsByClassName('modal--opened');
+
+            if (block.length) {
+
+                block = block[0];
+
+            } else {
+
+                vp.core.log('Can not catch element', 'error', 'VP: modal module');
+                return;
+
+            }
 
         }
 
@@ -160,7 +173,7 @@ module.exports = (function (modal) {
 
     };
 
-    modal.destroy = function (element) {
+    modal.remove = function (element) {
 
         var block = null;
 
@@ -170,7 +183,18 @@ module.exports = (function (modal) {
 
         } else {
 
-            block = document.getElementsByClassName('modal--opened')[0];
+            block = document.getElementsByClassName('modal--opened');
+
+            if (block.length) {
+
+                block = block[0];
+
+            } else {
+
+                vp.core.log('Can not catch element', 'error', 'VP: modal module');
+                return;
+
+            }
 
         }
 

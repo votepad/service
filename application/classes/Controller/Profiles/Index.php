@@ -19,6 +19,8 @@ class Controller_Profiles_Index extends Dispatch
 
         parent::before();
 
+        if (!self::isLogged()) throw new HTTP_Exception_401();
+
         $id = $this->request->param('id');
         $profile = new Model_User($id);
 

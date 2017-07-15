@@ -1,0 +1,1 @@
+<?= View::factory('errors/error', array('code' => 401, 'message' => 'Не пройдена авторизация')); ?>
