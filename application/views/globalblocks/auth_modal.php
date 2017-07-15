@@ -112,7 +112,7 @@
 <!--    <div class="modal-dialog modal-sm">-->
 <!--        <div class="modal-content row-col">-->
 <!--            <div class="modal-wrapper">-->
-<!--                <form class="modal-body clear_fix" id="registr_form" action="--><?//=URL::site(''); ?><!--" method="POST">-->
+<!--                <form class="modal-body clear-fix" id="registr_form" action="--><?//=URL::site(''); ?><!--" method="POST">-->
 <!--                    <h4>Регистрация</h4>-->
 <!--                    <div class="input-field label-with-icon col-xs-12">-->
 <!--                        <input type="text" id="registr_name" name="name" placeholder="Введите ваш имя" required="">-->

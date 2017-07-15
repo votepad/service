@@ -31,15 +31,15 @@ $(document).ready(function(){
      function change_card_style() {
          if ( $('body').width() + 17 < 992 && $('body').width() + 17 > 680 ) {
              $('.card').each(function () {
-                $(this).removeClass().addClass('card card-md clear_fix')
+                $(this).removeClass().addClass('card card-md clear-fix')
              });
          } else if ( $('body').width() + 17 < 680 ) {
              $('.card').each(function () {
-                $(this).removeClass().addClass('card card-sm clear_fix')
+                $(this).removeClass().addClass('card card-sm clear-fix')
              });
          } else {
              $('.card').each(function () {
-                $(this).removeClass().addClass('card clear_fix')
+                $(this).removeClass().addClass('card clear-fix')
              });
          }
      }

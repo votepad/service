@@ -34,7 +34,7 @@
                     </button>
                     <h4 class="modal-title">Изменение персональной информации</h4>
                 </div>
-                <div class="modal-body clear_fix">
+                <div class="modal-body clear-fix">
                     <div class="row">
                         <div class="text-center col-xs-12 col-md-auto fl_l">
                             <div class="edit-user-info__avatar">
@@ -97,7 +97,7 @@
 
                 <input type="text" name="avatar" value="<?=$profile->avatar; ?>" id="input-avatar" hidden>
 
-                <div class="modal-footer clear_fix">
+                <div class="modal-footer clear-fix">
                     <div class="col-xs-12">
                         <button type="button" class="btn btn_default col-xs-12 col-md-auto" data-dismiss="modal">Отмена</button>
                         <button type="submit" class="btn btn_primary pull-right col-xs-12 col-md-auto">Сохранить изменения</button>

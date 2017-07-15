@@ -24,7 +24,7 @@
 
                 <? if ($contest->max_score > 0) : ?>
 
-                    <div id="contest_<?= $contestKey; ?>" class="m-t-50 clear_fix">
+                    <div id="contest_<?= $contestKey; ?>" class="m-t-50 clear-fix">
 
                         <h2 class="text-brand"><?= $contest->name; ?></h2>
 

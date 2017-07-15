@@ -14,13 +14,9 @@
 	<!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/icons_fonts.css?v=<?= filemtime("assets/static/css/icons_fonts.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css?v=<?= filemtime("assets/static/css/app_v1.css") ?>">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
-
 
     <!-- modules -->
     <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/vp.min.css?v=<?= filemtime("assets/frontend/bundles/vp.min.css") ?>">
@@ -28,24 +24,27 @@
 
 </head>
 <body>
+    <div class="wrapper">
 
-<header class="header">
+        <header class="header">
 
-    <?=$header; ?>
+            <?= View::factory('globalblocks/header'); ?>
 
-</header>
+        </header>
 
-<section>
+        <section class="section">
 
-    <?=$mainSection; ?>
+            <?=$mainSection; ?>
 
-</section>
+        </section>
 
-<footer class="footer">
+        <footer class="footer">
 
-    <?= View::factory('globalblocks/footer'); ?>
+            <?= View::factory('globalblocks/footer'); ?>
 
-</footer>
+        </footer>
+    </div>
+
 
 <? if ( !$isLogged ): ?>
     <?= View::factory('globalblocks/auth_modal'); ?>
@@ -59,6 +58,8 @@
     $( document ).ready(function() {
         vp.header.init();
         vp.collapse.init();
+        vp.modal.init();
+        vp.parallax.init();
         vp.notification.createHolder();
     });
 

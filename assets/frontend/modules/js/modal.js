@@ -35,13 +35,13 @@ module.exports = (function (modal) {
 
         settings.node = settings.node || 'DIV';
 
-        var modalWrapper = raisoft.draw.node(settings.node, 'modal', {id: settings.id, 'tabindex': '-1'}),
-            content      = raisoft.draw.node('DIV', 'modal__content'),
-            header       = raisoft.draw.node('DIV', 'modal__header'),
-            headerTitle  = raisoft.draw.node('H4', 'modal__title'),
-            closeHeadBtn = raisoft.draw.node('BUTTON', 'modal__title-close', {'data-close':'modal'}),
-            body         = raisoft.draw.node('DIV', 'modal__body'),
-            footer       = raisoft.draw.node('DIV', 'modal__footer'),
+        var modalWrapper = vp.draw.node(settings.node, 'modal', {id: settings.id, 'tabindex': '-1'}),
+            content      = vp.draw.node('DIV', 'modal__content'),
+            header       = vp.draw.node('DIV', 'modal__header'),
+            headerTitle  = vp.draw.node('H4', 'modal__title'),
+            closeHeadBtn = vp.draw.node('BUTTON', 'modal__title-close', {'data-close':'modal'}),
+            body         = vp.draw.node('DIV', 'modal__body'),
+            footer       = vp.draw.node('DIV', 'modal__footer'),
             onclose      = settings.onclose || 'hide';
 
         closeHeadBtn.innerHTML = '<i class="fa fa-close" aria-hidden="true"></i>';
@@ -101,7 +101,7 @@ module.exports = (function (modal) {
 
             } else {
 
-                raisoft.core.log('Can not catch `data-area`', 'error', 'RAIsoft: modal module');
+                vp.core.log('Can not catch `data-area`', 'error', 'RAIsoft: modal module');
                 return;
 
             }
@@ -117,7 +117,7 @@ module.exports = (function (modal) {
 
         }
 
-        var backdrop = raisoft.draw.node('DIV', 'modal-backdrop');
+        var backdrop = vp.draw.node('DIV', 'modal-backdrop');
 
         block.classList.add('modal--opening', 'modal--opened');
         document.body.classList.add('overflow--hidden');

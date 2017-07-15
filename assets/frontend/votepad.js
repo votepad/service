@@ -22,6 +22,7 @@ module.exports = ( function (votepad) {
     votepad.websocket    = require('./modules/js/websocket');
     votepad.storage      = require('./modules/js/localstorage');
     votepad.notification = require('./modules/js/notification');
+    votepad.modal        = require('./modules/js/modal');
 
     return votepad;
 

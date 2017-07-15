@@ -32,7 +32,7 @@
         
     </div>
 
-    <div class="tabs__content clear_fix">
+    <div class="tabs__content clear-fix">
 
         <div id="myOrganizations" class="tabs__block tabs__block--active">
 
@@ -50,7 +50,7 @@
                                 <span class="label label--brand"><?=$organization->isOwner($profile->id) ? 'Основатель' : 'Сотрудник'; ?></span>
                             </div>
                             <? if ($isProfileOwner && !$organization->isOwner($user->id)) : ?>
-                                <div class="item__info-controls clear_fix">
+                                <div class="item__info-controls clear-fix">
                                     <button data-id="<?= $organization->id ?>" data-name="<?= $organization->name ?>" class="btn btn_default deleteOrganization">Выйти из организации</button>
                                 </div>
                             <? endif; ?>
@@ -82,7 +82,7 @@
                                 <? endif; ?>
                             </div>
                             <? if ($isProfileOwner && !$event->isCreator($user->id)) : ?>
-                                <div class="item__info-controls clear_fix">
+                                <div class="item__info-controls clear-fix">
                                     <button data-id="<?= $event->id ?>" data-name="<?= $event->name ?>" class="btn btn_default deleteEvent">Покинуть мероприятия</button>
                                 </div>
                             <? endif; ?>

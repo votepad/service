@@ -13,7 +13,7 @@
     <? endif; ?>
 
     <div class="header__menu fl_l">
-        <?=$header_menu; ?>
+        <?//=$header_menu; ?>
     </div>
 
 
@@ -85,7 +85,7 @@
 
             <? endif; ?>
 
-            <?=$header_menu_mobile; ?>
+            <?//=$header_menu_mobile; ?>
         </ul>
     </div>
 </div>

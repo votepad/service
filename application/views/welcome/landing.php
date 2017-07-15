@@ -9,8 +9,8 @@
         <i id="ToSection2" class="fa fa-3x fa-chevron-down bounce" aria-hidden="true"></i>
     </div>
 </div>
-<div class="section section-2 clear_fix">
-    <div class="container clear_fix">
+<div class="section section-2 clear-fix">
+    <div class="container clear-fix">
         <div class="container-image pull-left">
             <div class="container-image-area">
                 <img src="<?=$assets; ?>static/img/welcome/iphoneframe.png" alt="Automated scoring system">
@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <div class="container clear_fix">
+    <div class="container clear-fix">
         <div class="container-image pull-right">
             <div class="container-image-area">
                 <img src="<?=$assets; ?>static/img/welcome/iphoneframe.png" alt="Get the results immediately">
@@ -55,7 +55,7 @@
             </div>
         </div>
     </div>
-    <div class="container clear_fix">
+    <div class="container clear-fix">
         <div class="container-image pull-left">
             <div class="container-image-area">
                 <img src="<?=$assets; ?>static/img/welcome/iphoneframe.png" alt="Get the correctly counted results">
@@ -80,7 +80,7 @@
         </div>
     </div>
 </div>
-<div class="section section-small section-3 clear_fix">
+<div class="section section-small section-3 clear-fix">
     <div class="container">
         <h2 class="container-header">Как работает Votepad?</h2>
         <p class="container-text">
@@ -99,11 +99,11 @@
         <a type="button" class="btn btn_primary container-button link_uppercase" onclick="vp.notification.notify({type:'warning', message:'К сожалению, регистрация пока не доступна'})">зарегистрироваться</a>
     </div>
 </div>
-<div class="section section-4 clear_fix">
+<div class="section section-4 clear-fix">
     <div class="container">
         <h2 class="container-header">Реализованные мероприятия</h2>
 
-        <ul class="clear_fix">
+        <ul class="clear-fix">
 
             <? foreach ($events as $event) : ?>
 
