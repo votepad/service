@@ -1,17 +1,21 @@
 <?php defined('SYSPATH') or die('No direct pattern access.');
-/**
- * @author Votepad Team
- * @copyright Turov Nikolay
- * @version 0.1.0
- */
 
 
- /**
- * Profile
- */
-Route::set('Profile_MainPage', 'user/<id>(/<action>)', array('id' => $DIGIT, 'action' => 'organizations|events|update'))
+Route::set('PROFIlE', 'user/<id>(/<action>)', array(
+        'id' => $DIGIT,
+        'action' => $STRING
+    ))
     ->defaults(array(
-        'controller' => 'Profile',
+        'controller' => 'Profiles_Index',
         'action'     => 'index',
+    ))
+    ->cache();
+
+
+Route::set('PROFILE_AJAX', 'user/<action>', array(
+        'action' => $STRING
+    ))
+    ->defaults(array(
+        'controller' => 'Profiles_Ajax',
     ))
     ->cache();

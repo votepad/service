@@ -1,6 +1,6 @@
 <?
 function comparator($a, $b) {
-    return ($b["score"] > $a["score"] ? 1 : -1);
+    return ($b["score"] - $a["score"]);
 }
 ?>
 
