@@ -204,7 +204,7 @@ module.exports = (function (modal) {
 
             block.classList.remove('modal--opened', 'modal--closing');
             document.body.classList.remove('overflow--hidden');
-            // document.getElementsByClassName('modal-backdrop')[0].remove();
+            document.getElementsByClassName('modal-backdrop')[0].remove();
             block.remove();
 
         }, 200);

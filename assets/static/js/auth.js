@@ -219,10 +219,10 @@ var auth = (function (auth) {
 
     auth.logout = function() {
 
-        var recover = document.getElementById('recover');
-        if (!recover) window.location.reload();
+        var action = document.getElementById('recover');
+        if (!action) window.location.reload();
 
-        recover.value = 'logout';
+        action.name = 'logout';
         document.getElementById('recoverSubmit').click();
     };
 
