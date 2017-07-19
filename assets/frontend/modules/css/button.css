@@ -61,16 +61,22 @@ button {
 .btn--default{
     color: #413a41;
     background: #FFF;
-    border-color: #cfcfcf;
+    border-color: #e7e8ec;
 }
 .btn--default:hover,
 .btn--default:focus{
-    color: #413a41;
+    color: #818181;
     background: #f5f5f5;
-    border-color: #cfcfcf;
+    border-color: #e7e8ec;
 }
-.btn--success{
-    color: #FCFCFC;
-    background: #27c24c;
-    border-color: #1f9c3d;
+.btn--gray{
+    color: #818181;
+    background: #eee;
+    border-color: #e0e0e0;
+}
+.btn--gray:hover,
+.btn--gray:focus{
+    color: #818181;
+    background: #e0e0e0;
+    border-color: #dadada;
 }

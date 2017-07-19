@@ -34,7 +34,7 @@ module.exports = (function (core) {
 
         var staticLength = 25;
 
-        prefix = prefix === undefined ? '[prezentit]:' : '[' + prefix + ']:';
+        prefix = prefix === undefined ? '[votepad]:' : '[' + prefix + ']:';
 
         prefix = prefix.length < staticLength ? prefix : prefix.substr( 0, staticLength - 3 );
 

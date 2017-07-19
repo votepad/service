@@ -1,0 +1,36 @@
+.block{
+    display: block;
+    background-color: #fff;
+    border: 1px solid #e7e8ec;
+    margin-bottom: 20px;
+}
+
+.block__heading{
+    display: block;
+    padding: 10px 15px;
+    font-weight: 700;
+    line-height: 1.4;
+    border-bottom: 1px solid #e7e8ec;
+}
+
+.block__body{
+    display: block;
+    position: relative;
+    padding: 15px;
+}
+
+.block__footer{
+    display: block;
+    background-color: #fafbfc;
+    border-top: 1px solid #e7e8ec;
+    padding: 15px;
+}
+
+.block__body:before,
+.block__body:after,
+.block__footer:before,
+.block__footer:after{
+    content: " ";
+    display: table;
+    clear: both;
+}
