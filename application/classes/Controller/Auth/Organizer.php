@@ -28,12 +28,19 @@ class Controller_Auth_Organizer extends Auth {
 
     public function action_auth()
     {
-
         if (!$this->request->is_ajax()) {
             return;
         }
 
         if ( isset($_POST['recover']) ) {
+
+            $password = Arr::get($_POST, 'password', '');
+
+            if (empty($password)) {
+                $response = new Model_Response_Form('EMPTY_FIELD_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
+                return;
+            }
 
             $id = $this->recover();
 
@@ -41,28 +48,30 @@ class Controller_Auth_Organizer extends Auth {
             if (!$id) {
                 $this->clearCookie();
 
-                $response = new Model_Response_Auth('RECOVER_ERROR', 'error');
+                $response = new Model_Response_Auth('RECOVER_ERROR', 'error', array('$id' => $id));
                 $this->response->body(@json_encode($response->get_response()));
                 return;
+            }
 
 
+            if ( !Model_Auth::checkPasswordById($id, $password, self::AUTH_MODE) ) {
+                $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error', array('$id' => $id));
+                $this->response->body(@json_encode($response->get_response()));
+                return;
             }
 
             $response = new Model_Response_Auth('RECOVER_SUCCESS', 'success', array('id' => $id));
             $this->response->body(@json_encode($response->get_response()));
             return;
 
-
-        } else if ( isset($_POST['logout'])) {
-
+        } elseif ( isset($_POST['logout']) ) {
             $this->clearCookie();
             $this->session->destroy();
-
             $response = new Model_Response_Auth('LOGOUT_SUCCESS', 'success');
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
+
 
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
@@ -83,7 +92,6 @@ class Controller_Auth_Organizer extends Auth {
         if (!$user->login($email, $password, self::AUTH_MODE)) {
 
             $this->makeAttempt();
-
 
             $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
@@ -113,7 +121,7 @@ class Controller_Auth_Organizer extends Auth {
         $auth->logout(TRUE);
 
         $referer = $this->request->referrer();
-        $this->redirect($referer);
+        $this->redirect('/');
 
     }
 

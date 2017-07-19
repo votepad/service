@@ -100,7 +100,7 @@ module.exports = (function(formula) {
      */
     function create_(formula) {
 
-        var area    = vp.draw.node('DIV', 'formula__area clear_fix'),
+        var area    = vp.draw.node('DIV', 'formula__area clear-fix'),
             label   = vp.draw.node('LABEL','formula__label'),
             addBtn  = vp.draw.node('DIV','formula__item-add'),
             addIcon = vp.draw.node('I', 'fa fa-plus', {'aria-hidden':'true'});

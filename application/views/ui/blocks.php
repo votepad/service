@@ -138,7 +138,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="form__footer clear_fix">
+                    <div class="form__footer clear-fix">
                         <button class="btn btn_default col-xs-12 col-md-5">
                             Cancel
                         </button>
@@ -158,7 +158,7 @@
             </div>
         </div>
     </div>
-    <div class="form__footer clear_fix">
+    <div class="form__footer clear-fix">
         <button class="btn btn_primary col-.."> Save </button>
     </div>
 </form></xmp></blockquote>
@@ -171,7 +171,7 @@
 
         <div class="row row-col">
             <div class="col-xs-12 col-md-6">
-                <div class="card clear_fix">
+                <div class="card clear-fix">
                     <div class="card_image">
                         <img src="<?=$assets; ?>img/logo_1x1.png" alt="">
                     </div>
@@ -204,7 +204,7 @@
                 </div>
             </div>
             <div class="col-xs-12 col-md-6">
-<blockquote><b>Template</b><xmp><div class="card clear_fix">
+<blockquote><b>Template</b><xmp><div class="card clear-fix">
     <div class="card_image">
         <img src="" alt="">
     </div>
@@ -245,7 +245,7 @@
         <div class="row row-col">
             <div class="col-xs-12 col-md-6">
                 <div class="block" >
-                    <ul class="tabs tabs_header clear_fix">
+                    <ul class="tabs tabs_header clear-fix">
                         <li id="">
                             <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
                         </li>
@@ -265,7 +265,7 @@
                 </div>
 
                 <div class="block">
-                    <ul class="tabs clear_fix">
+                    <ul class="tabs clear-fix">
                         <li id="">
                             <a data-ui="tabs" aria-controls="tab3" class="tab tab--active">Tab 1</a>
                         </li>
@@ -289,7 +289,7 @@
             </div>
             <div class="col-xs-12 col-md-6">
 <blockquote><b>Template</b><xmp><div class="block" >
-    <ul class="tabs clear_fix">
+    <ul class="tabs clear-fix">
         <li id="">
             <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
         </li>
@@ -307,7 +307,7 @@
     </div>
 </div></xmp>
 <br><b>Modify</b>
-<xmp><ul class="tabs tabs_header clear_fix">
+<xmp><ul class="tabs tabs_header clear-fix">
     <li id="">
         <a data-ui="tabs" aria-controls="tab1" class="tab tab--active">Tab 1</a>
     </li>

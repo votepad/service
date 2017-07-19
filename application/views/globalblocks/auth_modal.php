@@ -1,143 +1,189 @@
-<script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-<script type="text/javascript" src="<?=$assets; ?>static/js/auth.js"></script>
-
 <!-- Authorization Modal -->
-<div class="modal valign auth-modal" id="auth_modal" tabindex="-1">
-    <div class="modal-dialog modal-sm">
-        <div class="modal-content row-col">
-            <div class="modal-wrapper">
+<div class="modal" id="auth_modal" tabindex="-1">
+    <div class="modal__content modal__content--small">
 
-                <? if ($canLogin) : ?>
-                <!-- Logged User SignIn Form -->
-                <form class="modal-body" id="user_form_logged" action="<?=URL::site('sign/organizer'); ?>" method="POST">
-                    <h4>Продолжить как</h4>
-                    <div class="auth_logged col-xs-12">
-                        <div class="auth_logged-image">
-                            <img class="" src="<?=$assets; ?>img/logo.jpg" alt="">
+        <? if ($canLogin) : ?>
+            <!-- Logged User SignIn Form -->
+            <form class="modal__wrapper" id="signinLogged">
+                <div class="modal__header b-b-0">
+                    <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
+                    <span class="text-bold">Продолжить как</span>
+                </div>
+                <div class="modal__body">
+                    <div class="valign">
+                        <img class="img-circle thumb64" src="<?=$assets; ?>img/logo.jpg" alt="">
+                        <div class="text-bold m-l-15">
+                            <?= $user->name . ' ' ,  $user->surname; ?>
                         </div>
-                        <div class="auth_logged-name text-center"><?=$user->name . ' ' ,  $user->surname; ?></div>
                     </div>
-                    <div class="col-xs-12">
-                        <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
-                        <input type="hidden" name="recover" value="1">
-                        <button type="submit" id="logout" name="logout" class="btn btn_default col-xs-5">Выйти</button>
-                        <button type="button" id="userRecover" name="submit_recover" class="btn btn_primary col-xs-5 col-xs-offset-2">Продолжить</button>
+                    <div class="form-group m-t-15">
+                        <div class="form-group__control-group">
+                            <label for="auth_continue_password" class="form-group__control-group-addon">
+                                <i class="fa fa-lock" aria-hidden="true"></i>
+                            </label>
+                            <input id="auth_continue_password" type="password" name="password" placeholder="Ваш пароль" class="form-group__control form-group__control-group-input">
+                        </div>
                     </div>
-                </form>
-                <? endif; ?>
 
-                <!-- NOT Logged User SignIn Form -->
-                <form class="modal-body <? if ($canLogin) : ?>displaynone<? endif; ?>" id="user_form_notlogged" action="<?=URL::site('sign/organizer'); ?>" method="POST">
-                    <h4>Авторизация</h4>
-                    <div class="input-field label-with-icon col-xs-12">
-                        <input type="email" id="auth_email" name="email" placeholder="Ваш email" required="">
-                        <label for="auth_email" class="icon-label">
+                    <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
+                    <input id="recover" type="hidden" name="recover" value="1">
+                    <button type="button" onclick="auth.logout()" class="btn btn--default fl_l m-0">Выйти</button>
+                    <button id="recoverSubmit" type="submit" class="btn btn--brand fl_r m-0">Продолжить</button>
+                </div>
+            </form>
+        <? endif; ?>
+
+        <!-- NOT Logged User SignIn Form -->
+        <form class="modal__wrapper <?= $canLogin ? 'hide' : ''; ?>" id="signin">
+            <div class="modal__header b-b-0">
+                <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
+                <span class="text-bold">Авторизация</span>
+            </div>
+            <div class="modal__body">
+                <div class="form-group">
+                    <div class="form-group__control-group">
+                        <label for="auth_email" class="form-group__control-group-addon">
                             <i class="fa fa-envelope-o" aria-hidden="true"></i>
                         </label>
+                        <input id="auth_email" type="email" name="email" placeholder="Ваш email" required="" class="form-group__control form-group__control-group-input" >
                     </div>
-                    <div class="input-field label-with-icon col-xs-12">
-                        <input type="password" id="auth_password" name="password" placeholder="Ваш пароль" required="">
-                        <label for="auth_password" class="icon-label">
-                            <i aria-hidden="true" class="fa fa-lock"></i>
+                </div>
+                <div class="form-group">
+                    <div class="form-group__control-group">
+                        <label for="auth_password" class="form-group__control-group-addon">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
                         </label>
+                        <input id="auth_password" type="password" name="password" placeholder="Ваш пароль" required="" class="form-group__control form-group__control-group-input" >
                     </div>
-                    <div class="col-xs-12">
-                        <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
-<!--                        <button type="button" id="resetPasword" class="btn btn_text-forgot col-xs-6">Забыли пароль?</button>-->
-<!--                        <button type="button" id="userSignIn" class="btn btn_primary col-xs-5 col-xs-offset-1">Войти</button>-->
-                            <button type="button" id="userSignIn" class="btn btn_primary fl_r">Войти</button>
-                    </div>
-                </form>
-
-                <!-- Forgot Password Form -->
-<!--                <form class="modal-body displaynone" id="user_form_forgot" action="--><?//=URL::site(''); ?><!--" method="POST">-->
-<!---->
-<!--                    <h4 style="margin-top:0">Востановление пароля</h4>-->
-<!---->
-<!--                    <div class="input-field label-with-icon col-xs-12">-->
-<!--                        <input type="email" id="forget_email" name="email" placeholder="Введите Ваш email" required="">-->
-<!--                        <label for="forget_email" class="icon-label">-->
-<!--                            <i class="fa fa-envelope-o" aria-hidden="true"></i>-->
-<!--                        </label>-->
-<!--                    </div>-->
-<!---->
-<!--                    <div class="g-recaptcha text-center" data-sitekey="6LelVhcUAAAAAJFftx6Hr90Ff6VWc8-KlT86OJRF"></div>-->
-<!---->
-<!--                    <div class="col-xs-12">-->
-<!--                        <input type="hidden" name="csrf" value="--><?//=Security::token(); ?><!--">-->
-<!--                        <button type="button" id="toUserSignIn" class="btn btn_default col-xs-5">Отмена</button>-->
-<!--                        <button type="button" id="resetPassword" class="btn btn_primary col-xs-6 col-xs-offset-1">Восстановить</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-
-                <div class="modal-footer text-center">
-                    <a id="toJudgeForm" class="underlinehover">
-                        Вход для жюри
-                    </a>
                 </div>
-                <div class="modal-header text-center">
-                    <a id="toUserForm" class="underlinehover">
-                        Вход для пользователя
-                    </a>
+                <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
+                <button type="button" onclick="auth.toForget();" class="btn fl_l m-0">Забыли пароль?</button>
+                <button type="submit" class="btn btn--brand col-xs-4 fl_r m-0">Войти</button>
+            </div>
+            <a role="button" onclick="auth.toJudge();" class="modal__footer display-block text-center bg-light-blue">
+                Вход для жюри
+            </a>
+        </form>
+
+        <!-- Forget Password Form -->
+        <form class="modal__wrapper hide" id="forget">
+            <div class="modal__header b-b-0">
+                <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
+                <span class="text-bold">Востановление пароля</span>
+            </div>
+            <div class="modal__body" >
+                <div class="form-group">
+                    <div class="form-group__control-group">
+                        <label for="auth_email" class="form-group__control-group-addon">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </label>
+                        <input id="forget_email" type="email" name="name" placeholder="Введите Ваш email" required="" class="form-group__control form-group__control-group-input" >
+                    </div>
                 </div>
 
-                <!-- Judge SignIn Form -->
-                <form class="modal-body" id="judge_form" action="<?=URL::site('sign/judge'); ?>" method="POST">
-                    <h4>Вход для жюри</h4>
-                    <div class="input-field label-with-icon col-xs-12">
-                        <input type="text" id="auth_eventnumber" name="eventCode" placeholder="Код мероприятия" required="">
-                        <label for="auth_eventnumber" class="icon-label">
+                <div class="g-recaptcha display-block overflow--hidden" data-sitekey="6LelVhcUAAAAAJFftx6Hr90Ff6VWc8-KlT86OJRF" style="width: 100%"></div>
+
+                <div class="m-t-15">
+                    <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
+                    <button type="button" onclick="auth.toSignIn();" class="btn btn--default m-0 fl_l">Отмена</button>
+                    <button type="submit" id="resetPassword" class="btn btn--brand m-0 fl_r">Восстановить</button>
+                </div>
+            </div>
+            <a role="button" onclick="auth.toJudge();" class="modal__footer display-block text-center bg-light-blue">
+                Вход для жюри
+            </a>
+        </form>
+
+        <!-- Judge SignIn Form -->
+        <form class="modal__wrapper hide" id="judge">
+            <div class="modal__header b-b-0">
+                <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
+                <span class="text-bold">Вход для жюри</span>
+            </div>
+            <div class="modal__body">
+                <div class="form-group">
+                    <div class="form-group__control-group">
+                        <label for="auth_eventnumber" class="form-group__control-group-addon">
                             <i class="fa fa-key" aria-hidden="true"></i>
                         </label>
+                        <input id="auth_eventnumber" type="text" name="eventCode" placeholder="Код мероприятия" required="" class="form-group__control form-group__control-group-input" minlength="6" maxlength="6">
                     </div>
-                    <div class="input-field label-with-icon col-xs-12">
-                        <input type="password" id="auth_judgesecret" name="judgeSecret" placeholder="Ваш пароль" required="">
-                        <label for="auth_judgesecret" class="icon-label">
-                            <i aria-hidden="true" class="fa fa-lock"></i>
+                </div>
+                <div class="form-group">
+                    <div class="form-group__control-group">
+                        <label for="auth_judgesecret" class="form-group__control-group-addon">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
                         </label>
+                        <input id="auth_judgesecret" type="password" name="judgeSecret" placeholder="Ваш пароль" required="" class="form-group__control form-group__control-group-input" >
                     </div>
-                    <div class="col-xs-12">
-                        <button type="submit" id="judgeSignIn" class="btn btn_primary col-xs-6 col-xs-offset-3">Войти</button>
-                    </div>
-                    <?=Form::hidden('csrf', Security::token()); ?>
-                </form>
+                </div>
+
+                <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
+                <button type="submit" class="btn btn--brand m-0 col-xs-4 fl_r">Войти</button>
             </div>
-        </div>
+            <a role="button" onclick="auth.toSignIn();" class="modal__footer display-block bg-light-blue text-center">
+                Вход для пользователя
+            </a>
+        </form>
+
     </div>
 </div>
 
 <!-- Registration Modal -->
+<div class="modal registr-modal" id="registr_modal" tabindex="-1">
+    <div class="modal__content modal__content--small">
+        <form class="modal__wrapper" id="registr">
+            <div class="modal__header b-b-0">
+                <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
+                <span class="text-bold">Регистрация</span>
+            </div>
+            <div class="modal__body clear-fix" id="registr_form" action="<?=URL::site(''); ?>" method="POST">
 
-<!--<div class="modal valign registr-modal" id="registr_modal" tabindex="-1">-->
-<!--    <div class="modal-dialog modal-sm">-->
-<!--        <div class="modal-content row-col">-->
-<!--            <div class="modal-wrapper">-->
-<!--                <form class="modal-body clear_fix" id="registr_form" action="--><?//=URL::site(''); ?><!--" method="POST">-->
-<!--                    <h4>Регистрация</h4>-->
-<!--                    <div class="input-field label-with-icon col-xs-12">-->
-<!--                        <input type="text" id="registr_name" name="name" placeholder="Введите ваш имя" required="">-->
-<!--                        <label for="registr_name" class="icon-label">-->
-<!--                            <i aria-hidden="true" class="fa fa-user"></i>-->
-<!--                        </label>-->
-<!--                    </div>-->
-<!--                    <div class="input-field label-with-icon col-xs-12">-->
-<!--                        <input type="email" id="registr_email" name="email" placeholder="Введите ваш email" required="">-->
-<!--                        <label for="registr_email" class="icon-label">-->
-<!--                            <i class="fa fa-envelope-o" aria-hidden="true"></i>-->
-<!--                        </label>-->
-<!--                    </div>-->
-<!--                    <div class="input-field label-with-icon col-xs-12">-->
-<!--                        <input type="password" id="registr_password" name="password" placeholder="Придумайте пароль" required="">-->
-<!--                        <label for="registr_password" class="icon-label">-->
-<!--                            <i aria-hidden="true" class="fa fa-lock"></i>-->
-<!--                        </label>-->
-<!--                    </div>-->
-<!--                    <div class="col-xs-12 text-center">-->
-<!--                        <input type="hidden" name="csrf" value="--><?//=Security::token(); ?><!--">-->
-<!--                        <button type="button" id="registr" class="btn btn_primary">Зарегистрироваться</button>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
+                <div class="form-group">
+                    <div class="form-group__control-group">
+                        <label for="registr_name" class="form-group__control-group-addon">
+                            <i class="fa fa-user" aria-hidden="true"></i>
+                        </label>
+                        <input id="registr_name" type="text" name="name" placeholder="Введите Ваше имя" required="" class="form-group__control form-group__control-group-input" maxlength="20">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-group__control-group">
+                        <label for="registr_email" class="form-group__control-group-addon">
+                            <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                        </label>
+                        <input id="registr_email" type="email" name="email" placeholder="Введите Ваш email" required="" class="form-group__control form-group__control-group-input" maxlength="65">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="form-group__control-group">
+                        <label for="registr_password" class="form-group__control-group-addon">
+                            <i class="fa fa-lock" aria-hidden="true"></i>
+                        </label>
+                        <input id="registr_password" type="password" name="password" placeholder="Придумайте пароль" required="" class="form-group__control form-group__control-group-input" maxlength="18">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <input id="registr_rools" type="checkbox" class="checkbox" required>
+                    <label for="registr_rools" class="checkbox-label">
+                        Даю согласие на обработку персональных данных
+                    </label>
+                </div>
+
+                <div class="col-xs-12 text-center">
+                    <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
+                    <button type="submit" class="btn btn--brand m-0">Зарегистрироваться</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script src='https://www.google.com/recaptcha/api.js'></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/auth.js"></script>
+<script type="text/javascript" >
+    auth.init();
+</script>

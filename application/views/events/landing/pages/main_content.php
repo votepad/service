@@ -6,7 +6,7 @@ function comparator($a, $b) {
 
 <div class="section__wrapper">
 
-    <div class="event-info clear_fix">
+    <div class="event-info clear-fix">
         <div class="col-xs-12 col-md-4 event-info__block event-info__block--border">
 
             <i class="fa fa-clock-o event-info__icon text-brand" aria-hidden="true"></i>

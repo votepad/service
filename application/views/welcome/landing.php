@@ -1,16 +1,23 @@
-<div class="section section-1 parallax">
-    <div class="background-dark"></div>
-    <img src="<?=$assets;?>static/img/welcome/bg1.jpg" alt="voting participant">
-    <div class="container-small container-slogan">
-        <h1>Автоматизированный подсчёт результатов голосования</h1>
-        <h3>Создайте свое мероприятие и предоставьте доступ экспертному жюри. Получите мгновенно подсчитанные результаты и страницу с победителями.</h3>
-    </div>
-    <div class="bounce-block">
-        <i id="ToSection2" class="fa fa-3x fa-chevron-down bounce" aria-hidden="true"></i>
+<div class="section section-1 parallax" data-toggle="parallax">
+    <div class="dark-bg"></div>
+    <img class="parallax__img" src="<?=$assets;?>static/img/welcome/bg1.jpg" alt="voting participant">
+    <div class="section--lg valign m-t-15">
+        <div class="container animated fade__in">
+            <h1 class="h1--sale text-white m-l-auto m-r-auto text-center">
+                Автоматизированный подсчёт результатов голосования
+            </h1>
+            <h2 class="h3--sale text-white m-l-auto m-r-auto text-center m-t-50">
+                Создайте свое мероприятие и предоставьте доступ экспертному жюри. Получите мгновенно подсчитанные результаты и страницу с победителями.
+            </h2>
+            <div class="m-t-50 m-l-auto m-r-auto text-center">
+                <a data-toggle="modal" data-area="registr_modal" class="btn btn--lg btn--default btn--round btn--scaled btn--join">Присоединиться</a>
+            </div>
+        </div>
+
     </div>
 </div>
-<div class="section section-2 clear_fix">
-    <div class="container clear_fix">
+<div class="section section-2 clear-fix">
+    <div class="container clear-fix">
         <div class="container-image pull-left">
             <div class="container-image-area">
                 <img src="<?=$assets; ?>static/img/welcome/iphoneframe.png" alt="Automated scoring system">
@@ -31,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div class="container clear_fix">
+    <div class="container clear-fix">
         <div class="container-image pull-right">
             <div class="container-image-area">
                 <img src="<?=$assets; ?>static/img/welcome/iphoneframe.png" alt="Get the results immediately">
@@ -55,7 +62,7 @@
             </div>
         </div>
     </div>
-    <div class="container clear_fix">
+    <div class="container clear-fix">
         <div class="container-image pull-left">
             <div class="container-image-area">
                 <img src="<?=$assets; ?>static/img/welcome/iphoneframe.png" alt="Get the correctly counted results">
@@ -80,7 +87,7 @@
         </div>
     </div>
 </div>
-<div class="section section-small section-3 clear_fix">
+<div class="section section-small section-3 clear-fix">
     <div class="container">
         <h2 class="container-header">Как работает Votepad?</h2>
         <p class="container-text">
@@ -95,15 +102,14 @@
         <p class="container-text">
             4. Опубликуйте результаты.
         </p>
-<!--        data-toggle="modal" data-target="#registr_modal"-->
-        <a type="button" class="btn btn_primary container-button link_uppercase" onclick="vp.notification.notify({type:'warning', message:'К сожалению, регистрация пока не доступна'})">зарегистрироваться</a>
+        <a type="button" class="btn btn--lg btn--default btn--round btn--scaled btn--join" data-toggle="modal" data-area="registr_modal">зарегистрироваться</a>
     </div>
 </div>
-<div class="section section-4 clear_fix">
+<div class="section section-4 clear-fix">
     <div class="container">
         <h2 class="container-header">Реализованные мероприятия</h2>
 
-        <ul class="clear_fix">
+        <ul class="clear-fix list-style--none">
 
             <? foreach ($events as $event) : ?>
 

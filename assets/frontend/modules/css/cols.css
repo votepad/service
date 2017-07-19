@@ -1,29 +1,3 @@
-.container{
-    position: relative;
-    padding: 0 15px;
-    margin: 0 auto;
-}
-.section__container{
-    position: relative;
-    padding: 0 30px;
-    width:100%;
-}
-@media (min-width: 768px) {
-    .container {
-        width: 750px;
-    }
-}
-@media (min-width: 992px) {
-    .container {
-        width: 970px;
-    }
-}
-@media (min-width: 1200px) {
-    .container {
-        width: 1170px;
-    }
-}
-
 .row {
     margin: 0 -15px;
 }

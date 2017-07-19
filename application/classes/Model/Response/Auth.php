@@ -24,7 +24,19 @@ class Model_Response_Auth extends Model_Response_Abstract
     protected $_INVALID_INPUT_ERROR = array(
         'type' => 'login',
         'code' => '13',
-        'message' => 'Invalid input'
+        'message' => 'Не правильно введена эл.почта или пароль'
+    );
+
+    protected $_INVALID_EVENT_CODE_ERROR = array(
+        'type' => 'login',
+        'code' => '13',
+        'message' => 'Не правильно введен код мероприятия'
+    );
+
+    protected $_INVALID_JUDGE_SECRET_ERROR = array(
+        'type' => 'login',
+        'code' => '13',
+        'message' => 'Не правильно введен пароль'
     );
 
     protected $_LOGIN_SUCCESS = array(

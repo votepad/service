@@ -25,7 +25,7 @@
 
         <div class="row">
             <form class="form" action="<?=URL::site('organization/' . $organization->id . '/update'); ?>" method="POST" id="update_main_info">
-                <div class="form__body clear_fix">
+                <div class="form__body clear-fix">
                     <div class="col-xs-12">
                         <div class="row row-col">
                             <div class="input-field col-xs-12 col-md-6">
@@ -52,7 +52,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="form__footer clear_fix">
+                <div class="form__footer clear-fix">
                     <button type="submit" class="btn btn_primary col-xs-12 col-md-4 col-lg-3 pull-right">
                         Обновить информацию
                     </button>

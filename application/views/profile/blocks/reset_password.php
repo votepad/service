@@ -3,7 +3,7 @@
     <div class="modal-dialog modal-sm" style="margin: 120px auto;">
         <div class="modal-content row-col">
             <div class="modal-wrapper">
-                <div class="modal-body clear_fix">
+                <div class="modal-body clear-fix">
                     <h4 class="text-center" style="font-size:1.3em;margin-bottom:1em">Восстановление пароля</h4>
                     <div class="input-field label-with-icon col-xs-12">
                         <input type="password" id="reset_password" name="reset_password" placeholder="Введите новый пароль">

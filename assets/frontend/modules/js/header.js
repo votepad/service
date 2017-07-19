@@ -19,12 +19,12 @@ module.exports = (function (header) {
         headerWrapper = document.getElementsByClassName('header__wrapper')[0];
         headerMenuIcon = document.getElementById('openMobileMenu');
         headerBrand = document.getElementsByClassName('header__brand')[0];
-        headerMenu = document.getElementsByClassName('header__menu')[0];
-        headerMenuRight = document.getElementsByClassName('header__menu')[1];
-        headerMobile = document.getElementsByClassName('mobile-aside')[0];
+        // headerMenu = document.getElementsByClassName('header__menu')[0];
+        // headerMenuRight = document.getElementsByClassName('header__menu')[1];
+        // headerMobile = document.getElementsByClassName('mobile-aside')[0];
 
-        headerMenuRightWidth = headerMenuRight.clientWidth + 1;
-        headerMenuRight.style.width = headerMenuRight.clientWidth + 1 + 'px';
+        // headerMenuRightWidth = headerMenuRight.clientWidth + 1;
+        // headerMenuRight.style.width = headerMenuRight.clientWidth + 1 + 'px';
 
     };
 
@@ -33,18 +33,18 @@ module.exports = (function (header) {
 
         prepare_();
 
-        headerMenuIcon.addEventListener('click', openMobileMenu, false);
-        backdrop.addEventListener('click', closeMobileMenu, false);
+        // headerMenuIcon.addEventListener('click', openMobileMenu, false);
+        // backdrop.addEventListener('click', closeMobileMenu, false);
 
-        createHeaderMenuItems();
-        calculateHeaderMenuWidth();
-        changeHeaderMenuItems();
-        headerWrapper.style.opacity = '1';
+        // createHeaderMenuItems();
+        // calculateHeaderMenuWidth();
+        // changeHeaderMenuItems();
+        // headerWrapper.style.opacity = '1';
 
         window.onresize = function () {
 
-            calculateHeaderMenuWidth();
-            changeHeaderMenuItems();
+            // calculateHeaderMenuWidth();
+            // changeHeaderMenuItems();
 
         };
 
@@ -62,7 +62,7 @@ module.exports = (function (header) {
             headerMenuIcon.parentNode.classList.add('header__menu-icon--open');
             document.body.classList.add('modal-open');
             headerBrand.classList.add('header__brand--active');
-            headerMobile.classList.add('mobile-aside--open');
+            // headerMobile.classList.add('mobile-aside--open');
             document.body.appendChild(backdrop);
 
         } else {
@@ -82,7 +82,7 @@ module.exports = (function (header) {
         headerMenuIcon.parentNode.classList.remove('header__menu-icon--open');
         document.body.classList.remove('modal-open');
         headerBrand.classList.remove('header__brand--active');
-        headerMobile.classList.remove('mobile-aside--open');
+        // headerMobile.classList.remove('mobile-aside--open');
         document.getElementsByClassName('modal-backdrop')[0].remove();
 
     };

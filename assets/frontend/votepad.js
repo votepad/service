@@ -11,6 +11,7 @@ require('./modules/css/main');
 
 module.exports = ( function (votepad) {
 
+    votepad.core         = require('./modules/core');
     votepad.transport    = require('./modules/transport');
     votepad.draw         = require('./modules/draw');
     votepad.ajax         = require('./modules/js/ajax');
@@ -22,6 +23,7 @@ module.exports = ( function (votepad) {
     votepad.websocket    = require('./modules/js/websocket');
     votepad.storage      = require('./modules/js/localstorage');
     votepad.notification = require('./modules/js/notification');
+    votepad.modal        = require('./modules/js/modal');
 
     return votepad;
 
