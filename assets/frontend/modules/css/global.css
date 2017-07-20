@@ -207,16 +207,17 @@ body{
 @-webkit-keyframes rotate{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 @keyframes rotate{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 
-.f-s-1{ font-size: 1em; }
-.f-s-1_1{ font-size: 1.1em; }
-.f-s-1_2{ font-size: 1.2em; }
-.f-s-1_25{ font-size: 1.25em; }
-.f-s-1_3{ font-size: 1.3em; }
-.f-s-1_4{ font-size: 1.4em; }
-.f-s-1_5{ font-size: 1.5em; }
-.f-s-2{ font-size: 2em; }
-.f-s-2_5{ font-size: 2.5em; }
-.f-s-3{ font-size: 3em; }
+.fs-1{ font-size: 1em; }
+.fs-1_1{ font-size: 1.1em; }
+.fs-1_2{ font-size: 1.2em; }
+.fs-1_25{ font-size: 1.25em; }
+.fs-1_3{ font-size: 1.3em; }
+.fs-1_4{ font-size: 1.4em; }
+.fs-1_5{ font-size: 1.5em; }
+.fs-2{ font-size: 2em; }
+.fs-2_5{ font-size: 2.5em; }
+.fs-3{ font-size: 3em; }
+.fs-5{ font-size: 5em; }
 
 .clear-fix:after, .clear-fix:before,
 .container:after, .container:before,

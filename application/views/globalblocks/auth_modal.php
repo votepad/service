@@ -5,18 +5,18 @@
         <? if ($canLogin) : ?>
             <!-- Logged User SignIn Form -->
             <form class="modal__wrapper" id="signinLogged">
-                <div class="modal__header b-b-0">
+                <div class="modal__header b-b-0 text-center">
                     <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
                     <span class="text-bold">Продолжить как</span>
                 </div>
                 <div class="modal__body">
                     <div class="valign">
-                        <img class="img-circle thumb64" src="<?=$assets; ?>img/logo.jpg" alt="">
-                        <div class="text-bold m-l-15">
+                        <img class="brad-5px thumb64" src="<?= URL::site('uploads/profiles/' . $user->avatar); ?>" alt="">
+                        <div class="text-bold ml-15">
                             <?= $user->name . ' ' ,  $user->surname; ?>
                         </div>
                     </div>
-                    <div class="form-group m-t-15">
+                    <div class="form-group mt-15">
                         <div class="form-group__control-group">
                             <label for="auth_continue_password" class="form-group__control-group-addon">
                                 <i class="fa fa-lock" aria-hidden="true"></i>
@@ -35,7 +35,7 @@
 
         <!-- NOT Logged User SignIn Form -->
         <form class="modal__wrapper <?= $canLogin ? 'hide' : ''; ?>" id="signin">
-            <div class="modal__header b-b-0">
+            <div class="modal__header b-b-0 text-center">
                 <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
                 <span class="text-bold">Авторизация</span>
             </div>
@@ -67,7 +67,7 @@
 
         <!-- Forget Password Form -->
         <form class="modal__wrapper hide" id="forget">
-            <div class="modal__header b-b-0">
+            <div class="modal__header b-b-0 text-center">
                 <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
                 <span class="text-bold">Востановление пароля</span>
             </div>
@@ -83,7 +83,7 @@
 
                 <div class="g-recaptcha display-block overflow--hidden" data-sitekey="6LelVhcUAAAAAJFftx6Hr90Ff6VWc8-KlT86OJRF" style="width: 100%"></div>
 
-                <div class="m-t-15">
+                <div class="mt-15">
                     <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
                     <button type="button" onclick="auth.toSignIn();" class="btn btn--default m-0 fl_l">Отмена</button>
                     <button type="submit" id="resetPassword" class="btn btn--brand m-0 fl_r">Восстановить</button>
@@ -96,7 +96,7 @@
 
         <!-- Judge SignIn Form -->
         <form class="modal__wrapper hide" id="judge">
-            <div class="modal__header b-b-0">
+            <div class="modal__header b-b-0 text-center">
                 <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
                 <span class="text-bold">Вход для жюри</span>
             </div>
@@ -133,7 +133,7 @@
 <div class="modal registr-modal" id="registr_modal" tabindex="-1">
     <div class="modal__content modal__content--small">
         <form class="modal__wrapper" id="registr">
-            <div class="modal__header b-b-0">
+            <div class="modal__header b-b-0 text-center">
                 <a role="button" data-close="modal" class="fl_r"><i class="fa fa-times" aria-hidden="true"></i></a>
                 <span class="text-bold">Регистрация</span>
             </div>

@@ -16,6 +16,7 @@ module.exports = ( function (votepad) {
     votepad.draw         = require('./modules/draw');
     votepad.ajax         = require('./modules/js/ajax');
     votepad.header       = require('./modules/js/header');
+    votepad.footer       = require('./modules/js/footer');
     votepad.collapse     = require('./modules/js/collapse');
     votepad.cookies      = require('./modules/js/cookies');
     votepad.parallax     = require('./modules/js/parallax');

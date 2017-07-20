@@ -308,3 +308,6 @@ a.bg-gray-dark:focus {
     vertical-align: bottom;
 }
 
+.brad-5px{
+    border-radius: 5px;
+}
