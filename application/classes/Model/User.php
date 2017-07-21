@@ -1,64 +1,20 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
  * Class Model_User
- * @author ProNWE team
+ * @author Votepad team
  * @copyright Khaydarov Murod
- * @version 0.2.0
- * Methods
- *  - getCurrentUser
- *  - newUser
+ * @version 0.3.0
  */
 
 Class Model_User {
 
-    /**
-     * @var $id_user
-     */
     public $id;
-
-    /**
-     * @var $lastname
-     */
-    public $lastname;
-
-    /**
-     * @var $name
-     */
     public $name;
-
-    /**
-     * @var $surname
-     */
-    public $surname;
-
-    /**
-     * @var $email
-     */
     public $email;
-
-    /**
-     * @var $phone
-     */
     public $phone;
-
-    /**
-     * @var $avatar
-     */
     public $avatar = 'no-avatar.png';
-
-    /**
-     * @var $branding
-     */
-    public $branding = 'no-cover.png';
-
-    /**
-     * @var $isConfirmed
-     */
+    public $private;
     public $isConfirmed;
-
-    /**
-     * @var $dt_create
-     */
     public $dt_create;
 
     /**
@@ -101,11 +57,11 @@ Class Model_User {
 
     /**
      * Saves User to Database
-     */
-     public function save()
-     {
-
+    */
+    public function save()
+    {
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
+        $this->isConfirmed = 0;
 
         $insert = Dao_Users::insert();
 
@@ -116,16 +72,15 @@ Class Model_User {
         $result = $insert->execute();
 
         return $this->fill_by_row($result);
-
-     }
+    }
 
     /**
-     * Updates user data in database
-     *
-     * @return Model_User
-     */
-     public function update()
-     {
+    * Updates user data in database
+    *
+    * @return Model_User
+    */
+    public function update()
+    {
         $insert = Dao_Users::update();
 
         foreach ($this as $fieldname => $value) {
@@ -138,11 +93,9 @@ Class Model_User {
         $insert->execute();
 
         return $this->get_($this->id);
+    }
 
-     }
-
-     public function checkPassword ($pass) {
-
+    public function checkPassword ($pass) {
          $selection = Dao_Users::select(array('password'))
                         ->where('id', '=', $this->id)
                         ->limit(1)
@@ -151,10 +104,9 @@ Class Model_User {
          $password = $selection['password'];
 
          return $password == $pass;
+    }
 
-     }
-
-     public function changePassword ($newpass) {
+    public function changePassword ($newpass) {
 
          $insert = Dao_Users::update()
                     ->set('password', $newpass)
@@ -164,24 +116,6 @@ Class Model_User {
 
          return $insert;
 
-     }
-
-    public function getOrganizations()
-    {
-        $ids = Dao_UsersOrganizations::select('o_id')
-            ->where('u_id', '=', $this->id)
-            ->cached(Date::MINUTE * 5, 'user:' . $this->id)
-            ->execute('o_id');
-
-        $orgs = array();
-
-        if (!empty($ids)) {
-            foreach ($ids as $id => $value) {
-                array_push($orgs, new Model_Organization($id));
-            }
-        }
-
-        return $orgs;
     }
 
     public function getEvents()
@@ -203,13 +137,11 @@ Class Model_User {
     }
 
     /**
-     * @public
+     * Checks for existence by searching field
      *
-     * Checks for existance by searching field
-     *
-     * @param $field
      * @param $value
-     * @returns [Bool] True or False
+     * @param string $field
+     * @return bool [Bool] True or False
      */
     public static function isUserExist($value, $field = 'email') {
         $select = Dao_Users::select('id')

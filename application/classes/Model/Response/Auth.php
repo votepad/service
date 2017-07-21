@@ -57,16 +57,4 @@ class Model_Response_Auth extends Model_Response_Abstract
         'message' => 'User does not exists'
     );
 
-    protected $_PASSWORDS_ARE_NOT_EQUAL_ERROR = array (
-        'type' => 'login',
-        'code' => '17',
-        'message' => 'Passwords should be equal'
-    );
-
-    protected $_PASSWORD_CHANGE_SUCCESS = array (
-        'type' => 'login',
-        'code' => '18',
-        'message' => 'Password was changed'
-    );
-
 }

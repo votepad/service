@@ -142,6 +142,11 @@ a.text-brand:hover,
 a.text-brand:focus {
     color: #1F6E7D;
 }
+.text-brand-2 {
+    color: #A1A1A1;
+}
+
+
 .text-success {
     color: #27c24c;
 }
@@ -165,6 +170,9 @@ a.text-white:focus {
     color: #FCFCFC;
 }
 
+.bg-white{
+    background-color: #FFFFFF;
+}
 .bg-brand {
     color: #FCFCFC;
     background-color: #008DA7;
@@ -311,3 +319,48 @@ a.bg-gray-dark:focus {
 .brad-5px{
     border-radius: 5px;
 }
+
+.t-lh-1{line-height:1em}
+.t-lh-1_2{line-height:1.2em}
+.t-lh-1_3{line-height:1.3em}
+.t-lh-1_4{line-height:1.4em}
+.t-lh-1_5{line-height:1.5em}
+.t-lh-1_6{line-height:1.6em}
+.t-lh-2{line-height:2em}
+.t-lh-16px{line-height:16px}
+.t-lh-17px{line-height:17px}
+.t-lh-18px{line-height:18px}
+.t-lh-20px{line-height:20px}
+.t-lh-22px{line-height:22px}
+.t-lh-24px{line-height:24px}
+.t-lh-34px{line-height:34px}
+.t-lh-40px{line-height:40px}
+.t-lh-46px{line-height:46px}
+.t-lh-50px{line-height:50px}
+
+.bt-0{border-top:0;}
+.bl-0{border-left:0;}
+.br-0{border-right:0;}
+.bb-0{border-bottom:0;}
+
+.bt-1{border-top: 1px solid #e7e8ec;}
+.bl-1{border-left: 1px solid #e7e8ec;}
+.br-1{border-right: 1px solid #e7e8ec;}
+.bb-1{border-bottom: 1px solid #e7e8ec;}
+
+.bt-1--light{border-top: 1px solid rgba(0,0,0,.15);}
+.bl-1--light{border-left: 1px solid rgba(0,0,0,.15);}
+.br-1--light{border-right: 1px solid rgba(0,0,0,.15);}
+.bb-1--light{border-bottom: 1px solid rgba(0,0,0,.15);}
+
+.fs-1{font-size:1em;}
+.fs-1_1{font-size:1.1em;}
+.fs-1_2{font-size:1.2em;}
+.fs-1_25{font-size:1.25em;}
+.fs-1_3{font-size:1.3em;}
+.fs-1_4{font-size:1.4em;}
+.fs-1_5{font-size:1.5em;}
+.fs-2{font-size:2em;}
+.fs-2_5{font-size:2.5em;}
+.fs-3{font-size:3em;}
+.fs-5{font-size:5em;}

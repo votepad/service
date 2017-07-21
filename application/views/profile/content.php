@@ -1,56 +1,73 @@
-<div class="section__wrapper">
+<div class="section__content">
 
-    <!-- =============== PAGE STYLE ===============-->
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/tabs.css?v=<?= filemtime("assets/frontend/modules/css/tabs.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/profile.css?v=<?= filemtime("assets/static/css/profile.css") ?>">
-
-    <div class="jumbotron block jumbotron_profile">
-        <div class="jumbotron__wrapper parallax-container">
-
-            <div class="parallax">
-                <img id="user-cover-uploaded" src="/uploads/profiles/branding/<?=$profile->branding; ?>">
-            </div>
-            <? if ($isLogged && $isProfileOwner) :?>
-            <div class="jumbotron__edit-block">
-                <a id="user-cover-edit" role="button" class="jumbotron__edit-btn js-user-jumbotron-cover">
-                    <i class="fa fa-camera jumbotron__edit-icon" aria-hidden="true"></i>
-                    <span class="jumbotron__edit-text">Обновить фото шапки</span>
+    <!-- Left column -->
+    <div class="width-full width-md-300 width-lg-360 mr-md-40">
+        <div class="block mt-20 mt-md-0">
+            <!-- Profile -->
+            <div class="profile">
+                <div class="profile__avatar">
+                    <? if ($profile->isOwner) : ?>
+                        <a onclick="profile.updateAvatar()" role="button" class="profile__upload">
+                            <i class="fa fa-camera profile__upload-icon" aria-hidden="true"></i>
+                        </a>
+                    <? endif; ?>
+                    <img class="profile__avatar-img" src="<?= URL::site('uploads/profiles/m_' . $profile->avatar); ?>" alt="Profile Avatar">
+                </div>
+                <a href="<?= URL::site('user/' . $profile->id)?>">
+                    <h1 class="profile__name text-brand"><?= $profile->name; ?></h1>
                 </a>
             </div>
-            <? endif; ?>
+            <!-- Navigation -->
+            <div class="nav hidden-xs hidden-sm">
+                <a href="<?= URL::site('user/' . $profile->id . '/events'); ?>" class="nav__item <?= $action == 'events' ? 'nav__item--active': ''; ?>">
+                    Мероприятия
+                    <span class="nav__counter">
+                        <span>0</span>
+                        <i class="fa fa-angle-right icon"></i>
+                    </span>
+                </a>
+                <? if ($profile->isOwner) : ?>
+                    <a href="<?= URL::site('user/' . $profile->id . '/drafts'); ?>" class="nav__item <?= $action == 'drafts' ? 'nav__item--active': ''; ?>">
+                        Не опубликованные мероприятия
+                        <span class="nav__counter">
+                            <span>0</span>
+                            <i class="fa fa-angle-right icon"></i>
+                        </span>
+                    </a>
+                    <a href="<?= URL::site('user/' . $profile->id . '/updates'); ?>" class="nav__item <?= $action == 'updates' ? 'nav__item--active': ''; ?>">
+                        Уведомления
+                        <span class="nav__counter">
+                            <span>0</span>
+                            <i class="fa fa-angle-right icon"></i>
+                        </span>
+                    </a>
+                    <a href="<?= URL::site('user/' . $profile->id . '/settings'); ?>" class="nav__item <?= $action == 'settings' ? 'nav__item--active': ''; ?>">
+                        Настройки
+                    </a>
+                <? endif; ?>
+            </div>
         </div>
     </div>
 
-    <section class="section__content">
 
-        <?= View::factory('profile/blocks/profile-info', array('isProfileOwner' => $isProfileOwner, 'profile' => $profile)) ?>
+    <!-- Right column -->
+    <div class="width-full width-md-640 width-lg-780">
 
-        <?= View::factory('profile/blocks/reset_password') ?>
+        <div class="entry_wrapper hidden-md hidden-lg">
+            <div class="tabs">
+                <div class="tabs__wrapper">
+                    <a href="<?= URL::site('user/' . $profile->id . '/events'); ?>" class="tabs__tab <?= $action == 'events' ? 'tabs__tab--active': ''; ?>">Мероприятия</a>
+                    <a href="<?= URL::site('user/' . $profile->id . '/drafts'); ?>" class="tabs__tab <?= $action == 'drafts' ? 'tabs__tab--active': ''; ?>">Не опубл. мер.</a>
+                    <a href="<?= URL::site('user/' . $profile->id . '/updates'); ?>" class="tabs__tab <?= $action == 'updates' ? 'tabs__tab--active': ''; ?>">Уведомл.</a>
+                    <a href="<?= URL::site('user/' . $profile->id . '/settings'); ?>" class="tabs__tab <?= $action == 'settings' ? 'tabs__tab--active': ''; ?>">Настройки</a>
+                </div>
+            </div>
+        </div>
 
-        <?= View::factory('profile/blocks/my-org-event',
-            array('isProfileOwner' => $isProfileOwner,
-                  'profile'        => $profile,
-                  'organizations'  => $profile->getOrganizations(),
-                  'events'         => $profile->getEvents()
-            )) ?>
+        <?= $page; ?>
 
-    </section>
-
-
-    <!-- =============== PAGE SCRIPTS ===============-->
-
-    <? if ($isLogged) : ?>
-        <input type="hidden" id="userID" data-id="<?=$user->id; ?>">
-        <script type="text/javascript" src="<?=$assets; ?>vendor/jquery.inputmask/dist/jquery.inputmask.bundle.js"></script>
-        <script type="text/javascript" src="<?=$assets; ?>static/js/profile.js?v=<?= filemtime("assets/static/js/profile.js") ?>"></script>
-    <? endif; ?>
-    <script type="text/javascript">
-        $( document ).ready(function() {
-            vp.tabs.init({
-                search: true,
-                counter: true
-            });
-        });
-    </script>
+    </div>
 
 </div>
+
+<script type="text/javascript" src="<?=$assets; ?>static/js/profile.js?v=<?= filemtime("assets/static/js/profile.js") ?>"></script>

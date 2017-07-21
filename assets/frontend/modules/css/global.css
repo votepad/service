@@ -132,24 +132,6 @@ body{
 .divider--dashed{
     border-bottom-style: dashed;
 }
-.b-t-0{
-    border-top: 0 !important;;
-}
-.b-b-0{
-    border-bottom: 0 !important;
-}
-.b-l-0{
-    border-left: 0;
-}
-.b-l-light{
-    border-left: 1px solid rgba(0,0,0,.15);
-}
-.b-r-0{
-    border-right: 0;
-}
-.b-r-light{
-    border-right: 1px solid rgba(0,0,0,.15);
-}
 .cursor-pointer{
     cursor: pointer;
 }
@@ -206,18 +188,6 @@ body{
 }
 @-webkit-keyframes rotate{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 @keyframes rotate{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
-
-.fs-1{ font-size: 1em; }
-.fs-1_1{ font-size: 1.1em; }
-.fs-1_2{ font-size: 1.2em; }
-.fs-1_25{ font-size: 1.25em; }
-.fs-1_3{ font-size: 1.3em; }
-.fs-1_4{ font-size: 1.4em; }
-.fs-1_5{ font-size: 1.5em; }
-.fs-2{ font-size: 2em; }
-.fs-2_5{ font-size: 2.5em; }
-.fs-3{ font-size: 3em; }
-.fs-5{ font-size: 5em; }
 
 .clear-fix:after, .clear-fix:before,
 .container:after, .container:before,

@@ -1,33 +1,28 @@
 .block{
     display: block;
+    position: relative;
+    width: 100%;
     background-color: #fff;
     border: 1px solid #e7e8ec;
     margin-bottom: 20px;
 }
-
 .block__heading{
-    display: block;
-    padding: 10px 15px;
-    font-weight: 700;
-    line-height: 1.4;
+    font-weight: 500;
     border-bottom: 1px solid #e7e8ec;
 }
-
-.block__body{
+.block__wrapper{
     display: block;
     position: relative;
-    padding: 15px;
+    padding: 20px;
 }
 
 .block__footer{
-    display: block;
+    position: relative;
     background-color: #fafbfc;
     border-top: 1px solid #e7e8ec;
-    padding: 15px;
 }
-
-.block__body:before,
-.block__body:after,
+.block__wrapper:before,
+.block__wrapper:after,
 .block__footer:before,
 .block__footer:after{
     content: " ";

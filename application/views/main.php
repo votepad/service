@@ -58,6 +58,7 @@
     $( document ).ready(function() {
         vp.header.init();
         vp.footer.init();
+        vp.form.init();
         vp.collapse.init();
         vp.modal.init();
         vp.parallax.init();

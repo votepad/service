@@ -1,7 +1,6 @@
 @import url("cols.css");
 @import url("collapse.css");
 @import url("parallax.css");
-@import url("typography.css");
 @import url("button.css");
 @import url("form.css");
 @import url("block.css");
@@ -12,6 +11,7 @@
 @import url("padding.css");
 @import url("margin.css");
 @import url("navigation.css");
+@import url("typography.css");
 
 @import url("header.css");
 @import url("jumbotron.css");
@@ -20,7 +20,7 @@
 @import url("dropdown.css");
 @import url("formula.css");
 @import url("profile.css");
-
+@import url("social-links.css");
 
 @import url("global.css");
 

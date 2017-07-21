@@ -69,14 +69,14 @@ button {
     background: #f5f5f5;
     border-color: #e7e8ec;
 }
-.btn--gray{
+.btn--brand-2{
     color: #818181;
-    background: #eee;
+    background: #f0f0f0;
     border-color: #e0e0e0;
 }
-.btn--gray:hover,
-.btn--gray:focus{
+.btn--brand-2:hover,
+.btn--brand-2:focus{
     color: #818181;
-    background: #e0e0e0;
+    background: #e5e5e5;
     border-color: #dadada;
 }

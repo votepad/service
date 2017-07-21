@@ -57,7 +57,7 @@ class Controller_SignUp extends Dispatch
 
         if ($auth->login($email, $password, Controller_Auth_Organizer::AUTH_MODE)) {
 
-            $response = new Model_Response_SignUp('SIGNUP_SUCCESS', 'success',  array('id' => $user->id));
+            $response = new Model_Response_SignUp('SIGN_UP_SUCCESS', 'success',  array('id' => $user->id));
             $this->response->body(@json_encode($response->get_response()));
 
         };

@@ -25,6 +25,7 @@ module.exports = ( function (votepad) {
     votepad.storage      = require('./modules/js/localstorage');
     votepad.notification = require('./modules/js/notification');
     votepad.modal        = require('./modules/js/modal');
+    votepad.form         = require('./modules/js/form');
 
     return votepad;
 

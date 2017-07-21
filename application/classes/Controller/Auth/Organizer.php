@@ -218,9 +218,9 @@ class Controller_Auth_Organizer extends Auth {
         $isSuccess = $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Сброс пароля на Votepad', $template, true);
 
         if ($isSuccess) {
-            $response = new Model_Response_Email('EMAIL_SUCCESS', 'success');
+            $response = new Model_Response_Email('EMAIL_SEND_SUCCESS', 'success');
         } else {
-            $response = new Model_Response_Email('EMAIL_ERROR', 'error');
+            $response = new Model_Response_Email('EMAIL_SEND_ERROR', 'error');
         }
 
         $this->response->body(@json_encode($response->get_response()));
