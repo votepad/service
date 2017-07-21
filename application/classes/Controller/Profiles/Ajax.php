@@ -116,7 +116,7 @@ class Controller_Profiles_Ajax extends Ajax
         $email = $email->send($this->user->email, $_SERVER['INFO_EMAIL'], 'Потверждение эл.почты', $template, true);
 
         if ($email == 1) {
-            $this->redis->set($_SERVER['CONFIRMATION_EMAIL_HASHES'] . $hash, $this->user->id, array('nx', 'ex' => Date::DAY));
+            $this->redis->set($_SERVER['REDIS_CONFIRMATION_HASHES'] . $hash, $this->user->id, array('nx', 'ex' => Date::DAY));
             $response = new Model_Response_Email('EMAIL_SEND_SUCCESS', 'success');
         } else {
             $response = new Model_Response_Email('EMAIL_SEND_ERROR', 'error');

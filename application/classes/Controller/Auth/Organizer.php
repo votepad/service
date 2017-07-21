@@ -105,7 +105,7 @@ class Controller_Auth_Organizer extends Auth {
 
         $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
 
-        Cookie::set('secret', $hash, Date::DAY);
+        Cookie::set('secret', $hash, Date::MONTH);
 
         $this->saveSessionData($hash, $sid, $id);
 
@@ -138,7 +138,7 @@ class Controller_Auth_Organizer extends Auth {
 
         $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
 
-        if ($this->redis->get($hash) && $hash == $secret) {
+        if ($this->redis->get($_SERVER['REDIS_SESSION_HASHES'] . $hash) && $hash == $secret) {
 
             // Создаем новую сессию
             $auth = new Model_Auth();
@@ -153,7 +153,7 @@ class Controller_Auth_Organizer extends Auth {
             $newHash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
 
             // меняем хэш в куки
-            Cookie::set('secret', $newHash, Date::DAY);
+            Cookie::set('secret', $newHash, Date::MONTH);
 
             // сохраняем в редис
             $this->saveSessionData($newHash, $sid, $id);
@@ -181,7 +181,7 @@ class Controller_Auth_Organizer extends Auth {
      */
     private function saveSessionData($hash, $sid, $id)
     {
-        $this->redis->set($hash, $sid . ':' . $id . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+        $this->redis->set($_SERVER['REDIS_SESSION_HASHES'] . $hash, $sid . ':' . $id . ':' . Request::$client_ip, array('nx', 'ex' => Date::MONTH));
     }
 
     public function action_reset() {

@@ -4,13 +4,8 @@ var profile = (function (profile) {
         profileWrap     = document.getElementById('profile'),
         changePassword  = document.getElementById('changePasswordModal');
 
-    if (!profileWrap || !changePassword) {
-        vp.core.log('Missed profile or/and changePassword forms', 'error', corePrefix);
-        return;
-    }
-
-    profileWrap.addEventListener('submit', submitProfile_);
-    changePassword.addEventListener('submit', submitChangePassword_);
+    if (profileWrap) profileWrap.addEventListener('submit', submitProfile_);
+    if (changePassword) changePassword.addEventListener('submit', submitChangePassword_);
 
     function submitProfile_() {
         event.preventDefault();

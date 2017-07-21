@@ -49,4 +49,10 @@ class Model_Response_User extends  Model_Response_Abstract
         'code' => '34',
         'message' => 'Пользователь с такой эл.почтой существует'
     );
+
+    protected $_USER_CREATE_SUCCESS = array (
+        'type' => 'signup',
+        'code' => '35',
+        'message' => 'Пользователь успешно зарегестрирован'
+    );
 }

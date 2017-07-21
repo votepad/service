@@ -110,7 +110,7 @@ class Controller_Profiles_Index extends Dispatch
     {
         $hash = $this->request->param('hash');
 
-        $id = $this->redis->get($_SERVER['CONFIRMATION_EMAIL_HASHES'] . $hash);
+        $id = $this->redis->get($_SERVER['REDIS_CONFIRMATION_HASHES'] . $hash);
 
         if (!$id) {
             $this->redirect('/');
@@ -120,7 +120,7 @@ class Controller_Profiles_Index extends Dispatch
         $user->isConfirmed = 1;
         $user->update();
 
-        $this->redis->delete($_SERVER['CONFIRMATION_EMAIL_HASHES'] . $hash);
+        $this->redis->delete($_SERVER['REDIS_CONFIRMATION_HASHES'] . $hash);
 
         $this->redirect('/user/' . $id . '/settings');
     }

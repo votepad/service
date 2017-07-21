@@ -111,7 +111,7 @@ var auth = (function (auth) {
                 }
 
                 if (parseInt(response.code) === 11) {
-                    window.location.replace(protocol + '//' + host + '/user/' + response.id);
+                    window.location = protocol + '//' + host + '/user/' + response.id;
                     return;
                 }
 
@@ -198,15 +198,14 @@ var auth = (function (auth) {
 
                 vp.core.log(response.message, response.status, corePrefix);
 
-                if (parseInt(response.code) === 21) {
-                    window.location.replace(protocol + '//' + host + '/user/' + response.id);
-                    return;
-                }
-
                 vp.notification.notify({
                     type: response.status,
                     message: response.message
                 });
+
+                if (parseInt(response.code) === 35) {
+                    window.location = protocol + '//' + host + '/user/' + response.id;
+                }
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on registr form','error',corePrefix ,callbacks);

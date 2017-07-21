@@ -61,6 +61,7 @@ Class Model_User {
     public function save()
     {
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
+        $this->private = 0;
         $this->isConfirmed = 0;
 
         $insert = Dao_Users::insert();
@@ -71,7 +72,7 @@ Class Model_User {
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
+        return $this->get_($result);
     }
 
     /**

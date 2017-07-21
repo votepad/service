@@ -1,46 +1,33 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-class Controller_SignUp extends Dispatch
+class Controller_SignUp extends Ajax
 {
-
-    const CONFIRMATION_HASHES_KEY = 'votepad.confirmation.hashes';
-    public $template    = 'main';
-
-    function before()
-    {
-        $this->auto_render = false;
-
-       parent::before();
-
-    }
 
     function action_index()
     {
-        if (!$this->request->is_ajax()) {
-            return;
-        }
+        $this->checkCsrf();
 
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
         $name       = Arr::get($_POST, 'name', '');
 
-
         if (!$email || !$password || !$name) {
-
             $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
-
             $this->response->body(@json_encode($response->get_response()));
             return;
+        }
 
+        if (!Valid::email($email)) {
+            $response = new Model_Response_Email('EMAIL_FORMAT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
         }
 
 
-        if (!$email || Model_User::isUserExist($email)) {
-
-            $response = new Model_Response_SignUp('USER_EXISTS_ERROR', 'error');
+        if (Model_User::isUserExist($email)) {
+            $response = new Model_Response_User('USER_EXISTED_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
 
         $user = new Model_User();
@@ -49,59 +36,23 @@ class Controller_SignUp extends Dispatch
         $user->password = $password;
         $user->name = $name;
 
-        $user->save();
-
-        $this->send_email_confirmation($user, $password);
-
-        $auth = new Model_Auth();
-
-        if ($auth->login($email, $password, Controller_Auth_Organizer::AUTH_MODE)) {
-
-            $response = new Model_Response_SignUp('SIGN_UP_SUCCESS', 'success',  array('id' => $user->id));
-            $this->response->body(@json_encode($response->get_response()));
-
-        };
-
-        /**
-         * TODO: Email - Validation
-         */
-
-    }
-
-    public function action_confirmEmail() {
-
-        $hash = $this->request->param('hash');
-
-        $id = $this->redis->hGet(self::CONFIRMATION_HASHES_KEY, $hash);
-
-        if (!$id) {
-            return;
-        }
-
-        $user = new Model_User($id);
-
-        $user->isConfirmed = 1;
-
-        $user->update();
-
-        $this->redis->hDel(self::CONFIRMATION_HASHES_KEY, $hash);
-
-        $this->redirect('/user/'.$id);
-
-    }
-
-    private function send_email_confirmation($user, $password) {
+        $user = $user->save();
 
         $hash = $this->makeHash('sha256', $user->id . $_SERVER['SALT'] . $user->email);
-
-        $this->redis->hSet(self::CONFIRMATION_HASHES_KEY, $hash, $user->id);
-
-        $template = View::factory('emailtemplates/confirm_email', array('user' => $user, 'hash' => $hash));
+        $template = View::factory('email-templates/email-confirm', array('user' => $user, 'password' => $password, 'hash' => $hash));
 
         $email = new Email();
+        $email = $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Добро пожаловать в Votepad!', $template, true);
 
-        return $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Добро пожаловать в Votepad!', $template, true);
+        if ($email == 1) {
+            $this->redis->set($_SERVER['REDIS_CONFIRMATION_HASHES'] . $hash, $user->id, array('nx', 'ex' => Date::DAY));
+        }
 
+        $auth = new Model_Auth();
+        $auth->login($user->email, $user->password, Controller_Auth_Organizer::AUTH_MODE);
+
+        $response = new Model_Response_User('USER_CREATE_SUCCESS', 'success',  array('id' => $user->id));
+        $this->response->body(@json_encode($response->get_response()));
     }
 
 }

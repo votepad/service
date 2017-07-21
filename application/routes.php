@@ -41,7 +41,7 @@ Route::set('AUTH', 'sign/<mode>(/<additional>)', array('additional' => 'logout|r
 /**
  * Route for signing up
  */
-Route::set('SINGUP', 'signup(/<action>)', array('action' => 'check'))
+Route::set('SINGUP', 'signup/<action>')
     ->defaults(array(
         'controller'  => 'SignUp',
         'action'      => 'index',
@@ -55,14 +55,6 @@ Route::set('IMAGE_TRANSPORT', 'transport/<type>')
     ->defaults(array(
         'controller' => 'Transport',
         'action'     => 'upload'
-    ));
-
-
-
-Route::set('EMAIL_CONFIRMATION', 'confirm/<hash>')
-    ->defaults(array(
-        'controller' => 'SignUp',
-        'action'     => 'confirmEmail'
     ));
 
 Route::set('RESET_PASSWORD_LINK', 'reset/<hash>')
