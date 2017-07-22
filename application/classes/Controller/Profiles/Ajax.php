@@ -31,8 +31,8 @@ class Controller_Profiles_Ajax extends Ajax
             return;
         }
 
-        if (!Valid::phone($phone,12)) {
-            $response = new Model_Response_User('PATIENTS_UPDATE_SUCCESS', 'error');
+        if ($phone != "" && !Valid::phone($phone,12)) {
+            $response = new Model_Response_User('USER_PHONE_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
         }
@@ -124,4 +124,92 @@ class Controller_Profiles_Ajax extends Ajax
 
         $this->response->body(@json_encode($response->get_response()));
     }
+
+    public function action_forgetpassword()
+    {
+        $this->checkCsrf();
+
+        $email = Arr::get($_POST,'email');
+
+        if (!Valid::email($email)) {
+            $response = new Model_Response_Email('EMAIL_FORMAT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        // TODO check recaptcha
+
+        $user = Model_User::getByEmail($email);
+
+        if (!$user->id) {
+            $response = new Model_Response_User('USER_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $hash = $this->makeHash('sha256', $user->id . $_SERVER['SALT'] . $user->email);
+        $template = View::factory('email-templates/reset-password', array('user' => $user, 'hash' => $hash));
+
+        $email = new Email();
+        $email = $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Восстановление пароля', $template, true);
+
+        if ($email == 1) {
+            $this->redis->set($_SERVER['REDIS_RESET_HASHES'] . $hash, $user->id, array('nx', 'ex' => Date::HOUR));
+            $response = new Model_Response_Email('EMAIL_SEND_SUCCESS', 'success');
+        } else {
+            $response = new Model_Response_Email('EMAIL_SEND_ERROR', 'error');
+        }
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+    public function action_resetpassword() {
+
+        $hash = Arr::get($_POST,'hash');
+        $id = $this->redis->get($_SERVER['REDIS_RESET_HASHES'] . $hash);
+
+        if (!$id) {
+            $this->redirect('/');
+        }
+
+        if (isset($_POST['reset'])) {
+            $newPassword1 = Arr::get($_POST,'password1');
+            $newPassword2 = Arr::get($_POST,'password2');
+
+            if ($newPassword1 != $newPassword2) {
+                $response = new Model_Response_User('USER_PASSWORDS_ARE_NOT_EQUAL_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
+                return;
+            }
+
+            $user = new Model_User($id);
+
+            if (!$user->id) {
+                $response = new Model_Response_User('USER_DOES_NOT_EXISTED_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
+                return;
+            }
+
+            if ($user->checkPassword($newPassword1)) {
+                $response = new Model_Response_User('USER_SAME_PASSWORDS_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
+                return;
+            }
+
+            $user->changePassword($newPassword1);
+
+            $auth = new Model_Auth();
+            $auth->login($user->email, $newPassword1, Controller_Auth_Organizer::AUTH_MODE);
+
+            $response = new Model_Response_User('USER_RESET_PASSWORD_SUCCESS', 'success', array('id' => $user->id));
+        } else {
+            $response = new Model_Response_User('USER_RESET_PASSWORD_CANCEL_SUCCESS', 'success');
+        }
+
+        $this->redis->delete($_SERVER['REDIS_RESET_HASHES'] . $hash);
+
+        $this->response->body(@json_encode($response->get_response()));
+        return;
+
+    }
+
 }

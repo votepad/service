@@ -47,6 +47,7 @@ module.exports = (function (modal) {
 
         closeHeadBtn.innerHTML = '<i class="fa fa-close" aria-hidden="true"></i>';
         headerTitle.textContent = settings.header;
+
         header.appendChild(closeHeadBtn);
         header.appendChild(headerTitle);
 
@@ -54,9 +55,10 @@ module.exports = (function (modal) {
 
         body.innerHTML = settings.body;
 
-        content.appendChild(wrapper);
-        content.appendChild(header);
-        content.appendChild(body);
+        if (settings.header !== false)
+            wrapper.appendChild(header);
+
+        wrapper.appendChild(body);
 
         if (settings.footer) {
 
@@ -73,16 +75,19 @@ module.exports = (function (modal) {
 
             }
 
-            content.appendChild(footer);
+            wrapper.appendChild(footer);
 
         }
 
+        content.appendChild(wrapper);
         content.classList.add('modal__content--' + settings.size);
         modalWrapper.appendChild(content);
 
         document.body.appendChild(modalWrapper);
 
         modal.show(modalWrapper);
+
+        return modalWrapper;
 
     };
 

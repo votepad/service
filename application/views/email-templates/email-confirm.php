@@ -73,7 +73,7 @@
                                     <tr align="left" style="text-align:left;">
                                         <td align="left" valign="top" style="vertical-align:top;text-align:left;background:#ffffff;padding: 35px; font-size: 1.1em;line-height: 1.5em;">
                                             Если вы не осуществляли регистрацию на нашем сайте, проигнорируйте это письмо. В таком случае аккаунт не будет активирован и будет автоматически удалён через месяц. Для быстрого удаления обратитесь в службу поддержки по эл.почте:
-                                            <a href="mailto: votepad@ya.ru" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;">votepad@ya.ru</a>.
+                                            <a href="mailto: <?= $_SERVER['SUPPORT_EMAIL']; ?>" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;"><?= $_SERVER['SUPPORT_EMAIL']; ?></a>.
                                         </td>
                                     </tr>
                                 </tbody>

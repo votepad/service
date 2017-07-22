@@ -29,7 +29,7 @@
 
  <body>
     <header class="header header-home">
-        <?=$header; ?>
+        <?= View::factory('globalblocks/header'); ?>
     </header>
 
     <?=$section; ?>

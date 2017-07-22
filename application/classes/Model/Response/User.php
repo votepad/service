@@ -21,38 +21,56 @@ class Model_Response_User extends  Model_Response_Abstract
     );
 
     protected $_USER_SAME_PASSWORDS_ERROR = array (
-        'type' => 'login',
+        'type' => 'user',
         'code' => '32',
         'message' => 'Старый и новый пароль совпадают'
     );
 
     protected $_USER_PASSWORD_ERROR = array (
-        'type' => 'login',
+        'type' => 'user',
         'code' => '32',
         'message' => 'Не правильно введен старый пароль'
     );
 
     protected $_USER_PASSWORDS_ARE_NOT_EQUAL_ERROR = array (
-        'type' => 'login',
+        'type' => 'user',
         'code' => '32',
         'message' => 'Новые пароли не совпадают'
     );
 
     protected $_USER_PASSWORD_CHANGE_SUCCESS = array (
-        'type' => 'login',
+        'type' => 'user',
         'code' => '33',
         'message' => 'Пароль успешно изменен'
     );
 
     protected $_USER_EXISTED_ERROR = array (
-        'type' => 'login',
+        'type' => 'user',
         'code' => '34',
         'message' => 'Пользователь с такой эл.почтой существует'
+    );
+
+    protected $_USER_DOES_NOT_EXISTED_ERROR = array (
+        'type' => 'user',
+        'code' => '34',
+        'message' => 'Пользователь с такой эл.почтой не существует'
     );
 
     protected $_USER_CREATE_SUCCESS = array (
         'type' => 'signup',
         'code' => '35',
         'message' => 'Пользователь успешно зарегестрирован'
+    );
+
+    protected $_USER_RESET_PASSWORD_SUCCESS = array (
+        'type' => 'signup',
+        'code' => '36',
+        'message' => 'Сброс пароля успешно завершен'
+    );
+
+    protected $_USER_RESET_PASSWORD_CANCEL_SUCCESS = array (
+        'type' => 'signup',
+        'code' => '37',
+        'message' => 'Сброс пароля успешно отменен'
     );
 }

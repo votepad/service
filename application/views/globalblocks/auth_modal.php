@@ -11,7 +11,7 @@
                 </div>
                 <div class="modal__body">
                     <div class="valign">
-                        <img class="brad-5px thumb64" src="<?= URL::site('uploads/profiles/' . $user->avatar); ?>" alt="">
+                        <img class="brad-5px thumb64" src="<?= URL::site('uploads/profiles/m_' . $user->avatar); ?>" alt="">
                         <div class="text-bold ml-15">
                             <?= $user->name; ?>
                         </div>

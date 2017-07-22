@@ -8,6 +8,7 @@ var auth = (function (auth) {
         signInLogged    = null,
         forget          = null,
         judge           = null,
+        hasReset        = null,
         reset           = null,
         registr         = null;
 
@@ -15,8 +16,8 @@ var auth = (function (auth) {
         signIn        = document.getElementById('signin');
         signInLogged  = document.getElementById('signinLogged');
         judge         = document.getElementById('judge');
-        forget        = document.getElementById('forget'); // TODO submit
-        reset         = document.getElementById('reset');  // TODO submit
+        forget        = document.getElementById('forget');
+        hasReset      = pathname.split('/').indexOf('reset') !== -1;
         registr       = document.getElementById('registr');
 
         if (!signIn || !forget || !judge) {
@@ -24,8 +25,9 @@ var auth = (function (auth) {
             return;
         }
 
-        if (reset) {
-            openResetForm_();
+        if (hasReset) {
+            createResetForm_();
+            reset.addEventListener('submit', submitReset_);
             return;
         }
 
@@ -33,6 +35,7 @@ var auth = (function (auth) {
         if (registr) registr.addEventListener('submit', submitRegistr_);
 
         signIn.addEventListener('submit', submitSignIn_);
+        forget.addEventListener('submit', submitForget_);
         judge.addEventListener('submit', submitJudge_);
     }
 
@@ -41,8 +44,32 @@ var auth = (function (auth) {
      * Open Reset Password Form
      * @private
      */
-    function openResetForm_() {
-        var cancelReset = document.getElementById('cancelReset');
+    function createResetForm_() {
+        reset = vp.modal.create({
+            'node': 'FORM',
+            'id': 'reset',
+            'size': 'small',
+            'header': false,
+            'body':
+                '<div class="t-lh-1_5 text-bold text-center mb-10">Изменить пароль</div>' +
+                '<div class="form-group form-group--with-icon">' +
+                    '<input id="reset_password" type="password" name="password1" placeholder="Введите новый пароль" class="form-group__input" autocomplete="off" autofocus maxlength="18">' +
+                    '<label for="reset_password" class="form-group__label-icon">' +
+                        '<i class="fa fa-lock" aria-hidden="true"></i>' +
+                    '</label>' +
+                '</div>' +
+                '<div class="form-group form-group--with-icon">' +
+                    '<input id="reset_password1" type="password" name="password2" placeholder="Повторите новый пароль" class="form-group__input" autocomplete="off" maxlength="18">' +
+                    '<label for="reset_password1" class="form-group__label-icon">' +
+                        '<i class="fa fa-lock" aria-hidden="true"></i>' +
+                    '</label>' +
+                '</div>' +
+                '<input type="hidden" name="hash" value="' + pathname.split('/')[pathname.split('/').indexOf('reset') + 1] + '">'+
+                '<input type="hidden" name="reset" id="resetAction">'+
+                '<button type="button" onclick="auth.cancelReset()" class="btn btn--default fl_l m-0">Отменить</button>' +
+                '<button id="resetSubmit" type="submit" class="btn btn--brand fl_r m-0">Изменить</button>'
+        });
+
     }
 
 
@@ -179,6 +206,88 @@ var auth = (function (auth) {
     }
 
     /**
+     * Submit Forget Form
+     * @private
+     */
+    function submitForget_(event) {
+        event.preventDefault();
+
+        var ajaxData = {
+            url: '/user/forgetpassword',
+            type: 'POST',
+            data: new FormData(forget),
+            beforeSend: function(){
+                forget.classList.add('loading');
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                forget.classList.remove('loading');
+
+                vp.core.log(response.message, response.status, corePrefix);
+
+                vp.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+                if (parseInt(response.code) === 61) {
+                    vp.modal.hide(forget.closest('.modal'));
+                }
+            },
+            error: function(callbacks) {
+                vp.core.log('ajax error occur on forget form','error',corePrefix ,callbacks);
+                forget.classList.add('loading');
+            }
+        };
+
+        vp.ajax.send(ajaxData);
+    }
+
+    /**
+     * Submit Reset Form
+     * @private
+     */
+    function submitReset_(event) {
+        event.preventDefault();
+
+        var ajaxData = {
+            url: '/user/resetpassword',
+            type: 'POST',
+            data: new FormData(reset),
+            beforeSend: function(){
+                reset.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                reset.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+
+                vp.core.log(response.message, response.status, corePrefix);
+
+                vp.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+
+                window.setTimeout(function () {
+                    if (parseInt(response.code) === 36) {
+                        window.location.replace(protocol + '//' + host + '/user/' + response.id);
+                    }
+
+                    if (parseInt(response.code) === 37) {
+                        window.location.pathname = '';
+                    }
+                }, 700);
+
+            },
+            error: function(callbacks) {
+                vp.core.log('ajax error occur on reset form','error',corePrefix ,callbacks);
+                reset.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+            }
+        };
+
+        vp.ajax.send(ajaxData);
+    }
+
+    /**
      * Submit Registr Form
      * @private
      */
@@ -216,6 +325,17 @@ var auth = (function (auth) {
         vp.ajax.send(ajaxData);
     }
 
+    /**
+     * Cancel Reset
+     */
+    auth.cancelReset = function () {
+        document.getElementById('resetAction').name = 'resetCancel';
+        document.getElementById('resetSubmit').click();
+    };
+
+    /**
+     * User Logout
+     */
     auth.logout = function() {
 
         var action = document.getElementById('recover');

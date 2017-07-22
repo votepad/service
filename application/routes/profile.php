@@ -1,6 +1,8 @@
 <?php defined('SYSPATH') or die('No direct pattern access.');
 
-Route::set('PROFIlE_CONFIRM', 'user/confirm/<hash>')
+Route::set('PROFIlE_CONFIRM_RESET', 'user/<action>/<hash>', array(
+        'action' => 'confirm|reset'
+    ))
     ->defaults(array(
         'controller' => 'Profiles_Index',
         'action'     => 'confirm',

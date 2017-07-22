@@ -10,7 +10,8 @@
 
 class Controller_Profiles_Index extends Dispatch
 {
-    const ACTION_CONFIRM_EMAIL = 'confirm';
+    const ACTION_CONFIRM_EMAIL  = 'confirm';
+    const ACTION_RESET_PASSWORD = 'reset';
 
     public $template = 'main';
 
@@ -23,11 +24,11 @@ class Controller_Profiles_Index extends Dispatch
 
         parent::before();
 
-        if (!self::isLogged()) throw new HTTP_Exception_401();
-
         $action = $this->request->action();
 
-        if ($action == self::ACTION_CONFIRM_EMAIL) return;
+        if ($action == self::ACTION_CONFIRM_EMAIL || $action == self::ACTION_RESET_PASSWORD) return;
+
+        if (!self::isLogged()) throw new HTTP_Exception_401();
 
         $id = $this->request->param('id');
         $profile = new Model_User($id);
@@ -52,7 +53,6 @@ class Controller_Profiles_Index extends Dispatch
 
         $this->template->title       = $profile->name;
         $this->template->description = "Просмотреть профиль " . $profile->name . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
-        $this->template->keywords    = "Профиль, Электронное голосование, Выставление баллов, Результат, Рейтинг, Страница с результатами, votepad, profile, voting, results, rating";
     }
 
 
@@ -124,6 +124,5 @@ class Controller_Profiles_Index extends Dispatch
 
         $this->redirect('/user/' . $id . '/settings');
     }
-
 
 }

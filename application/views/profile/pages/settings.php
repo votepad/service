@@ -71,19 +71,19 @@
             </div>
             <div class="modal__body">
                 <div class="form-group form-group--with-icon">
-                    <input id="changePasswordOld" type="password" name="oldPassword" placeholder="Введите старый пароль" required="" class="form-group__input">
+                    <input id="changePasswordOld" type="password" name="oldPassword" placeholder="Введите старый пароль" required="" class="form-group__input" maxlength="18">
                     <label for="changePasswordOld" class="form-group__label-icon">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                     </label>
                 </div>
                 <div class="form-group form-group--with-icon">
-                    <input id="changePasswordNew" type="password" name="newPassword" placeholder="Введите новый пароль" required="" autocomplete="off" class="form-group__input">
+                    <input id="changePasswordNew" type="password" name="newPassword" placeholder="Введите новый пароль" required="" autocomplete="off" class="form-group__input" maxlength="18">
                     <label for="changePasswordNew" class="form-group__label-icon">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                     </label>
                 </div>
                 <div class="form-group form-group--with-icon">
-                    <input id="changePasswordNew1" type="password" name="newPassword1" placeholder="Повторите новый пароль" required="" autocomplete="off" class="form-group__input">
+                    <input id="changePasswordNew1" type="password" name="newPassword1" placeholder="Повторите новый пароль" required="" autocomplete="off" class="form-group__input" maxlength="18">
                     <label for="changePasswordNew1" class="form-group__label-icon">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                     </label>

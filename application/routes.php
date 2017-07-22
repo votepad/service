@@ -41,7 +41,7 @@ Route::set('AUTH', 'sign/<mode>(/<additional>)', array('additional' => 'logout|r
 /**
  * Route for signing up
  */
-Route::set('SINGUP', 'signup/<action>')
+Route::set('SINGUP', 'signup')
     ->defaults(array(
         'controller'  => 'SignUp',
         'action'      => 'index',
@@ -59,8 +59,8 @@ Route::set('IMAGE_TRANSPORT', 'transport/<type>')
 
 Route::set('RESET_PASSWORD_LINK', 'reset/<hash>')
     ->defaults(array(
-        'controller' => 'Auth_Organizer',
-        'action'     => 'resetPassword'
+        'controller' => 'Welcome',
+        'action'     => 'reset'
     ));
 
 

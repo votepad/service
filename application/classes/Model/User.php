@@ -157,4 +157,15 @@ Class Model_User {
         }
     }
 
+
+    public static function getByEmail($email) {
+        $select = Dao_Users::select()
+            ->where('email', '=', $email)
+            ->limit(1)
+            ->execute();
+
+        $user = new Model_User();
+        return $user->fill_by_row($select);
+    }
+
 }
