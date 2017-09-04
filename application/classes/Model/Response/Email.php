@@ -20,4 +20,10 @@ class Model_Response_Email extends Model_Response_Abstract
         'message' => 'Не правильно указан формат эл.почты'
     );
 
+    protected $_RECAPTCHA_ERROR = array (
+        'type' => 'recaptcha',
+        'code' => '63',
+        'message' => 'Вы не прошли проверку `Я не робот`'
+    );
+
 }

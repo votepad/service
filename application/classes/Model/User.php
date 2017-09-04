@@ -142,7 +142,7 @@ Class Model_User {
      *
      * @param $value
      * @param string $field
-     * @return bool [Bool] True or False
+     * @return bool True or False
      */
     public static function isUserExist($value, $field = 'email') {
         $select = Dao_Users::select('id')

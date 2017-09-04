@@ -126,21 +126,30 @@ class Controller_Users_Ajax extends Ajax
     }
 
     /**
-     *
+     * Forget Password - check ReCaptcha and Send Link for reset password
      */
     public function action_forgetpassword()
     {
         $this->checkCsrf();
 
         $email = Arr::get($_POST,'email');
+        $captcha = Arr::get($_POST, 'g-recaptcha-response');
 
-        if (!Valid::email($email)) {
+        if ( !Valid::email($email) ) {
             $response = new Model_Response_Email('EMAIL_FORMAT_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
         }
 
-        // TODO check recaptcha
+        $recaptcha = new \ReCaptcha\ReCaptcha(getenv('RECAPTCHA'));
+
+        $resp = $recaptcha->verify($captcha, $_SERVER['REMOTE_ADDR']);
+
+        if (!$resp->isSuccess()){
+            $response = new Model_Response_Email('RECAPTCHA_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
 
         $user = Model_User::getByEmail($email);
 
@@ -167,7 +176,7 @@ class Controller_Users_Ajax extends Ajax
 
 
     /**
-     * Reset Password if hash is valid
+     * Reset Password if `hash` is valid
      * @throws HTTP_Exception_400
      */
     public function action_resetpassword() {

@@ -72,7 +72,9 @@
                     </label>
                 </div>
 
-                <div class="g-recaptcha display-block overflow--hidden" data-sitekey="6LelVhcUAAAAAJFftx6Hr90Ff6VWc8-KlT86OJRF" style="width: 100%"></div>
+                <div class="form-group overflow--hidden">
+                    <div class="g-recaptcha " data-sitekey="6LelVhcUAAAAAJFftx6Hr90Ff6VWc8-KlT86OJRF"></div>
+                </div>
 
                 <div class="mt-15">
                     <input type="hidden" name="csrf" value="<?=Security::token(); ?>">

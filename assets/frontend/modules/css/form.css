@@ -278,8 +278,6 @@ fieldset .form-group {
 .radio:checked{
     position: absolute;
     opacity: 0;
-    width: 0;
-    height: 0;
 }
 .checkbox:checked + .checkbox-label:before{
     top: 1px;

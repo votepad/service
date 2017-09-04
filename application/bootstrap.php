@@ -164,3 +164,9 @@ Cookie::$salt = "saltPronwesalt";
 */
 //require APPPATH.'vendor/autoload.php';
 require APPPATH.'routes'.EXT;
+
+
+/**
+ * Include Google ReCaptcha
+ */
+require VENDORPATH.'google/recaptcha/src/autoload.php';
