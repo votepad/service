@@ -15,7 +15,7 @@ class Model_Response_Form extends Model_Response_Abstract
         'message' => 'Empty field'
     );
 
-    protected $_NOTHING_CHANGE_WARING = array(
+    protected $_NOTHING_CHANGE_WARNING = array(
         'type' => 'form',
         'code' => '32',
         'message' => 'Ничего не было изменено'

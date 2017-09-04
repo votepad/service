@@ -1,13 +1,13 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
- * Class Controller_Profiles_Ajax
+ * Class Controller_Users_Ajax
  *
  * @copyright Votepad Team
  * @author Turov Nikolay
  * @version 0.2.0
  */
 
-class Controller_Profiles_Ajax extends Ajax
+class Controller_Users_Ajax extends Ajax
 {
 
     public function action_update()
@@ -20,7 +20,7 @@ class Controller_Profiles_Ajax extends Ajax
         $private = Arr::get($_POST,'private');
 
         if ($this->user->name == $name && $this->user->email == $email && $this->user->phone == $phone && $this->user->private == $private) {
-            $response = new Model_Response_Form('NOTHING_CHANGE_WARING', 'warning');
+            $response = new Model_Response_Form('NOTHING_CHANGE_WARNING', 'warning');
             $this->response->body(@json_encode($response->get_response()));
             return;
         }
@@ -52,7 +52,7 @@ class Controller_Profiles_Ajax extends Ajax
                 return;
             }
 
-            $this->user->isConfirmed = 0;
+            $this->user->is_confirmed = 0;
         }
 
         $this->user->update();
@@ -108,15 +108,15 @@ class Controller_Profiles_Ajax extends Ajax
 
     private function confirm_email()
     {
-        $hash = $this->makeHash('sha256', $this->user->id . $_SERVER['SALT'] . $this->user->email);
+        $hash = $this->makeHash('sha256', $this->user->id . getenv('SALT') . $this->user->email);
 
         $template = View::factory('email-templates/email-confirm2', array('user' => $this->user, 'hash' => $hash));
 
         $email = new Email();
-        $email = $email->send($this->user->email, $_SERVER['INFO_EMAIL'], 'Потверждение эл.почты', $template, true);
+        $email = $email->send($this->user->email, array(getenv('INFO_EMAIL'), getenv('INFO_EMAIL_NAME')), 'Потверждение эл.почты', $template, true);
 
         if ($email == 1) {
-            $this->redis->set($_SERVER['REDIS_CONFIRMATION_HASHES'] . $hash, $this->user->id, array('nx', 'ex' => Date::DAY));
+            $this->redis->set(getenv('REDIS_CONFIRMATION_HASHES') . $hash, $this->user->id, array('nx', 'ex' => Date::DAY));
             $response = new Model_Response_Email('EMAIL_SEND_SUCCESS', 'success');
         } else {
             $response = new Model_Response_Email('EMAIL_SEND_ERROR', 'error');
@@ -125,6 +125,9 @@ class Controller_Profiles_Ajax extends Ajax
         $this->response->body(@json_encode($response->get_response()));
     }
 
+    /**
+     *
+     */
     public function action_forgetpassword()
     {
         $this->checkCsrf();
@@ -147,14 +150,14 @@ class Controller_Profiles_Ajax extends Ajax
             return;
         }
 
-        $hash = $this->makeHash('sha256', $user->id . $_SERVER['SALT'] . $user->email);
+        $hash = $this->makeHash('sha256', $user->id . getenv('SALT') . $user->email);
         $template = View::factory('email-templates/reset-password', array('user' => $user, 'hash' => $hash));
 
         $email = new Email();
-        $email = $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Восстановление пароля', $template, true);
+        $email = $email->send($user->email, array(getenv('INFO_EMAIL'), getenv('INFO_EMAIL_NAME')), 'Восстановление пароля', $template, true);
 
         if ($email == 1) {
-            $this->redis->set($_SERVER['REDIS_RESET_HASHES'] . $hash, $user->id, array('nx', 'ex' => Date::HOUR));
+            $this->redis->set(getenv('REDIS_RESET_HASHES') . $hash, $user->id, array('nx', 'ex' => Date::HOUR));
             $response = new Model_Response_Email('EMAIL_SEND_SUCCESS', 'success');
         } else {
             $response = new Model_Response_Email('EMAIL_SEND_ERROR', 'error');
@@ -162,13 +165,18 @@ class Controller_Profiles_Ajax extends Ajax
         $this->response->body(@json_encode($response->get_response()));
     }
 
+
+    /**
+     * Reset Password if hash is valid
+     * @throws HTTP_Exception_400
+     */
     public function action_resetpassword() {
 
         $hash = Arr::get($_POST,'hash');
-        $id = $this->redis->get($_SERVER['REDIS_RESET_HASHES'] . $hash);
+        $id = $this->redis->get(getenv('REDIS_RESET_HASHES') . $hash);
 
         if (!$id) {
-            $this->redirect('/');
+            throw new HTTP_Exception_400();
         }
 
         if (isset($_POST['reset'])) {
@@ -201,11 +209,14 @@ class Controller_Profiles_Ajax extends Ajax
             $auth->login($user->email, $newPassword1, Controller_Auth_Organizer::AUTH_MODE);
 
             $response = new Model_Response_User('USER_RESET_PASSWORD_SUCCESS', 'success', array('id' => $user->id));
+
         } else {
+
             $response = new Model_Response_User('USER_RESET_PASSWORD_CANCEL_SUCCESS', 'success');
+
         }
 
-        $this->redis->delete($_SERVER['REDIS_RESET_HASHES'] . $hash);
+        $this->redis->delete(getenv('REDIS_RESET_HASHES') . $hash);
 
         $this->response->body(@json_encode($response->get_response()));
         return;

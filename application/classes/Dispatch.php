@@ -10,7 +10,6 @@ class Dispatch extends Controller_Template
 {
     const POST = 'POST';
     const GET  = 'GET';
-    const REDIS_SALTS_KEY = 'votepad:salts:';
 
     /** @var string - Path to template */
     public $template = '';
@@ -44,9 +43,6 @@ class Dispatch extends Controller_Template
         $driver = 'native';
         $this->session = self::sessionInstance($driver);
         $this->setGlobals();
-
-        // XSS clean in POST and GET requests
-        self::XSSfilter();
 
         parent::before();
 
@@ -229,8 +225,8 @@ class Dispatch extends Controller_Template
 
     private function setSaltsToRedis() {
 
-        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Organizer::AUTH_MODE,Controller_Auth_Organizer::AUTH_ORGANIZER_SALT);
-        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Judge::AUTH_MODE, Controller_Auth_Judge::AUTH_JUDGE_SALT);
+        $this->redis->set(getenv('REDIS_SALTS_KEY') . Controller_Auth_Organizer::AUTH_MODE, getenv('AUTH_ORGANIZER_SALT'));
+        $this->redis->set(getenv('REDIS_SALTS_KEY') . Controller_Auth_Judge::AUTH_MODE, getenv('AUTH_JUDGE_SALT'));
 
     }
 

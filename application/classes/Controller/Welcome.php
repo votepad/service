@@ -49,17 +49,17 @@ class Controller_Welcome extends Dispatch
     public function action_reset()
     {
         $hash = $this->request->param('hash');
-        $id = $this->redis->get($_SERVER['REDIS_RESET_HASHES'] . $hash);
+        $id = $this->redis->get(getenv('REDIS_RESET_HASHES') . $hash);
 
         if (!$id) {
-            $this->redirect('/');
+            throw new HTTP_Exception_400();
         }
 
         $this->get_events();
 
+        $this->template->title = "Сброс пароля";
         $this->template->section = View::factory('welcome/landing')
             ->set('events', $this->events);
-
     }
 
 

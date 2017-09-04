@@ -1,6 +1,6 @@
 <!-- Authorization Modal -->
 <div class="modal" id="auth_modal" tabindex="-1">
-    <div class="modal__content modal__content--small">
+    <div class="modal__content width- width-sm-360 fl_n">
 
         <? if ($canLogin) : ?>
             <!-- Logged User SignIn Form -->

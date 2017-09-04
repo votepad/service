@@ -14,7 +14,7 @@ Class Model_User {
     public $phone;
     public $avatar = 'no-avatar.png';
     public $private;
-    public $isConfirmed;
+    public $is_confirmed;
     public $dt_create;
 
     /**
@@ -62,7 +62,7 @@ Class Model_User {
     {
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
         $this->private = 0;
-        $this->isConfirmed = 0;
+        $this->is_confirmed = 0;
 
         $insert = Dao_Users::insert();
 

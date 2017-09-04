@@ -19,7 +19,7 @@
                 Эл. почта
             </label>
             <div class="mt-5">
-                <? if (empty($user->isConfirmed)) : ?>
+                <? if (empty($user->is_confirmed)) : ?>
                     <span class="label label--warning mr-10">не подтверждена</span>
                     <a onclick="profile.confirmEmail();" class="btn btn--sm btn--default m-0">Отправить повтороное письмо</a>
                 <? else: ?>

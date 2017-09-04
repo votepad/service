@@ -2,9 +2,7 @@
 
 class Controller_Auth_Organizer extends Auth {
 
-    const AUTH_ORGANIZER_SALT = 'votepadrusalt';
     const AUTH_MODE = 'organizer';
-    const RESET_HASHES_KEY = 'votepad.reset.hashes';
 
     /**
      * Before execution parent class
@@ -12,7 +10,7 @@ class Controller_Auth_Organizer extends Auth {
     public function before()
     {
         // поля без CSRF
-        $exceptions = ['logout', 'resetPassword'];
+        $exceptions = ['logout', 'confirm'];
 
         if (!in_array($this->request->action(), $exceptions)) {
 
@@ -23,7 +21,9 @@ class Controller_Auth_Organizer extends Auth {
 
         // Do not allow render
         $this->auto_render = false;
+
         parent::before();
+
     }
 
     public function action_auth()
@@ -65,13 +65,14 @@ class Controller_Auth_Organizer extends Auth {
             return;
 
         } elseif ( isset($_POST['logout']) ) {
+
             $this->clearCookie();
             $this->session->destroy();
             $response = new Model_Response_Auth('LOGOUT_SUCCESS', 'success');
             $this->response->body(@json_encode($response->get_response()));
             return;
-        }
 
+        }
 
         $email      = Arr::get($_POST, 'email', '');
         $password   = Arr::get($_POST, 'password', '');
@@ -103,7 +104,7 @@ class Controller_Auth_Organizer extends Auth {
         $sid = $session->id();
         $id = $session->get('id');
 
-        $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
+        $hash = $this->makeHash('sha256', getenv('AUTH_ORGANIZER_SALT') . $sid . self::AUTH_MODE . $id);
 
         Cookie::set('secret', $hash, Date::MONTH);
 
@@ -120,10 +121,29 @@ class Controller_Auth_Organizer extends Auth {
         $auth = new Model_Auth();
         $auth->logout(TRUE);
 
-        $referer = $this->request->referrer();
         $this->redirect('/');
 
     }
+
+    public function action_confirm()
+    {
+        $hash = $this->request->param('hash');
+
+        $id = $this->redis->get(getenv('REDIS_CONFIRMATION_HASHES') . $hash);
+
+        if (!$id) {
+            throw new HTTP_Exception_400();
+        }
+
+        $user = new Model_User($id);
+        $user->is_confirmed = 1;
+        $user->update();
+
+        $this->redis->delete(getenv('REDIS_CONFIRMATION_HASHES') . $hash);
+
+        $this->redirect('/user/' . $id . '/settings');
+    }
+
 
     /**
      * Check session token (make secret from Cookie data)
@@ -136,9 +156,9 @@ class Controller_Auth_Organizer extends Auth {
         $sid    = Cookie::get('sid');
         $secret = Cookie::get('secret');
 
-        $hash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
+        $hash = $this->makeHash('sha256', getenv('AUTH_ORGANIZER_SALT') . $sid . self::AUTH_MODE . $id);
 
-        if ($this->redis->get($_SERVER['REDIS_SESSION_HASHES'] . $hash) && $hash == $secret) {
+        if ($this->redis->get(getenv('REDIS_SESSION_HASHES') . $hash) && $hash == $secret) {
 
             // Создаем новую сессию
             $auth = new Model_Auth();
@@ -150,7 +170,7 @@ class Controller_Auth_Organizer extends Auth {
             $this->redis->delete($hash);
 
             // генерируем новый хэш c новый session id
-            $newHash = $this->makeHash('sha256', self::AUTH_ORGANIZER_SALT . $sid . self::AUTH_MODE . $id);
+            $newHash = $this->makeHash('sha256', getenv('AUTH_ORGANIZER_SALT') . $sid . self::AUTH_MODE . $id);
 
             // меняем хэш в куки
             Cookie::set('secret', $newHash, Date::MONTH);
@@ -181,7 +201,7 @@ class Controller_Auth_Organizer extends Auth {
      */
     private function saveSessionData($hash, $sid, $id)
     {
-        $this->redis->set($_SERVER['REDIS_SESSION_HASHES'] . $hash, $sid . ':' . $id . ':' . Request::$client_ip, array('nx', 'ex' => Date::MONTH));
+        $this->redis->set(getenv('REDIS_SESSION_HASHES') . $hash, $sid . ':' . $id . ':' . Request::$client_ip, array('nx', 'ex' => Date::MONTH));
     }
 
 

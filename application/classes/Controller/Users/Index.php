@@ -1,23 +1,29 @@
 <?php defined('SYSPATH') or die('No direct pattern access.');
 
 /**
- * Class Controller_Profiles_Index
+ * Class Controller_Users_Index
  *
  * @copyright Votepad Team
  * @author Turov Nikolay
  * @version 0.2.0
  */
 
-class Controller_Profiles_Index extends Dispatch
+class Controller_Users_Index extends Dispatch
 {
-    const ACTION_CONFIRM_EMAIL  = 'confirm';
-    const ACTION_RESET_PASSWORD = 'reset';
-
     public $template = 'main';
 
-    protected $profile = null;
+    /**
+     * Profile owner
+     * @var null
+     */
+    public $profile = null;
 
+    /**
+     * Action to which only profile owner has access
+     * @var array
+     */
     private $privateActions = array('drafts','updates','settings');
+
 
     public function before()
     {
@@ -26,9 +32,8 @@ class Controller_Profiles_Index extends Dispatch
 
         $action = $this->request->action();
 
-        if ($action == self::ACTION_CONFIRM_EMAIL || $action == self::ACTION_RESET_PASSWORD) return;
-
-        if (!self::isLogged()) throw new HTTP_Exception_401();
+        if (!self::isLogged())
+            throw new HTTP_Exception_401();
 
         $id = $this->request->param('id');
         $profile = new Model_User($id);
@@ -47,8 +52,9 @@ class Controller_Profiles_Index extends Dispatch
         }
 
         if (!$this->profile->isOwner) {
-            if ($this->profile->private == 1 || in_array($this->request->action(), $this->privateActions))
+            if ($this->profile->private == 1 || in_array($this->request->action(), $this->privateActions)) {
                 throw new HTTP_Exception_403();
+            }
         }
 
         $this->template->title       = $profile->name;
@@ -57,7 +63,7 @@ class Controller_Profiles_Index extends Dispatch
 
 
     /**
-     * Profile Page - show updates
+     * User Page - show updates
      */
     public function action_updates()
     {
@@ -69,7 +75,7 @@ class Controller_Profiles_Index extends Dispatch
     }
 
     /**
-     * Profile Page - show profile published events
+     * User Page - show profile published events
      */
     public function action_events()
     {
@@ -81,7 +87,7 @@ class Controller_Profiles_Index extends Dispatch
     }
 
     /**
-     * Profile Page - show profile draft events
+     * User Page - show profile draft events
      */
     public function action_drafts()
     {
@@ -93,7 +99,7 @@ class Controller_Profiles_Index extends Dispatch
     }
 
     /**
-     * Profile Page - show profile settings
+     * User Page - show profile settings
      */
     public function action_settings()
     {
@@ -102,27 +108,6 @@ class Controller_Profiles_Index extends Dispatch
             ->set('action', $this->request->action());
 
         $this->template->mainSection->page = View::factory('profile/pages/settings');
-    }
-
-
-
-    public function action_confirm()
-    {
-        $hash = $this->request->param('hash');
-
-        $id = $this->redis->get($_SERVER['REDIS_CONFIRMATION_HASHES'] . $hash);
-
-        if (!$id) {
-            $this->redirect('/');
-        }
-
-        $user = new Model_User($id);
-        $user->isConfirmed = 1;
-        $user->update();
-
-        $this->redis->delete($_SERVER['REDIS_CONFIRMATION_HASHES'] . $hash);
-
-        $this->redirect('/user/' . $id . '/settings');
     }
 
 }

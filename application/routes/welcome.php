@@ -1,6 +1,6 @@
 <?php defined('SYSPATH') or die('No direct pattern access.');
 /**
- * @author NWE Team
+ * @author Votepad Team
  * @copyright Turov Nikolay
  */
 
@@ -11,47 +11,5 @@ Route::set('Features', 'features')
     ->defaults(array(
         'controller' => 'Welcome',
         'action'     => 'features'
-    ))
-    ->cache();
-
-
-/**
-* TEMP ROUTES for events page
-*/
-Route::set('Event_point', 'ifmo/point')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'point',
-    ))
-    ->cache();
-
-Route::set('Event_ifse', 'ifmo/ifse')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'ifse',
-    ))
-    ->cache();
-Route::set('Event_mister2017', 'ifmo/mister2017')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'mister2017',
-    ))
-    ->cache();
-Route::set('Event_pervokursnik', 'ifmo/ya-pervokursnik')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'pervokursnik',
-    ))
-    ->cache();
-Route::set('Event_tnl', 'ifmo/tnl')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'tnl',
-    ))
-    ->cache();
-Route::set('Event_miss2016', 'ifmo/miss2016')
-    ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'miss2016',
     ))
     ->cache();

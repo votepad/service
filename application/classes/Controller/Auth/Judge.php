@@ -2,7 +2,6 @@
 
 class Controller_Auth_Judge extends Auth {
 
-    const AUTH_JUDGE_SALT = 'votepadjudgessalt';
     const AUTH_MODE = 'judge';
 
     /**
@@ -54,7 +53,7 @@ class Controller_Auth_Judge extends Auth {
         $sid = $session->id();
         $id = $session->get('id');
 
-        $hash = $this->makeHash('sha256', self::AUTH_JUDGE_SALT . $sid . self::AUTH_MODE . $id);
+        $hash = $this->makeHash('sha256', getenv('AUTH_JUDGE_SALT') . $sid . self::AUTH_MODE . $id);
 
         Cookie::set('secret', $hash, Date::DAY);
 
@@ -85,7 +84,7 @@ class Controller_Auth_Judge extends Auth {
 
     private function saveSessionData($hash, $sid, $id) {
 
-        $this->redis->set($hash, $sid . ':' . $id . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
+        $this->redis->set(getenv('REDIS_SESSION_JUDGES_HASHES') . $hash, $sid . ':' . $id . ':' . Request::$client_ip, array('nx', 'ex' => 3600 * 24));
 
     }
 

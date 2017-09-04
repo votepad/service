@@ -38,14 +38,14 @@ class Controller_SignUp extends Ajax
 
         $user = $user->save();
 
-        $hash = $this->makeHash('sha256', $user->id . $_SERVER['SALT'] . $user->email);
+        $hash = $this->makeHash('sha256', $user->id . getenv('SALT') . $user->email);
         $template = View::factory('email-templates/email-confirm', array('user' => $user, 'password' => $password, 'hash' => $hash));
 
         $email = new Email();
-        $email = $email->send($user->email, $_SERVER['INFO_EMAIL'], 'Добро пожаловать в Votepad!', $template, true);
+        $email = $email->send($user->email, array(getenv('INFO_EMAIL'), getenv('INFO_EMAIL_NAME')), 'Добро пожаловать в Votepad!', $template, true);
 
         if ($email == 1) {
-            $this->redis->set($_SERVER['REDIS_CONFIRMATION_HASHES'] . $hash, $user->id, array('nx', 'ex' => Date::DAY));
+            $this->redis->set(getenv('REDIS_CONFIRMATION_HASHES') . $hash, $user->id, array('nx', 'ex' => Date::DAY));
         }
 
         $auth = new Model_Auth();

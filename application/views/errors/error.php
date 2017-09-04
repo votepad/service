@@ -4,9 +4,9 @@
 		<meta charset="utf-8">
 		<title>Ошибка <?= $code; ?>. Неверный запрос</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-        <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
-        <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/vp.min.css?v=<?= filemtime("assets/frontend/bundles/vp.min.css") ?>">
-        <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/vp.min.js?v=<?= filemtime("assets/frontend/bundles/vp.min.js") ?>"></script>
+        <link rel="stylesheet" href="/assets/vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
+        <link rel="stylesheet" href="/assets/frontend/bundles/vp.min.css?v=<?= filemtime("assets/frontend/bundles/vp.min.css") ?>">
+        <script type="text/javascript" src="</assets/frontend/bundles/vp.min.js?v=<?= filemtime("assets/frontend/bundles/vp.min.js") ?>"></script>
         <script type="text/javascript">
             function ready() {
                 vp.modal.init();
@@ -24,7 +24,7 @@
                 <div class="mt-15">
                     <a href="/" class="link mr-15">Главная</a>
                     <a class="link mr-15" onclick="window.history.back()">Назад</a>
-                    <? if ( !$isLogged ): ?>
+                    <? if ( $code == 401 ): ?>
                         <a class="link" data-toggle="modal" data-area="auth_modal"> Войти </a>
                         <?= View::factory('globalblocks/auth_modal'); ?>
                     <? endif; ?>
