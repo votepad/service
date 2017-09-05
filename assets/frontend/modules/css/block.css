@@ -8,12 +8,12 @@
 }
 .block__heading{
     font-weight: 500;
-    border-bottom: 1px solid #e7e8ec;
+    padding: 15px 20px 6px;
 }
 .block__wrapper{
     display: block;
     position: relative;
-    padding: 20px;
+    padding: 0 20px 10px;
 }
 
 .block__footer{

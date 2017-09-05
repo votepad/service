@@ -2,12 +2,4 @@
     2 мероприятия
 </div>
 
-<div class="block">
-
-    <div class="block__heading t-lh-50px">
-        5
-    </div>
-
-    <div class="block__wrapper"></div>
-
-</div>
+<?= View::factory('profile/blocks/event-block'); ?>

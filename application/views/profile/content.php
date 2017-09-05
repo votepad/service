@@ -19,7 +19,7 @@
             </div>
             <!-- Navigation -->
             <div class="nav hidden-xs hidden-sm">
-                <a href="<?= URL::site('user/' . $profile->id . '/events'); ?>" class="nav__item <?= $action == 'events' ? 'nav__item--active': ''; ?>">
+                <a href="<?= URL::site('user/' . $profile->id); ?>" class="nav__item <?= $action == 'events' ? 'nav__item--active': ''; ?>">
                     Мероприятия
                     <span class="nav__counter">
                         <span>0</span>
@@ -29,13 +29,6 @@
                 <? if ($profile->isOwner) : ?>
                     <a href="<?= URL::site('user/' . $profile->id . '/drafts'); ?>" class="nav__item <?= $action == 'drafts' ? 'nav__item--active': ''; ?>">
                         Не опубликованные мероприятия
-                        <span class="nav__counter">
-                            <span>0</span>
-                            <i class="fa fa-angle-right icon"></i>
-                        </span>
-                    </a>
-                    <a href="<?= URL::site('user/' . $profile->id . '/updates'); ?>" class="nav__item <?= $action == 'updates' ? 'nav__item--active': ''; ?>">
-                        Уведомления
                         <span class="nav__counter">
                             <span>0</span>
                             <i class="fa fa-angle-right icon"></i>

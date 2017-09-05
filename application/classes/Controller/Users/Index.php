@@ -22,7 +22,7 @@ class Controller_Users_Index extends Dispatch
      * Action to which only profile owner has access
      * @var array
      */
-    private $privateActions = array('drafts','updates','settings');
+    private $privateActions = array('drafts','settings');
 
 
     public function before()
@@ -44,11 +44,7 @@ class Controller_Users_Index extends Dispatch
         $this->profile->isOwner = $this->user && $this->user->id == $id;
 
         if ($action == 'index') {
-            if ($this->profile->isOwner) {
-                $this->request->action('updates');
-            } else {
-                $this->request->action('events');
-            }
+            $this->request->action('events');
         }
 
         if (!$this->profile->isOwner) {
@@ -59,19 +55,6 @@ class Controller_Users_Index extends Dispatch
 
         $this->template->title       = $profile->name;
         $this->template->description = "Просмотреть профиль " . $profile->name . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
-    }
-
-
-    /**
-     * User Page - show updates
-     */
-    public function action_updates()
-    {
-        $this->template->mainSection = View::factory('profile/content')
-            ->set('profile', $this->profile)
-            ->set('action', $this->request->action());
-
-        $this->template->mainSection->page = View::factory('profile/pages/updates');
     }
 
     /**

@@ -4,7 +4,7 @@
 
 <form class="block" id="profile">
 
-    <div class="block__wrapper">
+    <div class="block__wrapper p-20">
 
         <div class="form-group">
             <input id="userName" name="name" type="text" class="form-group__input" value="<?= $user->name; ?>" maxlength="20">

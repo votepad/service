@@ -31,7 +31,7 @@ class Controller_Users_Ajax extends Ajax
             return;
         }
 
-        if ($phone != "" && !Valid::phone($phone,12)) {
+        if ($phone != "" && !preg_match("/^\+7[0-9]{10}$/", $phone)) {
             $response = new Model_Response_User('USER_PHONE_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
