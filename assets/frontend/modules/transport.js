@@ -2,7 +2,7 @@
  * @copyright Khaydarov Murod
  */
 
-var transport = (function(transport) {
+module.exports = (function (transport) {
 
     /** transport settings */
     var settings_ = null;
@@ -15,7 +15,7 @@ var transport = (function(transport) {
      *
      * Makes UI elements
      */
-    var prepare_ = function() {
+    var prepare_ = function () {
 
         input_ = vp.draw.node('INPUT', '', {
             type : 'file'
@@ -39,12 +39,13 @@ var transport = (function(transport) {
          * When file is selected
          */
         input_.addEventListener('change', fileSelected_, false);
+
     };
 
-    var fileSelected_ = function() {
+    var fileSelected_ = function () {
 
         var files = input_.files,
-            filesLength = files.length,
+            // filesLength = files.length,
             formdData = new FormData();
 
         formdData.append('files', files[0], files[0].name);
@@ -52,7 +53,7 @@ var transport = (function(transport) {
 
         vp.ajax.send({
             url: settings_.url,
-            type: "POST",
+            type: 'POST',
             data: formdData,
             beforeSend: settings_.beforeSend,
             success: settings_.success,
@@ -78,5 +79,3 @@ var transport = (function(transport) {
     return transport;
 
 })({});
-
-module.exports = transport;

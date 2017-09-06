@@ -9,5 +9,17 @@ class Model_Response_Form extends Model_Response_Abstract
         'message' => 'Empty fields'
     );
 
+    protected $_EMPTY_FIELD_ERROR = array(
+        'type' => 'form',
+        'code' => '31',
+        'message' => 'Empty field'
+    );
+
+    protected $_NOTHING_CHANGE_WARNING = array(
+        'type' => 'form',
+        'code' => '32',
+        'message' => 'Ничего не было изменено'
+    );
+
 
 }

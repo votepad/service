@@ -9,6 +9,7 @@
 .dropdown__btn{
     display: inline-block;
     text-align: center;
+    padding: 0 15px;
 }
 .dropdown__menu{
     position: absolute;
@@ -89,7 +90,7 @@
     height: 30px;
     line-height: 30px;
     padding: 0 15px;
-    font-size: .8em;
+    font-size: 14px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

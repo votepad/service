@@ -1,0 +1,31 @@
+.block{
+    display: block;
+    position: relative;
+    width: 100%;
+    background-color: #fff;
+    border: 1px solid #e7e8ec;
+    margin-bottom: 20px;
+}
+.block__heading{
+    font-weight: 500;
+    padding: 15px 20px 6px;
+}
+.block__wrapper{
+    display: block;
+    position: relative;
+    padding: 0 20px 10px;
+}
+
+.block__footer{
+    position: relative;
+    background-color: #fafbfc;
+    border-top: 1px solid #e7e8ec;
+}
+.block__wrapper:before,
+.block__wrapper:after,
+.block__footer:before,
+.block__footer:after{
+    content: " ";
+    display: table;
+    clear: both;
+}

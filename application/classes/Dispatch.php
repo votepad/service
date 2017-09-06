@@ -10,7 +10,6 @@ class Dispatch extends Controller_Template
 {
     const POST = 'POST';
     const GET  = 'GET';
-    const REDIS_SALTS_KEY = 'votepad:salts:';
 
     /** @var string - Path to template */
     public $template = '';
@@ -45,19 +44,17 @@ class Dispatch extends Controller_Template
         $this->session = self::sessionInstance($driver);
         $this->setGlobals();
 
-        // XSS clean in POST and GET requests
-        self::XSSfilter();
-
         parent::before();
 
         if ($this->auto_render) {
 
             // Initialize with empty values
             $this->template->title = $this->title = $GLOBALS['SITE_NAME'];
-            $this->template->keywords    = '';
-            $this->template->description = '';
+            $this->template->description = "VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря нашему сервису подсчет результатов становится гораздо быстрее и проще. Предлагаемые инструменты включают в себя создание сценария мероприятия любой сложности, контролирование процесса выставления баллов, получение результатов сразу после проставления их экспертным жюри, формирование протокола выставленных баллов, информирование гостей о результатах мероприятия.";
+            $this->template->keywords = "Электронное голосование, Экспертное жюри, Деловые игры, Мероприятия, Конкурсы, Выставление баллов, Выбор победителя, Победитель, Результат, Рейтинг, Страница с результатами, votepad, event, competition, business game, judges, rating, vote, results";
             $this->template->content     = '';
         }
+
 
     }
 
@@ -228,8 +225,8 @@ class Dispatch extends Controller_Template
 
     private function setSaltsToRedis() {
 
-        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Organizer::AUTH_MODE,Controller_Auth_Organizer::AUTH_ORGANIZER_SALT);
-        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Judge::AUTH_MODE, Controller_Auth_Judge::AUTH_JUDGE_SALT);
+        $this->redis->set(getenv('REDIS_SALTS_KEY') . Controller_Auth_Organizer::AUTH_MODE, getenv('AUTH_ORGANIZER_SALT'));
+        $this->redis->set(getenv('REDIS_SALTS_KEY') . Controller_Auth_Judge::AUTH_MODE, getenv('AUTH_JUDGE_SALT'));
 
     }
 

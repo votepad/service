@@ -17,7 +17,7 @@
  * @return JSON Object {id: coeff, id2: coeff2}
  */
 
-var formula = function(formula) {
+module.exports = (function(formula) {
 
     var modes = {
             PRINT: "print",
@@ -100,7 +100,7 @@ var formula = function(formula) {
      */
     function create_(formula) {
 
-        var area    = vp.draw.node('DIV', 'formula__area clear_fix'),
+        var area    = vp.draw.node('DIV', 'formula__area clear-fix'),
             label   = vp.draw.node('LABEL','formula__label'),
             addBtn  = vp.draw.node('DIV','formula__item-add'),
             addIcon = vp.draw.node('I', 'fa fa-plus', {'aria-hidden':'true'});
@@ -413,4 +413,4 @@ var formula = function(formula) {
     formula.version = '0.0.2';
     return formula;
 
-}();
+})({});

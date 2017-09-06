@@ -43,7 +43,7 @@
 
 <body>
 
-<header class="header-landing clear_fix">
+<header class="header-landing clear-fix">
 
     <?=View::factory('events/landing/blocks/header', array('event' => $event)); ?>
 

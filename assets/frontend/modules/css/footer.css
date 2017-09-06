@@ -1,32 +1,33 @@
-
 .footer {
-    display: block;
+    position: relative;
     width: 100%;
-    margin-top: 100px;
     background-color: #008DA7;
+}
+.footer--fixed{
+    position: fixed;
+    bottom: 0;
+    left: 0;
 }
 
 .footer__container{
-    margin: auto !important;
+    margin: auto;
 }
 
-.footer__text {
+.footer__text,
+.footer__text:hover,
+.footer__text:focus {
     color: #FCFCFC;
     text-shadow: 0 0 3px rgba(0,0,0,0.5);
 }
 
-.footer__brand,
-.footer__brand-icon {
-    color: #FCFCFC;
-    font-size: 2em;
-    margin-bottom: 5px;
-}
 .footer__brand-icon {
     font-size: 2em !important;
     margin-bottom: 10px;
 }
 .footer__brand {
+    font-size: 2em;
     margin-left: 15px;
+    margin-bottom: 5px;
     vertical-align: top;
 }
 
