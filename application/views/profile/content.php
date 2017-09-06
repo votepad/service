@@ -49,10 +49,11 @@
         <div class="entry_wrapper hidden-md hidden-lg">
             <div class="tabs">
                 <div class="tabs__wrapper">
-                    <a href="<?= URL::site('user/' . $profile->id . '/events'); ?>" class="tabs__tab <?= $action == 'events' ? 'tabs__tab--active': ''; ?>">Мероприятия</a>
-                    <a href="<?= URL::site('user/' . $profile->id . '/drafts'); ?>" class="tabs__tab <?= $action == 'drafts' ? 'tabs__tab--active': ''; ?>">Не опубл. мер.</a>
-                    <a href="<?= URL::site('user/' . $profile->id . '/updates'); ?>" class="tabs__tab <?= $action == 'updates' ? 'tabs__tab--active': ''; ?>">Уведомл.</a>
-                    <a href="<?= URL::site('user/' . $profile->id . '/settings'); ?>" class="tabs__tab <?= $action == 'settings' ? 'tabs__tab--active': ''; ?>">Настройки</a>
+                    <a href="<?= URL::site('user/' . $profile->id); ?>" class="tabs__tab <?= $action == 'events' ? 'tabs__tab--active': ''; ?>">Мероприятия</a>
+                    <? if ($profile->isOwner) : ?>
+                        <a href="<?= URL::site('user/' . $profile->id . '/drafts'); ?>" class="tabs__tab <?= $action == 'drafts' ? 'tabs__tab--active': ''; ?>">Не опубл. мер.</a>
+                        <a href="<?= URL::site('user/' . $profile->id . '/settings'); ?>" class="tabs__tab <?= $action == 'settings' ? 'tabs__tab--active': ''; ?>">Настройки</a>
+                    <? endif; ?>
                 </div>
             </div>
         </div>

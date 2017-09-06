@@ -1,17 +1,17 @@
 <div class="block">
 
-    <div class="block__heading pr-0 fs-0_75">
+    <div class="block__heading pr-0 fs-0_75 t-lh-1_5">
 
         <time class="text-brand-2" title="22 марта 2017">22 марта 2017</time>
 
-        <a href="#" class="label label--black ml-10 fs-1" data-type="draft">черновик</a>
-        <a href="#" class="label label--warning ml-10 fs-1" data-type="draft">не проведено</a>
-        <a href="#" class="label label--brand ml-10 fs-1" data-type="draft">завершено</a>
+        <a href="#" class="label label--black ml-10 fs-0_8" data-type="draft">черновик</a>
+        <a href="#" class="label label--warning ml-10 fs-0_8" data-type="draft">не проведено</a>
+        <a href="#" class="label label--brand ml-10 fs-0_8" data-type="draft">завершено</a>
 
         <div class="dropdown fl_r mr-5 pb-5">
-            <div role="button" class="dropdown__btn mr-15">
+            <button role="button" class="dropdown__btn mr-15">
                 <i class="fa fa-ellipsis-h" aria-hidden="true"></i>
-            </div>
+            </button>
             <div class="dropdown__menu dropdown__menu--right">
                 <a href="#" class="dropdown__link">
                     Редктировать
