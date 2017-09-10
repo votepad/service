@@ -1,64 +1,21 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
  * Class Model_User
- * @author ProNWE team
+ * @author Votepad team
  * @copyright Khaydarov Murod
- * @version 0.2.0
- * Methods
- *  - getCurrentUser
- *  - newUser
+ * @version 0.3.0
  */
 
 Class Model_User {
 
-    /**
-     * @var $id_user
-     */
     public $id;
-
-    /**
-     * @var $lastname
-     */
-    public $lastname;
-
-    /**
-     * @var $name
-     */
     public $name;
-
-    /**
-     * @var $surname
-     */
-    public $surname;
-
-    /**
-     * @var $email
-     */
     public $email;
-
-    /**
-     * @var $phone
-     */
     public $phone;
-
-    /**
-     * @var $avatar
-     */
     public $avatar = 'no-avatar.png';
-
-    /**
-     * @var $branding
-     */
-    public $branding = 'no-cover.png';
-
-    /**
-     * @var $isConfirmed
-     */
-    public $isConfirmed;
-
-    /**
-     * @var $dt_create
-     */
+    public $branding = '';
+    public $private;
+    public $is_confirmed;
     public $dt_create;
 
     /**
@@ -102,10 +59,11 @@ Class Model_User {
     /**
      * Saves User to Database
      */
-     public function save()
-     {
-
+    public function save()
+    {
         $this->dt_create = Date::formatted_time('now', 'Y-m-d');
+        $this->private = 0;
+        $this->is_confirmed = 0;
 
         $insert = Dao_Users::insert();
 
@@ -115,17 +73,16 @@ Class Model_User {
 
         $result = $insert->execute();
 
-        return $this->fill_by_row($result);
-
-     }
+        return $this->get_($result);
+    }
 
     /**
      * Updates user data in database
      *
      * @return Model_User
      */
-     public function update()
-     {
+    public function update()
+    {
         $insert = Dao_Users::update();
 
         foreach ($this as $fieldname => $value) {
@@ -138,50 +95,29 @@ Class Model_User {
         $insert->execute();
 
         return $this->get_($this->id);
+    }
 
-     }
+    public function checkPassword ($pass) {
+        $selection = Dao_Users::select(array('password'))
+            ->where('id', '=', $this->id)
+            ->limit(1)
+            ->execute();
 
-     public function checkPassword ($pass) {
+        $password = $selection['password'];
 
-         $selection = Dao_Users::select(array('password'))
-                        ->where('id', '=', $this->id)
-                        ->limit(1)
-                        ->execute();
+        return $password == $pass;
+    }
 
-         $password = $selection['password'];
+    public function changePassword ($newpass) {
 
-         return $password == $pass;
+        $insert = Dao_Users::update()
+            ->set('password', $newpass)
+            ->where('id', '=', $this->id)
+            ->clearcache($this->id)
+            ->execute();
 
-     }
+        return $insert;
 
-     public function changePassword ($newpass) {
-
-         $insert = Dao_Users::update()
-                    ->set('password', $newpass)
-                    ->where('id', '=', $this->id)
-                    ->clearcache($this->id)
-                    ->execute();
-
-         return $insert;
-
-     }
-
-    public function getOrganizations()
-    {
-        $ids = Dao_UsersOrganizations::select('o_id')
-            ->where('u_id', '=', $this->id)
-            ->cached(Date::MINUTE * 5, 'user:' . $this->id)
-            ->execute('o_id');
-
-        $orgs = array();
-
-        if (!empty($ids)) {
-            foreach ($ids as $id => $value) {
-                array_push($orgs, new Model_Organization($id));
-            }
-        }
-
-        return $orgs;
     }
 
     public function getEvents()
@@ -203,25 +139,34 @@ Class Model_User {
     }
 
     /**
-     * @public
+     * Checks for existence by searching field
      *
-     * Checks for existance by searching field
-     *
-     * @param $field
      * @param $value
-     * @returns [Bool] True or False
+     * @param string $field
+     * @return bool True or False
      */
     public static function isUserExist($value, $field = 'email') {
         $select = Dao_Users::select('id')
-                ->where($field, '=', $value)
-                ->limit(1)
-                ->execute();
+            ->where($field, '=', $value)
+            ->limit(1)
+            ->execute();
 
         if (!empty($select['id'])) {
             return true;
         } else {
             return false;
         }
+    }
+
+
+    public static function getByEmail($email) {
+        $select = Dao_Users::select()
+            ->where('email', '=', $email)
+            ->limit(1)
+            ->execute();
+
+        $user = new Model_User();
+        return $user->fill_by_row($select);
     }
 
 }

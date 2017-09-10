@@ -31,8 +31,6 @@ class Controller_Welcome extends Dispatch
      */
     public function action_index()
     {
-        $canLogin = Dispatch::canLogin();
-        $authMode = Cookie::get('mode');
 
         $select = Dao_Events::select('id')
             ->order_by('id', 'DESC')
@@ -50,10 +48,6 @@ class Controller_Welcome extends Dispatch
 
         }
 
-        $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('welcome/blocks/header_menu'))
-                ->set('header_menu_mobile', View::factory('welcome/blocks/header_menu_mobile'));
-
         $this->template->section = View::factory('welcome/landing')
                 ->set('events', $events);
 
@@ -70,40 +64,5 @@ class Controller_Welcome extends Dispatch
         $this->template->header = View::factory('welcome/blocks/header');
         $this->template->section = View::factory('welcome/features');
     }
-
-
-    /**
-     * TEMP CONTROLLERS FOR EVENT
-     */
-    public function action_ifse()
-    {
-        $this->template = View::factory('welcome/temp_events/ifse/index');
-    }
-
-    public function action_point()
-    {
-        $this->template = View::factory('welcome/temp_events/point/index');
-    }
-
-    public function action_mister2017()
-    {
-        $this->template = View::factory('welcome/temp_events/mister17/index');
-    }
-
-    public function action_pervokursnik()
-    {
-        $this->template = View::factory('welcome/temp_events/pervokursnik/index');
-    }
-
-    public function action_tnl()
-    {
-        $this->template = View::factory('welcome/temp_events/tnl/index');
-    }
-
-    public function action_miss2016()
-    {
-        $this->template = View::factory('welcome/temp_events/miss2016/index');
-    }
-
 
 }

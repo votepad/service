@@ -11,51 +11,42 @@
     <meta name="keywords" content="<?=$keywords; ?>" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-	<!-- =============== VENDOR STYLES ===============-->
+    <!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/icons_fonts.css?v=<?= filemtime("assets/static/css/icons_fonts.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css?v=<?= filemtime("assets/static/css/app_v1.css") ?>">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
-
 
     <!-- modules -->
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css?v=<?= filemtime("assets/frontend/modules/css/header.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/jumbotron.css?v=<?= filemtime("assets/frontend/modules/css/jumbotron.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/footer.css?v=<?= filemtime("assets/frontend/modules/css/footer.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/dropdown.css?v=<?= filemtime("assets/frontend/modules/css/dropdown.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css?v=<?= filemtime("assets/frontend/modules/css/collapse.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/notification.css?v=<?= filemtime("assets/frontend/modules/css/notification.css") ?>">
-
-    <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js?v=<?= filemtime("assets/frontend/bundles/votepad.bundle.js") ?>"></script>
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/vp.min.css?v=<?= filemtime("assets/frontend/bundles/vp.min.css") ?>">
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/vp.min.js?v=<?= filemtime("assets/frontend/bundles/vp.min.js") ?>"></script>
 
 </head>
+
 <body>
 
-<header class="header">
+    <header class="header">
 
-    <?=$header; ?>
+        <?=$header; ?>
 
-</header>
+    </header>
 
-<section>
+    <section>
 
-    <?=$mainSection; ?>
+        <?=$mainSection; ?>
 
-</section>
+    </section>
 
-<footer class="footer">
+    <footer class="footer">
 
-    <?= View::factory('globalblocks/footer'); ?>
+        <?= View::factory('globalblocks/footer'); ?>
 
-</footer>
+    </footer>
 
-<? if ( !$isLogged ): ?>
-    <?= View::factory('globalblocks/auth_modal'); ?>
-<? endif; ?>
+    <? if ( !$isLogged ): ?>
+        <?= View::factory('globalblocks/auth_modal'); ?>
+    <? endif; ?>
 
 
 </body>
@@ -63,9 +54,8 @@
 <script type="text/javascript">
 
     $( document ).ready(function() {
-        vp.header.init();
-        vp.collapse.init();
-        vp.notification.createHolder();
+        vp.init();
+
     });
 
     window.csrf = '<?= Security::token() ?>';

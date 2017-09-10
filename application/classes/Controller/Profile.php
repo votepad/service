@@ -34,9 +34,7 @@ class Controller_Profile extends Dispatch
         $this->template->keywords    = "Профиль, Электронное голосование, Выставление баллов, Результат, Рейтинг, Страница с результатами, votepad, profile, voting, results, rating";
 
 
-        $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu', View::factory('profile/blocks/header_menu'))
-            ->set('header_menu_mobile', View::factory('profile/blocks/header_menu_mobile'));
+
 
     }
 

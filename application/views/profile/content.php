@@ -10,7 +10,7 @@
             <div class="parallax">
                 <img id="user-cover-uploaded" src="/uploads/profiles/branding/<?=$profile->branding; ?>">
             </div>
-            <? if ($isLogged && $isProfileOwner) :?>
+            <? if ($isLogged && $profile->isOwner) :?>
             <div class="jumbotron__edit-block">
                 <a id="user-cover-edit" role="button" class="jumbotron__edit-btn js-user-jumbotron-cover">
                     <i class="fa fa-camera jumbotron__edit-icon" aria-hidden="true"></i>
@@ -23,16 +23,15 @@
 
     <section class="section__content">
 
-        <?= View::factory('profile/blocks/profile-info', array('isProfileOwner' => $isProfileOwner, 'profile' => $profile)) ?>
+        <?= View::factory('profile/blocks/profile-info', array('isProfileOwner' => $profile->isOwner, 'profile' => $profile)) ?>
 
-        <?= View::factory('profile/blocks/reset_password') ?>
 
-        <?= View::factory('profile/blocks/my-org-event',
-            array('isProfileOwner' => $isProfileOwner,
-                  'profile'        => $profile,
-                  'organizations'  => $profile->getOrganizations(),
-                  'events'         => $profile->getEvents()
-            )) ?>
+<!--        --><?//= View::factory('profile/blocks/my-org-event',
+//            array('isProfileOwner' => $profile->isOwner,
+//                  'profile'        => $profile,
+//                  'organizations'  => $profile->getOrganizations(),
+//                  'events'         => $profile->getEvents()
+//            )) ?>
 
     </section>
 

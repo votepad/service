@@ -24,7 +24,19 @@ class Model_Response_Auth extends Model_Response_Abstract
     protected $_INVALID_INPUT_ERROR = array(
         'type' => 'login',
         'code' => '13',
-        'message' => 'Invalid input'
+        'message' => 'Не правильно введена эл.почта или пароль'
+    );
+
+    protected $_INVALID_EVENT_CODE_ERROR = array(
+        'type' => 'login',
+        'code' => '13',
+        'message' => 'Не правильно введен код мероприятия'
+    );
+
+    protected $_INVALID_JUDGE_SECRET_ERROR = array(
+        'type' => 'login',
+        'code' => '13',
+        'message' => 'Не правильно введен пароль'
     );
 
     protected $_LOGIN_SUCCESS = array(
@@ -43,18 +55,6 @@ class Model_Response_Auth extends Model_Response_Abstract
         'type' => 'login',
         'code' => '16',
         'message' => 'User does not exists'
-    );
-
-    protected $_PASSWORDS_ARE_NOT_EQUAL_ERROR = array (
-        'type' => 'login',
-        'code' => '17',
-        'message' => 'Passwords should be equal'
-    );
-
-    protected $_PASSWORD_CHANGE_SUCCESS = array (
-        'type' => 'login',
-        'code' => '18',
-        'message' => 'Password was changed'
     );
 
 }

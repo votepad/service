@@ -1,16 +1,16 @@
 <?php defined('SYSPATH') or die('No direct script access.');
+
 /**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 22.02.2016
- * Time: 12:33
+ * Class Dispatch
+ *
+ * @copyright Votepad Team
+ * @version 0.2.0
  */
 
 class Dispatch extends Controller_Template
 {
     const POST = 'POST';
     const GET  = 'GET';
-    const REDIS_SALTS_KEY = 'votepad:salts:';
 
     /** @var string - Path to template */
     public $template = '';
@@ -45,28 +45,26 @@ class Dispatch extends Controller_Template
         $this->session = self::sessionInstance($driver);
         $this->setGlobals();
 
-        // XSS clean in POST and GET requests
-        self::XSSfilter();
-
         parent::before();
 
         if ($this->auto_render) {
 
             // Initialize with empty values
             $this->template->title = $this->title = $GLOBALS['SITE_NAME'];
-            $this->template->keywords    = '';
-            $this->template->description = '';
+            $this->template->description = "VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря нашему сервису подсчет результатов становится гораздо быстрее и проще. Предлагаемые инструменты включают в себя создание сценария мероприятия любой сложности, контролирование процесса выставления баллов, получение результатов сразу после проставления их экспертным жюри, формирование протокола выставленных баллов, информирование гостей о результатах мероприятия.";
+            $this->template->keywords = "Электронное голосование, Экспертное жюри, Деловые игры, Мероприятия, Конкурсы, Выставление баллов, Выбор победителя, Победитель, Результат, Рейтинг, Страница с результатами, votepad, event, competition, business game, judges, rating, vote, results";
             $this->template->content     = '';
         }
+
 
     }
 
     /**
-    * The after() method is called after your controller action.
-    * In our template controller we override this method so that we can
-    * make any last minute modifications to the template before anything
-    * is rendered.
-    */
+     * The after() method is called after your controller action.
+     * In our template controller we override this method so that we can
+     * make any last minute modifications to the template before anything
+     * is rendered.
+     */
     public function after()
     {
 //        echo View::factory('profiler/stats');
@@ -75,10 +73,10 @@ class Dispatch extends Controller_Template
     }
 
     /**
-    * Sanitizes GET and POST params
-    * @uses HTMLPurifier
-    * @todo Rewrite under ProNWE
-    */
+     * Sanitizes GET and POST params
+     * @uses HTMLPurifier
+     * @todo Rewrite under ProNWE
+     */
     public function XSSfilter()
     {
         /**
@@ -221,15 +219,15 @@ class Dispatch extends Controller_Template
         $this->memcache = self::memcacheInstance();
         $this->redis    = self::redisInstance();
         $this->mongo    = self::MongoConnection();
-        
+
         $this->setSaltsToRedis();
 
     }
 
     private function setSaltsToRedis() {
 
-        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Organizer::AUTH_MODE,Controller_Auth_Organizer::AUTH_ORGANIZER_SALT);
-        $this->redis->set(self::REDIS_SALTS_KEY . Controller_Auth_Judge::AUTH_MODE, Controller_Auth_Judge::AUTH_JUDGE_SALT);
+        $this->redis->set(getenv('REDIS_SALTS_KEY') . Controller_Auth_Organizer::AUTH_MODE, getenv('AUTH_ORGANIZER_SALT'));
+        $this->redis->set(getenv('REDIS_SALTS_KEY') . Controller_Auth_Judge::AUTH_MODE, getenv('AUTH_JUDGE_SALT'));
 
     }
 

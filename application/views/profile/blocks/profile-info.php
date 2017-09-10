@@ -14,7 +14,7 @@
         </div>
 
         <div class="user-info__description row">
-            <h1 class="user-info__description-name"><?= $profile->name . ' ' . $profile->lastname . ' ' . $profile->surname; ?></h1>
+            <h1 class="user-info__description-name"><?= $profile->name; ?></h1>
             <h3 class="user-info__description-email"><a href="mailto:<?= $profile->email; ?>"><?= $profile->email ?></a></h3>
             <h3 class="user-info__description-phone"><a href="tel:<?= $profile->phone; ?>"><?= $profile->phone ?></a></h3>
         </div>
@@ -45,19 +45,10 @@
                             </div>
                         </div>
                         <div class="col-xs-12 col-md-auto edit-user-info__fio">
-                            <div class="input-field col-xs-12">
-                                <input type="text" id="surname" name="surname" value="<?= $profile->surname ?>">
-                                <label for="surname" class="">Фамилия</label>
-                            </div>
                             <div class="input-field col-xs-12 col-md-5">
                                 <input type="text" id="name" name="name" value="<?= $profile->name ?>" required>
                                 <label for="name" class="">Имя</label>
                             </div>
-                            <div class="input-field col-xs-12 col-md-6 col-md-offset-1">
-                                <input type="text" id="lastname" name="lastname" value="<?= $profile->lastname ?>">
-                                <label for="lastname" class="">Отчество</label>
-                            </div>
-
                         </div>
                     </div>
                     <div class="row">

@@ -2,7 +2,7 @@
  * @author Khaydarov Murod
  */
 
-var draw = (function(draw){
+module.exports = (function (draw) {
 
     /**
      * Draws node
@@ -11,20 +11,22 @@ var draw = (function(draw){
      * @param properties
      * @returns {Element}
      */
-    draw.node = function(tagName, className, properties) {
+    draw.node = function (tagName, className, properties) {
 
         var tag = document.createElement(tagName);
+
         tag.className += className;
 
         for(var property in properties) {
+
             tag.setAttribute(property, properties[property]);
+
         }
 
         return tag;
+
     };
 
     return draw;
 
 })({});
-
-module.exports = draw;
