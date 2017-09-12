@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="<?=$assets; ?>vendor/datatables/css/dataTables.bootstrap.min.css">
 
 
-    <div class="jumbotron block">
+    <div class="jumbotron">
 
         <!-- Jumbotron Wrapper -->
         <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>

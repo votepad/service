@@ -10,7 +10,9 @@
 }
 
 .footer__container{
-    margin: auto;
+    display: block;
+    width: 80%;
+    margin: 0 auto;
 }
 
 .footer__text,
@@ -55,6 +57,12 @@
 .footer__social-link:hover,
 .footer__social-link:focus {
     opacity: .85;
+}
+
+@media (max-width: 991px) {
+    .footer__container{
+        width: 90%;
+    }
 }
 
 @media (max-width: 680px) {

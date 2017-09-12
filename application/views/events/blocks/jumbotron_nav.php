@@ -1,4 +1,4 @@
-<ul class="jumbotron__nav-list">
+<ul class="jumbotron__nav-list list-style--none clear-fix">
 
     <? foreach ($btns as $key => $btn) : ?>
         <li class="col-sm-<?=12/count($btns) ?> jumbotron__nav-item">

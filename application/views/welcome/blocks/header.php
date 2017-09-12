@@ -53,12 +53,12 @@
                         <?=$user->name; ?>
                     </a>
                     <ul id="userAction" class="aside__collapse collapse">
-                        <li class="aside__item">
+                        <li class="aside__collapse-item">
                             <a href="<?= URL::site('user/'.$user->id) ?>" class="aside__collapse-link">
                                 Профиль
                             </a>
                         </li>
-                        <li class="aside__item">
+                        <li class="aside__collapse-item">
                             <a href="<?=URL::site('sign/organizer/logout'); ?>" class="aside__collapse-link">
                                 Выйти
                             </a>
@@ -68,13 +68,13 @@
 
             <? else : ?>
 
-                <li class="aside__menu__item aside--show">
+                <li class="aside__item aside--show">
                     <a class="header__button header__button--hollow" data-toggle="modal" data-area="auth_modal">
                         Войти
                     </a>
                 </li>
 
-                <li class="aside__menu__item aside--show">
+                <li class="aside__item aside--show">
                     <a class="header__button" data-toggle="modal" data-area="registr_modal">
                         Регистрация
                     </a>
@@ -83,7 +83,7 @@
             <? endif; ?>
 
 
-            <li class="aside__menu__item">
+            <li class="aside__item">
                 <a href="#events" class="aside__link toEvents">
                     Мероприятия
                 </a>
