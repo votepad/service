@@ -1,8 +1,6 @@
-<div class="jumbotron__wrapper">
-    <div class="parallax">
-        <img id="event-background-uploaded" src="/uploads/events/branding/<?=$event->branding; ?>">
-    </div>
-    <div class="jumbotron__background"></div>
+<div class="jumbotron__wrapper parallax" data-toggle="parallax">
+    <div class="bg--dark"></div>
+    <img id="event-background-uploaded" src="/uploads/events/branding/<?=$event->branding; ?>" class="parallax__img">
     <div class="jumbotron__edit-block" data-pk="<?=$event->id; ?>">
         <a id="updateCover" role="button" class="jumbotron__edit-btn">
             <i class="fa fa-camera jumbotron__edit-icon" aria-hidden="true"></i>
@@ -11,12 +9,9 @@
     </div>
     <div class="jumbotron__text valign">
         <div class="center">
-                <span class="jumbotron__text-event-name">
-                    <?=$event->name; ?>
-                </span>
-            <a href="<?=URL::site('organization/' . $organization->id); ?>" class="jumbotron__text-org-name">
-                <?=$organization->name; ?>
-            </a>
+            <span class="jumbotron__text-event-name">
+                <?=$event->name; ?>
+            </span>
         </div>
     </div>
 </div>

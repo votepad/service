@@ -123,19 +123,13 @@
 @media (min-width: 680px) {
     .container,
     .section__content {
-        width: 640px;
+        width: 90%;
     }
 }
-@media (min-width: 1024px) {
+@media (min-width: 992px) {
     .container,
     .section__content {
-        width: 980px;
-    }
-}
-@media (min-width: 1240px) {
-    .container,
-    .section__content {
-        width: 1180px;
+        width: 80%;
     }
 }
 

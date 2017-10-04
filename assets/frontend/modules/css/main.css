@@ -3,6 +3,7 @@
 @import url("collapse.css");
 @import url("parallax.css");
 @import url("button.css");
+@import url("card.css");
 @import url("form.css");
 @import url("block.css");
 @import url("tabs.css");
@@ -19,8 +20,6 @@
 @import url("wrapper.css");
 @import url("footer.css");
 @import url("formula.css");
-@import url("profile.css");
-@import url("social-links.css");
 
 @import url("global.css");
 

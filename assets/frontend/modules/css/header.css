@@ -4,6 +4,7 @@
     left:0;
     right: 0;
     line-height:50px;
+    height:50px;
     background-color: #008DA7;
     box-shadow: 0 -1px 15px -5px rgb(0, 0, 0);
     cursor: default;
@@ -51,14 +52,15 @@
     text-align: center;
     position: relative;
     float: left;
-}
-
-.header__menu-icon,
-.header__menu-icon {
     height: inherit;
     width: 50px;
     padding: 0;
     z-index: 111;
+}
+
+.header__menu-icon .header__button{
+    height: inherit;
+    width:inherit;
 }
 
 .header__menu-icon i{
