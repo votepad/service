@@ -2,7 +2,7 @@
 
 /**
  * Class Model_Auth
- * @author ProNWE team
+ * @author Vorepad team
  * @copyright Khaydarov Murod
  * Methods
  *  - login
@@ -24,7 +24,7 @@ class Model_Auth extends Model {
 
         switch ($mode) {
             case Controller_Auth_Organizer::AUTH_MODE:
-                $select = Dao_Users::select('*')
+                $select = Dao_Users::select()
                     ->where('email', '=', $identifier)
                     ->where('password', '=', $password)
                     ->limit(1)
@@ -39,7 +39,6 @@ class Model_Auth extends Model {
                     ->execute();
 
         }
-
 
         if (Arr::get($select, 'id'))
         {
@@ -66,11 +65,11 @@ class Model_Auth extends Model {
                     ->execute();
                 break;
         }
+
         if (Arr::get($select, 'id')) {
             $this->complete($select, $mode);
             return true;
         }
-
 
         return false;
     }
@@ -99,14 +98,39 @@ class Model_Auth extends Model {
         $this->_session->set('name', $select['name']);
 
         if ($mode == Controller_Auth_Organizer::AUTH_MODE) {
-            $this->_session->set('lastname', $select['lastname']);
             $this->_session->set('email', $select['email']);
         }
 
         $sessionId = $this->_session->id();
-        Cookie::set('id', $select['id'], Date::DAY);
-        Cookie::set('sid', $sessionId, Date::DAY);
-        Cookie::set('mode', $mode, Date::DAY);
+        Cookie::set('id', $select['id'], Date::MONTH);
+        Cookie::set('sid', $sessionId, Date::MONTH);
+        Cookie::set('mode', $mode, Date::MONTH);
 
+    }
+
+    public static function checkPasswordById($id, $password, $mode)
+    {
+        switch ($mode) {
+            case Controller_Auth_Organizer::AUTH_MODE:
+                $select = Dao_Users::select('*')
+                    ->where('id', '=', $id)
+                    ->where('password', '=', $password)
+                    ->limit(1)
+                    ->execute();
+                break;
+            case Controller_Auth_Judge::AUTH_MODE:
+                $select = Dao_Judges::select('*')
+                    ->where('id', '=', $id)
+                    ->where('password', '=', $password)
+                    ->limit(1)
+                    ->execute();
+                break;
+        }
+
+        if (Arr::get($select, 'id')) {
+            return true;
+        }
+
+        return false;
     }
 }

@@ -13,11 +13,11 @@
  * @mode is required
  * @curItems is not required
  * @allItems is not required
- * 
+ *
  * @return JSON Object {id: coeff, id2: coeff2}
  */
 
-var formula = function(formula) {
+module.exports = (function(formula) {
 
     var modes = {
             PRINT: "print",
@@ -31,7 +31,7 @@ var formula = function(formula) {
             additionItems: [],
             itemsType: null
         };
-    
+
 
     /**
      * New formula
@@ -100,7 +100,7 @@ var formula = function(formula) {
      */
     function create_(formula) {
 
-        var area    = vp.draw.node('DIV', 'formula__area clear_fix'),
+        var area    = vp.draw.node('DIV', 'formula__area clear-fix'),
             label   = vp.draw.node('LABEL','formula__label'),
             addBtn  = vp.draw.node('DIV','formula__item-add'),
             addIcon = vp.draw.node('I', 'fa fa-plus', {'aria-hidden':'true'});
@@ -121,7 +121,7 @@ var formula = function(formula) {
         area.appendChild(addBtn);
 
         formula.el.appendChild(area);
-        
+
         document.body.addEventListener('click', hideAdditionList_);
         addBtn.addEventListener('click', showAdditionList_);
 
@@ -134,7 +134,7 @@ var formula = function(formula) {
         }
 
     }
-    
+
 
     /**
      * Create `formulaNodes.additionItems`
@@ -156,7 +156,7 @@ var formula = function(formula) {
 
         return arr;
     }
-    
+
 
 
     /**
@@ -171,7 +171,7 @@ var formula = function(formula) {
             input    = vp.draw.node('INPUT', 'formula__item-input', {value: '1', type: 'number', step: '0.1'}),
             multiply = vp.draw.node('I', 'fa fa-circle formula__item-multiply', {'aria-hidden':'true'}),
             name     = vp.draw.node('SPAN', 'formula__item-name');
-        
+
         name.textContent = element.innerHTML;
         close.addEventListener('click', removeFormulaItem_);
 
@@ -205,14 +205,14 @@ var formula = function(formula) {
      */
     function removeFormulaItem_() {
         var li = vp.draw.node('LI', 'formula__addition-item', {'data-id':this.dataset.id, 'data-type':this.dataset.type});
-        
+
         li.textContent = this.dataset.name;
         li.addEventListener('click', addFormulaItem_);
 
         formulaNodes.additionItems.push(li);
         this.parentNode.remove();
     }
-    
+
 
     /**
      * Show `formulaNodes.additionItems` on click
@@ -234,7 +234,7 @@ var formula = function(formula) {
     function hideAdditionList_(event) {
 
         if ( ! formulaNodes.additionList.classList.contains('hide') &&
-             ! event.target.parentNode.classList.contains('formula__item-add') )
+            ! event.target.parentNode.classList.contains('formula__item-add') )
         {
 
             formulaNodes.additionList.classList.add('hide');
@@ -387,13 +387,13 @@ var formula = function(formula) {
     }
 
     /**
-     * Destroy Formula 
+     * Destroy Formula
      * @private
      */
     function destroy_() {
         this.el.innerHTML = "";
     }
-    
+
 
     /**
      * Create function instance
@@ -413,4 +413,4 @@ var formula = function(formula) {
     formula.version = '0.0.2';
     return formula;
 
-}();
+})({});

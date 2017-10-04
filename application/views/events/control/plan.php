@@ -6,7 +6,7 @@
     <script src="<?= $assets ?>static/js/event/control-plan-updates.js"></script>
 
 
-    <div class="jumbotron block">
+    <div class="jumbotron">
 
         <!-- Jumbotron Wrapper -->
         <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>

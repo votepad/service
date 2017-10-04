@@ -1,7 +1,3 @@
-<a class="header__button header__button--hover" href="<?=URL::site('event/' . $event->id ); ?>">
-    <?=$event->name; ?>
-</a>
-
 <a class="header__button header__button--hover <?= ($action == 'settings' || $section == 'settings') ? 'header__button--active' : ''; ?>" href="<?=URL::site('event/' . $event->id . '/settings'); ?>">
     Настройки
 </a>

@@ -3,7 +3,7 @@
     <!-- =============== PAGE STYLE ===============-->
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>vendor/handsontable/handsontable.full.min.css?v=<?= filemtime("assets/vendor/handsontable/handsontable.full.min.css") ?>">
 
-    <div class="jumbotron block">
+    <div class="jumbotron">
 
         <!-- Jumbotron Wrapper -->
         <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>

@@ -1,4 +1,4 @@
-var ajax = function () {
+module.exports = (function () {
 
     var XMLHTTP_ = null;
 
@@ -36,7 +36,9 @@ var ajax = function () {
         XMLHTTP.open(data.type, data.url, data.async);
 
         if (!isFormData(data.data)) {
+
             XMLHTTP.setRequestHeader('Content-type', data['content-type']);
+
         }
 
         XMLHTTP.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
@@ -73,8 +75,6 @@ var ajax = function () {
     return {
         send: send,
         getXMLHTTPRequestProccess: getXMLHTTPRequestProccess
-    }
+    };
 
-}();
-
-module.exports = ajax;
+})({});

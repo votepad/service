@@ -5,7 +5,7 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/org.css?v=<?= filemtime("assets/static/css/org.css") ?>">
 
 
-    <div class="jumbotron block">
+    <div class="jumbotron">
 
         <!-- Jumbotron Wrapper -->
         <?=View::factory('organizations/blocks/jumbotron_wrapper', array('organization' => $organization)); ?>

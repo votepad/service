@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: Murod's Macbook Pro
- * Date: 27.02.2016
- * Time: 1:13
- */
 
 class HTTP_Exception_404 extends Kohana_HTTP_Exception_404 {
 

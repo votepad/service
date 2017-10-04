@@ -1,67 +1,158 @@
-var collapse = (function(collapse) {
+module.exports = (function (collapse) {
 
 
-    var nodes = [];
+    function prepare_() {
 
+        var nodes = document.querySelectorAll('[data-toggle="collapse"]');
 
-    collapse.init = function() {
+        for (var i = 0; i < nodes.length; i++) {
 
-        nodes = document.querySelectorAll('[data-toggle="collapse"]');
+            collapse.create(nodes[i]);
 
-        if (nodes.length > 0) {
+            if(nodes[i].dataset.opened === 'true') {
 
-            for (var i = 0; i < nodes.length; i++) {
-
-                nodes[i].addEventListener('click', collapse.toggle, false);
-                
-                if(nodes[i].dataset.opened === "true") {
-                    openCollapse(nodes[i], document.getElementById(nodes[i].dataset.area));
-                }
+                collapse.open(nodes[i], document.getElementById(nodes[i].dataset.area));
 
             }
+
         }
 
-    };
+    }
 
 
-    collapse.toggle = function () {
-        var btn = this,
-            list = document.getElementById(btn.dataset.area);
+    /**
+     * Toggle collapse - OPEN || CLOSE
+     * @private
+     */
+    collapse.toggle = function (element) {
 
-        if (btn.dataset.opened === "false") {
-            openCollapse(btn,list);
+        var btn;
+
+        if (element.nodeType === 1)
+            btn = element;
+        else
+            btn  = this;
+
+        var list = document.getElementById(btn.dataset.area);
+
+        if (btn.dataset.opened === 'false') {
+
+            collapse.open(btn, list);
+
         } else {
-            hideCollapse(btn,list);
+
+            collapse.close(btn, list);
+
         }
 
     };
 
 
-    var openCollapse = function (btn, list) {
-        btn.dataset.opened = "true";
+    /**
+     * Open collapse
+     * @param btn  - clicked button
+     * @param list - collapse list
+     */
+    collapse.open = function (btn, list) {
 
-        if (!list.dataset.height)
-            list.dataset.height = calculateHeight(list);
+        if (list.classList.contains('collapsing') || list.classList.contains('collapse--opened') ) return;
 
-        list.style.height = list.dataset.height + "px";
+        btn.dataset.opened = 'true';
+        list.classList.add('collapsing');
+        list.classList.remove('collapse');
+        list.style.height = calculateHeight_(list) + 'px';
+
+        window.setTimeout(function () {
+
+            list.classList.remove('collapsing');
+            list.classList.add('collapse--opened');
+            list.removeAttribute('style');
+
+        }, 350);
 
     };
 
 
-    var hideCollapse = function (btn, list) {
-        btn.dataset.opened = "false";
-        list.style.height = "0";
+    /**
+     * Close collapse
+     * @param btn  - clicked button
+     * @param list - collapse list
+     */
+    collapse.close = function (btn, list) {
+
+        if (list.classList.contains('collapsing') || list.classList.contains('collapse') ) return;
+
+        btn.dataset.opened = 'false';
+        list.style.height = list.getBoundingClientRect().height + 'px';
+        list.classList.add('collapsing');
+        list.classList.remove('collapse--opened');
+
+        window.setTimeout(function () {
+
+            list.style.height = '0px';
+
+        });
+
+        window.setTimeout(function () {
+
+            list.classList.remove('collapsing');
+            list.classList.add('collapse');
+
+        }, 350);
+
     };
 
 
-    var calculateHeight = function (list) {
+    /**
+     * Create collpase
+     * @param el  - clicked button
+     */
+    collapse.create = function (el) {
+
+        el.addEventListener('click', collapse.toggle);
+
+    };
+
+
+    /**
+     * Destroy collapse
+     * @param el  - clicked button
+     */
+    collapse.destroy = function (el) {
+
+        el.removeEventListener('click', collapse.toggle);
+
+    };
+
+
+    /**
+     * Calculate height of collapse list
+     * @param list - collapse ara
+     * @returns {number} - height of list
+     * @private
+     */
+    function calculateHeight_(list) {
+
         var height = 0;
+
         for (var i = 0; i < list.childNodes.length; i++) {
+
             if (list.childNodes[i].className) {
+
                 height += list.childNodes[i].clientHeight;
+
             }
+
         }
         return height;
+
+    }
+
+
+    collapse.init = function () {
+
+        prepare_();
+
     };
 
 
@@ -69,5 +160,3 @@ var collapse = (function(collapse) {
 
 
 })({});
-
-module.exports = collapse;

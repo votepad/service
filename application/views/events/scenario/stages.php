@@ -4,7 +4,7 @@
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/formula.css?v=<?= filemtime("assets/frontend/modules/css/formula.css") ?>">
     <link type="text/css" rel="stylesheet" href="<?=$assets; ?>static/css/event.css?v=<?= filemtime("assets/static/css/event.css") ?>">
 
-    <div class="jumbotron block">
+    <div class="jumbotron">
 
         <!-- Jumbotron Wrapper -->
         <?=View::factory('events/blocks/jumbotron_wrapper', array('organization' => $organization, 'event' => $event)); ?>
