@@ -56,7 +56,10 @@ class Controller_Users_Index extends Dispatch
      */
     public function action_index()
     {
+        $events = $this->profile->getEvents();
+
         $this->template->mainSection->page = View::factory('profiles/pages/events')
+            ->set('events', $events)
             ->set('profile', $this->profile);
     }
 

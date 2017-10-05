@@ -53,6 +53,7 @@ class Controller_Auth_Organizer extends Auth {
                 return;
             }
 
+            $password = $this->makeHash('md5', $password . getenv('SALT'));
 
             if ( !Model_Auth::checkPasswordById($id, $password, self::AUTH_MODE) ) {
                 $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error', array('$id' => $id));
@@ -89,6 +90,8 @@ class Controller_Auth_Organizer extends Auth {
         }
 
         $user = new Model_Auth();
+
+        $password = $this->makeHash('md5', $password . getenv('SALT'));
 
         if (!$user->login($email, $password, self::AUTH_MODE)) {
 

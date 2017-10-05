@@ -33,7 +33,7 @@ class Controller_SignUp extends Ajax
         $user = new Model_User();
 
         $user->email = $email;
-        $user->password = $password;
+        $user->password = $this->makeHash('md5', $password . getenv('SALT'));
         $user->name = $name;
 
         $user = $user->save();

@@ -13,7 +13,7 @@ class Model_User extends Model {
     public $email;
     public $phone;
     public $avatar = 'no-avatar.png';
-    public $branding = '';
+    public $branding = 'no-branding.png';
     public $private;
     public $is_confirmed;
     public $dt_create;
@@ -124,7 +124,7 @@ class Model_User extends Model {
     {
         $ids = Dao_UsersEvents::select('e_id')
             ->where('u_id', '=', $this->id)
-            ->cached(Date::MINUTE * 5, 'user:' . $this->id)
+            ->cached(Date::MINUTE * 5, 'user_' . $this->id)
             ->execute('e_id');
 
         $events = array();
