@@ -150,7 +150,7 @@ class Controller_Users_Ajax extends Ajax
         if (!$resp->isSuccess()){
             $response = new Model_Response_Email('RECAPTCHA_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
-//            return;
+            return;
         }
 
         $user = Model_User::getByEmail($email);
