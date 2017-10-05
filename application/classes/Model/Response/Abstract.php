@@ -5,6 +5,7 @@ class Model_Response_Abstract extends Model
 
     const ERROR_STATUS     = 'error';
     const SUCCESS_STATUS   = 'success';
+    const WARNING_STATUS   = 'warning';
     protected $response    =  array();
 
     public function __construct($name, $status, $data = array()) {
@@ -19,6 +20,8 @@ class Model_Response_Abstract extends Model
             case 'error': $this->response['status'] = self::ERROR_STATUS;
             break;
             case 'success': $this->response['status'] = self::SUCCESS_STATUS;
+            break;
+            case 'warning': $this->response['status'] = self::WARNING_STATUS;
             break;
         }
 

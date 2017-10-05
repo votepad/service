@@ -17,7 +17,7 @@
 
 	</head>
 	<body class="">
-        <div class="wrapper valign">
+        <div class="wrapper display-flex">
             <div class="text-center m-auto">
                 <h1 class="text-brand fs-5 mt-0 mb-15">Votepad</h1>
                 <p class="fs-1_5"><span class="text-bold">Ошибка <?= $code; ?>.</span> <?= $message; ?></p>

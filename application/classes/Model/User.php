@@ -1,12 +1,12 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php
+
 /**
  * Class Model_User
  * @author Votepad team
- * @copyright Khaydarov Murod
  * @version 0.3.0
  */
 
-Class Model_User {
+class Model_User extends Model {
 
     public $id;
     public $name;

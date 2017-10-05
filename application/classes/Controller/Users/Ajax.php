@@ -148,7 +148,7 @@ class Controller_Users_Ajax extends Ajax
         if (!$resp->isSuccess()){
             $response = new Model_Response_Email('RECAPTCHA_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
-            return;
+//            return;
         }
 
         $user = Model_User::getByEmail($email);
@@ -185,12 +185,18 @@ class Controller_Users_Ajax extends Ajax
         $id = $this->redis->get(getenv('REDIS_RESET_HASHES') . $hash);
 
         if (!$id) {
-            throw new HTTP_Exception_400();
+            throw new HTTP_Exception_400;
         }
 
         if (isset($_POST['reset'])) {
             $newPassword1 = Arr::get($_POST,'password1');
             $newPassword2 = Arr::get($_POST,'password2');
+
+            if (empty($newPassword1) || empty($newPassword1)) {
+                $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
+                return;
+            }
 
             if ($newPassword1 != $newPassword2) {
                 $response = new Model_Response_User('USER_PASSWORDS_ARE_NOT_EQUAL_ERROR', 'error');

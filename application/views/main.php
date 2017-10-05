@@ -26,28 +26,25 @@
 
 <body>
 
-    <header class="header">
+    <div class="wrapper">
 
-        <?=$header; ?>
+        <header class="header">
+            <?=$header; ?>
+        </header>
 
-    </header>
+        <section class="section">
+            <?=$mainSection; ?>
+        </section>
 
-    <section>
+        <footer class="footer">
+            <?= View::factory('globalblocks/footer'); ?>
+        </footer>
 
-        <?=$mainSection; ?>
-
-    </section>
-
-    <footer class="footer">
-
-        <?= View::factory('globalblocks/footer'); ?>
-
-    </footer>
+    </div>
 
     <? if ( !$isLogged ): ?>
         <?= View::factory('globalblocks/auth_modal'); ?>
     <? endif; ?>
-
 
 </body>
 
@@ -55,7 +52,6 @@
 
     $( document ).ready(function() {
         vp.init();
-
     });
 
     window.csrf = '<?= Security::token() ?>';
