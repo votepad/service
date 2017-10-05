@@ -76,7 +76,7 @@ class Controller_Users_Ajax extends Ajax
         $newPassword  = Arr::get($_POST, 'newPassword');
         $newPassword1 = Arr::get($_POST, 'newPassword1');
 
-        if (!$this->user->checkPassword($this->makeHash('md5', $oldPassword . getenv('SALT')))) {
+        if (!$this->user->checkPassword($this->makeHash('sha256', $oldPassword . getenv('SALT')))) {
             $response = new Model_Response_User('USER_PASSWORD_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
@@ -94,7 +94,7 @@ class Controller_Users_Ajax extends Ajax
             return;
         }
 
-        $password = $this->makeHash('md5', $newPassword . getenv('SALT'));
+        $password = $this->makeHash('sha256', $newPassword . getenv('SALT'));
 
         $this->user->changePassword($password);
 
@@ -208,7 +208,7 @@ class Controller_Users_Ajax extends Ajax
 
             $user = new Model_User($id);
 
-            $password = $this->makeHash('md5', $newPassword1 . getenv('SALT'));
+            $password = $this->makeHash('sha256', $newPassword1 . getenv('SALT'));
 
             if (!$user->id) {
                 $response = new Model_Response_User('USER_DOES_NOT_EXISTED_ERROR', 'error');
