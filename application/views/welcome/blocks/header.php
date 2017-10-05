@@ -6,7 +6,7 @@
             Votepad
         </a>
 
-        <a href="/#events" class="header__button header__button--hollow toEvents" tabindex="2">
+        <a href="/#events" class="header__button header__button--hollow toEvents hidden-xs" tabindex="2">
             Мероприятия
         </a>
 
@@ -15,7 +15,7 @@
     <div class="header__menu header__menu--right">
 
         <? if ($isLogged) : ?>
-            <a class="header__button fl_r">
+            <a href="<?=URL::site('/user/' . $user->id); ?>" class="header__button fl_r">
                 <i class="fa fa-user mr-5" aria-hidden="true"></i>
                 <?=$user->name; ?>
             </a>

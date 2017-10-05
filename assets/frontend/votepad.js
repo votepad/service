@@ -27,7 +27,7 @@ module.exports = ( function (votepad) {
     votepad.form         = require('./modules/js/form');
 
 
-    votepad.init = function () {
+    var init_ = function () {
         votepad.footer.init();
         votepad.form.init();
         votepad.collapse.init();
@@ -36,11 +36,19 @@ module.exports = ( function (votepad) {
         votepad.notification.createHolder();
     };
 
-    votepad.initWelcome = function () {
+    var initWelcome_ = function () {
         votepad.collapse.init();
         votepad.notification.createHolder();
         votepad.parallax.init();
         votepad.modal.init();
+    };
+
+    votepad.init = function () {
+        document.addEventListener('DOMContentLoaded', init_);
+    };
+
+    votepad.initWelcome = function () {
+        document.addEventListener('DOMContentLoaded', initWelcome_);
     };
 
     return votepad;

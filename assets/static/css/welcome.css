@@ -86,17 +86,24 @@
     min-height: 160px;
 }
 .container{
+    padding: 0 10px;
     width: 100%;
     margin: auto;
 }
 @media (min-width: 680px) {
     .container {
+        padding: 0;
         width: 90%;
     }
 }
-@media (min-width: 992px) {
+@media (min-width: 1024px) {
     .container {
-        width: 80%;
+        width: 980px;
+    }
+}
+@media (min-width: 1240px) {
+    .container {
+        width: 1180px;
     }
 }
 .container-small {

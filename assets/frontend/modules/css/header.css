@@ -88,10 +88,4 @@
     .header__wrapper{
         width: 1180px;
     }
-    .header__menu{
-        width: calc(100% - 250px);
-    }
-    .header__menu--right{
-        width: 250px;
-    }
 }
