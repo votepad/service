@@ -34,6 +34,10 @@
             </a>
             <? if ($profile->isOwner) : ?>
                 <div class="profile__btn-group">
+                    <a href="<?=URL::site('event/new'); ?>" class="ui-btn ui-btn--1 profile__btn">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                        <span class="hidden-xs">Новое мероприятие</span>
+                    </a>
                     <a href="<?= URL::site('user/' . $profile->id . '/settings'); ?>" class="ui-btn ui-btn--2 profile__btn profile__btn--settings">
                         <i class="fa fa-cog" aria-hidden="true"></i>
                         <span class="hidden-xs">Настройки</span>

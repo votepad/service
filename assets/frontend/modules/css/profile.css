@@ -59,12 +59,12 @@
 .profile__btn-group{
     position: absolute;
     text-align: center;
-    padding-bottom: 20px;
+    padding-bottom: 10px;
     top: 9px;
     right: 9px;
 }
 .profile__btn{
-    margin: 0 6px;
+    margin: 0 6px 10px;
 }
 .profile__btn--logout{
     color: #fe4d4a;

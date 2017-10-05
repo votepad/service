@@ -8,15 +8,8 @@
 .header__button:hover{
     background-color: inherit;
 }
-.header__menu-icon{
-    padding-top: 16px;
-}
-.header__menu-icon .header__button{
-    position: relative;
-    height: 69px;
-}
-.aside__menu{
-    margin-top: 85px;
+.header__button--hollow{
+    margin: 26px 0 26px 10px;
 }
 
 .section{
@@ -92,7 +85,20 @@
 .section-extrasmall{
     min-height: 160px;
 }
-
+.container{
+    width: 100%;
+    margin: auto;
+}
+@media (min-width: 680px) {
+    .container {
+        width: 90%;
+    }
+}
+@media (min-width: 992px) {
+    .container {
+        width: 80%;
+    }
+}
 .container-small {
     position: relative;
     width: 70%;

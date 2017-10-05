@@ -45,10 +45,6 @@ class Controller_Users_Index extends Dispatch
         $this->template->title       = 'Профиль ' . $this->profile->name;
         $this->template->description = "Просмотреть профиль " . $this->profile->name . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
 
-        $this->template->header = View::factory('globalblocks/header')
-            ->set('header_menu', View::factory('profiles/blocks/header_menu'))
-            ->set('header_menu_mobile', View::factory('profiles/blocks/header_menu_mobile'));
-
         $this->template->mainSection = View::factory('profiles/content')
             ->set('profile', $this->profile)
             ->set('action', $this->request->action());

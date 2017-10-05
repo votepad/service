@@ -29,7 +29,7 @@
     <div class="wrapper">
 
         <header class="header">
-            <?=$header; ?>
+            <?=View::factory('globalblocks/header'); ?>
         </header>
 
         <section class="section">
