@@ -56,7 +56,7 @@ class Controller_Users_Index extends Dispatch
      */
     public function action_index()
     {
-        $events = $this->profile->getEvents();
+        $events = $this->profile->getEvents(1);
 
         $this->template->mainSection->page = View::factory('profiles/pages/events')
             ->set('events', $events)
@@ -72,7 +72,10 @@ class Controller_Users_Index extends Dispatch
         if (!$this->profile->isOwner)
             throw new HTTP_Exception_403;
 
+        $events = $this->profile->getEvents(0);
+
         $this->template->mainSection->page = View::factory('profiles/pages/drafts')
+            ->set('events', $events)
             ->set('profile', $this->profile);
     }
 

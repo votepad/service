@@ -120,18 +120,25 @@ class Model_User extends Model {
 
     }
 
-    public function getEvents()
+    /**
+     * @param $type
+     * @return array [Model_Event]
+     */
+    public function getEvents($type)
     {
         $ids = Dao_UsersEvents::select('e_id')
             ->where('u_id', '=', $this->id)
-            ->cached(Date::MINUTE * 5, 'user_' . $this->id)
+            ->cached(Date::MINUTE * 5, 'UserEvents_' . $this->id)
             ->execute('e_id');
 
         $events = array();
 
         if (!empty($ids)) {
             foreach ($ids as $id => $value) {
-                array_push($events, new Model_Event($id));
+                $event = new Model_Event($id);
+                if ($event->type == $type) {
+                    $events[] = $event;
+                }
             }
         }
 
