@@ -8,15 +8,8 @@
 .header__button:hover{
     background-color: inherit;
 }
-.header__menu-icon{
-    padding-top: 16px;
-}
-.header__menu-icon .header__button{
-    position: relative;
-    height: 69px;
-}
-.aside__menu{
-    margin-top: 85px;
+.header__button--hollow{
+    margin: 26px 0 26px 10px;
 }
 
 .section{
@@ -92,7 +85,27 @@
 .section-extrasmall{
     min-height: 160px;
 }
-
+.container{
+    padding: 0 10px;
+    width: 100%;
+    margin: auto;
+}
+@media (min-width: 680px) {
+    .container {
+        padding: 0;
+        width: 90%;
+    }
+}
+@media (min-width: 1024px) {
+    .container {
+        width: 980px;
+    }
+}
+@media (min-width: 1240px) {
+    .container {
+        width: 1180px;
+    }
+}
 .container-small {
     position: relative;
     width: 70%;

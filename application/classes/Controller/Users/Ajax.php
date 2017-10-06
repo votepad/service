@@ -76,7 +76,7 @@ class Controller_Users_Ajax extends Ajax
         $newPassword  = Arr::get($_POST, 'newPassword');
         $newPassword1 = Arr::get($_POST, 'newPassword1');
 
-        if (!$this->user->checkPassword($oldPassword)) {
+        if (!$this->user->checkPassword($this->makeHash('sha256', $oldPassword . getenv('SALT')))) {
             $response = new Model_Response_User('USER_PASSWORD_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
@@ -94,7 +94,9 @@ class Controller_Users_Ajax extends Ajax
             return;
         }
 
-        $this->user->changePassword($newPassword);
+        $password = $this->makeHash('sha256', $newPassword . getenv('SALT'));
+
+        $this->user->changePassword($password);
 
         $response = new Model_Response_User('USER_PASSWORD_CHANGE_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
@@ -185,12 +187,18 @@ class Controller_Users_Ajax extends Ajax
         $id = $this->redis->get(getenv('REDIS_RESET_HASHES') . $hash);
 
         if (!$id) {
-            throw new HTTP_Exception_400();
+            throw new HTTP_Exception_400;
         }
 
         if (isset($_POST['reset'])) {
             $newPassword1 = Arr::get($_POST,'password1');
             $newPassword2 = Arr::get($_POST,'password2');
+
+            if (empty($newPassword1) || empty($newPassword1)) {
+                $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+                $this->response->body(@json_encode($response->get_response()));
+                return;
+            }
 
             if ($newPassword1 != $newPassword2) {
                 $response = new Model_Response_User('USER_PASSWORDS_ARE_NOT_EQUAL_ERROR', 'error');
@@ -200,22 +208,24 @@ class Controller_Users_Ajax extends Ajax
 
             $user = new Model_User($id);
 
+            $password = $this->makeHash('sha256', $newPassword1 . getenv('SALT'));
+
             if (!$user->id) {
                 $response = new Model_Response_User('USER_DOES_NOT_EXISTED_ERROR', 'error');
                 $this->response->body(@json_encode($response->get_response()));
                 return;
             }
 
-            if ($user->checkPassword($newPassword1)) {
+            if ($user->checkPassword($password)) {
                 $response = new Model_Response_User('USER_SAME_PASSWORDS_ERROR', 'error');
                 $this->response->body(@json_encode($response->get_response()));
                 return;
             }
 
-            $user->changePassword($newPassword1);
+            $user->changePassword($password);
 
             $auth = new Model_Auth();
-            $auth->login($user->email, $newPassword1, Controller_Auth_Organizer::AUTH_MODE);
+            $auth->login($user->email, $password, Controller_Auth_Organizer::AUTH_MODE);
 
             $response = new Model_Response_User('USER_RESET_PASSWORD_SUCCESS', 'success', array('id' => $user->id));
 

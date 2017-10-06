@@ -80,3 +80,50 @@ button {
     background: #e5e5e5;
     border-color: #dadada;
 }
+
+
+.ui-btn{
+    cursor: pointer;
+    display: inline-block;
+    outline: 0;
+}
+.ui-btn--margin{
+    margin: 0 10px 10px 0;
+}
+.ui-btn--1,
+.ui-btn--2,
+.ui-btn--3{
+    padding: 0 12px;
+    height: 34px;
+    line-height: 34px;
+    font-size: 14px;
+    border-radius: 3px;
+    border: 0;
+}
+
+.ui-btn--1{
+    color: #FCFCFC;
+    background: #008DA7;
+}
+.ui-btn--1:hover,
+.ui-btn--1:focus{
+    background: #1F6E7D;
+}
+
+.ui-btn--2{
+    color: #818181;
+    background: #f0f0f0;
+}
+.ui-btn--2:hover,
+.ui-btn--2:focus{
+    background: #dfdfdf;
+}
+.ui-btn--3{
+    background-color: transparent;
+    box-shadow: 0 0 0 1px #f0f0f0;
+    color: #818181;
+}
+.ui-btn--3:hover,
+.ui-btn--3:focus {
+    background-color: #f0f0f0;
+}

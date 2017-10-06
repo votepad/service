@@ -32,7 +32,6 @@ Route::set('IMAGE_TRANSPORT', 'transport/<type>')
 require_once ('routes/welcome.php');
 require_once ('routes/auth.php');
 require_once ('routes/users.php');
-require_once ('routes/organizations.php');
 require_once ('routes/events.php');
 require_once ('routes/participants.php');
 require_once ('routes/judges.php');

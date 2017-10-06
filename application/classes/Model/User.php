@@ -1,19 +1,19 @@
-<?php defined('SYSPATH') or die('No direct script access.');
+<?php
+
 /**
  * Class Model_User
  * @author Votepad team
- * @copyright Khaydarov Murod
  * @version 0.3.0
  */
 
-Class Model_User {
+class Model_User extends Model {
 
     public $id;
     public $name;
     public $email;
     public $phone;
     public $avatar = 'no-avatar.png';
-    public $branding = '';
+    public $branding = 'no-branding.png';
     public $private;
     public $is_confirmed;
     public $dt_create;
@@ -120,18 +120,25 @@ Class Model_User {
 
     }
 
-    public function getEvents()
+    /**
+     * @param $type
+     * @return array [Model_Event]
+     */
+    public function getEvents($type)
     {
         $ids = Dao_UsersEvents::select('e_id')
             ->where('u_id', '=', $this->id)
-            ->cached(Date::MINUTE * 5, 'user:' . $this->id)
+            ->cached(Date::MINUTE * 5, 'UserEvents_' . $this->id)
             ->execute('e_id');
 
         $events = array();
 
         if (!empty($ids)) {
             foreach ($ids as $id => $value) {
-                array_push($events, new Model_Event($id));
+                $event = new Model_Event($id);
+                if ($event->type == $type) {
+                    $events[] = $event;
+                }
             }
         }
 

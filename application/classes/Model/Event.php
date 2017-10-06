@@ -8,76 +8,20 @@ class Model_Event extends Model
     const MAX_RAND_VALUE = 999999;
     const EVENTCODE_KEY  = 'event.codes';
 
-    /**
-     * @var $id [INT]
-     */
+
     public $id;
-
-    /**
-     * @var $organization [Number] id
-     */
-    public $organization;
-
-    /**
-     * @var $creator [Number] id
-     */
-    public $creator;
-
-    /**
-     * @var $name [String]
-     */
+    public $type;           // 0 - draft, 1 - published
+    public $creator;        // $creator->id
     public $name;
-
-    /**
-     * @var $uri [String]
-     */
-    public $uri;
-
-    /**
-     * @var $description [Text]
-     */
     public $description;
-
-    /**
-     * @var $branding [Text] - path to cover
-     */
-    public $branding = "no-cover.png";
-
-    /**
-     * @var $tags [JSON]
-     */
-    public $tags = "[]";
-
-    /**
-     * @var $address [String]
-     */
-    public $address;
-
-
-    /**
-     * @var $dt_start [Date] - Beggining time
-     */
-    public $dt_start;
-
-    /**
-     * @var $dt_end [Date] - The time of finish
-     */
-    public $dt_end;
-
-    /**
-     * @var $is_published [Bool]
-     */
-    public $is_published = 0;
-
-    /**
-     * @var $eventCode - code for judges
-     */
-    public $code = null;
-
-    /*
-     * @var $dt_create [Date]
-     */
-    public $dt_create;
+    public $uri;            // UNIQUE
+    public $code = null;    // $eventCode - code for judges
+    public $branding = "no-cover.png"; // [Text] - path to cover
+    public $tags = "[]";    // [JSON]
+    public $address;        // [Text]
+    public $dt_start;       // [datetime] - Beggining time
+    public $dt_end;         // [datetime] - The time of finish
+    public $dt_create;      // [datetime]
 
     public function __construct($id = null) {
 
@@ -108,14 +52,12 @@ class Model_Event extends Model
             ->cached(Date::MINUTE * 5, $id)
             ->execute();
 
-        $this->fill_by_row($select);
-
-        return $this;
+        return $this->fill_by_row($select);
 
     }
 
     /**
-     * Saves User to Database
+     * Saves Event to Database
      */
     public function save()
     {
@@ -135,8 +77,7 @@ class Model_Event extends Model
     }
 
     /**
-     * Updates event data in database
-     *
+     * Update Event
      * @return Model_Event
      */
     public function update()
@@ -164,8 +105,8 @@ class Model_Event extends Model
         Dao_UsersEvents::insert()
             ->set('u_id', $id)
             ->set('e_id', $this->id)
-            ->clearcache('EventUsers:' . $this->id)
-            ->clearcache('UserEvents:' . $id)
+            ->clearcache('EventUsers_' . $this->id)
+            ->clearcache('UserEvents_' . $id)
             ->execute();
 
     }
@@ -174,7 +115,7 @@ class Model_Event extends Model
 
         $selection = Dao_UsersEvents::select('u_id')
             ->where('e_id', '=', $this->id)
-            ->cached(Date::MINUTE * 5, 'EventUsers:' . $this->id)
+            ->cached(Date::MINUTE * 5, 'EventUsers_' . $this->id)
             ->execute('u_id');
 
         $users = array();
@@ -193,8 +134,8 @@ class Model_Event extends Model
         Dao_UsersEvents::delete()
             ->where('u_id', '=', $id)
             ->where('e_id', '=', $this->id)
-            ->clearcache('EventUsers:' . $this->id)
-            ->clearcache('UserEvents:' . $id)
+            ->clearcache('EventUsers_' . $this->id)
+            ->clearcache('UserEvents_' . $id)
             ->execute();
 
     }
@@ -204,8 +145,8 @@ class Model_Event extends Model
         return (bool) Dao_UsersEvents::select('u_id')
             ->where('u_id', '=', $id)
             ->where('e_id', '=', $this->id)
-            ->clearcache('EventUsers:' . $this->id)
-            ->clearcache('UserEvents:' . $id)
+            ->clearcache('EventUsers_' . $this->id)
+            ->clearcache('UserEvents_' . $id)
             ->limit(1)
             ->execute();
 
@@ -214,7 +155,7 @@ class Model_Event extends Model
 
     public function getInviteLink() {
 
-        $hash = hash('sha256', $this->organization . $_SERVER['SALT'] . $this->id);
+        $hash = hash('sha256', $this->organization . getenv('SALT') . $this->id);
         return '/event/' . $this->id . '/invite/' . $hash;
 
     }

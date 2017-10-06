@@ -57,6 +57,6 @@ Route::set('CONFIRM_EMAIL', 'confirm/<mode>/<hash>')
  */
 Route::set('RESET_PASSWORD_LINK', 'reset/<hash>')
     ->defaults(array(
-        'controller' => 'Welcome',
-        'action'     => 'reset'
+        'controller' => 'Users_Index',
+        'action'     => 'reset',
     ));

@@ -7,16 +7,12 @@ class Model_Uploader extends Model
 {
     const PROFILE_AVATAR        = 1;
     const PROFILE_BRANDING      = 2;
-    const ORGANIZATION_LOGO     = 3;
-    const ORGANIZATION_BRANDING = 4;
-    const EVENT_BRANDING        = 5;
+    const EVENT_BRANDING        = 3;
     const PARTICIPANTS_PHOTO    = 6;
 
     private $images = array(
         self::PROFILE_AVATAR,
         self::PROFILE_BRANDING,
-        self::ORGANIZATION_LOGO,
-        self::ORGANIZATION_BRANDING,
         self::EVENT_BRANDING,
         self::PARTICIPANTS_PHOTO
     );
@@ -74,26 +70,18 @@ class Model_Uploader extends Model
         }
         switch ($type) {
             case self::PROFILE_AVATAR:
-                $this->filename = 'b_' . $savedFilename;
+                $this->filename = $savedFilename;
+                $user = new Model_User($user_id);
+                $user->avatar = $this->filename;
+                $user->update();
+                $this->filename = 'm_' . $savedFilename;
                 break;
             case self::PROFILE_BRANDING:
-                $this->filename = 'o_' . $savedFilename;
-
+                $this->filename = $savedFilename;
                 $user = new Model_User($user_id);
                 $user->branding = $this->filename;
                 $user->update();
-                break;
-            case self::ORGANIZATION_BRANDING:
                 $this->filename = 'o_' . $savedFilename;
-                $organization = new Model_Organization($params->id);
-                $organization->cover = $this->filename;
-                $organization->update();
-                break;
-            case self::ORGANIZATION_LOGO:
-                $this->filename = 'b_' . $savedFilename;
-                $organization = new Model_Organization($params->id);
-                $organization->logo = $this->filename;
-                $organization->update();
                 break;
             case self::EVENT_BRANDING:
                 $this->filename = 'o_' . $savedFilename;

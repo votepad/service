@@ -1,3 +1,7 @@
+.entry__wrapper{
+    position: relative;
+    background-color: #fff;
+}
 .block{
     display: block;
     position: relative;

@@ -5,12 +5,9 @@ a[disabled], button[disabled],input[disabled]{
     cursor: default;
 }
 
-a,
-a:hover,
-a:focus{
-    color: #413a41;
+a{
+    color: inherit;
     text-decoration: none;
-    outline: none;
 }
 .link{
     color: #008da7;
@@ -316,6 +313,11 @@ a.bg-gray-dark:focus {
 .thumb128 {
     width: 128px !important;
     height: 128px !important;
+}
+
+.valign{
+    display: flex;
+    align-items: center;
 }
 
 .align-middle {

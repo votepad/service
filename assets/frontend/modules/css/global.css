@@ -46,17 +46,6 @@ body{
     }
 }
 
-.valign{
-    display: flex;
-    align-items: center;
-}
-.valign .center{
-    width: 100%;
-    margin: auto;
-    vertical-align: middle;
-}
-
-
 .show,
 .display-block{
     display: block;
@@ -190,7 +179,6 @@ body{
 @keyframes rotate{from{-webkit-transform:rotate(0deg);transform:rotate(0deg)}to{-webkit-transform:rotate(360deg);transform:rotate(360deg)}}
 
 .clear-fix:after, .clear-fix:before,
-.container:after, .container:before,
 .row:before, .row:after{
     content: " ";
     display: table;

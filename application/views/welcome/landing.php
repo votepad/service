@@ -1,21 +1,23 @@
-<div class="section section-1 parallax" data-toggle="parallax">
-    <div class="bg--dark"></div>
-    <img class="parallax__img" src="<?=$assets;?>static/img/welcome/bg1.jpg" alt="voting participant">
-    <div class="section--lg valign m-t-15">
-        <div class="container animated fade__in">
-            <h1 class="h1--sale text-white m-l-auto m-r-auto text-center">
+<div class="section section-1">
+    <div class="parallax" data-toggle="parallax">
+        <img class="parallax__img" src="<?=$assets;?>static/img/welcome/bg1.jpg" alt="voting participant">
+    </div>
+    <div class="section__content valign section--lg ">
+        <div>
+            <h1 class="h1--sale text-white ml-auto mr-auto text-center">
                 Автоматизированный подсчёт результатов голосования
             </h1>
-            <h2 class="h3--sale text-white m-l-auto m-r-auto text-center m-t-50">
+            <h2 class="h3--sale text-white ml-auto mr-auto text-center mt-50">
                 Создайте свое мероприятие и предоставьте доступ экспертному жюри. Получите мгновенно подсчитанные результаты и страницу с победителями.
             </h2>
-            <div class="m-t-50 m-l-auto m-r-auto text-center">
+            <div class="mt-50 ml-auto mr-auto text-center">
                 <a data-toggle="modal" data-area="registr_modal" class="btn btn--lg btn--default btn--round btn--scaled btn--join">Присоединиться</a>
             </div>
         </div>
-
     </div>
+    <div class="section__cover-filter"></div>
 </div>
+
 <div class="section section-2 clear-fix">
     <div class="container clear-fix">
         <div class="container-image pull-left">

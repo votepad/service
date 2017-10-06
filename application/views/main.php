@@ -26,40 +26,36 @@
 
 <body>
 
-    <header class="header">
+    <div class="wrapper">
 
-        <?=$header; ?>
+        <header class="header">
+            <?=View::factory('globalblocks/header'); ?>
+        </header>
 
-    </header>
+        <section class="section">
+            <?=$mainSection; ?>
+        </section>
 
-    <section>
+        <footer class="footer">
+            <?= View::factory('globalblocks/footer'); ?>
+        </footer>
 
-        <?=$mainSection; ?>
-
-    </section>
-
-    <footer class="footer">
-
-        <?= View::factory('globalblocks/footer'); ?>
-
-    </footer>
+    </div>
 
     <? if ( !$isLogged ): ?>
         <?= View::factory('globalblocks/auth_modal'); ?>
     <? endif; ?>
 
-
 </body>
 
 <script type="text/javascript">
-
-    $( document ).ready(function() {
-        vp.init();
-
-    });
-
-    window.csrf = '<?= Security::token() ?>';
-
+    vp.init();
 </script>
+
+<? if ( getenv('KOHANA_ENV') == 'PRODUCTION' ): ?>
+    <!-- Yandex.Metrika counter -->
+    <script type="text/javascript"> (function (d, w, c) { (w[c] = w[c] || []).push(function() { try { w.yaCounter42856294 = new Ya.Metrika({ id:42856294, clickmap:true, trackLinks:true, accurateTrackBounce:true }); } catch(e) { } }); var n = d.getElementsByTagName("script")[0], s = d.createElement("script"), f = function () { n.parentNode.insertBefore(s, n); }; s.type = "text/javascript"; s.async = true; s.src = "https://mc.yandex.ru/metrika/watch.js"; if (w.opera == "[object Opera]") { d.addEventListener("DOMContentLoaded", f, false); } else { f(); } })(document, window, "yandex_metrika_callbacks"); </script> <noscript><div><img src="https://mc.yandex.ru/watch/42856294" style="position:absolute; left:-9999px;" alt="" /></div></noscript>
+    <!-- /Yandex.Metrika counter -->
+<? endif; ?>
 
 </html>

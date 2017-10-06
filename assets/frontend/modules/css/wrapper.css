@@ -4,7 +4,7 @@
     width: 100%;
     height: auto;
     min-height: 100%;
-    background: #f5f5f5;
+    background: #f0f0f0;
     overflow-x: hidden;
 }
 
@@ -12,20 +12,13 @@
     position: relative;
     height: 100%;
     margin-top: 50px;
-    padding-top: 20px;
-}
-
-.container,
-.section__content{
-    position: relative;
-    margin: 0 auto;
 }
 
 .section__cover{
     position: relative;
-    height: 230px;
+    height: 200px;
     overflow: hidden;
-    z-index: 5;
+    margin-bottom: 20px;
 }
 .section__cover-filter{
     position: absolute;
@@ -34,32 +27,21 @@
     right: 0;
     bottom: 0;
     background: rgba(0,0,0,.5);
-    z-index: 1;
 }
 .section__cover-text{
-    z-index: 2;
     text-align: center;
     font-weight: bold;
-    color: #FFF;
+    font-size: 1.8em;
     text-shadow: 0 0 2px rgba(0,0,0,.3);
-    font-size: 2em;
-}
-@media (max-width: 992px) {
-    .wrapper .section__cover-text{
-        font-size: 1.7em;
-    }
-}
-@media (max-width: 680px) {
-    .wrapper .section__cover-text{
-        font-size: 1.4em;
-        word-break: break-all;
-    }
+    margin: 0 auto;
+    color: #FFF;
+    z-index: 2;
 }
 
 .section__cover-update-wrapper{
     position: absolute;
     top: 20px;
-    left: 30px;
+    left: 0;
     line-height: 30px;
     border-radius: 3px;
     z-index: 2;
@@ -89,25 +71,15 @@
     display: initial;
 }
 
-
-.entry_wrapper {
-    position: relative;
-    background-color: #fff;
-    border-top: 1px solid #e7e8ec;
-    border-left: 1px solid #e7e8ec;
-    border-right: 1px solid #e7e8ec;
-}
-
-@media (max-width: 1024px) {
-    .entry_wrapper + .block {
-        border-top: 0;
+@media (max-width: 992px) {
+    .section__cover-text{
+        font-size: 1.5em;
     }
 }
-
 @media (max-width: 680px) {
-    .section__cover-update-wrapper{
-        left: 0;
-        top: 10px;
+    .section__cover-text{
+        font-size: 1.3em;
+        word-break: break-all;
     }
     .section__cover-update-wrapper:hover {
         background: transparent;
@@ -120,22 +92,33 @@
     }
 }
 
-@media (min-width: 680px) {
-    .container,
-    .section__content {
-        width: 90%;
-    }
-}
-@media (min-width: 992px) {
-    .container,
-    .section__content {
-        width: 80%;
-    }
+.section__content{
+    position: relative;
+    height: inherit;
+    width: 100%;
+    margin: 0 auto;
+    z-index: 1;
 }
 
-.section__content:after,
-.section__content:before{
+.section__content:after{
     content: " ";
     display: table;
     clear: both;
+}
+
+@media (min-width: 680px) {
+    .section__content{
+        width: 640px;
+    }
+}
+@media (min-width: 1024px) {
+    .section__content{
+        width: 980px;
+    }
+}
+
+@media (min-width: 1240px) {
+    .section__content{
+        width: 1180px;
+    }
 }
