@@ -42,7 +42,7 @@ class Controller_Users_Index extends Dispatch
         if (!$this->profile->isOwner && $this->profile->private == 1)
             throw new HTTP_Exception_403();
 
-        $this->template->title       = 'Профиль ' . $this->profile->name;
+        $this->template->title       = $this->profile->name;
         $this->template->description = "Просмотреть профиль " . $this->profile->name . " на сайте votepad.ru. VotePad — это система для управления мероприятиями онлайн, обеспечивающая быструю и достоверную оценку участников мероприятия. Благодаря Votepad становиться проще и быстрее провести подсчет результатов!";
 
         $this->template->mainSection = View::factory('profiles/content')
