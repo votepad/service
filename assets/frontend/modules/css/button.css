@@ -109,6 +109,10 @@ button {
 .ui-btn--1:focus{
     background: #1F6E7D;
 }
+.ui-btn--1[disabled] {
+    opacity: 0.6;
+    pointer-events: none;
+}
 
 .ui-btn--2{
     color: #818181;

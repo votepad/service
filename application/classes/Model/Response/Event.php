@@ -2,10 +2,10 @@
 
 class Model_Response_Event extends  Model_Response_Abstract
 {
-    protected $_EVENT_REMOVE_SUCCESS = array(
+    protected $_EVENT_CREATE_SUCCESS = array(
         'type' => 'events',
         'code' => '50',
-        'message' => 'Org is removed'
+        'message' => 'Мероприяие успешно создано'
     );
 
     protected $_EVENT_REESTABLISH_SUCCESS = array(

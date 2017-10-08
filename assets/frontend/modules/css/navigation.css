@@ -55,7 +55,7 @@
 
 .nav__item--active{
     color:#008DA7;
-    background-color: #eee;
+    background-color: #f7f7f7;
 }
 .nav__item--active .nav__counter{
     color:#008DA7
