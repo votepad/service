@@ -28,12 +28,12 @@
                 <span class="form-group__help-block">Допустимы только буквы и цифры.</span>
             </div>
 
-            <div class="form-group width-md-460 mr-md-20 width-sm-290 mr-sm-20">
+            <div class="form-group width-sm-290 mr-sm-20 width-md-460 width-lg-560">
                 <input type="datetime-local" id="start" name="start" class="form-group__input" autocomplete="off">
                 <label class="form-group__label form-group__label--active" for="start">Дата начала</label>
             </div>
 
-            <div class="form-group width-md-460 width-sm-290">
+            <div class="form-group width-sm-290 width-md-460 width-lg-560">
                 <input type="datetime-local" id="end" name="end" class="form-group__input" autocomplete="off">
                 <label class="form-group__label form-group__label--active" for="end">Дата завершения</label>
             </div>
