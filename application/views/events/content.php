@@ -4,7 +4,7 @@
     </div>
     <div class="section__content valign">
         <div class="section__cover-update-wrapper">
-            <a onclick="event.updateBranding()" role="button" class="section__cover-update-btn" data-pk="<?=$event->id; ?>">
+            <a onclick="myevent.updateBranding(this)" role="button" class="section__cover-update-btn" data-pk="<?=$event->id; ?>">
                 <i class="fa fa-camera section__cover-update-icon" aria-hidden="true"></i>
                 <span class="section__cover-update-text">Обновить фото обложки</span>
             </a>
@@ -174,4 +174,4 @@
 
 </div>
 
-<!--<script type="text/javascript" src="--><?//=$assets; ?><!--static/js/event.js?v=--><?//= filemtime("assets/static/js/event.js") ?><!--"></script>-->
+<script type="text/javascript" src="<?=$assets; ?>static/js/event.js?v=<?= filemtime("assets/static/js/event.js") ?>"></script>

@@ -84,10 +84,11 @@ class Model_Uploader extends Model
                 $this->filename = 'o_' . $savedFilename;
                 break;
             case self::EVENT_BRANDING:
-                $this->filename = 'o_' . $savedFilename;
+                $this->filename = $savedFilename;
                 $event = new Model_Event($params->id);
                 $event->branding = $this->filename;
                 $event->update();
+                $this->filename = 'o_' . $savedFilename;
                 break;
             case self::PARTICIPANTS_PHOTO:
                 $this->filename = 'm_' . $savedFilename;

@@ -10,10 +10,9 @@
 module.exports = (function (tabs) {
 
     var tabsArray   = null,
-        corePrefix  = 'VP: tabs module',
-        nodes       = [];
+        corePrefix  = 'VP: tabs module';
 
-    var prepare_ = function (options) {
+    var prepare_ = function () {
 
         tabsArray = document.querySelectorAll('[data-toggle="tabs"]');
 
@@ -25,7 +24,7 @@ module.exports = (function (tabs) {
 
                 if (!area) {
 
-                    vp.core.log('Could not catch element by `data-area` attribute');
+                    vp.core.log('Could not catch element by `data-area` attribute', 'error', corePrefix);
 
                 } else {
 
@@ -58,9 +57,9 @@ module.exports = (function (tabs) {
 
     };
 
-    tabs.init = function (options) {
+    tabs.init = function () {
 
-        prepare_(options);
+        prepare_();
 
     };
 
