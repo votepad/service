@@ -1,7 +1,17 @@
+/**
+ * Tabs Module - Usage
+ *
+ * On Tab button add
+ * - `data-toggle="tabs"`
+ * - `data-area="tabs-block-id"` - ID of tabs block
+ */
+
+
 module.exports = (function (tabs) {
 
-    var tabsArray = null,
-        nodes     = [];
+    var tabsArray   = null,
+        corePrefix  = 'VP: tabs module',
+        nodes       = [];
 
     var prepare_ = function (options) {
 
@@ -11,34 +21,15 @@ module.exports = (function (tabs) {
 
             for (var i = 0; i < tabsArray.length; i++) {
 
-                var node = {
-                    btn: tabsArray[i],
-                    block: document.getElementById(tabsArray[i].dataset.block),
-                    search: options.search ? document.getElementById(tabsArray[i].dataset.search) : '',
-                    input: options.search ? document.getElementById(tabsArray[i].dataset.search + 'Input') : '',
-                    counter: options.counter ? document.getElementById(tabsArray[i].dataset.block + 'Counter') : '',
-                    searchElements: options.search ? document.getElementById(tabsArray[i].dataset.block).getElementsByClassName('item__search-text') : ''
-                };
+                var area = document.getElementById(tabsArray[i].dataset.area);
 
-                nodes.push(node);
+                if (!area) {
 
-                nodes[i].btn.dataset.id = i;
-                nodes[i].btn.addEventListener('click', changeTab, false);
+                    vp.core.log('Could not catch element by `data-area` attribute');
 
-                if (nodes[i].counter && parseInt(nodes[i].counter.innerHTML) === 0) {
+                } else {
 
-                    var noItems = vp.draw.node('DIV', 'text-center p-20', {id: 'noItems'});
-
-                    noItems.textContent = 'К сожалению, элементы не найдены.';
-
-                    nodes[i].block.appendChild(noItems);
-
-                }
-
-                if (nodes[i].input) {
-
-                    nodes[i].input.dataset.id = i;
-                    nodes[i].input.addEventListener('keyup', searchItem, false);
+                    tabsArray[i].addEventListener('click', changeTab, false);
 
                 }
 
@@ -51,68 +42,19 @@ module.exports = (function (tabs) {
 
     var changeTab = function () {
 
-        document.getElementsByClassName('tabs__btn--active')[0].classList.remove('tabs__btn--active');
-        document.getElementsByClassName('tabs__block--active')[0].classList.remove('tabs__block--active');
+        var curTab    = this,
+            tabsBlock = curTab.closest('.ui-tabs'),
+            oldTab    = tabsBlock.getElementsByClassName('ui-tabs__tab--active')[0];
 
-        if (document.getElementsByClassName('tabs__search-block--active')[0])
-            document.getElementsByClassName('tabs__search-block--active')[0].classList.remove('tabs__search-block--active');
+        if (oldTab) {
 
-        nodes[this.dataset.id].btn.classList.add('tabs__btn--active');
-        nodes[this.dataset.id].block.classList.add('tabs__block--active');
-
-        if (nodes[this.dataset.id].search)
-            nodes[this.dataset.id].search.classList.add('tabs__search-block--active');
-
-
-    };
-
-
-    var searchItem = function () {
-
-        var node = nodes[this.dataset.id],
-            searchingText = new RegExp(node.input.value.toLowerCase()),
-            elementBlock, element, elementText;
-
-        for (var i = 0; i < node.searchElements.length; i++) {
-
-            element = node.searchElements[i];
-            elementBlock = element.closest('.item');
-            elementText = element.innerHTML.toLowerCase();
-
-            if ( ! searchingText.test(elementText) ) {
-
-                if (!elementBlock.classList.contains('hide'))
-                    node.counter.innerHTML = parseInt(node.counter.innerHTML) - 1;
-                elementBlock.classList.add('hide');
-
-            } else {
-
-                if (elementBlock.classList.contains('hide'))
-                    node.counter.innerHTML = parseInt(node.counter.innerHTML) + 1;
-                elementBlock.classList.remove('hide');
-
-            }
-
-            if (parseInt(node.counter.innerHTML) === 0) {
-
-                if (!document.getElementById('noResult')) {
-
-                    var noResult = vp.draw.node('DIV', 'text-center p-20', {id: 'noResult'});
-
-                    noResult.textContent = 'К сожалению, ничего не найдено. Попробуйте изменить запрос.';
-
-                    elementBlock.parentNode.append(noResult);
-
-                }
-
-            } else if ( document.getElementById('noResult') ) {
-
-                document.getElementById('noResult').remove();
-
-            }
-
+            oldTab.classList.remove('ui-tabs__tab--active');
+            document.getElementById(oldTab.dataset.area).classList.add('hide');
 
         }
+
+        curTab.classList.add('ui-tabs__tab--active');
+        document.getElementById(curTab.dataset.area).classList.remove('hide');
 
     };
 

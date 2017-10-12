@@ -36,7 +36,7 @@
                             Основная информация
                         </a>
                         <a href="<?= URL::site('event/' . $event->id . '/settings/assistants'); ?>" class="nav__item <?= $action == 'assistants' ? 'nav__item--active': ''; ?>">
-                            Помощьники
+                            Помощники
                         </a>
                     </div>
                 </li>
@@ -109,32 +109,30 @@
         <div class="entry__wrapper hidden-md hidden-lg">
             <div class="block mb-0 bb-0 ui-tabs">
                 <div class="ui-tabs__wrapper">
-                    <a role="button" class="ui-tabs__tab <?= $section == 'settings' ? 'ui-tabs__tab--active': ''; ?>">
+                    <a role="button" data-toggle="tabs" data-area="sectionTabsSettings" class="ui-tabs__tab <?= $section == 'settings' ? 'ui-tabs__tab--active': ''; ?>">
                         Настройки
                     </a>
-                    <a role="button" class="ui-tabs__tab <?= $section == 'control' ? 'ui-tabs__tab--active': ''; ?>">
+                    <a role="button" data-toggle="tabs" data-area="sectionTabsControl" class="ui-tabs__tab <?= $section == 'control' ? 'ui-tabs__tab--active': ''; ?>">
                         Администрирование
                     </a>
-                    <a role="button" class="ui-tabs__tab <?= $section == 'scenario' ? 'ui-tabs__tab--active': ''; ?>">
+                    <a role="button" data-toggle="tabs" data-area="sectionTabsScenario" class="ui-tabs__tab <?= $section == 'scenario' ? 'ui-tabs__tab--active': ''; ?>">
                         Сценарий
                     </a>
-                    <a role="button" class="ui-tabs__tab <?= $section == 'members' ? 'ui-tabs__tab--active': ''; ?>">
+                    <a role="button" data-toggle="tabs" data-area="sectionTabsMembers" class="ui-tabs__tab <?= $section == 'members' ? 'ui-tabs__tab--active': ''; ?>">
                         Действующие лица
                     </a>
                 </div>
             </div>
             <div class="block mb-0 bb-0 ui-tabs">
-                <div class="ui-tabs__wrapper">
+                <div id="sectionTabsSettings" class="ui-tabs__wrapper <?= $section == 'settings' ?: 'hide'; ?>">
                     <a href="<?= URL::site('event/' . $event->id . '/settings/info'); ?>" class="ui-tabs__tab <?= $action == 'info' ? 'ui-tabs__tab--active': ''; ?>">
                         Основная информация
                     </a>
                     <a href="<?= URL::site('event/' . $event->id . '/settings/assistants'); ?>" class="ui-tabs__tab <?= $action == 'assistants' ? 'ui-tabs__tab--active': ''; ?>">
-                        Помощьники
+                        Помощники
                     </a>
                 </div>
-            </div>
-            <div class="block mb-0 bb-0 ui-tabs">
-                <div class="ui-tabs__wrapper">
+                <div id="sectionTabsControl" class="ui-tabs__wrapper <?= $section == 'control' ?: 'hide'; ?>">
                     <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="ui-tabs__tab <?= $action == 'scores' ? 'ui-tabs__tab--active': ''; ?>">
                         Результаты
                     </a>
@@ -142,9 +140,7 @@
                         План мероприятия
                     </a>
                 </div>
-            </div>
-            <div class="block mb-0 bb-0 ui-tabs">
-                <div class="ui-tabs__wrapper">
+                <div id="sectionTabsScenario" class="ui-tabs__wrapper <?= $section == 'scenario' ?: 'hide'; ?>">
                     <a href="<?= URL::site('event/' . $event->id . '/scenario/criterias'); ?>" class="ui-tabs__tab <?= $action == 'criterias' ? 'ui-tabs__tab--active': ''; ?>">
                         Критерии
                     </a>
@@ -158,9 +154,7 @@
                         Результат
                     </a>
                 </div>
-            </div>
-            <div class="block mb-0 bb-0 ui-tabs">
-                <div class="ui-tabs__wrapper">
+                <div id="sectionTabsMembers" class="ui-tabs__wrapper <?= $section == 'members' ?: 'hide'; ?>">
                     <a href="<?= URL::site('event/' . $event->id . '/members/judges'); ?>" class="ui-tabs__tab <?= $action == 'judges' ? 'ui-tabs__tab--active': ''; ?>">
                         Представители жюри
                     </a>
