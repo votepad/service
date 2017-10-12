@@ -22,44 +22,17 @@ Route::set('NEW_EVENT', 'organization/<id>/event/new',
 
 
 /**
- * This route checks website existance. Responces only for XMLHTTP requests
- *
- * @example http://pronwe.ru/event/check/ifmo.ru - returns JSON encoded Boolean responce.
- * @return [Boolean]
- */
-Route::set('CHECK_EVENT_WEBSITE', 'event/check/<website>',
-    array(
-        'website' => $STRING
-    ))
-    ->defaults(array(
-      'controller' => 'Events_Ajax',
-      'action'     => 'checkwebsite'
-    ));
-
-/**
- * Route works with Database.
- * Validates POST data and inserts.
- * Hasn't properties
- */
-Route::set('ADD_EVENT', 'event/add')
-    ->defaults(array(
-        'controller' => 'Events_Modify',
-        'action'     => 'add'
-    ));
-
-/**
  * Route for event main page.
  *
  * @property String $organizationpage - organization website (without nwe.ru)
  * @property String $eventpage - events website (without nwe.ru)
  * @property String $action - action in controller
  *
- * @example http://pronwe.ru/event/<id>(/<action>)
+ * @example http://votepad.ru/event/<id>(/<action>)
  */
 $actioncallback = function(Route $route, $params, Request $request){
 
     $allowedRoutes = array(
-        'settings',
         'landing',
         'news',
         'results'
@@ -99,7 +72,7 @@ $sectioncallback = function(Route $route, $params, Request $request){
             'criterias', 'stages', 'contests', 'result'
         ),
         'members' => array(
-            'judges', 'participants', 'teams', /*'groups'*/
+            'judges', 'participants', 'teams'
         ),
         'control' => array(
             'scores', 'plan'

@@ -1,5 +1,11 @@
 .nav{
-    background:#fff
+    background:#fff;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+.nav__item-group--active{
+    border-left: 2px solid #008DA7;
 }
 .nav__item{
     display:block;
@@ -11,7 +17,6 @@
     cursor:pointer;
     z-index:1;
 }
-
 .nav__item:before,
 .nav__item:after{
     content:'';
@@ -38,29 +43,29 @@
 .nav__item--active{
     pointer-events:none;
     z-index: 3;
-}
-.nav__counter{
-    display: flex;
-    height: 46px;
-    align-items: center;
-    float: left;
-    color:#818181;
-    font-size: .8em
-}
-.nav__counter .icon{
-    font-size: 2em;
-    margin-right: 10px;
-    margin-bottom: 2px;
-}
-
-.nav__item--active{
     color:#008DA7;
     background-color: #eee;
-}
-.nav__item--active .nav__counter{
-    color:#008DA7
 }
 .nav__item--active:after,
 .nav__item--active:before{
     background-color: #e0e0e0;
+}
+
+.nav__item-icon{
+    width: 20px;
+    text-align: center;
+    margin-right: 10px;
+}
+.nav__item-icon--right{
+    float: right;
+    min-height: inherit;
+    line-height: inherit;
+    margin-right: 0;
+}
+
+.nav__item-group:first-child > .nav__item:first-child:before{
+    content: none;
+}
+.nav__collapse .nav__item {
+    padding-left: 55px;
 }

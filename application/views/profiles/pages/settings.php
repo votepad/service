@@ -59,7 +59,7 @@
             Сохранить изменения
         </button>
         <button type="button" data-toggle="collapse" data-area="changePassword" data-opened="false"
-                class="ui-btn ui-btn--2 ui-btn--margin collapse-btn" data-textopened="Отмена изменения пароля" data-textclosed="Изменить пароль"
+                class="ui-btn ui-btn--2 ui-btn--margin collapse__btn" data-textopened="Отмена изменения пароля" data-textclosed="Изменить пароль"
                 onclick="document.getElementById('changePassword').reset();">
 
         </button>
