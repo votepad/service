@@ -53,7 +53,7 @@ class Model_Response_User extends  Model_Response_Abstract
     protected $_USER_DOES_NOT_EXISTED_ERROR = array (
         'type' => 'user',
         'code' => '34',
-        'message' => 'Пользователь с такой эл.почтой не существует'
+        'message' => 'Пользователь не существует'
     );
 
     protected $_USER_CREATE_SUCCESS = array (

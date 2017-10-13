@@ -23,13 +23,13 @@ class Model_Response_Event extends  Model_Response_Abstract
     protected $_USER_IS_ALREADY_ASSISTANT_ERROR = array(
         'type' => 'events',
         'code' => '53',
-        'message' => 'User is already assistant of event'
+        'message' => 'Пользователь уже участвует в проведении мероприятия'
     );
 
-    protected $_ACCESS_DENIED_ERROR = array(
+    protected $_USER_IS_CREATOR_ERROR = array(
         'type' => 'events',
         'code' => '54',
-        'message' => 'Access denied'
+        'message' => 'Ошибка! Пользователь является создателем мероприятия'
     );
 
     protected $_USER_IS_NOT_ASSISTANT_ERROR = array(
@@ -41,26 +41,22 @@ class Model_Response_Event extends  Model_Response_Abstract
     protected $_ADD_ASSISTANT_SUCCESS = array(
         'type' => 'events',
         'code' => '56',
-        'message' => 'Assistant added'
+        'message' => 'Заяка пользователя успешно принята'
     );
 
     protected $_REMOVE_ASSISTANT_SUCCESS = array(
         'type' => 'events',
         'code' => '57',
-        'message' => 'Assistant removed'
+        'message' => 'Пользователь успешно исключен'
     );
 
     protected $_REJECT_ASSISTANT_SUCCESS = array(
         'type' => 'events',
         'code' => '58',
-        'message' => 'Assistant rejected'
+        'message' => 'Заяка пользователя успешно отклонена'
     );
 
-    protected $_USER_IS_CREATOR_ERROR = array(
-        'type' => 'events',
-        'code' => '59',
-        'message' => 'User is creator of this event'
-    );
+
 
     protected $_PUBLISH_RESULTS_SUCCESS = array(
         'type' => 'result',

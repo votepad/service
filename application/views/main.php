@@ -46,6 +46,8 @@
         <?= View::factory('globalblocks/auth_modal'); ?>
     <? endif; ?>
 
+    <input type="hidden" id="csrf" name="csrf" value="<?= Security::token(); ?>">
+
 </body>
 
 <script type="text/javascript">

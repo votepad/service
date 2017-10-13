@@ -23,6 +23,11 @@ class Controller_Events_Index extends Dispatch
      */
     const ACTION_NEW = 'event_new';
 
+    /**
+     * @const ACTION_NEW [String] - page of creating new event
+     */
+    const INVITE_ASSISTANT = 'invite_assistant';
+
 
     public function before()
     {
@@ -36,10 +41,18 @@ class Controller_Events_Index extends Dispatch
         $id = $this->request->param('id');
         $this->event = new Model_Event($id);
 
+        /**
+         * Meta Dates
+         */
+        $this->template->title = $this->event->name;
+        $this->template->description = $this->event->description;
+        $this->template->keywords = $this->event->tags;
+
         if (!$this->event->id)
             throw new HTTP_Exception_404;
 
         switch ($action) {
+            case self::INVITE_ASSISTANT:
             case 'results':
             case 'landing':
                 break;
@@ -57,13 +70,6 @@ class Controller_Events_Index extends Dispatch
             $this->event->code = $this->event->generateCodeForJudges($this->event->id);
             $this->event->update();
         }
-
-        /**
-         * Meta Dates
-         */
-        $this->template->title = $this->event->name;
-        $this->template->description = $this->event->description;
-        $this->template->keywords = $this->event->tags;
 
         /**
          * Data for template of module content
@@ -122,7 +128,27 @@ class Controller_Events_Index extends Dispatch
         $this->template->mainSection->page = View::factory('events/pages/settings-assistants')
             ->set('event', $this->event)
             ->set('requests', $requests);
+    }
 
+
+    /**
+     * INVITE_ASSISTANT
+     * Action that check inviting hash and send request to enter to the event
+     */
+    public function action_invite_assistant() {
+        $hash = $this->request->param('hash');
+        if (!$this->event->checkInviteLink($hash))
+            throw new HTTP_Exception_404;
+
+        if (!self::isLogged())
+            throw new HTTP_Exception_401;
+
+        if ($this->event->isAssistant($this->user->id))
+            throw new HTTP_Exception_403;
+
+        $this->redis->sAdd(getenv('REDIS_EVENTS') . $this->event->id . ':assistants.requests', $this->user->id);
+        $this->template->mainSection = View::factory('events/pages/invite-assistants')
+            ->set('event', $this->event);
     }
 
 

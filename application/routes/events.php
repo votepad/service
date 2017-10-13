@@ -16,8 +16,6 @@ Route::set('NEW_EVENT', 'event/new')
     ));
 
 
-
-
 /**
  * Route for Event Ajax actions
  */
@@ -30,10 +28,8 @@ Route::set('EVENT_AJAX', 'event/<action>')
 /**
  * Route for event main page.
  *
- * @property String $organizationpage - organization website (without nwe.ru)
- * @property String $eventpage - events website (without nwe.ru)
  * @property String $action - action in controller
- *
+ * @property [Function] $actioncallback - this callback defines is route allowed to the section or not
  * @example http://votepad.ru/event/<id>(/<action>)
  */
 $actioncallback = function(Route $route, $params, Request $request){
@@ -61,10 +57,10 @@ Route::set('EVENT_ACTION', 'event/<id>(/<action>)',
     ));
 
 /**
- * Route for backoffice
+ * Route for Back Office
  *
  * @property String $action - controller action
- * @property [Function] $callback - this callback defines is route allowed to the section or not
+ * @property [Function] $sectioncallback - this callback defines is route allowed to the section or not
  *
  * @example http://votepad.ru/event/<id>/<section>(/<action>)
  */
@@ -90,7 +86,6 @@ $sectioncallback = function(Route $route, $params, Request $request){
     }
 
 };
-
 Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>(/<action>)',
     array(
         'id' => $DIGIT,
@@ -103,26 +98,18 @@ Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>(/<action>)',
         'action'     => 'ControlMain'
     ));
 
-
-Route::set('MAIN_SETTINGS_UPDATE', 'event/<id>/settings/info/update',
-    array('id' => $DIGIT))
+/**
+ * Router for inviting assistant to event
+ */
+Route::set('INVITE_ASSISTANT', 'event/<id>/invite/<hash>', array(
+        'id' => $DIGIT,
+        'hash' => $STRING
+    ))
     ->defaults(array(
-        'controller' => 'Events_Modify',
-        'action'     => 'update'
+        'controller' => 'Events_Index',
+        'action'     => 'invite_assistant'
     ));
 
-Route::set('INVITE_LINK', 'event/<id>/invite/<hash>',
-    array('id' => $DIGIT, 'hash' => $STRING))
-    ->defaults(array(
-        'controller' => 'Events_Modify',
-        'action'     => 'assistant_request'
-    ));
-
-Route::set('ASSISTANTSS_ACTIONS', 'event/<id>/assistant/<method>/<userId>', array('id' => $DIGIT, 'userId' => $DIGIT, 'method' => 'add|remove|reject'))
-    ->defaults(array(
-        'controller' => 'Events_Ajax',
-        'action'     => 'assistant'
-    ));
 
 Route::set('PUBLISH_RESULT', 'event/result/<method>',
     array(

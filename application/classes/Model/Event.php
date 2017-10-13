@@ -161,6 +161,17 @@ class Model_Event extends Model
 
     }
 
+    /**
+     * Checking inviting hash
+     * @param $hash - event hash
+     * @return bool
+     */
+    public function checkInviteLink($hash) {
+
+        return $hash == hash('sha256', getenv('SALT') . $this->id);
+
+    }
+
     public function isCreator($id) {
         return $id == $this->creator;
     }
