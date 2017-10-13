@@ -44,7 +44,7 @@
     pointer-events:none;
     z-index: 3;
     color:#008DA7;
-    background-color: #eee;
+    background-color: #f7f7f7;
 }
 .nav__item--active:after,
 .nav__item--active:before{

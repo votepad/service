@@ -42,26 +42,26 @@ class Controller_Auth_Organizer extends Auth {
                 return;
             }
 
-            $id = $this->recover();
+            $password = $this->makeHash('sha256', $password . getenv('SALT'));
 
-            // Если сессия была уничтожена или хэш не совпал
-            if (!$id) {
+            $id = $this->recover($password);
+
+            if ($id === "INVALID_INPUT") {
+
+                $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error', array('$id' => $id));
+
+            } elseif ($id === NULL) {
+                // Если сессия была уничтожена или хэш не совпал
                 $this->clearCookie();
 
                 $response = new Model_Response_Auth('RECOVER_ERROR', 'error', array('$id' => $id));
-                $this->response->body(@json_encode($response->get_response()));
-                return;
+
+            } else {
+
+                $response = new Model_Response_Auth('RECOVER_SUCCESS', 'success', array('id' => $id));
+
             }
 
-            $password = $this->makeHash('sha256', $password . getenv('SALT'));
-
-            if ( !Model_Auth::checkPasswordById($id, $password, self::AUTH_MODE) ) {
-                $response = new Model_Response_Auth('INVALID_INPUT_ERROR', 'error', array('$id' => $id));
-                $this->response->body(@json_encode($response->get_response()));
-                return;
-            }
-
-            $response = new Model_Response_Auth('RECOVER_SUCCESS', 'success', array('id' => $id));
             $this->response->body(@json_encode($response->get_response()));
             return;
 
@@ -150,10 +150,10 @@ class Controller_Auth_Organizer extends Auth {
 
     /**
      * Check session token (make secret from Cookie data)
-     *
+     * @param $password
      * @return null|string
      */
-    private function recover()
+    private function recover($password)
     {
         $id    = Cookie::get('id');
         $sid    = Cookie::get('sid');
@@ -162,6 +162,10 @@ class Controller_Auth_Organizer extends Auth {
         $hash = $this->makeHash('sha256', getenv('AUTH_ORGANIZER_SALT') . $sid . self::AUTH_MODE . $id);
 
         if ($this->redis->get(getenv('REDIS_SESSION_HASHES') . $hash) && $hash == $secret) {
+
+            if ( !Model_Auth::checkPasswordById($id, $password, self::AUTH_MODE) ) {
+                return "INVALID_INPUT";
+            }
 
             // Создаем новую сессию
             $auth = new Model_Auth();

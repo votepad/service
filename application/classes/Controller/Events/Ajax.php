@@ -1,12 +1,44 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
+ * Class Controller_Events_Ajax
  *
+ * @copyright Votepad Team
+ * @version 0.2.0
  */
 
 class Controller_Events_Ajax extends Ajax {
 
+    /**
+     * Create New Event
+     */
+    public function action_create() {
+        $name        = Arr::get($_POST, 'name');
+        $description = Arr::get($_POST, 'description');
+        $tags        = Arr::get($_POST, 'tags');
+        $start       = Arr::get($_POST, 'start');
+        $end         = Arr::get($_POST, 'end');
+        $address     = Arr::get($_POST, 'address');
 
-    private $event = null;
+        $event = new Model_Event();
+
+        $event->name         = $name;
+        $event->type         = 0;   // draft
+        $event->creator      = $this->user->id;
+        $event->description  = $description;
+        $event->tags         = $tags;
+        $event->dt_start     = $start;
+        $event->dt_end       = $end;
+        $event->address      = $address;
+
+        $event = $event->save();
+
+        $event->addAssistant($this->user->id);
+
+        $response = new Model_Response_Event('EVENT_CREATE_SUCCESS', 'success', array('id' => $event->id));
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+
 
     public function action_assistant() {
 

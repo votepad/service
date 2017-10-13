@@ -21,7 +21,7 @@
     <div class="width-full width-md-300 mr-md-40">
 
         <div class="profile__block">
-            <div class="profile__avatar">
+            <div class="profile__avatar thumb80">
                 <? if ($profile->isOwner) : ?>
                     <a onclick="profile.updateAvatar()" role="button" class="profile__upload">
                         <i class="fa fa-camera profile__upload-icon" aria-hidden="true"></i>

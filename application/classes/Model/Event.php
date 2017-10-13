@@ -17,7 +17,7 @@ class Model_Event extends Model
     public $uri;            // UNIQUE
     public $code = null;    // $eventCode - code for judges
     public $branding = "no-cover.png"; // [Text] - path to cover
-    public $tags = "[]";    // [JSON]
+    public $tags = "";      // [String] - with delimiter `,`
     public $address;        // [Text]
     public $dt_start;       // [datetime] - Beggining time
     public $dt_end;         // [datetime] - The time of finish
@@ -57,7 +57,7 @@ class Model_Event extends Model
     }
 
     /**
-     * Saves Event to Database
+     * Save Event to Database
      */
     public function save()
     {

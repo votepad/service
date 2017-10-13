@@ -8,16 +8,22 @@
 
 /**
  * Route for event creation
- *
- * @property String $organizationpage - organization local website (without nwe.ru afterfix)
  */
-Route::set('NEW_EVENT', 'organization/<id>/event/new',
-    array(
-        'id' => $DIGIT
-    ))
+Route::set('NEW_EVENT', 'event/new')
     ->defaults(array(
-        'controller' => 'Organizations_Index',
-        'action'     => 'new_event'
+        'controller' => 'Events_Index',
+        'action'     => 'event_new'
+    ));
+
+
+
+
+/**
+ * Route for Event Ajax actions
+ */
+Route::set('EVENT_AJAX', 'event/<action>')
+    ->defaults(array(
+        'controller' => 'Events_Ajax'
     ));
 
 
