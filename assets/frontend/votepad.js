@@ -32,6 +32,7 @@ module.exports = ( function (votepad) {
         votepad.form.init();
         votepad.collapse.init();
         votepad.modal.init();
+        votepad.tabs.init();
         votepad.parallax.init();
         votepad.notification.createHolder();
     };

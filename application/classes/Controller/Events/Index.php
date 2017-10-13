@@ -19,7 +19,7 @@ class Controller_Events_Index extends Dispatch
     protected $event = null;
 
     /**
-     * @const ACTION_RESET [String] - reset user password
+     * @const ACTION_NEW [String] - page of creating new event
      */
     const ACTION_NEW = 'event_new';
 
@@ -28,60 +28,53 @@ class Controller_Events_Index extends Dispatch
     {
         parent::before();
 
-        if ($this->request->action() == self::ACTION_NEW)
+        $action = $this->request->action();
+
+        if ($action == self::ACTION_NEW)
             return;
 
         $id = $this->request->param('id');
-        $event = new Model_Event($id);
+        $this->event = new Model_Event($id);
 
-        if ($event->id) {
+        if (!$this->event->id)
+            throw new HTTP_Exception_404;
 
-            $this->event = $event;
-            $this->organization = new Model_Organization($event->organization);
+        switch ($action) {
+            case 'results':
+            case 'landing':
+                break;
+            default:
 
-            $action = $this->request->action();
+                /** do not allow */
+                if (!self::isLogged() || !$this->event->isAssistant($this->user->id)) {
+                    throw new HTTP_Exception_403;
+                }
 
-            switch ($action) {
-                case 'results':
-                case 'landing':
-                    break;
-                default:
-
-                    /** do not allow */
-                    if (!self::isLogged() || !$this->event->isAssistant($this->user->id)) {
-                        $this->redirect('event/' . $this->event->id);
-                    }
-
-                    break;
-            }
-
-            if (!$event->code || !Model_Event::getEventByCode($event->code)) {
-                $this->event->code = $event->generateCodeForJudges($event->id);
-                $this->event->update();
-            }
-
-            /**
-             * Meta Dates
-             */
-            $this->template->title = $event->name;
-            $this->template->description = $event->description;
-            $this->template->keywords = $event->tags;
-
-
-            /**
-             * Header
-             */
-            $data = array(
-                'event'     => $this->event,
-                'action'    => $this->request->action(),
-                'section'=> $this->request->param('section')
-            );
-
-            $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('events/blocks/header_menu',$data))
-                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',$data));
-
+                break;
         }
+
+        if (!$this->event->code || !Model_Event::getEventByCode($this->event->code)) {
+            $this->event->code = $this->event->generateCodeForJudges($this->event->id);
+            $this->event->update();
+        }
+
+        /**
+         * Meta Dates
+         */
+        $this->template->title = $this->event->name;
+        $this->template->description = $this->event->description;
+        $this->template->keywords = $this->event->tags;
+
+        /**
+         * Data for template of module content
+         */
+        $data = array(
+            'event'     => $this->event,
+            'action'    => $action,
+            'section'   => $this->request->param('section')
+        );
+
+        $this->template->mainSection = View::factory('events/content', $data);
 
     }
 
@@ -99,38 +92,20 @@ class Controller_Events_Index extends Dispatch
     }
 
 
-
-
     /**
-     * MANAGE submodule
-     * action_settings - change main-info
-     */
-    public function action_settings()
-    {
-
-        $this->template->mainSection = View::factory('events/settings/content')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
-    }
-
-
-    /**
-     * MANAGE submodule
-     * action_settings - change main-info
+     * SETTINGS submodule
+     * action_settings - page of editing main info of event
      */
     public function action_info()
     {
-        $this->template->mainSection = View::factory('events/settings/info')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+        $this->template->mainSection->page = '';//View::factory('events/pages/settings-info')
+            //->set('event', $this->event);
     }
 
 
     /**
-     * MANAGE submodule
-     * action_assistants - action that open page where users can edit assistants
+     * SETTINGS submodule
+     * action_assistants - page where event creator can menage access for users who can edit event
      */
     public function action_assistants()
     {

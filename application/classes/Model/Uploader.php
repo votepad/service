@@ -70,23 +70,21 @@ class Model_Uploader extends Model
         }
         switch ($type) {
             case self::PROFILE_AVATAR:
-                $this->filename = $savedFilename;
-                $user = new Model_User($user_id);
-                $user->avatar = $this->filename;
-                $user->update();
                 $this->filename = 'm_' . $savedFilename;
+                $user = new Model_User($user_id);
+                $user->avatar = $savedFilename;
+                $user->update();
                 break;
             case self::PROFILE_BRANDING:
-                $this->filename = $savedFilename;
-                $user = new Model_User($user_id);
-                $user->branding = $this->filename;
-                $user->update();
                 $this->filename = 'o_' . $savedFilename;
+                $user = new Model_User($user_id);
+                $user->branding = $savedFilename;
+                $user->update();
                 break;
             case self::EVENT_BRANDING:
                 $this->filename = 'o_' . $savedFilename;
                 $event = new Model_Event($params->id);
-                $event->branding = $this->filename;
+                $event->branding = $savedFilename;
                 $event->update();
                 break;
             case self::PARTICIPANTS_PHOTO:
