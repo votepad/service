@@ -101,10 +101,10 @@ module.exports = (function (form) {
 
 
 
-    var validateForm_ = function (form) {
+    var validateForm_ = function (formBlock) {
 
-        var inputs   = form.getElementsByClassName('form-group__input'),
-            textarea = form.getElementsByClassName('form-group__textarea'),
+        var inputs   = formBlock.getElementsByClassName('form-group__input'),
+            textarea = formBlock.getElementsByClassName('form-group__textarea'),
             isValid  = true;
 
         for (var i = 0; i < inputs.length; i++) {
@@ -145,9 +145,9 @@ module.exports = (function (form) {
 
     };
 
-    form.validate = function (form) {
+    form.validate = function (formBlock) {
 
-        return validateForm_(form);
+        return validateForm_(formBlock);
 
     };
 

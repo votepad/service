@@ -24,7 +24,7 @@ var newEvent = function (newEvent) {
                 form.classList.remove('loading');
 
                 if (parseInt(response.code) === 50) {
-                    window.location.replace(protocol + '//' + host + '/event/' + response.id + '/settings');
+                    window.location.replace(protocol + '//' + host + '/event/' + response.id + '/settings/info');
                     return;
                 }
 
