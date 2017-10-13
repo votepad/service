@@ -2,18 +2,78 @@ module.exports = (function (form) {
 
     function prepare_() {
 
-        var inputs = document.getElementsByClassName('form-group__input');
+        var inputs   = document.getElementsByClassName('form-group__input'),
+            textarea = document.getElementsByClassName('form-group__textarea');
 
         for (var i = 0; i < inputs.length; i++) {
 
-            if (!inputs[i].parentNode.classList.contains('form-group--with-icon')) {
+            if (!inputs[i].parentNode.classList.contains('form-group--with-icon') && inputs[i].parentNode.getElementsByClassName('form-group__label')[0]) {
 
                 inputs[i].addEventListener('blur', checkOnEmptyValue_);
                 checkOnEmptyValue_(inputs[i]);
 
+                if(inputs[i].hasAttribute('maxlength')) {
+
+                    var counter = vp.draw.node('SPAN', 'form-group__counter');
+
+                    counter.innerHTML = '0/' + inputs[i].getAttribute('maxlength');
+                    inputs[i].parentNode.appendChild(counter);
+                    inputs[i].addEventListener('keyup', updateCounter_);
+                    updateCounter_(inputs[i]);
+
+                }
+
             }
 
         }
+
+        for (var i = 0; i < textarea.length; i++) {
+
+            textarea[i].addEventListener('blur', checkOnEmptyValue_);
+            checkOnEmptyValue_(textarea[i]);
+
+            textarea[i].addEventListener('keyup', resizeTextareaHeight_);
+            resizeTextareaHeight_(textarea[i]);
+
+            if(textarea[i].hasAttribute('maxlength')) {
+
+                var counter = vp.draw.node('SPAN', 'form-group__counter');
+
+                counter.innerHTML = '0/' + textarea[i].getAttribute('maxlength');
+                textarea[i].parentNode.appendChild(counter);
+                textarea[i].addEventListener('keyup', updateCounter_);
+                updateCounter_(textarea[i]);
+
+            }
+
+        }
+
+    }
+
+
+    function resizeTextareaHeight_(element) {
+
+        if (element.nodeType !== 1) element = this;
+
+        window.setTimeout(function () {
+
+            element.style.height = 'auto';
+            element.style.height = element.scrollHeight + 'px';
+
+        }, 0);
+
+    }
+
+
+    function updateCounter_(el) {
+
+        if (el.nodeType !== 1) el = this;
+
+        var counter = el.parentNode.getElementsByClassName('form-group__counter')[0];
+
+        el.style.paddingRight =  parseInt(counter.offsetWidth + 5) + 'px';
+        el.style.width =  'calc(100% - ' + parseInt(counter.offsetWidth + 5) + 'px)';
+        counter.innerHTML = el.value.length + '/' + el.getAttribute('maxlength');
 
     }
 
@@ -25,7 +85,7 @@ module.exports = (function (form) {
 
         if (label && el.placeholder === '') {
 
-            if (el.value === '')
+            if (el.value === '' && el.type !== 'datetime-local')
                 label.classList.remove('form-group__label--active');
 
             else
@@ -38,6 +98,59 @@ module.exports = (function (form) {
         }
 
     }
+
+
+
+    var validateForm_ = function (form) {
+
+        var inputs   = form.getElementsByClassName('form-group__input'),
+            textarea = form.getElementsByClassName('form-group__textarea'),
+            isValid  = true;
+
+        for (var i = 0; i < inputs.length; i++) {
+
+            if (inputs[i].value === '') {
+
+                inputs[i].classList.add('form-group__input--invalid');
+                if (inputs[i].parentNode.classList.contains('choices__inner'))
+                    inputs[i].parentNode.classList.add('choices__inner--invalid');
+                isValid = false;
+
+            } else {
+
+                inputs[i].classList.remove('form-group__input--invalid');
+                if (inputs[i].parentNode.classList.contains('choices__inner'))
+                    inputs[i].parentNode.classList.remove('choices__inner--invalid');
+
+            }
+
+        }
+
+        for (var i = 0; i < textarea.length; i++) {
+
+            if (textarea[i].value === '') {
+
+                textarea[i].classList.add('form-group__textarea--invalid');
+                isValid = false;
+
+            } else {
+
+                textarea[i].classList.remove('form-group__textarea--invalid');
+
+            }
+
+        }
+
+        return isValid;
+
+    };
+
+    form.validate = function (form) {
+
+        return validateForm_(form);
+
+    };
+
 
     form.init = function () {
 

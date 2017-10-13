@@ -98,10 +98,9 @@ fieldset .form-group {
 /*   with help   */
 .form-group__help-block{
     display: block;
-    font-size: .65em;
-    letter-spacing: .01em;
-    padding-top: 2px;
-    color: #bbb;
+    font-size: 12px;
+    padding-top: 3px;
+    color: #A1A1A1;
 }
 
 /*   with counter  */
@@ -110,6 +109,9 @@ fieldset .form-group {
     position: absolute;
     font-size: .8em;
     letter-spacing: .035em;
+    top: 6px;
+    right: 1px;
+    color: #a1a1a1;
 }
 
 /*  with icon  */
@@ -138,6 +140,20 @@ fieldset .form-group {
     transform: none;
 }
 
+/** invalid class */
+.form-group__input--invalid,
+.form-group__input--invalid:focus,
+.form-group__textarea--invalid,
+.form-group__textarea--invalid:focus{
+    border-bottom: 1px solid #f05050;
+    box-shadow: 0 1px 0 0 #f05050;
+}
+.form-group__input--invalid + .form-group__label,
+.form-group__input--invalid:focus  + .form-group__label,
+.form-group__textarea--invalid + .form-group__label,
+.form-group__textarea--invalid:focus  + .form-group__label{
+    color: #f05050;
+}
 
 
 /** checkbox && radio */

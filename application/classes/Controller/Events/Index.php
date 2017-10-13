@@ -2,39 +2,34 @@
 
 /**
  * Class Controller_Events_Index
- * All pages which has relationship with Events will be here
  *
  * @copyright Votepad Team
  * @author Khaydarov Murod
  * @author Turov Nikolay
  *
- * @version 0.2.5
+ * @version 2.0.0
  */
 class Controller_Events_Index extends Dispatch
 {
-
-    /**
-     * @var $organization [String] - default value is null. Keeps cached render
-     */
-    protected $organization = null;
-
-    /**
-     * @var $event [String] - default value is null. Keeps cached render
-     */
-    protected $event = null;
-
-
-    /**
-     * Global Template
-     */
     public $template = 'main';
 
     /**
-     * Function that calls before main action
+     * @var $event [Model_Event] - default value is null. Keeps cached render
      */
+    protected $event = null;
+
+    /**
+     * @const ACTION_RESET [String] - reset user password
+     */
+    const ACTION_NEW = 'event_new';
+
+
     public function before()
     {
         parent::before();
+
+        if ($this->request->action() == self::ACTION_NEW)
+            return;
 
         $id = $this->request->param('id');
         $event = new Model_Event($id);
@@ -89,6 +84,21 @@ class Controller_Events_Index extends Dispatch
         }
 
     }
+
+
+    /**
+     * Action Event New - page of creating new event
+     */
+    public function action_event_new()
+    {
+        if (!self::isLogged())
+            throw new HTTP_Exception_403;
+
+        $this->template->title = "Новое мероприятие";
+        $this->template->mainSection = View::factory('events/pages/event-new');
+    }
+
+
 
 
     /**

@@ -35,7 +35,11 @@
     "ws": "^2.2.3"
   },
   "devDependencies": {
+    "choices.js": "^3.0.2",
     "crypto": "0.0.3",
-    "mysql": "^2.13.0"
+    "mysql": "^2.13.0",
+    "postcss-cssnext": "^3.0.2",
+    "postcss-smart-import": "^0.7.5",
+    "postcss-svg": "^2.1.0"
   }
 }
