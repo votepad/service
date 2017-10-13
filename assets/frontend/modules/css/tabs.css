@@ -32,6 +32,11 @@
     pointer-events: none;
     z-index: 3;
 }
+.ui-tabs__counter{
+    padding-left: 3px;
+    font-size: .9em;
+    color: #959595;
+}
 
 
 

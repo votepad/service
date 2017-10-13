@@ -111,7 +111,7 @@ class Model_Event extends Model
 
     }
 
-    public function getAssistants() {
+    public function getAllAssistants() {
 
         $selection = Dao_UsersEvents::select('u_id')
             ->where('e_id', '=', $this->id)
@@ -119,6 +119,7 @@ class Model_Event extends Model
             ->execute('u_id');
 
         $users = array();
+
         foreach ($selection as $id => $value) {
 
             array_push($users, new Model_User($id));
@@ -155,7 +156,7 @@ class Model_Event extends Model
 
     public function getInviteLink() {
 
-        $hash = hash('sha256', $this->organization . getenv('SALT') . $this->id);
+        $hash = hash('sha256', getenv('SALT') . $this->id);
         return '/event/' . $this->id . '/invite/' . $hash;
 
     }

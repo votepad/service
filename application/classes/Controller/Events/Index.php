@@ -110,24 +110,18 @@ class Controller_Events_Index extends Dispatch
     public function action_assistants()
     {
 
-        $this->event->assistants = $this->event->getAssistants();
+        $this->event->assistants = $this->event->getAllAssistants();
 
-        if (empty($this->user) || !$this->organization->isMember($this->user->id)) {
-            throw new HTTP_Exception_403();
-        }
-
-        $requests_ids =  $this->redis->sMembers('votepad.orgs:' . $this->event->organization . ':events:' . $this->event->id . ':assistants.requests');
+        $requests_ids =  $this->redis->sMembers(getenv('REDIS_EVENTS') . $this->event->id . ':assistants.requests');
         $requests = array();
 
         foreach ($requests_ids as $id) {
             array_push($requests, new Model_User($id));
         }
 
-        $this->template->mainSection = View::factory('events/settings/assistants')
+        $this->template->mainSection->page = View::factory('events/pages/settings-assistants')
             ->set('event', $this->event)
-            ->set('organization', $this->organization)
-            ->set('requests', $requests)
-            ->set('invite_link', $this->event->getInviteLink());
+            ->set('requests', $requests);
 
     }
 
