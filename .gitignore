@@ -7,7 +7,7 @@ uploads/
 
 # Bundler
 node_modules/*
-assets/vendor/*
+
 
 # Media files
 assets/img/*
