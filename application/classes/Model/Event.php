@@ -16,7 +16,7 @@ class Model_Event extends Model
     public $description;
     public $uri;            // UNIQUE
     public $code = null;    // $eventCode - code for judges
-    public $branding = "no-cover.png"; // [Text] - path to cover
+    public $branding = "no-branding.png"; // [Text] - path to cover
     public $tags = "";      // [String] - with delimiter `,`
     public $address;        // [Text]
     public $dt_start;       // [datetime] - Beggining time

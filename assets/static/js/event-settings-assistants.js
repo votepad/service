@@ -7,7 +7,7 @@ var eventAssistants = function (eventAssistants) {
 
         var formData = new FormData(),
             block    = document.getElementById(assistant.area);
-console.log(assistant);
+
         formData.append('id', assistant.id);
         formData.append('method', assistant.method);
         formData.append('event', assistant.event);
@@ -49,38 +49,35 @@ console.log(assistant);
 
 
     eventAssistants.acceptRequest = function (element) {
-        var addAssistant = {
+        submitAssistant_({
             area:  'requestsArea',
             block:  element.closest('tr'),
             method: 'add',
             event:  element.dataset.event,
             id:     element.dataset.id
-        };
-        submitAssistant_(addAssistant);
+        });
     };
 
 
     eventAssistants.rejectRequest = function (element) {
-        var rejectAssistant = {
+        submitAssistant_({
             area:  'requestsArea',
             block:  element.closest('tr'),
             method: 'reject',
             event:  element.dataset.event,
             id:     element.dataset.id
-        };
-        submitAssistant_(rejectAssistant);
+        });
     };
 
 
     eventAssistants.excludeAssistant = function (element) {
-        var removedAssistant = {
+        submitAssistant_({
             area:  'assistantsArea',
             block:  element.closest('tr'),
             method: 'remove',
             event:  element.dataset.event,
             id:     element.dataset.id
-        };
-        submitAssistant_(removedAssistant);
+        });
     };
 
 
