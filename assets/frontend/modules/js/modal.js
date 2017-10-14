@@ -180,11 +180,13 @@ module.exports = (function (modal) {
 
     modal.remove = function (element) {
 
-        var block = null;
+        var block       = null,
+            hasBackdrop = false;
 
         if (element.nodeType === 1) {
 
             block = element;
+            hasBackdrop = true;
 
         } else {
 
@@ -209,7 +211,8 @@ module.exports = (function (modal) {
 
             block.classList.remove('modal--opened', 'modal--closing');
             document.body.classList.remove('overflow--hidden');
-            document.getElementsByClassName('modal-backdrop')[0].remove();
+            if (hasBackdrop)
+                document.getElementsByClassName('modal-backdrop')[0].remove();
             block.remove();
 
         }, 200);

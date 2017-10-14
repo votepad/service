@@ -3,45 +3,43 @@
 class Methods_Judges extends Model_Judge
 {
 
-    const UPDATE = "update";
-    const DELETE = "delete";
-    const INSERT = "insert";
-    const SELECT = "select";
-
     /**
+     * Get all judges by event ID
      * @param $id_event
-     *
-     * @return array result -- judges models
+     * @return array [Model_Judge]
      */
     public static function getByEvent($id_event) {
 
-        $judges = Dao_Judges::select()
+        $select = Dao_Judges::select()
             ->where('event', '=', $id_event)
             ->order_by('id', 'ASC')
             ->execute();
 
-        if (!$judges) {
-            return array();
+        $judges = array();
+
+        if ($select) {
+            foreach($select as $db_selection) {
+                $judge = new Model_Judge();
+                $judge->id        = $db_selection['id'];
+                $judge->event     = $db_selection['event'];
+                $judge->name      = $db_selection['name'];
+                $judge->password  = $db_selection['password'];
+                $judge->dt_create = $db_selection['dt_create'];
+                array_push($judges, $judge);
+            };
         }
 
-        $result = array();
-
-        foreach($judges as $judge) {
-
-            $model = new Model_Judge();
-            $model->id       = $judge['id'];
-            $model->event    = $judge['event'];
-            $model->name     = $judge['name'];
-            $model->password = $judge['password'];
-
-            array_push($result, $model);
-
-        };
-
-        return $result;
+        return $judges;
 
     }
 
+
+    /**
+     * Get judge by event ID and password
+     * @param $id_event
+     * @param $password
+     * @return Model_Judge
+     */
     public static function getJudge($id_event, $password) {
 
         $judge = Dao_Judges::select()
