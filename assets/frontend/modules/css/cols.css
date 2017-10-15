@@ -18,10 +18,10 @@ ld =>   > 1240
     float: left;
 }
 
-.width-0, .width-50, .width-75, .width-100, .width-180, .width-200, .width-260, .width-290, .width-300, .width-360, .width-460, .width-560, .width-640, .width-780, .width-840, .width-980, .width-1180, .width-full, .width-auto,
-.width-sm-0, .width-sm-50, .width-sm-75, .width-sm-100, .width-sm-180, .width-sm-200, .width-sm-260, .width-sm-290, .width-sm-300, .width-sm-360, .width-sm-460, .width-sm-560, .width-sm-640, .width-sm-780, .width-sm-840, .width-sm-980, .width-sm-1180, .width-sm-full, .width-sm-auto,
-.width-md-0, .width-md-50, .width-md-75, .width-md-100, .width-md-180, .width-md-200, .width-md-260, .width-md-290, .width-md-300, .width-md-360, .width-md-460, .width-md-560, .width-md-640, .width-md-780, .width-md-840, .width-md-980, .width-md-1180, .width-md-full, .width-md-auto,
-.width-lg-0, .width-lg-50, .width-lg-75, .width-lg-100, .width-lg-180, .width-lg-200, .width-lg-260, .width-lg-290, .width-lg-300, .width-lg-360, .width-lg-460, .width-lg-560, .width-lg-640, .width-lg-780, .width-lg-840, .width-lg-980, .width-lg-1180, .width-lg-full, .width-lg-auto{
+.width-0, .width-50, .width-75, .width-100, .width-180, .width-200, .width-260, .width-290, .width-300, .width-360, .width-390, .width-460, .width-560, .width-640, .width-780, .width-840, .width-980, .width-1180, .width-full, .width-auto,
+.width-sm-0, .width-sm-50, .width-sm-75, .width-sm-100, .width-sm-180, .width-sm-200, .width-sm-260, .width-sm-290, .width-sm-300, .width-sm-360, .width-sm-390, .width-sm-460, .width-sm-560, .width-sm-640, .width-sm-780, .width-sm-840, .width-sm-980, .width-sm-1180, .width-sm-full, .width-sm-auto,
+.width-md-0, .width-md-50, .width-md-75, .width-md-100, .width-md-180, .width-md-200, .width-md-260, .width-md-290, .width-md-300, .width-md-360, .width-md-390, .width-md-460, .width-md-560, .width-md-640, .width-md-780, .width-md-840, .width-md-980, .width-md-1180, .width-md-full, .width-md-auto,
+.width-lg-0, .width-lg-50, .width-lg-75, .width-lg-100, .width-lg-180, .width-lg-200, .width-lg-260, .width-lg-290, .width-lg-300, .width-lg-360, .width-lg-390, .width-lg-460, .width-lg-560, .width-lg-640, .width-lg-780, .width-lg-840, .width-lg-980, .width-lg-1180, .width-lg-full, .width-lg-auto{
     float: left;
 }
 
@@ -64,6 +64,7 @@ ld =>   > 1240
 .width-290{width:290px;}
 .width-300{width:300px;}
 .width-360{width:360px;}
+.width-390{width:390px;}
 .width-460{width:460px;}
 .width-560{width:560px;}
 .width-640{width:640px;}
@@ -114,6 +115,7 @@ ld =>   > 1240
     .width-sm-290{width:290px;}
     .width-sm-300{width:300px;}
     .width-sm-360{width:360px;}
+    .width-sm-390{width:390px;}
     .width-sm-460{width:460px;}
     .width-sm-560{width:560px;}
     .width-sm-640{width:640px;}
@@ -166,6 +168,7 @@ ld =>   > 1240
     .width-md-290{width:290px;}
     .width-md-300{width:300px;}
     .width-md-360{width:360px;}
+    .width-md-390{width:390px;}
     .width-md-460{width:460px;}
     .width-md-560{width:560px;}
     .width-md-640{width:640px;}
@@ -217,6 +220,7 @@ ld =>   > 1240
     .width-lg-290{width:290px;}
     .width-lg-300{width:300px;}
     .width-lg-360{width:360px;}
+    .width-lg-390{width:390px;}
     .width-lg-460{width:460px;}
     .width-lg-560{width:560px;}
     .width-lg-640{width:640px;}

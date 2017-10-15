@@ -43,6 +43,8 @@ var eventJudges = function (eventJudges) {
                             '<i class="fa fa-trash" aria-hidden="true"></i>' +
                         '</a>';
                     judgesTable.rows().add([response.judge.name,eventCode,response.judge.password, btns ]);
+                    judgesTable.data[judgesTable.data.length - 1].id = "judge_" + response.judge.id;
+                    judgesTable.data[judgesTable.data.length - 1].querySelector("td:last-child").classList.add('text-center');
                     judgesTable.body.querySelector("tr:last-child").id = "judge_" + response.judge.id;
                     judgesTable.body.querySelector("tr:last-child").querySelector("td:last-child").classList.add('text-center');
                 }
@@ -119,12 +121,12 @@ var eventJudges = function (eventJudges) {
     var deleteJudge_ = function () {
 
         var form     = document.getElementsByClassName('notification--confirm')[0],
-            deleteID = document.getElementById('deleteJudgeID').value,
+            deleteEl = document.getElementById('deleteJudgeID'),
             formData = new FormData();
 
         formData.append('csrf', document.getElementById('csrf').value);
         formData.append('event', eventID);
-        formData.append('id', deleteID);
+        formData.append('id', deleteEl.value);
 
         var ajaxData = {
             url: '/judge/delete',
@@ -138,7 +140,8 @@ var eventJudges = function (eventJudges) {
                 form.classList.remove('loading');
 
                 if (parseInt(response.code) === 75) {
-                    judgesTable.body.querySelector('#judge_' + deleteID).remove();
+                    judgesTable.rows().remove(parseInt(deleteEl.dataset.row));
+
                 }
 
                 vp.notification.notify({
@@ -210,11 +213,14 @@ var eventJudges = function (eventJudges) {
 
 
     eventJudges.delete = function (element) {
+        var row = judgesTable.activeRows.findIndex(function(row) {
+                return row.id === 'judge_' + element.dataset.id;
+        });
         vp.notification.notify({
             type: 'confirm',
             message:
                 '<h3 class="text-brand">Подвердите удаление представителя жюри</h3>' +
-                '<input type="hidden" id="deleteJudgeID" value="' + element.dataset.id + '">',
+                '<input type="hidden" id="deleteJudgeID" value="' + element.dataset.id + '" data-row="' + row + '">',
             showCancelButton: true,
             confirmText: "Удалить",
             cancelText: "Отмена",
