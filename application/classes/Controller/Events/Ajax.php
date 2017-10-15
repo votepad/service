@@ -122,37 +122,34 @@ class Controller_Events_Ajax extends Ajax {
         $this->response->body(@json_encode($response->get_response()));
     }
 
-
-
+  
+    /*
+     * Assistant actions
+     * - based on method
+     */
     public function action_assistant() {
 
-        $method  = $this->request->param('method');
-        $eventId = $this->request->param('id');
-        $userId  = $this->request->param('userId');
+        $method  = Arr::get($_POST,'method');
+        $eventId = Arr::get($_POST,'event');
+        $userId  = Arr::get($_POST,'id');
 
         $user = new Model_User($userId);
-        $event  = new Model_Event($eventId);
-
-        $this->redis->sRem('votepad.orgs:' . $event->organization . ':events:' . $event->id . ':assistants.requests', $user->id);
 
         if (!$user->id) {
-
-            $response = new Model_Response_Auth('USER_DOES_NOT_EXIST_ERROR', 'error');
-
+            $response = new Model_Response_User('USER_DOES_NOT_EXISTED_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
+
+        $event  = new Model_Event($eventId);
 
         if (!$event->id) {
-
             $response = new Model_Response_Event('EVENT_DOES_NOT_EXIST_ERROR', 'error');
-
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
 
+        $this->redis->sRem(getenv('REDIS_EVENTS') . $event->id . ':assistants.requests', $user->id);
 
         switch($method) {
             case 'add': $this->add_assistant($event, $user); break;
@@ -163,78 +160,59 @@ class Controller_Events_Ajax extends Ajax {
 
     }
 
+
+    /**
+     * Add assistant
+     * @param $event - [Model_Event]
+     * @param $user - [Model_User]
+     */
     private function add_assistant($event, $user) {
 
         if ($event->isAssistant($user->id)) {
-
             $response = new Model_Response_Event('USER_IS_ALREADY_ASSISTANT_ERROR', 'error');
-
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
 
         $event->addAssistant($user->id);
 
         $response = new Model_Response_Event('ADD_ASSISTANT_SUCCESS', 'success');
-
         $this->response->body(@json_encode($response->get_response()));
-        return;
+    }
+
+
+    /**
+     * Reject assistant
+     */
+    private function reject_assistant() {
+
+        $response = new Model_Response_Event('REJECT_ASSISTANT_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
 
     }
 
+
+    /**
+     * Remove assistant
+     * @param $event - [Model_Event]
+     * @param $user - [Model_User]
+     */
     private function remove_assistant($event, $user) {
 
-        if (!$event->isCreator($user->id)) {
-
+        if ($event->isCreator($user->id)) {
             $response = new Model_Response_Event('USER_IS_CREATOR_ERROR', 'error');
-
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
-
-//        if (!$event->isAssistant($user->id)) {
-//
-//            $response = new Model_Response_Event('USER_IS_NOT_ASSISTANT_ERROR', 'error');
-//
-//            $this->response->body(@json_encode($response->get_response()));
-//            return;
-//
-//        }
 
         $event->removeAssistant($user->id);
 
         $response = new Model_Response_Event('REMOVE_ASSISTANT_SUCCESS', 'success');
-
         $this->response->body(@json_encode($response->get_response()));
-        return;
-
     }
 
-    private function reject_assistant() {
-
-        $response = new Model_Response_Event('REJECT_ASSISTANT_SUCCESS', 'success');
-
-        $this->response->body(@json_encode($response->get_response()));
-        return;
-
-    }
-
-    public function action_checkwebsite()
-    {
-        $uri = $this->request->param('website');
-
-        $result = Model_Event::getByFieldName('uri', $uri);
-
-        if (Arr::get($result,'id')) {
-            echo "true";
-        } else {
-            echo "false";
-        }
-
-    }
-
+  
+    /** not using now */
     public function action_result()
     {
         $method  = $this->request->param('method');

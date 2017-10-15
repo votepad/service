@@ -5,7 +5,8 @@ class Methods_Plural
 
     public static function getWithPlural($number, $key) {
         $format = array(
-            'events'    => array('мероприятие','мероприятия','мероприятий'),
+            'events'     => array('мероприятие','мероприятия','мероприятий'),
+            'assistants' => array('помощник','помощника','помощников'),
         );
 
         $forms = $format[$key];

@@ -16,7 +16,7 @@ class Model_Event extends Model
     public $description;
     public $uri;            // UNIQUE
     public $code = null;    // $eventCode - code for judges
-    public $branding = "no-cover.png"; // [Text] - path to cover
+    public $branding = "no-branding.png"; // [Text] - path to cover
     public $tags = "";      // [String] - with delimiter `,`
     public $address;        // [Text]
     public $dt_start;       // [datetime] - Beggining time
@@ -111,7 +111,7 @@ class Model_Event extends Model
 
     }
 
-    public function getAssistants() {
+    public function getAllAssistants() {
 
         $selection = Dao_UsersEvents::select('u_id')
             ->where('e_id', '=', $this->id)
@@ -119,6 +119,7 @@ class Model_Event extends Model
             ->execute('u_id');
 
         $users = array();
+
         foreach ($selection as $id => $value) {
 
             array_push($users, new Model_User($id));
@@ -155,8 +156,19 @@ class Model_Event extends Model
 
     public function getInviteLink() {
 
-        $hash = hash('sha256', $this->organization . getenv('SALT') . $this->id);
+        $hash = hash('sha256', getenv('SALT') . $this->id);
         return '/event/' . $this->id . '/invite/' . $hash;
+
+    }
+
+    /**
+     * Checking inviting hash
+     * @param $hash - event hash
+     * @return bool
+     */
+    public function checkInviteLink($hash) {
+
+        return $hash == hash('sha256', getenv('SALT') . $this->id);
 
     }
 
