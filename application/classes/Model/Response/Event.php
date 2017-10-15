@@ -8,17 +8,44 @@ class Model_Response_Event extends  Model_Response_Abstract
         'message' => 'Мероприяие успешно создано'
     );
 
-    protected $_EVENT_REESTABLISH_SUCCESS = array(
-        'type' => 'events',
-        'code' => '51',
-        'message' => 'Org is reestablished'
-    );
-
     protected $_EVENT_DOES_NOT_EXIST_ERROR = array(
         'type' => 'events',
-        'code' => '52',
-        'message' => 'Org does not exist'
+        'code' => '51',
+        'message' => 'Мероприяие не существует. Перезагрузите страницу.'
     );
+
+    protected $_EVENT_UPDATE_SUCCESS = array(
+        'type' => 'events',
+        'code' => '52',
+        'message' => 'Информация о мероприяие успешно изменена'
+    );
+
+    protected $_EVENT_PUBLISH_ERROR = array(
+        'type' => 'events',
+        'code' => '53',
+        'message' => 'Мероприяие было опубликовано ранее'
+    );
+
+    protected $_EVENT_UNPUBLISH_ERROR = array(
+        'type' => 'events',
+        'code' => '53',
+        'message' => 'Мероприяие было снято с публикации ранее'
+    );
+
+    protected $_EVENT_PUBLISH_SUCCESS = array(
+        'type' => 'events',
+        'code' => '54',
+        'message' => 'Мероприяие успешно опубликовано'
+    );
+
+    protected $_EVENT_UNPUBLISH_SUCCESS = array(
+        'type' => 'events',
+        'code' => '54',
+        'message' => 'Мероприяие успешно снято с публикации'
+    );
+
+
+
 
     protected $_USER_IS_ALREADY_ASSISTANT_ERROR = array(
         'type' => 'events',

@@ -40,6 +40,90 @@ class Controller_Events_Ajax extends Ajax {
 
 
     /**
+     * Update Event Info
+     */
+    public function action_update() {
+        $id          = Arr::get($_POST, 'id');
+        $name        = Arr::get($_POST, 'name');
+        $description = Arr::get($_POST, 'description');
+        $tags        = Arr::get($_POST, 'tags');
+        $start       = Arr::get($_POST, 'start');
+        $end         = Arr::get($_POST, 'end');
+        $address     = Arr::get($_POST, 'address');
+
+        if (empty($name) || empty($description) || empty($tags) || empty($start) || empty($end) || empty($address)) {
+            $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $event = new Model_Event($id);
+
+        if (!$event->id) {
+            $response = new Model_Response_Event('EVENT_DOES_NOT_EXIST_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($event->name == $name && $event->description == $description && $event->tags == $tags && $event->address == $address &&
+            strtotime($event->dt_start) == strtotime($start) && strtotime($event->dt_end) == strtotime($end)) {
+
+            $response = new Model_Response_Form('NOTHING_CHANGE_WARNING', 'warning');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $event->name         = $name;
+        $event->description  = $description;
+        $event->tags         = $tags;
+        $event->dt_start     = $start;
+        $event->dt_end       = $end;
+        $event->address      = $address;
+
+        $event->update();
+
+        $response = new Model_Response_Event('EVENT_UPDATE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+
+    /**
+     * Update Type of Event
+     * $type = 0 - draft
+     * $type = 1 - published
+     */
+    public function action_publish() {
+        $id   = Arr::get($_POST, 'id');
+        $type = Arr::get($_POST, 'type');
+
+        $event = new Model_Event($id);
+
+        if (!$event->id) {
+            $response = new Model_Response_Event('EVENT_DOES_NOT_EXIST_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($type == $event->type) {
+            if ($type == 0)
+                $response = new Model_Response_Event('EVENT_UNPUBLISH_ERROR', 'error');
+            else
+                $response = new Model_Response_Event('EVENT_PUBLISH_ERROR', 'error');
+        } else {
+            $event->type = $type;
+            $event->update();
+
+            if ($type == 0)
+                $response = new Model_Response_Event('EVENT_UNPUBLISH_SUCCESS', 'success');
+            else
+                $response = new Model_Response_Event('EVENT_PUBLISH_SUCCESS', 'success');
+        }
+
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+  
+    /*
      * Assistant actions
      * - based on method
      */
@@ -127,8 +211,8 @@ class Controller_Events_Ajax extends Ajax {
         $this->response->body(@json_encode($response->get_response()));
     }
 
-
-
+  
+    /** not using now */
     public function action_result()
     {
         $method  = $this->request->param('method');
