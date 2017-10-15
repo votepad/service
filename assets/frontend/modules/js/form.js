@@ -149,7 +149,7 @@ module.exports = (function (form) {
 
         input = document.getElementById(input);
 
-        if (!input.nodeType) {
+        if (!input) {
 
             vp.core.log('Could not initialize input', 'error', 'VP form');
             return;

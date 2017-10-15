@@ -92,8 +92,11 @@ var eventJudges = function (eventJudges) {
                 form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
 
                 if (parseInt(response.code) === 74) {
+                    console.log(judgesTable.data[form.dataset.row]);
+                    judgesTable.data[form.dataset.row].querySelector("td:nth-child(1)").textContent = response.judge.name;
+                    judgesTable.data[form.dataset.row].querySelector("td:nth-child(2)").textContent = response.judge.password;
                     judgesTable.body.querySelector('#judge_' + response.judge.id).getElementsByTagName('td')[0].textContent = response.judge.name;
-                    judgesTable.body.querySelector('#judge_' + response.judge.id).getElementsByTagName('td')[1].textContent = response.judge.password
+                    judgesTable.body.querySelector('#judge_' + response.judge.id).getElementsByTagName('td')[1].textContent = response.judge.password;
                     vp.modal.remove(judgeModal);
                 }
 
@@ -141,7 +144,6 @@ var eventJudges = function (eventJudges) {
 
                 if (parseInt(response.code) === 75) {
                     judgesTable.rows().remove(parseInt(deleteEl.dataset.row));
-
                 }
 
                 vp.notification.notify({
@@ -194,18 +196,24 @@ var eventJudges = function (eventJudges) {
         vp.form.initInput('judgeModalName');
         vp.form.initInput('judgeModalPassword');
 
-        if (element.id)
+        if (element.id) {
             document.getElementById('judgeModal').addEventListener('submit', updateJudge_);
-        else
+            document.getElementById('judgeModal').dataset.row = element.row;
+        } else {
             document.getElementById('judgeModal').addEventListener('submit', createJudge_);
+        }
 
     };
 
 
 
     eventJudges.edit = function (element) {
+        var row = judgesTable.activeRows.findIndex(function(row) {
+            return row.id === 'judge_' + element.dataset.id;
+        });
         createModalForJudge_({
             id:       element.dataset.id,
+            row:      row,
             name:     element.closest('tr').getElementsByTagName('td')[0].textContent,
             password: element.closest('tr').getElementsByTagName('td')[1].textContent
         });
@@ -214,7 +222,7 @@ var eventJudges = function (eventJudges) {
 
     eventJudges.delete = function (element) {
         var row = judgesTable.activeRows.findIndex(function(row) {
-                return row.id === 'judge_' + element.dataset.id;
+            return row.id === 'judge_' + element.dataset.id;
         });
         vp.notification.notify({
             type: 'confirm',
