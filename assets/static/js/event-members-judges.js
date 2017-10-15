@@ -171,7 +171,7 @@ var eventJudges = function (eventJudges) {
             header: element.id ? 'Редактировать представителя жюри' : 'Создание представителя жюри',
             body:
                 '<div class="form-group">' +
-                    '<input id="judgeModalName" type="text" name="name" maxlength="128" value="' + (element.id ? element.name : '') + '" class="form-group__input" autocomplete="off">' +
+                    '<input id="judgeModalName" type="text" name="name" maxlength="65" value="' + (element.id ? element.name : '') + '" class="form-group__input" autocomplete="off">' +
                     '<label for="judgeModalName" class="form-group__label">Имя</label>' +
                 '</div>'+
                 '<div class="form-group">' +
