@@ -98,8 +98,8 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_info()
     {
-        $this->template->mainSection->page = '';//View::factory('events/pages/settings-info')
-            //->set('event', $this->event);
+        $this->template->mainSection->page = View::factory('events/pages/settings-info')
+            ->set('event', $this->event);
     }
 
 
