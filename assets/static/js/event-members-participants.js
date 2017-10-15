@@ -35,7 +35,7 @@ var eventParticipants = function (eventParticipants) {
                     vp.modal.remove(participantModal);
                     var photo =
                             '<a role="button" onclick="eventParticipants.updatePhoto(this)" data-id="' + response.participant.id + '">' +
-                                '<img class="thumb64 image--circle" alt="Participant logo" src="/uploads/participants/m_' + response.participant.logo + '">' +
+                                '<img id="participantLogo_' + response.participant.id + '" class="thumb64 image--circle" alt="Participant logo" src="/uploads/participants/m_' + response.participant.logo + '">' +
                             '</a>',
                         btns =
                             '<a role="button" class="text-brand text-center m-5" onclick="eventParticipants.edit(this)" data-id="' + response.participant.id + '">' +
@@ -208,6 +208,64 @@ var eventParticipants = function (eventParticipants) {
      */
     var updateParticipantLogo_ = function (id) {
 
+        var logo = document.getElementById('participantLogo_' + id),
+            oldLogoScr = logo.src;
+
+        var callbacks_ = {
+
+            beforeSend : function() {
+
+                var fileReader = new FileReader(),
+                    input = vp.transport.getInput(),
+                    file = input.files[0];
+
+                fileReader.readAsDataURL(file);
+
+                fileReader.onload = function(event) {
+
+                    logo.classList.add('image--loading');
+                    logo.src = event.target.result;
+
+                }
+            },
+
+            success : function(response) {
+
+                response = JSON.parse(response);
+
+                if (parseInt(response.code) !== 48) {
+                    logo.src = oldLogoScr;
+                    vp.notification.notify({
+                        type: response.status,
+                        message: response.message
+                    });
+                } else {
+                    logo.src = response.url;
+                }
+
+                logo.classList.remove('image--loading');
+            },
+
+            error : function(response) {
+
+                logo.src = oldLogoScr;
+                vp.core.log('error occur on updating participant logo', response.status, corePrefix);
+
+            }
+
+        };
+
+        vp.transport.init({
+            url : '/transport/4',
+            params : {
+                id : + id
+            },
+            multiple : false,
+            accept: '*',
+            beforeSend : callbacks_.beforeSend,
+            success : callbacks_.success,
+            error : callbacks_.error
+        });
     };
 
 

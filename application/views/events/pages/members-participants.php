@@ -28,8 +28,8 @@
                 <? foreach($participants as $key => $participant): ?>
                     <tr id="participant_<?= $participant->id ?>">
                         <td class="text-center">
-                            <a role="button" onclick="eventParticipants.updatePhoto(this)" data-id="<?= $event->id; ?>">
-                                <img class="thumb64 image--circle" alt="Participant logo" src="/uploads/participants/m_<?=$participant->logo; ?>">
+                            <a role="button" onclick="eventParticipants.updatePhoto(this)" data-id="<?= $participant->id; ?>">
+                                <img id="participantLogo_<?= $participant->id ?>" class="thumb64 image--circle" alt="Participant logo" src="/uploads/participants/m_<?=$participant->logo; ?>">
                             </a>
                         </td>
                         <td><?= $participant->name; ?></td>

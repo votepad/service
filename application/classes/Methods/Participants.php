@@ -26,7 +26,7 @@ class Methods_Participants extends Model_Participant
                 $participant->event = $db_selection['event'];
                 $participant->name  = $db_selection['name'];
                 $participant->about = $db_selection['about'];
-                $participant->photo = $db_selection['logo'];
+                $participant->logo = $db_selection['logo'];
 
                 array_push($participants, $participant);
             };
