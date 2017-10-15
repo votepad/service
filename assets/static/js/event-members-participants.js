@@ -44,7 +44,11 @@ var eventParticipants = function (eventParticipants) {
                             '<a role="button" class="text-danger text-center m-5" onclick="eventParticipants.delete(this)" data-id="' + response.participant.id + '">' +
                                 '<i class="fa fa-trash" aria-hidden="true"></i>' +
                             '</a>';
+
                     participantTable.rows().add([photo, response.participant.name,response.participant.about, btns ]);
+                    participantTable.data[participantTable.data.length - 1].id = "participant_" + response.participant.id;
+                    participantTable.data[participantTable.data.length - 1].querySelector("td:first-child").classList.add('text-center');
+                    participantTable.data[participantTable.data.length - 1].querySelector("td:last-child").classList.add('text-center');
                     participantTable.body.querySelector("tr:last-child").id = "participant_" + response.participant.id;
                     participantTable.body.querySelector("tr:last-child").querySelector("td:first-child").classList.add('text-center');
                     participantTable.body.querySelector("tr:last-child").querySelector("td:last-child").classList.add('text-center');
@@ -93,6 +97,8 @@ var eventParticipants = function (eventParticipants) {
                 form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
 
                 if (parseInt(response.code) === 84) {
+                    participantTable.data[form.dataset.row].querySelector("td:nth-child(2)").textContent = response.participant.name;
+                    participantTable.data[form.dataset.row].querySelector("td:nth-child(3)").textContent = response.participant.about;
                     participantTable.body.querySelector('#participant_' + response.participant.id).getElementsByTagName('td')[1].textContent = response.participant.name;
                     participantTable.body.querySelector('#participant_' + response.participant.id).getElementsByTagName('td')[2].textContent = response.participant.about;
                     vp.modal.remove(participantModal);
@@ -122,12 +128,12 @@ var eventParticipants = function (eventParticipants) {
     var deleteParticipant_ = function () {
 
         var form     = document.getElementsByClassName('notification--confirm')[0],
-            deleteID = document.getElementById('deleteParticipantID').value,
+            deleteEl = document.getElementById('deleteParticipantID'),
             formData = new FormData();
 
         formData.append('csrf', document.getElementById('csrf').value);
         formData.append('event', eventID);
-        formData.append('id', deleteID);
+        formData.append('id', deleteEl.value);
 
         var ajaxData = {
             url: '/participant/delete',
@@ -141,7 +147,7 @@ var eventParticipants = function (eventParticipants) {
                 form.classList.remove('loading');
 
                 if (parseInt(response.code) === 85) {
-                    participantTable.body.querySelector('#participant_' + deleteID).remove();
+                    participantTable.rows().remove(parseInt(deleteEl.dataset.row));
                 }
 
                 vp.notification.notify({
@@ -193,10 +199,12 @@ var eventParticipants = function (eventParticipants) {
         vp.form.initInput('participantModalName');
         vp.form.initTextarea('participantModalAbout');
 
-        if (element.id)
+        if (element.id) {
             document.getElementById('participantModal').addEventListener('submit', updateParticipant_);
-        else
+            document.getElementById('participantModal').dataset.row = element.row;
+        } else {
             document.getElementById('participantModal').addEventListener('submit', createParticipant_);
+        }
 
     };
 
@@ -206,7 +214,7 @@ var eventParticipants = function (eventParticipants) {
      * @param id - participant ID
      * @private
      */
-    var updateParticipantLogo_ = function (id) {
+    var updateParticipantLogo_ = function (id, row) {
 
         var logo = document.getElementById('participantLogo_' + id),
             oldLogoScr = logo.src;
@@ -241,6 +249,7 @@ var eventParticipants = function (eventParticipants) {
                     });
                 } else {
                     logo.src = response.url;
+                    participantTable.data[row].querySelector('#participantLogo_' + id).src = response.url;
                 }
 
                 logo.classList.remove('image--loading');
@@ -270,8 +279,12 @@ var eventParticipants = function (eventParticipants) {
 
 
     eventParticipants.edit = function (element) {
+        var row = participantTable.activeRows.findIndex(function(row) {
+            return row.id === 'participant_' + element.dataset.id;
+        });
         createModalForParticipant_({
             id:    element.dataset.id,
+            row:   row,
             name:  element.closest('tr').getElementsByTagName('td')[1].textContent,
             about: element.closest('tr').getElementsByTagName('td')[2].textContent
         });
@@ -279,11 +292,14 @@ var eventParticipants = function (eventParticipants) {
 
 
     eventParticipants.delete = function (element) {
+        var row = participantTable.activeRows.findIndex(function(row) {
+            return row.id === 'participant_' + element.dataset.id;
+        });
         vp.notification.notify({
             type: 'confirm',
             message:
                 '<h3 class="text-brand">Подвердите удаление учстника</h3>' +
-                '<input type="hidden" id="deleteParticipantID" value="' + element.dataset.id + '">',
+                '<input type="hidden" id="deleteParticipantID" value="' + element.dataset.id + '" data-row="' + row + '">',
             showCancelButton: true,
             confirmText: "Удалить",
             cancelText: "Отмена",
@@ -293,7 +309,10 @@ var eventParticipants = function (eventParticipants) {
 
 
     eventParticipants.updatePhoto = function (element) {
-        updateParticipantLogo_(element.dataset.id)
+        var row = participantTable.activeRows.findIndex(function(row) {
+            return row.id === 'participant_' + element.dataset.id;
+        });
+        updateParticipantLogo_(element.dataset.id, row)
     };
 
 
