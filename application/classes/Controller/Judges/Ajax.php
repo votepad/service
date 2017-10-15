@@ -52,11 +52,13 @@ class Controller_Judges_Ajax extends Ajax {
         if (!$judge->id) {
             $response = new Model_Response_Judge('JUDGE_DOES_NOT_EXISTED_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
+            return;
         }
 
         if ($judge->event != $event) {
             $response = new Model_Response_Judge('JUDGE_EVENT_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
+            return;
         }
 
         if ($judge->name == $name && $judge->password == $password) {
@@ -89,11 +91,13 @@ class Controller_Judges_Ajax extends Ajax {
         if (!$judge->id) {
             $response = new Model_Response_Judge('JUDGE_DOES_NOT_EXISTED_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
+            return;
         }
 
         if ($judge->event != $event) {
             $response = new Model_Response_Judge('JUDGE_EVENT_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
+            return;
         }
 
         $judge->delete();
