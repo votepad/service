@@ -92,7 +92,6 @@ var eventJudges = function (eventJudges) {
                 vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 74) {
-                    console.log(judgesTable.data[form.dataset.row]);
                     judgesTable.data[form.dataset.row].querySelector("td:nth-child(1)").textContent = response.judge.name;
                     judgesTable.data[form.dataset.row].querySelector("td:nth-child(2)").textContent = response.judge.password;
                     judgesTable.body.querySelector('#judge_' + response.judge.id).getElementsByTagName('td')[0].textContent = response.judge.name;
