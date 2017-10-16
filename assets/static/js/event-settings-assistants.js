@@ -1,16 +1,18 @@
 var eventAssistants = function (eventAssistants) {
 
-    var form         = null,
-        corePrefix   = "VP event settings";
+    var form            = null,
+        assistantsTable = null,
+        requestsTable   = null,
+        eventID         = null,
+        corePrefix      = "VP event settings";
 
     var submitAssistant_ = function (assistant) {
 
-        var formData = new FormData(),
-            block    = document.getElementById(assistant.area);
+        var formData = new FormData();
 
         formData.append('id', assistant.id);
         formData.append('method', assistant.method);
-        formData.append('event', assistant.event);
+        formData.append('event', eventID);
         formData.append('csrf', document.getElementById('csrf').value);
 
         var ajaxData = {
@@ -18,17 +20,21 @@ var eventAssistants = function (eventAssistants) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                block.classList.add('loading');
+                vp.form.addLoadingClass(assistant.area);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                block.classList.remove('loading');
+                vp.form.removeLoadingClass(assistant.area);
 
                 // ADD_ASSISTANT_SUCCESS    = 56
-                // REMOVE_ASSISTANT_SUCCESS = 57
                 // REJECT_ASSISTANT_SUCCESS = 58
-                if (parseInt(response.code) === 56 || parseInt(response.code) === 57 || parseInt(response.code) === 58) {
-                    assistant.block.remove()
+                if (parseInt(response.code) === 56 || parseInt(response.code) === 58) {
+                    requestsTable.rows().remove(parseInt(assistant.row));
+                }
+
+                // REMOVE_ASSISTANT_SUCCESS = 57
+                if (parseInt(response.code) === 57) {
+                    assistantsTable.rows().remove(parseInt(assistant.row));
                 }
 
                 vp.notification.notify({
@@ -40,7 +46,7 @@ var eventAssistants = function (eventAssistants) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on assistants request','error',corePrefix, callbacks);
-                block.classList.remove('loading');
+                vp.form.removeLoadingClass(assistant.area);
             }
         };
 
@@ -49,33 +55,39 @@ var eventAssistants = function (eventAssistants) {
 
 
     eventAssistants.acceptRequest = function (element) {
+        var row = requestsTable.activeRows.findIndex(function(row) {
+            return row.id === 'request_' + element.dataset.id;
+        });
         submitAssistant_({
-            area:  'requestsArea',
-            block:  element.closest('tr'),
+            area:   document.getElementById('requestsArea'),
+            row:    row,
             method: 'add',
-            event:  element.dataset.event,
             id:     element.dataset.id
         });
     };
 
 
     eventAssistants.rejectRequest = function (element) {
+        var row = requestsTable.activeRows.findIndex(function(row) {
+            return row.id === 'request_' + element.dataset.id;
+        });
         submitAssistant_({
-            area:  'requestsArea',
-            block:  element.closest('tr'),
+            area:   document.getElementById('requestsArea'),
+            row:    row,
             method: 'reject',
-            event:  element.dataset.event,
             id:     element.dataset.id
         });
     };
 
 
     eventAssistants.excludeAssistant = function (element) {
+        var row = requestsTable.activeRows.findIndex(function(row) {
+            return row.id === 'assistant_' + element.dataset.id;
+        });
         submitAssistant_({
-            area:  'assistantsArea',
-            block:  element.closest('tr'),
+            area:   document.getElementById('assistantsArea'),
+            row:    row,
             method: 'remove',
-            event:  element.dataset.event,
             id:     element.dataset.id
         });
     };
@@ -83,7 +95,9 @@ var eventAssistants = function (eventAssistants) {
 
     var prepare_ = function() {
 
-        var assistantsTable = new DataTable('#assistantsTable', {
+        eventID = document.getElementById('eventID').value;
+
+        assistantsTable = new DataTable('#assistantsTable', {
             perPage: 100,
             searchable: true,
             sortable: false,
@@ -100,7 +114,7 @@ var eventAssistants = function (eventAssistants) {
         assistantsTable.wrapper.getElementsByClassName('dataTable-bottom')[0].remove();
 
         if (document.getElementById('requestsTable')) {
-            var requestsTable = new DataTable('#requestsTable', {
+            requestsTable = new DataTable('#requestsTable', {
                 perPage: 100,
                 searchable: true,
                 sortable: false,
