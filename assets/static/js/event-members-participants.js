@@ -25,11 +25,11 @@ var eventParticipants = function (eventParticipants) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+                vp.form.addLoadingClass(form)
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 80) {
                     vp.modal.remove(participantModal);
@@ -63,7 +63,7 @@ var eventParticipants = function (eventParticipants) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on creating participant','error',corePrefix, callbacks);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 
@@ -90,11 +90,11 @@ var eventParticipants = function (eventParticipants) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 84) {
                     participantTable.data[form.dataset.row].querySelector("td:nth-child(2)").textContent = response.participant.name;
@@ -113,7 +113,7 @@ var eventParticipants = function (eventParticipants) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on updating participant','error',corePrefix, callbacks);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 
@@ -140,11 +140,11 @@ var eventParticipants = function (eventParticipants) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 85) {
                     participantTable.rows().remove(parseInt(deleteEl.dataset.row));
@@ -159,7 +159,7 @@ var eventParticipants = function (eventParticipants) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on deleting participant','error',corePrefix, callbacks);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 
