@@ -122,9 +122,16 @@ var eventJudges = function (eventJudges) {
      */
     var deleteJudge_ = function () {
 
-        var form     = document.getElementsByClassName('notification--confirm')[0],
+        var form     = document.getElementsByClassName('notification--confirm'),
             deleteEl = document.getElementById('deleteJudgeID'),
             formData = new FormData();
+
+        if (form.length) {
+            form = form[0];
+        } else {
+            vp.core.log('Could nor catch element', 'error', corePrefix);
+            return;
+        }
 
         formData.append('csrf', document.getElementById('csrf').value);
         formData.append('event', eventID);
