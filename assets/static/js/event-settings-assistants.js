@@ -107,11 +107,11 @@ var eventAssistants = function (eventAssistants) {
             }
         });
 
-        assistantsTable.wrapper.getElementsByClassName('dataTable-dropdown')[0].innerHTML =
+        assistantsTable.wrapper.querySelector('.dataTable-dropdown').innerHTML =
             '<a role="button" class="ui-btn ui-btn--1" data-toggle="modal" data-area="inviteModal">' +
                 'Пригласить помощника' +
             '</a>';
-        assistantsTable.wrapper.getElementsByClassName('dataTable-bottom')[0].remove();
+        assistantsTable.wrapper.querySelector('.dataTable-bottom').remove();
 
         if (document.getElementById('requestsTable')) {
             requestsTable = new DataTable('#requestsTable', {
@@ -124,8 +124,8 @@ var eventAssistants = function (eventAssistants) {
                 }
             });
 
-            requestsTable.wrapper.getElementsByClassName('dataTable-top')[0].remove();
-            requestsTable.wrapper.getElementsByClassName('dataTable-bottom')[0].remove();
+            requestsTable.wrapper.querySelector('.dataTable-top').remove();
+            requestsTable.wrapper.querySelector('.dataTable-bottom').remove();
         }
 
     };

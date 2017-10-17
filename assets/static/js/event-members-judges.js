@@ -122,13 +122,11 @@ var eventJudges = function (eventJudges) {
      */
     var deleteJudge_ = function () {
 
-        var form     = document.getElementsByClassName('notification--confirm'),
+        var form     = document.querySelector('.notification--confirm'),
             deleteEl = document.getElementById('deleteJudgeID'),
             formData = new FormData();
 
-        if (form.length) {
-            form = form[0];
-        } else {
+        if (!form || !deleteEl) {
             vp.core.log('Could nor catch element', 'error', corePrefix);
             return;
         }
@@ -296,11 +294,11 @@ var eventJudges = function (eventJudges) {
 
         judgesTable.columns().hide([ 1 ]);
 
-        judgesTable.wrapper.getElementsByClassName('dataTable-top')[0].innerHTML = "";
-        judgesTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(addBtn);
-        judgesTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(printBtn);
+        judgesTable.wrapper.querySelector('.dataTable-top').innerHTML = "";
+        judgesTable.wrapper.querySelector('.dataTable-top').appendChild(addBtn);
+        judgesTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
 
-        judgesTable.wrapper.getElementsByClassName('dataTable-bottom')[0].remove();
+        judgesTable.wrapper.querySelector('.dataTable-bottom').remove();
 
     };
 

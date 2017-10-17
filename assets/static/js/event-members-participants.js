@@ -127,13 +127,11 @@ var eventParticipants = function (eventParticipants) {
      */
     var deleteParticipant_ = function () {
 
-        var form     = document.getElementsByClassName('notification--confirm'),
+        var form     = document.querySelector('.notification--confirm'),
             deleteEl = document.getElementById('deleteParticipantID'),
             formData = new FormData();
 
-        if (form.length) {
-            form = form[0];
-        } else {
+        if (!form || !deleteEl) {
             vp.core.log('Could nor catch element', 'error', corePrefix);
             return;
         }
@@ -349,11 +347,11 @@ var eventParticipants = function (eventParticipants) {
         addBtn.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i><span class="ml-10">Добавить участника</span>';
         addBtn.addEventListener('click', createModalForParticipant_);
 
-        participantTable.wrapper.getElementsByClassName('dataTable-top')[0].innerHTML = "";
-        participantTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(addBtn);
-        participantTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(printBtn);
+        participantTable.wrapper.querySelector('.dataTable-top').innerHTML = "";
+        participantTable.wrapper.querySelector('.dataTable-top').appendChild(addBtn);
+        participantTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
 
-        participantTable.wrapper.getElementsByClassName('dataTable-bottom')[0].remove();
+        participantTable.wrapper.querySelector('.dataTable-bottom').remove();
 
     };
 
