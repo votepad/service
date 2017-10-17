@@ -29,7 +29,7 @@ class Model_Response_Participant extends  Model_Response_Abstract
     protected $_PARTICIPANT_UPDATE_SUCCESS = array(
         'type' => 'participant',
         'code' => '84',
-        'message' => 'Участник успешно обновлен'
+        'message' => 'Информация об участнике успешно обновлена'
     );
 
     protected $_PARTICIPANT_DELETE_SUCCESS = array(

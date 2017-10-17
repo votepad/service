@@ -298,11 +298,18 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_teams()
     {
+        $teams = Methods_Teams::getAllByEvent($this->event->id);
+
+        $this->template->mainSection->page = View::factory('events/pages/members-teams')
+            ->set('event', $this->event)
+            ->set('teams', $teams);
+
+        return;
         /**
          * getting all teams from event
          * and make an array of their IDs
          */
-        $teams = Methods_Teams::getAllTeams($this->event->id);
+        $teams = Methods_Teams::getAllByEvent($this->event->id);
         $participantsWoTeam = Methods_Teams::getParticipantsWhitOutTeam($this->event->id);
 
         $this->template->mainSection = View::factory('events/members/teams')

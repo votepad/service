@@ -63,5 +63,21 @@ return array(
             'b'  => array(true , 200),
             'm'  => array(true , 100),
         ),
+    ),
+
+    Model_Uploader::TEAM_LOGO => array(
+        'path' => 'uploads/teams/',
+        /**
+         * Image sizes config
+         * key - filename prefix_
+         * first argument  — need crop square or should resize with saving ratio
+         * second argument — max width
+         * third argument  — max height
+         */
+        'sizes' => array(
+            'b'  => array(true , 200),
+            'm'  => array(true , 100),
+        ),
     )
+
 );
