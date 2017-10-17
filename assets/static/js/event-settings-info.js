@@ -17,11 +17,11 @@ var eventInfo = function (eventInfo) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                block.classList.add('loading');
+                vp.form.addLoadingClass(block);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                block.classList.remove('loading');
+                vp.form.removeLoadingClass(block);
 
                 vp.notification.notify({
                     type: response.status,
@@ -37,7 +37,7 @@ var eventInfo = function (eventInfo) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on publishing event','error',corePrefix,callbacks);
-                block.classList.remove('loading');
+                vp.form.removeLoadingClass(block);
             }
         };
 
@@ -55,11 +55,11 @@ var eventInfo = function (eventInfo) {
             type: 'POST',
             data: new FormData(form),
             beforeSend: function(){
-                form.classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 vp.notification.notify({
                     type: response.status,
@@ -73,7 +73,7 @@ var eventInfo = function (eventInfo) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on updating event info','error',corePrefix,callbacks);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 

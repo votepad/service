@@ -27,11 +27,11 @@ var eventJudges = function (eventJudges) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 70) {
                     vp.modal.remove(judgeModal);
@@ -58,7 +58,7 @@ var eventJudges = function (eventJudges) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on creating judge','error',corePrefix, callbacks);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 
@@ -85,15 +85,17 @@ var eventJudges = function (eventJudges) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 74) {
+                    judgesTable.data[form.dataset.row].querySelector("td:nth-child(1)").textContent = response.judge.name;
+                    judgesTable.data[form.dataset.row].querySelector("td:nth-child(2)").textContent = response.judge.password;
                     judgesTable.body.querySelector('#judge_' + response.judge.id).getElementsByTagName('td')[0].textContent = response.judge.name;
-                    judgesTable.body.querySelector('#judge_' + response.judge.id).getElementsByTagName('td')[1].textContent = response.judge.password
+                    judgesTable.body.querySelector('#judge_' + response.judge.id).getElementsByTagName('td')[1].textContent = response.judge.password;
                     vp.modal.remove(judgeModal);
                 }
 
@@ -106,7 +108,7 @@ var eventJudges = function (eventJudges) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on updating judge','error',corePrefix, callbacks);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 
@@ -133,15 +135,14 @@ var eventJudges = function (eventJudges) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 75) {
                     judgesTable.rows().remove(parseInt(deleteEl.dataset.row));
-
                 }
 
                 vp.notification.notify({
@@ -153,7 +154,7 @@ var eventJudges = function (eventJudges) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on deleting judge','error',corePrefix, callbacks);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 
@@ -194,18 +195,24 @@ var eventJudges = function (eventJudges) {
         vp.form.initInput('judgeModalName');
         vp.form.initInput('judgeModalPassword');
 
-        if (element.id)
+        if (element.id) {
             document.getElementById('judgeModal').addEventListener('submit', updateJudge_);
-        else
+            document.getElementById('judgeModal').dataset.row = element.row;
+        } else {
             document.getElementById('judgeModal').addEventListener('submit', createJudge_);
+        }
 
     };
 
 
 
     eventJudges.edit = function (element) {
+        var row = judgesTable.activeRows.findIndex(function(row) {
+            return row.id === 'judge_' + element.dataset.id;
+        });
         createModalForJudge_({
             id:       element.dataset.id,
+            row:      row,
             name:     element.closest('tr').getElementsByTagName('td')[0].textContent,
             password: element.closest('tr').getElementsByTagName('td')[1].textContent
         });
@@ -214,7 +221,7 @@ var eventJudges = function (eventJudges) {
 
     eventJudges.delete = function (element) {
         var row = judgesTable.activeRows.findIndex(function(row) {
-                return row.id === 'judge_' + element.dataset.id;
+            return row.id === 'judge_' + element.dataset.id;
         });
         vp.notification.notify({
             type: 'confirm',

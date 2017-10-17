@@ -17,11 +17,11 @@ var newEvent = function (newEvent) {
             type: 'POST',
             data: new FormData(form),
             beforeSend: function(){
-                form.classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 50) {
                     window.location.replace(protocol + '//' + host + '/event/' + response.id + '/settings/info');
@@ -37,7 +37,7 @@ var newEvent = function (newEvent) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on creating new event','error',corePrefix,callbacks);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 

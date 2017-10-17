@@ -149,7 +149,7 @@ module.exports = (function (form) {
 
         input = document.getElementById(input);
 
-        if (!input.nodeType) {
+        if (!input) {
 
             vp.core.log('Could not initialize input', 'error', 'VP form');
             return;
@@ -177,6 +177,81 @@ module.exports = (function (form) {
 
 
     };
+
+    /**
+     * Add Class Loading to element
+     * @param element - ELEMENT_NODE
+     */
+    form.addLoadingClass = function (element) {
+
+        var block = null;
+
+        if (element.nodeType === 1) {
+
+            block = element;
+
+        } else {
+
+            vp.core.log('Could not catch element', 'error', 'VP form');
+            return;
+
+        }
+
+        if (block.classList.contains('modal')) {
+
+            block = block.getElementsByClassName('modal__wrapper')[0];
+
+        }
+
+        if (!block) {
+
+            vp.core.log('Could not catch element', 'error', 'VP form');
+            return;
+
+        }
+
+        block.classList.add('loading');
+
+    };
+
+
+
+    /**
+     * Add Class Loading to element
+     * @param element - ELEMENT_NODE
+     */
+    form.removeLoadingClass = function (element) {
+
+        var block = null;
+
+        if (element.nodeType === 1) {
+
+            block = element;
+
+        } else {
+
+            vp.core.log('Could not catch element', 'error', 'VP form');
+            return;
+
+        }
+
+        if (block.classList.contains('modal')) {
+
+            block = block.getElementsByClassName('modal__wrapper')[0];
+
+        }
+
+        if (!block) {
+
+            vp.core.log('Could not catch element', 'error', 'VP form');
+            return;
+
+        }
+
+        block.classList.remove('loading');
+
+    };
+
 
     form.initTextarea = function (textarea) {
 

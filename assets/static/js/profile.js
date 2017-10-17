@@ -128,11 +128,11 @@ var profile = (function (profile) {
             url: '/user/confirmemail',
             type: 'POST',
             beforeSend: function(){
-                profileWrap.classList.add('loading');
+                vp.form.addLoadingClass(profileWrap);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                profileWrap.classList.remove('loading');
+                vp.form.removeLoadingClass(profileWrap);
 
                 vp.core.log(response.message, response.status, corePrefix);
 
@@ -143,7 +143,7 @@ var profile = (function (profile) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on sending confirm email','error',corePrefix,callbacks);
-                profileWrap.classList.add('loading');
+                vp.form.removeLoadingClass(profileWrap);
             }
         };
 
@@ -159,11 +159,11 @@ var profile = (function (profile) {
             type: 'POST',
             data: new FormData(profileWrap),
             beforeSend: function(){
-                profileWrap.classList.add('loading');
+                vp.form.addLoadingClass(profileWrap);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                profileWrap.classList.remove('loading');
+                vp.form.removeLoadingClass(profileWrap);
 
                 vp.core.log(response.message, response.status, corePrefix);
 
@@ -174,7 +174,7 @@ var profile = (function (profile) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on sending profile form','error',corePrefix,callbacks);
-                profileWrap.classList.remove('loading');
+                vp.form.removeLoadingClass(profileWrap);
             }
         };
 
@@ -190,11 +190,12 @@ var profile = (function (profile) {
             type: 'POST',
             data: new FormData(changePassword),
             beforeSend: function(){
-                changePassword.classList.add('loading');
+                vp.form.addLoadingClass(changePassword);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                changePassword.classList.remove('loading');
+                vp.form.removeLoadingClass(changePassword);
+
                 vp.core.log(response.message, response.status, corePrefix);
                 vp.notification.notify({
                     type: response.status,
@@ -206,7 +207,7 @@ var profile = (function (profile) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on change password form','error',corePrefix,callbacks);
-                changePassword.classList.remove('loading');
+                vp.form.removeLoadingClass(changePassword);
             }
         };
 

@@ -42,7 +42,7 @@
                         </td>
                         <td class="text-center">
                             <? if ($event->creator != $assistant->id) :?>
-                                <button role="button" onclick="eventAssistants.excludeAssistant(this)" data-event="<?= $event->id; ?>" data-id="<?= $assistant->id ?>" class="ui-btn ui-btn--1">
+                                <button role="button" onclick="eventAssistants.excludeAssistant(this)" data-id="<?= $assistant->id ?>" class="ui-btn ui-btn--1">
                                     Исключить
                                 </button>
                             <? endif; ?>
@@ -90,11 +90,11 @@
                             <?= $user->email; ?>
                         </td>
                         <td class="text-center">
-                            <button role="button" onclick="eventAssistants.acceptRequest(this)" data-event="<?= $event->id; ?>" data-id="<?= $user->id ?>" class="link mb-10">
+                            <button role="button" onclick="eventAssistants.acceptRequest(this)" data-id="<?= $user->id ?>" class="link mb-10">
                                 Принять
                             </button>
                             <br>
-                            <button role="button" onclick="eventAssistants.rejectRequest(this)" data-event="<?= $event->id; ?>" data-id="<?= $user->id ?>" class="text-danger">
+                            <button role="button" onclick="eventAssistants.rejectRequest(this)" data-id="<?= $user->id ?>" class="text-danger">
                                 Отклонить
                             </button>
                         </td>
@@ -106,6 +106,8 @@
     </div>
 
 </div>
+
+<input type="hidden" id="eventID" value="<?= $event->id; ?>">
 
 <!--  Modal For Showing Invite Link  -->
 <div class="modal" id="inviteModal" tabindex="-1">
