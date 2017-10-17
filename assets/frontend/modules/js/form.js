@@ -145,6 +145,116 @@ module.exports = (function (form) {
 
     };
 
+    form.initInput = function (input) {
+
+        input = document.getElementById(input);
+
+        if (!input) {
+
+            vp.core.log('Could not initialize input', 'error', 'VP form');
+            return;
+
+        }
+
+        if (!input.parentNode.classList.contains('form-group--with-icon') &&
+                input.parentNode.getElementsByClassName('form-group__label')[0]) {
+
+            input.addEventListener('blur', checkOnEmptyValue_);
+            checkOnEmptyValue_(input);
+
+            if(input.hasAttribute('maxlength')) {
+
+                var counter = vp.draw.node('SPAN', 'form-group__counter');
+
+                counter.innerHTML = '0/' + input.getAttribute('maxlength');
+                input.parentNode.appendChild(counter);
+                input.addEventListener('keyup', updateCounter_);
+                updateCounter_(input);
+
+            }
+
+        }
+
+
+    };
+
+
+    /**
+     * Add Class Loading to element
+     * @param element - ELEMENT_NODE
+     */
+    form.addLoadingClass = function (element) {
+
+        var block = null;
+
+        if (element.nodeType === 1) {
+
+            block = element;
+
+        } else {
+
+            vp.core.log('Could not catch element', 'error', 'VP form');
+            return;
+
+        }
+
+        if (block.classList.contains('modal')) {
+
+            block = block.getElementsByClassName('modal__wrapper')[0];
+
+        }
+
+        if (!block) {
+
+            vp.core.log('Could not catch element', 'error', 'VP form');
+            return;
+
+        }
+
+        block.classList.add('loading');
+
+    };
+
+
+
+    /**
+     * Add Class Loading to element
+     * @param element - ELEMENT_NODE
+     */
+    form.removeLoadingClass = function (element) {
+
+        var block = null;
+
+        if (element.nodeType === 1) {
+
+            block = element;
+
+        } else {
+
+            vp.core.log('Could not catch element', 'error', 'VP form');
+            return;
+
+        }
+
+        if (block.classList.contains('modal')) {
+
+            block = block.getElementsByClassName('modal__wrapper')[0];
+
+        }
+
+        if (!block) {
+
+            vp.core.log('Could not catch element', 'error', 'VP form');
+            return;
+
+        }
+
+        block.classList.remove('loading');
+
+    };
+
+
+
     form.validate = function (formBlock) {
 
         return validateForm_(formBlock);

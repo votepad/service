@@ -266,12 +266,11 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_judges()
     {
-        $this->template->mainSection = View::factory('events/members/judges')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
+        $judges = Methods_Judges::getByEvent($this->event->id);
 
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
+        $this->template->mainSection->page = View::factory('events/pages/members-judges')
+            ->set('event', $this->event)
+            ->set('judges', $judges);
     }
 
 

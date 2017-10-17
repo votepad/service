@@ -122,8 +122,7 @@ class Controller_Events_Ajax extends Ajax {
         $this->response->body(@json_encode($response->get_response()));
     }
 
-  
-    /*
+    /**
      * Assistant actions
      * - based on method
      */
