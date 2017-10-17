@@ -85,11 +85,11 @@ var auth = (function (auth) {
             type: 'POST',
             data: new FormData(signIn),
             beforeSend: function(){
-                signIn.classList.add('loading');
+                vp.form.addLoadingClass(signIn);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                signIn.classList.remove('loading');
+                vp.form.removeLoadingClass(signIn);
 
                 vp.core.log(response.message, response.status, corePrefix);
 
@@ -105,7 +105,7 @@ var auth = (function (auth) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on signIn form','error',corePrefix ,callbacks);
-                signIn.classList.add('loading');
+                vp.form.removeLoadingClass(signIn);
             }
         };
 
@@ -124,11 +124,11 @@ var auth = (function (auth) {
             type: 'POST',
             data: new FormData(signInLogged),
             beforeSend: function(){
-                signInLogged.classList.add('loading');
+                vp.form.addLoadingClass(signInLogged);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                signInLogged.classList.remove('loading');
+                vp.form.removeLoadingClass(signInLogged);
 
                 vp.core.log(response.message, response.status, corePrefix);
 
@@ -154,7 +154,7 @@ var auth = (function (auth) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on SignInLogged form','error',corePrefix ,callbacks);
-                signInLogged.classList.add('loading');
+                vp.form.removeLoadingClass(signInLogged);
             }
         };
 
@@ -173,11 +173,11 @@ var auth = (function (auth) {
             type: 'POST',
             data: new FormData(judge),
             beforeSend: function(){
-                judge.classList.add('loading');
+                vp.form.addLoadingClass(judge);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                judge.classList.remove('loading');
+                vp.form.removeLoadingClass(judge);
 
                 vp.core.log(response.message, response.status, corePrefix);
 
@@ -198,7 +198,7 @@ var auth = (function (auth) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on judge form','error',corePrefix ,callbacks);
-                judge.classList.add('loading');
+                vp.form.removeLoadingClass(judge);
             }
         };
 
@@ -217,11 +217,11 @@ var auth = (function (auth) {
             type: 'POST',
             data: new FormData(forget),
             beforeSend: function(){
-                forget.classList.add('loading');
+                vp.form.addLoadingClass(forget);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                forget.classList.remove('loading');
+                vp.form.removeLoadingClass(forget);
 
                 vp.core.log(response.message, response.status, corePrefix);
 
@@ -235,7 +235,7 @@ var auth = (function (auth) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on forget form','error',corePrefix ,callbacks);
-                forget.classList.add('loading');
+                vp.form.removeLoadingClass(forget);
             }
         };
 
@@ -254,11 +254,11 @@ var auth = (function (auth) {
             type: 'POST',
             data: new FormData(reset),
             beforeSend: function(){
-                reset.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+                vp.form.addLoadingClass(reset);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                reset.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(reset);
 
                 vp.core.log(response.message, response.status, corePrefix);
 
@@ -280,7 +280,7 @@ var auth = (function (auth) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on reset form','error',corePrefix ,callbacks);
-                reset.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+                vp.form.removeLoadingClass(reset);
             }
         };
 
@@ -299,11 +299,11 @@ var auth = (function (auth) {
             type: 'POST',
             data: new FormData(registr),
             beforeSend: function(){
-                registr.classList.add('loading');
+                vp.form.addLoadingClass(registr);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                registr.classList.remove('loading');
+                vp.form.removeLoadingClass(registr);
 
                 vp.core.log(response.message, response.status, corePrefix);
 
@@ -318,7 +318,7 @@ var auth = (function (auth) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on registr form','error',corePrefix ,callbacks);
-                registr.classList.add('loading');
+                vp.form.removeLoadingClass(registr);
             }
         };
 

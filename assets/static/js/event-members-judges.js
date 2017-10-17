@@ -27,11 +27,11 @@ var eventJudges = function (eventJudges) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 70) {
                     vp.modal.remove(judgeModal);
@@ -58,7 +58,7 @@ var eventJudges = function (eventJudges) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on creating judge','error',corePrefix, callbacks);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 
@@ -85,14 +85,13 @@ var eventJudges = function (eventJudges) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.getElementsByClassName('modal__wrapper')[0].classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 74) {
-                    console.log(judgesTable.data[form.dataset.row]);
                     judgesTable.data[form.dataset.row].querySelector("td:nth-child(1)").textContent = response.judge.name;
                     judgesTable.data[form.dataset.row].querySelector("td:nth-child(2)").textContent = response.judge.password;
                     judgesTable.body.querySelector('#judge_' + response.judge.id).getElementsByTagName('td')[0].textContent = response.judge.name;
@@ -109,7 +108,7 @@ var eventJudges = function (eventJudges) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on updating judge','error',corePrefix, callbacks);
-                form.getElementsByClassName('modal__wrapper')[0].classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 
@@ -136,11 +135,11 @@ var eventJudges = function (eventJudges) {
             type: 'POST',
             data: formData,
             beforeSend: function(){
-                form.classList.add('loading');
+                vp.form.addLoadingClass(form);
             },
             success: function(response) {
                 response = JSON.parse(response);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
 
                 if (parseInt(response.code) === 75) {
                     judgesTable.rows().remove(parseInt(deleteEl.dataset.row));
@@ -155,7 +154,7 @@ var eventJudges = function (eventJudges) {
             },
             error: function(callbacks) {
                 vp.core.log('ajax error occur on deleting judge','error',corePrefix, callbacks);
-                form.classList.remove('loading');
+                vp.form.removeLoadingClass(form);
             }
         };
 

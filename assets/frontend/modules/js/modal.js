@@ -40,10 +40,9 @@ module.exports = (function (modal) {
             wrapper      = vp.draw.node('DIV', 'modal__wrapper'),
             header       = vp.draw.node('DIV', 'modal__header'),
             headerTitle  = vp.draw.node('H4', 'modal__title'),
-            closeHeadBtn = vp.draw.node('BUTTON', 'modal__title-close', {'data-close':'modal'}),
+            closeHeadBtn = vp.draw.node('A', 'modal__title-close', {'data-close':'modal'}),
             body         = vp.draw.node('DIV', 'modal__body'),
-            footer       = vp.draw.node('DIV', 'modal__footer'),
-            onclose      = settings.onclose || 'hide';
+            footer       = vp.draw.node('DIV', 'modal__footer');
 
         closeHeadBtn.innerHTML = '<i class="fa fa-close" aria-hidden="true"></i>';
         headerTitle.textContent = settings.header;
@@ -64,37 +63,29 @@ module.exports = (function (modal) {
 
             footer.innerHTML = settings.footer;
 
-            var closeBtns = footer.querySelectorAll('[data-close="modal"]');
-
-            for(var i = 0; i < closeBtns.length; i++) {
-
-                if (onclose === 'remove')
-                    closeBtns[i].addEventListener('click', modal.remove);
-                else
-                    closeBtns[i].addEventListener('click', modal.hide);
-
-            }
-
             wrapper.appendChild(footer);
 
         }
 
+        if (settings.size)
+            content.classList.add('modal__content--' + settings.size);
+
         content.appendChild(wrapper);
-        content.classList.add('modal__content--' + settings.size);
         modalWrapper.appendChild(content);
 
         document.body.appendChild(modalWrapper);
 
-        modal.show(modalWrapper);
+        modal.show(modalWrapper, settings.onclose);
 
         return modalWrapper;
 
     };
 
 
-    modal.show = function (element) {
+    modal.show = function (element, onclose) {
 
-        var block = null;
+        var block = null,
+            onclose = onclose || 'hide';
 
         if (element.nodeType === 1) {
 
@@ -120,7 +111,10 @@ module.exports = (function (modal) {
 
         for (var i = 0; i < closes.length; i++) {
 
-            closes[i].addEventListener('click', modal.hide);
+            if (onclose === 'remove')
+                closes[i].addEventListener('click', modal.remove);
+            else
+                closes[i].addEventListener('click', modal.hide);
 
         }
 
@@ -172,7 +166,9 @@ module.exports = (function (modal) {
 
             block.classList.remove('modal--opened', 'modal--closing');
             document.body.classList.remove('overflow--hidden');
-            document.getElementsByClassName('modal-backdrop')[0].remove();
+
+            if (document.getElementsByClassName('modal-backdrop')[0])
+                document.getElementsByClassName('modal-backdrop')[0].remove();
 
         }, 200);
 
@@ -180,13 +176,11 @@ module.exports = (function (modal) {
 
     modal.remove = function (element) {
 
-        var block       = null,
-            hasBackdrop = false;
+        var block       = null;
 
         if (element.nodeType === 1) {
 
             block = element;
-            hasBackdrop = true;
 
         } else {
 
@@ -211,7 +205,7 @@ module.exports = (function (modal) {
 
             block.classList.remove('modal--opened', 'modal--closing');
             document.body.classList.remove('overflow--hidden');
-            if (hasBackdrop)
+            if (document.getElementsByClassName('modal-backdrop')[0])
                 document.getElementsByClassName('modal-backdrop')[0].remove();
             block.remove();
 
