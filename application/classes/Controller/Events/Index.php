@@ -196,14 +196,16 @@ class Controller_Events_Index extends Dispatch
 
 
     /**
-     * PATTERN submodule
-     * action_criterias - criteria CRUD
+     * SCENARIO submodule
+     * action_criterias - action that open page where users can edit information about criterias
      */
-    public function action_criterias()
+    public function action_criterions()
     {
-        $this->template->mainSection = View::factory('events/scenario/criterias')
+        $criterions = Methods_Criterions::getAllByEvent($this->event->id);
+
+        $this->template->mainSection->page = View::factory('events/pages/scenario-criterions')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('criterions', $criterions);
     }
 
 
