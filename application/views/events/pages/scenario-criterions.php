@@ -32,13 +32,13 @@
                     <tr id="criterion_<?= $criterion->id ?>">
                         <td><?= $criterion->name; ?></td>
                         <td><?= $criterion->description; ?></td>
-                        <td><?= $criterion->minScore; ?></td>
-                        <td><?= $criterion->maxScore; ?></td>
+                        <td class="text-center"><?= $criterion->minScore; ?></td>
+                        <td class="text-center"><?= $criterion->maxScore; ?></td>
                         <td class="text-center">
-                            <a role="button" class="text-brand text-center m-5" onclick="eventCriterion.edit(this)" data-id="<?= $criterion->id; ?>">
+                            <a role="button" class="text-brand text-center m-5" onclick="eventCriterions.edit(this)" data-id="<?= $criterion->id; ?>">
                                 <i class="fa fa-edit" aria-hidden="true"></i>
                             </a>
-                            <a role="button" class="text-danger text-center m-5" onclick="eventCriterion.delete(this)" data-id="<?= $criterion->id; ?>">
+                            <a role="button" class="text-danger text-center m-5" onclick="eventCriterions.delete(this)" data-id="<?= $criterion->id; ?>">
                                 <i class="fa fa-trash" aria-hidden="true"></i>
                             </a>
                         </td>

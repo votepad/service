@@ -1,4 +1,4 @@
-var eventCriterion = function (eventCriterion) {
+var eventCriterions = function (eventCriterions) {
 
     var form            = null,
         criterionsTable = null,
@@ -34,16 +34,20 @@ var eventCriterion = function (eventCriterion) {
                 if (parseInt(response.code) === 110) {
                     vp.modal.remove(criterionModal);
                     var btns =
-                        '<a role="button" class="text-brand text-center m-5" onclick="eventCriterion.edit(this)" data-id="' + response.criterion.id + '">' +
+                        '<a role="button" class="text-brand text-center m-5" onclick="eventCriterions.edit(this)" data-id="' + response.criterion.id + '">' +
                             '<i class="fa fa-edit" aria-hidden="true"></i>' +
                         '</a>' +
-                        '<a role="button" class="text-danger text-center m-5" onclick="eventCriterion.delete(this)" data-id="' + response.criterion.id + '">' +
+                        '<a role="button" class="text-danger text-center m-5" onclick="eventCriterions.delete(this)" data-id="' + response.criterion.id + '">' +
                             '<i class="fa fa-trash" aria-hidden="true"></i>' +
                         '</a>';
                     criterionsTable.rows().add([response.criterion.name,response.criterion.description,response.criterion.minScore,response.criterion.maxScore, btns ]);
                     criterionsTable.data[criterionsTable.data.length - 1].id = "criterion_" + response.criterion.id;
+                    criterionsTable.data[criterionsTable.data.length - 1].querySelector("td:nth-child(3)").classList.add('text-center');
+                    criterionsTable.data[criterionsTable.data.length - 1].querySelector("td:nth-child(4)").classList.add('text-center');
                     criterionsTable.data[criterionsTable.data.length - 1].querySelector("td:last-child").classList.add('text-center');
                     criterionsTable.body.querySelector("tr:last-child").id = "criterion_" + response.criterion.id;
+                    criterionsTable.body.querySelector("tr:last-child").querySelector("td:nth-child(3)").classList.add('text-center');
+                    criterionsTable.body.querySelector("tr:last-child").querySelector("td:nth-child(4)").classList.add('text-center');
                     criterionsTable.body.querySelector("tr:last-child").querySelector("td:last-child").classList.add('text-center');
                 }
 
@@ -222,7 +226,7 @@ var eventCriterion = function (eventCriterion) {
 
 
 
-    eventCriterion.edit = function (element) {
+    eventCriterions.edit = function (element) {
         var row = criterionsTable.activeRows.findIndex(function(row) {
             return row.id === 'criterion_' + element.dataset.id;
         });
@@ -237,7 +241,7 @@ var eventCriterion = function (eventCriterion) {
     };
 
 
-    eventCriterion.delete = function (element) {
+    eventCriterions.delete = function (element) {
         var row = criterionsTable.activeRows.findIndex(function(row) {
             return row.id === 'criterion_' + element.dataset.id;
         });
@@ -288,6 +292,6 @@ var eventCriterion = function (eventCriterion) {
 
     document.addEventListener('DOMContentLoaded', prepare_);
 
-    return eventCriterion;
+    return eventCriterions;
 
 }({});
