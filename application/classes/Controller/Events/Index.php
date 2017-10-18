@@ -58,8 +58,13 @@ class Controller_Events_Index extends Dispatch
                 break;
             default:
 
+                /** need authorization */
+                if (!self::isLogged()) {
+                    throw new HTTP_Exception_401;
+                }
+
                 /** do not allow */
-                if (!self::isLogged() || !$this->event->isAssistant($this->user->id)) {
+                if (!$this->event->isAssistant($this->user->id)) {
                     throw new HTTP_Exception_403;
                 }
 
@@ -135,7 +140,8 @@ class Controller_Events_Index extends Dispatch
      * INVITE_ASSISTANT
      * Action that check inviting hash and send request to enter to the event
      */
-    public function action_invite_assistant() {
+    public function action_invite_assistant()
+    {
         $hash = $this->request->param('hash');
         if (!$this->event->checkInviteLink($hash))
             throw new HTTP_Exception_404;
@@ -280,14 +286,11 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_participants()
     {
+        $participants = Methods_Participants::getAllByEvent($this->event->id);
 
-        $this->template->mainSection = View::factory('events/members/participants')
+        $this->template->mainSection->page = View::factory('events/pages/members-participants')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
-
+            ->set('participants', $participants);
     }
 
 

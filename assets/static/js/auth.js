@@ -103,8 +103,8 @@ var auth = (function (auth) {
                     message: response.message
                 });
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on signIn form','error',corePrefix ,callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on signIn form','error',corePrefix ,response);
                 vp.form.removeLoadingClass(signIn);
             }
         };
@@ -152,8 +152,8 @@ var auth = (function (auth) {
                     message: response.message
                 });
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on SignInLogged form','error',corePrefix ,callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on SignInLogged form','error',corePrefix ,response);
                 vp.form.removeLoadingClass(signInLogged);
             }
         };
@@ -196,8 +196,8 @@ var auth = (function (auth) {
                     message: response.message
                 });
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on judge form','error',corePrefix ,callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on judge form','error',corePrefix ,response);
                 vp.form.removeLoadingClass(judge);
             }
         };
@@ -233,8 +233,8 @@ var auth = (function (auth) {
                     vp.modal.hide(forget.closest('.modal'));
                 }
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on forget form','error',corePrefix ,callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on forget form','error',corePrefix ,response);
                 vp.form.removeLoadingClass(forget);
             }
         };
@@ -278,8 +278,8 @@ var auth = (function (auth) {
                 }, 700);
 
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on reset form','error',corePrefix ,callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on reset form','error',corePrefix ,response);
                 vp.form.removeLoadingClass(reset);
             }
         };
@@ -316,8 +316,8 @@ var auth = (function (auth) {
                     window.location = protocol + '//' + host + '/user/' + response.id;
                 }
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on registr form','error',corePrefix ,callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on registr form','error',corePrefix ,response);
                 vp.form.removeLoadingClass(registr);
             }
         };

@@ -62,7 +62,6 @@ return array(
         'sizes' => array(
             'b'  => array(true , 200),
             'm'  => array(true , 100),
-            's'  => array(true , 50),
         ),
     )
 );
