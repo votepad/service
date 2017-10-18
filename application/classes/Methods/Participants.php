@@ -8,7 +8,8 @@ class Methods_Participants extends Model_Participant
      * @param $id_event
      * @return array [Model_Participant]
      */
-    public static function getAllByEvent($id_event) {
+    public static function getAllByEvent($id_event)
+    {
 
         $select = Dao_Participants::select()
             ->where('event', '=', $id_event)
@@ -20,13 +21,13 @@ class Methods_Participants extends Model_Participant
 
         if (!empty($select)) {
 
-            foreach($select as $db_selection) {
+            foreach($select as $selection) {
                 $participant = new Model_Participant();
-                $participant->id    = $db_selection['id'];
-                $participant->event = $db_selection['event'];
-                $participant->name  = $db_selection['name'];
-                $participant->about = $db_selection['about'];
-                $participant->logo = $db_selection['logo'];
+                $participant->id    = $selection['id'];
+                $participant->event = $selection['event'];
+                $participant->name  = $selection['name'];
+                $participant->about = $selection['about'];
+                $participant->logo  = $selection['logo'];
 
                 array_push($participants, $participant);
             };
@@ -42,7 +43,8 @@ class Methods_Participants extends Model_Participant
      * @param $name
      * @return Model_Participant
      */
-    public static function getByEventAndName($id_event, $name) {
+    public static function getByEventAndName($id_event, $name)
+    {
 
         $participant = Dao_Participants::select()
             ->where('event', '=', $id_event)

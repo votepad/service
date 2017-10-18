@@ -56,8 +56,8 @@ var eventJudges = function (eventJudges) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on creating judge','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on creating judge','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -106,8 +106,8 @@ var eventJudges = function (eventJudges) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on updating judge','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on updating judge','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -122,9 +122,14 @@ var eventJudges = function (eventJudges) {
      */
     var deleteJudge_ = function () {
 
-        var form     = document.getElementsByClassName('notification--confirm')[0],
+        var form     = document.querySelector('.notification--confirm'),
             deleteEl = document.getElementById('deleteJudgeID'),
             formData = new FormData();
+
+        if (!form || !deleteEl) {
+            vp.core.log('Could nor catch element', 'error', corePrefix);
+            return;
+        }
 
         formData.append('csrf', document.getElementById('csrf').value);
         formData.append('event', eventID);
@@ -152,8 +157,8 @@ var eventJudges = function (eventJudges) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on deleting judge','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on deleting judge','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -289,11 +294,11 @@ var eventJudges = function (eventJudges) {
 
         judgesTable.columns().hide([ 1 ]);
 
-        judgesTable.wrapper.getElementsByClassName('dataTable-top')[0].innerHTML = "";
-        judgesTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(addBtn);
-        judgesTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(printBtn);
+        judgesTable.wrapper.querySelector('.dataTable-top').innerHTML = "";
+        judgesTable.wrapper.querySelector('.dataTable-top').appendChild(addBtn);
+        judgesTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
 
-        judgesTable.wrapper.getElementsByClassName('dataTable-bottom')[0].remove();
+        judgesTable.wrapper.querySelector('.dataTable-bottom').remove();
 
     };
 

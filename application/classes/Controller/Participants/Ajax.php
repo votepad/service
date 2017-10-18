@@ -3,7 +3,8 @@
 class Controller_Participants_Ajax extends Ajax
 {
 
-    public function action_create() {
+    public function action_create()
+    {
         $event = Arr::get($_POST, 'event');
         $name  = Arr::get($_POST, 'name');
         $about = Arr::get($_POST, 'about');
@@ -32,7 +33,8 @@ class Controller_Participants_Ajax extends Ajax
     }
 
 
-    public function action_update() {
+    public function action_update()
+    {
         $id     = Arr::get($_POST, 'id');
         $event  = Arr::get($_POST, 'event');
         $name   = Arr::get($_POST, 'name');
@@ -79,7 +81,8 @@ class Controller_Participants_Ajax extends Ajax
     }
 
 
-    public function action_delete() {
+    public function action_delete()
+    {
         $id       = Arr::get($_POST, 'id');
         $event    = Arr::get($_POST, 'event');
 

@@ -59,13 +59,14 @@ class Controller_Events_Index extends Dispatch
             default:
 
                 /** need authorization */
-                if (!self::isLogged())
+                if (!self::isLogged()) {
                     throw new HTTP_Exception_401;
+                }
 
                 /** do not allow */
-                if (!$this->event->isAssistant($this->user->id))
+                if (!$this->event->isAssistant($this->user->id)) {
                     throw new HTTP_Exception_403;
-
+                }
 
                 break;
         }
@@ -139,7 +140,8 @@ class Controller_Events_Index extends Dispatch
      * INVITE_ASSISTANT
      * Action that check inviting hash and send request to enter to the event
      */
-    public function action_invite_assistant() {
+    public function action_invite_assistant()
+    {
         $hash = $this->request->param('hash');
         if (!$this->event->checkInviteLink($hash))
             throw new HTTP_Exception_404;

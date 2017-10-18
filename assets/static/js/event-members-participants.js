@@ -61,8 +61,8 @@ var eventParticipants = function (eventParticipants) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on creating participant','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on creating participant','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -111,8 +111,8 @@ var eventParticipants = function (eventParticipants) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on updating participant','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on updating participant','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -127,9 +127,14 @@ var eventParticipants = function (eventParticipants) {
      */
     var deleteParticipant_ = function () {
 
-        var form     = document.getElementsByClassName('notification--confirm')[0],
+        var form     = document.querySelector('.notification--confirm'),
             deleteEl = document.getElementById('deleteParticipantID'),
             formData = new FormData();
+
+        if (!form || !deleteEl) {
+            vp.core.log('Could nor catch element', 'error', corePrefix);
+            return;
+        }
 
         formData.append('csrf', document.getElementById('csrf').value);
         formData.append('event', eventID);
@@ -157,8 +162,8 @@ var eventParticipants = function (eventParticipants) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on deleting participant','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on deleting participant','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -342,11 +347,11 @@ var eventParticipants = function (eventParticipants) {
         addBtn.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i><span class="ml-10">Добавить участника</span>';
         addBtn.addEventListener('click', createModalForParticipant_);
 
-        participantTable.wrapper.getElementsByClassName('dataTable-top')[0].innerHTML = "";
-        participantTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(addBtn);
-        participantTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(printBtn);
+        participantTable.wrapper.querySelector('.dataTable-top').innerHTML = "";
+        participantTable.wrapper.querySelector('.dataTable-top').appendChild(addBtn);
+        participantTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
 
-        participantTable.wrapper.getElementsByClassName('dataTable-bottom')[0].remove();
+        participantTable.wrapper.querySelector('.dataTable-bottom').remove();
 
     };
 
