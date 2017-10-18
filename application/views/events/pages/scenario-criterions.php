@@ -31,9 +31,9 @@
                 <? foreach($criterions as $key => $criterion): ?>
                     <tr id="criterion_<?= $criterion->id ?>">
                         <td><?= $criterion->name; ?></td>
-                        <td><?= $criterion->desciption; ?></td>
-                        <td><?= $criterion->min_score; ?></td>
-                        <td><?= $criterion->max_score; ?></td>
+                        <td><?= $criterion->description; ?></td>
+                        <td><?= $criterion->minScore; ?></td>
+                        <td><?= $criterion->maxScore; ?></td>
                         <td class="text-center">
                             <a role="button" class="text-brand text-center m-5" onclick="eventCriterion.edit(this)" data-id="<?= $criterion->id; ?>">
                                 <i class="fa fa-edit" aria-hidden="true"></i>

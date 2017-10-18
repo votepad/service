@@ -1,4 +1,4 @@
-var eventCriterions = function (eventCriterions) {
+var eventCriterion = function (eventCriterion) {
 
     var form            = null,
         criterionsTable = null,
@@ -34,13 +34,13 @@ var eventCriterions = function (eventCriterions) {
                 if (parseInt(response.code) === 110) {
                     vp.modal.remove(criterionModal);
                     var btns =
-                        '<a role="button" class="text-brand text-center m-5" onclick="eventCriterions.edit(this)" data-id="' + response.criterion.id + '">' +
+                        '<a role="button" class="text-brand text-center m-5" onclick="eventCriterion.edit(this)" data-id="' + response.criterion.id + '">' +
                             '<i class="fa fa-edit" aria-hidden="true"></i>' +
                         '</a>' +
-                        '<a role="button" class="text-danger text-center m-5" onclick="eventCriterions.delete(this)" data-id="' + response.criterion.id + '">' +
+                        '<a role="button" class="text-danger text-center m-5" onclick="eventCriterion.delete(this)" data-id="' + response.criterion.id + '">' +
                             '<i class="fa fa-trash" aria-hidden="true"></i>' +
                         '</a>';
-                    criterionsTable.rows().add([response.criterion.name,response.criterion.description,response.criterion.min,response.criterion.max, btns ]);
+                    criterionsTable.rows().add([response.criterion.name,response.criterion.description,response.criterion.minScore,response.criterion.maxScore, btns ]);
                     criterionsTable.data[criterionsTable.data.length - 1].id = "criterion_" + response.criterion.id;
                     criterionsTable.data[criterionsTable.data.length - 1].querySelector("td:last-child").classList.add('text-center');
                     criterionsTable.body.querySelector("tr:last-child").id = "criterion_" + response.criterion.id;
@@ -92,12 +92,12 @@ var eventCriterions = function (eventCriterions) {
                 if (parseInt(response.code) === 113) {
                     criterionsTable.data[form.dataset.row].querySelector("td:nth-child(1)").textContent = response.criterion.name;
                     criterionsTable.data[form.dataset.row].querySelector("td:nth-child(2)").textContent = response.criterion.description;
-                    criterionsTable.data[form.dataset.row].querySelector("td:nth-child(3)").textContent = response.criterion.min;
-                    criterionsTable.data[form.dataset.row].querySelector("td:nth-child(4)").textContent = response.criterion.max;
+                    criterionsTable.data[form.dataset.row].querySelector("td:nth-child(3)").textContent = response.criterion.minScore;
+                    criterionsTable.data[form.dataset.row].querySelector("td:nth-child(4)").textContent = response.criterion.maxScore;
                     criterionsTable.body.querySelector('#criterion_' + response.criterion.id).getElementsByTagName('td')[0].textContent = response.criterion.name;
                     criterionsTable.body.querySelector('#criterion_' + response.criterion.id).getElementsByTagName('td')[1].textContent = response.criterion.description;
-                    criterionsTable.body.querySelector('#criterion_' + response.criterion.id).getElementsByTagName('td')[2].textContent = response.criterion.min;
-                    criterionsTable.body.querySelector('#criterion_' + response.criterion.id).getElementsByTagName('td')[3].textContent = response.criterion.max;
+                    criterionsTable.body.querySelector('#criterion_' + response.criterion.id).getElementsByTagName('td')[2].textContent = response.criterion.minScore;
+                    criterionsTable.body.querySelector('#criterion_' + response.criterion.id).getElementsByTagName('td')[3].textContent = response.criterion.maxScore;
                     vp.modal.remove(criterionModal);
                 }
 
@@ -192,11 +192,11 @@ var eventCriterions = function (eventCriterions) {
                     '<label for="criterionModalDescription" class="form-group__label">Описание</label>' +
                 '</div>' +
                 '<div class="form-group">' +
-                    '<input id="criterionModalMinScore" type="number" name="min" value="' + (element.id ? element.min : '') + '" class="form-group__input" autocomplete="off">' +
+                    '<input id="criterionModalMinScore" type="number" name="minScore" value="' + (element.id ? element.minScore : '') + '" class="form-group__input" autocomplete="off">' +
                     '<label for="criterionModalMinScore" class="form-group__label">Минимальный балл</label>' +
                 '</div>' +
                 '<div class="form-group">' +
-                    '<input id="criterionModalMaxScore" type="number" name="max" value="' + (element.id ? element.max : '') + '" class="form-group__input" autocomplete="off">' +
+                    '<input id="criterionModalMaxScore" type="number" name="maxScore" value="' + (element.id ? element.maxScore : '') + '" class="form-group__input" autocomplete="off">' +
                     '<label for="criterionModalMaxScore" class="form-group__label">Максимальный балл</label>' +
                 '</div>',
             footer:
@@ -222,7 +222,7 @@ var eventCriterions = function (eventCriterions) {
 
 
 
-    eventCriterions.edit = function (element) {
+    eventCriterion.edit = function (element) {
         var row = criterionsTable.activeRows.findIndex(function(row) {
             return row.id === 'criterion_' + element.dataset.id;
         });
@@ -231,13 +231,13 @@ var eventCriterions = function (eventCriterions) {
             row:         row,
             name:        element.closest('tr').getElementsByTagName('td')[0].textContent,
             description: element.closest('tr').getElementsByTagName('td')[1].textContent,
-            min:         element.closest('tr').getElementsByTagName('td')[2].textContent,
-            max:         element.closest('tr').getElementsByTagName('td')[3].textContent
+            minScore:    element.closest('tr').getElementsByTagName('td')[2].textContent,
+            maxScore:    element.closest('tr').getElementsByTagName('td')[3].textContent
         });
     };
 
 
-    eventCriterions.delete = function (element) {
+    eventCriterion.delete = function (element) {
         var row = criterionsTable.activeRows.findIndex(function(row) {
             return row.id === 'criterion_' + element.dataset.id;
         });
@@ -278,8 +278,6 @@ var eventCriterions = function (eventCriterions) {
         addBtn.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i><span class="ml-10">Добавить критерий</span>';
         addBtn.addEventListener('click', createModalForCriterion_);
 
-        criterionsTable.columns().hide([ 1 ]);
-
         criterionsTable.wrapper.querySelector('.dataTable-top').innerHTML = "";
         criterionsTable.wrapper.querySelector('.dataTable-top').appendChild(addBtn);
         criterionsTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
@@ -290,6 +288,6 @@ var eventCriterions = function (eventCriterions) {
 
     document.addEventListener('DOMContentLoaded', prepare_);
 
-    return eventCriterions;
+    return eventCriterion;
 
 }({});

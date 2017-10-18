@@ -32,4 +32,10 @@ class Model_Response_Criterion extends  Model_Response_Abstract
         'message' => 'Критерий успешно удален'
     );
 
+    protected $_CRITERION_MIN_LARGE_MAX_SUCCESS = array(
+        'type' => 'criterions',
+        'code' => '114',
+        'message' => 'Минимальный балл не может быть больше максимального'
+    );
+
 }

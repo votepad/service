@@ -24,8 +24,8 @@ class Methods_Criterions extends Model_Criterion
                 $criterion->event       = $db_selection['event'];
                 $criterion->name        = $db_selection['name'];
                 $criterion->description = $db_selection['description'];
-                $criterion->min_score   = $db_selection['min_score'];
-                $criterion->max_score   = $db_selection['max_score'];
+                $criterion->minScore    = $db_selection['minScore'];
+                $criterion->maxScore    = $db_selection['maxScore'];
                 array_push($criterions, $criterion);
             };
         }

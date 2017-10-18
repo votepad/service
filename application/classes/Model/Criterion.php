@@ -10,8 +10,8 @@ class Model_Criterion extends Model {
     public $event;
     public $name;
     public $description;
-    public $min_score;
-    public $max_score;
+    public $minScore;
+    public $maxScore;
 
     public function __construct($id = null) {
 
