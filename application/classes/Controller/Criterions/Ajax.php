@@ -3,78 +3,108 @@
 /**
  * Class Controller_Criterions_Ajax
  */
-class Controller_Criterions_Ajax extends Ajax {
+class Controller_Criterions_Ajax extends Ajax
+{
 
-    public function action_save()
+    public function action_create()
     {
-        $response = array();
-        try {
+        $event       = Arr::get($_POST, 'event');
+        $name        = Arr::get($_POST, 'name');
+        $description = Arr::get($_POST, 'description');
+        $min_score   = Arr::get($_POST, 'min_score');
+        $max_score   = Arr::get($_POST, 'max_score');
 
-            $decodedData = json_decode(Arr::get($_POST, 'list'), true);
-
-            foreach($decodedData as $criteria) {
-
-                $model              = new Model_Criterion(Arr::get($criteria, 'id'));
-                $event              = $this->request->param('id_event');
-                $model->name        = Arr::get($criteria,'name','');
-                $model->description = Arr::get($criteria,'description','');
-                $model->min_score   = Arr::get($criteria,'min_score','0');
-                $model->max_score   = Arr::get($criteria,'max_score','1');
-                $status             = Arr::get($criteria, 'status');
-
-                switch ($status) {
-                    case Methods_Criterions::UPDATE:
-                        $model = $model->update();
-                        break;
-                    case Methods_Criterions::INSERT:
-                        $model->event = $event;
-                        $model = $model->save();
-                        break;
-                    case Methods_Criterions::DELETE:
-                        $model->delete();
-                        break;
-                }
-
-                if ($status != Methods_Criterions::DELETE) {
-                    $response[] = array(
-                        'id'            => $model->id,
-                        'name'          => $model->name,
-                        'description'   => $model->description,
-                        'min_score'     => $model->min_score,
-                        'max_score'     => $model->max_score,
-                        'status'        => ''
-                    );
-                }
-
-            }
-        } catch (Exception $exception) {
-            $response = false;
+        if (empty($name) || empty($min_score) || empty($max_score)) {
+            $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
         }
 
-        usort($response, function($a, $b) {
-            return $a['id'] - $b['id'];
-        });
+        $criterion = new Model_Criterion();
 
-        $this->response->body(@json_encode($response));
+        $criterion->name        = $name;
+        $criterion->event       = $event;
+        $criterion->description = $description;
+        $criterion->min_score   = $min_score;
+        $criterion->max_score   = $min_score;
+        $criterion = $criterion->save();
+
+        $response = new Model_Response_Criterion('CRITERION_CREATE_SUCCESS', 'success', array('criterion' => $criterion));
+        $this->response->body(@json_encode($response->get_response()));
     }
 
 
-    public function action_get()
+    public function action_update()
     {
-        $id_event = $this->request->param('id_event');
-        $criterias = Methods_Criterions::getByEvent($id_event);
-        $arr = array();
-        foreach($criterias as $criteria) {
-            $arr[] = array(
-                'id'            => $criteria->id,
-                'name'          => $criteria->name,
-                'description'   => $criteria->description,
-                'min_score'     => $criteria->min_score,
-                'max_score'     => $criteria->max_score,
-                'status'        => ''
-            );
+        $id          = Arr::get($_POST, 'id');
+        $event       = Arr::get($_POST, 'event');
+        $name        = Arr::get($_POST, 'name');
+        $description = Arr::get($_POST, 'description');
+        $min_score   = Arr::get($_POST, 'min_score');
+        $max_score   = Arr::get($_POST, 'max_score');
+
+        if (empty($name) || empty($min_score) || empty($max_score)) {
+            $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
         }
 
-        $this->response->body(@json_encode($arr));
+        $criterion = new Model_Criterion($id);
+
+        if (!$criterion->id) {
+            $response = new Model_Response_Criterion('CRITERION_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($criterion->event != $event) {
+            $response = new Model_Response_Criterion('CRITERION_EVENT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($criterion->name == $name && $criterion->description == $description &&
+            $criterion->min_score == $min_score && $criterion->max_score == $min_score) {
+
+            $response = new Model_Response_Form('NOTHING_CHANGE_WARNING', 'warning');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $criterion->name        = $name;
+        $criterion->event       = $event;
+        $criterion->description = $description;
+        $criterion->min_score   = $min_score;
+        $criterion->max_score   = $min_score;
+        $criterion = $criterion->update();
+
+        $response = new Model_Response_Criterion('CRITERION_UPDATE_SUCCESS', 'success', array('criterion' => $criterion));
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+
+    public function action_delete()
+    {
+        $id       = Arr::get($_POST, 'id');
+        $event    = Arr::get($_POST, 'event');
+
+        $criterion = new Model_Criterion($id);
+
+        if (!$criterion->id) {
+            $response = new Model_Response_Criterion('CRITERION_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($criterion->event != $event) {
+            $response = new Model_Response_Criterion('CRITERION_EVENT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $criterion->delete();
+
+        $response = new Model_Response_Criterion('CRITERION_DELETE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
     }
 }
