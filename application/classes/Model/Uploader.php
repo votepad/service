@@ -8,7 +8,7 @@ class Model_Uploader extends Model
     const PROFILE_AVATAR        = 1;
     const PROFILE_BRANDING      = 2;
     const EVENT_BRANDING        = 3;
-    const PARTICIPANTS_PHOTO    = 6;
+    const PARTICIPANTS_PHOTO    = 4;
 
     private $images = array(
         self::PROFILE_AVATAR,
@@ -89,6 +89,9 @@ class Model_Uploader extends Model
                 break;
             case self::PARTICIPANTS_PHOTO:
                 $this->filename = 'm_' . $savedFilename;
+                $participant = new Model_Participant($params->id);
+                $participant->logo = $savedFilename;
+                $participant->update();
                 break;
         }
 

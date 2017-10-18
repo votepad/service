@@ -178,7 +178,6 @@ module.exports = (function (form) {
 
     };
 
-
     /**
      * Add Class Loading to element
      * @param element - ELEMENT_NODE
@@ -253,6 +252,36 @@ module.exports = (function (form) {
 
     };
 
+
+    form.initTextarea = function (textarea) {
+
+        textarea = document.getElementById(textarea);
+
+        if (!textarea) {
+
+            vp.core.log('Could not initialize textarea', 'error', 'VP form');
+            return;
+
+        }
+
+        textarea.addEventListener('blur', checkOnEmptyValue_);
+        checkOnEmptyValue_(textarea);
+
+        textarea.addEventListener('keyup', resizeTextareaHeight_);
+        resizeTextareaHeight_(textarea);
+
+        if(textarea.hasAttribute('maxlength')) {
+
+            var counter = vp.draw.node('SPAN', 'form-group__counter');
+
+            counter.innerHTML = '0/' + textarea.getAttribute('maxlength');
+            textarea.parentNode.appendChild(counter);
+            textarea.addEventListener('keyup', updateCounter_);
+            updateCounter_(textarea);
+
+        }
+
+    };
 
 
     form.validate = function (formBlock) {

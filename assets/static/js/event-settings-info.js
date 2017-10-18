@@ -35,8 +35,8 @@ var eventInfo = function (eventInfo) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on publishing event','error',corePrefix,callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on publishing event','error',corePrefix,response);
                 vp.form.removeLoadingClass(block);
             }
         };
@@ -71,8 +71,8 @@ var eventInfo = function (eventInfo) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on updating event info','error',corePrefix,callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on updating event info','error',corePrefix,response);
                 vp.form.removeLoadingClass(form);
             }
         };
