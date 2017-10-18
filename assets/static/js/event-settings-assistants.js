@@ -44,8 +44,8 @@ var eventAssistants = function (eventAssistants) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on assistants request','error',corePrefix, callbacks);
+            error: function(responce) {
+                vp.core.log('ajax error occur on assistants request','error',corePrefix, responce);
                 vp.form.removeLoadingClass(assistant.area);
             }
         };

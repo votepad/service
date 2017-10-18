@@ -141,8 +141,8 @@ var profile = (function (profile) {
                     message: response.message
                 });
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on sending confirm email','error',corePrefix,callbacks);
+            error: function(responce) {
+                vp.core.log('ajax error occur on sending confirm email','error',corePrefix,responce);
                 vp.form.removeLoadingClass(profileWrap);
             }
         };
@@ -172,8 +172,8 @@ var profile = (function (profile) {
                     message: response.message
                 });
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on sending profile form','error',corePrefix,callbacks);
+            error: function(responce) {
+                vp.core.log('ajax error occur on sending profile form','error',corePrefix,responce);
                 vp.form.removeLoadingClass(profileWrap);
             }
         };
@@ -205,8 +205,8 @@ var profile = (function (profile) {
                     changePassword.reset();
                 }
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on change password form','error',corePrefix,callbacks);
+            error: function(responce) {
+                vp.core.log('ajax error occur on change password form','error',corePrefix,responce);
                 vp.form.removeLoadingClass(changePassword);
             }
         };

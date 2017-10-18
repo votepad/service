@@ -257,7 +257,7 @@ module.exports = (function (form) {
 
         textarea = document.getElementById(textarea);
 
-        if (!textarea.nodeType) {
+        if (!textarea) {
 
             vp.core.log('Could not initialize textarea', 'error', 'VP form');
             return;

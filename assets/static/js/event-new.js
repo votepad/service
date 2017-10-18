@@ -35,8 +35,8 @@ var newEvent = function (newEvent) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on creating new event','error',corePrefix,callbacks);
+            error: function(responce) {
+                vp.core.log('ajax error occur on creating new event','error',corePrefix,responce);
                 vp.form.removeLoadingClass(form);
             }
         };

@@ -56,8 +56,8 @@ var eventJudges = function (eventJudges) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on creating judge','error',corePrefix, callbacks);
+            error: function(responce) {
+                vp.core.log('ajax error occur on creating judge','error',corePrefix, responce);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -106,8 +106,8 @@ var eventJudges = function (eventJudges) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on updating judge','error',corePrefix, callbacks);
+            error: function(responce) {
+                vp.core.log('ajax error occur on updating judge','error',corePrefix, responce);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -157,8 +157,8 @@ var eventJudges = function (eventJudges) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on deleting judge','error',corePrefix, callbacks);
+            error: function(responce) {
+                vp.core.log('ajax error occur on deleting judge','error',corePrefix, responce);
                 vp.form.removeLoadingClass(form);
             }
         };
