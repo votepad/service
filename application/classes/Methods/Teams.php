@@ -39,13 +39,13 @@ class Methods_Teams extends Model_Team
      * @return Model_Team
      */
     public static function getByEventAndName($id_event, $name) {
-        $participant = Dao_Teams::select()
+        $team = Dao_Teams::select()
             ->where('event', '=', $id_event)
             ->where('name', '=', $name)
             ->limit(1)
             ->execute();
 
-        return new Model_Team($participant['id']);
+        return new Model_Team($team['id']);
     }
     
 }

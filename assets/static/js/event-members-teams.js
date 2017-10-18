@@ -1,10 +1,10 @@
 var eventTeams = function (eventTeams) {
 
-    var form             = null,
-        teamTable = null,
-        teamModal = null,
-        eventID          = null,
-        corePrefix       = "VP event members";
+    var form        = null,
+        teamTable   = null,
+        teamModal   = null,
+        eventID     = null,
+        corePrefix  = "VP event members";
 
     /**
      * Submit Creating Team
@@ -61,8 +61,8 @@ var eventTeams = function (eventTeams) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on creating team','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on creating team','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -111,8 +111,8 @@ var eventTeams = function (eventTeams) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on updating team','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on updating team','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -127,9 +127,14 @@ var eventTeams = function (eventTeams) {
      */
     var deleteTeam_ = function () {
 
-        var form     = document.getElementsByClassName('notification--confirm')[0],
+        var form     = document.querySelector('.notification--confirm'),
             deleteEl = document.getElementById('deleteTeamID'),
             formData = new FormData();
+
+        if (!form || !deleteEl) {
+            vp.core.log('Could nor catch element', 'error', corePrefix);
+            return;
+        }
 
         formData.append('csrf', document.getElementById('csrf').value);
         formData.append('event', eventID);
@@ -157,8 +162,8 @@ var eventTeams = function (eventTeams) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(callbacks) {
-                vp.core.log('ajax error occur on deleting team','error',corePrefix, callbacks);
+            error: function(response) {
+                vp.core.log('ajax error occur on deleting team','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -177,7 +182,7 @@ var eventTeams = function (eventTeams) {
         teamModal = vp.modal.create({
             node: 'FORM',
             id: 'teamModal',
-            header: element.id ? 'Редактирование команду' : 'Создание команды',
+            header: element.id ? 'Редактирование команды' : 'Создание команды',
             body:
                 '<div class="form-group">' +
                     '<input id="teamModalName" type="text" name="name" maxlength="65" value="' + (element.id ? element.name : '') + '" class="form-group__input" autocomplete="off">' +
@@ -284,9 +289,9 @@ var eventTeams = function (eventTeams) {
             return row.id === 'team_' + element.dataset.id;
         });
         createModalForTeam_({
-            id:    element.dataset.id,
-            row:   row,
-            name:  element.closest('tr').getElementsByTagName('td')[1].textContent,
+            id:          element.dataset.id,
+            row:         row,
+            name:        element.closest('tr').getElementsByTagName('td')[1].textContent,
             description: element.closest('tr').getElementsByTagName('td')[2].textContent
         });
     };
@@ -343,11 +348,11 @@ var eventTeams = function (eventTeams) {
         addBtn.innerHTML = '<i class="fa fa-plus" aria-hidden="true"></i><span class="ml-10">Добавить команду</span>';
         addBtn.addEventListener('click', createModalForTeam_);
 
-        teamTable.wrapper.getElementsByClassName('dataTable-top')[0].innerHTML = "";
-        teamTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(addBtn);
-        teamTable.wrapper.getElementsByClassName('dataTable-top')[0].appendChild(printBtn);
+        teamTable.wrapper.querySelector('.dataTable-top').innerHTML = "";
+        teamTable.wrapper.querySelector('.dataTable-top').appendChild(addBtn);
+        teamTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
 
-        teamTable.wrapper.getElementsByClassName('dataTable-bottom')[0].remove();
+        teamTable.wrapper.querySelector('.dataTable-bottom').remove();
 
     };
 
