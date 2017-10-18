@@ -61,8 +61,8 @@ var eventParticipants = function (eventParticipants) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(responce) {
-                vp.core.log('ajax error occur on creating participant','error',corePrefix, responce);
+            error: function(response) {
+                vp.core.log('ajax error occur on creating participant','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -111,8 +111,8 @@ var eventParticipants = function (eventParticipants) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(responce) {
-                vp.core.log('ajax error occur on updating participant','error',corePrefix, responce);
+            error: function(response) {
+                vp.core.log('ajax error occur on updating participant','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
@@ -162,8 +162,8 @@ var eventParticipants = function (eventParticipants) {
 
                 vp.core.log(response.message, response.status, corePrefix);
             },
-            error: function(responce) {
-                vp.core.log('ajax error occur on deleting participant','error',corePrefix, responce);
+            error: function(response) {
+                vp.core.log('ajax error occur on deleting participant','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };
