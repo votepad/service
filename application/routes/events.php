@@ -71,7 +71,7 @@ $sectioncallback = function(Route $route, $params, Request $request){
             'info', 'assistants'
         ),
         'scenario' => array(
-            'criterias', 'stages', 'contests', 'result'
+            'criterions', 'stages', 'contests', 'result'
         ),
         'members' => array(
             'judges', 'participants', 'teams'

@@ -2,62 +2,55 @@
 
 class Methods_Criterions extends Model_Criterion
 {
-    const UPDATE = "update";
-    const DELETE = "delete";
-    const INSERT = "insert";
-    const SELECT = "select";
-
-
     /**
+     * Get All Criterions by event_id
      * @param $id_event
-     * @return array criterias
+     * @return array [Model_Criteria]
      */
-    public static function getByEvent($id_event) {
+    public static function getAllByEvent($id_event) {
 
-        $criterias = Dao_Criterions::select()
+        $select = Dao_Criterions::select()
             ->where('event', '=', $id_event)
             ->cached(Date::HOUR, 'event:' . $id_event)
             ->order_by('id', 'ASC')
             ->execute();
 
-        if (!$criterias) {
-            return array();
+        $criterions = array();
+
+        if ($select) {
+            foreach($select as $db_selection) {
+                $criterion = new Model_Criterion();
+                $criterion->id          = $db_selection['id'];
+                $criterion->event       = $db_selection['event'];
+                $criterion->name        = $db_selection['name'];
+                $criterion->description = $db_selection['description'];
+                $criterion->minScore    = $db_selection['minScore'];
+                $criterion->maxScore    = $db_selection['maxScore'];
+                array_push($criterions, $criterion);
+            };
         }
 
-        $result = array();
-
-        foreach($criterias as $criteria) {
-            $model = new Model_Criterion();
-            $model->id          = $criteria['id'];
-            $model->event       = $criteria['event'];
-            $model->name        = $criteria['name'];
-            $model->description = $criteria['description'];
-            $model->min_score   = $criteria['min_score'];
-            $model->max_score   = $criteria['max_score'];
-            array_push($result, $model);
-        };
-
-        return $result;
-
+        return $criterions;
     }
 
+    /**
+     * Get Criterions For Formula
+     * @param $event - event ID
+     * @return string [JSON]
+     */
     public static function getJSON($event) {
 
-        $criterions = self::getByEvent($event);
-
+        $criterions = self::getAllByEvent($event);
         $result = array();
 
         foreach ($criterions as $criterion) {
-
             $result[] = array(
-                'id' => $criterion->id,
+                'id'   => $criterion->id,
                 'name' => $criterion->name
             );
-
         }
 
         return json_encode($result);
-
     }
 
 }

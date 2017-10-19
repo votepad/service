@@ -64,7 +64,7 @@
                         <i class="fa fa-angle-down collapse__icon-right nav__item-icon nav__item-icon--right" aria-hidden="true"></i>
                     </a>
                     <div id="sectionScenario" class="collapse nav__collapse">
-                        <a href="<?= URL::site('event/' . $event->id . '/scenario/criterias'); ?>" class="nav__item <?= $action == 'criterias' ? 'nav__item--active': ''; ?>">
+                        <a href="<?= URL::site('event/' . $event->id . '/scenario/criterions'); ?>" class="nav__item <?= $action == 'criterions' ? 'nav__item--active': ''; ?>">
                             Критерии
                         </a>
                         <a href="<?= URL::site('event/' . $event->id . '/scenario/stages'); ?>" class="nav__item <?= $action == 'stages' ? 'nav__item--active': ''; ?>">
@@ -141,7 +141,7 @@
                     </a>
                 </div>
                 <div id="sectionTabsScenario" class="ui-tabs__wrapper <?= $section == 'scenario' ?: 'hide'; ?>">
-                    <a href="<?= URL::site('event/' . $event->id . '/scenario/criterias'); ?>" class="ui-tabs__tab <?= $action == 'criterias' ? 'ui-tabs__tab--active': ''; ?>">
+                    <a href="<?= URL::site('event/' . $event->id . '/scenario/criterions'); ?>" class="ui-tabs__tab <?= $action == 'criterions' ? 'ui-tabs__tab--active': ''; ?>">
                         Критерии
                     </a>
                     <a href="<?= URL::site('event/' . $event->id . '/scenario/stages'); ?>" class="ui-tabs__tab <?= $action == 'stages' ? 'ui-tabs__tab--active': ''; ?>">
