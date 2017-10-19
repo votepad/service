@@ -9,12 +9,14 @@ class Model_Uploader extends Model
     const PROFILE_BRANDING      = 2;
     const EVENT_BRANDING        = 3;
     const PARTICIPANTS_PHOTO    = 4;
+    const TEAM_LOGO             = 5;
 
     private $images = array(
         self::PROFILE_AVATAR,
         self::PROFILE_BRANDING,
         self::EVENT_BRANDING,
-        self::PARTICIPANTS_PHOTO
+        self::PARTICIPANTS_PHOTO,
+        self::TEAM_LOGO
     );
 
     /** @var upload module configuration */
@@ -92,6 +94,12 @@ class Model_Uploader extends Model
                 $participant = new Model_Participant($params->id);
                 $participant->logo = $savedFilename;
                 $participant->update();
+                break;
+            case self::TEAM_LOGO:
+                $this->filename = 'm_' . $savedFilename;
+                $team = new Model_Team($params->id);
+                $team->logo = $savedFilename;
+                $team->update();
                 break;
         }
 
