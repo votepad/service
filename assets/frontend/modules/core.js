@@ -71,6 +71,43 @@ module.exports = (function (core) {
 
     };
 
+
+    /**
+     * Parse String To Node
+     * @param string
+     * @returns {Node}
+     */
+    core.parseHTML = function (string) {
+
+        var parser = new DOMParser();
+
+        return parser.parseFromString(string, 'text/html').body.firstChild;
+
+    };
+
+    /**
+     * Helper for insert one element before another
+     * @param target
+     * @param element
+     */
+    core.insertBefore = function (target, element) {
+
+        target.parentNode.insertBefore(element, target);
+
+    };
+
+
+    /**
+     * Helper for insert one element after another
+     * @param target
+     * @param element
+     */
+    core.insertAfter = function (target, element) {
+
+        target.parentNode.insertBefore(element, target.nextSibling);
+
+    };
+
     return core;
 
 

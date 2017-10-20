@@ -115,6 +115,12 @@ canvas{
 .text-italic{
     font-style: italic;
 }
+.text-underline{
+    text-decoration: underline;
+}
+.text-comma:not(:last-child):after{
+    content: ',';
+}
 .text-brand {
     color: #008DA7;
 }

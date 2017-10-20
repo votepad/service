@@ -5,7 +5,7 @@ class Methods_Criterions extends Model_Criterion
     /**
      * Get All Criterions by event_id
      * @param $id_event
-     * @return array [Model_Criteria]
+     * @return array [Model_Criterion]
      */
     public static function getAllByEvent($id_event) {
 
@@ -48,6 +48,30 @@ class Methods_Criterions extends Model_Criterion
                 'id'   => $criterion->id,
                 'name' => $criterion->name
             );
+        }
+
+        return json_encode($result);
+    }
+
+
+    public static function getJSONbyFormula($formula)
+    {
+        $result = array();
+
+        foreach (json_decode($formula) as $criterionID => $coeff) {
+
+            $criterion = new Model_Criterion($criterionID);
+
+            if ($criterion->id) {
+
+                $result[] = array(
+                    "id" => $criterionID,
+                    "name" => $criterion->name,
+                    "coeff" => $coeff
+                );
+
+            }
+
         }
 
         return json_encode($result);

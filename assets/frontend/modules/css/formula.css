@@ -47,6 +47,9 @@
 .formula__list{
     display: inline-block;
     float: left;
+    padding: 0;
+    margin: 0;
+    list-style: none;
 }
 
 .formula__item{
