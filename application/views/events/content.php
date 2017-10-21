@@ -71,7 +71,7 @@
                             Этапы
                         </a>
                         <a href="<?= URL::site('event/' . $event->id . '/scenario/contests'); ?>" class="nav__item <?= $action == 'contests' ? 'nav__item--active': ''; ?>">
-                            Конкуксы
+                            Конкурсы
                         </a>
                         <a href="<?= URL::site('event/' . $event->id . '/scenario/result'); ?>" class="nav__item <?= $action == 'result' ? 'nav__item--active': ''; ?>">
                             Результат
@@ -148,7 +148,7 @@
                         Этапы
                     </a>
                     <a href="<?= URL::site('event/' . $event->id . '/scenario/contests'); ?>" class="ui-tabs__tab <?= $action == 'contests' ? 'ui-tabs__tab--active': ''; ?>">
-                        Конкуксы
+                        Конкурсы
                     </a>
                     <a href="<?= URL::site('event/' . $event->id . '/scenario/result'); ?>" class="ui-tabs__tab <?= $action == 'result' ? 'ui-tabs__tab--active': ''; ?>">
                         Результат

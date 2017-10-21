@@ -10,9 +10,10 @@ class Methods_Stages extends  Model_Stage
     /**
      * Get All Stages by event_id
      * @param $id_event
+     * @param bool $with_addition - include formula based on criterions and members or not
      * @return array [Model_Stage]
      */
-    public static function getAllByEvent($id_event)
+    public static function getAllByEvent($id_event, $with_addition = false)
     {
         $select = Dao_Stages::select()
             ->where('event', '=', $id_event)
@@ -25,32 +26,29 @@ class Methods_Stages extends  Model_Stage
             foreach ($select as $selection) {
 
                 $stage = new Model_Stage();
-                $stage->id   = $selection['id'];
-                $stage->event = $selection['event'];
-                $stage->name = $selection['name'];
-                $stage->description = $selection['description'];
-                $stage->mode = $selection['mode'];
 
-                $formula = array();
-
-                foreach (json_decode($selection['formula']) as $criterionID => $coeff) {
-
-                    $criterion = new Model_Criterion($criterionID);
-
-                    if ($criterion->id) {
-
-                        $formula[] = array(
-                            "id" => $criterionID,
-                            "name" => $criterion->name,
-                            "coeff" => $coeff
-                        );
-
-                    }
-
+                foreach ($selection as $fieldname => $value) {
+                    if (property_exists($stage, $fieldname)) $stage->$fieldname = $value;
                 }
 
-                $stage->formula = json_encode($formula);
-                $stage->members = self::getMembers($stage->id, $stage->mode);
+                if ($with_addition) {
+
+                    $formula = array();
+
+                    foreach (json_decode($stage->formula) as $criterionID => $coeff) {
+                        $criterion = new Model_Criterion($criterionID);
+                        if ($criterion->id) {
+                            $formula[] = array(
+                                "id" => $criterionID,
+                                "name" => $criterion->name,
+                                "coeff" => $coeff
+                            );
+                        }
+                    }
+
+                    $stage->formula = json_encode($formula);
+                    $stage->members = self::getMembers($stage->id, $stage->mode);
+                }
 
                 array_push($stages, $stage);
 
@@ -80,6 +78,34 @@ class Methods_Stages extends  Model_Stage
                 'name' => $stage->name,
                 'type' => $stage->mode
             );
+
+        }
+
+        return json_encode($result);
+    }
+
+
+    /**
+     * Get JSON by formula
+     * @param $formula - [{'id':'coeff'}]
+     * @return string [JSON]
+     */
+    public static function getJSONbyFormula($formula)
+    {
+        $result = array();
+
+        foreach (json_decode($formula) as $stageID => $coeff) {
+
+            $stage = new Model_Stage($stageID);
+
+            if ($stage->id) {
+                $result[] = array(
+                    "id" => $stageID,
+                    "name" => $stage->name,
+                    "coeff" => $coeff,
+                    "type" => $stage->mode
+                );
+            }
 
         }
 
@@ -174,8 +200,8 @@ class Methods_Stages extends  Model_Stage
      * @param $members - array of members ID
      * @return array
      */
-    public static function updateMembers($stage, $members) {
-
+    public static function updateMembers($stage, $members)
+    {
         $oldMembers = Dao_StagesMembers::select('m_id')
             ->where('s_id', '=', $stage)
             ->execute('m_id');
@@ -199,8 +225,8 @@ class Methods_Stages extends  Model_Stage
      * @param $stage - stage ID
      * @param $member - member ID
      */
-    public static function removeMembers($stage, $member) {
-
+    public static function removeMembers($stage, $member)
+    {
         if (empty($member)) return;
 
         Dao_StagesMembers::delete()
@@ -214,17 +240,19 @@ class Methods_Stages extends  Model_Stage
      * Remove All Dependence Stage-Member
      * @param $stage - stage ID
      */
-    public static function removeAllMembers($stage) {
-
+    public static function removeAllMembers($stage)
+    {
         Dao_StagesMembers::delete()
             ->where('s_id', '=', $stage)
             ->execute();
-
     }
 
 
-    public static function getCriterions($formula) {
 
+
+
+    public static function getCriterions($formula)
+    {
         $formula = json_decode($formula);
 
         $criterion = array();

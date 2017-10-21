@@ -177,7 +177,7 @@ var eventStages = function (eventStages) {
                 vp.core.log(response.message, response.status, corePrefix);
             },
             error: function(response) {
-                vp.core.log('ajax error occur on deleting criterion','error',corePrefix, response);
+                vp.core.log('ajax error occur on deleting stage','error',corePrefix, response);
                 vp.form.removeLoadingClass(form);
             }
         };

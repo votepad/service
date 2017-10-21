@@ -8,7 +8,7 @@ class Methods_Judges extends Model_Judge
      * @param $id_event
      * @return array [Model_Judge]
      */
-    public static function getByEvent($id_event) {
+    public static function getAllByEvent($id_event) {
 
         $select = Dao_Judges::select()
             ->where('event', '=', $id_event)
