@@ -17,6 +17,10 @@ var eventContests = function (eventContests) {
 
         event.preventDefault();
 
+        if (!newContestFormula.validate()) {
+            return;
+        }
+
         if (newContestFormula.toJSON() === false) {
             vp.notification.notify({
                 type: "error",
@@ -69,6 +73,10 @@ var eventContests = function (eventContests) {
     var updateContest_ = function (event) {
 
         event.preventDefault();
+
+        if (!editContestFormula.validate()) {
+            return;
+        }
 
         if (editContestFormula.toJSON() === false) {
             vp.notification.notify({
@@ -216,6 +224,9 @@ var eventContests = function (eventContests) {
      * @private
      */
     var createEditContestModal_ = function (element) {
+        var formula = JSON.parse(element.formula);
+        formula = parseInt(formula[0].type);
+
         contestModal = vp.modal.create({
             node: 'FORM',
             id: 'editContestModal',
@@ -231,6 +242,17 @@ var eventContests = function (eventContests) {
                     '</textarea>' +
                     '<label for="editContestModalDescription" class="form-group__label">Описание конкурса</label>' +
                 '</div>' +
+                '<div class="form-group">' +
+                    '<div class="fs-0_8 pb-5 text-brand-2">Жюри будут оценивать</div>' +
+                    '<span>' +
+                        '<input type="radio" id="editContestModalMode1" name="editContestModalMode" class="radio" ' + (formula === 1 ? 'checked' : '') + ' value="1">' +
+                        '<label for="editContestModalMode1" class="radio-label">участников</label>' +
+                    '</span>\n' +
+                    '<span class="ml-15">\n' +
+                        '<input type="radio" id="editContestModalMode2" name="editContestModalMode" class="radio" ' + (formula === 2 ? 'checked' : '') + ' value="2">' +
+                        '<label for="editContestModalMode2" class="radio-label">команды</label>' +
+                    '</span>' +
+                '</div>'+
                 '<div class="form-group">' +
                     '<label for="editContestJudges" class="fs-0_8 pb-5 text-bold text-brand-2">Представители жюри</label>' +
                     '<select id="editContestJudges" name="judges[]" class="form-group__input" multiple>' +
@@ -261,7 +283,8 @@ var eventContests = function (eventContests) {
         editContestFormula = vp.formula.create(document.getElementById('editContestFormula'), {
             mode: "edit",
             curItems: element.formula,
-            allItems: allStages
+            allItems: allStages,
+            itemsType: 'editContestModalMode'
         });
 
         document.getElementById('editContestModal').addEventListener('submit', updateContest_);
@@ -342,7 +365,8 @@ var eventContests = function (eventContests) {
 
         newContestFormula = vp.formula.create(formula, {
             mode: "create",
-            allItems: allStages
+            allItems: allStages,
+            itemsType: 'newContestMode'
         });
 
         allJudgesOptions = [];

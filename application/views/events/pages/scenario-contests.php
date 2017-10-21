@@ -41,6 +41,19 @@
             </div>
 
             <div class="form-group">
+                <div class="fs-0_8 pb-5 text-brand-2">Жюри будут оценивать</div>
+
+                <span>
+                    <input type="radio" id="newContestMode1" name="newContestMode" class="radio" checked value="<?= Methods_Stages::MEMBERS_PARTICIPANTS; ?>">
+                    <label for="newContestMode1" class="radio-label">участников</label>
+                </span>
+
+                <span class="ml-15">
+                    <input type="radio" id="newContestMode2" name="newContestMode" class="radio" value="<?= Methods_Stages::MEMBERS_TEAMS; ?>">
+                    <label for="newContestMode2" class="radio-label">команды</label>
+                </span>
+            </div>
+            <div class="form-group">
                 <label for="newContestJudges" class="fs-0_8 pb-5 text-brand-2">Представители жюри</label>
                 <select id="newContestJudges" name="judges[]" class="form-group__input" multiple>
                     <? foreach ($judges as $judge): ?>
