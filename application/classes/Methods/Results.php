@@ -2,44 +2,38 @@
 
 class Methods_Results extends  Model_Result
 {
+    /**
+     * Get All Contest by event_id
+     * @param $id_event
+     * @param bool $with_addition - include formula based on stages or not
+     * @return array [Model_Stage]
+     */
+    public static function getAllByEvent($id_event, $with_addition = false) {
 
-    public static function getByEvent($event) {
-
-        $selection = Dao_Results::select()
-            ->where('event', '=', $event)
-            ->limit(1)
+        $select = Dao_Results::select()
+            ->where('event', '=', $id_event)
+            ->limit(2)
             ->execute();
 
+        $result['teams'] = new Model_Result();
+        $result['participants'] = new Model_Result();
 
-        $result = new Model_Result();
-
-        if (empty($selection['id'])) {
-            return $result;
-        }
-
-        foreach ($selection as $fieldname => $value) {
-            if (property_exists($result, $fieldname)) $result->$fieldname = $value;
-        }
-
-        $formula = array();
-
-        foreach (json_decode($result->formula) as $contestID => $coeff) {
-
-            $contest = new Model_Contest($contestID);
-
-            if ($contest->id) {
-
-                $formula[] = array(
-                    "id" => $contestID,
-                    "name" => $contest->name,
-                    "coeff" => $coeff,
-                    "mode" => $contest->mode
-                );
-            }
-
-        }
-
-        $result->formula = json_encode($formula);
+//        if (!empty($select)) {
+//            foreach ($select as $selection) {
+//                $result = new Model_Result();
+//                $result->id      = $selection['id'];
+//                $result->event   = $selection['event'];
+//                $result->mode    = $selection['mode'];
+//
+//                if ($with_addition) {
+//                    $result->formula = Methods_Contests::getJSONbyFormula($selection['formula']);
+//                } else {
+//                    $result->formula = $selection['formula'];
+//                }
+//
+//                array_push($results, $result);
+//            }
+//        }
 
         return $result;
 

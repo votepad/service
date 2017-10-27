@@ -87,6 +87,34 @@ class Methods_Contests extends Model_Contest
 
 
     /**
+     * Get JSON by formula
+     * @param $formula - [{'id':'coeff'}]
+     * @return string [JSON]
+     */
+    public static function getJSONbyFormula($formula)
+    {
+        $result = array();
+
+        foreach (json_decode($formula) as $contestID => $coeff) {
+
+            $contest = new Model_Contest($contestID);
+
+            if ($contest->id) {
+                $result[] = array(
+                    "id"    => $contest->id,
+                    "name"  => $contest->name,
+                    "coeff" => $coeff,
+                    "type"  => $contest->mode
+                );
+            }
+
+        }
+
+        return json_encode($result);
+    }
+
+
+    /**
      * Add Dependence Contest-Judge
      * @param $contest - contest ID
      * @param $judges - array of judges ID
