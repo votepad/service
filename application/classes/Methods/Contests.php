@@ -181,6 +181,17 @@ class Methods_Contests extends Model_Contest
     }
 
 
+    /**
+     * Remove All Dependence Contest-Judge
+     * @param $judges - judge ID
+     */
+    public static function removeJudge($judges)
+    {
+        Dao_ContestsJudges::delete()
+            ->where('j_id', '=', $judges)
+            ->execute();
+    }
+
 
 
     public static function getStages($formula) {

@@ -350,8 +350,6 @@ var eventContests = function (eventContests) {
 
 
     var prepareNewContest_ = function () {
-        newContest  = document.getElementById('newContest');
-
         var judges  = document.getElementById('newContestJudges'),
             formula = document.getElementById('newContestFormula');
 
@@ -371,27 +369,30 @@ var eventContests = function (eventContests) {
 
         allJudgesOptions = [];
 
-        for (var i = 0; i < judges.length; i++) {
-            allJudgesOptions.push({
-                id: judges[i].value,
-                name: judges[i].textContent
-            })
-        }
+        if (judges.length) {
+            for (var i = 0; i < judges.length; i++) {
+                allJudgesOptions.push({
+                    id: judges[i].value,
+                    name: judges[i].textContent
+                })
+            }
 
-        new Choices(judges, {
-            removeItemButton: true,
-            noResultsText: 'Ничего не найдено',
-            noChoicesText: 'Нет элементов для выбора',
-            itemSelectText: 'выбрать',
-        });
+            new Choices(judges, {
+                removeItemButton: true,
+                noResultsText: 'Ничего не найдено',
+                noChoicesText: 'Нет элементов для выбора',
+                itemSelectText: 'выбрать',
+            });
+        }
     };
 
     var prepare_ = function() {
 
         eventID      = document.getElementById('eventID');
+        newContest   = document.getElementById('newContest');
         allStages    = document.getElementById('allStages');
 
-        if (!eventID || !allStages) {
+        if (!eventID || !newContest || !allStages) {
             newContest.remove();
         }
 
