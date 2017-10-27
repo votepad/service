@@ -68,6 +68,7 @@
         "vp": true,
         "fetch": true,
         "localStorage": true,
+        "DOMParser": true,
         "WebSocket": true,
         "VERSION" : true,
         "Promise" : true,

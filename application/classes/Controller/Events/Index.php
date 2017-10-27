@@ -221,7 +221,7 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_stages()
     {
-        $stages = Methods_Stages::getAllByEvent($this->event->id);
+        $stages = Methods_Stages::getAllByEvent($this->event->id, true);
         $members = $this->getMembers($this->event->id);
         $criterions = Methods_Criterions::getJSON($this->event->id);
 
@@ -234,19 +234,22 @@ class Controller_Events_Index extends Dispatch
 
 
     /**
-     * PATTERN submodule
-     * action_contests - contest CRUD
+     * SCENARIO submodule
+     * action_contests - action that open page where users can edit information about contests
      */
     public function action_contests()
     {
-        $this->event->judges = Methods_Judges::getByEvent($this->event->id);
-        $this->event->stagesJSON = Methods_Stages::getJSON($this->event->id);
-        $this->event->stages = Methods_Stages::getByEvent($this->event->id);
-        $this->event->contests = Methods_Contests::getByEvent($this->event->id);
+        $judges     = Methods_Judges::getAllByEvent($this->event->id);
+        $stagesJSON = Methods_Stages::getJSON($this->event->id);
+        $stages     = Methods_Stages::getAllByEvent($this->event->id, false);
+        $contests   = Methods_Contests::getAllByEvent($this->event->id, true);
 
-        $this->template->mainSection = View::factory('events/scenario/contests')
+        $this->template->mainSection->page = View::factory('events/pages/scenario-contests')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('judges', $judges)
+            ->set('stagesJSON', $stagesJSON)
+            ->set('stages', $stages)
+            ->set('contests', $contests);
     }
 
 
@@ -272,7 +275,7 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_judges()
     {
-        $judges = Methods_Judges::getByEvent($this->event->id);
+        $judges = Methods_Judges::getAllByEvent($this->event->id);
 
         $this->template->mainSection->page = View::factory('events/pages/members-judges')
             ->set('event', $this->event)

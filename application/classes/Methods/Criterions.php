@@ -7,8 +7,8 @@ class Methods_Criterions extends Model_Criterion
      * @param $id_event
      * @return array [Model_Criterion]
      */
-    public static function getAllByEvent($id_event) {
-
+    public static function getAllByEvent($id_event)
+    {
         $select = Dao_Criterions::select()
             ->where('event', '=', $id_event)
             ->cached(Date::HOUR, 'event:' . $id_event)
@@ -33,13 +33,14 @@ class Methods_Criterions extends Model_Criterion
         return $criterions;
     }
 
+
     /**
      * Get Criterions For Formula
      * @param $event - event ID
      * @return string [JSON]
      */
-    public static function getJSON($event) {
-
+    public static function getJSON($event)
+    {
         $criterions = self::getAllByEvent($event);
         $result = array();
 
@@ -54,6 +55,11 @@ class Methods_Criterions extends Model_Criterion
     }
 
 
+    /**
+     * Get JSON by formula
+     * @param $formula - [{'id':'coeff'}]
+     * @return string [JSON]
+     */
     public static function getJSONbyFormula($formula)
     {
         $result = array();

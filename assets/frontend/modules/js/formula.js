@@ -345,7 +345,7 @@ module.exports = (function (formula) {
         if (!isValid) {
 
             vp.notification.notify({
-                type: 'danger',
+                type: 'error',
                 message: 'В формулу не могут входить выделенные составляющие',
                 time: 4
 
