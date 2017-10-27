@@ -70,18 +70,29 @@ class Methods_Contests extends Model_Contest
 
         $contests = self::getAllByEvent($event);
 
-        $result = array();
+        $result['participants'] = array();
+        $result['teams'] = array();
 
         foreach ($contests as $contest) {
 
-            $result[] = array(
-                'id' => $contest->id,
-                'name' => $contest->name,
-            );
+            if ($contest->mode == 1) {
+                array_push($result['participants'], array(
+                    'id' => $contest->id,
+                    'name' => $contest->name,
+                    'type' => $contest->mode
+                ));
+            }
 
+            if ($contest->mode == 2) {
+                array_push($result['teams'], array(
+                    'id' => $contest->id,
+                    'name' => $contest->name,
+                    'type' => $contest->mode
+                ));
+            }
         }
 
-        return json_encode($result);
+        return $result;
 
     }
 

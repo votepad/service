@@ -13,13 +13,13 @@
                 Результат мероприятия может быть как командным, так и индивидуальным.
                 Заполните формулы с коэффицентами для подсчета результата.
             </p>
-            <input type="hidden" id="allContests" value='<?= $contestsJSON ?>'>
+            <input type="hidden" id="allPartFormula" value='<?= json_encode($contestsJSON['participants']); ?>'>
+            <input type="hidden" id="allTeamFormula" value='<?= json_encode($contestsJSON['teams']); ?>'>
             <input type="hidden" id="eventID" value="<?= $event->id; ?>">
         <? endif; ?>
     </div>
 
 </div>
-
 
 <div class="block" id="participantsResult">
 
@@ -27,16 +27,18 @@
         Индивидуальный результат
     </div>
 
-    <div class="block__wrapper pb-20">
+    <div class="block__wrapper pb-20 fs-0_9">
 
-        <div class="fs-0_9" id="formulaParticipants">
+        <div id="formulaParts" class="formula" data-id="<?= $results['participants']->id; ?>" data-items='<?= empty($results['participants']->id) ? '[]' : $results['participants']->formula; ?>'></div>
+
+        <span id="formulaPartsPrint" class="formula" data-items='<?= $results['participants']->formula; ?>'>
             <span class="text-italic text-underline">Формула:</span>
-            <? if (empty($results['participants']) || $contestsJSON === '[]') : ?>
-                <span class="formula formula-print js-contestFormula" data-items='<?= $results['participants']->formula; ?>'></span>
-            <? else: ?>
-                не указана
-            <? endif; ?>
-        </div>
+            не указана
+        </span>
+
+        <a role="button" class="link ml-5" onclick="eventResults.edit(this)" data-type="Parts">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
 
     </div>
 
@@ -51,21 +53,16 @@
 
     <div class="block__wrapper pb-20">
 
-        <div class="fs-0_9" id="formulaTeamsPrint">
+        <div id="formulaTeams" class="formula fs-0_9" data-id="<?= $results['teams']->id; ?>" data-items='<?= empty($results['teams']->id) ? '[]' : $results['teams']->formula; ?>'></div>
+
+        <span id="formulaTeamsPrint" class="formula" data-items='<?= $results['teams']->formula; ?>'>
             <span class="text-italic text-underline">Формула:</span>
-            <? if (empty($results['teams']) || $contestsJSON === '[]') : ?>
-                <span class="formula formula-print" data-items='<?= $results['teams']->formula; ?>'></span>
-            <? else: ?>
-                не указана
-            <? endif; ?>
-            <a role="button" class="" onclick="eventResults.toggle()">
-                <i class="fa fa-pencil" aria-hidden="true"></i>
-            </a>
-        </div>
+            не указана
+        </span>
 
-        <div id="formulaTeams" class="formula fs-0_9" data-items='<?= empty($results['teams']) ? '[]' : $results['teams']->formula; ?>'>
-
-        </div>
+        <a role="button" class="link ml-5" onclick="eventResults.edit(this)" data-type="Teams">
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+        </a>
 
     </div>
 

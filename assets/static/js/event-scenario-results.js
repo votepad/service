@@ -1,247 +1,203 @@
 var eventResults = function (eventResults) {
 
-    var eventID           = null,
-        allContests       = null,
-        resultFormulaPart = null,
-        resultFormulaTeam = null,
-        resultModal       = null,
-        corePrefix        = "VP event scenario";
-
-    /**
-     * Submit Updating Contest
-     * @private
-     */
-    var updateContest_ = function (event) {
-
-        event.preventDefault();
-
-        if (!editContestFormula.validate()) {
-            return;
-        }
-
-        if (editContestFormula.toJSON() === false) {
-            vp.notification.notify({
-                type: "error",
-                message: "Не задана формула"
-            });
-            return;
-        }
-
-        var formData = new FormData(contestModal);
-
-        formData.append('csrf', document.getElementById('csrf').value);
-        formData.append('event', eventID);
-
-        var ajaxData = {
-            url: '/contest/update',
-            type: 'POST',
-            data: formData,
-            beforeSend: function(){
-                vp.form.addLoadingClass(contestModal);
-            },
-            success: function(response) {
-                response = JSON.parse(response);
-                vp.form.removeLoadingClass(contestModal);
-
-                if (parseInt(response.code) === 133) {
-                    var contest = document.getElementById('contest_' + contestModal.dataset.id),
-                        responseContest = vp.core.parseHTML(response.contest);
-                    vp.core.insertAfter(contest,responseContest);
-
-                    var formula = responseContest.querySelector('.js-contestFormula');
-                    vp.formula.create(formula , {
-                        mode: "print",
-                        curItems: formula.dataset.items
-                    });
-
-                    vp.modal.remove(contestModal);
-                    contest.remove();
-                }
-
-                vp.notification.notify({
-                    type: response.status,
-                    message: response.message
-                });
-
-                vp.core.log(response.message, response.status, corePrefix);
-            },
-            error: function(response) {
-                vp.core.log('ajax error occur on updating contest','error',corePrefix, response);
-                vp.form.removeLoadingClass(contestModal);
-            }
-        };
-
-        vp.ajax.send(ajaxData);
-    };
+    var eventID            = null,
+        allItemsParts      = null,
+        allItemsTeams      = null,
+        resultPartBlock    = null,
+        resultTeamBlock    = null,
+        formulaTeamsPrint  = null,
+        formulaTeams       = null,
+        formulaPartsPrint  = null,
+        formulaParts       = null,
+        formulaPartsModule = null,
+        formulaTeamsModule = null,
+        corePrefix         = "VP event scenario";
 
 
-    /**
-     * Submit Deleting Contest
-     * @private
-     */
-    var deleteContest_ = function () {
-
-        var form     = document.querySelector('.notification--confirm'),
-            deleteEl = document.getElementById('deleteContestID'),
-            formData = new FormData();
-
-        if (!form || !deleteEl) {
-            vp.core.log('Could nor catch element', 'error', corePrefix);
-            return;
-        }
-
-        formData.append('csrf', document.getElementById('csrf').value);
-        formData.append('event', eventID);
-        formData.append('id', deleteEl.value);
-
-        var ajaxData = {
-            url: '/contest/delete',
-            type: 'POST',
-            data: formData,
-            beforeSend: function(){
-                vp.form.addLoadingClass(form);
-            },
-            success: function(response) {
-                response = JSON.parse(response);
-                vp.form.removeLoadingClass(form);
-
-                if (parseInt(response.code) === 134) {
-                    var contest = document.getElementById('contest_' + deleteEl.value);
-                    if (contest) {
-                        contest.remove();
-                    } else {
-                        window.location.reload();
-                    }
-                }
-
-                vp.notification.notify({
-                    type: response.status,
-                    message: response.message
-                });
-
-                vp.core.log(response.message, response.status, corePrefix);
-            },
-            error: function(response) {
-                vp.core.log('ajax error occur on deleting contest','error',corePrefix, response);
-                vp.form.removeLoadingClass(form);
-            }
-        };
-
-        vp.ajax.send(ajaxData);
-    };
-
-
-    /**
-     * Create String for select with `options` of judges
-     * @param judges - HTML element
-     * @returns {string}
-     * @private
-     */
-    var getOptionsOfJudge = function(judges) {
-        var judgesID = [],
-            str = "";
-
-        for (var i = 0; i < judges.childElementCount; i++) {
-
-            judgesID.push(judges.children[i].dataset.id);
-
-        }
-
-        for (var i = 0; i < allJudgesOptions.length; i++) {
-            if (judgesID.indexOf(allJudgesOptions[i].id) !== -1) {
-                str += '<option value="' + allJudgesOptions[i].id + '" selected>' + allJudgesOptions[i].name + '</option>'
-            } else {
-                str += '<option value="' + allJudgesOptions[i].id + '">' + allJudgesOptions[i].name + '</option>'
-            }
-        }
-
-        return str;
-    };
-
-
-    /**
-     * Create Modal For Editing Contest
-     * @param element [Object]
-     * @private
-     */
-    var createEditContestModal_ = function (element) {
-        var formula = JSON.parse(element.formula);
-        formula = parseInt(formula[0].type);
-
-        contestModal = vp.modal.create({
-            node: 'FORM',
-            id: 'editContestModal',
-            header: 'Редактирование информации о конкурсе',
-            body:
-                '<div class="form-group">' +
-                    '<input id="editContestModalName" type="text" name="name" maxlength="60" value="' + element.name + '" class="form-group__input" autocomplete="off">' +
-                    '<label for="editContestModalName" class="form-group__label">Название конкурса</label>' +
-                '</div>' +
-                '<div class="form-group">' +
-                    '<textarea id="editContestModalDescription" name="description" maxlength="500" class="form-group__textarea" autocomplete="off">' +
-                        element.description +
-                    '</textarea>' +
-                    '<label for="editContestModalDescription" class="form-group__label">Описание конкурса</label>' +
-                '</div>' +
-                '<div class="form-group">' +
-                    '<div class="fs-0_8 pb-5 text-brand-2">Жюри будут оценивать</div>' +
-                    '<span>' +
-                        '<input type="radio" id="editContestModalMode1" name="editContestModalMode" class="radio" ' + (formula === 1 ? 'checked' : '') + ' value="1">' +
-                        '<label for="editContestModalMode1" class="radio-label">участников</label>' +
-                    '</span>\n' +
-                    '<span class="ml-15">\n' +
-                        '<input type="radio" id="editContestModalMode2" name="editContestModalMode" class="radio" ' + (formula === 2 ? 'checked' : '') + ' value="2">' +
-                        '<label for="editContestModalMode2" class="radio-label">команды</label>' +
-                    '</span>' +
-                '</div>'+
-                '<div class="form-group">' +
-                    '<label for="editContestJudges" class="fs-0_8 pb-5 text-bold text-brand-2">Представители жюри</label>' +
-                    '<select id="editContestJudges" name="judges[]" class="form-group__input" multiple>' +
-                        element.judges +
-                    '</select>' +
-                '</div>' +
-                '<div class="form-group">' +
-                    '<div class="formula" id="editContestFormula"></div>' +
-                '</div>',
-            footer:
-                '<input type="hidden" name="id" value="' + element.id + '">' +
-                '<button type="button" data-close="modal" class="ui-btn ui-btn--2 mr-15">Отмена</button>' +
-                '<button type="submit" class="ui-btn ui-btn--1 fl_r">Изменить</button>',
-            onclose: 'remove'
-        });
-
-        contestModal.dataset.id = element.id;
-        vp.form.initInput('editContestModalName');
-        vp.form.initTextarea('editContestModalDescription');
-
-        new Choices(document.getElementById('editContestJudges'), {
-            removeItemButton: true,
-            noResultsText: 'Ничего не найдено',
-            noChoicesText: 'Нет элементов для выбора',
-            itemSelectText: 'выбрать',
-        });
-
-        editContestFormula = vp.formula.create(document.getElementById('editContestFormula'), {
+    var editParts_ = function () {
+        formulaPartsModule = vp.formula.create(formulaParts, {
             mode: "edit",
-            curItems: element.formula,
-            allItems: allStages,
-            itemsType: 'editContestModalMode'
+            curItems: formulaParts.dataset.items,
+            allItems: allItemsParts
         });
-
-        document.getElementById('editContestModal').addEventListener('submit', updateContest_);
-
+        formulaParts.classList.remove('hide');
+        formulaParts.classList.add('pt-20');
+        formulaPartsPrint.classList.add('hide');
     };
 
 
+    var saveParts_ = function (btn) {
+
+        var formData = new FormData(),
+            formula  = resultPartBlock.querySelector('[name="formula"]');
+
+        formulaPartsModule.toJSON();
+
+        if (formula === null) {
+            return;
+        }
+
+        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('event', eventID);
+        formData.append('id', formulaParts.dataset.id);
+        formData.append('type', 1);
+        formData.append('formula', formula.value);
+
+        var ajaxData = {
+            url: '/result/update',
+            type: 'POST',
+            data: formData,
+            beforeSend: function(){
+                vp.form.addLoadingClass(resultPartBlock);
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                vp.form.removeLoadingClass(resultPartBlock);
+
+                vp.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+
+                vp.core.log(response.message, response.status, corePrefix);
+
+                if (parseInt(response.code) === 140) {
+                    formulaParts.dataset.id = response.id;
+                }
+
+                if (parseInt(response.code) === 140 || parseInt(response.code) === 142) {
+                    formulaPartsModule.destroy();
+                    formulaParts.dataset.items = response.formula;
+                    formulaPartsPrint.dataset.items = response.formula;
+                    formulaPartsPrint.innerHTML = "";
+                    vp.formula.create(formulaPartsPrint, {
+                        mode: "print",
+                        curItems: formulaPartsPrint.dataset.items
+                    });
+                    changeClickedButton_(btn, 'toEdit');
+                    formulaParts.classList.add('hide');
+                    formulaParts.classList.remove('pt-20');
+                    formulaPartsPrint.classList.remove('hide');
+                }
+            },
+            error: function(response) {
+                vp.core.log('ajax error occur on updating participant result', 'error', corePrefix, response);
+                vp.form.removeLoadingClass(resultPartBlock);
+            }
+        };
+        vp.ajax.send(ajaxData);
+    };
+
+
+    var editTeams_ = function () {
+        formulaTeamsModule = vp.formula.create(formulaTeams, {
+            mode: "edit",
+            curItems: formulaTeams.dataset.items,
+            allItems: allItemsTeams
+        });
+        formulaTeams.classList.remove('hide');
+        formulaTeams.classList.add('pt-20');
+        formulaTeamsPrint.classList.add('hide');
+    };
+
+
+    var saveTeams_ = function (btn) {
+
+        var formData = new FormData(),
+            formula  = resultTeamBlock.querySelector('[name="formula"]');
+
+        formulaTeamsModule.toJSON();
+
+        if (formula === null) {
+            return;
+        }
+
+        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('event', eventID);
+        formData.append('id', formulaTeams.dataset.id);
+        formData.append('type', 2);
+        formData.append('formula', formula.value);
+
+        var ajaxData = {
+            url: '/result/update',
+            type: 'POST',
+            data: formData,
+            beforeSend: function(){
+                vp.form.addLoadingClass(resultTeamBlock);
+            },
+            success: function(response) {
+                response = JSON.parse(response);
+                vp.form.removeLoadingClass(resultTeamBlock);
+
+                vp.notification.notify({
+                    type: response.status,
+                    message: response.message
+                });
+
+                vp.core.log(response.message, response.status, corePrefix);
+
+                if (parseInt(response.code) === 140) {
+                    formulaTeams.dataset.id = response.id;
+                }
+
+                if (parseInt(response.code) === 140 || parseInt(response.code) === 142) {
+                    formulaTeamsModule.destroy();
+                    formulaTeams.dataset.items = response.formula;
+                    formulaTeamsPrint.dataset.items = response.formula;
+                    formulaTeamsPrint.innerHTML = "";
+                    vp.formula.create(formulaTeamsPrint, {
+                        mode: "print",
+                        curItems: formulaTeamsPrint.dataset.items
+                    });
+                    changeClickedButton_(btn, 'toEdit');
+                    formulaTeams.classList.add('hide');
+                    formulaTeams.classList.remove('pt-20');
+                    formulaTeamsPrint.classList.remove('hide');
+                }
+            },
+            error: function(response) {
+                vp.core.log('ajax error occur on updating team result', 'error', corePrefix, response);
+                vp.form.removeLoadingClass(resultTeamBlock);
+            }
+        };
+        vp.ajax.send(ajaxData);
+    };
+
+
+    var changeClickedButton_ = function (btn, status) {
+        if (status === "toSave" ) {
+            btn.setAttribute('onclick', 'eventResults.save(this)');
+            btn.classList.remove('link','ml-5');
+            btn.classList.add('ui-btn','ui-btn--1','mt-10');
+            btn.innerHTML = "Сохранить";
+        } else if (status === "toEdit") {
+            btn.setAttribute('onclick', 'eventResults.edit(this)');
+            btn.classList.add('link','ml-5');
+            btn.classList.remove('ui-btn','ui-btn--1','mt-10');
+            btn.innerHTML = "<i class='fa fa-pencil' aria-hidden='true'></i>";
+        }
+    };
+
+
+    eventResults.save = function (element) {
+
+        var type = element.dataset.type;
+
+        if ( type === "Parts" ) {
+            saveParts_(element);
+        } else if ( type === "Teams" ) {
+            saveTeams_(element)
+        }
+    };
+
 
     /**
-     * Open Modal for Editing Contest
-     * @param id - contest ID
+     * Open Modal for Editing Result
+     * @param element - HTTP clicked element
      */
-    eventResults.edit = function (id) {
-        var contest = document.getElementById('contest_' + id);
+    eventResults.edit = function (element) {
 
-        if (!contest) {
+        if (!formulaTeamsPrint || !formulaTeams || !formulaPartsPrint || !formulaParts || !element) {
             vp.notification.notify({
                 type: 'error',
                 message: 'Что-то пошло не так... Перезагрузите страницу'
@@ -249,73 +205,68 @@ var eventResults = function (eventResults) {
             return;
         }
 
-        var name        = contest.querySelector('.js-contestName'),
-            description = contest.querySelector('.js-contestDescription'),
-            judges      = contest.querySelector('.js-contestJudges'),
-            formula     = contest.querySelector('.js-contestFormula');
+        var type = element.dataset.type;
 
-        if (!name || !description || !judges || !formula) {
-            vp.notification.notify({
-                type: 'error',
-                message: 'Что-то пошло не так... Перезагрузите страницу'
-            });
-            return;
+        if (type === "Parts") {
+
+            editParts_();
+
+        } else if (type === "Teams") {
+
+            editTeams_();
+
+        } else {
+
+            window.location.reload();
+
         }
 
-        createEditContestModal_({
-            id:          id,
-            name:        name.textContent,
-            description: description.textContent,
-            judges:      getOptionsOfJudge(judges),
-            formula:     formula.dataset.items
-        });
-    };
-
-
-    /**
-     * Create notification for Deleting Contest
-     * @param id - contest ID
-     */
-    eventResults.delete = function (id) {
-        vp.notification.notify({
-            type: 'confirm',
-            message:
-                '<h3 class="text-brand">Подвердите удаление конкурса</h3>' +
-                '<input type="hidden" id="deleteContestID" value="' + id + '">',
-            showCancelButton: true,
-            confirmText: "Удалить",
-            cancelText: "Отмена",
-            confirm: deleteContest_
-        });
+        changeClickedButton_(element, 'toSave');
     };
 
 
     var prepare_ = function() {
 
-        eventID     = document.getElementById('eventID');
-        allContests = document.getElementById('allContests');
+        eventID         = document.getElementById('eventID');
+        allItemsParts   = document.getElementById('allPartFormula');
+        allItemsTeams   = document.getElementById('allTeamFormula');
+        resultPartBlock = document.getElementById('participantsResult');
+        resultTeamBlock = document.getElementById('teamsResult');
 
-        if (!eventID || !allContests) {
-            vp.core.log('Could not catch `#eventID`, `#allContests`', 'error', corePrefix);
+        if (!eventID || !allItemsTeams || !allItemsParts || !resultPartBlock || !resultTeamBlock) {
+            vp.core.log('Could not catch `#eventID`, `#allPartFormula`, `#allTeamFormula`, `#participantsResult`, `#teamsResult`', 'error', corePrefix);
             return;
         }
 
-        allContests = allContests.value;
+        allItemsTeams = allItemsTeams.value;
+        allItemsParts = allItemsParts.value;
         eventID = eventID.value;
 
-        var formulasPrint = document.getElementsByClassName('formula-print');
+        formulaTeamsPrint = document.getElementById('formulaTeamsPrint');
+        formulaTeams      = document.getElementById('formulaTeams');
+        formulaPartsPrint = document.getElementById('formulaPartsPrint');
+        formulaParts      = document.getElementById('formulaParts');
 
-        if (formulasPrint.length) {
-
-            for (var i = 0; i < formulasPrint.length; i++) {
-                vp.formula.create(formulasPrint[i], {
-                    mode: "print",
-                    curItems: formulasPrint[i].dataset.items
-                });
-            }
-
+        if (!formulaTeamsPrint || !formulaTeams || !formulaPartsPrint || !formulaParts) {
+            vp.core.log('Could not catch `#formulaTeamsPrint`, `#formulaTeams`, `#formulaPartsPrint`, `#formulaParts`', 'error', corePrefix);
+            return;
         }
 
+        if (formulaPartsPrint.dataset.items !== "" && formulaPartsPrint.dataset.items !== "[]") {
+            formulaPartsPrint.innerHTML = "";
+            vp.formula.create(formulaPartsPrint, {
+                mode: "print",
+                curItems: formulaPartsPrint.dataset.items
+            });
+        }
+
+        if (formulaTeamsPrint.dataset.items !== "" && formulaTeamsPrint.dataset.items !== "[]") {
+            formulaTeamsPrint.innerHTML = "";
+            vp.formula.create(formulaTeamsPrint, {
+                mode: "print",
+                curItems: formulaTeamsPrint.dataset.items
+            });
+        }
 
     };
 
