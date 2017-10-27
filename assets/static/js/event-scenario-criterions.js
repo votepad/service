@@ -2,7 +2,7 @@ var eventCriterions = function (eventCriterions) {
 
     var form            = null,
         criterionsTable = null,
-        CriterionModal  = null,
+        criterionModal  = null,
         eventID         = null,
         corePrefix      = "VP event scenario";
 

@@ -203,7 +203,7 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * SCENARIO submodule
-     * action_criterias - action that open page where users can edit information about criterias
+     * action_criterions - action that open page where users can edit information about criterions
      */
     public function action_criterions()
     {
@@ -216,22 +216,20 @@ class Controller_Events_Index extends Dispatch
 
 
     /**
-     * PATTERN submodule
-     * action_stages - stage CRUD
+     * SCENARIO submodule
+     * action_stages - action that open page where users can edit information about stages
      */
     public function action_stages()
     {
-        $stages = Methods_Stages::getByEvent($this->event->id);
+        $stages = Methods_Stages::getAllByEvent($this->event->id);
         $members = $this->getMembers($this->event->id);
         $criterions = Methods_Criterions::getJSON($this->event->id);
 
-        $this->template->mainSection = View::factory('events/scenario/stages')
+        $this->template->mainSection->page = View::factory('events/pages/scenario-stages')
             ->set('event', $this->event)
-            ->set('organization', $this->organization)
             ->set('stages', $stages)
             ->set('members', $members)
             ->set('criterions', $criterions);
-
     }
 
 
@@ -407,8 +405,8 @@ class Controller_Events_Index extends Dispatch
     {
         $members = array();
 
-        $members['teams'] = Methods_Teams::getByEvent($id);
-        $members['participants'] = Methods_Participants::getByEvent($id);
+        $members['teams'] = Methods_Teams::getAllByEvent($id);
+        $members['participants'] = Methods_Participants::getAllByEvent($id);
 
         return $members;
     }
