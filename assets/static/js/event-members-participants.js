@@ -4,6 +4,7 @@ var eventParticipants = function (eventParticipants) {
         participantTable = null,
         participantModal = null,
         eventID          = null,
+        csrf             = null,
         corePrefix       = "VP event members";
 
     /**
@@ -17,7 +18,7 @@ var eventParticipants = function (eventParticipants) {
         var form     = document.getElementById('participantModal'),
             formData = new FormData(form);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -82,7 +83,7 @@ var eventParticipants = function (eventParticipants) {
         var form     = document.getElementById('participantModal'),
             formData = new FormData(form);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -136,7 +137,7 @@ var eventParticipants = function (eventParticipants) {
             return;
         }
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
         formData.append('id', deleteEl.value);
 
@@ -352,6 +353,12 @@ var eventParticipants = function (eventParticipants) {
         participantTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
 
         participantTable.wrapper.querySelector('.dataTable-bottom').remove();
+
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
+        }
 
     };
 

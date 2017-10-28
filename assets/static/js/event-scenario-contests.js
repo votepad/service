@@ -7,6 +7,7 @@ var eventContests = function (eventContests) {
         newContestFormula   = null,
         editContestFormula  = null,
         contestModal        = null,
+        csrf                = null,
         corePrefix          = "VP event scenario";
 
     /**
@@ -31,7 +32,7 @@ var eventContests = function (eventContests) {
 
         var formData = new FormData(newContest);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -88,7 +89,7 @@ var eventContests = function (eventContests) {
 
         var formData = new FormData(contestModal);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -149,7 +150,7 @@ var eventContests = function (eventContests) {
             return;
         }
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
         formData.append('id', deleteEl.value);
 
@@ -412,6 +413,12 @@ var eventContests = function (eventContests) {
                 });
             }
 
+        }
+
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
         }
 
 

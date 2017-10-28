@@ -6,6 +6,7 @@ var eventJudges = function (eventJudges) {
         eventID         = null,
         eventCode       = null,
         passwordSymbols = 'abcdefghijklmnopqrstuvwxyz1234567890',
+        csrf            = null,
         corePrefix      = "VP event members";
 
     /**
@@ -19,7 +20,7 @@ var eventJudges = function (eventJudges) {
         var form     = document.getElementById('judgeModal'),
             formData = new FormData(form);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -77,7 +78,7 @@ var eventJudges = function (eventJudges) {
         var form     = document.getElementById('judgeModal'),
             formData = new FormData(form);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -131,7 +132,7 @@ var eventJudges = function (eventJudges) {
             return;
         }
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
         formData.append('id', deleteEl.value);
 
@@ -299,6 +300,12 @@ var eventJudges = function (eventJudges) {
         judgesTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
 
         judgesTable.wrapper.querySelector('.dataTable-bottom').remove();
+
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
+        }
 
     };
 

@@ -4,6 +4,7 @@ var eventCriterions = function (eventCriterions) {
         criterionsTable = null,
         criterionModal  = null,
         eventID         = null,
+        csrf            = null,
         corePrefix      = "VP event scenario";
 
     /**
@@ -17,7 +18,7 @@ var eventCriterions = function (eventCriterions) {
         var form     = document.getElementById('criterionModal'),
             formData = new FormData(form);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -79,7 +80,7 @@ var eventCriterions = function (eventCriterions) {
         var form     = document.getElementById('criterionModal'),
             formData = new FormData(form);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -137,7 +138,7 @@ var eventCriterions = function (eventCriterions) {
             return;
         }
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
         formData.append('id', deleteEl.value);
 
@@ -287,6 +288,12 @@ var eventCriterions = function (eventCriterions) {
         criterionsTable.wrapper.querySelector('.dataTable-top').appendChild(printBtn);
 
         criterionsTable.wrapper.querySelector('.dataTable-bottom').remove();
+
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
+        }
 
     };
 
