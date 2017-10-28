@@ -7,6 +7,7 @@ class Model_Contest extends Model {
 
     public $id;
     public $event;
+    public $mode;
     public $name;
     public $description;
     public $formula;

@@ -70,19 +70,59 @@ class Methods_Contests extends Model_Contest
 
         $contests = self::getAllByEvent($event);
 
-        $result = array();
+        $result['participants'] = array();
+        $result['teams'] = array();
 
         foreach ($contests as $contest) {
 
-            $result[] = array(
-                'id' => $contest->id,
-                'name' => $contest->name,
-            );
+            switch ($contest->mode) {
+                case 1:
+                    array_push($result['participants'], array(
+                        'id' => $contest->id,
+                        'name' => $contest->name,
+                        'type' => $contest->mode
+                    ));
+                    break;
+                case 2:
+                    array_push($result['teams'], array(
+                        'id' => $contest->id,
+                        'name' => $contest->name,
+                        'type' => $contest->mode
+                    ));
+                    break;
+            }
+        }
+
+        return $result;
+
+    }
+
+
+    /**
+     * Get JSON by formula
+     * @param $formula - [{'id':'coeff'}]
+     * @return string [JSON]
+     */
+    public static function getJSONbyFormula($formula)
+    {
+        $result = array();
+
+        foreach (json_decode($formula) as $contestID => $coeff) {
+
+            $contest = new Model_Contest($contestID);
+
+            if ($contest->id) {
+                $result[] = array(
+                    "id"    => $contest->id,
+                    "name"  => $contest->name,
+                    "coeff" => $coeff,
+                    "type"  => $contest->mode
+                );
+            }
 
         }
 
         return json_encode($result);
-
     }
 
 

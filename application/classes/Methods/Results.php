@@ -2,47 +2,53 @@
 
 class Methods_Results extends  Model_Result
 {
+    /**
+     * Get Participants and Teams Results by event_id
+     * @param $id_event
+     * @param bool $with_addition - include formula based on stages or not
+     * @return array [Model_Stage]
+     */
+    public static function getAllByEvent($id_event, $with_addition = false) {
 
-    public static function getByEvent($event) {
-
-        $selection = Dao_Results::select()
-            ->where('event', '=', $event)
+        $select_part = Dao_Results::select()
+            ->where('event', '=', $id_event)
+            ->where('mode', '=', 1)
             ->limit(1)
             ->execute();
 
+        $select_team = Dao_Results::select()
+            ->where('event', '=', $id_event)
+            ->where('mode', '=', 2)
+            ->limit(1)
+            ->execute();
 
-        $result = new Model_Result();
+        $result['participants'] = new Model_Result();
+        $result['teams'] = new Model_Result();
 
-        if (empty($selection['id'])) {
-            return $result;
-        }
-
-        foreach ($selection as $fieldname => $value) {
-            if (property_exists($result, $fieldname)) $result->$fieldname = $value;
-        }
-
-        $formula = array();
-
-        foreach (json_decode($result->formula) as $contestID => $coeff) {
-
-            $contest = new Model_Contest($contestID);
-
-            if ($contest->id) {
-
-                $formula[] = array(
-                    "id" => $contestID,
-                    "name" => $contest->name,
-                    "coeff" => $coeff,
-                    "mode" => $contest->mode
-                );
+        if ($select_part) {
+            $result['participants']->id = $select_part['id'];
+            $result['participants']->event = $select_part['event'];
+            $result['participants']->mode  = $select_part['mode'];
+            if ($with_addition) {
+                $result['participants']->formula = Methods_Contests::getJSONbyFormula($select_part['formula']);
+            } else {
+                $result['participants']->formula = $select_part['formula'];
             }
-
         }
 
-        $result->formula = json_encode($formula);
+        if ($select_team) {
+            $result['teams']->id = $select_team['id'];
+            $result['teams']->event = $select_team['event'];
+            $result['teams']->mode  = $select_team['mode'];
+
+            if ($with_addition) {
+                $result['teams']->formula = Methods_Contests::getJSONbyFormula($select_team['formula']);
+            } else {
+                $result['teams']->formula = $select_team['formula'];
+            }
+        }
 
         return $result;
-
     }
 
 }

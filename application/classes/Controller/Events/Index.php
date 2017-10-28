@@ -254,18 +254,18 @@ class Controller_Events_Index extends Dispatch
 
 
     /**
-     * PATTERN submodule
-     *
-     * action_result - result CRUD
+     * SCENARIO submodule
+     * action_result - action that open page where users can edit information about result
      */
     public function action_result()
     {
-        $this->event->result = Methods_Results::getByEvent($this->event->id);
-        $this->event->contestsJSON = Methods_Contests::getJSON($this->event->id);
+        $results      = Methods_Results::getAllByEvent($this->event->id, true);
+        $contestsJSON = Methods_Contests::getJSON($this->event->id);
 
-        $this->template->mainSection = View::factory('events/scenario/results')
+        $this->template->mainSection->page = View::factory('events/pages/scenario-results')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('results', $results)
+            ->set('contestsJSON', $contestsJSON);
     }
 
 
@@ -308,23 +308,6 @@ class Controller_Events_Index extends Dispatch
         $this->template->mainSection->page = View::factory('events/pages/members-teams')
             ->set('event', $this->event)
             ->set('teams', $teams);
-
-        return;
-        /**
-         * getting all teams from event
-         * and make an array of their IDs
-         */
-        $teams = Methods_Teams::getAllByEvent($this->event->id);
-        $participantsWoTeam = Methods_Teams::getParticipantsWhitOutTeam($this->event->id);
-
-        $this->template->mainSection = View::factory('events/members/teams')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization)
-            ->set('participants', $participantsWoTeam)
-            ->set('teams', $teams);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
 
     }
 

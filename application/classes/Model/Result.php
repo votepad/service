@@ -1,15 +1,12 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 
-/**
- * Class Model_Result
- * CRUD
- */
 class Model_Result extends Model {
 
     public $id;
     public $event;
     public $mode;
     public $formula;
+    public $dt_create;
 
     public function __construct($id = null) {
 
@@ -42,12 +39,9 @@ class Model_Result extends Model {
         $this->fill_by_row($select);
 
         return $this;
-
     }
 
-    /**
-     * Saves Result to Database
-     */
+
     public function save()
     {
 
@@ -65,11 +59,7 @@ class Model_Result extends Model {
 
     }
 
-    /**
-     * Updates Result data in database
-     *
-     * @return Model_Result
-     */
+
     public function update()
     {
 
