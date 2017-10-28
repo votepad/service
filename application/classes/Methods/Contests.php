@@ -75,20 +75,21 @@ class Methods_Contests extends Model_Contest
 
         foreach ($contests as $contest) {
 
-            if ($contest->mode == 1) {
-                array_push($result['participants'], array(
-                    'id' => $contest->id,
-                    'name' => $contest->name,
-                    'type' => $contest->mode
-                ));
-            }
-
-            if ($contest->mode == 2) {
-                array_push($result['teams'], array(
-                    'id' => $contest->id,
-                    'name' => $contest->name,
-                    'type' => $contest->mode
-                ));
+            switch ($contest->mode) {
+                case 1:
+                    array_push($result['participants'], array(
+                        'id' => $contest->id,
+                        'name' => $contest->name,
+                        'type' => $contest->mode
+                    ));
+                    break;
+                case 2:
+                    array_push($result['teams'], array(
+                        'id' => $contest->id,
+                        'name' => $contest->name,
+                        'type' => $contest->mode
+                    ));
+                    break;
             }
         }
 

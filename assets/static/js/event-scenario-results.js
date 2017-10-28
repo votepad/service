@@ -11,6 +11,7 @@ var eventResults = function (eventResults) {
         formulaParts       = null,
         formulaPartsModule = null,
         formulaTeamsModule = null,
+        csrf               = null,
         corePrefix         = "VP event scenario";
 
 
@@ -37,7 +38,7 @@ var eventResults = function (eventResults) {
             return;
         }
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
         formData.append('id', formulaParts.dataset.id);
         formData.append('type', 1);
@@ -54,6 +55,8 @@ var eventResults = function (eventResults) {
                 response = JSON.parse(response);
                 vp.form.removeLoadingClass(resultPartBlock);
 
+                var code = parseInt(response.code);
+
                 vp.notification.notify({
                     type: response.status,
                     message: response.message
@@ -61,11 +64,11 @@ var eventResults = function (eventResults) {
 
                 vp.core.log(response.message, response.status, corePrefix);
 
-                if (parseInt(response.code) === 140) {
+                if (code === 140) {
                     formulaParts.dataset.id = response.id;
                 }
 
-                if (parseInt(response.code) === 140 || parseInt(response.code) === 142) {
+                if (code === 140 || code === 142) {
                     formulaPartsModule.destroy();
                     formulaParts.dataset.items = response.formula;
                     formulaPartsPrint.dataset.items = response.formula;
@@ -112,7 +115,7 @@ var eventResults = function (eventResults) {
             return;
         }
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
         formData.append('id', formulaTeams.dataset.id);
         formData.append('type', 2);
@@ -129,6 +132,8 @@ var eventResults = function (eventResults) {
                 response = JSON.parse(response);
                 vp.form.removeLoadingClass(resultTeamBlock);
 
+                var code = parseInt(response.code);
+                
                 vp.notification.notify({
                     type: response.status,
                     message: response.message
@@ -136,11 +141,11 @@ var eventResults = function (eventResults) {
 
                 vp.core.log(response.message, response.status, corePrefix);
 
-                if (parseInt(response.code) === 140) {
+                if (code === 140) {
                     formulaTeams.dataset.id = response.id;
                 }
 
-                if (parseInt(response.code) === 140 || parseInt(response.code) === 142) {
+                if (code === 140 || code === 142) {
                     formulaTeamsModule.destroy();
                     formulaTeams.dataset.items = response.formula;
                     formulaTeamsPrint.dataset.items = response.formula;
@@ -165,16 +170,19 @@ var eventResults = function (eventResults) {
 
 
     var changeClickedButton_ = function (btn, status) {
-        if (status === "toSave" ) {
-            btn.setAttribute('onclick', 'eventResults.save(this)');
-            btn.classList.remove('link','ml-5');
-            btn.classList.add('ui-btn','ui-btn--1','mt-10');
-            btn.innerHTML = "Сохранить";
-        } else if (status === "toEdit") {
-            btn.setAttribute('onclick', 'eventResults.edit(this)');
-            btn.classList.add('link','ml-5');
-            btn.classList.remove('ui-btn','ui-btn--1','mt-10');
-            btn.innerHTML = "<i class='fa fa-pencil' aria-hidden='true'></i>";
+        switch (status) {
+            case "toSave":
+                btn.setAttribute('onclick', 'eventResults.save(this)');
+                btn.classList.remove('link','ml-5');
+                btn.classList.add('ui-btn','ui-btn--1','mt-10');
+                btn.innerHTML = "Сохранить";
+                break;
+            case "toEdit":
+                btn.setAttribute('onclick', 'eventResults.edit(this)');
+                btn.classList.add('link','ml-5');
+                btn.classList.remove('ui-btn','ui-btn--1','mt-10');
+                btn.innerHTML = "<i class='fa fa-pencil' aria-hidden='true'></i>";
+                break;
         }
     };
 
@@ -183,10 +191,13 @@ var eventResults = function (eventResults) {
 
         var type = element.dataset.type;
 
-        if ( type === "Parts" ) {
-            saveParts_(element);
-        } else if ( type === "Teams" ) {
-            saveTeams_(element)
+        switch (type) {
+            case "Parts":
+                saveParts_(element);
+                break;
+            case "Teams":
+                saveTeams_(element);
+                break;
         }
     };
 
@@ -207,18 +218,15 @@ var eventResults = function (eventResults) {
 
         var type = element.dataset.type;
 
-        if (type === "Parts") {
-
-            editParts_();
-
-        } else if (type === "Teams") {
-
-            editTeams_();
-
-        } else {
-
-            window.location.reload();
-
+        switch (type) {
+            case "Parts":
+                editParts_();
+                break;
+            case "Teams":
+                editTeams_();
+                break;
+            default:
+                window.location.reload();
         }
 
         changeClickedButton_(element, 'toSave');
@@ -268,6 +276,11 @@ var eventResults = function (eventResults) {
             });
         }
 
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
+        }
     };
 
     document.addEventListener('DOMContentLoaded', prepare_);
