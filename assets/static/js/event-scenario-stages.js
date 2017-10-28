@@ -11,6 +11,7 @@ var eventStages = function (eventStages) {
         allPartsOptions = null,
         allTeamsOptions = null,
         stageModal      = null,
+        csrf            = null,
         corePrefix      = "VP event scenario";
 
     /**
@@ -31,7 +32,7 @@ var eventStages = function (eventStages) {
 
         var formData = new FormData(newStage);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -84,7 +85,7 @@ var eventStages = function (eventStages) {
 
         var formData = new FormData(stageModal);
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
 
         var ajaxData = {
@@ -145,7 +146,7 @@ var eventStages = function (eventStages) {
             return;
         }
 
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
         formData.append('event', eventID);
         formData.append('id', deleteEl.value);
 
@@ -440,6 +441,11 @@ var eventStages = function (eventStages) {
 
         }
 
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
+        }
 
     };
 

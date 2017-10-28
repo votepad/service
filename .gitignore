@@ -3,14 +3,12 @@
 application/vendor/
 application/cache
 application/logs
-uploads/
 
 # Bundler
 node_modules/*
 
-
 # Media files
-assets/img/*
+uploads/
 
 # config files
 application/config/cache.php
@@ -21,6 +19,5 @@ application/config/email.php
 application/config/url.php
 application/config/mongo.php
 
-/.env
-modules/purifier/vendor/htmlpurifier/library/HTMLPurifier/DefinitionCache/Serializer/
-#composer.lock
+.env
+composer.lock

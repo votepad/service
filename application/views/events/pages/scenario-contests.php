@@ -16,9 +16,9 @@
                 сумму баллов полученных за этапы. Можно учесть "вес" этапа, расставив соответствующие коэффициенты.
             </p>
             <a role="button" class="ui-btn ui-btn--1 collapse__btn" data-toggle="collapse" data-area="newContest" data-opened="false" data-textopened="Отмена создания" data-textclosed="Создать новый конкурс"></a>
-            <input type="hidden" id="allStages" value='<?= $stagesJSON ?>'>
-            <input type="hidden" id="eventID" value="<?= $event->id; ?>">
         <? endif; ?>
+        <input type="hidden" id="allStages" value='<?= $stagesJSON ?>'>
+        <input type="hidden" id="eventID" value="<?= $event->id; ?>">
     </div>
 
 </div>

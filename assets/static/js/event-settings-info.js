@@ -1,6 +1,7 @@
 var eventInfo = function (eventInfo) {
 
     var form       = null,
+        csrf       = null,
         corePrefix = "VP event settings";
 
     eventInfo.changeType = function (element) {
@@ -10,7 +11,7 @@ var eventInfo = function (eventInfo) {
 
         formData.append('id', element.dataset.id);
         formData.append('type', element.dataset.type);
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
 
         var ajaxData = {
             url: '/event/publish',
@@ -95,7 +96,17 @@ var eventInfo = function (eventInfo) {
         });
 
         form = document.getElementById('eventInfo');
-        if (form) form.addEventListener('submit', submitForm_)
+
+        if (form) {
+            form.addEventListener('submit', submitForm_);
+        }
+
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
+        }
+
     };
 
     document.addEventListener('DOMContentLoaded', prepare_);

@@ -4,6 +4,7 @@ var eventAssistants = function (eventAssistants) {
         assistantsTable = null,
         requestsTable   = null,
         eventID         = null,
+        csrf            = null,
         corePrefix      = "VP event settings";
 
     var submitAssistant_ = function (assistant) {
@@ -13,7 +14,7 @@ var eventAssistants = function (eventAssistants) {
         formData.append('id', assistant.id);
         formData.append('method', assistant.method);
         formData.append('event', eventID);
-        formData.append('csrf', document.getElementById('csrf').value);
+        formData.append('csrf', csrf);
 
         var ajaxData = {
             url: '/event/assistant',
@@ -126,6 +127,12 @@ var eventAssistants = function (eventAssistants) {
 
             requestsTable.wrapper.querySelector('.dataTable-top').remove();
             requestsTable.wrapper.querySelector('.dataTable-bottom').remove();
+        }
+
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
         }
 
     };

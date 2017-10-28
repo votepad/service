@@ -100,6 +100,7 @@ class Controller_Judges_Ajax extends Ajax {
             return;
         }
 
+        Methods_Contests::removeJudge($judge->id);
         $judge->delete();
 
         $response = new Model_Response_Judge('JUDGE_DELETE_SUCCESS', 'success');
