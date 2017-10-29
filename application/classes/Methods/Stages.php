@@ -247,22 +247,4 @@ class Methods_Stages extends  Model_Stage
             ->execute();
     }
 
-
-
-
-
-    public static function getCriterions($formula)
-    {
-        $formula = json_decode($formula);
-
-        $criterion = array();
-
-        foreach ($formula as $id => $coef) {
-            $criterion[] = new Model_Criterion($id);
-        }
-
-        return $criterion;
-
-    }
-
 }

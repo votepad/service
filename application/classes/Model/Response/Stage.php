@@ -32,4 +32,22 @@ class Model_Response_Stage extends  Model_Response_Abstract
         'message' => 'Этап успешно удален'
     );
 
+    protected $_STAGE_PUBLISH_SUCCESS = array(
+        'type' => 'contest',
+        'code' => '125',
+        'message' => 'Результаты этапа успешно опубликован'
+    );
+
+    protected $_STAGE_UN_PUBLISH_SUCCESS = array(
+        'type' => 'contest',
+        'code' => '126',
+        'message' => 'Результаты этапа успешно снят с публикации'
+    );
+
+    protected $_STAGE_PUBLISH_ERROR = array(
+        'type' => 'contest',
+        'code' => '127',
+        'message' => 'Результаты не опубликованы. Обновите страницу'
+    );
+
 }
