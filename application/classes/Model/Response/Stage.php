@@ -35,13 +35,13 @@ class Model_Response_Stage extends  Model_Response_Abstract
     protected $_STAGE_PUBLISH_SUCCESS = array(
         'type' => 'contest',
         'code' => '125',
-        'message' => 'Результаты этапа успешно опубликован'
+        'message' => 'Результаты этапа успешно опубликованы'
     );
 
     protected $_STAGE_UN_PUBLISH_SUCCESS = array(
         'type' => 'contest',
         'code' => '126',
-        'message' => 'Результаты этапа успешно снят с публикации'
+        'message' => 'Результаты этапа успешно сняты с публикации'
     );
 
     protected $_STAGE_PUBLISH_ERROR = array(

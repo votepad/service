@@ -5,6 +5,86 @@ var eventScores= function (eventScores) {
         csrf        = null,
         corePrefix  = "VP event control";
 
+    /**
+     * Create criterions table for editing
+     * @param info - {
+     *          'event':    event ID,
+     *          'member':   member ID
+     *          'judge':    judge ID
+     *          'contest':  {
+     *              'id':       contest ID
+     *              'formula':  {id_stage:coeff, ....)
+     *          }
+     *          'stage':    {
+     *              'id':       stage ID
+     *              'formula':  {criterion_id:coeff, ...}
+     *          }
+     *          'criterions':   array[Model_Criterion]
+     *      }
+     *
+     * @param scores - {id_criteria:score, ...}
+     */
+    var getCriterions_ = function (info, scores) {
+        var str = "";
+        for (var i = 0; i < info.criterions.length; i++) {
+            str +=
+                '<tr>' +
+                    '<td>' + info.criterions[i]['name'] + '</td>' +
+                    '<td class="text-center">' +
+                        '<div class="score">' +
+                            '<span class="mr-10">' + scores[info.criterions[i]['id']] + '</span>' +
+                            '<a role="button" class="link" onclick="eventScores.toggleEditScore(this)">' +
+                                '<i class="fa fa-pencil" aria-hidden="true"></i>' +
+                            '</a>' +
+                        '</div>' +
+                        '<div class="score hide">' +
+                            '<input type="number" class="text-center" min="' + info.criterions[i]['minScore'] + '" max="' + info.criterions[i]['maxScore'] + '" value="' + scores[info.criterions[i]['id']] + '">' +
+                            '<a role="button" class="ml-10 text-danger" onclick="eventScores.toggleEditScore(this)">' +
+                                '<i class="fa fa-times" aria-hidden="true"></i>' +
+                            '</a>' +
+                            '<a role="button" class="ml-10 text-brand" onclick="eventScores.updateScore(this)" data-criterion="' + info.criterions[i]['id'] + '" data-info=\'' + JSON.stringify(info) + '\'>' +
+                                '<i class="fa fa-check" aria-hidden="true"></i>' +
+                            '</a>' +
+                        '</div>' +
+                    '</td>' +
+                '</tr>';
+        }
+        return str;
+    };
+
+    eventScores.updateScore = function () {
+
+    };
+
+    eventScores.toggleEditScore = function (element) {
+        var td = element.parentNode.parentNode;
+        td.querySelector('.score:nth-child(1)').classList.toggle('hide');
+        td.querySelector('.score:nth-child(2)').classList.toggle('hide');
+    };
+
+    eventScores.editStageScore = function (element) {
+        // element
+        vp.modal.create({
+            'node': 'FORM',
+            'id': 'reset',
+            'header': 'Оценки по критериям',
+            'body':
+                '<table>' +
+                    '<thead>' +
+                        '<tr>' +
+                            '<th>Критерии</th>' +
+                            '<th class="text-center">Балл</th>' +
+                        '</tr>' +
+                    '</thead>' +
+                    '<tbody>' +
+                        getCriterions_(JSON.parse(element.dataset.info), JSON.parse(element.dataset.scores)) +
+                    '</tbody>' +
+                '</table>',
+            onclose: 'remove'
+        })
+
+
+    };
 
     /**
      * Submit Publishing Status

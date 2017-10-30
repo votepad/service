@@ -110,13 +110,50 @@
                                 <? foreach ($event->results['participants']->contests[$contestKey]->judges as $judge): ?>
 
                                     <td class="text-center">
-                                        0
+                                        <?
+                                            $data = array(
+                                                'event'   => $event->id,
+                                                'mode'    => 'participants',
+                                                'member'  => $member->id,
+                                                'judge'   => $judge->id,
+                                                'contest' => array(
+                                                    'id'      => $contest->id,
+                                                    'formula' => json_decode($contest->formula),
+                                                ),
+                                                'stage' => array(
+                                                    'id'      => $stage->id,
+                                                    'formula' => json_decode($stage->formula),
+                                                ),
+                                                'criterions' => $stage->criterions
+                                            );
+
+                                            $criterionsScores = array();
+                                            $stageScore = $event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id];
+
+                                            foreach ($stage->criterions as $criterion) {
+                                                if (!$stageScore || empty($stageScore[$criterion->id])) {
+                                                    $criterionsScores[$criterion->id] = 0;
+                                                } else {
+                                                    $criterionsScores[$criterion->id] = $stageScore[$criterion->id];
+                                                }
+                                            }
+
+                                        ?>
+
+                                        <!-- data-scores="{id_criteria:score, ...}" -->
+                                        <a role="button" class="link" onclick="eventScores.editStageScore(this)" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
+                                            <?= empty($stageScore) ? 0 : $stageScore; ?>
+                                        </a>
+
                                     </td>
 
                                 <? endforeach; ?>
 
                                 <td class="text-center">
-                                    0
+                                    <?
+                                        $stageScoreTotal = $event->scores[$member->id]['overall'][$contest->id][$stage->id];
+                                        echo empty($stageScoreTotal) ? '0' : $stageScoreTotal;
+                                    ?>
                                 </td>
 
                             </tr>
@@ -275,13 +312,48 @@
                                 <? foreach ($event->results['teams']->contests[$contestKey]->judges as $judge): ?>
 
                                     <td class="text-center">
-                                        0
+                                        <?
+                                            $data = array(
+                                                'event'   => $event->id,
+                                                'mode'    => 'teams',
+                                                'member'  => $member->id,
+                                                'judge'   => $judge->id,
+                                                'contest' => array(
+                                                    'id'      => $contest->id,
+                                                    'formula' => json_decode($contest->formula),
+                                                ),
+                                                'stage' => array(
+                                                    'id'      => $stage->id,
+                                                    'formula' => json_decode($stage->formula),
+                                                ),
+                                                'criterions' => $stage->criterions
+                                            );
+
+                                            $criterionsScores = array();
+                                            $stageScore = $event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id];
+
+                                            foreach ($stage->criterions as $criterion) {
+                                                if (!$stageScore || empty($stageScore[$criterion->id])) {
+                                                    $criterionsScores[$criterion->id] = 0;
+                                                } else {
+                                                    $criterionsScores[$criterion->id] = $stageScore[$criterion->id];
+                                                }
+                                            }
+                                        ?>
+
+                                        <!-- data-scores="{id_criteria:score, ...}" -->
+                                        <a role="button" class="link" onclick="eventScores.editStageScore(this)" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
+                                            <?= empty($stageScore) ? 0 : $stageScore; ?>
+                                        </a>
                                     </td>
 
                                 <? endforeach; ?>
 
                                 <td class="text-center">
-                                    0
+                                    <?
+                                        $stageScoreTotal = $event->scores[$member->id]['overall'][$contest->id][$stage->id];
+                                        echo empty($stageScoreTotal) ? '0' : $stageScoreTotal;
+                                    ?>
                                 </td>
 
                             </tr>
