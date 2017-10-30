@@ -5,6 +5,7 @@ module.exports = function () {
     /**
      *
      * @param data:
+     *  - type      - participants || teams
      *  - event
      *  - member
      *  - judge
@@ -22,7 +23,7 @@ module.exports = function () {
         console.log('Received data:');
         console.log(data);
 
-        data.stage    = data.contest + '-' + data.stage;
+        data.stage     = data.contest + '-' + data.stage;
         data.criterion = data.stage + '-' + data.criterion;
 
         return Mongo.connect(config.Mongo.url).then(function (db) {

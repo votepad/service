@@ -1,10 +1,9 @@
-let voting = function (voting) {
+var voting = function (voting) {
 
-    let headerMenuBtn       = null,
-        headerBrand         = null,
-        asideMenu           = null,
+    var navigation      = null,
+        contest         = contest,
+        corePrefix      = "VP: voting panel",
         stages              = null,
-        curHash             = null,
         members             = null,
         membersCriterions   = null,
         collapseMemberBtn   = null,
@@ -14,395 +13,247 @@ let voting = function (voting) {
         modalOpenBtn        = null;
 
 
-    let backdrop      = document.createElement('div');
+    var backdrop      = document.createElement('div');
         backdrop.className = "modal-backdrop in";
 
 
 
+
+
+
     /**
-     * Prepare Header And Mobile Menu
+     * Prepare Navigation Between Contest Stage
      * @private
      */
-    let prepareHeader_ = function() {
-        headerMenuBtn = document.getElementById('openMobileMenu');
-        headerBrand   = document.getElementsByClassName('header__brand')[0];
-        asideMenu     = document.getElementsByClassName('mobile-aside')[0];
+    var prepareNavigation_ = function() {
+        var nav  = document.getElementById('navStagesHashes'),
+            cont = document.getElementById('curContest');
 
-        headerMenuBtn.addEventListener('click', toggleMobileMenu_, false);
-        backdrop.addEventListener('click', toggleMobileMenu_, false);
+        if (nav && cont) {
+            contest = cont.value;
+            navigation = JSON.parse(nav.value);
+            window.addEventListener('hashchange', changeSectionOnHashChange_);
+            changeSectionOnHashChange_();
+            nav.remove();
+            cont.remove();
+        }
     };
 
 
     /**
-     * Prepare Members Block
-     * - count Total Score
+     * Get Stage on Hash Change
      * @private
      */
-    let prepareMembers_ = function () {
+    var changeSectionOnHashChange_ = function () {
+        var hash    = window.location.hash.split('#'),
+            stage   = null;
 
-        members = document.getElementsByClassName('member');
-        
-        membersCriterions = document.getElementsByClassName('member__criterions--collapse');
+        switch (hash.length) {
+            case 2:
+                changeSection_(hash[1]);
+                break;
+            default:
+                vp.core.log('Incorrect hash of the page', 'error', corePrefix)
+        }
+    };
 
-        collapseMemberBtn = document.getElementsByClassName('criterion__submit');
-        
-        window.addEventListener('resize', updateCriterionsBlockHeight_);
 
-        let curScore      = null,
-            curInputScore = null;
+    /**
+     * Select Section By Stage
+     * @param stage - stage HASH
+     * @private
+     */
+    var changeSection_ = function (stage) {
 
-        for (let i = 0; i < members.length; i++) {
-            let curScore      = members[i].getElementsByClassName('member__total-score')[0],
-                curInputScore = members[i].getElementsByClassName('score__input');
+        if (navigation.indexOf(stage) === -1) {
+            vp.core.log('Stage does not on the page', 'error', corePrefix);
+            return;
+        }
 
-            collapseMemberBtn[i].addEventListener('click', closeMemberCollapse_);
+        var oldNavSmallStage = document.querySelector('.js-nav-small-stage.ui-tabs__tab--active'),
+            curNavSmallStage = document.querySelector('.js-nav-small-stage[data-area="contest_' + contest + '_' + stage + '"]'),
+            oldNavLargeStage = document.querySelector('.js-nav-large-stage.nav__item--active'),
+            curNavLargeStage = document.querySelector('.js-nav-large-stage[data-area="contest_' + contest + '_' + stage + '"]');
 
-            for (let j = 0; j < curInputScore.length; j++) {
-                if ( curInputScore[j].hasAttribute('checked') ) {
-                    updateTotalScore_(curScore, "+" , curInputScore[j].value);
-                }
+        if (oldNavSmallStage && curNavSmallStage && oldNavLargeStage && curNavLargeStage) {
 
+            var oldStage = document.getElementById(oldNavSmallStage.dataset.area),
+                curStage = document.getElementById(curNavSmallStage.dataset.area);
+
+            if (oldStage && curStage) {
+                oldNavSmallStage.classList.remove('ui-tabs__tab--active');
+                curNavSmallStage.classList.add('ui-tabs__tab--active');
+                oldNavLargeStage.classList.remove('nav__item--active');
+                curNavLargeStage.classList.add('nav__item--active');
+
+                oldStage.classList.add('hide');
+                curStage.classList.remove('hide');
             }
 
         }
 
     };
+
+
+
+
+
+
+    /**
+     * Validate Member
+     * @param area  - HTML element `.member`
+     * @returns {boolean}
+     * @private
+     */
+    var validateMember_ = function (area) {
+        var heading    =  area.querySelector('.block__heading'),
+            criterions = area.querySelectorAll('.criterion__scores'),
+            valid      = true;
+
+        for (var i = 0; i < criterions.length; i++) {
+            var score = criterions[i].querySelector('input[type="radio"]:checked');
+            if (score === null) {
+                valid = false;
+                criterions[i].classList.add('criterion__scores--invalid')
+            } else {
+                criterions[i].classList.remove('criterion__scores--invalid')
+            }
+        }
+
+        if (!valid) {
+            heading.classList.add('text-danger');
+        } else {
+            heading.classList.remove('text-danger');
+            if (heading.dataset.opened === "true") {
+                heading.click();
+            }
+        }
+
+        return valid;
+    };
+
+
+    /**
+     * Validate Stage
+     * @param area -    HTML element `.stage`
+     * @returns {boolean}
+     * @private
+     */
+    var validateStage_ = function (area) {
+        var blocks = area.querySelectorAll('.member'),
+            valid  = true;
+
+        for(var i = 0; i < blocks.length; i++) {
+            if (!validateMember_(blocks[i])) {
+                valid = false;
+            }
+        }
+        return valid;
+    };
+
+    /**
+     * Validate Function `onclick`
+     * @param element - clicked button
+     * @param mode - 'member||stage'
+     */
+    voting.validate = function(element, mode) {
+        var message = "",
+            valid   = true;
+
+        switch (mode) {
+            case 'member':
+                valid = validateMember_(element.closest('.member'));
+                message = "Поставьте баллы участнику";
+                break;
+            case 'stage':
+                valid = validateStage_(element.closest('.stage'));
+                message = "Поставьте баллы всем участникам";
+                if (valid) {
+                    window.location.assign(element.dataset.href)
+                }
+                break
+        }
+
+        if (!valid) {
+            vp.notification.notify({
+                type: 'error',
+                message: message
+            })
+        }
+    };
+
+
+
+
+
+
+    /**
+     * Update Score On Click
+     * @private
+     */
+    var updateScore_ = function () {
+        this.click();
+        var member     = this.closest('.member'),
+            inputs     = member.querySelectorAll('input:checked'),
+            totalScore = member.querySelector('.member__total-score'),
+            score      = 0;
+
+        if (inputs.length && member && totalScore) {
+
+            for (var i = 0; i < inputs.length; i++) {
+                score += parseInt(inputs[i].value);
+            }
+
+            totalScore.textContent = score;
+
+        }
+
+    };
+
 
     /**
      * Prepare Scores Buttons
      * @private
      */
-    let prepareScores_ = function() {
-        scores = document.getElementsByClassName('score');
+    var prepareScores_ = function() {
+        scores = document.getElementsByClassName('criterion__score');
 
-        for (let i = 0; i < scores.length; i++) {
-            scores[i].addEventListener('click', setScore_)
+        for (var i = 0; i < scores.length; i++) {
+            scores[i].addEventListener('click', updateScore_)
         }
     };
 
 
     /**
-     * Prepare Modal
-     * - working with jQuery
+     * Notify Criterion Description
      * @private
      */
-    let prepareModal_ = function () {
-        modalInfoHeading = document.getElementById('modalInfoHeading');
-        modalInfoContent = document.getElementById('modalInfoContent');
-        modalOpenBtn     = document.getElementsByClassName('openModalInfo');
-
-        for (let i = 0; i < modalOpenBtn.length; i++) {
-            modalOpenBtn[i].addEventListener('click', openModal_)
-        }
-
+    var notifyDescription_  = function() {
+        vp.notification.notify({
+            type: 'confirm',
+            message:
+                '<h2 class="h2 mt-10">Описание критерия</h2>' +
+                '<p class="m-0">' + this.dataset.text + '</p>',
+            showCancelButton: false,
+            confirmText: 'Закрыть'
+        })
     };
 
 
-    /**
-     * Prepare Stages
-     * @private
-     */
+    var prepareCriterionDescription_ = function () {
+        var descriptions = document.getElementsByClassName('criterion__description');
 
-    let prepareStages_ = function () {
-
-        stages = document.getElementsByClassName('stage');
-        curHash = window.location.hash;
-
-        let isOpened = false;
-
-        for (let i = 0; i < stages.length; i++) {
-            if (stages[i].dataset.hash === curHash) {
-                isOpened = true;
-                stages[i].classList.add('fadeInRight');
-            } else {
-                stages[i].classList.add('fadeOutLeft','hide');
-            }
-        }
-
-        if (!isOpened) {
-            stages[0].classList.remove('fadeOutLeft','hide');
-            stages[0].classList.add('fadeInRight');
-        }
-
-        let nextContestLinkBtn = document.getElementsByClassName('nextContestLinkBtn');
-        for(let i = 0; i < nextContestLinkBtn.length; i++) {
-            nextContestLinkBtn[i].addEventListener('click', nextLinkOnClick_);
-        }
-
-        window.addEventListener('hashchange', toggleStage_);
-
-    };
-
-
-
-    /**
-     * Toggle Mobile Menu - open / close on click
-     * @private
-     */
-    let toggleMobileMenu_ = function() {
-        if ( ! headerMenuBtn.parentNode.classList.contains('header__menu-icon--open')) {
-            document.body.appendChild(backdrop);
-        } else {
-            document.body.classList.remove('modal-open');
-            document.getElementsByClassName('modal-backdrop')[0].remove()
-        }
-
-        headerMenuBtn.parentNode.classList.toggle('header__menu-icon--open');
-        headerBrand.classList.toggle('header__brand--active');
-        asideMenu.classList.toggle('mobile-aside--open');
-    };
-
-
-    /**
-     * Update Total Score for Member
-     * @param el - html Element
-     * @param operand - "+" / "-" 
-     * @param score
-     * @private
-     */
-    let updateTotalScore_ = function (el, operand, score) {
-        switch (operand) {
-            case "+":
-                el.innerHTML = parseInt(el.innerHTML) + parseInt(score);
-                break;
-            case "-":
-                el.innerHTML = parseInt(el.innerHTML) - parseInt(score);
-                break;
-        }
-    };
-
-
-    /**
-     * Set Score On Click
-     * @private
-     */
-    let setScore_ = function () {
-        let totalScore = this.parentNode.parentNode.parentNode.parentNode.parentNode.parentNode.getElementsByClassName('member__total-score')[0],
-            tmpScoreEl = null,
-            tmpScore   = null;
-
-        if ( ! this.classList.contains('score--active') ) {
-
-            tmpScoreEl = this.parentNode.getElementsByClassName('score--active')[0];
-            tmpScore = tmpScoreEl ? tmpScoreEl.children[1].value : 0;
-
-            updateTotalScore_(totalScore, "-" , tmpScore);
-            tmpScoreEl ? tmpScoreEl.classList.remove('score--active') : '';
-
-            updateTotalScore_(totalScore, "+" , $('.score__input', this).val());
-            this.classList.add('score--active');
+        for (var i = 0; i < descriptions.length; i++) {
+            descriptions[i].addEventListener('click', notifyDescription_)
         }
 
     };
-
-
-    /**
-     * Update Criterions Block Height on window resize
-     * @private
-     */
-    let updateCriterionsBlockHeight_ = function () {
-
-        for (let i = 0; i < membersCriterions.length; i++) {
-
-            if ( membersCriterions[i].dataset.height !== undefined) {
-                if ( membersCriterions[i].style.height === "0px" ) {
-                    membersCriterions[i].removeAttribute('data-height');
-                } else {
-                    membersCriterions[i].dataset.height = membersCriterions[i].children[0].clientHeight;
-                    membersCriterions[i].style.height = membersCriterions[i].children[0].clientHeight + "px";
-                }
-            }
-        }
-
-    };
-
-
-
-    /**
-     * Next Stage
-     * - checking validation of Active Stage
-     * @private
-     */
-    let nextLinkOnClick_ = function (e) {
-
-        members = this.parentNode.getElementsByClassName('member');
-
-        let isStageValid = true;
-
-        for (let i = 0; i < members.length; i++) {
-            isStageValid ? isStageValid = isCriterionsValid_(members[i]) : isCriterionsValid_(members[i]);
-        }
-
-        if (!isStageValid) {
-            e.preventDefault();
-            vp.notification.notify({
-                'type': 'danger',
-                'message': 'Пожалуйста, проставьте баллы всем участникам'
-            });
-        }
-
-
-    };
-
-    let toggleStage_ = function (event) {
-
-        let oldHash      = event.oldURL.split('#')[1],
-            newHash      = event.newURL.split('#')[1],
-            oldHashInd   = null,
-            newHashInd   = null,
-            members      = null,
-            isStageValid = true;
-
-        for (let i = 0; i < stages.length; i++) {
-
-            if (stages[i].dataset.hash === "#" + oldHash)
-                oldHashInd = i;
-
-            if (stages[i].dataset.hash === "#" + newHash)
-                newHashInd = i;
-
-        }
-
-        if (oldHash === undefined || oldHash === '') {
-            oldHashInd = 0;
-            oldHash = '';
-        }
-        if (newHash === undefined || newHash === '') {
-            newHashInd = 0;
-            newHash = '';
-        }
-
-        if (curHash === oldHash || curHash === "#"+oldHash) {
-
-            members = stages[oldHashInd].getElementsByClassName('member');
-
-            for (let i = 0; i < members.length; i++) {
-                isStageValid ? isStageValid = isCriterionsValid_(members[i]) : isCriterionsValid_(members[i]);
-            }
-
-            if (!isStageValid) {
-                event.preventDefault();
-                window.location.hash = oldHash === undefined ? '' : "#" + oldHash;
-                vp.notification.notify({
-                    'type': 'danger',
-                    'message': 'Пожалуйста, проставьте баллы всем участникам'
-                });
-            } else {
-                curHash = newHash;
-
-                stages[oldHashInd].classList.remove('fadeInLeft', 'fadeInRight');
-                stages[newHashInd].classList.remove('fadeOutLeft', 'fadeOutRight', 'hide');
-                setTimeout(function () {
-                    stages[oldHashInd].classList.add('hide');
-                }, 400);
-
-                if (oldHashInd < newHashInd) {
-                    // move right
-                    stages[oldHashInd].classList.add('fadeOutLeft');
-                    stages[newHashInd].classList.add('fadeInRight');
-                } else {
-                    // move left
-                    stages[oldHashInd].classList.add('fadeOutRight');
-                    stages[newHashInd].classList.add('fadeInLeft');
-                }
-            }
-        }
-    };
-
-
-    /**
-     * Close Member Collapse
-     * @private
-     */
-    let closeMemberCollapse_ = function () {
-        let member = this.parentNode.parentNode.parentNode.parentNode;
-
-        if ( isCriterionsValid_(member) )
-            member.getElementsByClassName('member__header')[0].click();
-        else
-            vp.notification.notify({
-                'type': 'danger',
-                'message': 'Пожалуйста, проставьте баллы участнику'
-            });
-    };
-
-
-    /**
-     * Checking Criterions By Member
-     * @param member - html Element
-     * @returns {boolean}
-     * @private
-     */
-    let isCriterionsValid_ = function (member) {
-        let isMemberValid = true,
-            memberName    = member.getElementsByClassName('member__name')[0],
-            memberScores  = member.getElementsByClassName('criterion__scores');
-
-
-        for (let i = 0; i < memberScores.length; i++) {
-
-            if ( memberScores[i].querySelector('.score__input:checked') === null ) {
-                isMemberValid = false;
-                memberScores[i].classList.add('criterion__scores--invalid');
-            } else {
-                memberScores[i].classList.remove('criterion__scores--invalid');
-            }
-
-        }
-
-        isMemberValid ? memberName.classList.remove('member__name--invalid') : memberName.classList.add('member__name--invalid');
-
-        return isMemberValid;
-
-    };
-
-
-    /**
-     * Working with modal
-     * - show full description of contest || stage || criterion
-     * @private
-     */
-    let openModal_ = function () {
-        let type    = this.dataset.type,
-            text    = this.innerHTML,
-            heading = null,
-            content = null;
-
-        switch(type) {
-            case "contest" :
-                heading = "Описание конкурса: " + this.parentNode.getElementsByClassName('content__header')[0].innerHTML.toLowerCase();
-                content = text;
-                break;
-            case "stage" :
-                heading = "Описание этапа: " + this.parentNode.getElementsByClassName('stage__header')[0].innerHTML.toLowerCase();
-                content = text;
-                break;
-            case "criterion":
-                heading = "Описание критерия";
-                content = text;
-                break;
-        }
-
-        modalInfoHeading.innerHTML = heading;
-        modalInfoContent.innerHTML = content;
-
-        $("#modalInfoBlock").modal();
-
-    };
-
 
     
     voting.init = function () {
-        prepareHeader_();
-        prepareMembers_();
+        prepareNavigation_();
+        prepareCriterionDescription_();
         prepareScores_();
-        prepareModal_();
-        prepareStages_();
-
-        // remove Loader
-        // setTimeout(function () {
-        //     document.getElementsByClassName('loader')[0].remove();
-        // }, 1000)
     };
     
     return voting;
