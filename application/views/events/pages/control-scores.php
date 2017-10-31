@@ -43,13 +43,33 @@
                         <? foreach ($event->results['participants']->contests as $contest): ?>
 
                             <td class="text-center">
-                                0
+                                <? // вывод: балл, полученый участником за КОНКУРС всеми жюри
+                                    if (empty($event->scores['participants'][$member->id]['overall'][$contest->id]['total'])) {
+
+                                        echo 0;
+
+                                    } else {
+
+                                        echo $event->scores['participants'][$member->id]['overall'][$contest->id]['total'];
+
+                                    }
+                                ?>
                             </td>
 
                         <? endforeach; ?>
 
                         <td class="text-center">
-                            0
+                            <? // вывод: балл, полученый участником за все КОНКУРСЫ всеми жюри
+                                if (empty($event->scores['participants'][$member->id]['overall']['total'])) {
+
+                                    echo 0;
+
+                                } else {
+
+                                    echo $event->scores['participants'][$member->id]['overall']['total'];
+
+                                }
+                            ?>
                         </td>
 
                     </tr>
@@ -128,21 +148,32 @@
                                             );
 
                                             $criterionsScores = array();
-                                            $stageScore = $event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id];
+
+                                            if (empty($event->scores['participants'][$member->id]['judges'][$judge->id][$contest->id][$stage->id])) {
+
+                                                $stageScore['total'] = 0;
+
+                                            } else {
+
+                                                $stageScore = $event->scores['participants'][$member->id]['judges'][$judge->id][$contest->id][$stage->id];
+
+                                            }
 
                                             foreach ($stage->criterions as $criterion) {
-                                                if (!$stageScore || empty($stageScore[$criterion->id])) {
+                                                if ($stageScore['total'] == 0 || empty($stageScore[$criterion->id])) {
                                                     $criterionsScores[$criterion->id] = 0;
                                                 } else {
                                                     $criterionsScores[$criterion->id] = $stageScore[$criterion->id];
                                                 }
                                             }
 
-                                        ?>
 
+                                        ?>
                                         <!-- data-scores="{id_criteria:score, ...}" -->
                                         <a role="button" class="link" onclick="eventScores.editStageScore(this)" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
-                                            <?= empty($stageScore) ? 0 : $stageScore; ?>
+                                            <? // вывод: балл, полученый участником за ЭТАП конкретным жюри
+                                                echo $stageScore['total'];
+                                            ?>
                                         </a>
 
                                     </td>
@@ -150,9 +181,16 @@
                                 <? endforeach; ?>
 
                                 <td class="text-center">
-                                    <?
-                                        $stageScoreTotal = $event->scores[$member->id]['overall'][$contest->id][$stage->id];
-                                        echo empty($stageScoreTotal) ? '0' : $stageScoreTotal;
+                                    <? // вывод: балл, полученый участником за ЭТАП всеми жюри
+                                        if (empty($event->scores['participants'][$member->id]['overall'][$contest->id][$stage->id]['total'])) {
+
+                                            echo 0;
+
+                                        } else {
+
+                                            echo $event->scores['participants'][$member->id]['overall'][$contest->id][$stage->id]['total'];
+
+                                        }
                                     ?>
                                 </td>
 
@@ -189,13 +227,33 @@
                             <? foreach ($event->results['participants']->contests[$contestKey]->judges as $judge): ?>
 
                                 <td class="text-center">
-                                    0
+                                    <? // вывод: балл, полученый участником за КОНКУРС конкретным жюри
+                                        if (empty($event->scores['participants'][$member->id]['judges'][$judge->id][$contest->id]['total']))  {
+
+                                            echo 0;
+
+                                        } else {
+
+                                            echo $event->scores['participants'][$member->id]['judges'][$judge->id][$contest->id]['total'];
+
+                                        }
+                                    ?>
                                 </td>
 
                             <? endforeach; ?>
 
                             <td class="text-center">
-                                0
+                                <? // вывод: балл, полученый участником за КОНКУРС всеми жюри
+                                    if (empty($event->scores['participants'][$member->id]['overall'][$contest->id]['total']))  {
+
+                                        echo 0;
+
+                                    } else {
+
+                                        echo $event->scores['participants'][$member->id]['overall'][$contest->id]['total'];
+
+                                    }
+                                ?>
                             </td>
 
                         </tr>
@@ -244,13 +302,33 @@
                         <? foreach ($event->results['teams']->contests as $contest): ?>
 
                             <td class="text-center">
-                                0
+                                <? // вывод: балл, полученый командой за КОНКУРС всеми жюри
+                                    if (empty($event->scores['teams'][$member->id]['overall'][$contest->id]['total'])) {
+
+                                        echo 0;
+
+                                    } else {
+
+                                        echo $event->scores['teams'][$member->id]['overall'][$contest->id]['total'];
+
+                                    }
+                                ?>
                             </td>
 
                         <? endforeach; ?>
 
                         <td class="text-center">
-                            0
+                            <? // вывод: балл, полученый командой за все КОНКУРСЫ всеми жюри
+                                if (empty($event->scores['teams'][$member->id]['overall']['total'])) {
+
+                                    echo 0;
+
+                                } else {
+
+                                    echo $event->scores['teams'][$member->id]['overall']['total'];
+
+                                }
+                            ?>
                         </td>
 
                     </tr>
@@ -330,10 +408,19 @@
                                             );
 
                                             $criterionsScores = array();
-                                            $stageScore = $event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id];
+
+                                            if (empty($event->scores['teams'][$member->id]['judges'][$judge->id][$contest->id][$stage->id])) {
+
+                                                $stageScore['total'] = 0;
+
+                                            } else {
+
+                                                $stageScore = $event->scores['teams'][$member->id]['judges'][$judge->id][$contest->id][$stage->id];
+
+                                            }
 
                                             foreach ($stage->criterions as $criterion) {
-                                                if (!$stageScore || empty($stageScore[$criterion->id])) {
+                                                if ($stageScore['total'] == 0 || empty($stageScore[$criterion->id])) {
                                                     $criterionsScores[$criterion->id] = 0;
                                                 } else {
                                                     $criterionsScores[$criterion->id] = $stageScore[$criterion->id];
@@ -343,16 +430,24 @@
 
                                         <!-- data-scores="{id_criteria:score, ...}" -->
                                         <a role="button" class="link" onclick="eventScores.editStageScore(this)" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
-                                            <?= empty($stageScore) ? 0 : $stageScore; ?>
+                                            <? // вывод: балл, полученый командой за ЭТАП конкретным жюри
+                                                echo $stageScore['total']; ?>
                                         </a>
                                     </td>
 
                                 <? endforeach; ?>
 
                                 <td class="text-center">
-                                    <?
-                                        $stageScoreTotal = $event->scores[$member->id]['overall'][$contest->id][$stage->id];
-                                        echo empty($stageScoreTotal) ? '0' : $stageScoreTotal;
+                                    <? // вывод: балл, полученый командой за ЭТАП всеми жюри
+                                        if (empty($event->scores['teams'][$member->id]['overall'][$contest->id][$stage->id]['total'])) {
+
+                                            echo 0;
+
+                                        } else {
+
+                                            echo $event->scores['teams'][$member->id]['overall'][$contest->id][$stage->id]['total'];
+
+                                        }
                                     ?>
                                 </td>
 
@@ -389,13 +484,34 @@
                             <? foreach ($event->results['teams']->contests[$contestKey]->judges as $judge): ?>
 
                                 <td class="text-center">
-                                    0
+                                    <? // вывод: балл, полученый командой за КОНКУРС конкретным жюри
+                                        if (empty($event->scores['teams'][$member->id]['judges'][$judge->id][$contest->id]['total']))  {
+
+                                            echo 0;
+
+                                        } else {
+
+                                            echo $event->scores['teams'][$member->id]['judges'][$judge->id][$contest->id]['total'];
+
+                                        }
+                                    ?>
                                 </td>
 
                             <? endforeach; ?>
 
                             <td class="text-center">
-                                0
+
+                                <? // вывод: балл, полученый командой за КОНКУРС всеми жюри
+                                    if (empty($event->scores['teams'][$member->id]['overall'][$contest->id]['total']))  {
+
+                                        echo 0;
+
+                                    } else {
+
+                                        echo $event->scores['teams'][$member->id]['overall'][$contest->id]['total'];
+
+                                    }
+                                ?>
                             </td>
 
                         </tr>
@@ -412,37 +528,6 @@
 
 </div>
 
-<!--<div class="modal" id="editScoresForm" tabindex="-1" role="dialog">-->
-<!--    <div class="modal-dialog" role="document">-->
-<!--        <div class="modal-content">-->
-<!--            <div class="modal-header">-->
-<!--                <button type="button" class="close" data-dismiss="modal" aria-label="Close">-->
-<!--                    <i class="fa fa-close" aria-hidden="true"></i>-->
-<!--                </button>-->
-<!--                <h4 class="modal-title" id="myModalLabel">Оценки по критериям</h4>-->
-<!--            </div>-->
-<!--            <div class="modal-body">-->
-<!--                <table id="editScoresTable" class="table table-striped table-hover table-bordered" cellspacing="0" width="100%">-->
-<!--                    <thead>-->
-<!--                        <tr>-->
-<!--                            <th class="text-center no-sort">Критерии</th>-->
-<!--                            <th class="text-center no-sort">Балл</th>-->
-<!--                            <th class="text-center no-sort"></th>-->
-<!--                        </tr>-->
-<!--                    </thead>-->
-<!--                    <tbody>-->
-<!--                        <tr>-->
-<!--                            <td></td>-->
-<!--                            <td class="text-center"></td>-->
-<!--                            <td class="text-center"></td>-->
-<!--                        </tr>-->
-<!--                    </tbody>-->
-<!--                </table>-->
-<!--            </div>-->
-<!---->
-<!--        </div>-->
-<!--    </div>-->
-<!--</div>-->
 
 <input type="hidden" id="eventID" value="<?=$event->id;?>">
 

@@ -29,6 +29,7 @@ class Methods_Results extends  Model_Result
             $result['participants']->id = $select_part['id'];
             $result['participants']->event = $select_part['event'];
             $result['participants']->mode  = $select_part['mode'];
+
             if ($with_addition) {
                 $result['participants']->formula = Methods_Contests::getJSONbyFormula($select_part['formula']);
             } else {
@@ -47,6 +48,9 @@ class Methods_Results extends  Model_Result
                 $result['teams']->formula = $select_team['formula'];
             }
         }
+
+        $result['participants']->contests = array();
+        $result['teams']->contests = array();
 
         return $result;
     }
@@ -78,8 +82,6 @@ class Methods_Results extends  Model_Result
                     array_push($contests, new Model_Contest($contestID));
                 }
 
-                $results[$resultKey]->contests = $contests;
-
                 foreach ($contests as $contestKey => $contest) {
 
                     if ($contest->id) {
@@ -91,6 +93,8 @@ class Methods_Results extends  Model_Result
                         foreach ($contest_formula as $stageID => $coeff) {
                             array_push($stages, new Model_Stage($stageID));
                         }
+
+                        $judges = Methods_Contests::getJudges($contest->id);
 
                         foreach ($stages as $stageKey => $stage) {
 
@@ -111,26 +115,27 @@ class Methods_Results extends  Model_Result
                                     $result_max_score  += $contest_max_score * $result_formula[$contest->id];
                                 }
 
-                                $stage_max_score   *= count($contest->judges);
-                                $contest_max_score *= count($contest->judges);
-                                $result_max_score  *= count($contest->judges);
+                                $stage_max_score   *= count($judges);
+                                $contest_max_score *= count($judges);
+                                $result_max_score  *= count($judges);
 
-                                $results[$resultKey]->contests[$contestKey]->stages[$stageKey]->maxScore = $stage_max_score;
-                                $results[$resultKey]->contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
-                                $results[$resultKey]->contests[$contestKey]->stages[$stageKey]->publish = in_array($contest->id . '-' . $stage->id, $publish_stages);
+                                $stages[$stageKey]->maxScore = $stage_max_score;
+                                $stages[$stageKey]->criterions = $criterions;
+                                $stages[$stageKey]->publish = in_array($contest->id . '-' . $stage->id, $publish_stages);
 
                             }
 
                         }
 
-                        $results[$resultKey]->contests[$contestKey]->maxScore = $contest_max_score;
-                        $results[$resultKey]->contests[$contestKey]->stages = $stages;
-                        $results[$resultKey]->contests[$contestKey]->judges = Methods_Contests::getJudges($contest->id);
-                        $results[$resultKey]->contests[$contestKey]->publish = in_array($contest->id, $publish_contents);
+                        $contests[$contestKey]->maxScore = $contest_max_score;
+                        $contests[$contestKey]->stages = $stages;
+                        $contests[$contestKey]->judges = $judges;
+                        $contests[$contestKey]->publish = in_array($contest->id, $publish_contents);
 
                     }
 
                     $results[$resultKey]->maxScore = $result_max_score;
+                    $results[$resultKey]->contests = $contests;
 
                 }
 

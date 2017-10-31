@@ -176,8 +176,8 @@ class Controller_Events_Index extends Dispatch
             ->query('judges', true)
             ->method(Request::GET)
             ->execute()->body();
-
         $scores = json_decode($scores, true);
+//        echo Debug::vars($scores);die();
         $this->event->scores = $scores['data'];
 
         $this->template->mainSection->page = View::factory('events/pages/control-scores')
