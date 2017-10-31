@@ -191,9 +191,12 @@ var voting = function (voting) {
      * Update Score On Click
      * @private
      */
-    var updateScore_ = function () {
-        this.click();
-        var member     = this.closest('.member'),
+    var updateScore_ = function (element) {
+        if (this.nodeType === 1) {
+            element = this;
+            this.click();
+        }
+        var member     = element.closest('.member'),
             inputs     = member.querySelectorAll('input:checked'),
             totalScore = member.querySelector('.member__total-score'),
             score      = 0;
@@ -219,7 +222,8 @@ var voting = function (voting) {
         scores = document.getElementsByClassName('criterion__score');
 
         for (var i = 0; i < scores.length; i++) {
-            scores[i].addEventListener('click', updateScore_)
+            scores[i].addEventListener('click', updateScore_);
+            updateScore_(scores[i]);
         }
     };
 

@@ -71,7 +71,7 @@ class Methods_Results extends  Model_Result
             if ($result->id) {
 
                 $result_formula = json_decode($result->formula, true);
-
+                $result_max_score = 0;
                 $contests = array();
 
                 foreach ($result_formula as $contestID => $coeff) {
@@ -85,29 +85,37 @@ class Methods_Results extends  Model_Result
                     if ($contest->id) {
 
                         $contest_formula = json_decode($contest->formula, true);
-
+                        $contest_max_score = 0;
                         $stages = array();
 
                         foreach ($contest_formula as $stageID => $coeff) {
                             array_push($stages, new Model_Stage($stageID));
                         }
 
-                        $results[$resultKey]->contests[$contestKey]->stages = $stages;
-                        $results[$resultKey]->contests[$contestKey]->judges = Methods_Contests::getJudges($contest->id);
-                        $results[$resultKey]->contests[$contestKey]->publish = in_array($contest->id, $publish_contents);
-
                         foreach ($stages as $stageKey => $stage) {
 
                             if ($stage->id) {
 
                                 $stage_formula = json_decode($stage->formula, true);
-
+                                $stage_max_score = 0;
                                 $criterions = array();
 
                                 foreach ($stage_formula as $criterionID => $coeff) {
                                     array_push($criterions, new Model_Criterion($criterionID));
                                 }
 
+
+                                foreach ($criterions as $criterionKey => $criterion) {
+                                    $stage_max_score   += $criterion->maxScore * $stage_formula[$criterion->id];
+                                    $contest_max_score += $stage_max_score * $contest_formula[$stage->id];
+                                    $result_max_score  += $contest_max_score * $result_formula[$contest->id];
+                                }
+
+                                $stage_max_score   *= count($contest->judges);
+                                $contest_max_score *= count($contest->judges);
+                                $result_max_score  *= count($contest->judges);
+
+                                $results[$resultKey]->contests[$contestKey]->stages[$stageKey]->maxScore = $stage_max_score;
                                 $results[$resultKey]->contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
                                 $results[$resultKey]->contests[$contestKey]->stages[$stageKey]->publish = in_array($contest->id . '-' . $stage->id, $publish_stages);
 
@@ -115,7 +123,14 @@ class Methods_Results extends  Model_Result
 
                         }
 
+                        $results[$resultKey]->contests[$contestKey]->maxScore = $contest_max_score;
+                        $results[$resultKey]->contests[$contestKey]->stages = $stages;
+                        $results[$resultKey]->contests[$contestKey]->judges = Methods_Contests::getJudges($contest->id);
+                        $results[$resultKey]->contests[$contestKey]->publish = in_array($contest->id, $publish_contents);
+
                     }
+
+                    $results[$resultKey]->maxScore = $result_max_score;
 
                 }
 
@@ -125,74 +140,6 @@ class Methods_Results extends  Model_Result
 
         return $results;
 
-
-
-
-        foreach ($contests as $contestKey => $contest) {
-
-            if ($contest->id) {
-
-                $contest_coeff = json_decode($result->formula, true);
-
-                $stages = array();
-
-                foreach (json_decode($contest->formula) as $stageID => $coeff) {
-                    array_push($stages, new Model_Stage($stageID));
-                }
-
-                $contest->stages = $stages;
-
-                $contest_max_score = 0;
-                $stages_coeff = json_decode($contest->formula, true);
-
-                foreach ($contest->stages as $stageKey => $stage) {
-
-                    if ($stage->id) {
-
-                        $criterions = Methods_Criterions::getCriterions($stage->formula);
-
-                        $stage_max_score = 0;
-                        $crit_coeff = json_decode($stage->formula, true);
-
-                        foreach ($criterions as $criterionKey => $criterion) {
-                            $stage_max_score   += $criterion->max_score * $crit_coeff[$criterion->id];
-                            $contest_max_score += $criterion->max_score * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
-                        }
-
-                        $stage_max_score *= count($contest->judges);
-
-                        $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
-                        $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
-
-                        if ($with_members) {
-                            $members = Methods_Stages::getMembers($stage->id, $stage->mode);
-                            $contests[$contestKey]->stages[$stageKey]->members = $members;
-                        }
-
-                        if ($with_publish_result) {
-                            if (Arr::get($arr_result, $contest->id) && Arr::get($arr_result[$contest->id], $stage->id)) {
-                                $contests[$contestKey]->stages[$stageKey]->is_publish = $arr_result[$contest->id][$stage->id];
-                            } else {
-                                $contests[$contestKey]->stages[$stageKey]->is_publish = false;
-                            }
-                        }
-
-                    }
-
-                }
-
-                $contests[$contestKey]->max_score = $contest_max_score*count($contests[$contestKey]->judges);
-
-                if ($with_publish_result) {
-                    if (Arr::get($arr_result, $contest->id)) {
-                        $contests[$contestKey]->is_publish = count($contest->stages) == count($arr_result[$contest->id]);
-                    } else {
-                        $contests[$contestKey]->is_publish = false;
-                    }
-                }
-            }
-        }
-        return $contests;
     }
 
 }

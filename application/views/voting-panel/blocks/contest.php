@@ -24,7 +24,7 @@
                             endforeach;
                         ?>
                         <h4 class="h4">
-                            Итоговый балл: <span class="text-brand member__total-score">0</span> из <?=$totalMaxScore; ?>
+                            Итоговый балл: <span class="text-brand member__total-score">0</span> из <?= $totalMaxScore; ?>
                             <i class="fa fa-chevron-down fl_r" aria-hidden="true"></i>
                         </h4>
                     </div>

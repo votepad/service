@@ -97,6 +97,10 @@
     margin: 0 auto;
 }
 
+.section__cover .section__content{
+    height: inherit;
+}
+
 .section__content:after{
     content: " ";
     display: table;
