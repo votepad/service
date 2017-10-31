@@ -8,6 +8,7 @@ a[disabled], button[disabled],input[disabled]{
 a{
     color: inherit;
     text-decoration: none;
+    outline: none;
 }
 .link{
     color: #008da7;

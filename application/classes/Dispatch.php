@@ -56,7 +56,6 @@ class Dispatch extends Controller_Template
             $this->template->content     = '';
         }
 
-
     }
 
     /**
@@ -67,15 +66,12 @@ class Dispatch extends Controller_Template
      */
     public function after()
     {
-//        echo View::factory('profiler/stats');
-
         parent::after();
     }
 
     /**
      * Sanitizes GET and POST params
      * @uses HTMLPurifier
-     * @todo Rewrite under ProNWE
      */
     public function XSSfilter()
     {

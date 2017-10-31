@@ -1,48 +1,36 @@
-<div class="container">
-    <div class="header-landing__menu-icon fl_l">
-        <i class="fa fa-bars" aria-hidden="true"></i>
-    </div>
-    <div class="header-landing__menu animated fl_l">
-        <a href="<?=URL::site('event/' . $event->id); ?>" class="header-landing__link">
+<div class="header__wrapper">
+
+    <button role="button" class="header__open-btn" onclick="eventLanding.toggleMenu(this)">
+        <i></i><i></i><i></i>
+    </button>
+
+    <div id="headerMenu" class="header__menu">
+
+        <a href="<?=URL::site('event/' . $event->id); ?>" class="header__button">
             Главная
         </a>
-        <!--            <a role="button" class="header-landing__link toDescription">-->
-        <!--                О мероприятие-->
-        <!--            </a>-->
-        <!--            <a href="" class="header-landing__link">-->
-        <!--                Новости-->
-        <!--            </a>-->
-        <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="header-landing__link">
+        <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="header__button">
             Результаты
         </a>
+
     </div>
 
-    <div class="fl_r dropdown" data-toggle="dropdown">
-        <? if ( !$isLogged ): ?>
-            <a role="button" class="header-landing__link fl_r" data-toggle="modal" data-target="#auth_modal">
-                Войти
+    <div class="header__menu header__menu--right">
+
+        <? if ($isLogged) : ?>
+            <a href="<?=URL::site('/user/' . $user->id); ?>" class="header__button fl_r">
+                <i class="fa fa-user mr-5" aria-hidden="true"></i>
+                <?=$user->name; ?>
             </a>
         <? else: ?>
-            <a class="header-landing__link dropdown__btn fl_r">
-                <?=$user->name; ?>
-                <i class="fa fa-caret-down" aria-hidden="true"></i>
+            <a class="header__button header__button--hollow fl_r" data-toggle="modal" data-area="auth_modal">
+                Войти
             </a>
-            <div class="dropdown__menu dropdown__menu--right">
-                <a href="<?=URL::site('event/' . $event->id . '/settings'); ?>" class="dropdown__link">
-                    <i class="fa fa-cubes dropdown__icon" aria-hidden="true"></i>
-                    Настройки
-                </a>
-                <div class="divider"></div>
-                <a href="<?= URL::site('user/'.$user->id); ?>" class="dropdown__link">
-                    <i class="fa fa-user dropdown__icon" aria-hidden="true"></i>
-                    Профиль
-                </a>
-                <a href="<?=URL::site('sign/organizer/logout'); ?>" class="dropdown__link">
-                    <i class="fa fa-sign-out dropdown__icon" aria-hidden="true"></i>
-                    Выйти
-                </a>
-            </div>
+            <a class="header__button fl_r" data-toggle="modal" data-area="registr_modal">
+                Регистрация
+            </a>
         <? endif; ?>
+
     </div>
 
 </div>

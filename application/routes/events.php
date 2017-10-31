@@ -17,15 +17,6 @@ Route::set('NEW_EVENT', 'event/new')
 
 
 /**
- * Route for Event Ajax actions
- */
-Route::set('EVENT_AJAX', 'event/<action>')
-    ->defaults(array(
-        'controller' => 'Events_Ajax'
-    ));
-
-
-/**
  * Route for event lanfing page.
  *
  * @property String $action - action in controller
@@ -85,11 +76,9 @@ $sectioncallback = function(Route $route, $params, Request $request){
     }
 
 };
-Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>(/<action>)',
+Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>/<action>',
     array(
         'id' => $DIGIT,
-        'section' => 'settings|scenario|members|control',
-        'action' => $STRING
     ))
     ->filter($sectioncallback)
     ->defaults(array(
@@ -110,11 +99,22 @@ Route::set('INVITE_ASSISTANT', 'event/<id>/invite/<hash>', array(
     ));
 
 
-Route::set('PUBLISH_RESULT', 'event/result/<method>',
+Route::set('PUBLISH_EVENT', 'event/result/<method>',
     array(
         'method' => 'publish|unpublish'
     ))
     ->defaults(array(
         'controller' => 'Events_Ajax',
         'action'     => 'result'
+    ));
+
+/**
+ * Route for Event Ajax actions
+ */
+Route::set('EVENT_AJAX', 'event/<action>',
+    array(
+        'action' => $STRING
+    ))
+    ->defaults(array(
+        'controller' => 'Events_Ajax'
     ));

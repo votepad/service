@@ -42,5 +42,3 @@ require_once ('routes/judges.php');
 require_once ('routes/stages.php');
 require_once ('routes/contests.php');
 require_once ('routes/results.php');
-
-?>

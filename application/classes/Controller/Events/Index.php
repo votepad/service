@@ -328,35 +328,27 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_landing()
     {
-        $this->event->results = Methods_Results::getResults($this->event->id);
-        $this->event->members = $this->getMembers($this->event->id);
+        if ($this->event->type == 0) {
+            throw new HTTP_Exception_404;
+        }
 
-        $this->event->result_max_score = $this->getResultMaxScore($this->event->id);
+        $this->event->results = Methods_Results::getResults($this->event->id, false);
+        $this->event->members = $this->getMembers($this->event->id);
 
         $api = Kohana::$config->load('api');
         $token = array_keys(get_object_vars($api))[0];
 
         $scores = Request::factory('/access_token/' . $token . '/method/getResults?')
             ->query('id_event', $this->event->id)
-            ->query('stages', true)
             ->method(Request::GET)
             ->execute()->body();
 
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
 
-
-        // TODO убрать говнокод
-        $this->event->contests = $this->getContests($this->event->id, false, true);
-        $this->event->contestsCount = count($this->event->contests);
-
-
-        $this->template = View::factory('events/landing/main')
+        $this->template = View::factory('event-landing/main')
+            ->set('page', 'landing')
             ->set('event', $this->event);
-
-        $this->template->mainSection = View::factory('events/landing/pages/main_content')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
     }
 
 

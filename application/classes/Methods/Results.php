@@ -57,11 +57,15 @@ class Methods_Results extends  Model_Result
      * @param $id_event - event ID
      * @return array
      */
-    public static function getResults($id_event)
+    public static function getResults($id_event, $full = true)
     {
         $redis = Dispatch::redisInstance();
 
         $results = Methods_Results::getAllByEvent($id_event);
+
+        if ($full == false) {
+            return $results;
+        }
 
         $publish_contents = $redis->sMembers(getenv('REDIS_EVENTS') . $id_event . ':publish:contests');
         $publish_stages   = $redis->sMembers(getenv('REDIS_EVENTS') . $id_event . ':publish:stages');
