@@ -54,8 +54,11 @@
                                     <? for ($i = $criterion->minScore; $i <= $criterion->maxScore; $i++): ?>
 
                                         <?
+
+                                        $mode = ($contest->mode == 1 ? 'participants' : 'teams');
+
                                         $data = json_encode(array(
-                                            'mode'      => ($contest->mode == 1 ? 'participants' : 'teams'),
+                                            'mode'      => $mode,
                                             'event'     => $event->id,
                                             'contest'   => $contest->id,
                                             'stage'     => $stage->id,
@@ -71,8 +74,8 @@
 
                                         ));
 
-                                        if (!empty($event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id][$criterion->id])) {
-                                            $crScore = $event->scores[$member->id]['judges'][$judge->id][$contest->id][$stage->id][$criterion->id];
+                                        if (!empty($event->scores[$mode][$member->id]['judges'][$judge->id][$contest->id][$stage->id][$criterion->id])) {
+                                            $crScore = $event->scores[$mode][$member->id]['judges'][$judge->id][$contest->id][$stage->id][$criterion->id];
                                         } else {
                                             $crScore = 0;
                                         }
