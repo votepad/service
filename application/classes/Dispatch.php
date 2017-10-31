@@ -180,7 +180,8 @@ class Dispatch extends Controller_Template
         $connectionURL = "mongodb://" . $mongoConfiguration['default']['hostname'];
         $connectionOptions = $mongoConfiguration['default']['options'];
 
-        $mongo = new MongoDB\Driver\Manager($connectionURL,$connectionOptions);
+        $mongo = new MongoClient($connectionURL);
+//        $mongo = new MongoClient($connectionURL, $connectionOptions);
 
         return $mongo;
     }

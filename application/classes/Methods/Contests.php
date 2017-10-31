@@ -247,6 +247,12 @@ class Methods_Contests extends Model_Contest
 
     }
 
+    /**
+     * Get Contests By Judge
+     * @param $judge - judge ID
+     * @param bool $getOnlyIds
+     * @return $this|array|bool|mixed|object
+     */
     public static function getByJudge($judge, $getOnlyIds = false) {
 
         $selection = Dao_ContestsJudges::select('c_id')

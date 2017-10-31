@@ -34,9 +34,13 @@ var manager = function () {
             port: 8001,
             path: 'management',
             message: updatesHandler,
-            open: function(){console.log('online')},
+            open: function(){
+                console.log('online')
+            },
             error: console.log,
-            close: function(){console.log('off')},
+            close: function(){
+                console.log('off')
+            },
         })
 
 

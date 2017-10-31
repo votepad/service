@@ -5,6 +5,7 @@ module.exports = function () {
     /**
      *
      * @param data:
+     *  - type      - participants || teams
      *  - event
      *  - member
      *  - judge
@@ -22,7 +23,7 @@ module.exports = function () {
         console.log('Received data:');
         console.log(data);
 
-        data.stage    = data.contest + '-' + data.stage;
+        data.stage     = data.contest + '-' + data.stage;
         data.criterion = data.stage + '-' + data.criterion;
 
         return Mongo.connect(config.Mongo.url).then(function (db) {
@@ -100,7 +101,17 @@ module.exports = function () {
 
                                         manager.update('event', 'orgs', [data.event], update);
 
-                                        return collection.updateOne({member: data.member}, {$push: {scores: payload}, $set: {total: result.total}}).then(function (result) {
+                                        return collection.updateOne({
+                                            member: data.member,
+                                            mode: data.mode
+                                        }, {
+                                            $push: {
+                                                scores: payload
+                                            },
+                                            $set: {
+                                                total: result.total
+                                            }
+                                        }).then(function (result) {
                                             db.close();
                                         });
 
@@ -110,7 +121,14 @@ module.exports = function () {
 
                                         manager.update('event', 'orgs', [data.event], update);
 
-                                        return collection.insertOne({member: data.member, scores: [payload], total: total}).then(function(){db.close()});
+                                        return collection.insertOne({
+                                            member: data.member,
+                                            mode: data.mode,
+                                            scores: [payload],
+                                            total: total
+                                        }).then(function(){
+                                            db.close()
+                                        });
                                     }
 
                                 });
@@ -160,13 +178,19 @@ module.exports = function () {
                             });
 
                             var payload = {
-                                $set: {'scores.$': scores, total: result.total}
+                                $set: {
+                                    'scores.$': scores,
+                                    total: result.total
+                                }
                             };
 
                             return collection.updateOne({
                                 member: data.member,
+                                mode: data.mode,
                                 'scores.judge': data.judge
-                            }, payload).then(function (result) {db.close();})
+                            }, payload).then(function (result) {
+                                db.close();
+                            })
 
                         }
 
