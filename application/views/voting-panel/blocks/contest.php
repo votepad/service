@@ -49,13 +49,13 @@
 
                                 <div class="criterion__scores">
 
-                                    <? $uniqid = $contest->id . '-' . $stage->id . '-' . $criterion->id . '-' . $member->id ?>
+                                    <? $uniqid = 'score-' . $contest->id . '-' . $stage->id . '-' . $criterion->id . '-' . $member->id ?>
 
                                     <? for ($i = $criterion->minScore; $i <= $criterion->maxScore; $i++): ?>
 
                                         <?
                                         $data = json_encode(array(
-                                            'type'      => ($contest->mode == 1 ? 'participants' : 'teams'),
+                                            'mode'      => ($contest->mode == 1 ? 'participants' : 'teams'),
                                             'event'     => $event->id,
                                             'contest'   => $contest->id,
                                             'stage'     => $stage->id,
@@ -79,7 +79,7 @@
 
                                         ?>
 
-                                        <input id="<?= 'score-' . $uniqid . '-' . $i; ?>"
+                                        <input id="<?= $uniqid . '-' . $i; ?>"
                                                type="radio"
                                                class="criterion__score-input js-scores"
                                                name="<?= $uniqid ?>"
@@ -87,7 +87,7 @@
                                                data-value='<?= $data ?>'
                                                <?= $i == $crScore ? 'checked="true"': ''; ?>>
 
-                                        <label role="button" for="<?= 'score-' . $uniqid . '-' . $i; ?>" class="criterion__score <?= $i == $crScore ? 'criterion__score--active': ''; ?>">
+                                        <label role="button" for="<?= $uniqid . '-' . $i; ?>" class="criterion__score <?= $i == $crScore ? 'criterion__score--active': ''; ?>">
                                             <span class="criterion__score-value">
                                                 <?= $i; ?>
                                             </span>
