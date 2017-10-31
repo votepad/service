@@ -174,10 +174,10 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_scores()
     {
-        $this->event->contests = $this->getContests($this->event->id, true, true);
+        $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
-        $api = Kohana::$config->load('api');
 
+        $api = Kohana::$config->load('api');
         $token = array_keys(get_object_vars($api))[0];
 
         $scores = Request::factory('/access_token/' . $token . '/method/getResults?')
@@ -190,10 +190,8 @@ class Controller_Events_Index extends Dispatch
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
 
-        $this->template->mainSection = View::factory('events/control/scores')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+        $this->template->mainSection->page = View::factory('events/pages/control-scores')
+            ->set('event', $this->event);
     }
 
     /**
@@ -399,92 +397,19 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * Get All Members (teams and participants)
-     * @param $id - id_event
+     * @param $id_event - event ID
      * @return array
      */
-    private function getMembers($id)
+    private function getMembers($id_event)
     {
         $members = array();
 
-        $members['teams'] = Methods_Teams::getAllByEvent($id);
-        $members['participants'] = Methods_Participants::getAllByEvent($id);
+        $members['teams'] = Methods_Teams::getAllByEvent($id_event);
+        $members['participants'] = Methods_Participants::getAllByEvent($id_event);
 
         return $members;
     }
 
-
-    /**
-     * Get All Contests with Stages with Criterions
-     * @param $id - id_event
-     * @return array
-     */
-    private function getContests($id, $with_members = false, $with_publish_result = false)
-    {
-        $contests = Methods_Contests::getByEvent($id);
-
-        if ($with_publish_result) {
-            $get_result = $this->redis->sMembers('votepad.orgs:' . $this->organization->id . ':events:' . $this->event->id . ':result.publish');
-            $arr_result = array();
-            foreach ($get_result as $result) {
-                list($contest, $stage) = split('-', $result);
-                $arr_result[$contest][$stage] = true;
-            }
-        }
-
-        foreach ($contests as $contestKey => $contest) {
-            $contest_max_score = 0;
-            $stages_coeff = json_decode($contest->formula, true);
-
-            foreach ($contest->stages as $stageKey => $stage) {
-
-                if ($stage->id) {
-
-                    $criterions = Methods_Stages::getCriterions($stage->formula);
-
-                    if ($with_members)
-                        $members = Methods_Stages::getMembers($stage->id, $stage->mode);
-
-                    $stage_max_score = 0;
-                    $crit_coeff = json_decode($stage->formula, true);
-
-                    foreach ($criterions as $criterionKey => $criterion) {
-                        $stage_max_score += $criterion->max_score * $crit_coeff[$criterion->id];
-                        $contest_max_score += $criterion->max_score * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
-                    }
-
-                    $stage_max_score *= count($contest->judges);
-
-                    $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
-                    $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
-
-                    if ($with_members) {
-                        $contests[$contestKey]->stages[$stageKey]->members = $members;
-                    }
-
-                    if ($with_publish_result) {
-                        if (Arr::get($arr_result, $contest->id) && Arr::get($arr_result[$contest->id], $stage->id)) {
-                            $contests[$contestKey]->stages[$stageKey]->is_publish = $arr_result[$contest->id][$stage->id];
-                        } else {
-                            $contests[$contestKey]->stages[$stageKey]->is_publish = false;
-                        }
-                    }
-
-                }
-            }
-
-            $contests[$contestKey]->max_score = $contest_max_score*count($contests[$contestKey]->judges);
-
-            if ($with_publish_result) {
-                if (Arr::get($arr_result, $contest->id)) {
-                    $contests[$contestKey]->is_publish = count($contest->stages) == count($arr_result[$contest->id]);
-                } else {
-                    $contests[$contestKey]->is_publish = false;
-                }
-            }
-        }
-
-        return $contests;
-    }
 
 
     /**
