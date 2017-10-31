@@ -28,6 +28,16 @@ class Controller_Events_Index extends Dispatch
      */
     const INVITE_ASSISTANT = 'invite_assistant';
 
+    /**
+     * @const ACTION_LANDING [String] - landing page of event
+     */
+    const ACTION_LANDING = 'landing';
+
+    /**
+     * @const ACTION_RESULTS [String] - page with full information of event results
+     */
+    const ACTION_RESULTS = 'results';
+
 
     public function before()
     {
@@ -53,8 +63,8 @@ class Controller_Events_Index extends Dispatch
 
         switch ($action) {
             case self::INVITE_ASSISTANT:
-            case 'results':
-            case 'landing':
+            case self::ACTION_LANDING:
+            case self::ACTION_RESULTS:
                 break;
             default:
 
@@ -68,12 +78,12 @@ class Controller_Events_Index extends Dispatch
                     throw new HTTP_Exception_403;
                 }
 
-                break;
-        }
+                if (!$this->event->code || !Model_Event::getEventByCode($this->event->code)) {
+                    $this->event->code = $this->event->generateCodeForJudges($this->event->id);
+                    $this->event->update();
+                }
 
-        if (!$this->event->code || !Model_Event::getEventByCode($this->event->code)) {
-            $this->event->code = $this->event->generateCodeForJudges($this->event->id);
-            $this->event->update();
+                break;
         }
 
         /**
@@ -315,11 +325,12 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * LANDING submodule
-     * Action is available for all users.
-     * Shows main information about event
+     * action_landing - shows landing of event page
+     * - action is available for all users.
      */
     public function action_landing()
     {
+        $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
 
         $this->event->result_max_score = $this->getResultMaxScore($this->event->id);
@@ -350,10 +361,11 @@ class Controller_Events_Index extends Dispatch
             ->set('organization', $this->organization);
     }
 
+
     /**
      * LANDING submodule
-     * Action is available for all users.
-     * Shows main information about event
+     * action_results - shows full information about event result
+     * - action is available for all users.
      */
     public function action_results()
     {
@@ -381,6 +393,9 @@ class Controller_Events_Index extends Dispatch
             ->set('organization', $this->organization);
 
     }
+
+
+
 
     /**
      * Get All Members (teams and participants)

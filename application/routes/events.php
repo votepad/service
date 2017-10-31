@@ -26,7 +26,7 @@ Route::set('EVENT_AJAX', 'event/<action>')
 
 
 /**
- * Route for event main page.
+ * Route for event lanfing page.
  *
  * @property String $action - action in controller
  * @property [Function] $actioncallback - this callback defines is route allowed to the section or not
@@ -36,7 +36,6 @@ $actioncallback = function(Route $route, $params, Request $request){
 
     $allowedRoutes = array(
         'landing',
-        'news',
         'results'
     );
 
@@ -47,7 +46,7 @@ $actioncallback = function(Route $route, $params, Request $request){
 
 Route::set('EVENT_ACTION', 'event/<id>(/<action>)',
     array(
-        'id' => $DIGIT,
+        'id'     => $DIGIT,
         'action' => $STRING
     ))
     ->filter($actioncallback)
