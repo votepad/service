@@ -1,7 +1,10 @@
 <div class="entry__wrapper">
     <div class="block mb-0 ui-tabs">
         <div class="ui-tabs__wrapper">
-            <a role="button" data-toggle="tabs" data-area="resultParticipantsArea" class="ui-tabs__tab ui-tabs__tab--active">
+            <a role="button" data-toggle="tabs" data-area="serverStatusArea" class="ui-tabs__tab ui-tabs__tab--active">
+                Голосование
+            </a>
+            <a role="button" data-toggle="tabs" data-area="resultParticipantsArea" class="ui-tabs__tab">
                 Индивидуальный результат
             </a>
             <a role="button" data-toggle="tabs" data-area="resultTeamsArea" class="ui-tabs__tab">
@@ -11,7 +14,48 @@
     </div>
 </div>
 
-<div id="resultParticipantsArea">
+<div id="serverStatusArea">
+
+    <div class="block">
+        <div class="block__wrapper p-20">
+            <div id="serverStatus">Подключение <i class="fa fa-spinner fa-fw fa-pulse text-brand" aria-hidden="true"></i></div>
+        </div>
+    </div>
+
+
+    <div class="block">
+
+        <div class="block__heading t-lh-50px p-0 bb-1 text-center">
+            Представители жюри
+        </div>
+
+        <div class="block__wrapper pt-10 pb-20">
+            <table>
+                <thead>
+                    <tr>
+                        <th width="20%" class="text-center">Статус</th>
+                        <th width="80%">Имя</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <? foreach ($event->judges as $judge): ?>
+                        <tr>
+                            <td class="text-center">
+                                <span id="judgeStatus<?= $judge->id; ?>" class="label label--danger">offline</span>
+                            </td>
+                            <td><?= $judge->name; ?></td>
+                        </tr>
+                    <? endforeach; ?>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+</div>
+
+
+<div id="resultParticipantsArea" class="hide">
 
     <!-- FINAL PARTICIPANTS RESULT START -->
     <div class="block" id="final-participants-results">
@@ -553,6 +597,7 @@
     <? endforeach; ?>
 
 </div>
+
 
 <input type="hidden" id="eventID" value="<?=$event->id;?>">
 

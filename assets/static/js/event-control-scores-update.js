@@ -98,6 +98,27 @@ console.log(data);
 
         };
 
+        /**
+         * Update Judge Status
+         * @param data
+         */
+        var updateJudgeStatus_  = function (data) {
+            var judge = document.querySelector('#judgeStatus' + data.id);
+            if (!judge) return;
+
+            switch (data.status) {
+                case 0:
+                    judge.textContent = "offline";
+                    judge.classList.remove('label--success');
+                    judge.classList.add('label--danger');
+                    break;
+                case 1:
+                    judge.textContent = "online";
+                    judge.classList.add('label--success');
+                    judge.classList.remove('label--danger');
+                    break;
+            }
+        };
 
 
         switch (data.type) {
@@ -107,7 +128,7 @@ console.log(data);
                 updateStageResult_(data.data);
                 break;
             case 'judge':
-
+                updateJudgeStatus_(data.data);
                 break;
         }
 
@@ -122,10 +143,12 @@ console.log(data);
             message: updatesHandler_,
             open: function(){
                 vp.core.log('You are online!', 'info', corePrefix);
+                eventScores.status('online');
             },
             error: console.log,
             close: function(){
                 vp.core.log('You are offline :(', 'info', corePrefix);
+                eventScores.status('offline');
             },
         })
     };

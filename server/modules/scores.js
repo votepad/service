@@ -23,6 +23,10 @@ module.exports = function () {
         console.log('Received data:');
         console.log(data);
 
+        var getFixedNumber = function(number) {
+            return Number.isInteger(number) ? number : number.toFixed(1)
+        };
+
         data.stage     = data.contest + '-' + data.stage;
         data.criterion = data.stage + '-' + data.criterion;
 
@@ -68,16 +72,16 @@ module.exports = function () {
                                         stage: data.stage,
                                         criterion: data.criterion,
                                         scores: {
-                                            criterion: payload.criterions[data.criterion],
-                                            stage: payload.stages[data.stage],
-                                            contest: payload.contests[data.contest],
-                                            result: payload.result
+                                            criterion: getFixedNumber(payload.criterions[data.criterion]),
+                                            stage: getFixedNumber(payload.stages[data.stage]),
+                                            contest: getFixedNumber(payload.contests[data.contest]),
+                                            result: getFixedNumber(payload.result)
                                         },
                                         total: {
-                                            criterion: total.criterions[data.criterion],
-                                            stage: total.stages[data.stage],
-                                            contest: total.contests[data.contest],
-                                            result: total.result,
+                                            criterion: getFixedNumber(total.criterions[data.criterion]),
+                                            stage: getFixedNumber(total.stages[data.stage]),
+                                            contest: getFixedNumber(total.contests[data.contest]),
+                                            result: getFixedNumber(total.result),
                                         }
                                     };
 
@@ -166,18 +170,20 @@ module.exports = function () {
                                 stage: data.stage,
                                 criterion: data.criterion,
                                 scores: {
-                                    criterion: scores.criterions[data.criterion],
-                                    stage: scores.stages[data.stage],
-                                    contest: scores.contests[data.contest],
-                                    result: scores.result,
+                                    criterion: getFixedNumber(scores.criterions[data.criterion]),
+                                    stage: getFixedNumber(scores.stages[data.stage]),
+                                    contest: getFixedNumber(scores.contests[data.contest]),
+                                    result: getFixedNumber(scores.result),
                                 },
                                 total: {
-                                    criterion: result.total.criterions[data.criterion],
-                                    stage: result.total.stages[data.stage],
-                                    contest: result.total.contests[data.contest],
-                                    result: result.total.result,
+                                    criterion: getFixedNumber(result.total.criterions[data.criterion]),
+                                    stage: getFixedNumber(result.total.stages[data.stage]),
+                                    contest: getFixedNumber(result.total.contests[data.contest]),
+                                    result: getFixedNumber(result.total.result),
                                 }
                             });
+
+
 
                             var payload = {
                                 $set: {

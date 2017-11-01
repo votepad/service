@@ -5,6 +5,7 @@ var eventScores= function (eventScores) {
         eventID     = null,
         csrf        = null,
         modalEdit   = null,
+        status      = null,
         corePrefix  = "VP scores";
 
     /**
@@ -248,10 +249,11 @@ var eventScores= function (eventScores) {
     var prepare_ = function() {
 
         eventID = document.getElementById('eventID');
-        csrf = document.getElementById('csrf');
+        csrf    = document.getElementById('csrf');
+        status  = document.getElementById('serverStatus');
 
-        if (!eventID || !csrf) {
-            vp.core.log('Could not catch `#eventID`, `#csrf`', 'error', corePrefix);
+        if (!eventID || !csrf || !status) {
+            vp.core.log('Could not catch `#eventID`, `#csrf`, `#serverStatus`', 'error', corePrefix);
             return;
         }
 
@@ -317,6 +319,22 @@ var eventScores= function (eventScores) {
     };
 
     document.addEventListener('DOMContentLoaded', prepare_);
+
+
+    eventScores.status = function (stat) {
+        switch (stat) {
+            case 'online':
+                status.innerHTML = '<p class="text-brand m-0">Голосование доступно!</p>';
+                break;
+            case 'offline':
+                status.innerHTML =
+                    '<p class="fs-1_5 text-danger"><span class="text-bold">Ошибка 500.</span> Сервер не отвечает</p>' +
+                    '<p>Голосование не доступно, пожалуйста, перезагрузите страницу.</p>' +
+                    '<p class="m-0">Если ошибка не устранилась, обратитесь к сотрудникам <span class="text-brand">Votepad</span>.</p>';
+                break;
+        }
+    };
+
 
 
     /**

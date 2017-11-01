@@ -77,7 +77,7 @@ $sectioncallback = function(Route $route, $params, Request $request){
             'judges', 'participants', 'teams'
         ),
         'control' => array(
-            'scores', 'plan'
+            'scores'/*, 'plan'*/
         )
     );
 

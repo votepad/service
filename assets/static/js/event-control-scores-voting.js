@@ -54,11 +54,13 @@ var voting = function (voting) {
 
         opened: function () {
             vp.core.log('You are online!', 'info', corePrefix);
+            eventScores.status('online');
             sendSavedScores(judge);
         },
 
         closed: function () {
             vp.core.log('You are offline :(', 'info', corePrefix);
+            eventScores.status('offline');
         },
 
         message: function (message) {
