@@ -147,4 +147,36 @@ class Methods_Results extends  Model_Result
 
     }
 
+
+    /**
+     * Get Result Coefficient By Contest
+     * @param $contest [Model_Contest]
+     * @return int
+     */
+    public static function getResultCoeff($contest)
+    {
+        $results = Methods_Results::getAllByEvent($contest->event);
+        $result_coeff = 1;
+
+        foreach ($results as $result) {
+
+            if ($result->id) {
+
+                $formula = (array)json_decode($result->formula);
+
+                foreach ($formula as $id => $coeff) {
+                    if ($id == $contest->id) {
+                        $result_coeff = $coeff;
+                        break;
+                    }
+                }
+
+            }
+
+        }
+
+        return $result_coeff;
+
+    }
+
 }

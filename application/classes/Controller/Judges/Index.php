@@ -46,6 +46,7 @@ class Controller_Judges_Index extends Dispatch {
 
         foreach ($contests as $contestKey => $contest) {
 
+            $contests[$contestKey]->result_coeff = Methods_Results::getResultCoeff($contest);
             $contests[$contestKey]->stages = Methods_Contests::getStages($contest->formula);
 
             /**

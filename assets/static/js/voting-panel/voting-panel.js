@@ -2,15 +2,7 @@ var voting = function (voting) {
 
     var navigation      = null,
         contest         = contest,
-        corePrefix      = "VP: voting panel",
-        stages              = null,
-        members             = null,
-        membersCriterions   = null,
-        collapseMemberBtn   = null,
-        scores              = null,
-        modalInfoHeading    = null,
-        modalInfoContent    = null,
-        modalOpenBtn        = null;
+        corePrefix      = "VP: voting panel";
 
 
     var backdrop      = document.createElement('div');
@@ -192,25 +184,35 @@ var voting = function (voting) {
      * @private
      */
     var updateScore_ = function (element) {
+
         if (this.nodeType === 1) {
             element = this;
-            this.click();
+            var oldInput = element.parentNode.querySelector('input:checked'),
+                newInput = document.getElementById(element.getAttribute('for'));
+            if (oldInput) {
+                oldInput.removeAttribute('checked');
+            }
+            if (newInput) {
+                newInput.setAttribute('checked','checked');
+            }
         }
+
         var member     = element.closest('.member'),
-            inputs     = member.querySelectorAll('input:checked'),
+            inputs     = member.querySelectorAll('input'),
             totalScore = member.querySelector('.member__total-score'),
             score      = 0;
 
         if (inputs.length && member && totalScore) {
 
             for (var i = 0; i < inputs.length; i++) {
-                score += parseInt(inputs[i].value);
+                if (inputs[i].hasAttribute('checked')) {
+                    score += parseInt(inputs[i].value);
+                }
             }
 
             totalScore.textContent = score;
 
         }
-
     };
 
 

@@ -69,7 +69,7 @@
                                                 'criterion' => $i,
                                                 'stage' => json_decode($stage->formula, true)[$criterion->id],
                                                 'contest' => json_decode($contest->formula, true)[$stage->id] * json_decode($stage->formula, true)[$criterion->id],
-                                                'result' => json_decode($contest->formula, true)[$stage->id] * json_decode($stage->formula, true)[$criterion->id]
+                                                'result' => $contest->result_coeff * json_decode($contest->formula, true)[$stage->id] * json_decode($stage->formula, true)[$criterion->id]
                                             )
 
                                         ));

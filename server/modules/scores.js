@@ -5,7 +5,7 @@ module.exports = function () {
     /**
      *
      * @param data:
-     *  - type      - participants || teams
+     *  - mode - 'participants || teams'
      *  - event
      *  - member
      *  - judge
@@ -61,6 +61,7 @@ module.exports = function () {
 
                                     var update = {
                                         member: data.member,
+                                        mode: data.mode,
                                         judge: data.judge,
                                         contest: data.contest,
                                         result: data.result,
@@ -158,6 +159,7 @@ module.exports = function () {
 
                             manager.update('event', 'orgs', [data.event], {
                                 member: data.member,
+                                mode: data.mode,
                                 judge: data.judge,
                                 contest: data.contest,
                                 result: data.result,

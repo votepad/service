@@ -13,7 +13,8 @@
 
 <div id="resultParticipantsArea">
 
-    <div class="block">
+    <!-- FINAL PARTICIPANTS RESULT START -->
+    <div class="block" id="final-participants-results">
 
         <div class="block__heading t-lh-50px p-0 bb-1 text-center">
             Финальный результат
@@ -36,13 +37,13 @@
                 <tbody>
                 <? foreach ($event->members['participants'] as $member): ?>
 
-                    <tr>
+                    <tr data-member="<?= $member->id; ?>">
 
                         <td><?= $member->name; ?></td>
 
                         <? foreach ($event->results['participants']->contests as $contest): ?>
 
-                            <td class="text-center">
+                            <td class="text-center" data-contest="<?= $contest->id; ?>">
                                 <? // вывод: балл, полученый участником за КОНКУРС всеми жюри
                                     if (empty($event->scores['participants'][$member->id]['overall'][$contest->id]['total'])) {
 
@@ -58,7 +59,7 @@
 
                         <? endforeach; ?>
 
-                        <td class="text-center">
+                        <td class="text-center" data-contest="total">
                             <? // вывод: балл, полученый участником за все КОНКУРСЫ всеми жюри
                                 if (empty($event->scores['participants'][$member->id]['overall']['total'])) {
 
@@ -81,10 +82,12 @@
         </div>
 
     </div>
+    <!-- FINAL PARTICIPANTS RESULT END -->
 
     <? foreach ($event->results['participants']->contests as $contestKey => $contest): ?>
 
-        <div class="block">
+        <!-- PARTICIPANTS CONTEST START -->
+        <div class="block" id="content-participants-<?= $contest->id; ?>">
 
             <div class="block__heading t-lh-50px p-0 text-center">
                 <?= $contest->name; ?>
@@ -106,7 +109,9 @@
             </div>
 
             <? foreach ($event->results['participants']->contests[$contestKey]->stages as $stageKey => $stage): ?>
-                <div id="resultContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="block__wrapper <?= $stageKey == 0 ? '' : 'hide'; ?>">
+
+                <!-- PARTICIPANTS STAGE RESULT START -->
+                <div data-stage="<?= $contest->id . '-' . $stage->id; ?>" id="resultContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="block__wrapper <?= $stageKey == 0 ? '' : 'hide'; ?>">
 
                     <table class="js-table-participant" data-contest="<?= $contest->id; ?>" data-stage="<?= $stage->id; ?>" data-publish="<?= $stage->publish == FALSE ? 'false' : 'true'; ?>">
                         <thead>
@@ -123,7 +128,7 @@
                         <tbody>
                         <? foreach ($event->members['participants'] as $member): ?>
 
-                            <tr>
+                            <tr data-member="<?= $member->id; ?>">
 
                                 <td><?= $member->name; ?></td>
 
@@ -136,6 +141,9 @@
                                                 'mode'    => 'participants',
                                                 'member'  => $member->id,
                                                 'judge'   => $judge->id,
+                                                'result'  => array(
+                                                    'formula' => json_decode($event->results['participants']->formula),
+                                                ),
                                                 'contest' => array(
                                                     'id'      => $contest->id,
                                                     'formula' => json_decode($contest->formula),
@@ -170,7 +178,7 @@
 
                                         ?>
                                         <!-- data-scores="{id_criteria:score, ...}" -->
-                                        <a role="button" class="link" onclick="eventScores.editStageScore(this)" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
+                                        <a data-judge="<?= $judge->id; ?>" role="button" class="link" onclick="eventScores.editStageScore(this)" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
                                             <? // вывод: балл, полученый участником за ЭТАП конкретным жюри
                                                 echo $stageScore['total'];
                                             ?>
@@ -180,7 +188,7 @@
 
                                 <? endforeach; ?>
 
-                                <td class="text-center">
+                                <td class="text-center" data-judge="total">
                                     <? // вывод: балл, полученый участником за ЭТАП всеми жюри
                                         if (empty($event->scores['participants'][$member->id]['overall'][$contest->id][$stage->id]['total'])) {
 
@@ -201,9 +209,12 @@
                     </table>
 
                 </div>
+                <!-- PARTICIPANTS STAGE RESULT END -->
+
             <? endforeach; ?>
 
-            <div id="resultContest<?= $contest->id; ?>StageTotal" class="block__wrapper hide">
+            <!-- PARTICIPANTS CONTEST TOTAL RESULT START -->
+            <div data-contest="total" id="resultContest<?= $contest->id; ?>StageTotal" class="block__wrapper hide">
 
                 <table class="js-table-participant" data-contest="<?= $contest->id; ?>" data-stage="all" data-publish="<?= $contest->publish == FALSE ? 'false' : 'true'; ?>">
                     <thead>
@@ -220,13 +231,13 @@
                     <tbody>
                     <? foreach ($event->members['participants'] as $member): ?>
 
-                        <tr>
+                        <tr data-member="<?= $member->id; ?>">
 
                             <td><?= $member->name; ?></td>
 
                             <? foreach ($event->results['participants']->contests[$contestKey]->judges as $judge): ?>
 
-                                <td class="text-center">
+                                <td class="text-center" data-judge="<?= $judge->id; ?>">
                                     <? // вывод: балл, полученый участником за КОНКУРС конкретным жюри
                                         if (empty($event->scores['participants'][$member->id]['judges'][$judge->id][$contest->id]['total']))  {
 
@@ -242,7 +253,7 @@
 
                             <? endforeach; ?>
 
-                            <td class="text-center">
+                            <td class="text-center" data-judge="total">
                                 <? // вывод: балл, полученый участником за КОНКУРС всеми жюри
                                     if (empty($event->scores['participants'][$member->id]['overall'][$contest->id]['total']))  {
 
@@ -263,8 +274,10 @@
                 </table>
 
             </div>
+            <!-- PARTICIPANTS CONTEST TOTAL RESULT END -->
 
         </div>
+        <!-- PARTICIPANTS CONTEST END -->
 
     <? endforeach; ?>
 
@@ -272,7 +285,8 @@
 
 <div id="resultTeamsArea" class="hide">
 
-    <div class="block">
+    <!-- FINAL TEAMS RESULT START -->
+    <div class="block" id="final-teams-results">
 
         <div class="block__heading t-lh-50px p-0 bb-1 text-center text-bold">
             Финальный результат
@@ -295,13 +309,13 @@
                 <tbody>
                 <? foreach ($event->members['teams'] as $member): ?>
 
-                    <tr>
+                    <tr data-member="<?= $member->id; ?>">
 
                         <td><?= $member->name; ?></td>
 
                         <? foreach ($event->results['teams']->contests as $contest): ?>
 
-                            <td class="text-center">
+                            <td class="text-center" data-contest="<?= $contest->id; ?>">
                                 <? // вывод: балл, полученый командой за КОНКУРС всеми жюри
                                     if (empty($event->scores['teams'][$member->id]['overall'][$contest->id]['total'])) {
 
@@ -317,7 +331,7 @@
 
                         <? endforeach; ?>
 
-                        <td class="text-center">
+                        <td class="text-center" data-contest="total">
                             <? // вывод: балл, полученый командой за все КОНКУРСЫ всеми жюри
                                 if (empty($event->scores['teams'][$member->id]['overall']['total'])) {
 
@@ -340,11 +354,13 @@
         </div>
 
     </div>
+    <!-- FINAL TEAMS RESULT END -->
 
 
     <? foreach ($event->results['teams']->contests as $contestKey => $contest): ?>
 
-        <div class="block">
+        <!-- TEAMS CONTEST START -->
+        <div class="block" id="content-teams-<?= $contest->id; ?>">
 
             <div class="block__heading t-lh-50px p-0 bb-1 text-center">
                 <?= $contest->name; ?>
@@ -366,7 +382,9 @@
             </div>
 
             <? foreach ($event->results['teams']->contests[$contestKey]->stages as $stageKey => $stage): ?>
-                <div id="resultContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="block__wrapper <?= $stageKey == 0 ? '' : 'hide'; ?>">
+
+                <!-- TEAMS STAGE RESULT START -->
+                <div data-stage="<?= $contest->id . '-' . $stage->id; ?>" id="resultContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="block__wrapper <?= $stageKey == 0 ? '' : 'hide'; ?>">
 
                     <table class="js-table-team" data-contest="<?= $contest->id; ?>" data-stage="<?= $stage->id; ?>" data-publish="<?= $stage->publish == FALSE ? 'false' : 'true'; ?>">
                         <thead>
@@ -383,7 +401,7 @@
                         <tbody>
                         <? foreach ($event->members['teams'] as $member): ?>
 
-                            <tr>
+                            <tr data-member="<?= $member->id; ?>">
 
                                 <td><?= $member->name; ?></td>
 
@@ -396,6 +414,9 @@
                                                 'mode'    => 'teams',
                                                 'member'  => $member->id,
                                                 'judge'   => $judge->id,
+                                                'result'  => array(
+                                                    'formula' => json_decode($event->results['teams']->formula),
+                                                ),
                                                 'contest' => array(
                                                     'id'      => $contest->id,
                                                     'formula' => json_decode($contest->formula),
@@ -429,7 +450,7 @@
                                         ?>
 
                                         <!-- data-scores="{id_criteria:score, ...}" -->
-                                        <a role="button" class="link" onclick="eventScores.editStageScore(this)" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
+                                        <a data-judge="<?= $judge->id; ?>" role="button" class="link" onclick="eventScores.editStageScore(this)" data-info='<?= json_encode($data); ?>' data-scores='<?= json_encode($criterionsScores)?>'>
                                             <? // вывод: балл, полученый командой за ЭТАП конкретным жюри
                                                 echo $stageScore['total']; ?>
                                         </a>
@@ -437,7 +458,7 @@
 
                                 <? endforeach; ?>
 
-                                <td class="text-center">
+                                <td class="text-center" data-judge="total">
                                     <? // вывод: балл, полученый командой за ЭТАП всеми жюри
                                         if (empty($event->scores['teams'][$member->id]['overall'][$contest->id][$stage->id]['total'])) {
 
@@ -458,9 +479,12 @@
                     </table>
 
                 </div>
+                <!-- TEAMS STAGE RESULT END -->
+
             <? endforeach; ?>
 
-            <div id="resultContest<?= $contest->id; ?>StageTotal" class="block__wrapper hide">
+            <!-- TEAMS CONTEST TOTAL RESULT START -->
+            <div data-contest="total" id="resultContest<?= $contest->id; ?>StageTotal" class="block__wrapper hide">
 
                 <table class="js-table-team" data-contest="<?= $contest->id; ?>" data-stage="all" data-publish="<?= $contest->publish == FALSE ? 'false' : 'true'; ?>">
                     <thead>
@@ -477,13 +501,13 @@
                     <tbody>
                     <? foreach ($event->members['teams'] as $member): ?>
 
-                        <tr>
+                        <tr data-member="<?= $member->id; ?>">
 
                             <td><?= $member->name; ?></td>
 
                             <? foreach ($event->results['teams']->contests[$contestKey]->judges as $judge): ?>
 
-                                <td class="text-center">
+                                <td class="text-center" data-judge="<?= $judge->id; ?>">
                                     <? // вывод: балл, полученый командой за КОНКУРС конкретным жюри
                                         if (empty($event->scores['teams'][$member->id]['judges'][$judge->id][$contest->id]['total']))  {
 
@@ -499,7 +523,7 @@
 
                             <? endforeach; ?>
 
-                            <td class="text-center">
+                            <td class="text-center" data-judge="total">
 
                                 <? // вывод: балл, полученый командой за КОНКУРС всеми жюри
                                     if (empty($event->scores['teams'][$member->id]['overall'][$contest->id]['total']))  {
@@ -521,26 +545,25 @@
                 </table>
 
             </div>
+            <!-- TEAMS CONTEST TOTAL RESULT END -->
 
         </div>
+        <!-- TEAMS CONTEST END -->
 
     <? endforeach; ?>
 
 </div>
 
-
 <input type="hidden" id="eventID" value="<?=$event->id;?>">
 
 <!-- =============== PAGE SCRIPTS ===============-->
-<!--<script src="--><?//=$assets; ?><!--static/js/event/control-scores-updates.js"></script>-->
-<script src="<?=$assets; ?>static/js/event/control-wsvoting.js"></script>
-<!--<script type="text/javascript" src="--><?//= $assets; ?><!--static/js/event/control-scores.js"></script>-->
-
 <script type="text/javascript" src="<?=$assets; ?>vendor/vanilla-datatables/dist/vanilla-dataTables.min.js?v=<?= filemtime("assets/vendor/vanilla-datatables/dist/vanilla-dataTables.min.js") ?>"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/event-control-scores-update.js?v=<?= filemtime("assets/static/js/event-control-scores-update.js") ?>"></script>
+<script type="text/javascript" src="<?=$assets; ?>static/js/event-control-scores-voting.js?v=<?= filemtime("assets/static/js/event-control-scores-voting.js") ?>"></script>
 <script type="text/javascript" src="<?=$assets; ?>static/js/event-control-scores.js?v=<?= filemtime("assets/static/js/event-control-scores.js") ?>"></script>
 
 <script>
-    wsvoting.init(0, '<?= $_SERVER['HTTP_HOST'] ?>');
-    updates.init('<?= $_SERVER['HTTP_HOST'] ?>');
+    eventScores.update.init('votepad');
+    eventScores.voting.init(0, 'votepad')
 </script>
 
