@@ -83,4 +83,23 @@ class Methods_Criterions extends Model_Criterion
         return json_encode($result);
     }
 
+
+    /**
+     * Get Criterions by formula
+     * @param $formula - [{'id':'coeff'}]
+     * @return array [Model_Criterions]
+     */
+    public static function getCriterions($formula)
+    {
+        $formula = json_decode($formula);
+
+        $criterions = array();
+
+        foreach ($formula as $id => $coef) {
+            array_push($criterions, new Model_Criterion($id));
+        }
+
+        return $criterions;
+
+    }
 }

@@ -6,8 +6,6 @@ class Model_Event extends Model
     /** Min and Max random value as event code */
     const MIN_RAND_VALUE = 100000;
     const MAX_RAND_VALUE = 999999;
-    const EVENTCODE_KEY  = 'event.codes';
-
 
     public $id;
     public $type;           // 0 - draft, 1 - published
@@ -200,11 +198,11 @@ class Model_Event extends Model
         $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
 
         /** try until we find */
-        while ( $redis->hExists(self::EVENTCODE_KEY, $generatedCode) ) {
+        while ( $redis->hExists(getenv('REDIS_EVENT_CODES'), $generatedCode) ) {
             $generatedCode = mt_rand(self::MIN_RAND_VALUE, self::MAX_RAND_VALUE);
         }
 
-        $redis->hset(self::EVENTCODE_KEY, $generatedCode, $id_event);
+        $redis->hset(getenv('REDIS_EVENT_CODES'), $generatedCode, $id_event);
 
         return $generatedCode;
 
@@ -213,7 +211,7 @@ class Model_Event extends Model
     public static function getEventByCode($code) {
 
         $redis = Dispatch::redisInstance();
-        return $redis->hget(self::EVENTCODE_KEY, $code);
+        return $redis->hget(getenv('REDIS_EVENT_CODES'), $code);
 
     }
 

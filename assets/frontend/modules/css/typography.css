@@ -265,6 +265,11 @@ a.bg-gray-dark:focus {
     height: 80px;
 }
 
+.thumb100 {
+    width: 100px;
+    height: 100px;
+}
+
 .valign{
     display: flex;
     align-items: center;
@@ -313,12 +318,6 @@ a.bg-gray-dark:focus {
 .bl-1{border-left: 1px solid #e7e8ec;}
 .br-1{border-right: 1px solid #e7e8ec;}
 .bb-1{border-bottom: 1px solid #e7e8ec;}
-
-/* delete ↓↓ */
-.bt-1--light{border-top: 1px solid rgba(0,0,0,.15);}
-.bl-1--light{border-left: 1px solid rgba(0,0,0,.15);}
-.br-1--light{border-right: 1px solid rgba(0,0,0,.15);}
-.bb-1--light{border-bottom: 1px solid rgba(0,0,0,.15);}
 
 .fs-0_75{font-size:0.75em;}
 .fs-0_8{font-size:0.8em;}

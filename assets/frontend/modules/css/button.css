@@ -87,9 +87,6 @@ button {
     display: inline-block;
     outline: 0;
 }
-.ui-btn--margin{
-    margin: 0 10px 10px 0;
-}
 .ui-btn--1,
 .ui-btn--2,
 .ui-btn--3{
@@ -99,6 +96,22 @@ button {
     font-size: 14px;
     border-radius: 3px;
     border: 0;
+}
+
+.ui-btn--margin{
+    margin: 0 10px 10px 0;
+}
+.ui-btn--35px{
+    padding: 0 20px;
+    font-size: 16px;
+    height: 35px;
+    line-height: 35px;
+}
+.ui-btn--45px{
+    padding: 0 20px;
+    font-size: 20px;
+    height: 45px;
+    line-height: 45px;
 }
 
 .ui-btn--1{

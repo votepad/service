@@ -51,7 +51,7 @@
                 </div>
                 <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
                 <button type="button" onclick="auth.toForget();" class="btn fl_l m-0">Забыли пароль?</button>
-                <button type="submit" class="btn btn--brand col-xs-4 fl_r m-0">Войти</button>
+                <button type="submit" class="btn btn--brand width-100 m-0 fl_r">Войти</button>
             </div>
             <a role="button" onclick="auth.toJudge();" class="modal__footer display-block text-center bg-light-blue">
                 Вход для жюри
@@ -95,19 +95,19 @@
             </div>
             <div class="modal__body">
                 <div class="form-group form-group--with-icon">
-                    <input id="auth_eventnumber" type="text" name="eventCode" placeholder="Код мероприятия" required="" class="form-group__input">
+                    <input id="auth_eventnumber" type="text" name="eventCode" placeholder="Код мероприятия" required="" class="form-group__input" autocomplete="off">
                     <label for="auth_eventnumber" class="form-group__label-icon">
                         <i class="fa fa-key" aria-hidden="true"></i>
                     </label>
                 </div>
                 <div class="form-group form-group--with-icon">
-                    <input id="auth_judgesecret" type="password" name="password" placeholder="Ваш пароль" required="" class="form-group__input">
+                    <input id="auth_judgesecret" type="password" name="password" placeholder="Ваш пароль" required="" class="form-group__input" autocomplete="off">
                     <label for="auth_judgesecret" class="form-group__label-icon">
                         <i class="fa fa-lock" aria-hidden="true"></i>
                     </label>
                 </div>
                 <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
-                <button type="submit" class="btn btn--brand m-0 col-xs-4 fl_r">Войти</button>
+                <button type="submit" class="btn btn--brand m-0 width-100 fl_r">Войти</button>
             </div>
             <a role="button" onclick="auth.toSignIn();" class="modal__footer display-block bg-light-blue text-center">
                 Вход для пользователя
@@ -152,7 +152,7 @@
                     </label>
                 </div>
 
-                <div class="col-xs-12 text-center">
+                <div class="form-group text-center m-0">
                     <input type="hidden" name="csrf" value="<?=Security::token(); ?>">
                     <button type="submit" class="btn btn--brand m-0">Зарегистрироваться</button>
                 </div>

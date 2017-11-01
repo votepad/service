@@ -51,9 +51,9 @@
                         <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="nav__item <?= $action == 'scores' ? 'nav__item--active': ''; ?>">
                             Результаты
                         </a>
-                        <a href="<?= URL::site('event/' . $event->id . '/control/plan'); ?>" class="nav__item <?= $action == 'plan' ? 'nav__item--active': ''; ?>">
-                            План мероприятия
-                        </a>
+<!--                        <a href="--><?//= URL::site('event/' . $event->id . '/control/plan'); ?><!--" class="nav__item --><?//= $action == 'plan' ? 'nav__item--active': ''; ?><!--">-->
+<!--                            План мероприятия-->
+<!--                        </a>-->
                     </div>
                 </li>
 
@@ -136,9 +136,9 @@
                     <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="ui-tabs__tab <?= $action == 'scores' ? 'ui-tabs__tab--active': ''; ?>">
                         Результаты
                     </a>
-                    <a href="<?= URL::site('event/' . $event->id . '/control/plan'); ?>" class="ui-tabs__tab <?= $action == 'plan' ? 'ui-tabs__tab--active': ''; ?>">
-                        План мероприятия
-                    </a>
+<!--                    <a href="--><?//= URL::site('event/' . $event->id . '/control/plan'); ?><!--" class="ui-tabs__tab --><?//= $action == 'plan' ? 'ui-tabs__tab--active': ''; ?><!--">-->
+<!--                        План мероприятия-->
+<!--                    </a>-->
                 </div>
                 <div id="sectionTabsScenario" class="ui-tabs__wrapper <?= $section == 'scenario' ?: 'hide'; ?>">
                     <a href="<?= URL::site('event/' . $event->id . '/scenario/criterions'); ?>" class="ui-tabs__tab <?= $action == 'criterions' ? 'ui-tabs__tab--active': ''; ?>">

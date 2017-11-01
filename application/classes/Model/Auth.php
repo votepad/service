@@ -87,7 +87,6 @@ class Model_Auth extends Model {
             $this->_session->delete('id');
             $this->_session->delete('mode');
             $this->_session->delete('name');
-            $this->_session->delete('email');
         }
 
         return false;
@@ -98,7 +97,6 @@ class Model_Auth extends Model {
         $this->_session->set('id', $select['id']);
         $this->_session->set('mode', $mode);
         $this->_session->set('name', $select['name']);
-        $this->_session->set('email', $select['email']);
 
         $sessionId = $this->_session->id();
         Cookie::set('id', $select['id'], Date::MONTH);

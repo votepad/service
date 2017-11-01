@@ -32,4 +32,22 @@ class Model_Response_Contest extends  Model_Response_Abstract
         'message' => 'Конкурс успешно удален'
     );
 
+    protected $_CONTEST_PUBLISH_SUCCESS = array(
+        'type' => 'contest',
+        'code' => '135',
+        'message' => 'Результаты конкурса успешно опубликованы'
+    );
+
+    protected $_CONTEST_UN_PUBLISH_SUCCESS = array(
+        'type' => 'contest',
+        'code' => '136',
+        'message' => 'Результаты конкурса успешно сняты с публикации'
+    );
+
+    protected $_CONTEST_PUBLISH_ERROR = array(
+        'type' => 'contest',
+        'code' => '137',
+        'message' => 'Результаты не опубликованы. Обновите страницу'
+    );
+
 }

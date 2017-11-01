@@ -122,4 +122,61 @@ class Controller_Stages_Ajax extends Ajax
         $this->response->body(@json_encode($response->get_response()));
     }
 
+
+    public function action_publish()
+    {
+        $event   = Arr::get($_POST, 'event');
+        $publish = Arr::get($_POST, 'publish');
+        $contest = Arr::get($_POST, 'contest');
+        $stage   = Arr::get($_POST, 'stage');
+
+        $contest = new Model_Contest($contest);
+
+        if (!$contest->id) {
+            $response = new Model_Response_Contest('CONTEST_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($contest->event != $event) {
+            $response = new Model_Response_Contest('CONTEST_EVENT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $stage = new Model_Stage($stage);
+
+        if (!$stage->id) {
+            $response = new Model_Response_Stage('STAGE_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($stage->event != $event) {
+            $response = new Model_Response_Stage('STAGE_EVENT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $publish_stages = $this->redis->sMembers(getenv('REDIS_EVENTS') . $event . ':publish:stages');
+        $is_publish = in_array($contest->id . '-' . $stage->id, $publish_stages) ? "true" : "false";
+
+        if ($is_publish == $publish) {
+            switch ($publish) {
+                case "true":
+                    $this->redis->sRem(getenv('REDIS_EVENTS') . $event . ':publish:stages', $contest->id . '-' . $stage->id);
+                    $response = new Model_Response_Stage('STAGE_UN_PUBLISH_SUCCESS', 'success');
+                    break;
+                case "false":
+                    $this->redis->sAdd(getenv('REDIS_EVENTS') . $event . ':publish:stages', $contest->id . '-' . $stage->id);
+                    $response = new Model_Response_Stage('STAGE_PUBLISH_SUCCESS', 'success');
+                    break;
+            }
+        } else {
+            $response = new Model_Response_Stage('STAGE_PUBLISH_ERROR', 'error');
+        }
+
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
 }

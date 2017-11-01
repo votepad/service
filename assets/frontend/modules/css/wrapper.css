@@ -10,7 +10,6 @@
 
 .section{
     position: relative;
-    height: 100%;
     margin-top: 50px;
 }
 
@@ -94,9 +93,12 @@
 
 .section__content{
     position: relative;
-    height: inherit;
     width: 100%;
     margin: 0 auto;
+}
+
+.section__cover .section__content{
+    height: inherit;
 }
 
 .section__content:after{
