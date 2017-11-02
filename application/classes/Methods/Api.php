@@ -37,21 +37,23 @@ Class Methods_Api extends Model
         foreach ( $cursor as $id => $value ) {
 
             $memberId = $value['member'];
+            $mode     = $value['mode'];
+
             if (isset($params['contests']) && $params['contests']) {
 
-                $result[$memberId]['overall'] = $this->getMemberContestResult($value);
+                $result[$mode][$memberId]['overall'] = $this->getMemberContestResult($value);
 
             } else if (isset($params['stages']) && $params['stages']) {
 
-                $result[$memberId]['overall'] = $this->getMemberStageResult($value);
+                $result[$mode][$memberId]['overall'] = $this->getMemberStageResult($value);
 
             } else if (isset($params['criterions']) && $params['criterions']) {
 
-                $result[$memberId]['overall'] = $this->getMemberCriterionsResult($value);
+                $result[$mode][$memberId]['overall'] = $this->getMemberCriterionsResult($value);
 
             } else {
 
-                $result[$memberId]['overall'] = $this->getMemberTotal($value);
+                $result[$mode][$memberId]['overall'] = $this->getMemberTotal($value);
 
             }
 
@@ -59,19 +61,19 @@ Class Methods_Api extends Model
 
                 if (isset($params['contests']) && $params['contests']) {
 
-                    $result[$memberId]['judges'] = $this->getMemberContestResultByJudges($value);
+                    $result[$mode][$memberId]['judges'] = $this->getMemberContestResultByJudges($value);
 
                 } else if (isset($params['stages']) && $params['stages']) {
 
-                    $result[$memberId]['judges'] = $this->getMemberStageResultByJudges($value);
+                    $result[$mode][$memberId]['judges'] = $this->getMemberStageResultByJudges($value);
 
                 } else if (isset($params['criterions']) && $params['criterions']) {
 
-                    $result[$memberId]['judges'] = $this->getMemberCriterionsResultByJudges($value);
+                    $result[$mode][$memberId]['judges'] = $this->getMemberCriterionsResultByJudges($value);
 
                 } else {
 
-                    $result[$memberId]['judges'] = $this->getMemberTotalByJudges($value);
+                    $result[$mode][$memberId]['judges'] = $this->getMemberTotalByJudges($value);
 
                 }
 

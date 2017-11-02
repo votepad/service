@@ -19,10 +19,11 @@ class Controller_Auth_Judge extends Auth {
 
         }
 
-
         // Do not allow render
         $this->auto_render = false;
+
         parent::before();
+
     }
 
     public function action_auth()
@@ -30,8 +31,9 @@ class Controller_Auth_Judge extends Auth {
         if (!$this->request->is_ajax()) {
             return;
         }
-        $eventCode = (int) Arr::get($_POST, 'eventCode');
-        $judgeSecret  = Arr::get($_POST, 'judgeSecret');
+
+        $eventCode   = (int) Arr::get($_POST, 'eventCode');
+        $judgeSecret = Arr::get($_POST, 'password');
 
         $event = Model_Event::getEventByCode($eventCode);
 

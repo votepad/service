@@ -175,6 +175,7 @@ class Controller_Events_Index extends Dispatch
     public function action_scores()
     {
         $this->event->results = Methods_Results::getResults($this->event->id);
+        $this->event->judges = Methods_Judges::getAllByEvent($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
 
         $api = Kohana::$config->load('api');
@@ -194,19 +195,6 @@ class Controller_Events_Index extends Dispatch
             ->set('event', $this->event);
     }
 
-    /**
-     * CONTROL submodule
-     * action_plan - block/unblock member, stage or contest
-     */
-    public function action_plan()
-    {
-        $this->event->contests = $this->getContests($this->event->id, true);
-
-        $this->template->mainSection = View::factory('events/control/plan')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
-    }
 
 
     /**
@@ -400,50 +388,6 @@ class Controller_Events_Index extends Dispatch
         $members['participants'] = Methods_Participants::getAllByEvent($id_event);
 
         return $members;
-    }
-
-
-
-    /**
-     * Get Result Max Score (participants and teams)
-     * @param $id - id_event
-     * @return array
-     */
-    private function getResultMaxScore($id)
-    {
-        $max_score = array();
-        $max_score["teams"] = 0;
-        $max_score["participants"] = 0;
-
-        $contests = Methods_Contests::getByEvent($id);
-
-        foreach ($contests as $contestKey => $contest) {
-
-            $stages_coeff = json_decode($contest->formula, true);
-
-            foreach ($contest->stages as $stageKey => $stage) {
-
-                if ($stage->id) {
-
-                    $criterions = Methods_Stages::getCriterions($stage->formula);
-                    $crit_coeff = json_decode($stage->formula, true);
-
-                    foreach ($criterions as $criterionKey => $criterion) {
-                        if ($stage->mode == 1) {
-                            $max_score["participants"] += $criterion->max_score  * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
-                        } else {
-                            $max_score["teams"] += $criterion->max_score  * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
-                        }
-                    }
-                }
-            }
-
-            $max_score['participants'] *= count($contest->judges);
-            $max_score['teams'] *= count($contest->judges);
-
-        }
-
-        return $max_score;
     }
 
 }

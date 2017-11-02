@@ -1,9 +1,12 @@
 var eventScores= function (eventScores) {
 
-    var form        = null,
+    var ws          = null,
+        form        = null,
         eventID     = null,
         csrf        = null,
-        corePrefix  = "VP event control";
+        modalEdit   = null,
+        status      = null,
+        corePrefix  = "VP scores";
 
     /**
      * Create criterions table for editing
@@ -11,9 +14,12 @@ var eventScores= function (eventScores) {
      *          'event':    event ID,
      *          'member':   member ID
      *          'judge':    judge ID
+     *          'result':   {
+     *              'formula': {id_contest:coeff, ...}
+     *           }
      *          'contest':  {
      *              'id':       contest ID
-     *              'formula':  {id_stage:coeff, ....)
+     *              'formula':  {id_stage:coeff, ...}
      *          }
      *          'stage':    {
      *              'id':       stage ID
@@ -23,6 +29,7 @@ var eventScores= function (eventScores) {
      *      }
      *
      * @param scores - {id_criteria:score, ...}
+     * @returns {String}
      */
     var getCriterions_ = function (info, scores) {
         var str = "";
@@ -33,18 +40,22 @@ var eventScores= function (eventScores) {
                     '<td class="text-center">' +
                         '<div class="score">' +
                             '<span class="mr-10">' + scores[info.criterions[i]['id']] + '</span>' +
-                            '<a role="button" class="link" onclick="eventScores.toggleEditScore(this)">' +
-                                '<i class="fa fa-pencil" aria-hidden="true"></i>' +
-                            '</a>' +
+                            '<div class="display-inline-block">' +
+                                '<a role="button" class="link" onclick="eventScores.toggleEditScore(this)">' +
+                                    '<i class="fa fa-pencil" aria-hidden="true"></i>' +
+                                '</a>' +
+                            '</div>' +
                         '</div>' +
                         '<div class="score hide">' +
-                            '<input type="number" class="text-center" min="' + info.criterions[i]['minScore'] + '" max="' + info.criterions[i]['maxScore'] + '" value="' + scores[info.criterions[i]['id']] + '">' +
-                            '<a role="button" class="ml-10 text-danger" onclick="eventScores.toggleEditScore(this)">' +
-                                '<i class="fa fa-times" aria-hidden="true"></i>' +
-                            '</a>' +
-                            '<a role="button" class="ml-10 text-brand" onclick="eventScores.updateScore(this)" data-criterion="' + info.criterions[i]['id'] + '" data-info=\'' + JSON.stringify(info) + '\'>' +
-                                '<i class="fa fa-check" aria-hidden="true"></i>' +
-                            '</a>' +
+                            '<input type="number" class="text-center" min="' + info.criterions[i]['minScore'] + '" max="' + info.criterions[i]['maxScore'] + '" value="' + scores[info.criterions[i]['id']] + '" data-criterion="' + info.criterions[i]['id'] + '">' +
+                            '<div class="display-inline-block pt-5">' +
+                                '<a role="button" class="ml-10 text-danger" onclick="eventScores.toggleEditScore(this)">' +
+                                    '<i class="fa fa-times" aria-hidden="true"></i>' +
+                                '</a>' +
+                                '<a role="button" class="ml-10 text-brand" onclick="eventScores.updateScore(this)" data-criterion="' + info.criterions[i]['id'] + '" data-info=\'' + JSON.stringify(info) + '\'>' +
+                                    '<i class="fa fa-check" aria-hidden="true"></i>' +
+                                '</a>' +
+                            '</div>'+
                         '</div>' +
                     '</td>' +
                 '</tr>';
@@ -52,39 +63,91 @@ var eventScores= function (eventScores) {
         return str;
     };
 
-    eventScores.updateScore = function () {
 
+    var getFormulaByStage_ = function (formula, criterions) {
+        var items = [];
+        for (var i = 0; i < criterions.length; i++) {
+            items.push({
+                id: criterions[i]['id'],
+                name: criterions[i]['name'],
+                coeff: formula[criterions[i]['id']]
+            })
+        }
+        return JSON.stringify(items);
     };
 
+
     eventScores.toggleEditScore = function (element) {
-        var td = element.parentNode.parentNode;
+        var td = element.closest('td');
         td.querySelector('.score:nth-child(1)').classList.toggle('hide');
         td.querySelector('.score:nth-child(2)').classList.toggle('hide');
     };
 
+
     eventScores.editStageScore = function (element) {
-        // element
-        vp.modal.create({
+        var data    = JSON.parse(element.dataset.info),
+            scores  = JSON.parse(element.dataset.scores);
+
+        modalEdit = vp.modal.create({
             'node': 'FORM',
             'id': 'reset',
-            'header': 'Оценки по критериям',
+            'header': 'Балл за этап',
             'body':
+                '<div class="mb-15 mt-5">' +
+                    '<div class="pb-10 text-bold fs-0_9">Формула подсчета</div>' +
+                    '<div id="formulaPrint" class="fs-0_8"></div>' +
+                '</div>' +
                 '<table>' +
                     '<thead>' +
                         '<tr>' +
-                            '<th>Критерии</th>' +
-                            '<th class="text-center">Балл</th>' +
+                            '<th width="70%">Критерии</th>' +
+                            '<th width="30%" class="text-center">Балл</th>' +
                         '</tr>' +
                     '</thead>' +
                     '<tbody>' +
-                        getCriterions_(JSON.parse(element.dataset.info), JSON.parse(element.dataset.scores)) +
+                        getCriterions_(data, scores) +
                     '</tbody>' +
                 '</table>',
             onclose: 'remove'
+        });
+
+        vp.formula.create(document.getElementById('formulaPrint'), {
+            mode: "print",
+            curItems: getFormulaByStage_(data.stage.formula, data.criterions)
         })
 
 
     };
+
+
+    eventScores.updateScore = function (element) {
+        var data      = JSON.parse(element.dataset.info),
+            input     = element.closest('.score').querySelector('input'),
+            newScore  = input.value,
+            criterion = input.dataset.criterion;
+
+        var score = {
+            'event': data.event,
+            'member': data.member,
+            'mode': data.mode,
+            'judge': data.judge,
+            'contest': data.contest.id,
+            'stage': data.stage.id,
+            'criterion': criterion,
+            'score' : {
+                'criterion': parseInt(newScore),
+                'stage': parseFloat(data.stage.formula[criterion]),
+                'contest': parseFloat(data.contest.formula[data.stage.id] * data.stage.formula[criterion]),
+                'result': parseFloat(data.result.formula[data.contest.id] * data.contest.formula[data.stage.id] * data.stage.formula[criterion])
+            }
+        };
+
+        eventScores.voting.sendScore(score);
+
+        vp.modal.remove(modalEdit);
+    };
+
+
 
     /**
      * Submit Publishing Status
@@ -181,13 +244,16 @@ var eventScores= function (eventScores) {
     };
 
 
+
+
     var prepare_ = function() {
 
         eventID = document.getElementById('eventID');
-        csrf = document.getElementById('csrf');
+        csrf    = document.getElementById('csrf');
+        status  = document.getElementById('serverStatus');
 
-        if (!eventID || !csrf) {
-            vp.core.log('Could not catch `#eventID`, `#csrf`', 'error', corePrefix);
+        if (!eventID || !csrf || !status) {
+            vp.core.log('Could not catch `#eventID`, `#csrf`, `#serverStatus`', 'error', corePrefix);
             return;
         }
 
@@ -250,10 +316,38 @@ var eventScores= function (eventScores) {
             }
         }
 
-
     };
 
     document.addEventListener('DOMContentLoaded', prepare_);
+
+
+    eventScores.status = function (stat) {
+        switch (stat) {
+            case 'online':
+                status.innerHTML = '<p class="text-brand m-0">Голосование доступно!</p>';
+                break;
+            case 'offline':
+                status.innerHTML =
+                    '<p class="fs-1_5 text-danger"><span class="text-bold">Ошибка 500.</span> Сервер не отвечает</p>' +
+                    '<p>Голосование не доступно, пожалуйста, перезагрузите страницу.</p>' +
+                    '<p class="m-0">Если ошибка не устранилась, обратитесь к сотрудникам <span class="text-brand">Votepad</span>.</p>';
+                break;
+        }
+    };
+
+
+
+    /**
+     * WS function for update scores on page
+     */
+    eventScores.update = update;
+
+
+    /**
+     * WS function for send edited scores
+     */
+    eventScores.voting = voting;
+
 
     return eventScores;
 

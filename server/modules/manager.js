@@ -64,9 +64,17 @@ module.exports = function () {
         })
     };
 
+    var setOfflineJudge = function (eventsIds, u_id) {
+        eventsIds.forEach(function (id) {
+            if (!events[id]) return;
+            delete events[id].judges[u_id];
+        })
+    };
+
     return {
         addUser: addUser,
         update: update,
-        getOnlineJudges: getOnlineJudges
+        getOnlineJudges: getOnlineJudges,
+        setOfflineJudge: setOfflineJudge
     }
 }();
