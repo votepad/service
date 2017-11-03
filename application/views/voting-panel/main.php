@@ -40,8 +40,8 @@
         <section class="section mb-50">
 
             <div class="section__cover">
-                <div class="parallax" data-toggle="parallax">
-                    <img id="eventBranding" src="/uploads/events/branding/o_<?=$event->branding; ?>" alt="event branding" class="parallax__img">
+                <div class="parallax">
+                    <img id="eventBranding" src="/uploads/events/branding/b_<?=$event->branding; ?>" alt="event branding" class="parallax__img parallax__img--show">
                 </div>
                 <div class="section__content valign">
                     <div class="section__cover-text">

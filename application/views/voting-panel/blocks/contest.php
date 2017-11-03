@@ -5,8 +5,13 @@
 
     <div id="<?= 'contest_' . $contest->id . '_' . $stage->hash; ?>" class="stage hide">
 
-        <div class="block t-lh-50px pl-md-25 hidden-xs hidden-sm text-bold">
-            <?= $stage->name; ?>
+        <div class="block hidden-xs hidden-sm">
+            <div class="block__heading t-lh-50px bb-1 text-bold p-0 pl-25">
+                <?= $stage->name; ?>
+            </div>
+            <div class="block__wrapper p-20">
+                <?= $stage->description; ?>
+            </div>
         </div>
 
         <? foreach($stage->members as $memberKey => $member) : ?>
@@ -120,25 +125,27 @@
 
         <? endforeach; ?>
 
-        <? if (count($contest->stages) > 1 && count($contest->stages) != $stageKey + 1) : ?>
+        <div class="text-center mt-20">
+            <? if (count($contest->stages) > 1 && count($contest->stages) != $stageKey + 1) : ?>
 
-            <a role="button" class="ui-btn ui-btn--1 ui-btn--45px fl_r mt-20" onclick="voting.validate(this, 'stage')" data-href="<?= URL::site('/voting?contest=' . $contest->id . '#' . Methods_Methods::getUriByTitle($contest->stages[$stageKey +1 ]->name)); ?>">
-                Следующий этап
-            </a>
+                <a role="button" class="ui-btn ui-btn--1 ui-btn--45px" onclick="voting.validate(this, 'stage')" data-href="<?= URL::site('/voting?contest=' . $contest->id . '#' . Methods_Methods::getUriByTitle($contest->stages[$stageKey +1 ]->name)); ?>">
+                    Следующий этап
+                </a>
 
-        <? elseif (count($event->contests) > $event->cur_contest['index'] + 1 ) :?>
+            <? elseif (count($event->contests) > $event->cur_contest['index'] + 1 ) :?>
 
-            <a role="button" class="ui-btn ui-btn--1 ui-btn--45px fl_r mt-20" onclick="voting.validate(this, 'stage')" data-href="<?=URL::site('voting/?contest=' . $event->contests[$event->cur_contest['index'] + 1]->id . '#' . Methods_Methods::getUriByTitle($event->contests[$event->cur_contest['index'] + 1]->stages[0]->name)); ?>">
-                Следующий конкурс
-            </a>
+                <a role="button" class="ui-btn ui-btn--1 ui-btn--45px" onclick="voting.validate(this, 'stage')" data-href="<?=URL::site('voting/?contest=' . $event->contests[$event->cur_contest['index'] + 1]->id . '#' . Methods_Methods::getUriByTitle($event->contests[$event->cur_contest['index'] + 1]->stages[0]->name)); ?>">
+                    Следующий конкурс
+                </a>
 
-        <? else: ?>
+            <? else: ?>
 
-            <a role="button" class="ui-btn ui-btn--1 ui-btn--45px fl_r mt-20" onclick="voting.validate(this, 'stage')" data-href="<?=URL::site('event/' . $event->id);?>">
-                Посмотреть результаты
-            </a>
+                <a role="button" class="ui-btn ui-btn--1 ui-btn--45px" onclick="voting.validate(this, 'stage')" data-href="<?=URL::site('event/' . $event->id);?>">
+                    Посмотреть результаты
+                </a>
 
-        <? endif; ?>
+            <? endif; ?>
+        </div>
 
     </div>
 

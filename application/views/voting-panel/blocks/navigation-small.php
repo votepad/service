@@ -3,7 +3,7 @@
     <div class="block mb-0 bb-0 ui-tabs">
         <div class="ui-tabs__wrapper">
             <? foreach ($contests as $contest) : ?>
-                <a role="button" data-toggle="tabs" data-area="navSmallContest_<?= $contest->id; ?>" class="ui-tabs__tab <?= $cur_contest_id == $contest->id ? 'ui-tabs__tab--active' : ''; ?>">
+                <a href="<?= URL::site('/voting?contest=' . $contest->id . '#' . Methods_Methods::getUriByTitle($contest->stages[0]->name)); ?>" class="ui-tabs__tab <?= $cur_contest_id == $contest->id ? 'ui-tabs__tab--active' : ''; ?>">
                     <?=$contest->name; ?>
                 </a>
             <? endforeach; ?>

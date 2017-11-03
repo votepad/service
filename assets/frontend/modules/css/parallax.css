@@ -15,3 +15,8 @@
     min-height: 100%;
     transform: translateX(-50%);
 }
+.parallax__img--show{
+    display: block;
+    top: 50%;
+    transform: translate(-50%,-50%);
+}

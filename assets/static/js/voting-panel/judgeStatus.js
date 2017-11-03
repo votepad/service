@@ -9,7 +9,7 @@ var judgeStatus = (function (judgeStatus) {
 
     judgeStatus.init = function (id) {
         prepare_(id);
-        judgeStatus.offline();
+        // judgeStatus.offline();
     };
 
     judgeStatus.online = function () {
@@ -24,6 +24,10 @@ var judgeStatus = (function (judgeStatus) {
         element.classList.remove('status--online');
         element.classList.add('status--offline');
         element.classList.remove('status--reconnect');
+        vp.notification.notify({
+            type: 'error',
+            message: 'Вы оффлайн. Для повторного подключения нажмите свое имя'
+        })
     };
 
     judgeStatus.reconnect = function () {
