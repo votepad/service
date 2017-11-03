@@ -44,7 +44,7 @@
 </body>
 
 <script type="text/javascript">
-    vp.initWelcome();
+    vp.initLanding();
 </script>
 
 <? if ( getenv('KOHANA_ENV') == 'PRODUCTION' ): ?>

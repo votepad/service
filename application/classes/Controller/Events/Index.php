@@ -320,7 +320,7 @@ class Controller_Events_Index extends Dispatch
             throw new HTTP_Exception_404;
         }
 
-        $this->event->results = Methods_Results::getResults($this->event->id, false);
+        $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
 
         $api = Kohana::$config->load('api');
@@ -371,7 +371,6 @@ class Controller_Events_Index extends Dispatch
             ->set('organization', $this->organization);
 
     }
-
 
 
 

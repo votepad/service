@@ -38,7 +38,7 @@ module.exports = ( function (votepad) {
         votepad.notification.createHolder();
     };
 
-    var initWelcome_ = function () {
+    var initLanding_ = function () {
         votepad.collapse.init();
         votepad.notification.createHolder();
         votepad.parallax.init();
@@ -49,8 +49,8 @@ module.exports = ( function (votepad) {
         document.addEventListener('DOMContentLoaded', init_);
     };
 
-    votepad.initWelcome = function () {
-        document.addEventListener('DOMContentLoaded', initWelcome_);
+    votepad.initLanding = function () {
+        document.addEventListener('DOMContentLoaded', initLanding_);
     };
 
     return votepad;

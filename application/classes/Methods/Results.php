@@ -62,10 +62,9 @@ class Methods_Results extends  Model_Result
     /**
      * Get Results with Scores, Contest, Stages, Criterions, Members
      * @param $id_event - event ID
-     * @param bool $full - return results with contest+stage+criterion or not
      * @return array
      */
-    public static function getResults($id_event, $full = true)
+    public static function getResults($id_event)
     {
         $redis = Dispatch::redisInstance();
 
@@ -78,12 +77,6 @@ class Methods_Results extends  Model_Result
         foreach ($results as $resultKey => $result) {
 
             if ($result->id) {
-
-                $results[$resultKey]->publish = in_array($result->id, $publish_results);
-
-                if ($full == false) {
-                    break;
-                }
 
                 $result_formula = json_decode($result->formula, true);
                 $result_max_score = 0;
@@ -147,6 +140,7 @@ class Methods_Results extends  Model_Result
 
                     $results[$resultKey]->maxScore = $result_max_score;
                     $results[$resultKey]->contests = $contests;
+                    $results[$resultKey]->publish = in_array($result->id, $publish_results);
 
                 }
 
