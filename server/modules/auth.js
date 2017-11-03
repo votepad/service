@@ -1,13 +1,13 @@
 module.exports = function () {
 
     var salts = {};
-        redis.get('votepad:salts:judge', function (err, salt){
+        redis.get(config.hostname + ':salts:judge', function (err, salt){
 
         salts.judge = salt;
 
     });
 
-    redis.get('votepad:salts:organizer', function (err, salt){
+    redis.get(config.hostname + ':salts:organizer', function (err, salt){
 
         salts.organizer = salt;
 
@@ -21,7 +21,7 @@ module.exports = function () {
 
         var secret = Crypto.createHash('sha256').update((salts[authMode] + sid + authMode + id).toString(), 'utf8').digest('hex');
 
-        if (secret == cookies.get('secret'))        {
+        if (secret === cookies.get('secret'))        {
 
             console.log('User ' + id + ' had authorized as ' + authMode);
 

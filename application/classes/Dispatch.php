@@ -173,12 +173,12 @@ class Dispatch extends Controller_Template
     {
 
         $mongoConfiguration = Kohana::$config->load('mongo');
-        $connectionURL = "mongodb://" . $mongoConfiguration['default']['hostname'];
+        $connectionURL = "mongodb://" . $mongoConfiguration['default']['hostname'] . ':' . $mongoConfiguration['default']['port'];
         $connectionOptions = $mongoConfiguration['default']['options'];
 
-        $mongo = new MongoClient($connectionURL);
-//        $mongo = new MongoClient($connectionURL, $connectionOptions);
-
+        $mongo = new MongoDB\Driver\Manager($connectionURL,$connectionOptions);
+        //$mongo = new MongoClient($connectionURL, $connectionOptions);
+        //var_dump($mongo);
         return $mongo;
     }
 

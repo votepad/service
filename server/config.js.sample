@@ -1,13 +1,14 @@
-var mongo = {
+var hostname = 'votepad'
+    mongo = {
         host: 'localhost',
         port: 27017,
-        db: 'votepad'
+        db: ''
     },
     mySQL = {
         host     : 'localhost',
-        user     : 'root',
+        user     : '',
         password : '',
-        database : 'pronwe'
+        database : ''
     };
     Redis = {
         host: 'localhost',

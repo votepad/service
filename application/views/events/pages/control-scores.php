@@ -608,7 +608,7 @@
 <script type="text/javascript" src="<?=$assets; ?>static/js/event-control-scores.js?v=<?= filemtime("assets/static/js/event-control-scores.js") ?>"></script>
 
 <script>
-    eventScores.update.init('votepad');
-    eventScores.voting.init(0, 'votepad')
+    eventScores.update.init('<?= $_SERVER['HTTP_HOST']; ?>');
+    eventScores.voting.init(0, '<?= $_SERVER['HTTP_HOST']; ?>')
 </script>
 
