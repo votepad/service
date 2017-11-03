@@ -209,7 +209,15 @@ a.bg-gray-dark:focus {
 .bg-light-blue {
     background-color: #fafbfc;
 }
-
+.backdrop{
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    background: #000;
+    opacity: .75;
+}
 .label{
     position: relative;
     padding: 2px 5px 3px;

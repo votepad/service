@@ -34,6 +34,8 @@
 
     <?=$section; ?>
 
+    <input type="hidden" id="csrf" name="csrf" value="<?= Security::token(); ?>">
+
     <footer class="footer">
         <?= View::factory('welcome/blocks/footer'); ?>
     </footer>

@@ -31,38 +31,11 @@ class Controller_Welcome extends Dispatch
      */
     public function action_index()
     {
-
-        $select = Dao_Events::select('id')
-            ->order_by('id', 'DESC')
-            ->execute();
-
-        $events = array();
-
-        if ( $select ) {
-
-            foreach ($select as $eventId) {
-
-                $events[] = new Model_Event($eventId['id']);
-
-            }
-
-        }
+        $events = Methods_Events::getAllByType(1);
 
         $this->template->section = View::factory('welcome/landing')
                 ->set('events', $events);
-
     }
 
-    /**
-     * VotePad Features
-     */
-    public function action_features()
-    {
-        $this->template->title = "Возможности | Votepad";
-        $this->template->description = "";
-        $this->template->keywords = "";
-        $this->template->header = View::factory('welcome/blocks/header');
-        $this->template->section = View::factory('welcome/features');
-    }
 
 }
