@@ -28,6 +28,16 @@ class Controller_Events_Index extends Dispatch
      */
     const INVITE_ASSISTANT = 'invite_assistant';
 
+    /**
+     * @const ACTION_LANDING [String] - landing page of event
+     */
+    const ACTION_LANDING = 'landing';
+
+    /**
+     * @const ACTION_RESULTS [String] - page with full information of event results
+     */
+    const ACTION_RESULTS = 'results';
+
 
     public function before()
     {
@@ -48,13 +58,18 @@ class Controller_Events_Index extends Dispatch
         $this->template->description = $this->event->description;
         $this->template->keywords = $this->event->tags;
 
-        if (!$this->event->id)
+        if (!$this->event->id) {
             throw new HTTP_Exception_404;
+        }
 
         switch ($action) {
             case self::INVITE_ASSISTANT:
-            case 'results':
-            case 'landing':
+                break;
+            case self::ACTION_LANDING:
+            case self::ACTION_RESULTS:
+                if ($this->event->type == 0) {
+                    throw new HTTP_Exception_404;
+                }
                 break;
             default:
 
@@ -68,12 +83,12 @@ class Controller_Events_Index extends Dispatch
                     throw new HTTP_Exception_403;
                 }
 
-                break;
-        }
+                if (!$this->event->code || !Model_Event::getEventByCode($this->event->code)) {
+                    $this->event->code = $this->event->generateCodeForJudges($this->event->id);
+                    $this->event->update();
+                }
 
-        if (!$this->event->code || !Model_Event::getEventByCode($this->event->code)) {
-            $this->event->code = $this->event->generateCodeForJudges($this->event->id);
-            $this->event->update();
+                break;
         }
 
         /**
@@ -301,52 +316,39 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * LANDING submodule
-     * Action is available for all users.
-     * Shows main information about event
+     * action_landing - shows landing of event page
+     * - action is available for all users.
      */
     public function action_landing()
     {
+        $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
-
-        $this->event->result_max_score = $this->getResultMaxScore($this->event->id);
 
         $api = Kohana::$config->load('api');
         $token = array_keys(get_object_vars($api))[0];
 
         $scores = Request::factory('/access_token/' . $token . '/method/getResults?')
             ->query('id_event', $this->event->id)
-            ->query('stages', true)
             ->method(Request::GET)
             ->execute()->body();
 
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
 
-
-        // TODO убрать говнокод
-        $this->event->contests = $this->getContests($this->event->id, false, true);
-        $this->event->contestsCount = count($this->event->contests);
-
-
-        $this->template = View::factory('events/landing/main')
+        $this->template = View::factory('event-landing/main')
+            ->set('page', 'landing')
             ->set('event', $this->event);
-
-        $this->template->mainSection = View::factory('events/landing/pages/main_content')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
     }
+
 
     /**
      * LANDING submodule
-     * Action is available for all users.
-     * Shows main information about event
+     * action_results - shows full information about event result
+     * - action is available for all users.
      */
     public function action_results()
     {
-        $this->template = View::factory('events/landing/main')
-            ->set('event', $this->event);
-
-        $this->event->contests = $this->getContests($this->event->id, false, true);
+        $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
 
         $api = Kohana::$config->load('api');
@@ -360,13 +362,13 @@ class Controller_Events_Index extends Dispatch
 
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
-
-
-        $this->template->mainSection = View::factory('events/landing/pages/results')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+//echo Debug::vars($this->event);die();
+        $this->template = View::factory('event-landing/main')
+            ->set('page', 'results')
+            ->set('event', $this->event);
     }
+
+
 
     /**
      * Get All Members (teams and participants)
@@ -377,7 +379,7 @@ class Controller_Events_Index extends Dispatch
     {
         $members = array();
 
-        $members['teams'] = Methods_Teams::getAllByEvent($id_event);
+        $members['teams']        = Methods_Teams::getAllByEvent($id_event);
         $members['participants'] = Methods_Participants::getAllByEvent($id_event);
 
         return $members;

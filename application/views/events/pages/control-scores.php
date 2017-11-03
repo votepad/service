@@ -66,7 +66,7 @@
 
         <div class="block__wrapper">
 
-            <table class="js-table-participant">
+            <table class="js-table-participant" data-result="<?= $event->results['participants']->id; ?>" data-publish="<?= $event->results['participants']->publish == FALSE ? 'false' : 'true'; ?>">
                 <thead>
                     <tr>
                         <th>Участники</th>
@@ -338,7 +338,7 @@
 
         <div class="block__wrapper">
 
-            <table class="js-table-team">
+            <table class="js-table-team" data-result="<?= $event->results['teams']->id; ?>" data-publish="<?= $event->results['teams']->publish == FALSE ? 'false' : 'true'; ?>">
                 <thead>
                     <tr>
                         <th>Команды</th>
@@ -608,7 +608,7 @@
 <script type="text/javascript" src="<?=$assets; ?>static/js/event-control-scores.js?v=<?= filemtime("assets/static/js/event-control-scores.js") ?>"></script>
 
 <script>
-    eventScores.update.init('votepad');
-    eventScores.voting.init(0, 'votepad')
+    eventScores.update.init('<?= $_SERVER['HTTP_HOST']; ?>');
+    eventScores.voting.init(0, '<?= $_SERVER['HTTP_HOST']; ?>')
 </script>
 

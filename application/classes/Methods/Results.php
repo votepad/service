@@ -52,6 +52,12 @@ class Methods_Results extends  Model_Result
         $result['participants']->contests = array();
         $result['teams']->contests = array();
 
+        $result['participants']->publish = "";
+        $result['teams']->publish = "";
+
+        $result['participants']->maxScore = 1;
+        $result['teams']->maxScore = 1;
+
         return $result;
     }
 
@@ -67,6 +73,7 @@ class Methods_Results extends  Model_Result
 
         $results = Methods_Results::getAllByEvent($id_event);
 
+        $publish_results = $redis->sMembers(getenv('REDIS_EVENTS') . $id_event . ':publish:results');
         $publish_contents = $redis->sMembers(getenv('REDIS_EVENTS') . $id_event . ':publish:contests');
         $publish_stages   = $redis->sMembers(getenv('REDIS_EVENTS') . $id_event . ':publish:stages');
 
@@ -111,8 +118,8 @@ class Methods_Results extends  Model_Result
 
                                 foreach ($criterions as $criterionKey => $criterion) {
                                     $stage_max_score   += $criterion->maxScore * $stage_formula[$criterion->id];
-                                    $contest_max_score += $stage_max_score * $contest_formula[$stage->id];
-                                    $result_max_score  += $contest_max_score * $result_formula[$contest->id];
+                                    $contest_max_score += $criterion->maxScore * $stage_formula[$criterion->id] * $contest_formula[$stage->id];
+                                    $result_max_score  += $criterion->maxScore * $stage_formula[$criterion->id] * $contest_formula[$stage->id] * $result_formula[$contest->id];
                                 }
 
                                 $stage_max_score   *= count($judges);
@@ -136,6 +143,7 @@ class Methods_Results extends  Model_Result
 
                     $results[$resultKey]->maxScore = $result_max_score;
                     $results[$resultKey]->contests = $contests;
+                    $results[$resultKey]->publish = in_array($result->id, $publish_results);
 
                 }
 

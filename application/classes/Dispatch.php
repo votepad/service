@@ -56,7 +56,6 @@ class Dispatch extends Controller_Template
             $this->template->content     = '';
         }
 
-
     }
 
     /**
@@ -67,15 +66,12 @@ class Dispatch extends Controller_Template
      */
     public function after()
     {
-//        echo View::factory('profiler/stats');
-
         parent::after();
     }
 
     /**
      * Sanitizes GET and POST params
      * @uses HTMLPurifier
-     * @todo Rewrite under ProNWE
      */
     public function XSSfilter()
     {
@@ -177,11 +173,10 @@ class Dispatch extends Controller_Template
     {
 
         $mongoConfiguration = Kohana::$config->load('mongo');
-        $connectionURL = "mongodb://" . $mongoConfiguration['default']['hostname'];
+        $connectionURL = "mongodb://" . $mongoConfiguration['default']['hostname'] . ':' . $mongoConfiguration['default']['port'];
         $connectionOptions = $mongoConfiguration['default']['options'];
 
-        $mongo = new MongoClient($connectionURL);
-//        $mongo = new MongoClient($connectionURL, $connectionOptions);
+        $mongo = new MongoDB\Driver\Manager($connectionURL);
 
         return $mongo;
     }

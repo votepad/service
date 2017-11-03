@@ -11,10 +11,10 @@ class Controller_Criterions_Ajax extends Ajax
         $event       = Arr::get($_POST, 'event');
         $name        = Arr::get($_POST, 'name');
         $description = Arr::get($_POST, 'description');
-        $minScore    = Arr::get($_POST, 'minScore');
-        $maxScore    = Arr::get($_POST, 'maxScore');
+        $minScore    = (int)Arr::get($_POST, 'minScore', 0);
+        $maxScore    = (int)Arr::get($_POST, 'maxScore');
 
-        if (empty($name) || empty($minScore) || empty($maxScore)) {
+        if (empty($name) || empty($maxScore)) {
             $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;

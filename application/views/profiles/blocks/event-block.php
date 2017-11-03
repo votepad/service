@@ -17,7 +17,7 @@
     </div>
 
     <div class="block__wrapper">
-        <a href="<?= URL::site('event/' . $event->uri); ?>" class="link">
+        <a href="<?= URL::site('event/' . $event->id); ?>" class="link">
             <h2 class="h3 mt-0"><?= $event->name; ?></h2>
         </a>
         <p><?= $event->description; ?></p>
