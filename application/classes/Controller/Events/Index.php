@@ -58,13 +58,18 @@ class Controller_Events_Index extends Dispatch
         $this->template->description = $this->event->description;
         $this->template->keywords = $this->event->tags;
 
-        if (!$this->event->id)
+        if (!$this->event->id) {
             throw new HTTP_Exception_404;
+        }
 
         switch ($action) {
             case self::INVITE_ASSISTANT:
+                break;
             case self::ACTION_LANDING:
             case self::ACTION_RESULTS:
+                if ($this->event->type == 0) {
+                    throw new HTTP_Exception_404;
+                }
                 break;
             default:
 
@@ -316,10 +321,6 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_landing()
     {
-        if ($this->event->type == 0) {
-            throw new HTTP_Exception_404;
-        }
-
         $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
 
@@ -347,10 +348,7 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_results()
     {
-        $this->template = View::factory('events/landing/main')
-            ->set('event', $this->event);
-
-        $this->event->contests = $this->getContests($this->event->id, false, true);
+        $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
 
         $api = Kohana::$config->load('api');
@@ -364,12 +362,10 @@ class Controller_Events_Index extends Dispatch
 
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
-
-
-        $this->template->mainSection = View::factory('events/landing/pages/results')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+//echo Debug::vars($this->event);die();
+        $this->template = View::factory('event-landing/main')
+            ->set('page', 'results')
+            ->set('event', $this->event);
     }
 
 
@@ -383,7 +379,7 @@ class Controller_Events_Index extends Dispatch
     {
         $members = array();
 
-        $members['teams'] = Methods_Teams::getAllByEvent($id_event);
+        $members['teams']        = Methods_Teams::getAllByEvent($id_event);
         $members['participants'] = Methods_Participants::getAllByEvent($id_event);
 
         return $members;

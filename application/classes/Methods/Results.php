@@ -118,8 +118,8 @@ class Methods_Results extends  Model_Result
 
                                 foreach ($criterions as $criterionKey => $criterion) {
                                     $stage_max_score   += $criterion->maxScore * $stage_formula[$criterion->id];
-                                    $contest_max_score += $stage_max_score * $contest_formula[$stage->id];
-                                    $result_max_score  += $contest_max_score * $result_formula[$contest->id];
+                                    $contest_max_score += $criterion->maxScore * $stage_formula[$criterion->id] * $contest_formula[$stage->id];
+                                    $result_max_score  += $criterion->maxScore * $stage_formula[$criterion->id] * $contest_formula[$stage->id] * $result_formula[$contest->id];
                                 }
 
                                 $stage_max_score   *= count($judges);

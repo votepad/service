@@ -237,7 +237,7 @@ var eventScores= function (eventScores) {
         publishSubmit_({
             btn:     element,
             form:    element.closest('.block'),
-            uri:     (element.dataset.result !== undefined) ? 'result' : ((element.dataset.stage === "all") ? 'contest' : 'stage'),
+            uri:     (element.dataset.result !== "undefined") ? 'result' : ((element.dataset.stage === "all") ? 'contest' : 'stage'),
             result:  element.dataset.result,
             contest: element.dataset.contest,
             stage:   element.dataset.stage,
