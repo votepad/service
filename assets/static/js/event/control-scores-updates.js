@@ -82,7 +82,6 @@ var updates = function () {
             host: host,
             port: 8001,
             path: 'management',
-            secure: true,
             message: updatesHandler,
             open: function(){console.log('online')},
             error: console.log,
