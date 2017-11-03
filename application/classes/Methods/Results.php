@@ -55,6 +55,9 @@ class Methods_Results extends  Model_Result
         $result['participants']->publish = "";
         $result['teams']->publish = "";
 
+        $result['participants']->maxScore = 1;
+        $result['teams']->maxScore = 1;
+
         return $result;
     }
 
