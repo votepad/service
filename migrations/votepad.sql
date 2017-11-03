@@ -1,13 +1,15 @@
 -- phpMyAdmin SQL Dump
--- version 4.4.15.7
--- http://www.phpmyadmin.net
+-- version 4.7.1
+-- https://www.phpmyadmin.net/
 --
--- Хост: 127.0.0.1:3306
--- Время создания: Апр 17 2017 г., 17:51
--- Версия сервера: 5.5.50
--- Версия PHP: 5.6.23
+-- Хост: localhost
+-- Время создания: Ноя 04 2017 г., 01:13
+-- Версия сервера: 5.6.34
+-- Версия PHP: 5.6.29
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
+START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,8 +21,6 @@ SET time_zone = "+00:00";
 --
 -- База данных: `votepad`
 --
-CREATE DATABASE IF NOT EXISTS `votepad` DEFAULT CHARACTER SET utf8 COLLATE utf8_general_ci;
-USE `votepad`;
 
 -- --------------------------------------------------------
 
@@ -28,12 +28,12 @@ USE `votepad`;
 -- Структура таблицы `Contests`
 --
 
-DROP TABLE IF EXISTS `Contests`;
-CREATE TABLE IF NOT EXISTS `Contests` (
+CREATE TABLE `Contests` (
   `id` int(11) NOT NULL,
   `event` int(11) NOT NULL,
-  `name` varchar(25) NOT NULL,
-  `description` varchar(60) NOT NULL,
+  `mode` tinyint(2) NOT NULL COMMENT '1-paticipants, 2-teams',
+  `name` varchar(60) NOT NULL,
+  `description` varchar(500) NOT NULL,
   `formula` text NOT NULL,
   `dt_create` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -44,8 +44,7 @@ CREATE TABLE IF NOT EXISTS `Contests` (
 -- Структура таблицы `Contests_Judges`
 --
 
-DROP TABLE IF EXISTS `Contests_Judges`;
-CREATE TABLE IF NOT EXISTS `Contests_Judges` (
+CREATE TABLE `Contests_Judges` (
   `c_id` int(11) NOT NULL,
   `j_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -56,14 +55,13 @@ CREATE TABLE IF NOT EXISTS `Contests_Judges` (
 -- Структура таблицы `Criterions`
 --
 
-DROP TABLE IF EXISTS `Criterions`;
-CREATE TABLE IF NOT EXISTS `Criterions` (
+CREATE TABLE `Criterions` (
   `id` int(11) NOT NULL,
   `event` int(11) NOT NULL,
   `name` varchar(128) NOT NULL,
   `description` varchar(256) DEFAULT NULL,
-  `min_score` int(11) NOT NULL,
-  `max_score` int(11) NOT NULL,
+  `minScore` int(11) NOT NULL,
+  `maxScore` int(11) NOT NULL,
   `dt_create` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
@@ -73,22 +71,21 @@ CREATE TABLE IF NOT EXISTS `Criterions` (
 -- Структура таблицы `Events`
 --
 
-DROP TABLE IF EXISTS `Events`;
-CREATE TABLE IF NOT EXISTS `Events` (
+CREATE TABLE `Events` (
   `id` int(18) NOT NULL,
-  `organization` int(11) NOT NULL,
+  `type` tinyint(1) NOT NULL COMMENT '0 - draft, 1 - published',
   `creator` int(11) NOT NULL,
-  `name` varchar(65) NOT NULL,
-  `uri` varchar(65) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `description` varchar(300) NOT NULL,
+  `organization` varchar(64) NOT NULL,
+  `uri` varchar(20) DEFAULT NULL,
   `code` int(11) DEFAULT NULL,
   `branding` text,
-  `tags` varchar(65) NOT NULL,
-  `description` text NOT NULL,
-  `dt_start` varchar(65) NOT NULL,
-  `dt_end` varchar(65) NOT NULL,
-  `is_published` tinyint(1) NOT NULL DEFAULT '0',
-  `address` varchar(65) DEFAULT NULL,
-  `dt_create` varchar(65) NOT NULL
+  `tags` text NOT NULL,
+  `address` varchar(100) DEFAULT NULL,
+  `dt_start` datetime NOT NULL,
+  `dt_end` datetime NOT NULL,
+  `dt_create` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -97,45 +94,12 @@ CREATE TABLE IF NOT EXISTS `Events` (
 -- Структура таблицы `Judges`
 --
 
-DROP TABLE IF EXISTS `Judges`;
-CREATE TABLE IF NOT EXISTS `Judges` (
+CREATE TABLE `Judges` (
   `id` int(11) NOT NULL,
   `event` int(11) NOT NULL,
-  `name` varchar(25) NOT NULL,
-  `password` varchar(60) NOT NULL,
+  `name` varchar(65) NOT NULL,
+  `password` varchar(256) NOT NULL,
   `dt_create` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `Organizations`
---
-
-DROP TABLE IF EXISTS `Organizations`;
-CREATE TABLE IF NOT EXISTS `Organizations` (
-  `id` int(11) NOT NULL,
-  `name` varchar(20) NOT NULL,
-  `description` varchar(300) NOT NULL,
-  `uri` varchar(65) NOT NULL,
-  `website` varchar(65) NOT NULL,
-  `dt_create` date NOT NULL,
-  `is_removed` tinyint(4) NOT NULL DEFAULT '0',
-  `owner` int(11) NOT NULL,
-  `cover` varchar(65) DEFAULT 'default-cover.png',
-  `logo` varchar(65) DEFAULT 'no-logo.png'
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `Organization_Events`
---
-
-DROP TABLE IF EXISTS `Organization_Events`;
-CREATE TABLE IF NOT EXISTS `Organization_Events` (
-  `id_organization` int(11) NOT NULL,
-  `id_event` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -144,14 +108,13 @@ CREATE TABLE IF NOT EXISTS `Organization_Events` (
 -- Структура таблицы `Participants`
 --
 
-DROP TABLE IF EXISTS `Participants`;
-CREATE TABLE IF NOT EXISTS `Participants` (
+CREATE TABLE `Participants` (
   `id` int(18) NOT NULL,
   `event` int(11) NOT NULL,
   `team` int(11) DEFAULT NULL,
   `name` varchar(65) NOT NULL,
-  `about` text,
-  `photo` varchar(65) DEFAULT NULL,
+  `about` varchar(512) DEFAULT NULL,
+  `logo` text,
   `dt_create` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -161,11 +124,10 @@ CREATE TABLE IF NOT EXISTS `Participants` (
 -- Структура таблицы `Results`
 --
 
-DROP TABLE IF EXISTS `Results`;
-CREATE TABLE IF NOT EXISTS `Results` (
+CREATE TABLE `Results` (
   `id` int(11) NOT NULL,
   `event` int(11) NOT NULL,
-  `mode` int(11) DEFAULT NULL,
+  `mode` tinyint(2) DEFAULT NULL COMMENT '1-paticipants, 2-teams',
   `formula` text NOT NULL,
   `dt_create` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -176,14 +138,13 @@ CREATE TABLE IF NOT EXISTS `Results` (
 -- Структура таблицы `Stages`
 --
 
-DROP TABLE IF EXISTS `Stages`;
-CREATE TABLE IF NOT EXISTS `Stages` (
+CREATE TABLE `Stages` (
   `id` int(11) NOT NULL,
   `event` int(11) NOT NULL,
   `name` varchar(60) NOT NULL,
-  `description` varchar(100) NOT NULL,
+  `description` varchar(500) NOT NULL,
   `formula` text NOT NULL,
-  `mode` tinyint(4) NOT NULL COMMENT '1 - participants, 2 - teams, 3 - groups',
+  `mode` tinyint(2) NOT NULL COMMENT '1 - participants, 2 - teams',
   `dt_create` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -193,8 +154,7 @@ CREATE TABLE IF NOT EXISTS `Stages` (
 -- Структура таблицы `Stages_Members`
 --
 
-DROP TABLE IF EXISTS `Stages_Members`;
-CREATE TABLE IF NOT EXISTS `Stages_Members` (
+CREATE TABLE `Stages_Members` (
   `s_id` int(11) NOT NULL,
   `m_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -205,27 +165,13 @@ CREATE TABLE IF NOT EXISTS `Stages_Members` (
 -- Структура таблицы `Teams`
 --
 
-DROP TABLE IF EXISTS `Teams`;
-CREATE TABLE IF NOT EXISTS `Teams` (
+CREATE TABLE `Teams` (
   `id` int(11) NOT NULL,
-  `event` int(65) NOT NULL,
+  `event` int(11) NOT NULL,
   `name` varchar(65) NOT NULL,
-  `description` text NOT NULL,
+  `description` varchar(512) NOT NULL,
   `logo` text,
   `dt_create` datetime NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `Teams_Participants`
---
-
-DROP TABLE IF EXISTS `Teams_Participants`;
-CREATE TABLE IF NOT EXISTS `Teams_Participants` (
-  `id` int(11) NOT NULL,
-  `id_team` int(65) NOT NULL,
-  `id_participant` int(65) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -234,18 +180,16 @@ CREATE TABLE IF NOT EXISTS `Teams_Participants` (
 -- Структура таблицы `Users`
 --
 
-DROP TABLE IF EXISTS `Users`;
-CREATE TABLE IF NOT EXISTS `Users` (
+CREATE TABLE `Users` (
   `id` int(18) NOT NULL,
-  `branding` varchar(65) NOT NULL,
   `name` varchar(20) NOT NULL,
-  `surname` varchar(20) DEFAULT NULL,
-  `lastname` varchar(20) DEFAULT NULL,
   `phone` varchar(18) DEFAULT NULL,
-  `avatar` varchar(65) DEFAULT 'no-user.png',
+  `avatar` text,
+  `branding` text,
   `email` varchar(65) NOT NULL,
-  `password` varchar(18) NOT NULL,
-  `isConfirmed` int(11) DEFAULT '0',
+  `password` varchar(256) NOT NULL,
+  `is_confirmed` int(11) DEFAULT NULL,
+  `private` tinyint(1) NOT NULL,
   `dt_create` date NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -255,22 +199,9 @@ CREATE TABLE IF NOT EXISTS `Users` (
 -- Структура таблицы `Users_Events`
 --
 
-DROP TABLE IF EXISTS `Users_Events`;
-CREATE TABLE IF NOT EXISTS `Users_Events` (
+CREATE TABLE `Users_Events` (
   `u_id` int(11) NOT NULL,
   `e_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- --------------------------------------------------------
-
---
--- Структура таблицы `Users_Organizations`
---
-
-DROP TABLE IF EXISTS `Users_Organizations`;
-CREATE TABLE IF NOT EXISTS `Users_Organizations` (
-  `u_id` int(10) unsigned NOT NULL,
-  `o_id` int(10) unsigned NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
@@ -293,18 +224,13 @@ ALTER TABLE `Criterions`
 -- Индексы таблицы `Events`
 --
 ALTER TABLE `Events`
-  ADD UNIQUE KEY `id` (`id`);
+  ADD UNIQUE KEY `id` (`id`),
+  ADD UNIQUE KEY `uri` (`uri`);
 
 --
 -- Индексы таблицы `Judges`
 --
 ALTER TABLE `Judges`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `Organizations`
---
-ALTER TABLE `Organizations`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -329,12 +255,6 @@ ALTER TABLE `Stages`
 -- Индексы таблицы `Teams`
 --
 ALTER TABLE `Teams`
-  ADD PRIMARY KEY (`id`);
-
---
--- Индексы таблицы `Teams_Participants`
---
-ALTER TABLE `Teams_Participants`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -370,11 +290,6 @@ ALTER TABLE `Events`
 ALTER TABLE `Judges`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT для таблицы `Organizations`
---
-ALTER TABLE `Organizations`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT для таблицы `Participants`
 --
 ALTER TABLE `Participants`
@@ -395,15 +310,11 @@ ALTER TABLE `Stages`
 ALTER TABLE `Teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
--- AUTO_INCREMENT для таблицы `Teams_Participants`
---
-ALTER TABLE `Teams_Participants`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
---
 -- AUTO_INCREMENT для таблицы `Users`
 --
 ALTER TABLE `Users`
-  MODIFY `id` int(18) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(18) NOT NULL AUTO_INCREMENT;COMMIT;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

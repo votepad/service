@@ -19,7 +19,7 @@
                             <tr align="left" style="text-align:left;">
                                 <td align="left" valign="top" style="vertical-align:top;text-align:left;background:#ffffff;padding: 15px 35px;">
                                     <p style="margin:0 0 18px;font-weight: bold;font-size: 2em;">Восстановление пароля</p>
-                                    <p style="font-size: 1.1em;line-height: 1.5em;"><?= $user->name; ?>, для восстановления вашего пароля на сайте <a href="//votepad.ru" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;">votepad.ru</a>, Вам надо пройти по следующей ссылке и следовать дальнейшим инструкциям:</p>
+                                    <p style="font-size: 1.1em;line-height: 1.5em;"><?= $user->name; ?>, для восстановления вашего пароля на сайте <a href="<?= $_SERVER['HTTP_HOST']; ?>" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;border-bottom: 2px solid #008DA7;">votepad.ru</a>, Вам надо пройти по следующей ссылке и следовать дальнейшим инструкциям:</p>
                                     <a href="<?= $_SERVER['HTTP_HOST'] . '/reset/' . $hash; ?>" style="text-decoration: none;color: #008DA7;padding-bottom: 2px;" ><?= $_SERVER['HTTP_HOST'] . '/reset/' . $hash; ?></a>
 
                                     <p style="font-size: 1.1em;line-height: 1.5em;">Эта ссылка будет действительна в течение одного часа.</p>

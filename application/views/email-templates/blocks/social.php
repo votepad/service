@@ -15,21 +15,16 @@
                                         <tbody>
                                         <tr align="left" style="text-align:left;">
                                             <td align="left" valign="top" style="vertical-align:top;text-align:left;text-align:center">
-                                                <a href="//vk.com/votepad">
+                                                <a href="https://vk.com/votepad">
                                                     <img alt="" width="44" height="44" style="border:0;" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fb-mail-socailnets%2Fb-mail-socialnets__icon_mode_vk.png&amp;proxy=yes&amp;key=9d348c064fe34052fa13656889b15d3a">
                                                 </a>
                                             </td>
                                             <td align="left" valign="top" style="vertical-align:top;text-align:left;text-align:center">
-                                                <a href="//twitter.com/votepadevent">
+                                                <a href="https://twitter.com/votepadevent">
                                                     <img alt="" width="44" height="44" style="border:0;" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fb-mail-socailnets%2Fb-mail-socialnets__icon_mode_twitter.png&amp;proxy=yes&amp;key=c851df1c2ca0f4ddadc0a6fb730ac073">
 
                                                 </a>
                                             </td>
-                                            <!--<td align="left" valign="top" style="vertical-align:top;text-align:left;">
-                                                <a href="">
-                                                    <img alt="" width="44" height="44" style="border:0;" src="https://resize.yandex.net/mailservice?url=https%3A%2F%2Fimg.reg.ru%2Fmail%2Fb-mail-socailnets%2Fb-mail-socialnets__icon_mode_fb.png&amp;proxy=yes&amp;key=4c08c1ac4f8432433063c386e1384bf4">
-                                                </a>
-                                            </td>-->
                                         </tr>
                                         </tbody>
                                     </table>
