@@ -1,13 +1,13 @@
 module.exports = function () {
 
     var salts = {};
-        redis.get(config.hostname + ':salts:judge', function (err, salt){
+        redis.get(config.RedisStorage + ':salts:judge', function (err, salt){
 
         salts.judge = salt;
 
     });
 
-    redis.get(config.hostname + ':salts:organizer', function (err, salt){
+    redis.get(config.RedisStorage + ':salts:organizer', function (err, salt){
 
         salts.organizer = salt;
 
