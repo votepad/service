@@ -1,6 +1,6 @@
 <div class="section__cover">
-    <div class="parallax" data-toggle="parallax">
-        <img id="profileBranding" src="/uploads/profiles/branding/o_<?=$profile->branding; ?>" alt="Profile cover" class="parallax__img">
+    <div class="parallax">
+        <img id="profileBranding" src="/uploads/profiles/branding/b_<?=$profile->branding; ?>" alt="Profile cover" class="parallax__img parallax__img--show">
     </div>
     <div class="section__content valign">
         <? if ($isLogged && $profile->isOwner) :?>

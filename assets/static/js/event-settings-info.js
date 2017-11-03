@@ -67,9 +67,6 @@ var eventInfo = function (eventInfo) {
                     message: response.message
                 });
 
-                if (parseInt(response.code) === 52)
-                    window.location.reload();
-
                 vp.core.log(response.message, response.status, corePrefix);
             },
             error: function(response) {

@@ -20,11 +20,9 @@
     </div>
 
     <div class="event-info__block">
-        <i class="fa fa-hashtag event-info__icon" aria-hidden="true"></i>
+        <i class="fa fa-map-marker event-info__icon" aria-hidden="true"></i>
         <div class="event-info__h1">
-            <? foreach (explode(',',$event->tags) as $i => $tag): if ($i >= 5) {break;} ?>
-                <span class="event-info__tag"><?= $tag; ?></span>
-            <? endforeach; ?>
+            <?= $event->organization; ?>
         </div>
     </div>
 
@@ -43,7 +41,7 @@
         Результаты мероприятия
     </h1>
     <h4 class="h4 mt-10 mb-30">
-        <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="link text-underline">Подробный рейтинг</a>
+        <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="link text-underline">Детальный результат</a>
     </h4>
 
 
@@ -164,7 +162,7 @@
 
     <div class="width-full text-center">
 
-        <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="ui-btn ui-btn--1 ui-btn--45px">Подробный рейтинг</a>
+        <a href="<?=URL::site('event/' . $event->id . '/results'); ?>" class="ui-btn ui-btn--1 ui-btn--45px">Детальный результат</a>
 
     </div>
 

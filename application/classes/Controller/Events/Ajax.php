@@ -12,12 +12,13 @@ class Controller_Events_Ajax extends Ajax {
      * Create New Event
      */
     public function action_create() {
-        $name        = Arr::get($_POST, 'name');
-        $description = Arr::get($_POST, 'description');
-        $tags        = Arr::get($_POST, 'tags');
-        $start       = Arr::get($_POST, 'start');
-        $end         = Arr::get($_POST, 'end');
-        $address     = Arr::get($_POST, 'address');
+        $name         = Arr::get($_POST, 'name');
+        $description  = Arr::get($_POST, 'description');
+        $organization = Arr::get($_POST, 'organization');
+        $tags         = Arr::get($_POST, 'tags');
+        $start        = Arr::get($_POST, 'start');
+        $end          = Arr::get($_POST, 'end');
+        $address      = Arr::get($_POST, 'address');
 
         $event = new Model_Event();
 
@@ -25,6 +26,7 @@ class Controller_Events_Ajax extends Ajax {
         $event->type         = 0;   // draft
         $event->creator      = $this->user->id;
         $event->description  = $description;
+        $event->organization = $organization;
         $event->tags         = $tags;
         $event->dt_start     = $start;
         $event->dt_end       = $end;
@@ -43,15 +45,16 @@ class Controller_Events_Ajax extends Ajax {
      * Update Event Info
      */
     public function action_update() {
-        $id          = Arr::get($_POST, 'id');
-        $name        = Arr::get($_POST, 'name');
-        $description = Arr::get($_POST, 'description');
-        $tags        = Arr::get($_POST, 'tags');
-        $start       = Arr::get($_POST, 'start');
-        $end         = Arr::get($_POST, 'end');
-        $address     = Arr::get($_POST, 'address');
+        $id           = Arr::get($_POST, 'id');
+        $name         = Arr::get($_POST, 'name');
+        $description  = Arr::get($_POST, 'description');
+        $organization = Arr::get($_POST, 'organization');
+        $tags         = Arr::get($_POST, 'tags');
+        $start        = Arr::get($_POST, 'start');
+        $end          = Arr::get($_POST, 'end');
+        $address      = Arr::get($_POST, 'address');
 
-        if (empty($name) || empty($description) || empty($tags) || empty($start) || empty($end) || empty($address)) {
+        if (empty($name) || empty($description) || empty($tags) || empty($start) || empty($end) || empty($address) || empty($organization)) {
             $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
@@ -66,7 +69,8 @@ class Controller_Events_Ajax extends Ajax {
         }
 
         if ($event->name == $name && $event->description == $description && $event->tags == $tags && $event->address == $address &&
-            strtotime($event->dt_start) == strtotime($start) && strtotime($event->dt_end) == strtotime($end)) {
+            strtotime($event->dt_start) == strtotime($start) && strtotime($event->dt_end) == strtotime($end) &&
+            $event->organization == $organization) {
 
             $response = new Model_Response_Form('NOTHING_CHANGE_WARNING', 'warning');
             $this->response->body(@json_encode($response->get_response()));
@@ -75,6 +79,7 @@ class Controller_Events_Ajax extends Ajax {
 
         $event->name         = $name;
         $event->description  = $description;
+        $event->organization = $organization;
         $event->tags         = $tags;
         $event->dt_start     = $start;
         $event->dt_end       = $end;

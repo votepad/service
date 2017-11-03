@@ -24,8 +24,14 @@
             </div>
 
             <div class="form-group">
-                <input type="text" id="tags" name="tags" class="form-group__input" autocomplete="off" placeholder="Хэштеги мероприятия">
-                <span class="form-group__help-block">Допустимы только буквы и цифры.</span>
+                <input id="organization" name="organization" maxlength="64" class="form-group__input" autocomplete="off">
+                <label class="form-group__label" for="organization">Организация</label>
+                <span class="form-group__help-block">Укажите организацию, которая проводит мероприятие.</span>
+            </div>
+
+            <div class="form-group">
+                <input type="text" id="tags" name="tags" class="form-group__input" autocomplete="off" placeholder="Ключевые слова">
+                <span class="form-group__help-block">Допустимы только буквы и цифры. Эти слова помогут быстре найти ваше мероприятие в интернете.</span>
             </div>
 
             <div class="form-group width-sm-290 mr-sm-20 width-md-460 width-lg-560">

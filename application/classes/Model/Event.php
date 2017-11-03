@@ -12,6 +12,7 @@ class Model_Event extends Model
     public $creator;        // $creator->id
     public $name;
     public $description;
+    public $organization;
     public $uri;            // UNIQUE
     public $code = null;    // $eventCode - code for judges
     public $branding = "no-branding.png"; // [Text] - path to cover

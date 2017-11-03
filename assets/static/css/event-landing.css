@@ -59,7 +59,9 @@
     .header__wrapper--opened .header__open-btn i:last-child {
         transform: rotate(-45deg);
     }
-
+    .header__menu--right{
+        width: 90%;
+    }
     #headerMenu{
         position: absolute;
         padding-top: 50px;
@@ -135,13 +137,7 @@
     font-size: 0.9em;
     margin-top: 20px;
 }
-.event-info__tag{
-    margin-right: 3px;
-}
-.event-info__tag:not(:last-child):after{
-    padding-left: 1px;
-    content: ',';
-}
+
 
 @media (max-width: 680px) {
     .event-info__block {

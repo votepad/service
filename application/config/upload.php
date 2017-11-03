@@ -29,7 +29,7 @@ return array(
          */
         'sizes' => array(
             'o'  => array(false, 1500, 1500),
-            'b'  => array(false, 1200, 800),
+            'b'  => array(false, 1500, 800),
             'm'  => array(true , 800),
         ),
 
