@@ -19,9 +19,10 @@
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/icons_fonts.css?v=<?= filemtime("assets/static/css/icons_fonts.css") ?>">
 
+    <!-- =============== PAGE STYLES ===============-->
     <link rel="stylesheet" type="text/css" href="<?=$assets; ?>static/css/event-landing.css?v=<?= filemtime("assets/static/css/event-landing.css") ?>">
 
-    <!-- =============== VENDOR SCRIPTS ===============-->
+    <!-- =============== PAGE SCRIPTS ===============-->
     <script type="text/javascript" src="<?=$assets; ?>static/js/event-landing.js?v=<?= filemtime("assets/static/js/event-landing.js") ?>"></script>
 
 </head>
@@ -49,7 +50,7 @@
         <div class="section__cover-filter"></div>
     </div>
 
-    <?=$page; ?>
+    <?= $page; ?>
 
 </section>
 

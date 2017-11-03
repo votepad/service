@@ -66,7 +66,7 @@
 
         <div class="block__wrapper">
 
-            <table class="js-table-participant">
+            <table class="js-table-participant" data-result="<?= $event->results['participants']->id; ?>" data-publish="<?= $event->results['participants']->publish == FALSE ? 'false' : 'true'; ?>">
                 <thead>
                     <tr>
                         <th>Участники</th>
@@ -338,7 +338,7 @@
 
         <div class="block__wrapper">
 
-            <table class="js-table-team">
+            <table class="js-table-team" data-result="<?= $event->results['teams']->id; ?>" data-publish="<?= $event->results['teams']->publish == FALSE ? 'false' : 'true'; ?>">
                 <thead>
                     <tr>
                         <th>Команды</th>

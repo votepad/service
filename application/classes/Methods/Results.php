@@ -52,6 +52,9 @@ class Methods_Results extends  Model_Result
         $result['participants']->contests = array();
         $result['teams']->contests = array();
 
+        $result['participants']->publish = "";
+        $result['teams']->publish = "";
+
         return $result;
     }
 
@@ -59,6 +62,7 @@ class Methods_Results extends  Model_Result
     /**
      * Get Results with Scores, Contest, Stages, Criterions, Members
      * @param $id_event - event ID
+     * @param bool $full - return results with contest+stage+criterion or not
      * @return array
      */
     public static function getResults($id_event, $full = true)
@@ -67,16 +71,19 @@ class Methods_Results extends  Model_Result
 
         $results = Methods_Results::getAllByEvent($id_event);
 
-        if ($full == false) {
-            return $results;
-        }
-
+        $publish_results = $redis->sMembers(getenv('REDIS_EVENTS') . $id_event . ':publish:results');
         $publish_contents = $redis->sMembers(getenv('REDIS_EVENTS') . $id_event . ':publish:contests');
         $publish_stages   = $redis->sMembers(getenv('REDIS_EVENTS') . $id_event . ':publish:stages');
 
         foreach ($results as $resultKey => $result) {
 
             if ($result->id) {
+
+                $results[$resultKey]->publish = in_array($result->id, $publish_results);
+
+                if ($full == false) {
+                    break;
+                }
 
                 $result_formula = json_decode($result->formula, true);
                 $result_max_score = 0;

@@ -164,7 +164,7 @@ var eventScores= function (eventScores) {
      */
     var publishSubmit_ = function (options) {
 
-        if (!(options.uri === "contest" || options.uri === "stage")) {
+        if (!(options.uri === "contest" || options.uri === "stage" || options.uri === "result")) {
             return false;
         }
 
@@ -172,6 +172,7 @@ var eventScores= function (eventScores) {
 
         formData.append('event', eventID);
         formData.append('publish', options.publish);
+        formData.append('result', options.result);
         formData.append('contest', options.contest);
         formData.append('stage', options.stage);
         formData.append('csrf', csrf);
@@ -189,7 +190,7 @@ var eventScores= function (eventScores) {
 
                 var code = parseInt(response.code);
 
-                if (code === 125 || code === 126 || code === 135 || code === 136) {
+                if (code === 125 || code === 126 || code === 135 || code === 136 || code === 144 || code === 145) {
                     changePublishBtn_(options.btn, options.publish);
                 }
                 vp.notification.notify({
@@ -236,7 +237,8 @@ var eventScores= function (eventScores) {
         publishSubmit_({
             btn:     element,
             form:    element.closest('.block'),
-            uri:     (element.dataset.stage === "all") ? 'contest' : 'stage',
+            uri:     (element.dataset.result !== undefined) ? 'result' : ((element.dataset.stage === "all") ? 'contest' : 'stage'),
+            result:  element.dataset.result,
             contest: element.dataset.contest,
             stage:   element.dataset.stage,
             publish: element.dataset.publish
@@ -275,19 +277,16 @@ var eventScores= function (eventScores) {
                 }
             });
 
-            if (i !== 0) {
-                table.wrapper.querySelector('.dataTable-dropdown').innerHTML =
-                    "<a role='button' " +
+            table.wrapper.querySelector('.dataTable-dropdown').innerHTML =
+                "<a role='button' " +
                     "class='ui-btn " + ((tablesParts[i].dataset.publish === "true") ? "ui-btn--2" : "ui-btn--1") + "' " +
+                    "data-result='" + tablesParts[i].dataset.result + "' " +
                     "data-contest='" + tablesParts[i].dataset.contest + "' " +
                     "data-stage='" + tablesParts[i].dataset.stage + "' " +
                     "data-publish='" + (tablesParts[i].dataset.publish === "true") + "' " +
-                    "onclick='" + ((tablesParts[i].dataset.publish === "true") ? "eventScores.publish(this)" : "eventScores.publish(this)") + "'>" +
+                    "onclick='eventScores.publish(this)'>" +
                         ((tablesParts[i].dataset.publish === "true") ? "снять с публикации" : "опубликовать") +
-                    "</a>";
-            } else {
-                table.wrapper.querySelector('.dataTable-dropdown').innerHTML = "";
-            }
+                "</a>";
         }
 
         for (var i = 0; i < tablesTeams.length; i++) {
@@ -301,19 +300,17 @@ var eventScores= function (eventScores) {
                 }
             });
 
-            if (i !== 0) {
-                table.wrapper.querySelector('.dataTable-dropdown').innerHTML =
-                    "<a role='button' " +
+
+            table.wrapper.querySelector('.dataTable-dropdown').innerHTML =
+                "<a role='button' " +
                     "class='ui-btn " + ((tablesTeams[i].dataset.publish === "true") ? "ui-btn--2" : "ui-btn--1") +  "' " +
+                    "data-result='" + tablesTeams[i].dataset.result + "' " +
                     "data-contest='" + tablesTeams[i].dataset.contest + "' " +
                     "data-stage='" + tablesTeams[i].dataset.stage + "' " +
                     "data-publish='" + (tablesTeams[i].dataset.publish === "true") + "' " +
-                    "onclick='" + ((tablesTeams[i].dataset.publish === "true") ? "eventScores.publish(this)" : "eventScores.publish(this)") + "'>" +
+                    "onclick='eventScores.publish(this)'>" +
                         ((tablesTeams[i].dataset.publish === "true") ? "снять с публикации" : "опубликовать") +
-                    "</a>";
-            } else {
-                table.wrapper.querySelector('.dataTable-dropdown').innerHTML = "";
-            }
+                "</a>";
         }
 
     };
