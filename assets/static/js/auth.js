@@ -10,7 +10,8 @@ var auth = (function (auth) {
         judge           = null,
         hasReset        = null,
         reset           = null,
-        registr         = null;
+        registr         = null,
+        csrf            = null;
 
     function prepare_() {
         signIn        = document.getElementById('signin');
@@ -19,6 +20,11 @@ var auth = (function (auth) {
         forget        = document.getElementById('forget');
         hasReset      = pathname.split('/').indexOf('reset') !== -1;
         registr       = document.getElementById('registr');
+        csrf          = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
+        }
 
         if (!signIn || !forget || !judge) {
             vp.core.log('Missed SignIn OR Forget OR Jude forms', 'error', corePrefix);
@@ -66,6 +72,7 @@ var auth = (function (auth) {
             '</div>' +
             '<input type="hidden" name="hash" value="' + pathname.split('/')[pathname.split('/').indexOf('reset') + 1] + '">'+
             '<input type="hidden" name="reset" id="resetAction">'+
+            '<input type="hidden" name="csrf" value="' + csrf + '">'+
             '<button type="button" onclick="auth.cancelReset()" class="btn btn--default fl_l m-0">Отменить</button>' +
             '<button id="resetSubmit" type="submit" class="btn btn--brand fl_r m-0">Изменить</button>'
         });
@@ -321,7 +328,11 @@ var auth = (function (auth) {
                 });
 
                 if (parseInt(response.code) === 35) {
-                    window.location = protocol + '//' + host + '/user/' + response.id;
+                    if (window.location.pathname === "/") {
+                        window.location = protocol + '//' + host + '/user/' + response.id;
+                    } else {
+                        window.location.reload();
+                    }
                 }
             },
             error: function(response) {

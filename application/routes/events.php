@@ -17,6 +17,18 @@ Route::set('NEW_EVENT', 'event/new')
 
 
 /**
+ * Router for inviting assistant to event
+ */
+Route::set('INVITE_ASSISTANT', 'event/<id>/invite/<hash>', array(
+    'id' => $DIGIT,
+    'hash' => $STRING
+))
+    ->defaults(array(
+        'controller' => 'Events_Index',
+        'action'     => 'invite_assistant'
+    ));
+
+/**
  * Route for event lanfing page.
  *
  * @property String $action - action in controller
@@ -86,17 +98,7 @@ Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>/<action>',
         'action'     => 'ControlMain'
     ));
 
-/**
- * Router for inviting assistant to event
- */
-Route::set('INVITE_ASSISTANT', 'event/<id>/invite/<hash>', array(
-        'id' => $DIGIT,
-        'hash' => $STRING
-    ))
-    ->defaults(array(
-        'controller' => 'Events_Index',
-        'action'     => 'invite_assistant'
-    ));
+
 
 
 Route::set('PUBLISH_EVENT', 'event/result/<method>',

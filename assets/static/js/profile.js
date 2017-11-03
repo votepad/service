@@ -2,6 +2,7 @@ var profile = (function (profile) {
 
     var corePrefix      = "VP profile",
         profileWrap     = null,
+        csrf            = null,
         changePassword  = null;
 
     profile.updateCover = function () {
@@ -124,9 +125,13 @@ var profile = (function (profile) {
 
     profile.confirmEmail = function () {
 
+        var formData = new FormData();
+        formData.append('csrf', csrf);
+
         var ajaxData = {
             url: '/user/confirmemail',
             type: 'POST',
+            data: formData,
             beforeSend: function(){
                 vp.form.addLoadingClass(profileWrap);
             },
@@ -222,8 +227,15 @@ var profile = (function (profile) {
 
         changePassword = document.getElementById('changePassword');
 
-        if (changePassword)
+        if (changePassword) {
             changePassword.addEventListener('submit', submitChangePassword_);
+        }
+
+        csrf = document.getElementById('csrf');
+
+        if (csrf) {
+            csrf = csrf.value;
+        }
     };
 
     document.addEventListener('DOMContentLoaded', init_);

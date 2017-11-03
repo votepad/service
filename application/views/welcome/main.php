@@ -21,7 +21,6 @@
     <link rel="stylesheet" href="<?=$assets; ?>static/css/welcome.css?v=<?= filemtime("assets/static/css/welcome.css") ?>">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
-    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
     <script type="text/javascript" src="<?=$assets; ?>static/js/welcome.js"></script>
 
 

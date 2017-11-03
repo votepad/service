@@ -25,7 +25,8 @@
                     <a href="/" class="link mr-15">Главная</a>
                     <a class="link mr-15" onclick="window.history.back()">Назад</a>
                     <? if ( $code == 401 ): ?>
-                        <a class="link" data-toggle="modal" data-area="auth_modal"> Войти </a>
+                        <a class="link mr-15" data-toggle="modal" data-area="auth_modal"> Войти </a>
+                        <a class="link" data-toggle="modal" data-area="registr_modal"> Регистрация </a>
                         <?= View::factory('globalblocks/auth_modal'); ?>
                     <? endif; ?>
                 </div>

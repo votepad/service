@@ -20,7 +20,7 @@
     </div>
 
     <div class="event-info__block">
-        <i class="fa fa-map-marker event-info__icon" aria-hidden="true"></i>
+        <i class="fa fa-flag event-info__icon" aria-hidden="true"></i>
         <div class="event-info__h1">
             <?= $event->organization; ?>
         </div>
