@@ -198,12 +198,19 @@
 
 .section__text {
     font-size: 1.2em;
+    line-height: 1.5em;
     margin: 20px 0;
     max-width: 600px;
     font-style: italic;
     color: #9e9e9e;
     letter-spacing: 0.05em;
-    line-height: 1.5em;
+}
+
+.section__text--center {
+    font-size: 1.1em;
+    line-height: 1.25em;
+    margin: 20px auto 60px;
+    text-align: center;
 }
 
 

@@ -40,6 +40,10 @@
 
                     <h2 class="section__text">
                         <?= $contest->description; ?>
+                        <? if ($contest->publish == 0) : ?>
+                            <br>
+                            <label class="label label--danger">не опубликован</label>
+                        <? endif; ?>
                     </h2>
 
                     <div class="section__header">
@@ -57,9 +61,19 @@
 
                         <? foreach ($contest->stages as $stageKey => $stage): ?>
 
-                            <? if (!empty($event->members["participants"])): ?>
+                            <div id="participantsContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="<?= $stageKey == 0 ? '' : 'hide'; ?>">
 
-                                <div class="members <?= $stageKey == 0 ? '' : 'hide'; ?>" id="participantsContest<?= $contest->id; ?>Stage<?= $stage->id; ?>">
+                                <h2 class="section__text section__text--center">
+                                    <?= $stage->description; ?>
+                                    <? if ($stage->publish == 0) : ?>
+                                        <br>
+                                        <label class="label label--danger">не опубликован</label>
+                                    <? endif; ?>
+                                </h2>
+
+                                <? if (!empty($event->members["participants"])): ?>
+
+                                <div class="members">
                                     <?
 
                                         $sorted_members = array();
@@ -103,11 +117,24 @@
 
                             <? endif; ?>
 
+                            </div>
+
                         <? endforeach; ?>
 
-                        <? if (!empty($event->members["participants"])): ?>
 
-                            <div class="members hide" id="participantsContest<?= $contest->id; ?>StageAll">
+                        <div class="hide" id="participantsContest<?= $contest->id; ?>StageAll">
+
+                            <h2 class="section__text section__text--center">
+                                Итоговый балл за конкурс
+                                <? if ($contest->publish == 0) : ?>
+                                    <br>
+                                    <label class="label label--danger">не опубликован</label>
+                                <? endif; ?>
+                            </h2>
+
+                            <? if (!empty($event->members["participants"])): ?>
+
+                               <div class="members">
                                 <?
 
                                     $sorted_members = array();
@@ -149,7 +176,9 @@
                                 ?>
                             </div>
 
-                        <? endif; ?>
+                            <? endif; ?>
+
+                        </div>
 
                     </div>
 
@@ -172,6 +201,10 @@
 
                     <h2 class="section__text">
                         <?= $contest->description; ?>
+                        <? if ($contest->publish == 0) : ?>
+                            <br>
+                            <label class="label label--danger">не опубликован</label>
+                        <? endif; ?>
                     </h2>
 
                     <div class="section__header">
@@ -189,9 +222,19 @@
 
                         <? foreach ($contest->stages as $stageKey => $stage): ?>
 
-                            <? if (!empty($event->members["teams"])): ?>
+                            <div class="<?= $stageKey == 0 ? '' : 'hide'; ?>" id="teamsContest<?= $contest->id; ?>Stage<?= $stage->id; ?>">
 
-                                <div class="members <?= $stageKey == 0 ? '' : 'hide'; ?>" id="teamsContest<?= $contest->id; ?>Stage<?= $stage->id; ?>">
+                                <h2 class="section__text section__text--center">
+                                    <?= $stage->description; ?>
+                                    <? if ($stage->publish == 0) : ?>
+                                        <br>
+                                        <label class="label label--danger">не опубликован</label>
+                                    <? endif; ?>
+                                </h2>
+
+                                <? if (!empty($event->members["teams"])): ?>
+
+                                <div class="members">
                                     <?
 
                                         $sorted_members = array();
@@ -235,53 +278,67 @@
 
                             <? endif; ?>
 
+                            </div>
+
                         <? endforeach; ?>
 
-                        <? if (!empty($event->members["teams"])): ?>
+                        <div class="hide" id="teamsContest<?= $contest->id; ?>StageAll">
 
-                            <div class="members hide" id="teamsContest<?= $contest->id; ?>StageAll">
-                                <?
+                            <h2 class="section__text section__text--center">
+                                Итоговый балл за конкурс
+                                <? if ($contest->publish == 0) : ?>
+                                    <br>
+                                    <label class="label label--danger">не опубликован</label>
+                                <? endif; ?>
+                            </h2>
 
-                                    $sorted_members = array();
+                            <? if (!empty($event->members["teams"])): ?>
 
-                                    foreach ($event->members["teams"] as $member) {
+                                <div class="members">
+                                    <?
 
-                                        if (!empty($event->scores["teams"][$member->id]['overall'][$contest->id]['total']) && $contest->publish == TRUE) {
+                                        $sorted_members = array();
 
-                                            $score = floatval($event->scores["teams"][$member->id]['overall'][$contest->id]['total']);
+                                        foreach ($event->members["teams"] as $member) {
 
-                                        } else {
+                                            if (!empty($event->scores["teams"][$member->id]['overall'][$contest->id]['total']) && $contest->publish == TRUE) {
 
-                                            $score = 0;
+                                                $score = floatval($event->scores["teams"][$member->id]['overall'][$contest->id]['total']);
+
+                                            } else {
+
+                                                $score = 0;
+
+                                            }
+
+
+                                            $data = array(
+                                                'member'          => $member,
+                                                'mode'            => "teams",
+                                                'score'           => $contest->publish == TRUE ? $score : 0,
+                                                'member_position' => 0,
+                                                'maxScore'        => $contest->maxScore
+                                            );
+
+                                            array_push($sorted_members, $data);
 
                                         }
 
+                                        usort($sorted_members, "comparator");
 
-                                        $data = array(
-                                            'member'          => $member,
-                                            'mode'            => "teams",
-                                            'score'           => $contest->publish == TRUE ? $score : 0,
-                                            'member_position' => 0,
-                                            'maxScore'        => $contest->maxScore
-                                        );
+                                        foreach ($sorted_members as $member_position => $member) {
 
-                                        array_push($sorted_members, $data);
+                                            $member["member_position"] = $member_position;
+                                            echo View::factory('event-landing/blocks/member', $member);
 
-                                    }
+                                        }
 
-                                    usort($sorted_members, "comparator");
+                                    ?>
+                                </div>
 
-                                    foreach ($sorted_members as $member_position => $member) {
+                            <? endif; ?>
 
-                                        $member["member_position"] = $member_position;
-                                        echo View::factory('event-landing/blocks/member', $member);
-
-                                    }
-
-                                ?>
-                            </div>
-
-                        <? endif; ?>
+                        </div>
 
                     </div>
 
