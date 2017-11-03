@@ -66,94 +66,119 @@
 
         <? if (!empty($event->members["participants"])): ?>
 
-            <div class="members" id="participantsResults">
-            <?
+            <div id="participantsResults">
+                
+                <h2 class="section__text section__text--center">
+                    <? if ($event->results['participants']->publish == 0) : ?>
+                        <br>
+                        <label class="label label--danger">не опубликован</label>
+                    <? endif; ?>
+                </h2>
 
-                $sorted_members = array();
+                <div class="members">
 
-                foreach ($event->members["participants"] as $member) {
+                    <?
 
-                    if (!empty($event->scores["participants"][$member->id]['overall']) && $event->results["participants"]->publish == TRUE) {
+                    $sorted_members = array();
 
-                        $score = floatval($event->scores["participants"][$member->id]['overall']);
+                    foreach ($event->members["participants"] as $member) {
 
-                    } else {
+                        if (!empty($event->scores["participants"][$member->id]['overall']) && $event->results["participants"]->publish == TRUE) {
 
-                        $score = 0;
+                            $score = floatval($event->scores["participants"][$member->id]['overall']);
+
+                        } else {
+
+                            $score = 0;
+
+                        }
+
+
+                        $data = array(
+                            'member'          => $member,
+                            'mode'            => "participants",
+                            'score'           => $score,
+                            'member_position' => 0,
+                            'maxScore'       => $event->results["participants"]->maxScore
+                        );
+
+                        array_push($sorted_members, $data);
 
                     }
 
+                    usort($sorted_members, "comparator");
 
-                    $data = array(
-                        'member'          => $member,
-                        'mode'            => "participants",
-                        'score'           => $score,
-                        'member_position' => 0,
-                        'maxScore'       => $event->results["participants"]->maxScore
-                    );
+                    foreach ($sorted_members as $member_position => $member) {
 
-                    array_push($sorted_members, $data);
+                        $member["member_position"] = $member_position;
+                        echo View::factory('event-landing/blocks/member', $member);
 
-                }
+                    }
 
-                usort($sorted_members, "comparator");
+                ?>
 
-                foreach ($sorted_members as $member_position => $member) {
+                </div>
 
-                    $member["member_position"] = $member_position;
-                    echo View::factory('event-landing/blocks/member', $member);
-
-                }
-
-            ?>
-        </div>
+            </div>
 
         <? endif; ?>
 
 
         <? if (!empty($event->members["teams"])): ?>
 
-            <div class="members hide" id="teamsResults">
-            <?
+            <div id="teamsResults">
 
-                $sorted_members = array();
+                <h2 class="section__text section__text--center">
+                    <? if ($event->results['participants']->publish == 0) : ?>
+                        <br>
+                        <label class="label label--danger">не опубликован</label>
+                    <? endif; ?>
+                </h2>
 
-                foreach ($event->members["teams"] as $member) {
+                <div class="members hide">
 
-                    if (!empty($event->scores["teams"][$member->id]['overall']) && $event->results["teams"]->publish == TRUE) {
+                    <?
 
-                        $score = floatval($event->scores["teams"][$member->id]['overall']);
+                    $sorted_members = array();
 
-                    } else {
+                    foreach ($event->members["teams"] as $member) {
 
-                        $score = 0;
+                        if (!empty($event->scores["teams"][$member->id]['overall']) && $event->results["teams"]->publish == TRUE) {
+
+                            $score = floatval($event->scores["teams"][$member->id]['overall']);
+
+                        } else {
+
+                            $score = 0;
+
+                        }
+
+
+                        $data = array(
+                            'member'          => $member,
+                            'mode'            => "teams",
+                            'score'           => $score,
+                            'member_position' => 0,
+                            'maxScore'       => $event->results["teams"]->maxScore
+                        );
+
+                        array_push($sorted_members, $data);
 
                     }
 
+                    usort($sorted_members, "comparator");
 
-                    $data = array(
-                        'member'          => $member,
-                        'mode'            => "teams",
-                        'score'           => $score,
-                        'member_position' => 0,
-                        'maxScore'       => $event->results["teams"]->maxScore
-                    );
+                    foreach ($sorted_members as $member_position => $member) {
 
-                    array_push($sorted_members, $data);
+                        $member["member_position"] = $member_position;
+                        echo View::factory('event-landing/blocks/member', $member);
 
-                }
+                    }
 
-                usort($sorted_members, "comparator");
+                ?>
+                </div>
 
-                foreach ($sorted_members as $member_position => $member) {
-
-                    $member["member_position"] = $member_position;
-                    echo View::factory('event-landing/blocks/member', $member);
-
-                }
-
-            ?>
-        </div>
+            </div>
 
         <? endif; ?>
 

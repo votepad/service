@@ -362,7 +362,7 @@ class Controller_Events_Index extends Dispatch
 
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
-//echo Debug::vars($this->event);die();
+
         $this->template = View::factory('event-landing/main')
             ->set('page', 'results')
             ->set('event', $this->event);
