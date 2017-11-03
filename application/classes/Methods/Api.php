@@ -27,17 +27,20 @@ Class Methods_Api extends Model
     {
         $mongo = Dispatch::MongoConnection();
 
-        $collectionString = 'event' . $params['id_event'];
-        $collection = $mongo->votepad->$collectionString;
+        $query = new MongoDB\Driver\Query([],[]);
+        $db = 'votepad';
 
-        $cursor = $collection->find();
+        $collectionString = $db . '.' . 'event' . $params['id_event'];
+        $collection = $mongo->executeQuery($collectionString,$query);
+
+        $cursor = $collection->toArray();
 
         $result = array();
 
         foreach ( $cursor as $id => $value ) {
 
-            $memberId = $value['member'];
-            $mode     = $value['mode'];
+            $memberId = $value->member;
+            $mode     = $value->mode;
 
             if (isset($params['contests']) && $params['contests']) {
 
@@ -95,7 +98,7 @@ Class Methods_Api extends Model
     public function getMemberTotal($collectionData)
     {
 
-        return $collectionData['total']['result'];
+        return $collectionData->total->result;
 
     }
 
@@ -103,9 +106,9 @@ Class Methods_Api extends Model
     {
 
         $judges = array();
-        foreach ($collectionData['scores'] as $judgeData) {
+        foreach ($collectionData->scores as $judgeData) {
 
-            $judges[$judgeData['judge']]['total'] = $judgeData['result'];
+            $judges[$judgeData->judge]['total'] = $judgeData->result;
 
         }
 
@@ -130,7 +133,7 @@ Class Methods_Api extends Model
     {
         $member = [];
 
-        foreach ($collectionData['total']['contests'] as $key => $value) {
+        foreach ($collectionData->total->contests as $key => $value) {
             $member[$key] = $value;
         }
 
@@ -140,12 +143,12 @@ Class Methods_Api extends Model
     public function getMemberContestResultByJudges($collectionData)
     {
         $judges = array();
-        foreach ($collectionData['scores'] as $judgeData) {
+        foreach ($collectionData->scores as $judgeData) {
 
-            $judges[$judgeData['judge']]['total'] = $judgeData['result'];
+            $judges[$judgeData->judge]['total'] = $judgeData->result;
 
-            foreach ($judgeData['contests'] as $id => $score) {
-                $judges[$judgeData['judge']][$id] = $score;
+            foreach ($judgeData->contests as $id => $score) {
+                $judges[$judgeData->judge][$id] = $score;
             }
 
         }
@@ -177,7 +180,7 @@ Class Methods_Api extends Model
     {
 
         $member = [];
-        foreach ($collectionData['total']['stages'] as $key => $value) {
+        foreach ($collectionData->total->stages as $key => $value) {
 
             list($contest, $stage) = explode('-', $key);
 
@@ -191,13 +194,13 @@ Class Methods_Api extends Model
 
         }
 
-        foreach ($collectionData['total']['contests'] as $key => $value) {
+        foreach ($collectionData->total->contests as $key => $value) {
 
             $member[$key]['total'] = $value;
 
         }
 
-        $member['total'] = $collectionData['total']['result'];
+        $member['total'] = $collectionData->total->result;
 
         return $member;
     }
@@ -205,27 +208,25 @@ Class Methods_Api extends Model
     public function getMemberStageResultByJudges($collectionData)
     {
         $judges = array();
-        foreach ($collectionData['scores'] as $judgeData) {
+        foreach ($collectionData->scores as $judgeData) {
 
-            $judges[$judgeData['judge']]['total'] = $judgeData['result'];
+            $judges[$judgeData->judge]['total'] = $judgeData->result;
 
-            foreach ($judgeData['stages'] as $key => $score) {
+            foreach ($judgeData->stages as $key => $score) {
 
                 list($contest, $stage) = explode('-', $key);
 
-                if (empty( $judges[$judgeData['judge']][$contest])) {
-                    $judges[$judgeData['judge']][$contest] = array($stage => $score);
+                if (empty( $judges[$judgeData->judge][$contest])) {
+                    $judges[$judgeData->judge][$contest] = array($stage => $score);
                 } else {
-                    $judges[$judgeData['judge']][$contest][$stage] = $score;
+                    $judges[$judgeData->judge][$contest][$stage] = $score;
                 }
 
             }
 
-            foreach ($judgeData['contests'] as $id => $score) {
-                $judges[$judgeData['judge']][$id]['total'] = $score;
+            foreach ($judgeData->contests as $id => $score) {
+                $judges[$judgeData->judge][$id]['total'] = $score;
             }
-
-
 
         }
 
@@ -236,7 +237,7 @@ Class Methods_Api extends Model
     {
 
         $member = [];
-        foreach ($collectionData['total']['criterions'] as $key => $value) {
+        foreach ($collectionData->total->criterions as $key => $value) {
 
             list($contest, $stage, $criterion) = explode('-', $key);
 
@@ -258,7 +259,7 @@ Class Methods_Api extends Model
 
         }
 
-        foreach ($collectionData['total']['stages'] as $key => $value) {
+        foreach ($collectionData->total->stages as $key => $value) {
 
             list($contest, $stage) = explode('-', $key);
 
@@ -266,13 +267,13 @@ Class Methods_Api extends Model
 
         }
 
-        foreach ($collectionData['total']['contests'] as $key => $value) {
+        foreach ($collectionData->total->contests as $key => $value) {
 
             $member[$key]['total'] = $value;
 
         }
 
-        $member['total'] = $collectionData['total']['result'];
+        $member['total'] = $collectionData->total->result;
 
         return $member;
     }
@@ -281,42 +282,42 @@ Class Methods_Api extends Model
     {
         $judges = array();
 
-        foreach ($collectionData['scores'] as $judgeData) {
+        foreach ($collectionData->scores as $judgeData) {
 
-            foreach ($judgeData['criterions'] as $key => $score) {
+            foreach ($judgeData->criterions as $key => $score) {
 
                 list($contest, $stage, $criterion) = explode('-', $key);
 
-                if (empty($judges[$judgeData['judge']][$contest])) {
-                    $judges[$judgeData['judge']][$contest] = array(
+                if (empty($judges[$judgeData->judge][$contest])) {
+                    $judges[$judgeData->judge][$contest] = array(
                         $stage => array(
                             $criterion => $score
                         )
                     );
                 } else {
-                    if (empty($judges[$judgeData['judge']][$contest][$stage])) {
-                        $judges[$judgeData['judge']][$contest][$stage] = array($criterion => $score);
+                    if (empty($judges[$judgeData->judge][$contest][$stage])) {
+                        $judges[$judgeData->judge][$contest][$stage] = array($criterion => $score);
                     } else {
-                        $judges[$judgeData['judge']][$contest][$stage][$criterion] = $score;
+                        $judges[$judgeData->judge][$contest][$stage][$criterion] = $score;
                     }
 
                 }
 
             }
 
-            foreach ($judgeData['stages'] as $key => $score) {
+            foreach ($judgeData->stages as $key => $score) {
 
                 list($contest, $stage) = explode('-', $key);
 
-                $judges[$judgeData['judge']][$contest][$stage]['total'] = $score;
+                $judges[$judgeData->judge][$contest][$stage]['total'] = $score;
 
             }
 
-            foreach ($judgeData['contests'] as $id => $score) {
-                $judges[$judgeData['judge']][$id]['total'] = $score;
+            foreach ($judgeData->contests as $id => $score) {
+                $judges[$judgeData->judge][$id]['total'] = $score;
             }
 
-            $judges[$judgeData['judge']]['total'] = $judgeData['result'];
+            $judges[$judgeData->judge]['total'] = $judgeData->result;
 
         }
 
