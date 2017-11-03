@@ -45,6 +45,7 @@ var wsvoting = function () {
         ws = new vp.websocket({
             host: host || 'localhost',
             path: 'voting',
+            secure: true,
             port: port || 8000,
             open: wsHandlers.opened,
             close: wsHandlers.closed,

@@ -55,7 +55,7 @@ voting.on('connection', function (ws) {
                 ws.on('close', function () {
                     manager.update('judge', 'orgs', perms.events, {id: user.id, status: 0});
                     manager.setOfflineJudge(perms.events, user.id);
-                    console.log('Judge ' + user.id + 'had logout');
+                    console.log('Judge ' + user.id + ' had logout');
                 })
 
             }

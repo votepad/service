@@ -140,6 +140,7 @@ console.log(data);
             host: host,
             port: 8001,
             path: 'management',
+            secure: true,
             message: updatesHandler_,
             open: function(){
                 vp.core.log('You are online!', 'info', corePrefix);
