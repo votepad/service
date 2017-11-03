@@ -22,7 +22,7 @@
     <div class="event-info__block">
         <i class="fa fa-hashtag event-info__icon" aria-hidden="true"></i>
         <div class="event-info__h1">
-            <? foreach (split(',',$event->tags) as $i => $tag): if ($i >= 5) {break;} ?>
+            <? foreach (explode(',',$event->tags) as $i => $tag): if ($i >= 5) {break;} ?>
                 <span class="event-info__tag"><?= $tag; ?></span>
             <? endforeach; ?>
         </div>
