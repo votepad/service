@@ -3,8 +3,15 @@ var welcome = (function (welcome) {
     var corePrefix    = "VP welcome",
         moreEventsBtn = null,
         eventsWrapper = null,
+        section4      = null,
         csrf          = null;
 
+
+    welcome.scrollToEvents = function () {
+        if (section4) {
+            window.scrollTo(0, document.querySelector('.section-4').offsetTop);
+        }
+    };
 
     var loadEvents_ = function () {
 
@@ -64,6 +71,8 @@ var welcome = (function (welcome) {
         if (moreEventsBtn && eventsWrapper) {
             moreEventsBtn.addEventListener('click', loadEvents_);
         }
+
+        section4 = document.querySelector('.section-4');
 
         csrf = document.getElementById('csrf');
 

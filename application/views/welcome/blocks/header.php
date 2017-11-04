@@ -6,7 +6,7 @@
             Votepad
         </a>
 
-        <a role="button" class="header__button header__button--hollow toEvents hidden-xs" tabindex="2" onclick="">
+        <a role="button" class="header__button header__button--hollow toEvents hidden-xs" tabindex="2" onclick="welcome.scrollToEvents()">
             Мероприятия
         </a>
 

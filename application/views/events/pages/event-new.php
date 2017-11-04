@@ -55,7 +55,7 @@
         <div class="block__footer p-20">
             <input type="hidden" name="csrf" value="<?= Security::token(); ?>">
             <button type="submit" class="ui-btn ui-btn--1 fl_r">
-                Опубликовать
+                Создать
             </button>
         </div>
 

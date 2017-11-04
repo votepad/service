@@ -37,12 +37,12 @@
 .header__menu{
     height: inherit;
     float: left;
-    width: calc(100% - 205px);
+    width: calc(100% - 245px);
 }
 
 .header__menu--right{
     float: right;
-    width: 205px;
+    width: 245px;
 }
 
 
