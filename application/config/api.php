@@ -5,8 +5,6 @@ return array
         'sha1' => 'desktop.votepad',
         'salt' => '7vctZxDncg',
         'methods' => array(
-            'getOrganizations',
-            'getOrganizaion',
             'getAllEvents',
             'getEvent',
             'getResults'
