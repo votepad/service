@@ -4,16 +4,17 @@
 
 <div class="block">
 
-    <div class="block__wrapper pt-10 fs-0_9">
+    <div class="block__wrapper pt-10 fs-0_9 t-lh-1_4">
         <? if ($stagesJSON === "[]" || empty($judges)): ?>
             Для того, чтобы создать конкурс, необходимо внести информацию об
             <a class="link" href="<?= URL::site('event/' . $event->id . '/scenario/stages'); ?>">этапах</a> и
-            <a class="link" href="<?= URL::site('event/' . $event->id . '/members/judges'); ?>">представитей жюри</a>
+            <a class="link" href="<?= URL::site('event/' . $event->id . '/members/judges'); ?>">представитях жюри</a>.
         <? else: ?>
             <p>
                 Создайте конкурсы, которые будут оценивать представители экспертного жюри. Каждый конкурс может проходить в
-                однин или несколько этапов. Балл полученный за участниками или командами за конкурс представляет собой
-                сумму баллов полученных за этапы. Можно учесть "вес" этапа, расставив соответствующие коэффициенты.
+                однин или несколько этапов, которые указываются в формуле. Балл полученный участниками или командами за конкурс
+                представляет собой сумму баллов полученных на выбранных в формуле этапах. Можно учесть "вес" конкурса, расставив
+                соответствующие коэффициенты.
             </p>
             <a role="button" class="ui-btn ui-btn--1 collapse__btn" data-toggle="collapse" data-area="newContest" data-opened="false" data-textopened="Отмена создания" data-textclosed="Создать новый конкурс"></a>
         <? endif; ?>
@@ -55,7 +56,7 @@
             </div>
             <div class="form-group">
                 <label for="newContestJudges" class="fs-0_8 pb-5 text-brand-2">Представители жюри</label>
-                <select id="newContestJudges" name="judges[]" class="form-group__input" multiple>
+                <select id="newContestJudges" name="judges[]" class="form-group__input" multiple placeholder="выбрать">
                     <? foreach ($judges as $judge): ?>
                         <option value="<?= $judge->id; ?>"><?= $judge->name; ?></option>
                     <? endforeach; ?>

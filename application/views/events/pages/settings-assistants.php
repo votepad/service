@@ -13,9 +13,20 @@
     </div>
 </div>
 
-<div id="assistantsArea" class="block">
+<div id="assistantsArea">
 
-    <div class="block__wrapper pb-20">
+    <div class="block">
+
+        <div class="block__wrapper pt-10 fs-0_9 t-lh-1_4">
+            Помощники - это люди из команды организаторов мероприятия. Пригласив их, вы предоставляете им
+            права доступа на изменеие всей информации о мероприятие.
+        </div>
+
+    </div>
+
+    <div class="block">
+
+        <div class="block__wrapper pb-20">
 
         <table id="assistantsTable">
             <thead>
@@ -54,28 +65,40 @@
 
     </div>
 
-</div>
-
-<div id="requestsArea" class="block hide">
-
-    <div class="pl-20 pr-20 pt-100 pb-100 text-center <?= empty($requests) ?: 'hide'; ?>" id="noRequestsBlock">
-        <div class="text-bold fs-1_2 pb-10">
-            Новых заявок нет
-        </div>
     </div>
 
-    <div class="block__wrapper p-20 <?= !empty($requests) ?: 'hide'; ?>" id="requestsBlock">
+</div>
 
-        <table id="requestsTable">
-            <thead>
+<div id="requestsArea" class="hide">
+
+    <div class="block">
+
+        <div class="block__wrapper pt-10 fs-0_9 t-lh-1_4">
+            Примите или отклоните заявку от нового помощника.
+        </div>
+
+    </div>
+
+    <div class="block">
+
+        <div class="pl-20 pr-20 pt-100 pb-100 text-center <?= empty($requests) ?: 'hide'; ?>" id="noRequestsBlock">
+            <div class="text-bold fs-1_2 pb-10">
+                Новых заявок нет
+            </div>
+        </div>
+
+        <div class="block__wrapper p-20 <?= !empty($requests) ?: 'hide'; ?>" id="requestsBlock">
+
+            <table id="requestsTable">
+                <thead>
                 <tr>
                     <th class="text-center">Фото</th>
                     <th>Имя</th>
                     <th>Эл.почта</th>
                     <th></th>
                 </tr>
-            </thead>
-            <tbody>
+                </thead>
+                <tbody>
                 <? foreach($requests as $user): ?>
                     <tr id="request_<?= $user->id ?>">
                         <td class="text-center">
@@ -100,8 +123,10 @@
                         </td>
                     </tr>
                 <? endforeach; ?>
-            </tbody>
-        </table>
+                </tbody>
+            </table>
+
+        </div>
 
     </div>
 

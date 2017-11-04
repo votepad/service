@@ -6,7 +6,7 @@
             Votepad
         </a>
 
-        <a href="/#events" class="header__button header__button--hollow toEvents hidden-xs" tabindex="2">
+        <a role="button" class="header__button header__button--hollow toEvents hidden-xs" tabindex="2" onclick="">
             Мероприятия
         </a>
 

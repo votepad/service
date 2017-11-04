@@ -4,10 +4,13 @@
     background-color: #008DA7;
     margin-top: 20px;
 }
-.footer--fixed{
-    position: fixed;
-    bottom: 0;
+
+.wrapper .footer{
+    position: absolute;
     left: 0;
+    bottom: 0;
+    height: 230px;
+    z-index: 3;
 }
 
 .footer__container{
@@ -66,6 +69,9 @@
 
 
 @media (min-width: 680px) {
+    .wrapper .footer {
+        height: 155px;
+    }
     .footer__container{
         width: 640px;
     }

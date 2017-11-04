@@ -13,6 +13,15 @@
     margin-top: 50px;
 }
 
+.wrapper .section{
+    padding-bottom: 250px;
+}
+@media (min-width: 680px) {
+    .wrapper .section {
+        padding-bottom: 170px;
+    }
+}
+
 .section__cover{
     position: relative;
     height: 200px;

@@ -24,7 +24,7 @@
         <? if ($profile->isOwner) : ?>
             <div>
                 <a href="<?= URL::site('event/' . $event->id . '/settings/info'); ?>" class="ui-btn ui-btn--1 ui-btn--margin">Редктировать</a>
-                <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="ui-btn ui-btn--1 ui-btn--margin">Администрирование</a>
+                <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="ui-btn ui-btn--1 ui-btn--margin">Управление</a>
                 <a href="<?= URL::site('event/' . $event->id . '/scenario/criterions'); ?>" class="ui-btn ui-btn--1 ui-btn--margin">Сценарий</a>
                 <a href="<?= URL::site('event/' . $event->id . '/members/judges'); ?>" class="ui-btn ui-btn--1 ui-btn--margin">Действующие лица</a>
             </div>

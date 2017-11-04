@@ -4,14 +4,16 @@
 
 <div class="block">
 
-    <div class="block__wrapper pt-10 fs-0_9">
-        <? if ($criterions === "[]"): ?>
+    <div class="block__wrapper pt-10 t-lh-1_4 fs-0_9">
+        <? if ($criterions === "[]" || (empty($members['participants']) && $members['teams'])): ?>
             Для того, чтобы создать этап, необходимо внести информацию о
-            <a class="link" href="<?= URL::site('event/' . $event->id . '/scenario/criterions'); ?>">критериях</a>.
+            <a class="link" href="<?= URL::site('event/' . $event->id . '/scenario/criterions'); ?>">критериях</a>,
+            <a class="link" href="<?= URL::site('event/' . $event->id . '/members/participants'); ?>">участниках</a> и/или
+            <a class="link" href="<?= URL::site('event/' . $event->id . '/members/teams'); ?>">командах</a>.
         <? else: ?>
             <p>
                 Создайте этапы на которых будут выступать участники или команды. Каждый этап оценивается по одному или нескольким
-                критериям для которых создается формула. Можно учесть "вес" критерия, расставив коэффициенты.
+                критериям, которые указываются в формуле с соответствующими коэффициентами.
             </p>
             <a role="button" class="ui-btn ui-btn--1 collapse__btn" data-toggle="collapse" data-area="newStage" data-opened="false" data-textopened="Отмена создания" data-textclosed="Создать новый этап"></a>
             <input type="hidden" id="allCriterions" value='<?= $criterions ?>'>
@@ -52,7 +54,7 @@
                 </span>
 
                 <div id="newStageParticipantsArea">
-                    <select id="newStageParticipants" name="participants[]" class="form-group__input" multiple>
+                    <select id="newStageParticipants" name="participants[]" class="form-group__input" multiple placeholder="выбрать">
                         <? foreach ($members['participants'] as $participant): ?>
                             <option value="<?= $participant->id; ?>"><?=$participant->name; ?></option>
                         <? endforeach; ?>
@@ -60,7 +62,7 @@
                 </div>
 
                 <div id="newStageTeamsArea" class="hide">
-                    <select id="newStageTeams" name="teams[]" class="form-group__input" multiple>
+                    <select id="newStageTeams" name="teams[]" class="form-group__input" multiple placeholder="выбрать">
                         <? foreach ($members['teams'] as $team): ?>
                             <option value="<?= $team->id; ?>"><?=$team->name; ?></option>
                         <? endforeach; ?>

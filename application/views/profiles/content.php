@@ -51,11 +51,11 @@
         </div>
 
         <div class="profile__nav nav hidden-xs hidden-sm">
-            <a href="<?= URL::site('user/' . $profile->id); ?>" class="nav__item <?= $action == 'index' ? 'nav__item--active': ''; ?>">
+            <a href="<?= URL::site('user/' . $profile->id); ?>" class="nav__item <?= $action == 'index' ? 'nav__item--active nav__item-group--active': ''; ?>">
                 Мероприятия
             </a>
             <? if ($profile->isOwner) : ?>
-                <a href="<?= URL::site('user/' . $profile->id . '/drafts'); ?>" class="nav__item <?= $action == 'drafts' ? 'nav__item--active': ''; ?>">
+                <a href="<?= URL::site('user/' . $profile->id . '/drafts'); ?>" class="nav__item <?= $action == 'drafts' ? 'nav__item--active nav__item-group--active': ''; ?>">
                     Не опубликованные мероприятия
                 </a>
             <? endif; ?>

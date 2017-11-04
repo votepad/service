@@ -327,7 +327,7 @@ var eventScores= function (eventScores) {
                 status.innerHTML =
                     '<p class="fs-1_5 text-danger"><span class="text-bold">Ошибка 500.</span> Сервер не отвечает</p>' +
                     '<p>Голосование не доступно, пожалуйста, перезагрузите страницу.</p>' +
-                    '<p class="m-0">Если ошибка не устранилась, обратитесь к сотрудникам <span class="text-brand">Votepad</span>.</p>';
+                    '<p class="m-0">Если ошибка не устранилась, <span class="text-bold text-danger">срочно</span> обратитесь к сотрудникам <span class="text-brand">Votepad</span>.</p>';
                 break;
         }
     };

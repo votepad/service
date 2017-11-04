@@ -17,8 +17,7 @@
     cursor:pointer;
     z-index:1;
 }
-.nav__item:before,
-.nav__item:after{
+.nav__item:before{
     content:'';
     display:block;
     position:absolute;
@@ -33,12 +32,12 @@
 .nav__item:after{
     bottom:-1px
 }
+.nav__item:last-child:after{
+    display:none
+}
 .nav__item:hover{
     background:rgba(240,240,240,.5);
     z-index:2;
-}
-.nav__item:last-child:after{
-    display:none
 }
 .nav__item--active{
     pointer-events:none;
@@ -64,7 +63,7 @@
 }
 
 .nav__item-group:first-child > .nav__item:first-child:before{
-    content: none;
+    /*content: none;*/
 }
 .nav__collapse .nav__item {
     padding-left: 55px;

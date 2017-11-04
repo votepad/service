@@ -26,7 +26,8 @@ var judgeStatus = (function (judgeStatus) {
         element.classList.remove('status--reconnect');
         vp.notification.notify({
             type: 'error',
-            message: 'Вы оффлайн. Для повторного подключения нажмите свое имя'
+            message: 'Вы оффлайн. Для повторного подключения нажмите на свое имя. Если ошибка не устранилась, попробуйте авторизоваться заново.',
+            time: 10
         })
     };
 

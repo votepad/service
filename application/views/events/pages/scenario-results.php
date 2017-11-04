@@ -4,15 +4,18 @@
 
 <div class="block">
 
-    <div class="block__wrapper pt-10 fs-0_9">
+    <div class="block__wrapper pt-10 fs-0_9 t-lh-1_4">
         <? if ($contestsJSON === "[]"): ?>
             Для того, чтобы заполнить информацию о результатах, необходимо создать
             <a class="link" href="<?= URL::site('event/' . $event->id . '/scenario/stages'); ?>">конкурсы</a>.
         <? else: ?>
-            <p>
-                Результат мероприятия может быть как командным, так и индивидуальным.
-                Заполните формулы с коэффицентами для подсчета результата.
-            </p>
+            Результат мероприятия может быть как командным, так и индивидуальным. Заполните формулы с коэффицентами для
+            подсчета результата. После того, как сценарий создан, предоставьте доступ к системе представителям жюри,
+            опубликуйте страницу с результатами
+            (<a href="<?= URL::site('event/' . $event->id . '/settings/info'); ?>" class="link">в основных настройках</a>),
+            и переходите во вкладку
+            <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="link">управление</a>)
+            для контроля и публикации результатов.
             <input type="hidden" id="allPartFormula" value='<?= json_encode($contestsJSON['participants']); ?>'>
             <input type="hidden" id="allTeamFormula" value='<?= json_encode($contestsJSON['teams']); ?>'>
             <input type="hidden" id="eventID" value="<?= $event->id; ?>">

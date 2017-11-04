@@ -41,19 +41,22 @@
                     </div>
                 </li>
 
-                <li class="nav__item-group <?= $section == 'control' ? 'nav__item-group--active': ''; ?>">
-                    <a role="button" data-toggle="collapse" data-area="sectionControl" data-opened="<?= $section == 'control' ? 'true': 'false'; ?>" class="nav__item collapse__btn">
-                        <i class="fa fa-bar-chart nav__item-icon"></i>
-                        Администрирование
+                <li class="nav__item-group <?= $section == 'members' ? 'nav__item-group--active': ''; ?>">
+                    <a role="button" data-toggle="collapse" data-area="sectionMembers" data-opened="<?= $section == 'members' ? 'true': 'false'; ?>" class="nav__item collapse__btn">
+                        <i class="fa fa-users nav__item-icon"></i>
+                        Действующие лица
                         <i class="fa fa-angle-down collapse__icon-right nav__item-icon nav__item-icon--right" aria-hidden="true"></i>
                     </a>
-                    <div id="sectionControl" class="collapse nav__collapse">
-                        <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="nav__item <?= $action == 'scores' ? 'nav__item--active': ''; ?>">
-                            Результаты
+                    <div id="sectionMembers" class="collapse nav__collapse">
+                        <a href="<?= URL::site('event/' . $event->id . '/members/judges'); ?>" class="nav__item <?= $action == 'judges' ? 'nav__item--active': ''; ?>">
+                            Представители жюри
                         </a>
-<!--                        <a href="--><?//= URL::site('event/' . $event->id . '/control/plan'); ?><!--" class="nav__item --><?//= $action == 'plan' ? 'nav__item--active': ''; ?><!--">-->
-<!--                            План мероприятия-->
-<!--                        </a>-->
+                        <a href="<?= URL::site('event/' . $event->id . '/members/participants'); ?>" class="nav__item <?= $action == 'participants' ? 'nav__item--active': ''; ?>">
+                            Участники
+                        </a>
+                        <a href="<?= URL::site('event/' . $event->id . '/members/teams'); ?>" class="nav__item <?= $action == 'teams' ? 'nav__item--active': ''; ?>">
+                            Команды
+                        </a>
                     </div>
                 </li>
 
@@ -79,22 +82,19 @@
                     </div>
                 </li>
 
-                <li class="nav__item-group <?= $section == 'members' ? 'nav__item-group--active': ''; ?>">
-                    <a role="button" data-toggle="collapse" data-area="sectionMembers" data-opened="<?= $section == 'members' ? 'true': 'false'; ?>" class="nav__item collapse__btn">
-                        <i class="fa fa-users nav__item-icon"></i>
-                        Действующие лица
+                <li class="nav__item-group <?= $section == 'control' ? 'nav__item-group--active': ''; ?>">
+                    <a role="button" data-toggle="collapse" data-area="sectionControl" data-opened="<?= $section == 'control' ? 'true': 'false'; ?>" class="nav__item collapse__btn">
+                        <i class="fa fa-bar-chart nav__item-icon"></i>
+                        Управление
                         <i class="fa fa-angle-down collapse__icon-right nav__item-icon nav__item-icon--right" aria-hidden="true"></i>
                     </a>
-                    <div id="sectionMembers" class="collapse nav__collapse">
-                        <a href="<?= URL::site('event/' . $event->id . '/members/judges'); ?>" class="nav__item <?= $action == 'judges' ? 'nav__item--active': ''; ?>">
-                            Представители жюри
+                    <div id="sectionControl" class="collapse nav__collapse">
+                        <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="nav__item <?= $action == 'scores' ? 'nav__item--active': ''; ?>">
+                            Голосование
                         </a>
-                        <a href="<?= URL::site('event/' . $event->id . '/members/participants'); ?>" class="nav__item <?= $action == 'participants' ? 'nav__item--active': ''; ?>">
-                            Участники
-                        </a>
-                        <a href="<?= URL::site('event/' . $event->id . '/members/teams'); ?>" class="nav__item <?= $action == 'teams' ? 'nav__item--active': ''; ?>">
-                            Команды
-                        </a>
+<!--                        <a href="--><?//= URL::site('event/' . $event->id . '/control/plan'); ?><!--" class="nav__item --><?//= $action == 'plan' ? 'nav__item--active': ''; ?><!--">-->
+<!--                            План мероприятия-->
+<!--                        </a>-->
                     </div>
                 </li>
 
@@ -112,14 +112,14 @@
                     <a role="button" data-toggle="tabs" data-area="sectionTabsSettings" class="ui-tabs__tab <?= $section == 'settings' ? 'ui-tabs__tab--active': ''; ?>">
                         Настройки
                     </a>
-                    <a role="button" data-toggle="tabs" data-area="sectionTabsControl" class="ui-tabs__tab <?= $section == 'control' ? 'ui-tabs__tab--active': ''; ?>">
-                        Администрирование
+                    <a role="button" data-toggle="tabs" data-area="sectionTabsMembers" class="ui-tabs__tab <?= $section == 'members' ? 'ui-tabs__tab--active': ''; ?>">
+                        Действующие лица
                     </a>
                     <a role="button" data-toggle="tabs" data-area="sectionTabsScenario" class="ui-tabs__tab <?= $section == 'scenario' ? 'ui-tabs__tab--active': ''; ?>">
                         Сценарий
                     </a>
-                    <a role="button" data-toggle="tabs" data-area="sectionTabsMembers" class="ui-tabs__tab <?= $section == 'members' ? 'ui-tabs__tab--active': ''; ?>">
-                        Действующие лица
+                    <a role="button" data-toggle="tabs" data-area="sectionTabsControl" class="ui-tabs__tab <?= $section == 'control' ? 'ui-tabs__tab--active': ''; ?>">
+                        Управление
                     </a>
                 </div>
             </div>
@@ -132,13 +132,16 @@
                         Помощники
                     </a>
                 </div>
-                <div id="sectionTabsControl" class="ui-tabs__wrapper <?= $section == 'control' ?: 'hide'; ?>">
-                    <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="ui-tabs__tab <?= $action == 'scores' ? 'ui-tabs__tab--active': ''; ?>">
-                        Результаты
+                <div id="sectionTabsMembers" class="ui-tabs__wrapper <?= $section == 'members' ?: 'hide'; ?>">
+                    <a href="<?= URL::site('event/' . $event->id . '/members/judges'); ?>" class="ui-tabs__tab <?= $action == 'judges' ? 'ui-tabs__tab--active': ''; ?>">
+                        Представители жюри
                     </a>
-<!--                    <a href="--><?//= URL::site('event/' . $event->id . '/control/plan'); ?><!--" class="ui-tabs__tab --><?//= $action == 'plan' ? 'ui-tabs__tab--active': ''; ?><!--">-->
-<!--                        План мероприятия-->
-<!--                    </a>-->
+                    <a href="<?= URL::site('event/' . $event->id . '/members/participants'); ?>" class="ui-tabs__tab <?= $action == 'participants' ? 'ui-tabs__tab--active': ''; ?>">
+                        Участники
+                    </a>
+                    <a href="<?= URL::site('event/' . $event->id . '/members/teams'); ?>" class="ui-tabs__tab <?= $action == 'teams' ? 'ui-tabs__tab--active': ''; ?>">
+                        Команды
+                    </a>
                 </div>
                 <div id="sectionTabsScenario" class="ui-tabs__wrapper <?= $section == 'scenario' ?: 'hide'; ?>">
                     <a href="<?= URL::site('event/' . $event->id . '/scenario/criterions'); ?>" class="ui-tabs__tab <?= $action == 'criterions' ? 'ui-tabs__tab--active': ''; ?>">
@@ -154,16 +157,13 @@
                         Результат
                     </a>
                 </div>
-                <div id="sectionTabsMembers" class="ui-tabs__wrapper <?= $section == 'members' ?: 'hide'; ?>">
-                    <a href="<?= URL::site('event/' . $event->id . '/members/judges'); ?>" class="ui-tabs__tab <?= $action == 'judges' ? 'ui-tabs__tab--active': ''; ?>">
-                        Представители жюри
+                <div id="sectionTabsControl" class="ui-tabs__wrapper <?= $section == 'control' ?: 'hide'; ?>">
+                    <a href="<?= URL::site('event/' . $event->id . '/control/scores'); ?>" class="ui-tabs__tab <?= $action == 'scores' ? 'ui-tabs__tab--active': ''; ?>">
+                        Голосование
                     </a>
-                    <a href="<?= URL::site('event/' . $event->id . '/members/participants'); ?>" class="ui-tabs__tab <?= $action == 'participants' ? 'ui-tabs__tab--active': ''; ?>">
-                        Участники
-                    </a>
-                    <a href="<?= URL::site('event/' . $event->id . '/members/teams'); ?>" class="ui-tabs__tab <?= $action == 'teams' ? 'ui-tabs__tab--active': ''; ?>">
-                        Команды
-                    </a>
+<!--                    <a href="--><?//= URL::site('event/' . $event->id . '/control/plan'); ?><!--" class="ui-tabs__tab --><?//= $action == 'plan' ? 'ui-tabs__tab--active': ''; ?><!--">-->
+<!--                        План мероприятия-->
+<!--                    </a>-->
                 </div>
             </div>
         </div>

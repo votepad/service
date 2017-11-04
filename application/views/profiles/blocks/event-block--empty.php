@@ -6,6 +6,10 @@
             Мероприятия не найдены
         </div>
 
+        <div class="">
+            <a class="link text-bold" href="<?= URL::site('event/new'); ?>">Создать мероприятие</a>
+        </div>
+
     </div>
 
 </div>

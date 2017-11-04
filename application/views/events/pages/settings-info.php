@@ -4,12 +4,15 @@
 
 <form class="block">
 
-    <div class="block__wrapper p-20">
+    <div class="block__wrapper pt-10 t-lh-1_4 fs-0_9">
+        <p>
+            Для проведения мероприятия необходимо заполнить информацию о <b>дейсвующих лицах</b> и <b>сценарии</b>.
+        </p>
 
         <div id="notPublishBlock" class="<?= $event->type == 0 ?: 'hide'?>">
             <p>
-                На данный момент страница с результатами <b>не обубликована</b>.
-                Рекомендуем опубликовать её, как только заполните всю необходимую информацию.
+                На данный момент страница мероприятия <b>не обубликована</b> в интернете.
+                Рекомендуем опубликовать её, как только заполните все разделы и убедитесь в корректности данных.
             </p>
             <a role="button" onclick="eventInfo.changeType(this)" data-id="<?= $event->id; ?>" data-type="1" class="ui-btn ui-btn--1">Обубликовать</a>
         </div>
@@ -23,7 +26,6 @@
             </p>
             <a role="button" onclick="eventInfo.changeType(this)" data-id="<?= $event->id; ?>" data-type="0" class="ui-btn ui-btn--1">Снять с публикции</a>
         </div>
-
     </div>
 
 </form>
