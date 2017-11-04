@@ -249,4 +249,36 @@ class Controller_Events_Ajax extends Ajax {
         $this->response->body(@json_encode($response->get_response()));
     }
 
+
+    /**
+     * Get Events With Offset And Limit
+     */
+    public function action_get()
+    {
+        $offset = Arr::get($_POST, 'offset');
+
+        $events = Methods_Events::getAllByType(1, $offset, 10);
+        $size = count($events);
+        $html = "";
+
+        if ($size > 0) {
+
+            foreach ($events as $event) {
+
+                $html .= View::factory('welcome/blocks/event-card', array('event' => $event))->render();
+
+            }
+
+            $response = new Model_Response_Event('EVENTS_GET_SUCCESS', 'success', array('html' => $html, 'size' => $size));
+
+        } else {
+
+            $response = new Model_Response_Event('EVENTS_GET_EMPTY_SUCCESS', 'success');
+
+        }
+
+        $this->response->body(@json_encode($response->get_response()));
+
+    }
+
 }

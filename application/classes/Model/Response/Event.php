@@ -98,4 +98,17 @@ class Model_Response_Event extends  Model_Response_Abstract
     );
 
 
+    protected $_EVENTS_GET_SUCCESS = array(
+        'type' => 'event',
+        'code' => '513',
+        'message' => 'Мероприятия получены'
+    );
+
+    protected $_EVENTS_GET_EMPTY_SUCCESS = array(
+        'type' => 'event',
+        'code' => '514',
+        'message' => 'Показаны все мероприятия'
+    );
+
+
 }

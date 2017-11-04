@@ -111,31 +111,21 @@
     <div class="container">
         <h2 class="container-header">Реализованные мероприятия</h2>
 
-        <ul class="clear-fix list-style--none">
+        <div class="event_wrapper" id="eventsWrapper">
 
             <? foreach ($events as $event) : ?>
 
-                <li class="event_wrapper col-xs-12 col-md-6 col-lg-4">
-
-                    <div class="event_card">
-
-                        <div class="event_card-image" style="background-image: url('<?= URL::site('uploads/events/branding/' . $event->branding);?>')"></div>
-
-                        <a href="<?= URL::site('event/' . $event->id)?>" class="event_card-title valign">
-
-                            <span class="center"><?= $event->name; ?></span>
-
-                            <div class="bg--dark"></div>
-
-                        </a>
-
-                    </div>
-
-                </li>
+                <?= View::factory('welcome/blocks/event-card', array('event' => $event)); ?>
 
             <? endforeach; ?>
 
-        </ul>
+        </div>
+
+        <div class="width-full text-center mb-50">
+
+            <a role="button" id="moreEvents" data-offset="<?= count($events); ?>" class="btn btn--lg btn--brand btn--round btn--scaled fs-1_5 pl-30 pr-30 pt-15 pb-15">Загрузить ещё</a>
+
+        </div>
 
     </div>
 </div>
