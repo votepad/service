@@ -5,7 +5,7 @@
 <div class="block">
 
     <div class="block__wrapper pt-10 t-lh-1_4 fs-0_9">
-        <? if ($criterions === "[]" || (empty($members['participants']) && $members['teams'])): ?>
+        <? if ($criterions === "[]" || (empty($members['participants']) && empty($members['teams']))): ?>
             Для того, чтобы создать этап, необходимо внести информацию о
             <a class="link" href="<?= URL::site('event/' . $event->id . '/scenario/criterions'); ?>">критериях</a>,
             <a class="link" href="<?= URL::site('event/' . $event->id . '/members/participants'); ?>">участниках</a> и/или
