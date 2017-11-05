@@ -54,7 +54,7 @@
         <? endif; ?>
 
         <? if (!empty($event->members["teams"])): ?>
-            <div class="section__header-link" data-toggle="tabs" data-area="teamsResults" data-tabsgroup="results">
+            <div class="section__header-link <?= empty($event->members["participants"]) ? 'section__header-link--active' : ''; ?>" data-toggle="tabs" data-area="teamsResults" data-tabsgroup="results">
                 Командный результат
             </div>
         <? endif; ?>
@@ -126,7 +126,7 @@
 
         <? if (!empty($event->members["teams"])): ?>
 
-            <div id="teamsResults">
+            <div id="teamsResults" class="<?= empty($event->members["participants"]) ? '' : 'hide'; ?>">
 
                 <h2 class="section__text section__text--center">
                     <? if ($event->results['participants']->publish == 0) : ?>
@@ -135,7 +135,7 @@
                     <? endif; ?>
                 </h2>
 
-                <div class="members hide">
+                <div class="members">
 
                     <?
 

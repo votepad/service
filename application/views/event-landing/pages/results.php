@@ -19,7 +19,7 @@
         <? endif; ?>
 
         <? if (!empty($event->members["teams"])): ?>
-            <div class="section__header-link" data-toggle="tabs" data-area="teamsResults" data-tabsgroup="results">
+            <div class="section__header-link <?= empty($event->members["participants"]) ? 'section__header-link--active' : ''; ?>" data-toggle="tabs" data-area="teamsResults" data-tabsgroup="results">
                 Командный результат
             </div>
         <? endif; ?>
@@ -191,7 +191,7 @@
 
         <? if (!empty($event->members["teams"])): ?>
 
-            <div class="hide" id="teamsResults">
+            <div id="teamsResults" class="<?= empty($event->members["participants"]) ? '' : 'hide'; ?>">
 
                 <? foreach ($event->results['teams']->contests as $contestKey => $contest): ?>
 
