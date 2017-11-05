@@ -9,7 +9,7 @@ class Model_Participant extends Model {
     public $id;
     public $event;
     public $name;
-    public $photo;
+    public $logo = "no-logo.png";
     public $about;
 
     public function __construct($id = null) {

@@ -1,111 +1,68 @@
-var tabs = (function(tabs) {
+/**
+ * Tabs Module - Usage
+ *
+ * On Tab button add
+ * - `data-toggle="tabs"`
+ * - `data-area="tabs-block-id"` - ID of tabs block
+ */
 
 
-    var tabsArray_ = null,
-        nodes_ = [],
-        node_ = null,
-        noresult = null;
+module.exports = (function (tabs) {
 
-    var prepare_ = function (options) {
+    var tabsArray   = null,
+        corePrefix  = 'VP: tabs module';
 
-        noresult = document.createElement('div');
-        noresult.id = "noResult";
-        noresult.style = "padding: 20px;text-align: center;";
-        noresult.innerHTML = "К сожалению, ничего ненеайдено. Попробуйте изменить запрос";
+    var prepare_ = function () {
 
-        tabsArray_ = document.querySelectorAll('[data-toggle="tabs"]');
+        tabsArray = document.querySelectorAll('[data-toggle="tabs"]');
 
-        if (tabsArray_.length > 0) {
+        if (tabsArray !== null) {
 
-            for (var i = 0; i < tabsArray_.length; i++) {
-                node_ = {
-                    btn: tabsArray_[i],
-                    block: document.getElementById(tabsArray_[i].dataset.block),
-                    search: options.search ? document.getElementById(tabsArray_[i].dataset.search) : null,
-                    input: options.search ? document.getElementById(tabsArray_[i].dataset.search + "Input") : null,
-                    counter: options.counter ? document.getElementById(tabsArray_[i].dataset.block + "Counter") : null,
-                    search_elements: options.search ? document.getElementById(tabsArray_[i].dataset.block).getElementsByClassName('item__info-name') : null
-                };
-                nodes_.push(node_);
+            for (var i = 0; i < tabsArray.length; i++) {
 
-                nodes_[i].btn.dataset.id = i;
-                nodes_[i].btn.addEventListener('click', changeTab, false);
+                var area = document.getElementById(tabsArray[i].dataset.area);
 
-                if (nodes_[i].input){
-                    nodes_[i].input.dataset.id = i;
-                    nodes_[i].input.addEventListener('keyup', searchItem, false);
+                if (!area) {
+
+                    vp.core.log('Could not catch element by `data-area` attribute', 'error', corePrefix);
+
+                } else {
+
+                    tabsArray[i].addEventListener('click', changeTab, false);
+
                 }
+
             }
 
         }
+
 
     };
 
+    var changeTab = function () {
 
+        var curTab    = this,
+            tabsBlock = curTab.closest('.ui-tabs'),
+            oldTab    = tabsBlock.getElementsByClassName('ui-tabs__tab--active')[0];
 
-    tabs.init = function(options) {
-        prepare_(options);
-    };
+        if (oldTab) {
 
+            oldTab.classList.remove('ui-tabs__tab--active');
+            document.getElementById(oldTab.dataset.area).classList.add('hide');
 
-
-    var changeTab = function(event) {
-
-        for (var i = 0; i < nodes_.length; i++) {
-            nodes_[i].btn.classList.remove("tabs__btn--active");
-            nodes_[i].block.classList.remove("tabs__block--active");
-            if (nodes_[i].search) {
-                nodes_[i].search.classList.remove("tabs__search-block--active");
-            }
         }
 
-        nodes_[this.dataset.id].btn.classList.add("tabs__btn--active");
-        nodes_[this.dataset.id].block.classList.add("tabs__block--active");
-        if (nodes_[this.dataset.id].search) {
-            nodes_[this.dataset.id].search.classList.add("tabs__search-block--active");
-        }
+        curTab.classList.add('ui-tabs__tab--active');
+        document.getElementById(curTab.dataset.area).classList.remove('hide');
 
     };
 
+    tabs.init = function () {
 
-    var searchItem = function () {
-
-        var node = nodes_[this.dataset.id],
-            searchingText = new RegExp(node.input.value.toLowerCase()),
-            elementBlock, element, element_text;
-
-        for (var i = 0; i < node.search_elements.length; i++) {
-            element = node.search_elements[i].getElementsByTagName('a')[0];
-            elementBlock = element.parentNode.parentNode.parentNode;
-            element_text = element.innerHTML.toLowerCase();
-
-            if ( ! searchingText.test(element_text) ) {
-
-                if (!elementBlock.classList.contains('hide'))
-                    node.counter.innerHTML = parseInt(node.counter.innerHTML) - 1;
-                element.parentNode.parentNode.parentNode.classList.add('hide');
-
-            } else {
-
-                if (element.parentNode.parentNode.parentNode.classList.contains('hide'))
-                    node.counter.innerHTML = parseInt(node.counter.innerHTML) + 1;
-                element.parentNode.parentNode.parentNode.classList.remove('hide');
-
-            }
-
-            if (parseInt(node.counter.innerHTML) == 0) {
-                elementBlock.parentNode.append(noresult);
-            } else if ( document.getElementById('noResult') ) {
-                document.getElementById('noResult').remove();
-            }
-
-
-        }
+        prepare_();
 
     };
 
     return tabs;
 
 })({});
-
-module.exports = tabs;

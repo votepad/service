@@ -1,42 +1,159 @@
 <?php defined('SYSPATH') or die('No direct script access.');
 /**
+ * Class Controller_Events_Ajax
  *
+ * @copyright Votepad Team
+ * @version 0.2.0
  */
 
 class Controller_Events_Ajax extends Ajax {
 
+    /**
+     * Create New Event
+     */
+    public function action_create() {
+        $name         = Arr::get($_POST, 'name');
+        $description  = Arr::get($_POST, 'description');
+        $organization = Arr::get($_POST, 'organization');
+        $tags         = Arr::get($_POST, 'tags');
+        $start        = Arr::get($_POST, 'start');
+        $end          = Arr::get($_POST, 'end');
+        $address      = Arr::get($_POST, 'address');
 
-    private $event = null;
+        $event = new Model_Event();
 
-    public function action_assistant() {
+        $event->name         = $name;
+        $event->type         = 0;   // draft
+        $event->creator      = $this->user->id;
+        $event->description  = $description;
+        $event->organization = $organization;
+        $event->tags         = $tags;
+        $event->dt_start     = $start;
+        $event->dt_end       = $end;
+        $event->address      = $address;
 
-        $method  = $this->request->param('method');
-        $eventId = $this->request->param('id');
-        $userId  = $this->request->param('userId');
+        $event = $event->save();
 
-        $user = new Model_User($userId);
-        $event  = new Model_Event($eventId);
+        $event->addAssistant($this->user->id);
 
-        $this->redis->sRem('votepad.orgs:' . $event->organization . ':events:' . $event->id . ':assistants.requests', $user->id);
+        $response = new Model_Response_Event('EVENT_CREATE_SUCCESS', 'success', array('id' => $event->id));
+        $this->response->body(@json_encode($response->get_response()));
+    }
 
-        if (!$user->id) {
 
-            $response = new Model_Response_Auth('USER_DOES_NOT_EXIST_ERROR', 'error');
+    /**
+     * Update Event Info
+     */
+    public function action_update() {
+        $id           = Arr::get($_POST, 'id');
+        $name         = Arr::get($_POST, 'name');
+        $description  = Arr::get($_POST, 'description');
+        $organization = Arr::get($_POST, 'organization');
+        $tags         = Arr::get($_POST, 'tags');
+        $start        = Arr::get($_POST, 'start');
+        $end          = Arr::get($_POST, 'end');
+        $address      = Arr::get($_POST, 'address');
 
+        if (empty($name) || empty($description) || empty($tags) || empty($start) || empty($end) || empty($address) || empty($organization)) {
+            $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
+
+        $event = new Model_Event($id);
 
         if (!$event->id) {
-
             $response = new Model_Response_Event('EVENT_DOES_NOT_EXIST_ERROR', 'error');
-
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
 
+        if ($event->name == $name && $event->description == $description && $event->tags == $tags && $event->address == $address &&
+            strtotime($event->dt_start) == strtotime($start) && strtotime($event->dt_end) == strtotime($end) &&
+            $event->organization == $organization) {
+
+            $response = new Model_Response_Form('NOTHING_CHANGE_WARNING', 'warning');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $event->name         = $name;
+        $event->description  = $description;
+        $event->organization = $organization;
+        $event->tags         = $tags;
+        $event->dt_start     = $start;
+        $event->dt_end       = $end;
+        $event->address      = $address;
+
+        $event->update();
+
+        $response = new Model_Response_Event('EVENT_UPDATE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+
+    /**
+     * Update Type of Event
+     * $type = 0 - draft
+     * $type = 1 - published
+     */
+    public function action_publish() {
+        $id   = Arr::get($_POST, 'id');
+        $type = Arr::get($_POST, 'type');
+
+        $event = new Model_Event($id);
+
+        if (!$event->id) {
+            $response = new Model_Response_Event('EVENT_DOES_NOT_EXIST_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($type == $event->type) {
+            if ($type == 0)
+                $response = new Model_Response_Event('EVENT_UNPUBLISH_ERROR', 'error');
+            else
+                $response = new Model_Response_Event('EVENT_PUBLISH_ERROR', 'error');
+        } else {
+            $event->type = $type;
+            $event->update();
+
+            if ($type == 0)
+                $response = new Model_Response_Event('EVENT_UNPUBLISH_SUCCESS', 'success');
+            else
+                $response = new Model_Response_Event('EVENT_PUBLISH_SUCCESS', 'success');
+        }
+
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+    /**
+     * Assistant actions
+     * - based on method
+     */
+    public function action_assistant() {
+
+        $method  = Arr::get($_POST,'method');
+        $eventId = Arr::get($_POST,'event');
+        $userId  = Arr::get($_POST,'id');
+
+        $user = new Model_User($userId);
+
+        if (!$user->id) {
+            $response = new Model_Response_User('USER_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $event  = new Model_Event($eventId);
+
+        if (!$event->id) {
+            $response = new Model_Response_Event('EVENT_DOES_NOT_EXIST_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $this->redis->sRem(getenv('REDIS_EVENTS') . $event->id . ':assistants.requests', $user->id);
 
         switch($method) {
             case 'add': $this->add_assistant($event, $user); break;
@@ -47,78 +164,59 @@ class Controller_Events_Ajax extends Ajax {
 
     }
 
+
+    /**
+     * Add assistant
+     * @param $event - [Model_Event]
+     * @param $user - [Model_User]
+     */
     private function add_assistant($event, $user) {
 
         if ($event->isAssistant($user->id)) {
-
             $response = new Model_Response_Event('USER_IS_ALREADY_ASSISTANT_ERROR', 'error');
-
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
 
         $event->addAssistant($user->id);
 
         $response = new Model_Response_Event('ADD_ASSISTANT_SUCCESS', 'success');
-
         $this->response->body(@json_encode($response->get_response()));
-        return;
+    }
+
+
+    /**
+     * Reject assistant
+     */
+    private function reject_assistant() {
+
+        $response = new Model_Response_Event('REJECT_ASSISTANT_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
 
     }
 
+
+    /**
+     * Remove assistant
+     * @param $event - [Model_Event]
+     * @param $user - [Model_User]
+     */
     private function remove_assistant($event, $user) {
 
-        if (!$event->isCreator($user->id)) {
-
+        if ($event->isCreator($user->id)) {
             $response = new Model_Response_Event('USER_IS_CREATOR_ERROR', 'error');
-
             $this->response->body(@json_encode($response->get_response()));
             return;
-
         }
-
-//        if (!$event->isAssistant($user->id)) {
-//
-//            $response = new Model_Response_Event('USER_IS_NOT_ASSISTANT_ERROR', 'error');
-//
-//            $this->response->body(@json_encode($response->get_response()));
-//            return;
-//
-//        }
 
         $event->removeAssistant($user->id);
 
         $response = new Model_Response_Event('REMOVE_ASSISTANT_SUCCESS', 'success');
-
         $this->response->body(@json_encode($response->get_response()));
-        return;
-
     }
 
-    private function reject_assistant() {
-
-        $response = new Model_Response_Event('REJECT_ASSISTANT_SUCCESS', 'success');
-
-        $this->response->body(@json_encode($response->get_response()));
-        return;
-
-    }
-
-    public function action_checkwebsite()
-    {
-        $uri = $this->request->param('website');
-
-        $result = Model_Event::getByFieldName('uri', $uri);
-
-        if (Arr::get($result,'id')) {
-            echo "true";
-        } else {
-            echo "false";
-        }
-
-    }
-
+  
+    /** not using now */
     public function action_result()
     {
         $method  = $this->request->param('method');
@@ -149,6 +247,38 @@ class Controller_Events_Ajax extends Ajax {
 
         $response = new Model_Response_Event('UNPUBLISH_RESULTS_SUCCESS', 'success');
         $this->response->body(@json_encode($response->get_response()));
+    }
+
+
+    /**
+     * Get Events With Offset And Limit
+     */
+    public function action_get()
+    {
+        $offset = Arr::get($_POST, 'offset');
+
+        $events = Methods_Events::getAllByType(1, $offset, 10);
+        $size = count($events);
+        $html = "";
+
+        if ($size > 0) {
+
+            foreach ($events as $event) {
+
+                $html .= View::factory('welcome/blocks/event-card', array('event' => $event))->render();
+
+            }
+
+            $response = new Model_Response_Event('EVENTS_GET_SUCCESS', 'success', array('html' => $html, 'size' => $size));
+
+        } else {
+
+            $response = new Model_Response_Event('EVENTS_GET_EMPTY_SUCCESS', 'success');
+
+        }
+
+        $this->response->body(@json_encode($response->get_response()));
+
     }
 
 }

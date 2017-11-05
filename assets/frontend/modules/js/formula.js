@@ -13,16 +13,16 @@
  * @mode is required
  * @curItems is not required
  * @allItems is not required
- * 
+ *
  * @return JSON Object {id: coeff, id2: coeff2}
  */
 
-var formula = function(formula) {
+module.exports = (function (formula) {
 
     var modes = {
-            PRINT: "print",
-            CREATE: "create",
-            EDIT: "edit",
+            PRINT: 'print',
+            CREATE: 'create',
+            EDIT: 'edit',
         },
         input = null,
         formulaNodes  = {
@@ -31,7 +31,7 @@ var formula = function(formula) {
             additionItems: [],
             itemsType: null
         };
-    
+
 
     /**
      * New formula
@@ -41,7 +41,9 @@ var formula = function(formula) {
     function formula(el, options) {
 
         if (!el.nodeType === 1) {
+
             throw 'formula: `el` must be HTMLElement, and not ' + {}.toString.call(el);
+
         }
 
 
@@ -70,7 +72,7 @@ var formula = function(formula) {
                 break;
 
             default:
-                console.log("Mode is not allowed");
+                console.log('Mode is not allowed');
                 break;
 
         }
@@ -85,33 +87,39 @@ var formula = function(formula) {
      * @private
      */
     function parseItems_(items) {
+
         try {
+
             return JSON.parse(items);
+
         } catch (e) {
+
             return null;
+
         }
+
     }
 
 
     /**
      * Create New formula
-     * @param formula
+     * @param formulaObject
      * @private
      */
-    function create_(formula) {
+    function create_(formulaObject) {
 
-        var area    = vp.draw.node('DIV', 'formula__area clear_fix'),
-            label   = vp.draw.node('LABEL','formula__label'),
-            addBtn  = vp.draw.node('DIV','formula__item-add'),
+        var area    = vp.draw.node('DIV', 'formula__area clear-fix'),
+            label   = vp.draw.node('LABEL', 'formula__label'),
+            addBtn  = vp.draw.node('DIV', 'formula__item-add'),
             addIcon = vp.draw.node('I', 'fa fa-plus', {'aria-hidden':'true'});
 
-        label.textContent = "Формула";
+        label.textContent = 'Формула';
 
-        formulaNodes.list          = vp.draw.node('UL','formula__list');
+        formulaNodes.list          = vp.draw.node('UL', 'formula__list');
         formulaNodes.additionList  = vp.draw.node('UL', 'formula__addition-list hide');
-        formulaNodes.additionItems = createAdditionItems_(formula.allItems);
+        formulaNodes.additionItems = createAdditionItems_(formulaObject.allItems);
 
-        input      = vp.draw.node('INPUT','',{type:'hidden', name:'formula'});
+        input      = vp.draw.node('INPUT', '', {type:'hidden', name:'formula'});
 
         area.appendChild(input);
         area.appendChild(label);
@@ -120,21 +128,26 @@ var formula = function(formula) {
         addBtn.appendChild(formulaNodes.additionList);
         area.appendChild(addBtn);
 
-        formula.el.appendChild(area);
-        
+        formulaObject.el.appendChild(area);
+
         document.body.addEventListener('click', hideAdditionList_);
         addBtn.addEventListener('click', showAdditionList_);
 
-        if(formula.itemsType) {
-            var radios = document.querySelectorAll('input[name="' + formula.itemsType + '"]');
+        if(formulaObject.itemsType) {
+
+            var radios = document.querySelectorAll('input[name="' + formulaObject.itemsType + '"]');
+
             for( var i = 0; i < radios.length; i++) {
-                radios[i].addEventListener('click', changeItemsType_)
+
+                radios[i].addEventListener('click', changeItemsType_);
+
             }
-            document.querySelector('input[name="' + formula.itemsType + '"]:checked').click();
+            document.querySelector('input[name="' + formulaObject.itemsType + '"]:checked').click();
+
         }
 
     }
-    
+
 
     /**
      * Create `formulaNodes.additionItems`
@@ -143,6 +156,7 @@ var formula = function(formula) {
      * @private
      */
     function createAdditionItems_(items) {
+
         var arr = [], i, li;
 
         for (i = 0; i < items.length; i++) {
@@ -152,11 +166,13 @@ var formula = function(formula) {
 
             li.addEventListener('click', addFormulaItem_);
             arr.push(li);
+
         }
 
         return arr;
+
     }
-    
+
 
 
     /**
@@ -166,21 +182,25 @@ var formula = function(formula) {
      * @private
      */
     function createFormulaItem_(element) {
-        var item     = vp.draw.node('LI', 'formula__item', {'data-id': element.dataset.id, 'data-type': element.dataset.type}),
-            close    = vp.draw.node('I', 'fa fa-times formula__item-icon', {'aria-hidden':'true', 'data-id': element.dataset.id, 'data-name': element.innerHTML, 'data-type': element.dataset.type}),
-            input    = vp.draw.node('INPUT', 'formula__item-input', {value: '1', type: 'number', step: '0.1'}),
-            multiply = vp.draw.node('I', 'fa fa-circle formula__item-multiply', {'aria-hidden':'true'}),
-            name     = vp.draw.node('SPAN', 'formula__item-name');
-        
+
+        var item      = vp.draw.node('LI', 'formula__item', {'data-id': element.dataset.id, 'data-type': element.dataset.type}),
+            close     = vp.draw.node('I', 'fa fa-times formula__item-icon', {'aria-hidden':'true', 'data-id': element.dataset.id, 'data-name': element.innerHTML, 'data-type': element.dataset.type}),
+            inputItem = vp.draw.node('INPUT', 'formula__item-input', {value: element.dataset.coeff !== undefined ? element.dataset.coeff : '1', type: 'number', step: '0.1'}),
+            multiply  = vp.draw.node('I', 'fa fa-circle formula__item-multiply', {'aria-hidden':'true'}),
+            name      = vp.draw.node('SPAN', 'formula__item-name');
+
+
+
         name.textContent = element.innerHTML;
         close.addEventListener('click', removeFormulaItem_);
 
         item.appendChild(close);
-        item.appendChild(input);
+        item.appendChild(inputItem);
         item.appendChild(multiply);
         item.appendChild(name);
 
         return item;
+
     }
 
 
@@ -190,11 +210,15 @@ var formula = function(formula) {
      * @private
      */
     function addFormulaItem_(el) {
+
         var element = el.nodeType === 1 ? el : formulaNodes.additionItems[this.id];
+
         formulaNodes.additionItems.splice(this.id, 1);
 
         var item = createFormulaItem_(element);
+
         formulaNodes.list.appendChild(item);
+
     }
 
 
@@ -204,15 +228,17 @@ var formula = function(formula) {
      * @private
      */
     function removeFormulaItem_() {
+
         var li = vp.draw.node('LI', 'formula__addition-item', {'data-id':this.dataset.id, 'data-type':this.dataset.type});
-        
+
         li.textContent = this.dataset.name;
         li.addEventListener('click', addFormulaItem_);
 
         formulaNodes.additionItems.push(li);
         this.parentNode.remove();
+
     }
-    
+
 
     /**
      * Show `formulaNodes.additionItems` on click
@@ -222,7 +248,7 @@ var formula = function(formula) {
 
         getAdditionItems_();
 
-        formulaNodes.additionList.classList.toggle('hide')
+        formulaNodes.additionList.classList.toggle('hide');
 
     }
 
@@ -234,8 +260,7 @@ var formula = function(formula) {
     function hideAdditionList_(event) {
 
         if ( ! formulaNodes.additionList.classList.contains('hide') &&
-             ! event.target.parentNode.classList.contains('formula__item-add') )
-        {
+            ! event.target.parentNode.classList.contains('formula__item-add') )        {
 
             formulaNodes.additionList.classList.add('hide');
 
@@ -250,22 +275,26 @@ var formula = function(formula) {
      */
     function getAdditionItems_() {
 
-        formulaNodes.additionList.innerHTML = "";
+        formulaNodes.additionList.innerHTML = '';
 
         if (formulaNodes.additionItems.length > 0) {
 
             for (var i = 0; i < formulaNodes.additionItems.length; i++) {
+
                 if (formulaNodes.itemsType === null || formulaNodes.additionItems[i].dataset.type === formulaNodes.itemsType) {
+
                     formulaNodes.additionItems[i].id = i;
                     formulaNodes.additionList.appendChild(formulaNodes.additionItems[i]);
+
                 }
+
             }
 
         } else {
 
             var child = vp.draw.node('SPAN', 'formula__addition-item');
 
-            child.textContent = "Элементы не найдены";
+            child.textContent = 'Элементы не найдены';
 
             formulaNodes.additionList.appendChild( child );
 
@@ -279,59 +308,77 @@ var formula = function(formula) {
      * @private
      */
     function changeItemsType_() {
+
         formulaNodes.itemsType = this.value;
         validateItems_();
+
     }
 
 
     function validateItems_() {
-        var is_valid = true;
+
+        var isValid = true;
 
         if (formulaNodes.list !== null) {
+
             for (var i = 0; i < formulaNodes.list.childElementCount; i++) {
+
                 if (formulaNodes.list.children[i].dataset.type !== formulaNodes.itemsType) {
+
                     formulaNodes.list.children[i].classList.add('formula__item--error');
-                    is_valid = false;
+                    isValid = false;
+
                 } else {
-                    formulaNodes.list.children[i].classList.remove('formula__item--error')
+
+                    formulaNodes.list.children[i].classList.remove('formula__item--error');
+
                 }
+
             }
+
         } else {
-            is_valid = false;
+
+            isValid = false;
+
         }
 
-        if (!is_valid) {
+        if (!isValid) {
+
             vp.notification.notify({
-                type: 'danger',
+                type: 'error',
                 message: 'В формулу не могут входить выделенные составляющие',
                 time: 4
 
-            })
+            });
+
         }
 
-        return is_valid;
+        return isValid;
+
     }
 
 
     /**
      * Update - Call for Formula Editing
-     * @param formula
+     * @param formulaObject
      * @private
      */
-    function update_(formula) {
+    function update_(formulaObject) {
 
-        for (var i = 0; i < formula.curItems.length; i++) {
+        for (var i = 0; i < formulaObject.curItems.length; i++) {
 
             for (var j = 0; j < formulaNodes.additionItems.length; j++) {
 
-                if (formula.curItems[i]["id"] === formulaNodes.additionItems[j].dataset.id) {
+                if (formulaObject.curItems[i]['id'] === formulaNodes.additionItems[j].dataset.id) {
+
+                    formulaNodes.additionItems[j].dataset.coeff = formulaObject.curItems[i]['coeff'];
                     addFormulaItem_(formulaNodes.additionItems[j]);
+
                 }
 
             }
 
         }
-
 
     }
 
@@ -339,30 +386,31 @@ var formula = function(formula) {
 
     /**
      * Print formula
-     * @param formula
+     * @param formulaObject
      * @private
      */
-    function print_(formula) {
+    function print_(formulaObject) {
 
         var item, name, coeff, multiply, multiplyIcon, i;
 
-        for (i = 0; i < formula.curItems.length; i++) {
+        for (i = 0; i < formulaObject.curItems.length; i++) {
 
-            item         = vp.draw.node('SPAN', 'formula__print', {'data-id': formula.curItems[i].id});
+            item         = vp.draw.node('SPAN', 'formula__print', {'data-id': formulaObject.curItems[i].id});
             multiply     = vp.draw.node('SPAN', 'formula__print-math');
-            multiplyIcon = vp.draw.node('I','fa fa-times', {'aria-hidden':'true'});
+            multiplyIcon = vp.draw.node('I', 'fa fa-times', {'aria-hidden':'true'});
             name         = vp.draw.node('SPAN', 'formula__print-name');
             coeff        = vp.draw.node('SPAN', 'formula__print-coeff');
 
-            name.textContent  = formula.curItems[i].name;
-            coeff.textContent = formula.curItems[i].coeff;
+            name.textContent  = formulaObject.curItems[i].name;
+            coeff.textContent = formulaObject.curItems[i].coeff;
 
             multiply.appendChild(multiplyIcon);
             item.appendChild(name);
             item.appendChild(multiply);
             item.appendChild(coeff);
 
-            formula.el.appendChild(item);
+            formulaObject.el.appendChild(item);
+
         }
 
     }
@@ -373,6 +421,7 @@ var formula = function(formula) {
      * @private
      */
     function toJSON_() {
+
         var arr = {}, i;
 
         for (i = 0; i < formulaNodes.list.childElementCount; i++) {
@@ -383,17 +432,20 @@ var formula = function(formula) {
 
         input.value = JSON.stringify(arr);
 
-        return input.value !== "{}";
+        return input.value !== '{}';
+
     }
 
     /**
-     * Destroy Formula 
+     * Destroy Formula
      * @private
      */
     function destroy_() {
-        this.el.innerHTML = "";
+
+        this.el.innerHTML = '';
+
     }
-    
+
 
     /**
      * Create function instance
@@ -413,4 +465,4 @@ var formula = function(formula) {
     formula.version = '0.0.2';
     return formula;
 
-}();
+})({});

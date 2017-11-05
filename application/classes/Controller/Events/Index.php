@@ -2,148 +2,174 @@
 
 /**
  * Class Controller_Events_Index
- * All pages which has relationship with Events will be here
  *
  * @copyright Votepad Team
  * @author Khaydarov Murod
  * @author Turov Nikolay
  *
- * @version 0.2.5
+ * @version 2.0.0
  */
 class Controller_Events_Index extends Dispatch
 {
-
-    /**
-     * @var $organization [String] - default value is null. Keeps cached render
-     */
-    protected $organization = null;
-
-    /**
-     * @var $event [String] - default value is null. Keeps cached render
-     */
-    protected $event = null;
-
-
-    /**
-     * Global Template
-     */
     public $template = 'main';
 
     /**
-     * Function that calls before main action
+     * @var $event [Model_Event] - default value is null. Keeps cached render
      */
+    protected $event = null;
+
+    /**
+     * @const ACTION_NEW [String] - page of creating new event
+     */
+    const ACTION_NEW = 'event_new';
+
+    /**
+     * @const ACTION_NEW [String] - page of creating new event
+     */
+    const INVITE_ASSISTANT = 'invite_assistant';
+
+    /**
+     * @const ACTION_LANDING [String] - landing page of event
+     */
+    const ACTION_LANDING = 'landing';
+
+    /**
+     * @const ACTION_RESULTS [String] - page with full information of event results
+     */
+    const ACTION_RESULTS = 'results';
+
+
     public function before()
     {
         parent::before();
 
+        $action = $this->request->action();
+
+        if ($action == self::ACTION_NEW)
+            return;
+
         $id = $this->request->param('id');
-        $event = new Model_Event($id);
+        $this->event = new Model_Event($id);
 
-        if ($event->id) {
+        /**
+         * Meta Dates
+         */
+        $this->template->title = $this->event->name;
+        $this->template->description = $this->event->description;
+        $this->template->keywords = $this->event->tags;
 
-            $this->event = $event;
-            $this->organization = new Model_Organization($event->organization);
-
-            $action = $this->request->action();
-
-            switch ($action) {
-                case 'results':
-                case 'landing':
-                    break;
-                default:
-
-                    /** do not allow */
-                    if (!self::isLogged() || !$this->event->isAssistant($this->user->id)) {
-                        $this->redirect('event/' . $this->event->id);
-                    }
-
-                    break;
-            }
-
-            if (!$event->code || !Model_Event::getEventByCode($event->code)) {
-                $this->event->code = $event->generateCodeForJudges($event->id);
-                $this->event->update();
-            }
-
-            /**
-             * Meta Dates
-             */
-            $this->template->title = $event->name;
-            $this->template->description = $event->description;
-            $this->template->keywords = $event->tags;
-
-
-            /**
-             * Header
-             */
-            $data = array(
-                'event'     => $this->event,
-                'action'    => $this->request->action(),
-                'section'=> $this->request->param('section')
-            );
-
-            $this->template->header = View::factory('globalblocks/header')
-                ->set('header_menu', View::factory('events/blocks/header_menu',$data))
-                ->set('header_menu_mobile', View::factory('events/blocks/header_menu_mobile',$data));
-
+        if (!$this->event->id) {
+            throw new HTTP_Exception_404;
         }
 
+        switch ($action) {
+            case self::INVITE_ASSISTANT:
+                break;
+            case self::ACTION_LANDING:
+            case self::ACTION_RESULTS:
+                if ($this->event->type == 0) {
+                    throw new HTTP_Exception_404;
+                }
+                break;
+            default:
+
+                /** need authorization */
+                if (!self::isLogged()) {
+                    throw new HTTP_Exception_401;
+                }
+
+                /** do not allow */
+                if (!$this->event->isAssistant($this->user->id)) {
+                    throw new HTTP_Exception_403;
+                }
+
+                if (!$this->event->code || !Model_Event::getEventByCode($this->event->code)) {
+                    $this->event->code = $this->event->generateCodeForJudges($this->event->id);
+                    $this->event->update();
+                }
+
+                break;
+        }
+
+        /**
+         * Data for template of module content
+         */
+        $data = array(
+            'event'     => $this->event,
+            'action'    => $action,
+            'section'   => $this->request->param('section')
+        );
+
+        $this->template->mainSection = View::factory('events/content', $data);
+
     }
 
 
     /**
-     * MANAGE submodule
-     * action_settings - change main-info
+     * Action Event New - page of creating new event
      */
-    public function action_settings()
+    public function action_event_new()
     {
+        if (!self::isLogged())
+            throw new HTTP_Exception_403;
 
-        $this->template->mainSection = View::factory('events/settings/content')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+        $this->template->title = "Новое мероприятие";
+        $this->template->mainSection = View::factory('events/pages/event-new');
     }
 
 
     /**
-     * MANAGE submodule
-     * action_settings - change main-info
+     * SETTINGS submodule
+     * action_settings - page of editing main info of event
      */
     public function action_info()
     {
-        $this->template->mainSection = View::factory('events/settings/info')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+        $this->template->mainSection->page = View::factory('events/pages/settings-info')
+            ->set('event', $this->event);
     }
 
 
     /**
-     * MANAGE submodule
-     * action_assistants - action that open page where users can edit assistants
+     * SETTINGS submodule
+     * action_assistants - page where event creator can menage access for users who can edit event
      */
     public function action_assistants()
     {
 
-        $this->event->assistants = $this->event->getAssistants();
+        $this->event->assistants = $this->event->getAllAssistants();
 
-        if (empty($this->user) || !$this->organization->isMember($this->user->id)) {
-            throw new HTTP_Exception_403();
-        }
-
-        $requests_ids =  $this->redis->sMembers('votepad.orgs:' . $this->event->organization . ':events:' . $this->event->id . ':assistants.requests');
+        $requests_ids =  $this->redis->sMembers(getenv('REDIS_EVENTS') . $this->event->id . ':assistants.requests');
         $requests = array();
 
         foreach ($requests_ids as $id) {
             array_push($requests, new Model_User($id));
         }
 
-        $this->template->mainSection = View::factory('events/settings/assistants')
+        $this->template->mainSection->page = View::factory('events/pages/settings-assistants')
             ->set('event', $this->event)
-            ->set('organization', $this->organization)
-            ->set('requests', $requests)
-            ->set('invite_link', $this->event->getInviteLink());
+            ->set('requests', $requests);
+    }
 
+
+    /**
+     * INVITE_ASSISTANT
+     * Action that check inviting hash and send request to enter to the event
+     */
+    public function action_invite_assistant()
+    {
+        $hash = $this->request->param('hash');
+        if (!$this->event->checkInviteLink($hash))
+            throw new HTTP_Exception_404;
+
+        if (!self::isLogged())
+            throw new HTTP_Exception_401;
+
+        if ($this->event->isAssistant($this->user->id))
+            throw new HTTP_Exception_403;
+
+        $this->redis->sAdd(getenv('REDIS_EVENTS') . $this->event->id . ':assistants.requests', $this->user->id);
+        $this->template->mainSection = View::factory('events/pages/invite-assistants')
+            ->set('event', $this->event);
     }
 
 
@@ -153,10 +179,11 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_scores()
     {
-        $this->event->contests = $this->getContests($this->event->id, true, true);
+        $this->event->results = Methods_Results::getResults($this->event->id);
+        $this->event->judges = Methods_Judges::getAllByEvent($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
-        $api = Kohana::$config->load('api');
 
+        $api = Kohana::$config->load('api');
         $token = array_keys(get_object_vars($api))[0];
 
         $scores = Request::factory('/access_token/' . $token . '/method/getResults?')
@@ -169,89 +196,77 @@ class Controller_Events_Index extends Dispatch
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
 
-        $this->template->mainSection = View::factory('events/control/scores')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+        $this->template->mainSection->page = View::factory('events/pages/control-scores')
+            ->set('event', $this->event);
     }
 
+
+
     /**
-     * CONTROL submodule
-     * action_plan - block/unblock member, stage or contest
+     * SCENARIO submodule
+     * action_criterions - action that open page where users can edit information about criterions
      */
-    public function action_plan()
+    public function action_criterions()
     {
-        $this->event->contests = $this->getContests($this->event->id, true);
+        $criterions = Methods_Criterions::getAllByEvent($this->event->id);
 
-        $this->template->mainSection = View::factory('events/control/plan')
+        $this->template->mainSection->page = View::factory('events/pages/scenario-criterions')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+            ->set('criterions', $criterions);
     }
 
 
     /**
-     * PATTERN submodule
-     * action_criterias - criteria CRUD
-     */
-    public function action_criterias()
-    {
-        $this->template->mainSection = View::factory('events/scenario/criterias')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-    }
-
-
-    /**
-     * PATTERN submodule
-     * action_stages - stage CRUD
+     * SCENARIO submodule
+     * action_stages - action that open page where users can edit information about stages
      */
     public function action_stages()
     {
-        $stages = Methods_Stages::getByEvent($this->event->id);
+        $stages = Methods_Stages::getAllByEvent($this->event->id, true);
         $members = $this->getMembers($this->event->id);
         $criterions = Methods_Criterions::getJSON($this->event->id);
 
-        $this->template->mainSection = View::factory('events/scenario/stages')
+        $this->template->mainSection->page = View::factory('events/pages/scenario-stages')
             ->set('event', $this->event)
-            ->set('organization', $this->organization)
             ->set('stages', $stages)
             ->set('members', $members)
             ->set('criterions', $criterions);
-
     }
 
 
     /**
-     * PATTERN submodule
-     * action_contests - contest CRUD
+     * SCENARIO submodule
+     * action_contests - action that open page where users can edit information about contests
      */
     public function action_contests()
     {
-        $this->event->judges = Methods_Judges::getByEvent($this->event->id);
-        $this->event->stagesJSON = Methods_Stages::getJSON($this->event->id);
-        $this->event->stages = Methods_Stages::getByEvent($this->event->id);
-        $this->event->contests = Methods_Contests::getByEvent($this->event->id);
+        $judges     = Methods_Judges::getAllByEvent($this->event->id);
+        $stagesJSON = Methods_Stages::getJSON($this->event->id);
+        $stages     = Methods_Stages::getAllByEvent($this->event->id, false);
+        $contests   = Methods_Contests::getAllByEvent($this->event->id, true);
 
-        $this->template->mainSection = View::factory('events/scenario/contests')
+        $this->template->mainSection->page = View::factory('events/pages/scenario-contests')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('judges', $judges)
+            ->set('stagesJSON', $stagesJSON)
+            ->set('stages', $stages)
+            ->set('contests', $contests);
     }
 
 
     /**
-     * PATTERN submodule
-     *
-     * action_result - result CRUD
+     * SCENARIO submodule
+     * action_result - action that open page where users can edit information about result
      */
     public function action_result()
     {
-        $this->event->result = Methods_Results::getByEvent($this->event->id);
-        $this->event->contestsJSON = Methods_Contests::getJSON($this->event->id);
+        $results      = Methods_Results::getAllByEvent($this->event->id, true);
+        $contestsJSON = Methods_Contests::getJSON($this->event->id);
 
-        $this->template->mainSection = View::factory('events/scenario/results')
+        $this->template->mainSection->page = View::factory('events/pages/scenario-results')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
+            ->set('results', $results)
+            ->set('contestsJSON', $contestsJSON);
     }
 
 
@@ -261,12 +276,11 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_judges()
     {
-        $this->template->mainSection = View::factory('events/members/judges')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
+        $judges = Methods_Judges::getAllByEvent($this->event->id);
 
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
+        $this->template->mainSection->page = View::factory('events/pages/members-judges')
+            ->set('event', $this->event)
+            ->set('judges', $judges);
     }
 
 
@@ -276,14 +290,11 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_participants()
     {
+        $participants = Methods_Participants::getAllByEvent($this->event->id);
 
-        $this->template->mainSection = View::factory('events/members/participants')
+        $this->template->mainSection->page = View::factory('events/pages/members-participants')
             ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
-
+            ->set('participants', $participants);
     }
 
 
@@ -293,21 +304,11 @@ class Controller_Events_Index extends Dispatch
      */
     public function action_teams()
     {
-        /**
-         * getting all teams from event
-         * and make an array of their IDs
-         */
-        $teams = Methods_Teams::getAllTeams($this->event->id);
-        $participantsWoTeam = Methods_Teams::getParticipantsWhitOutTeam($this->event->id);
+        $teams = Methods_Teams::getAllByEvent($this->event->id);
 
-        $this->template->mainSection = View::factory('events/members/teams')
+        $this->template->mainSection->page = View::factory('events/pages/members-teams')
             ->set('event', $this->event)
-            ->set('organization', $this->organization)
-            ->set('participants', $participantsWoTeam)
             ->set('teams', $teams);
-
-        $this->template->mainSection->jumbotron_navigation = View::factory('events/members/jumbotron_navigation')
-            ->set('event', $this->event);
 
     }
 
@@ -315,52 +316,39 @@ class Controller_Events_Index extends Dispatch
 
     /**
      * LANDING submodule
-     * Action is available for all users.
-     * Shows main information about event
+     * action_landing - shows landing of event page
+     * - action is available for all users.
      */
     public function action_landing()
     {
+        $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
-
-        $this->event->result_max_score = $this->getResultMaxScore($this->event->id);
 
         $api = Kohana::$config->load('api');
         $token = array_keys(get_object_vars($api))[0];
 
         $scores = Request::factory('/access_token/' . $token . '/method/getResults?')
             ->query('id_event', $this->event->id)
-            ->query('stages', true)
             ->method(Request::GET)
             ->execute()->body();
 
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
 
-
-        // TODO убрать говнокод
-        $this->event->contests = $this->getContests($this->event->id, false, true);
-        $this->event->contestsCount = count($this->event->contests);
-
-
-        $this->template = View::factory('events/landing/main')
+        $this->template = View::factory('event-landing/main')
+            ->set('page', 'landing')
             ->set('event', $this->event);
-
-        $this->template->mainSection = View::factory('events/landing/pages/main_content')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
     }
+
 
     /**
      * LANDING submodule
-     * Action is available for all users.
-     * Shows main information about event
+     * action_results - shows full information about event result
+     * - action is available for all users.
      */
     public function action_results()
     {
-        $this->template = View::factory('events/landing/main')
-            ->set('event', $this->event);
-
-        $this->event->contests = $this->getContests($this->event->id, false, true);
+        $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
 
         $api = Kohana::$config->load('api');
@@ -375,143 +363,26 @@ class Controller_Events_Index extends Dispatch
         $scores = json_decode($scores, true);
         $this->event->scores = $scores['data'];
 
-
-        $this->template->mainSection = View::factory('events/landing/pages/results')
-            ->set('event', $this->event)
-            ->set('organization', $this->organization);
-
+        $this->template = View::factory('event-landing/main')
+            ->set('page', 'results')
+            ->set('event', $this->event);
     }
+
+
 
     /**
      * Get All Members (teams and participants)
-     * @param $id - id_event
+     * @param $id_event - event ID
      * @return array
      */
-    private function getMembers($id)
+    private function getMembers($id_event)
     {
         $members = array();
 
-        $members['teams'] = Methods_Teams::getByEvent($id);
-        $members['participants'] = Methods_Participants::getByEvent($id);
+        $members['teams']        = Methods_Teams::getAllByEvent($id_event);
+        $members['participants'] = Methods_Participants::getAllByEvent($id_event);
 
         return $members;
-    }
-
-
-    /**
-     * Get All Contests with Stages with Criterions
-     * @param $id - id_event
-     * @return array
-     */
-    private function getContests($id, $with_members = false, $with_publish_result = false)
-    {
-        $contests = Methods_Contests::getByEvent($id);
-
-        if ($with_publish_result) {
-            $get_result = $this->redis->sMembers('votepad.orgs:' . $this->organization->id . ':events:' . $this->event->id . ':result.publish');
-            $arr_result = array();
-            foreach ($get_result as $result) {
-                list($contest, $stage) = split('-', $result);
-                $arr_result[$contest][$stage] = true;
-            }
-        }
-
-        foreach ($contests as $contestKey => $contest) {
-            $contest_max_score = 0;
-            $stages_coeff = json_decode($contest->formula, true);
-
-            foreach ($contest->stages as $stageKey => $stage) {
-
-                if ($stage->id) {
-
-                    $criterions = Methods_Stages::getCriterions($stage->formula);
-
-                    if ($with_members)
-                        $members = Methods_Stages::getMembers($stage->id, $stage->mode);
-
-                    $stage_max_score = 0;
-                    $crit_coeff = json_decode($stage->formula, true);
-
-                    foreach ($criterions as $criterionKey => $criterion) {
-                        $stage_max_score += $criterion->max_score * $crit_coeff[$criterion->id];
-                        $contest_max_score += $criterion->max_score * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
-                    }
-
-                    $stage_max_score *= count($contest->judges);
-
-                    $contests[$contestKey]->stages[$stageKey]->criterions = $criterions;
-                    $contests[$contestKey]->stages[$stageKey]->max_score = $stage_max_score;
-
-                    if ($with_members) {
-                        $contests[$contestKey]->stages[$stageKey]->members = $members;
-                    }
-
-                    if ($with_publish_result) {
-                        if (Arr::get($arr_result, $contest->id) && Arr::get($arr_result[$contest->id], $stage->id)) {
-                            $contests[$contestKey]->stages[$stageKey]->is_publish = $arr_result[$contest->id][$stage->id];
-                        } else {
-                            $contests[$contestKey]->stages[$stageKey]->is_publish = false;
-                        }
-                    }
-
-                }
-            }
-
-            $contests[$contestKey]->max_score = $contest_max_score*count($contests[$contestKey]->judges);
-
-            if ($with_publish_result) {
-                if (Arr::get($arr_result, $contest->id)) {
-                    $contests[$contestKey]->is_publish = count($contest->stages) == count($arr_result[$contest->id]);
-                } else {
-                    $contests[$contestKey]->is_publish = false;
-                }
-            }
-        }
-
-        return $contests;
-    }
-
-
-    /**
-     * Get Result Max Score (participants and teams)
-     * @param $id - id_event
-     * @return array
-     */
-    private function getResultMaxScore($id)
-    {
-        $max_score = array();
-        $max_score["teams"] = 0;
-        $max_score["participants"] = 0;
-
-        $contests = Methods_Contests::getByEvent($id);
-
-        foreach ($contests as $contestKey => $contest) {
-
-            $stages_coeff = json_decode($contest->formula, true);
-
-            foreach ($contest->stages as $stageKey => $stage) {
-
-                if ($stage->id) {
-
-                    $criterions = Methods_Stages::getCriterions($stage->formula);
-                    $crit_coeff = json_decode($stage->formula, true);
-
-                    foreach ($criterions as $criterionKey => $criterion) {
-                        if ($stage->mode == 1) {
-                            $max_score["participants"] += $criterion->max_score  * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
-                        } else {
-                            $max_score["teams"] += $criterion->max_score  * $crit_coeff[$criterion->id] * $stages_coeff[$stageKey]["coeff"];
-                        }
-                    }
-                }
-            }
-
-            $max_score['participants'] *= count($contest->judges);
-            $max_score['teams'] *= count($contest->judges);
-
-        }
-
-        return $max_score;
     }
 
 }

@@ -7,18 +7,16 @@ class Model_Uploader extends Model
 {
     const PROFILE_AVATAR        = 1;
     const PROFILE_BRANDING      = 2;
-    const ORGANIZATION_LOGO     = 3;
-    const ORGANIZATION_BRANDING = 4;
-    const EVENT_BRANDING        = 5;
-    const PARTICIPANTS_PHOTO    = 6;
+    const EVENT_BRANDING        = 3;
+    const PARTICIPANTS_PHOTO    = 4;
+    const TEAM_LOGO             = 5;
 
     private $images = array(
         self::PROFILE_AVATAR,
         self::PROFILE_BRANDING,
-        self::ORGANIZATION_LOGO,
-        self::ORGANIZATION_BRANDING,
         self::EVENT_BRANDING,
-        self::PARTICIPANTS_PHOTO
+        self::PARTICIPANTS_PHOTO,
+        self::TEAM_LOGO
     );
 
     /** @var upload module configuration */
@@ -74,35 +72,34 @@ class Model_Uploader extends Model
         }
         switch ($type) {
             case self::PROFILE_AVATAR:
-                $this->filename = 'b_' . $savedFilename;
+                $this->filename = 'm_' . $savedFilename;
+                $user = new Model_User($user_id);
+                $user->avatar = $savedFilename;
+                $user->update();
                 break;
             case self::PROFILE_BRANDING:
                 $this->filename = 'o_' . $savedFilename;
-
                 $user = new Model_User($user_id);
-                $user->branding = $this->filename;
+                $user->branding = $savedFilename;
                 $user->update();
-                break;
-            case self::ORGANIZATION_BRANDING:
-                $this->filename = 'o_' . $savedFilename;
-                $organization = new Model_Organization($params->id);
-                $organization->cover = $this->filename;
-                $organization->update();
-                break;
-            case self::ORGANIZATION_LOGO:
-                $this->filename = 'b_' . $savedFilename;
-                $organization = new Model_Organization($params->id);
-                $organization->logo = $this->filename;
-                $organization->update();
                 break;
             case self::EVENT_BRANDING:
                 $this->filename = 'o_' . $savedFilename;
                 $event = new Model_Event($params->id);
-                $event->branding = $this->filename;
+                $event->branding = $savedFilename;
                 $event->update();
                 break;
             case self::PARTICIPANTS_PHOTO:
                 $this->filename = 'm_' . $savedFilename;
+                $participant = new Model_Participant($params->id);
+                $participant->logo = $savedFilename;
+                $participant->update();
+                break;
+            case self::TEAM_LOGO:
+                $this->filename = 'm_' . $savedFilename;
+                $team = new Model_Team($params->id);
+                $team->logo = $savedFilename;
+                $team->update();
                 break;
         }
 

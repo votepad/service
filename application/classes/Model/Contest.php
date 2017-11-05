@@ -2,16 +2,14 @@
 
 /**
  * Class Model_Contest
- * CRUD
- * @property  origin_formula
  */
 class Model_Contest extends Model {
 
     public $id;
     public $event;
+    public $mode;
     public $name;
     public $description;
-    public $mode;
     public $formula;
 
     public function __construct($id = null) {

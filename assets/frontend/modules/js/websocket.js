@@ -17,21 +17,25 @@ module.exports = function (properties) {
 
             var handlers = {
 
-                opened: function (e) {
+                opened: function () {
 
 
                     if (typeof properties.open == 'function') {
+
                         properties.open();
+
                     }
 
                     resolve();
 
                 },
 
-                closed: function (e) {
+                closed: function () {
 
                     if (typeof properties.close == 'function') {
+
                         properties.close();
+
                     }
 
                     reject();
@@ -41,7 +45,9 @@ module.exports = function (properties) {
                 message: function (msg) {
 
                     if (typeof properties.message == 'function') {
+
                         properties.message(msg);
+
                     }
 
                 },
@@ -49,7 +55,9 @@ module.exports = function (properties) {
                 error: function (e) {
 
                     if (typeof properties.error == 'function') {
+
                         properties.error(e);
+
                     }
 
                 }
@@ -62,6 +70,7 @@ module.exports = function (properties) {
             ws.onclose = handlers.closed;
 
         });
+
     };
 
     var send = function (message) {
@@ -76,7 +85,7 @@ module.exports = function (properties) {
 
     };
 
-    var status = function() {
+    var status = function () {
 
         return ws.readyState;
 

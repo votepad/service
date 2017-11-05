@@ -1,9 +1,29 @@
-/**
- * Collapse Style
- */
-.collapse{
-    height:0;
+.collapse {
+    display: none;
+}
+.collapse--opened{
     display: block;
+}
+.collapsing {
+    height:0;
     overflow: hidden;
-    transition: height ease .35s;
+    transition-timing-function: ease;
+    transition-duration: .35s;
+    transition-property: height,visibility;
+}
+
+.collapse__btn[data-opened="true"]:before {
+    content: attr(data-textopened);
+}
+.collapse__btn[data-opened="false"]:before {
+    content: attr(data-textclosed);
+}
+
+.collapse__icon-right{
+    transition-timing-function: ease;
+    transition-duration: .35s;
+    transition-property: transform;
+}
+.collapse__btn[data-opened="true"] > .collapse__icon-right {
+    transform: rotate(180deg);
 }

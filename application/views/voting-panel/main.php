@@ -13,70 +13,86 @@
     <!-- =============== VENDOR STYLES ===============-->
     <link rel="stylesheet" href="<?=$assets; ?>vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
     <link rel="stylesheet" href="<?=$assets; ?>static/css/icons_fonts.css?v=<?= filemtime("assets/static/css/icons_fonts.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/app_v1.css?v=<?= filemtime("assets/static/css/app_v1.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/radioboxes.css?v=<?= filemtime("assets/static/css/radioboxes.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>static/css/voting-panel.css?v=<?= filemtime("assets/static/css/voting-panel.css") ?>">
 
     <!-- =============== VENDOR SCRIPTS ===============-->
-    <script type="text/javascript" src="<?=$assets; ?>vendor/jquery/dist/jquery.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>vendor/bootstrap/dist/js/bootstrap-modal.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/app_v1.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/voting-panel.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/manager.js"></script>
-    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/voting.js"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/judgeStatus.js?v=<?= filemtime("assets/static/js/voting-panel/judgeStatus.js") ?>"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/voting-panel.js?v=<?= filemtime("assets/static/js/voting-panel/voting-panel.js") ?>"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/manager.js?v=<?= filemtime("assets/static/js/voting-panel/manager.js") ?>"></script>
+    <script type="text/javascript" src="<?=$assets; ?>static/js/voting-panel/voting.js?v=<?= filemtime("assets/static/js/voting-panel/voting.js") ?>"></script>
 
 
     <!-- modules -->
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/header.css?v=<?= filemtime("assets/frontend/modules/css/header.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/footer.css?v=<?= filemtime("assets/frontend/modules/css/footer.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/jumbotron.css?v=<?= filemtime("assets/frontend/modules/css/jumbotron.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/dropdown.css?v=<?= filemtime("assets/frontend/modules/css/dropdown.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/collapse.css?v=<?= filemtime("assets/frontend/modules/css/collapse.css") ?>">
-    <link rel="stylesheet" href="<?=$assets; ?>frontend/modules/css/notification.css?v=<?= filemtime("assets/frontend/modules/css/notification.css") ?>">
-
-    <script src="<?=$assets; ?>frontend/bundles/votepad.bundle.js"></script>
-    <script>
-        $(document).ready(function () {
-            vp.collapse.init();
-            voting.init();
-            vp.notification.createHolder();
-        });
-    </script>
-    <link rel="stylesheet" href="<?=$assets; ?>static/css/voting-panel.css?v=<?= filemtime("assets/static/css/voting-panel.css") ?>">
+    <link rel="stylesheet" href="<?=$assets; ?>frontend/bundles/vp.min.css?v=<?= filemtime("assets/frontend/bundles/vp.min.css") ?>">
+    <script type="text/javascript" src="<?=$assets; ?>frontend/bundles/vp.min.js?v=<?= filemtime("assets/frontend/bundles/vp.min.js") ?>"></script>
 
 </head>
 
     <body>
 
-<!--        <div class="loader">-->
-<!--            <i class="fa fa-spinner fa-pulse fa-5x fa-fw text-brand"></i>-->
-<!--        </div>-->
-
         <header class="header">
-            <?=View::factory('voting-panel/blocks/header', array(
-                'contests' => $event->contests,
-                'judge' => $judge
-            ))?>
+
+            <?= View::factory('voting-panel/blocks/header', array('judge' => $judge)); ?>
+
         </header>
 
-        <div class="jumbotron jumbotron--voting-panel block">
-            <?=View::factory('voting-panel/blocks/jumbotron', array('event' => $event))?>
-        </div>
 
-        <section class="section">
+        <section class="section mb-50">
 
-            <?=View::factory('voting-panel/blocks/mainSection',
-                array(
-                    'event' => $event,
-                    'judge' => $judge
-                ))?>
+            <div class="section__cover">
+                <div class="parallax">
+                    <img id="eventBranding" src="/uploads/events/branding/b_<?=$event->branding; ?>" alt="event branding" class="parallax__img parallax__img--show">
+                </div>
+                <div class="section__content valign">
+                    <div class="section__cover-text">
+                        <?= $event->name; ?>
+                    </div>
+                </div>
+                <div class="section__cover-filter"></div>
+            </div>
+
+            <div class="section__content">
+
+                <div class="width-full width-md-300 mr-md-40">
+
+                    <div class="block hidden-xs hidden-sm">
+
+                        <?= View::factory('voting-panel/blocks/navigation-large', array('contests' => $event->contests, 'cur_contest_id' => $event->cur_contest['id'])); ?>
+
+                    </div>
+
+                </div>
+
+                <div class="width-full width-md-640 width-lg-840">
+
+                    <?= View::factory('voting-panel/blocks/navigation-small', array('contests' => $event->contests, 'cur_contest_id' => $event->cur_contest['id'])); ?>
+
+                    <?= View::factory('voting-panel/blocks/contest', array('event' => $event, 'judge' => $judge)); ?>
+
+                </div>
+
+            </div>
 
         </section>
 
-        <script>
-            wsvoting.init(<?= $judge->id ?>, '<?= $_SERVER['HTTP_HOST'] ?>');
-            manager.init('<?= $_SERVER['HTTP_HOST'] ?>');
-        </script>
+
+        <footer class="footer">
+
+            <?= View::factory('voting-panel/blocks/footer'); ?>
+
+        </footer>
+
+        <input type="hidden" id="navStagesHashes" value='<?= $event->stages_hashes; ?>'>
+        <input type="hidden" id="curContest" value="<?= $event->cur_contest['id']; ?>">
 
     </body>
+
+    <script type="text/javascript">
+        vp.init();
+        wsvoting.init(<?= $judge->id ?>, '<?= $_SERVER['HTTP_HOST'] ?>');
+        manager.init('<?= $_SERVER['HTTP_HOST'] ?>');
+        judgeStatus.init('judgeStatus');
+        voting.init();
+    </script>
 
 </html>

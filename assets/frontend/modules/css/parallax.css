@@ -14,5 +14,9 @@
     min-width: 101%;
     min-height: 100%;
     transform: translateX(-50%);
-    z-index: -1;
+}
+.parallax__img--show{
+    display: block;
+    top: 50%;
+    transform: translate(-50%,-50%);
 }

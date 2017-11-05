@@ -5,72 +5,107 @@
  */
 class Controller_Judges_Ajax extends Ajax {
 
-    public function action_save()
-    {
-        $response = array();
 
-        $decodedData = json_decode(Arr::get($_POST, 'list'), true);
+    public function action_create() {
+        $event    = Arr::get($_POST, 'event');
+        $name     = Arr::get($_POST, 'name');
+        $password = Arr::get($_POST, 'password');
 
-        foreach($decodedData as $judge) {
-
-            $model = new Model_Judge(Arr::get($judge, 'id'));
-            $event = $this->request->param('id_event');
-
-            $model->name     = Arr::get($judge,'name','');
-            $model->password = Arr::get($judge,'password','');
-
-            $status = Arr::get($judge, 'status');
-
-            switch ($status) {
-                case Methods_Judges::UPDATE:
-                    $model = $model->update();
-                    break;
-                case Methods_Judges::INSERT:
-                    $model->event = $event;
-                    $model = $model->save();
-                    break;
-                case Methods_Judges::DELETE:
-                    $model->delete();
-                    break;
-            }
-
-
-            if ($status != Methods_Judges::DELETE) {
-                $response[] = array(
-                    'id' => $model->id,
-                    'name' => $model->name,
-                    'password' => $model->password,
-                    'status' => ''
-                );
-            }
-
-
+        if (empty($name) || empty($password)) {
+            $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
         }
 
-        usort($response, function($a, $b) {
-            return $a['id'] - $b['id'];
-        });
-
-        $this->response->body(@json_encode($response));
-    }
-
-    public function action_get()
-    {
-        $id_event = $this->request->param('id_event');
-
-        $judges = Methods_Judges::getByEvent($id_event);
-
-        $arr = array();
-
-        foreach($judges as $judge) {
-            $arr[] = array(
-                'id'     => $judge->id,
-                'name'   => $judge->name,
-                'password'  => $judge->password ?: "",
-                'status' => ''
-            );
+        if (Methods_Judges::getJudge($event, $password)->id) {
+            $response = new Model_Response_Judge('JUDGE_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
         }
-        $this->response->body(@json_encode($arr));
 
+        $judge = new Model_Judge();
+
+        $judge->name = $name;
+        $judge->event = $event;
+        $judge->password = $password;
+        $judge = $judge->save();
+
+        $response = new Model_Response_Judge('JUDGE_CREATE_SUCCESS', 'success', array('judge' => $judge));
+        $this->response->body(@json_encode($response->get_response()));
     }
+
+
+    public function action_update() {
+        $id       = Arr::get($_POST, 'id');
+        $event    = Arr::get($_POST, 'event');
+        $name     = Arr::get($_POST, 'name');
+        $password = Arr::get($_POST, 'password');
+
+        if (empty($name) || empty($password)) {
+            $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $judge = new Model_Judge($id);
+
+        if (!$judge->id) {
+            $response = new Model_Response_Judge('JUDGE_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($judge->event != $event) {
+            $response = new Model_Response_Judge('JUDGE_EVENT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($judge->name == $name && $judge->password == $password) {
+            $response = new Model_Response_Form('NOTHING_CHANGE_WARNING', 'warning');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($judge->password != $password && Methods_Judges::getJudge($event, $password)->id) {
+            $response = new Model_Response_Judge('JUDGE_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        $judge->name = $name;
+        $judge->password = $password;
+        $judge = $judge->update();
+
+        $response = new Model_Response_Judge('JUDGE_UPDATE_SUCCESS', 'success', array('judge' => $judge));
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+
+    public function action_delete() {
+        $id       = Arr::get($_POST, 'id');
+        $event    = Arr::get($_POST, 'event');
+
+        $judge = new Model_Judge($id);
+
+        if (!$judge->id) {
+            $response = new Model_Response_Judge('JUDGE_DOES_NOT_EXISTED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        if ($judge->event != $event) {
+            $response = new Model_Response_Judge('JUDGE_EVENT_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
+            return;
+        }
+
+        Methods_Contests::removeJudge($judge->id);
+        $judge->delete();
+
+        $response = new Model_Response_Judge('JUDGE_DELETE_SUCCESS', 'success');
+        $this->response->body(@json_encode($response->get_response()));
+    }
+
+
 }

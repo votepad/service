@@ -5,6 +5,7 @@ module.exports = function () {
     /**
      *
      * @param data:
+     *  - mode - 'participants || teams'
      *  - event
      *  - member
      *  - judge
@@ -22,7 +23,11 @@ module.exports = function () {
         console.log('Received data:');
         console.log(data);
 
-        data.stage    = data.contest + '-' + data.stage;
+        var getFixedNumber = function(number) {
+            return Number.isInteger(number) ? number : number.toFixed(1)
+        };
+
+        data.stage     = data.contest + '-' + data.stage;
         data.criterion = data.stage + '-' + data.criterion;
 
         return Mongo.connect(config.Mongo.url).then(function (db) {
@@ -60,22 +65,23 @@ module.exports = function () {
 
                                     var update = {
                                         member: data.member,
+                                        mode: data.mode,
                                         judge: data.judge,
                                         contest: data.contest,
                                         result: data.result,
                                         stage: data.stage,
                                         criterion: data.criterion,
                                         scores: {
-                                            criterion: payload.criterions[data.criterion],
-                                            stage: payload.stages[data.stage],
-                                            contest: payload.contests[data.contest],
-                                            result: payload.result
+                                            criterion: getFixedNumber(payload.criterions[data.criterion]),
+                                            stage: getFixedNumber(payload.stages[data.stage]),
+                                            contest: getFixedNumber(payload.contests[data.contest]),
+                                            result: getFixedNumber(payload.result)
                                         },
                                         total: {
-                                            criterion: total.criterions[data.criterion],
-                                            stage: total.stages[data.stage],
-                                            contest: total.contests[data.contest],
-                                            result: total.result,
+                                            criterion: getFixedNumber(total.criterions[data.criterion]),
+                                            stage: getFixedNumber(total.stages[data.stage]),
+                                            contest: getFixedNumber(total.contests[data.contest]),
+                                            result: getFixedNumber(total.result),
                                         }
                                     };
 
@@ -100,7 +106,17 @@ module.exports = function () {
 
                                         manager.update('event', 'orgs', [data.event], update);
 
-                                        return collection.updateOne({member: data.member}, {$push: {scores: payload}, $set: {total: result.total}}).then(function (result) {
+                                        return collection.updateOne({
+                                            member: data.member,
+                                            mode: data.mode
+                                        }, {
+                                            $push: {
+                                                scores: payload
+                                            },
+                                            $set: {
+                                                total: result.total
+                                            }
+                                        }).then(function (result) {
                                             db.close();
                                         });
 
@@ -110,7 +126,14 @@ module.exports = function () {
 
                                         manager.update('event', 'orgs', [data.event], update);
 
-                                        return collection.insertOne({member: data.member, scores: [payload], total: total}).then(function(){db.close()});
+                                        return collection.insertOne({
+                                            member: data.member,
+                                            mode: data.mode,
+                                            scores: [payload],
+                                            total: total
+                                        }).then(function(){
+                                            db.close()
+                                        });
                                     }
 
                                 });
@@ -140,33 +163,42 @@ module.exports = function () {
 
                             manager.update('event', 'orgs', [data.event], {
                                 member: data.member,
+                                mode: data.mode,
                                 judge: data.judge,
                                 contest: data.contest,
                                 result: data.result,
                                 stage: data.stage,
                                 criterion: data.criterion,
                                 scores: {
-                                    criterion: scores.criterions[data.criterion],
-                                    stage: scores.stages[data.stage],
-                                    contest: scores.contests[data.contest],
-                                    result: scores.result,
+                                    criterion: getFixedNumber(scores.criterions[data.criterion]),
+                                    stage: getFixedNumber(scores.stages[data.stage]),
+                                    contest: getFixedNumber(scores.contests[data.contest]),
+                                    result: getFixedNumber(scores.result),
                                 },
                                 total: {
-                                    criterion: result.total.criterions[data.criterion],
-                                    stage: result.total.stages[data.stage],
-                                    contest: result.total.contests[data.contest],
-                                    result: result.total.result,
+                                    criterion: getFixedNumber(result.total.criterions[data.criterion]),
+                                    stage: getFixedNumber(result.total.stages[data.stage]),
+                                    contest: getFixedNumber(result.total.contests[data.contest]),
+                                    result: getFixedNumber(result.total.result),
                                 }
                             });
 
+
+
                             var payload = {
-                                $set: {'scores.$': scores, total: result.total}
+                                $set: {
+                                    'scores.$': scores,
+                                    total: result.total
+                                }
                             };
 
                             return collection.updateOne({
                                 member: data.member,
+                                mode: data.mode,
                                 'scores.judge': data.judge
-                            }, payload).then(function (result) {db.close();})
+                            }, payload).then(function (result) {
+                                db.close();
+                            })
 
                         }
 

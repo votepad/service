@@ -17,10 +17,9 @@ class Controller_Transport extends Dispatch {
     private $typesAvailable = array(
         Model_Uploader::PROFILE_AVATAR,
         Model_Uploader::PROFILE_BRANDING,
-        Model_Uploader::ORGANIZATION_LOGO,
-        Model_Uploader::ORGANIZATION_BRANDING,
         Model_Uploader::EVENT_BRANDING,
-        Model_Uploader::PARTICIPANTS_PHOTO
+        Model_Uploader::PARTICIPANTS_PHOTO,
+        Model_Uploader::TEAM_LOGO
     );
 
     /** File transport module */
@@ -45,19 +44,18 @@ class Controller_Transport extends Dispatch {
         $uploadedFile = $file->upload($this->type, $this->files, $this->user->id, $this->params);
 
         if ( $uploadedFile ) {
-            $this->transportResponse['success'] = 1;
-            $this->transportResponse['data'] = array(
+            $data = array(
                 'url'       => $uploadedFile['filepath'],
                 'name'      => $uploadedFile['filename'],
             );
+            $response = new Model_Response_Uploader('UPLOADER_FILE_SUCCESS', 'success', $data);
+            $this->response->body(@json_encode($response->get_response()));
         } else {
-            $this->transportResponse['message'] = 'Error while uploading';
+            $response = new Model_Response_Uploader('UPLOADER_FILE_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
         }
 
         finish:
-        $response = @json_encode($this->transportResponse);
-        $this->auto_render = false;
-        $this->response->body($response);
     }
 
     /**
@@ -67,31 +65,38 @@ class Controller_Transport extends Dispatch {
     private function check()
     {
         if (!$this->user->id) {
-            $this->transportResponse['message'] = 'Access denied';
+            $response = new Model_Response_Uploader('UPLOADER_NO_USER_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
             return false;
         }
         if (!$this->type) {
-            $this->transportResponse['message'] = 'Transport type missed';
+            $response = new Model_Response_Uploader('UPLOADER_NO_TYPE_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
             return false;
         }
         if ( !in_array($this->type, $this->typesAvailable) ){
-            $this->transportResponse['message'] = 'Wrong type passed';
+            $response = new Model_Response_Uploader('UPLOADER_WRONG_TYPE_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
             return false;
         }
         if (!Upload::size($this->files, '2M')) {
-            $this->transportResponse['message'] = 'File size exceeded limit';
+            $response = new Model_Response_Uploader('UPLOADER_FILE_SIZE_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
             return false;
         }
         if (!$this->files){
-            $this->transportResponse['message'] = 'File was not transferred';
+            $response = new Model_Response_Uploader('UPLOADER_FILE_NOT_TRANSFERRED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
             return false;
         }
         if (!Upload::not_empty($this->files)){
-            $this->transportResponse['message'] = 'File is empty';
+            $response = new Model_Response_Uploader('UPLOADER_FILE_EMPTY_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
             return false;
         }
         if (!Upload::valid($this->files)){
-            $this->transportResponse['message'] = 'Uploaded file is damaged';
+            $response = new Model_Response_Uploader('UPLOADER_FILE_DAMAGED_ERROR', 'error');
+            $this->response->body(@json_encode($response->get_response()));
             return false;
         }
         return true;

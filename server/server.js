@@ -47,12 +47,15 @@ voting.on('connection', function (ws) {
 
         permissions.then(function (perms) {
 
-            if (user.mode == 'judge') {
+            if (user.mode === 'judge') {
 
+                manager.addUser(ws, user, perms.events);
                 manager.update('judge', 'orgs', perms.events, {id: user.id, status: 1});
 
                 ws.on('close', function () {
                     manager.update('judge', 'orgs', perms.events, {id: user.id, status: 0});
+                    manager.setOfflineJudge(perms.events, user.id);
+                    console.log('Judge ' + user.id + ' had logout');
                 })
 
             }
@@ -73,7 +76,7 @@ voting.on('connection', function (ws) {
                         return;
                     }
 
-                    if (perms.mode == 'judge' && !(perms.contests.indexOf(parseInt(data.contest)) + 1)) {
+                    if (perms.mode === 'judge' && !(perms.contests.indexOf(parseInt(data.contest)) + 1)) {
                         ws.send(JSON.stringify({status: 'error', message: 'Access to this contest denied', code: 403}));
                         return;
                     }
@@ -106,7 +109,7 @@ management.on('connection', function (ws) {
     permissions.then(function (perms) {
 
         manager.addUser(ws, user, perms.events);
-        if (user.mode == 'organizer') {
+        if (user.mode === 'organizer') {
             manager.getOnlineJudges(perms.events, user.id)
         }
 

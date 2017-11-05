@@ -1,10 +1,7 @@
 <?php
 
 
-Route::set("SAVE_RESULT", 'results/save/<id_event>', array(
-        'id_event' => $DIGIT
-    ))
+Route::set("RESULT_AJAX", 'result/<action>')
     ->defaults(array(
-        'controller' => 'Results_Modify',
-        'action'     => 'save'
+        'controller' => 'Results_Ajax',
     ));

@@ -4,15 +4,34 @@
 		<meta charset="utf-8">
 		<title>Ошибка <?= $code; ?>. Неверный запрос</title>
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
-		<link rel='stylesheet' href="<?=URL::base(). 'assets/static/css/error.css'; ?>">
-		<link rel='stylesheet' href="<?=URL::base(). 'assets/static/css/app_v1.css'; ?>">
+        <link rel="stylesheet" href="/assets/vendor/fontawesome/css/font-awesome.min.css?v=<?= filemtime("assets/vendor/fontawesome/css/font-awesome.min.css") ?>">
+        <link rel="stylesheet" href="/assets/frontend/bundles/vp.min.css?v=<?= filemtime("assets/frontend/bundles/vp.min.css") ?>">
+        <script type="text/javascript" src="/assets/frontend/bundles/vp.min.js?v=<?= filemtime("assets/frontend/bundles/vp.min.js") ?>"></script>
+        <script type="text/javascript">
+            function ready() {
+                vp.modal.init();
+                vp.notification.createHolder();
+            }
+            document.addEventListener('DOMContentLoaded', ready)
+        </script>
+
 	</head>
-	<body class="valign error_block">
-		<div class="center">
-            <h1 class="error_title">Votepad</h1>
-			<p class="error_text"><b>Ошибка <?= $code; ?>.</b> <?= $message; ?></p>
-			<a class="error_link text_link" onclick = "window.history.back()">Назад</a>
-			<a href="/" class="error_link text_link">Главная</a>
-		</div>
+	<body class="">
+        <div class="wrapper display-flex">
+            <div class="text-center m-auto">
+                <h1 class="text-brand fs-5 mt-0 mb-15">Votepad</h1>
+                <p class="fs-1_5"><span class="text-bold">Ошибка <?= $code; ?>.</span> <?= $message; ?></p>
+                <div class="mt-15">
+                    <a href="/" class="link mr-15">Главная</a>
+                    <a class="link mr-15" onclick="window.history.back()">Назад</a>
+                    <? if ( $code == 401 ): ?>
+                        <a class="link mr-15" data-toggle="modal" data-area="auth_modal"> Войти </a>
+                        <a class="link" data-toggle="modal" data-area="registr_modal"> Регистрация </a>
+                        <?= View::factory('global/blocks/auth_modal'); ?>
+                    <? endif; ?>
+                </div>
+            </div>
+        </div>
+
 	</body>
 </html>

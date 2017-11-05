@@ -8,60 +8,37 @@
 
 /**
  * Route for event creation
- *
- * @property String $organizationpage - organization local website (without nwe.ru afterfix)
  */
-Route::set('NEW_EVENT', 'organization/<id>/event/new',
-    array(
-        'id' => $DIGIT
-    ))
+Route::set('NEW_EVENT', 'event/new')
     ->defaults(array(
-        'controller' => 'Organizations_Index',
-        'action'     => 'new_event'
+        'controller' => 'Events_Index',
+        'action'     => 'event_new'
     ));
 
 
 /**
- * This route checks website existance. Responces only for XMLHTTP requests
- *
- * @example http://pronwe.ru/event/check/ifmo.ru - returns JSON encoded Boolean responce.
- * @return [Boolean]
+ * Router for inviting assistant to event
  */
-Route::set('CHECK_EVENT_WEBSITE', 'event/check/<website>',
-    array(
-        'website' => $STRING
-    ))
+Route::set('INVITE_ASSISTANT', 'event/<id>/invite/<hash>', array(
+    'id' => $DIGIT,
+    'hash' => $STRING
+))
     ->defaults(array(
-      'controller' => 'Events_Ajax',
-      'action'     => 'checkwebsite'
+        'controller' => 'Events_Index',
+        'action'     => 'invite_assistant'
     ));
 
 /**
- * Route works with Database.
- * Validates POST data and inserts.
- * Hasn't properties
- */
-Route::set('ADD_EVENT', 'event/add')
-    ->defaults(array(
-        'controller' => 'Events_Modify',
-        'action'     => 'add'
-    ));
-
-/**
- * Route for event main page.
+ * Route for event lanfing page.
  *
- * @property String $organizationpage - organization website (without nwe.ru)
- * @property String $eventpage - events website (without nwe.ru)
  * @property String $action - action in controller
- *
- * @example http://pronwe.ru/event/<id>(/<action>)
+ * @property [Function] $actioncallback - this callback defines is route allowed to the section or not
+ * @example http://votepad.ru/event/<id>(/<action>)
  */
 $actioncallback = function(Route $route, $params, Request $request){
 
     $allowedRoutes = array(
-        'settings',
         'landing',
-        'news',
         'results'
     );
 
@@ -72,7 +49,7 @@ $actioncallback = function(Route $route, $params, Request $request){
 
 Route::set('EVENT_ACTION', 'event/<id>(/<action>)',
     array(
-        'id' => $DIGIT,
+        'id'     => $DIGIT,
         'action' => $STRING
     ))
     ->filter($actioncallback)
@@ -82,10 +59,10 @@ Route::set('EVENT_ACTION', 'event/<id>(/<action>)',
     ));
 
 /**
- * Route for backoffice
+ * Route for Back Office
  *
  * @property String $action - controller action
- * @property [Function] $callback - this callback defines is route allowed to the section or not
+ * @property [Function] $sectioncallback - this callback defines is route allowed to the section or not
  *
  * @example http://votepad.ru/event/<id>/<section>(/<action>)
  */
@@ -96,13 +73,13 @@ $sectioncallback = function(Route $route, $params, Request $request){
             'info', 'assistants'
         ),
         'scenario' => array(
-            'criterias', 'stages', 'contests', 'result'
+            'criterions', 'stages', 'contests', 'result'
         ),
         'members' => array(
-            'judges', 'participants', 'teams', /*'groups'*/
+            'judges', 'participants', 'teams'
         ),
         'control' => array(
-            'scores', 'plan'
+            'scores'/*, 'plan'*/
         )
     );
 
@@ -111,12 +88,9 @@ $sectioncallback = function(Route $route, $params, Request $request){
     }
 
 };
-
-Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>(/<action>)',
+Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>/<action>',
     array(
         'id' => $DIGIT,
-        'section' => 'settings|scenario|members|control',
-        'action' => $STRING
     ))
     ->filter($sectioncallback)
     ->defaults(array(
@@ -125,31 +99,24 @@ Route::set('EVENT_SECTION_ACTION', 'event/<id>/<section>(/<action>)',
     ));
 
 
-Route::set('MAIN_SETTINGS_UPDATE', 'event/<id>/settings/info/update',
-    array('id' => $DIGIT))
-    ->defaults(array(
-        'controller' => 'Events_Modify',
-        'action'     => 'update'
-    ));
 
-Route::set('INVITE_LINK', 'event/<id>/invite/<hash>',
-    array('id' => $DIGIT, 'hash' => $STRING))
-    ->defaults(array(
-        'controller' => 'Events_Modify',
-        'action'     => 'assistant_request'
-    ));
 
-Route::set('ASSISTANTSS_ACTIONS', 'event/<id>/assistant/<method>/<userId>', array('id' => $DIGIT, 'userId' => $DIGIT, 'method' => 'add|remove|reject'))
-    ->defaults(array(
-        'controller' => 'Events_Ajax',
-        'action'     => 'assistant'
-    ));
-
-Route::set('PUBLISH_RESULT', 'event/result/<method>',
+Route::set('PUBLISH_EVENT', 'event/result/<method>',
     array(
         'method' => 'publish|unpublish'
     ))
     ->defaults(array(
         'controller' => 'Events_Ajax',
         'action'     => 'result'
+    ));
+
+/**
+ * Route for Event Ajax actions
+ */
+Route::set('EVENT_AJAX', 'event/<action>',
+    array(
+        'action' => $STRING
+    ))
+    ->defaults(array(
+        'controller' => 'Events_Ajax'
     ));

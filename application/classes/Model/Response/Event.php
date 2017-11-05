@@ -2,34 +2,61 @@
 
 class Model_Response_Event extends  Model_Response_Abstract
 {
-    protected $_EVENT_REMOVE_SUCCESS = array(
+    protected $_EVENT_CREATE_SUCCESS = array(
         'type' => 'events',
         'code' => '50',
-        'message' => 'Org is removed'
-    );
-
-    protected $_EVENT_REESTABLISH_SUCCESS = array(
-        'type' => 'events',
-        'code' => '51',
-        'message' => 'Org is reestablished'
+        'message' => 'Мероприяие успешно создано'
     );
 
     protected $_EVENT_DOES_NOT_EXIST_ERROR = array(
         'type' => 'events',
-        'code' => '52',
-        'message' => 'Org does not exist'
+        'code' => '51',
+        'message' => 'Мероприяие не существует. Перезагрузите страницу.'
     );
+
+    protected $_EVENT_UPDATE_SUCCESS = array(
+        'type' => 'events',
+        'code' => '52',
+        'message' => 'Информация о мероприяие успешно изменена'
+    );
+
+    protected $_EVENT_PUBLISH_ERROR = array(
+        'type' => 'events',
+        'code' => '53',
+        'message' => 'Мероприяие было опубликовано ранее'
+    );
+
+    protected $_EVENT_UNPUBLISH_ERROR = array(
+        'type' => 'events',
+        'code' => '53',
+        'message' => 'Мероприяие было снято с публикации ранее'
+    );
+
+    protected $_EVENT_PUBLISH_SUCCESS = array(
+        'type' => 'events',
+        'code' => '54',
+        'message' => 'Мероприяие успешно опубликовано'
+    );
+
+    protected $_EVENT_UNPUBLISH_SUCCESS = array(
+        'type' => 'events',
+        'code' => '54',
+        'message' => 'Мероприяие успешно снято с публикации'
+    );
+
+
+
 
     protected $_USER_IS_ALREADY_ASSISTANT_ERROR = array(
         'type' => 'events',
         'code' => '53',
-        'message' => 'User is already assistant of event'
+        'message' => 'Пользователь уже участвует в проведении мероприятия'
     );
 
-    protected $_ACCESS_DENIED_ERROR = array(
+    protected $_USER_IS_CREATOR_ERROR = array(
         'type' => 'events',
         'code' => '54',
-        'message' => 'Access denied'
+        'message' => 'Ошибка! Пользователь является создателем мероприятия'
     );
 
     protected $_USER_IS_NOT_ASSISTANT_ERROR = array(
@@ -41,26 +68,22 @@ class Model_Response_Event extends  Model_Response_Abstract
     protected $_ADD_ASSISTANT_SUCCESS = array(
         'type' => 'events',
         'code' => '56',
-        'message' => 'Assistant added'
+        'message' => 'Заяка пользователя успешно принята'
     );
 
     protected $_REMOVE_ASSISTANT_SUCCESS = array(
         'type' => 'events',
         'code' => '57',
-        'message' => 'Assistant removed'
+        'message' => 'Пользователь успешно исключен'
     );
 
     protected $_REJECT_ASSISTANT_SUCCESS = array(
         'type' => 'events',
         'code' => '58',
-        'message' => 'Assistant rejected'
+        'message' => 'Заяка пользователя успешно отклонена'
     );
 
-    protected $_USER_IS_CREATOR_ERROR = array(
-        'type' => 'events',
-        'code' => '59',
-        'message' => 'User is creator of this event'
-    );
+
 
     protected $_PUBLISH_RESULTS_SUCCESS = array(
         'type' => 'result',
@@ -72,6 +95,19 @@ class Model_Response_Event extends  Model_Response_Abstract
         'type' => 'result',
         'code' => '512',
         'message' => 'Результаты скрыты'
+    );
+
+
+    protected $_EVENTS_GET_SUCCESS = array(
+        'type' => 'event',
+        'code' => '513',
+        'message' => 'Мероприятия получены'
+    );
+
+    protected $_EVENTS_GET_EMPTY_SUCCESS = array(
+        'type' => 'event',
+        'code' => '514',
+        'message' => 'Показаны все мероприятия'
     );
 
 

@@ -10,7 +10,7 @@ class Model_Team extends Model {
     public $event;
     public $name;
     public $description;
-    public $logo;
+    public $logo = "no-logo.png";
 
     public function __construct($id = null) {
 
