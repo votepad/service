@@ -420,7 +420,7 @@ var eventStages = function (eventStages) {
         allCriterions = document.getElementById('allCriterions');
 
         if (!eventID || !allCriterions) {
-            newStage.remove();
+            return;
         }
 
         allCriterions = allCriterions.value;
