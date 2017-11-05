@@ -15,6 +15,7 @@ class Methods_Events extends Model_Event
             ->where('type', '=', $type)
             ->offset($offset)
             ->limit($limit)
+            ->order_by('id','DESC')
             ->execute();
 
         $events = array();
