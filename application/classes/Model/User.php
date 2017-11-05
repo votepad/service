@@ -129,6 +129,7 @@ class Model_User extends Model {
         $ids = Dao_UsersEvents::select('e_id')
             ->where('u_id', '=', $this->id)
             ->cached(Date::MINUTE * 5, 'UserEvents_' . $this->id)
+            ->order_by('e_id', 'DESC')
             ->execute('e_id');
 
         $events = array();
