@@ -10,7 +10,7 @@ class Controller_Stages_Ajax extends Ajax
         $description  = Arr::get($_POST, 'description');
         $formula      = Arr::get($_POST, 'formula');
 
-        if (empty($name) || empty($description) || empty($formula)) {
+        if (empty($name) || empty($formula)) {
             $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
@@ -59,7 +59,7 @@ class Controller_Stages_Ajax extends Ajax
         $members     = Arr::get($_POST, 'members');
         $formula     = Arr::get($_POST, 'formula');
 
-        if (empty($name) || empty($description) || empty($formula) || empty($members)) {
+        if (empty($name) || empty($formula) || empty($members)) {
             $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;

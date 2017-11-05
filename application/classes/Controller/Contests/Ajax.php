@@ -12,7 +12,7 @@ class Controller_Contests_Ajax extends Ajax
         $judges       = Arr::get($_POST, 'judges');
         $mode         = Arr::get($_POST, 'newContestMode');
 
-        if (empty($name) || empty($description) || empty($formula) || empty($judges)) {
+        if (empty($name) || empty($formula) || empty($judges)) {
             $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
@@ -45,7 +45,7 @@ class Controller_Contests_Ajax extends Ajax
         $formula     = Arr::get($_POST, 'formula');
         $mode        = Arr::get($_POST, 'editContestModalMode');
 
-        if (empty($name) || empty($description) || empty($formula) || empty($judges)) {
+        if (empty($name) || empty($formula) || empty($judges)) {
             $response = new Model_Response_Form('EMPTY_FIELDS_ERROR', 'error');
             $this->response->body(@json_encode($response->get_response()));
             return;
