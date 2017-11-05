@@ -323,6 +323,7 @@ class Controller_Events_Index extends Dispatch
     {
         $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
+        $this->event->judges  = count(Methods_Judges::getAllByEvent($this->event->id));
 
         $api = Kohana::$config->load('api');
         $token = array_keys(get_object_vars($api))[0];
@@ -350,6 +351,7 @@ class Controller_Events_Index extends Dispatch
     {
         $this->event->results = Methods_Results::getResults($this->event->id);
         $this->event->members = $this->getMembers($this->event->id);
+        $this->event->judges  = count(Methods_Judges::getAllByEvent($this->event->id));
 
         $api = Kohana::$config->load('api');
         $token = array_keys(get_object_vars($api))[0];

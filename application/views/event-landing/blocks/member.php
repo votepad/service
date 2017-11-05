@@ -4,7 +4,7 @@
 
     <div class="member__logo">
 
-        <img src="<?= URL::site('uploads/' . $mode . '/m_' . $member->logo); ?>" alt="Member Logo" class="member__img">
+        <img src="<?= URL::site('uploads/' . $mode . '/b_' . $member->logo); ?>" alt="Member Logo" class="member__img">
 
         <div class="member__position"><?= $member_position + 1; ?></div>
 
