@@ -1,15 +1,10 @@
 <?php defined('SYSPATH') or die('No direct pattern access.');
-/**
- * @author NWE Team
- * @copyright Turov Nikolay
- */
 
 /**
-* Features of votepad
+* Agreement of votepad
 */
-Route::set('Features', 'features')
+Route::set('AGREEMENT_USERS', 'agreement')
     ->defaults(array(
         'controller' => 'Welcome',
-        'action'     => 'features'
-    ))
-    ->cache();
+        'action'     => 'agreement'
+    ));

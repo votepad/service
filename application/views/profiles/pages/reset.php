@@ -20,7 +20,7 @@
 
 <body>
 
-    <?= View::factory('globalblocks/auth_modal'); ?>
+    <?= View::factory('global/blocks/auth_modal'); ?>
 
 </body>
 

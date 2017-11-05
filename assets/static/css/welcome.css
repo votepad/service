@@ -5,10 +5,10 @@
     position: absolute;
     box-shadow: none;
 }
-.header__button:hover{
+.header-home .header__button:hover{
     background-color: inherit;
 }
-.header__button--hollow{
+.header-home .header__button--hollow{
     margin: 26px 0 26px 10px;
 }
 .section__content{
@@ -79,7 +79,7 @@
 }
 .section{
     height: initial;
-    margin-top: 65px;
+    margin-top: 50px;
 }
 .section-small{
     min-height: 320px;

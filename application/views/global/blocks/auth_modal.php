@@ -148,7 +148,7 @@
                 <div class="form-group">
                     <input id="registr_rools" type="checkbox" class="checkbox" required>
                     <label for="registr_rools" class="checkbox-label">
-                        Даю согласие <a href="#rools" class="link">на обработку персональных данных</a>
+                        Даю согласие <a target="_blank" href="<?= URL::site('agreement'); ?>" class="link">на обработку персональных данных</a>
                     </label>
                 </div>
 

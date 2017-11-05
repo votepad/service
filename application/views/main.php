@@ -26,7 +26,7 @@
     <div class="wrapper">
 
         <header class="header">
-            <?=View::factory('globalblocks/header'); ?>
+            <?=View::factory('global/blocks/header'); ?>
         </header>
 
         <section class="section">
@@ -34,13 +34,13 @@
         </section>
 
         <footer class="footer">
-            <?= View::factory('globalblocks/footer'); ?>
+            <?= View::factory('global/blocks/footer'); ?>
         </footer>
 
     </div>
 
     <? if ( !$isLogged ): ?>
-        <?= View::factory('globalblocks/auth_modal'); ?>
+        <?= View::factory('global/blocks/auth_modal'); ?>
     <? endif; ?>
 
     <input type="hidden" id="csrf" name="csrf" value="<?= Security::token(); ?>">

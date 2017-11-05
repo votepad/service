@@ -4,13 +4,13 @@ var eventInfo = function (eventInfo) {
         csrf       = null,
         corePrefix = "VP event settings";
 
-    eventInfo.changeType = function (element) {
+    var changeType_ = function (form) {
 
-        var block    = element.closest('.block'),
+        var block    = form.closest('.block'),
             formData = new FormData();
 
-        formData.append('id', element.dataset.id);
-        formData.append('type', element.dataset.type);
+        formData.append('id', form.dataset.id);
+        formData.append('type', form.dataset.type);
         formData.append('csrf', csrf);
 
         var ajaxData = {
@@ -43,6 +43,29 @@ var eventInfo = function (eventInfo) {
         };
 
         vp.ajax.send(ajaxData);
+    };
+
+
+    var publish_ = function () {
+        changeType_(document.getElementById('notPublishBlock'));
+    }
+
+    eventInfo.publish = function (element) {
+
+        vp.notification.notify({
+            type: 'confirm',
+            message: 'Я соглашаюсь с <a target="_blank" href="/agreement" class="link">условиями публикации мероприятия</a> в интренете',
+            showCancelButton: true,
+            confirmText: 'Согласен',
+            cancelText: 'Не согласен',
+            confirm: publish_
+        });
+
+
+    };
+
+    eventInfo.unPublish = function () {
+        changeType_(document.getElementById('publishBlock'));
     };
 
     var submitForm_ = function (event) {

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
-    <title> <?=$title; ?> </title>
+    <title> <?=$title; ?> | Votepad</title>
     <meta charset="UTF-8">
     <meta name="author" content="Votepad" />
 
@@ -28,8 +28,12 @@
 
 <body>
 
-    <header class="header header-home">
-        <?= View::factory('welcome/blocks/header'); ?>
+    <? if ($header == 'global') {
+        echo '<div class="wrapper">';
+    }?>
+
+    <header class="header <?= $header == 'welcome' ? 'header-home' : '';?>">
+        <?= View::factory($header . '/blocks/header'); ?>
     </header>
 
     <?=$section; ?>
@@ -37,10 +41,14 @@
     <input type="hidden" id="csrf" name="csrf" value="<?= Security::token(); ?>">
 
     <footer class="footer">
-        <?= View::factory('welcome/blocks/footer'); ?>
+        <?= View::factory('global/blocks/footer'); ?>
     </footer>
 
-    <?= View::factory('globalblocks/auth_modal'); ?>
+    <?= View::factory('global/blocks/auth_modal'); ?>
+
+    <? if ($header == 'global') {
+        echo '</div>';
+    }?>
 
 </body>
 

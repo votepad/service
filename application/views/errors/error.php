@@ -27,7 +27,7 @@
                     <? if ( $code == 401 ): ?>
                         <a class="link mr-15" data-toggle="modal" data-area="auth_modal"> Войти </a>
                         <a class="link" data-toggle="modal" data-area="registr_modal"> Регистрация </a>
-                        <?= View::factory('globalblocks/auth_modal'); ?>
+                        <?= View::factory('global/blocks/auth_modal'); ?>
                     <? endif; ?>
                 </div>
             </div>

@@ -15,5 +15,6 @@
         <a href="//vk.com/votepad" class="footer__social-link vk"><i class="footer__social-icon fa fa-vk" aria-hidden="true"></i></a>
         <a href="//twitter.com/votepadevent" class="footer__social-link tw"><i class="footer__social-icon fa fa-twitter" aria-hidden="true"></i></a>
         <br><a href="mailto:<?= getenv('SUPPORT_EMAIL'); ?>" class="footer__email footer__text footer__link"><?= getenv('SUPPORT_EMAIL'); ?></a>
+        <br><a href="<?= URL::site('/agreement'); ?>" class="text-white">Согласие на обработку данных</a>
     </div>
 </div>

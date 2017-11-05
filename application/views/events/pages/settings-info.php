@@ -9,22 +9,22 @@
             Для проведения мероприятия необходимо заполнить информацию о <b>дейсвующих лицах</b> и <b>сценарии</b>.
         </p>
 
-        <div id="notPublishBlock" class="<?= $event->type == 0 ?: 'hide'?>">
+        <div id="notPublishBlock" class="<?= $event->type == 0 ?: 'hide'?>" data-id="<?= $event->id; ?>" data-type="1" >
             <p>
                 На данный момент страница мероприятия <b>не обубликована</b> в интернете.
                 Рекомендуем опубликовать её, как только заполните все разделы и убедитесь в корректности данных.
             </p>
-            <a role="button" onclick="eventInfo.changeType(this)" data-id="<?= $event->id; ?>" data-type="1" class="ui-btn ui-btn--1">Обубликовать</a>
+            <a role="button" onclick="eventInfo.publish(this)" class="ui-btn ui-btn--1">Обубликовать</a>
         </div>
 
-        <div id="publishBlock" class="<?= $event->type == 1 ?: 'hide'?>">
+        <div id="publishBlock" class="<?= $event->type == 1 ?: 'hide'?>" data-id="<?= $event->id; ?>" data-type="0" >
             <p>
                 Страница с результатами доступна по адресу:
                 <a href="<?= URL::site('event/'.$event->id);?>" class="link">
                     <?= $_SERVER['SERVER_NAME'] . URL::site('event/'.$event->id);?>
                 </a>
             </p>
-            <a role="button" onclick="eventInfo.changeType(this)" data-id="<?= $event->id; ?>" data-type="0" class="ui-btn ui-btn--1">Снять с публикции</a>
+            <a role="button" onclick="eventInfo.unPublish(this)" class="ui-btn ui-btn--1">Снять с публикции</a>
         </div>
     </div>
 

@@ -55,12 +55,12 @@
 
 
     <footer class="footer">
-        <?= View::factory('globalblocks/footer'); ?>
+        <?= View::factory('global/blocks/footer'); ?>
     </footer>
 
 
     <? if ( !$isLogged ): ?>
-        <?= View::factory('globalblocks/auth_modal'); ?>
+        <?= View::factory('global/blocks/auth_modal'); ?>
     <? endif; ?>
 
 <body>
