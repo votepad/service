@@ -129,7 +129,7 @@
             <div id="teamsResults" class="<?= empty($event->members["participants"]) ? '' : 'hide'; ?>">
 
                 <h2 class="section__text section__text--center">
-                    <? if ($event->results['participants']->publish == 0) : ?>
+                    <? if ($event->results['teams']->publish == 0) : ?>
                         <br>
                         <label class="label label--danger">не опубликован</label>
                     <? endif; ?>
