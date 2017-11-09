@@ -5,18 +5,19 @@ module.exports = function () {
     /**
      *
      * @param data:
-     *  - mode - 'participants || teams'
-     *  - event
-     *  - member
-     *  - judge
-     *  - contest
-     *  - stage
-     *  - criterion
+     *  - event         - event ID
+     *  - mode          - 'participants || teams'
+     *  - member        - member ID
+     *  - countJudges   - number of judges on contest
+     *  - judge         - judge ID
+     *  - contest       - contest ID
+     *  - stage         - stage ID
+     *  - criterion     - criterion ID
      *  - score:
      *      - criterion - member score for criterion
-     *      - stage - stage coefficient
-     *      - contest - contest coefficient
-     *      - result - result coefficient
+     *      - stage     - stage coefficient
+     *      - contest   - contest coefficient
+     *      - result    - result coefficient
      */
     var update = function (data) {
 
@@ -39,13 +40,19 @@ module.exports = function () {
 
             return collection.findOne({
                 member: data.member,
+                mode: data.mode,
                 'scores.judge': data.judge
                 },
                 {'scores.judge.$': 1, 'total': 1})
                     .then(function (result) {
+
                         if (!result) {
 
-                            return collection.findOne({member: data.member}).then(
+                            return collection.findOne({
+                                member: data.member,
+                                mode: data.mode
+                            }).then(
+
                                 function(result) {
 
                                     var payload = {
@@ -58,9 +65,9 @@ module.exports = function () {
 
                                     var total = {
                                         criterions: {[data.criterion]: parseFloat(data.score.criterion)},
-                                        stages: {[data.stage]: data.score.stage * data.score.criterion},
-                                        contests: {[data.contest]: data.score.contest * data.score.criterion},
-                                        result: data.score.result * data.score.criterion
+                                        stages: {[data.stage]: data.score.stage * data.score.criterion / data.countJudges},
+                                        contests: {[data.contest]: data.score.contest * data.score.criterion / data.countJudges},
+                                        result: data.score.result * data.score.criterion / data.countJudges
                                     };
 
                                     var update = {
@@ -157,9 +164,9 @@ module.exports = function () {
                             scores.result                    += (data.score.criterion - old) * data.score.result;
 
                             result.total.criterions[data.criterion] += data.score.criterion - old;
-                            result.total.stages[data.stage] += (data.score.criterion - old) * data.score.stage;
-                            result.total.contests[data.contest] += (data.score.criterion - old) * data.score.contest;
-                            result.total.result += (data.score.criterion - old) * data.score.result;
+                            result.total.stages[data.stage] += (data.score.criterion - old) * data.score.stage / data.countJudges;
+                            result.total.contests[data.contest] += (data.score.criterion - old) * data.score.contest / data.countJudges;
+                            result.total.result += (data.score.criterion - old) * data.score.result / data.countJudges;
 
                             manager.update('event', 'orgs', [data.event], {
                                 member: data.member,

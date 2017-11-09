@@ -78,6 +78,7 @@ class Controller_Judges_Index extends Dispatch {
             $contests[$cur_contest['index']]->stages[$stageKey]->hash       = $hash;
             $contests[$cur_contest['index']]->stages[$stageKey]->members    = Methods_Stages::getMembers($stage->id, $stage->mode);
             $contests[$cur_contest['index']]->stages[$stageKey]->criterions = Methods_Criterions::getCriterions($stage->formula);
+            $contests[$cur_contest['index']]->judges                        = count(Methods_Contests::getJudges($cur_contest['id']));
         }
 
         $event = new Model_Event($judge->event);

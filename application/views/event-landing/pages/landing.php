@@ -85,7 +85,7 @@
 
                         if (!empty($event->scores["participants"][$member->id]['overall']) && $event->results["participants"]->publish == TRUE) {
 
-                            $score = $event->scores["participants"][$member->id]['overall'] / $event->judges;
+                            $score = $event->scores["participants"][$member->id]['overall'];
                             $score = is_int($score) ? $score : number_format($score, 1);
 
                         } else {
@@ -146,7 +146,7 @@
 
                         if (!empty($event->scores["teams"][$member->id]['overall']) && $event->results["teams"]->publish == TRUE) {
 
-                            $score = $event->scores["teams"][$member->id]['overall'] / $event->judges;
+                            $score = $event->scores["teams"][$member->id]['overall'];
                             $score = is_int($score) ? $score : number_format($score, 1);
 
                         } else {

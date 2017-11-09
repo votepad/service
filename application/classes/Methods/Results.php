@@ -101,8 +101,6 @@ class Methods_Results extends  Model_Result
                             array_push($stages, new Model_Stage($stageID));
                         }
 
-                        $judges = Methods_Contests::getJudges($contest->id);
-
                         foreach ($stages as $stageKey => $stage) {
 
                             if ($stage->id) {
@@ -122,10 +120,6 @@ class Methods_Results extends  Model_Result
                                     $result_max_score  += $criterion->maxScore * $stage_formula[$criterion->id] * $contest_formula[$stage->id] * $result_formula[$contest->id];
                                 }
 
-                                $stage_max_score   *= count($judges);
-                                $contest_max_score *= count($judges);
-                                $result_max_score  *= count($judges);
-
                                 $stages[$stageKey]->maxScore = $stage_max_score;
                                 $stages[$stageKey]->criterions = $criterions;
                                 $stages[$stageKey]->publish = in_array($contest->id . '-' . $stage->id, $publish_stages);
@@ -136,7 +130,7 @@ class Methods_Results extends  Model_Result
 
                         $contests[$contestKey]->maxScore = $contest_max_score;
                         $contests[$contestKey]->stages = $stages;
-                        $contests[$contestKey]->judges = $judges;
+                        $contests[$contestKey]->judges = Methods_Contests::getJudges($contest->id);
                         $contests[$contestKey]->publish = in_array($contest->id, $publish_contents);
 
                     }

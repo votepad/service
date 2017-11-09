@@ -160,7 +160,7 @@
             <div class="entry__wrapper">
                 <div class="block mb-0 ui-tabs">
                     <div class="ui-tabs__wrapper">
-                        <? foreach ($event->results['participants']->contests[$contestKey]->stages as $stageKey => $stage): ?>
+                        <? foreach ($contest->stages as $stageKey => $stage): ?>
                             <a role="button" data-toggle="tabs" data-area="resultContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="ui-tabs__tab <?= $stageKey == 0 ? 'ui-tabs__tab--active' : ''; ?>">
                                 <?= $stage->name; ?>
                             </a>
@@ -172,7 +172,7 @@
                 </div>
             </div>
 
-            <? foreach ($event->results['participants']->contests[$contestKey]->stages as $stageKey => $stage): ?>
+            <? foreach ($contest->stages as $stageKey => $stage): ?>
 
                 <!-- PARTICIPANTS STAGE RESULT START -->
                 <div data-stage="<?= $contest->id . '-' . $stage->id; ?>" id="resultContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="block__wrapper <?= $stageKey == 0 ? '' : 'hide'; ?>">
@@ -181,7 +181,7 @@
                         <thead>
                             <tr>
                                 <th>Участники</th>
-                                <? foreach ($event->results['participants']->contests[$contestKey]->judges as $judge): ?>
+                                <? foreach ($contest->judges as $judge): ?>
                                     <th class="text-center">
                                         <?= $judge->name ?>
                                     </th>
@@ -196,27 +196,28 @@
 
                                 <td><?= $member->name; ?></td>
 
-                                <? foreach ($event->results['participants']->contests[$contestKey]->judges as $judge): ?>
+                                <? foreach ($contest->judges as $judge): ?>
 
                                     <td class="text-center">
                                         <?
                                             $data = array(
-                                                'event'   => $event->id,
-                                                'mode'    => 'participants',
-                                                'member'  => $member->id,
-                                                'judge'   => $judge->id,
-                                                'result'  => array(
+                                                'event'       => $event->id,
+                                                'mode'        => 'participants',
+                                                'member'      => $member->id,
+                                                'countJudges' => count($contest->judges),
+                                                'judge'       => $judge->id,
+                                                'result'      => array(
                                                     'formula' => json_decode($event->results['participants']->formula),
                                                 ),
-                                                'contest' => array(
+                                                'contest'     => array(
                                                     'id'      => $contest->id,
                                                     'formula' => json_decode($contest->formula),
                                                 ),
-                                                'stage' => array(
+                                                'stage'       => array(
                                                     'id'      => $stage->id,
                                                     'formula' => json_decode($stage->formula),
                                                 ),
-                                                'criterions' => $stage->criterions
+                                                'criterions'  => $stage->criterions
                                             );
 
                                             $criterionsScores = array();
@@ -284,7 +285,7 @@
                     <thead>
                         <tr>
                             <th>Участники</th>
-                            <? foreach ($event->results['participants']->contests[$contestKey]->judges as $judge): ?>
+                            <? foreach ($contest->judges as $judge): ?>
                                 <th class="text-center">
                                     <?= $judge->name ?>
                                 </th>
@@ -299,7 +300,7 @@
 
                             <td><?= $member->name; ?></td>
 
-                            <? foreach ($event->results['participants']->contests[$contestKey]->judges as $judge): ?>
+                            <? foreach ($contest->judges as $judge): ?>
 
                                 <td class="text-center" data-judge="<?= $judge->id; ?>">
                                     <? // вывод: балл, полученый участником за КОНКУРС конкретным жюри
@@ -453,7 +454,7 @@
             <div class="entry__wrapper">
                 <div class="block mb-0 ui-tabs">
                     <div class="ui-tabs__wrapper">
-                        <? foreach ($event->results['teams']->contests[$contestKey]->stages as $stageKey => $stage): ?>
+                        <? foreach ($contest->stages as $stageKey => $stage): ?>
                             <a role="button" data-toggle="tabs" data-area="resultContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="ui-tabs__tab <?= $stageKey == 0 ? 'ui-tabs__tab--active' : ''; ?>">
                                 <?= $stage->name; ?>
                             </a>
@@ -465,7 +466,7 @@
                 </div>
             </div>
 
-            <? foreach ($event->results['teams']->contests[$contestKey]->stages as $stageKey => $stage): ?>
+            <? foreach ($contest->stages as $stageKey => $stage): ?>
 
                 <!-- TEAMS STAGE RESULT START -->
                 <div data-stage="<?= $contest->id . '-' . $stage->id; ?>" id="resultContest<?= $contest->id; ?>Stage<?= $stage->id; ?>" class="block__wrapper <?= $stageKey == 0 ? '' : 'hide'; ?>">
@@ -474,7 +475,7 @@
                         <thead>
                             <tr>
                                 <th>Команды</th>
-                                <? foreach ($event->results['teams']->contests[$contestKey]->judges as $judge): ?>
+                                <? foreach ($contest->judges as $judge): ?>
                                     <th class="text-center">
                                         <?= $judge->name ?>
                                     </th>
@@ -489,27 +490,28 @@
 
                                 <td><?= $member->name; ?></td>
 
-                                <? foreach ($event->results['teams']->contests[$contestKey]->judges as $judge): ?>
+                                <? foreach ($contest->judges as $judge): ?>
 
                                     <td class="text-center">
                                         <?
                                             $data = array(
-                                                'event'   => $event->id,
-                                                'mode'    => 'teams',
-                                                'member'  => $member->id,
-                                                'judge'   => $judge->id,
-                                                'result'  => array(
+                                                'event'       => $event->id,
+                                                'mode'        => 'teams',
+                                                'member'      => $member->id,
+                                                'countJudges' => count($contest->judges),
+                                                'judge'       => $judge->id,
+                                                'result'      => array(
                                                     'formula' => json_decode($event->results['teams']->formula),
                                                 ),
-                                                'contest' => array(
+                                                'contest'     => array(
                                                     'id'      => $contest->id,
                                                     'formula' => json_decode($contest->formula),
                                                 ),
-                                                'stage' => array(
+                                                'stage'       => array(
                                                     'id'      => $stage->id,
                                                     'formula' => json_decode($stage->formula),
                                                 ),
-                                                'criterions' => $stage->criterions
+                                                'criterions'  => $stage->criterions
                                             );
 
                                             $criterionsScores = array();
@@ -574,7 +576,7 @@
                     <thead>
                         <tr>
                             <th>Команды</th>
-                            <? foreach ($event->results['teams']->contests[$contestKey]->judges as $judge): ?>
+                            <? foreach ($contest->judges as $judge): ?>
                                 <th class="text-center">
                                     <?= $judge->name ?>
                                 </th>
@@ -589,7 +591,7 @@
 
                             <td><?= $member->name; ?></td>
 
-                            <? foreach ($event->results['teams']->contests[$contestKey]->judges as $judge): ?>
+                            <? foreach ($contest->judges as $judge): ?>
 
                                 <td class="text-center" data-judge="<?= $judge->id; ?>">
                                     <? // вывод: балл, полученый командой за КОНКУРС конкретным жюри
@@ -608,7 +610,6 @@
                             <? endforeach; ?>
 
                             <td class="text-center" data-judge="total">
-
                                 <? // вывод: балл, полученый командой за КОНКУРС всеми жюри
                                     if (empty($event->scores['teams'][$member->id]['overall'][$contest->id]['total']))  {
 

@@ -131,6 +131,7 @@ var eventScores= function (eventScores) {
             'member': data.member,
             'mode': data.mode,
             'judge': data.judge,
+            'countJudges': data.countJudges,
             'contest': data.contest.id,
             'stage': data.stage.id,
             'criterion': criterion,

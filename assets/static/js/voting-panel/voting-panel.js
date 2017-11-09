@@ -221,7 +221,7 @@ var voting = function (voting) {
      * @private
      */
     var prepareScores_ = function() {
-        scores = document.getElementsByClassName('criterion__score');
+        var scores = document.getElementsByClassName('criterion__score');
 
         for (var i = 0; i < scores.length; i++) {
             scores[i].addEventListener('click', updateScore_);

@@ -82,8 +82,7 @@
 
                                             if (!empty($event->scores["participants"][$member->id]['overall'][$contest->id][$stage->id])) {
 
-                                                $score = $event->scores["participants"][$member->id]['overall'][$contest->id][$stage->id] / $event->judges;
-                                                $score = is_int($score) ? $score : number_format($score, 1);
+                                                $score = $event->scores["participants"][$member->id]['overall'][$contest->id][$stage->id];
 
                                             } else {
 
@@ -144,8 +143,7 @@
 
                                         if (!empty($event->scores["participants"][$member->id]['overall'][$contest->id]['total']) && $contest->publish == TRUE) {
 
-                                            $score = $event->scores["participants"][$member->id]['overall'][$contest->id]['total'] / $event->judges;
-                                            $score = is_int($score) ? $score : number_format($score, 1);
+                                            $score = $event->scores["participants"][$member->id]['overall'][$contest->id]['total'];
 
                                         } else {
 
@@ -245,8 +243,7 @@
 
                                             if (!empty($event->scores["teams"][$member->id]['overall'][$contest->id][$stage->id])) {
 
-                                                $score = $event->scores["teams"][$member->id]['overall'][$contest->id][$stage->id] / $event->judges;
-                                                $score = is_int($score) ? $score : number_format($score, 1);
+                                                $score = $event->scores["teams"][$member->id]['overall'][$contest->id][$stage->id];
 
                                             } else {
 
@@ -306,8 +303,7 @@
 
                                             if (!empty($event->scores["teams"][$member->id]['overall'][$contest->id]['total']) && $contest->publish == TRUE) {
 
-                                                $score = $event->scores["teams"][$member->id]['overall'][$contest->id]['total'] / $event->judges;
-                                                $score = is_int($score) ? $score : number_format($score, 1);
+                                                $score = $event->scores["teams"][$member->id]['overall'][$contest->id]['total'];
 
                                             } else {
 

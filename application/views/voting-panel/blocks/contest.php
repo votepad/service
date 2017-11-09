@@ -63,14 +63,15 @@
                                         $mode = ($contest->mode == 1 ? 'participants' : 'teams');
 
                                         $data = json_encode(array(
-                                            'mode'      => $mode,
-                                            'event'     => $event->id,
-                                            'contest'   => $contest->id,
-                                            'stage'     => $stage->id,
-                                            'criterion' => $criterion->id,
-                                            'judge'     => $judge->id,
-                                            'member'    => $member->id,
-                                            'score'     => array(
+                                            'mode'        => $mode,
+                                            'event'       => $event->id,
+                                            'contest'     => $contest->id,
+                                            'stage'       => $stage->id,
+                                            'criterion'   => $criterion->id,
+                                            'countJudges' => $contest->judges,
+                                            'judge'       => $judge->id,
+                                            'member'      => $member->id,
+                                            'score'       => array(
                                                 'criterion' => $i,
                                                 'stage' => json_decode($stage->formula, true)[$criterion->id],
                                                 'contest' => json_decode($contest->formula, true)[$stage->id] * json_decode($stage->formula, true)[$criterion->id],
